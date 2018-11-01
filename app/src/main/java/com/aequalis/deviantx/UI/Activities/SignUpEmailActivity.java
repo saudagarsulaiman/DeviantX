@@ -223,10 +223,12 @@ public class SignUpEmailActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
+
                                 editor.putString(CONSTANTS.usrnm, s_usrnm);
                                 editor.putString(CONSTANTS.email, s_email);
                                 editor.putString(CONSTANTS.pswd, s_pswd);
                                 editor.commit();
+
                                 Intent intent = new Intent(SignUpEmailActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);

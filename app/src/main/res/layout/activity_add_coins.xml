@@ -41,6 +41,20 @@
                 android:layout_marginLeft="@dimen/height25"
                 android:src="@drawable/search" />
 
+            <EditText
+                android:id="@+id/edt_search"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/def_text_size"
+                android:paddingLeft="@dimen/def_padding"
+                style="@style/edt"
+                android:hint="@string/search"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginLeft="@dimen/margin10"/>
+
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

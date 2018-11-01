@@ -50,6 +50,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
                 android:layout_marginLeft="@dimen/def_margin"
@@ -255,6 +256,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_screen_lock"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
@@ -343,6 +345,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/def_margin"
                 android:id="@+id/lnr_change_pswd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
@@ -374,6 +377,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_restore_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"

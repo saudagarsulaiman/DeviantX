@@ -261,6 +261,8 @@
     <string name="shapeshift_exchange">ShapeShift Exchange</string>
     <string name="shapeshift">ShapeShift</string>
     <string name="changelly">Changelly</string>
+    <string name="logout">Logout</string>
+    <string name="logout_success">Logged Out Successfully!</string>
 
 
 </resources>

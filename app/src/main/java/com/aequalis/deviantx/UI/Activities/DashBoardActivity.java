@@ -1,8 +1,10 @@
 package com.aequalis.deviantx.UI.Activities;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,8 @@ import com.aequalis.deviantx.UI.Fragments.AccountListFragment;
 import com.aequalis.deviantx.UI.Fragments.DashboardFragment;
 import com.aequalis.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.aequalis.deviantx.UI.Fragments.ToolsFragment;
+import com.aequalis.deviantx.Utilities.CONSTANTS;
+import com.aequalis.deviantx.Utilities.CommonUtilities;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -140,6 +144,14 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
+    @Nullable
+    @BindView(R.id.lnr_nav_drwr_logout)
+    LinearLayout lnr_nav_drwr_logout;
+
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     private static final int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
 
 
@@ -157,6 +169,14 @@ public class DashBoardActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+
+        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+
+
+        txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm,"MiniDeviant"));
+        txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email,"test@deviantcoin.io"));
 
 //        BottomNavigationViewHelper.disableShiftMode(btm_nav);
 //      Icon Tint Mode
@@ -228,6 +248,21 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 navDrawerHelp();
+            }
+        });
+        lnr_nav_drwr_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(DashBoardActivity.this,getResources().getString(R.string.logout_success));
+                Intent intent = new Intent(DashBoardActivity.this, WelcomeActivity.class);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                editor.putString(CONSTANTS.usrnm,"dev");
+                editor.putString(CONSTANTS.email,"dev");
+                editor.putString(CONSTANTS.pswd,"dev");
+                editor.putString(CONSTANTS.token,"dev");
+                editor.apply();
+                startActivity(intent);
             }
         });
 

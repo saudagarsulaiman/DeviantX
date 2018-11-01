@@ -127,7 +127,7 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
-    public AllCoins(int int_coin_id, int int_coin_rank, Double dbl_coin_usdValue, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, String str_coin_name, String str_coin_code, String str_coin_logo) {
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue,int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
         this.int_coin_id = int_coin_id;
         this.int_coin_rank = int_coin_rank;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
