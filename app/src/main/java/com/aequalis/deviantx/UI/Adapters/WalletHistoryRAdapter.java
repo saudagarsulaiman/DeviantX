@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAdapter.ViewHolder> {
     Context context;
     ArrayList<Transaction> transactionList;
@@ -33,11 +35,12 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         this.context = context;
         this.transactionList = transactions;
         transaction = null;
-        sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        this.hideBal = myApplication.getHideBalance();
 
-        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
+    }
 
+    public void setIsHideBalance(Boolean isHideBalance){
+        this.hideBal=isHideBalance;
     }
 
     @NonNull
@@ -54,7 +57,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
 //        viewHolder.txt_time.setText();
-        if (hideBal){
+        if (!hideBal){
             viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
             viewHolder.txt_trans_amount.setText(transactionList.get(i).getdbl_data_coinValue() + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
         }else {

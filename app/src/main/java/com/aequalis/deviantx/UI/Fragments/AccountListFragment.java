@@ -41,6 +41,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class AccountListFragment extends Fragment {
 
     View view;
@@ -65,6 +67,15 @@ public class AccountListFragment extends Fragment {
             str_data_account, str_data_coin;
     int int_coin_id, int_data_id;
     Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (walletCoinsRAdapter != null) {
+            walletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
+            walletCoinsRAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -89,6 +89,10 @@ public class WalletHistoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
+        if (walletHistoryRAdapter != null) {
+            walletHistoryRAdapter.setIsHideBalance(myApplication.getHideBalance());
+            walletHistoryRAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
