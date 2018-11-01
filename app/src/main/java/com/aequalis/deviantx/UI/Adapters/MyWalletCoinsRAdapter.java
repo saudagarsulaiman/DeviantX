@@ -170,13 +170,12 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
 
 
-//        txt_dev_coin_name.setText();
-//        txt_dev_coin_value.setText();
-//        txt_percentage.setText();
-//        txt_h_per.setText();
-//        txt_markcap_usd.setText();
-//        txt_vol_usd.setText();
-
+        txt_rank.setText(""+accountWallet.getAllCoins().getInt_coin_rank());
+        txt_markcap_usd.setText(""+String.format("%.4f", (accountWallet.getAllCoins().getDbl_coin_marketCap())));
+        txt_vol_usd.setText(""+String.format("%.5f", (accountWallet.getAllCoins().getDbl_coin_volume())));
+        txt_h_per.setText(""+String.format("%.2f", (accountWallet.getAllCoins().getDbl_coin_24h())));
+        txt_d_per.setText(""+String.format("%.2f", (accountWallet.getAllCoins().getDbl_coin_7d())));
+        txt_m_per.setText(""+String.format("%.2f", (accountWallet.getAllCoins().getDbl_coin_1m())));
 
         lnr_information.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -75,8 +75,8 @@ public class DashboardFragment extends Fragment {
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
             str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
             str_data_account, str_data_coin;
-    int int_coin_id, int_data_id;
-    Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR;
+    int int_coin_id, int_data_id, int_coin_rank;
+    Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
 
     String total_avail_bal = "0.0";
     boolean hideBal;
@@ -94,7 +94,7 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal,false);
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
 
 //        total_avail_bal = sharedPreferences.get(CONSTANTS.total_avail_bal, "0.0");
 
@@ -108,9 +108,9 @@ public class DashboardFragment extends Fragment {
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
             fetchAccountWallet();
-            if (hideBal){
+            if (hideBal) {
                 txt_wallet_bal.setText("~$ " + total_avail_bal);
-            }else {
+            } else {
                 txt_wallet_bal.setText("~$ ***");
             }
         } else {
@@ -215,7 +215,9 @@ public class DashboardFragment extends Fragment {
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+
                                         JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
+
                                         try {
                                             int_coin_id = jsonObjectCoins.getInt("id");
                                         } catch (Exception e) {
@@ -241,6 +243,37 @@ public class DashboardFragment extends Fragment {
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+                                        try {
+                                            int_coin_rank = jsonObjectCoins.getInt("rank");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
                                         AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
@@ -253,9 +286,9 @@ public class DashboardFragment extends Fragment {
                                     for (AccountWallet accountWallet : accountWalletlist) {
                                         totalBalance += accountWallet.getStr_data_balanceInUSD();
                                     }
-                                    if (hideBal){
+                                    if (hideBal) {
                                         txt_wallet_bal.setText("~$ " + totalBalance);
-                                    }else {
+                                    } else {
                                         txt_wallet_bal.setText("~$ ***");
                                     }
                                 }

@@ -12,41 +12,31 @@ public class DeviantXApiClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(CommonUtilities.URL)
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }else {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(CommonUtilities.URL)
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
+        retrofit = new Retrofit.Builder()
+                .baseUrl(CommonUtilities.URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
         return retrofit;
     }
 
     public static Retrofit getClientMarketCap() {
-        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl("https://api.coinmarketcap.com/v2/ticker/1")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-        }
-        return retrofit;
+                return retrofit;
     }
 
     public static Retrofit getClientValues() {
-        if (retrofit != null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl("https://min-api.cryptocompare.com/data/")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-        }
+
         return retrofit;
     }
 }

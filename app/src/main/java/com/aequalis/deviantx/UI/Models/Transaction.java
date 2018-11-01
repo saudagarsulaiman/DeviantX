@@ -3,7 +3,7 @@ package com.aequalis.deviantx.UI.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Transaction implements Parcelable {
+public class Transaction implements Parcelable{
 
     int int_data_id;
     String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet,str_data_icoTokenwallet, str_data_account;
@@ -27,6 +27,7 @@ public class Transaction implements Parcelable {
     public Transaction() {
 
     }
+
 
     protected Transaction(Parcel in) {
         int_data_id = in.readInt();

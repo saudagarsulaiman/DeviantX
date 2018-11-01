@@ -27,6 +27,7 @@ public class AccountWallet implements Parcelable {
 
     }
 
+
     protected AccountWallet(Parcel in) {
         int_data_id = in.readInt();
         str_data_address = in.readString();
@@ -63,7 +64,6 @@ public class AccountWallet implements Parcelable {
             return new AccountWallet[size];
         }
     };
-
 
     public int getStr_data_id() {
         return int_data_id;
@@ -105,27 +105,27 @@ public class AccountWallet implements Parcelable {
         this.str_data_passcode = str_data_passcode;
     }
 
-    public Double  getStr_data_balance() {
+    public Double getStr_data_balance() {
         return str_data_balance;
     }
 
-    public void setStr_data_balance(Double  str_data_balance) {
+    public void setStr_data_balance(Double str_data_balance) {
         this.str_data_balance = str_data_balance;
     }
 
-    public Double  getStr_data_balanceInUSD() {
+    public Double getStr_data_balanceInUSD() {
         return str_data_balanceInUSD;
     }
 
-    public void setStr_data_balanceInUSD(Double  str_data_balanceInUSD) {
+    public void setStr_data_balanceInUSD(Double str_data_balanceInUSD) {
         this.str_data_balanceInUSD = str_data_balanceInUSD;
     }
 
-    public Double  getStr_data_balanceInINR() {
+    public Double getStr_data_balanceInINR() {
         return str_data_balanceInINR;
     }
 
-    public void setStr_data_balanceInINR(Double  str_data_balanceInINR) {
+    public void setStr_data_balanceInINR(Double str_data_balanceInINR) {
         this.str_data_balanceInINR = str_data_balanceInINR;
     }
 
