@@ -25,6 +25,8 @@ import com.orhanobut.dialogplus.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class WalletOptionsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -43,6 +45,13 @@ public class WalletOptionsActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

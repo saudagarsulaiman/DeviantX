@@ -47,6 +47,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class SendCoinActivity extends AppCompatActivity {
 
     //    @BindView(R.id.) ;
@@ -291,6 +293,12 @@ public class SendCoinActivity extends AppCompatActivity {
             CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.internetconnection));
             onBackPressed();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
     }
 
     private void convertAmountToCoin(String amountTextValue) {

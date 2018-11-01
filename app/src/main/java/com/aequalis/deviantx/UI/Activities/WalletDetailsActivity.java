@@ -34,6 +34,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class WalletDetailsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -64,6 +66,12 @@ public class WalletDetailsActivity extends AppCompatActivity {
 
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,6 +13,8 @@ import com.google.android.gms.vision.text.Line;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class ECTActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -21,6 +23,12 @@ public class ECTActivity extends AppCompatActivity {
     LinearLayout lnr_shapeshift;
     @BindView(R.id.lnr_changelly)
     LinearLayout lnr_changelly;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +40,8 @@ public class ECTActivity extends AppCompatActivity {
         lnr_changelly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ECTActivity.this, ChangellyActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ECTActivity.this, ChangellyActivity.class);
+//                startActivity(intent);
             }
         });
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
@@ -45,8 +53,8 @@ public class ECTActivity extends AppCompatActivity {
         lnr_shapeshift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ECTActivity.this, ShapeShiftActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(ECTActivity.this, ShapeShiftActivity.class);
+//                startActivity(intent);
             }
         });
 

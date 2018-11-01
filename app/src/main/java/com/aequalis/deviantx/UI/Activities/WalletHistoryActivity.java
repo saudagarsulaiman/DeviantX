@@ -42,6 +42,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class WalletHistoryActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -81,6 +83,13 @@ public class WalletHistoryActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
 
     AccountWallet selectedAccountWallet;
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

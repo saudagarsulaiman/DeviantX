@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class ReceiveCoinActivity extends AppCompatActivity {
 
     //    @BindView(R.id.) ;
@@ -47,6 +49,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
     AccountWallet selectedAccountWallet;
 
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
