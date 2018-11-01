@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 
 public interface USDValues {
 
-    @GET("fsym={from_coin}&tsyms={to_coin}")
-    Call<ResponseBody> getUsdConversion(@Path("from_coin") String from_coin, @Path("to_coin") String to_coin);
+    @GET("price?fsym=ETH&tsyms=USD")
+    Call<ResponseBody> getUsdConversion(/*@Path("from_coin") String from_coin, @Path("to_coin") String to_coin*/);
 
 }

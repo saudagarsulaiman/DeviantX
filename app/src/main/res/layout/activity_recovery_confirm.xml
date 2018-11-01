@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
-    android:orientation="vertical">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_change_pswd"
         android:layout_marginStart="@dimen/margin5"
         android:layout_marginLeft="@dimen/margin5"
         android:layout_marginEnd="@dimen/margin5"
@@ -38,10 +38,10 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_marginBottom="@dimen/def_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginBottom="@dimen/def_margin"
             android:orientation="vertical">
 
             <TextView
@@ -241,6 +241,7 @@
         android:id="@+id/btn_change_pswd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/margin5"
         android:layout_marginRight="@dimen/margin5"
         android:layout_marginBottom="@dimen/margin2"
@@ -251,4 +252,4 @@
         android:textSize="@dimen/def_text_size"
         android:textStyle="bold" />
 
-</LinearLayout>
+</RelativeLayout>

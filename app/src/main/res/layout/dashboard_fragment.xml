@@ -141,7 +141,7 @@
             android:textSize="@dimen/def_text_size" />
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"

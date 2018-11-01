@@ -24,7 +24,7 @@
             android:id="@+id/img_center_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/centerback" />
+            android:src="@drawable/line" />
 
         <View
             android:layout_width="match_parent"

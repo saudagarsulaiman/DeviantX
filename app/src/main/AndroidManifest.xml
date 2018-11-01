@@ -36,22 +36,37 @@
         <activity
             android:name=".UI.Activities.SignUpEmailActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.SetUpWalletActivity" />
-        <activity android:name=".UI.Activities.LoginActivity" />
-        <activity android:name=".UI.Activities.AccountRecoveryActivity" />
+        <activity
+            android:name=".UI.Activities.SetUpWalletActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".UI.Activities.LoginActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".UI.Activities.AccountRecoveryActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".UI.Activities.WalletListActivity" />
         <activity android:name=".UI.Activities.AppSettingsActivity" />
         <activity android:name=".UI.Activities.DeviantXActivity" />
         <activity android:name=".UI.Activities.AddCoinsActivity" />
         <activity android:name=".UI.Activities.HelpActivity" />
-        <activity android:name=".UI.Activities.SearchActivity" />
+        <activity
+            android:name=".UI.Activities.SearchActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".UI.Activities.SendCoinActivity" />
         <activity android:name=".UI.Activities.ReceiveCoinActivity" />
         <activity android:name=".UI.Activities.CoinInformationActivity" />
         <activity android:name=".UI.Activities.WalletOptionsActivity" />
         <activity android:name=".UI.Activities.WalletDetailsActivity" />
-        <activity android:name=".UI.Activities.WalletHistoryActivity" />
-        <activity android:name=".UI.Activities.RecoveryConfirmActivity"></activity>
+        <activity
+            android:name=".UI.Activities.WalletHistoryActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".UI.Activities.RecoveryConfirmActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.Activities.ShapeShiftActivity" />
+        <activity android:name=".UI.Activities.ECTActivity" />
+        <activity android:name=".UI.Activities.ChangellyActivity"></activity>
     </application>
 
 </manifest>

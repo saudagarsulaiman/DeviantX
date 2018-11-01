@@ -249,6 +249,18 @@
     <string name="enter_code">Enter Code</string>
     <string name="empty_token">Token is empty</string>
     <string name="pswd_changed_succcess">Password Changed Sucessfully</string>
+    <string name="check_email">Please check your registered Email for OTP.</string>
+    <string name="no_trans_avail">No Transactions Available</string>
+
+
+    <!--Tools Fragment-->
+    <string name="new_tools">We are continuously implementing new tools!</string>
+    <string name="ect">Exchange Coin Transfer</string>
+    <string name="note_ect">Transfer your coins from exchanges.</string>
+    <string name="select_ect">Select the exchange to transfer your coin</string>
+    <string name="shapeshift_exchange">ShapeShift Exchange</string>
+    <string name="shapeshift">ShapeShift</string>
+    <string name="changelly">Changelly</string>
 
 
 </resources>

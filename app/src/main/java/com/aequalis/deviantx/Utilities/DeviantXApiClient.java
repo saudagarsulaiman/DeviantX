@@ -18,6 +18,12 @@ public class DeviantXApiClient {
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
+        }else {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(CommonUtilities.URL)
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return retrofit;
     }
@@ -25,7 +31,7 @@ public class DeviantXApiClient {
     public static Retrofit getClientMarketCap() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.coinmarketcap.com/v2/ticker/1/?")
+                    .baseUrl("https://api.coinmarketcap.com/v2/ticker/1")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
@@ -34,9 +40,9 @@ public class DeviantXApiClient {
     }
 
     public static Retrofit getClientValues() {
-        if (retrofit == null) {
+        if (retrofit != null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("https://min-api.cryptocompare.com/data/price?")
+                    .baseUrl("https://min-api.cryptocompare.com/data/")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

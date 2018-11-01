@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aequalis.deviantx.R;
@@ -47,6 +48,9 @@ public class AccountListFragment extends Fragment {
     RecyclerView rview_wallet_coins;
     @BindView(R.id.txt_add_wallet)
     TextView txt_add_wallet;
+    @BindView(R.id.lnr_empty_coins)
+    LinearLayout lnr_empty_coins;
+
 
     WalletCoinsRAdapter walletCoinsRAdapter;
     LinearLayoutManager layoutManager;
@@ -123,10 +127,10 @@ public class AccountListFragment extends Fragment {
                                 loginResponseData = jsonObject.getString("data");
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
-//                                    lnr_empty_coins.setVisibility(View.VISIBLE);
+                                    lnr_empty_coins.setVisibility(View.VISIBLE);
                                     rview_wallet_coins.setVisibility(View.GONE);
                                 } else {
-//                                    lnr_empty_coins.setVisibility(View.GONE);
+                                    lnr_empty_coins.setVisibility(View.GONE);
                                     rview_wallet_coins.setVisibility(View.VISIBLE);
                                     for (int i = 0; i < jsonArrayData.length(); i++) {
                                         JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);

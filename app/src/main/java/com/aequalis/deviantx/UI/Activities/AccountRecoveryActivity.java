@@ -113,10 +113,13 @@ public class AccountRecoveryActivity extends AppCompatActivity {
                                 Intent intent = new Intent(AccountRecoveryActivity.this, RecoveryConfirmActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString(CONSTANTS.email,email);
+                                editor.putString(CONSTANTS.email,email);
+                                editor.apply();
                                 intent.putExtras(bundle);
+
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-//                                CommonUtilities.ShowToastMessage(AccountRecoveryActivity.this, loginResponseMsg);
+                                CommonUtilities.ShowToastMessage(AccountRecoveryActivity.this, getResources().getString(R.string.check_email));
                             } else {
                                 CommonUtilities.ShowToastMessage(AccountRecoveryActivity.this, loginResponseMsg);
                             }

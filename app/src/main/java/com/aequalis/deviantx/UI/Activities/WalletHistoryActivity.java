@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
@@ -51,6 +52,12 @@ public class WalletHistoryActivity extends AppCompatActivity {
     EditText edt_search;
     @BindView(R.id.rview_trans_history)
     RecyclerView rview_trans_history;
+    @BindView(R.id.lnr_no_trans)
+    LinearLayout lnr_no_trans;
+    @BindView(R.id.lnr_trans_avail)
+    LinearLayout lnr_trans_avail;
+
+
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -66,7 +73,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     AllCoins allCoins;
     int int_coin_id;
     Double dbl_coin_usdValue;
-    String str_coin_name,str_coin_code,str_coin_logo;
+    String str_coin_name, str_coin_code, str_coin_logo;
     String str_data_coin;
 
 
@@ -129,87 +136,94 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                 if (!loginResponseData.isEmpty()) {
                                     JSONArray jsonArrayData = new JSONArray(loginResponseData);
 
-                                    for (int i = 0; i < jsonArrayData.length(); i++) {
-                                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                        try {
-                                            int_data_id = jsonObjectData.getInt("id");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_txnHash = jsonObjectData.getString("txnHash");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_toAddress = jsonObjectData.getString("toAddress");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_txnDate = jsonObjectData.getString("txnDate");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_data_coinValue = jsonObjectData.getDouble("coinValue");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+                                    if (jsonArrayData.length() == 0) {
+                                        lnr_trans_avail.setVisibility(View.GONE);
+                                        lnr_no_trans.setVisibility(View.VISIBLE);
+//                                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.no_trans_avail));
+                                    } else {
+                                        lnr_trans_avail.setVisibility(View.VISIBLE);
+                                        lnr_no_trans.setVisibility(View.GONE);
+                                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                                            try {
+                                                int_data_id = jsonObjectData.getInt("id");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_data_txnHash = jsonObjectData.getString("txnHash");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_data_toAddress = jsonObjectData.getString("toAddress");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_data_txnDate = jsonObjectData.getString("txnDate");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                dbl_data_coinValue = jsonObjectData.getDouble("coinValue");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
 
-                                        try {
-                                            str_data_account = jsonObjectData.getString("account");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_cryptoWallet = jsonObjectData.getString("cryptoWallet");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_icoTokenwallet = jsonObjectData.getString("icoTokenwallet");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+                                            try {
+                                                str_data_account = jsonObjectData.getString("account");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_data_cryptoWallet = jsonObjectData.getString("cryptoWallet");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_data_icoTokenwallet = jsonObjectData.getString("icoTokenwallet");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
 
-
-                                        try {
-                                            str_data_coin = jsonObjectData.getString("coin");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                            try {
+                                                str_data_coin = jsonObjectData.getString("coin");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
+                                            try {
+                                                int_coin_id = jsonObjectCoins.getInt("id");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_coin_name = jsonObjectCoins.getString("name");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_coin_code = jsonObjectCoins.getString("code");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                str_coin_logo = jsonObjectCoins.getString("logo");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue);
+                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, allCoins));
                                         }
-                                        JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
-                                        try {
-                                            int_coin_id = jsonObjectCoins.getInt("id");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_name = jsonObjectCoins.getString("name");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_code = jsonObjectCoins.getString("code");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_logo = jsonObjectCoins.getString("logo");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue);
-                                        transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, allCoins));
+                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
+                                        rview_trans_history.setAdapter(walletHistoryRAdapter);
                                     }
-                                    walletHistoryRAdapter= new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
-                                    rview_trans_history.setAdapter(walletHistoryRAdapter);
 
                                 } else {
                                     CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.empty_data));

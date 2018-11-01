@@ -8,6 +8,8 @@
     <include layout="@layout/toolbar_center_back" />
 
     <LinearLayout
+        android:id="@+id/lnr_trans_avail"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/def_margin"
@@ -57,12 +59,37 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+       <android.support.v7.widget.RecyclerView
             android:id="@+id/rview_trans_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin5" />
+            android:layout_marginTop="@dimen/margin5"
+           />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/lnr_no_trans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/height45"
+            android:src="@drawable/wallet_history"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/no_trans_avail"
+            android:textColor="@color/google_red"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 </LinearLayout>

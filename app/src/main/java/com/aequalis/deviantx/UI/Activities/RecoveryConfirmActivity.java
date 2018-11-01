@@ -63,8 +63,12 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Bundle bundle= getIntent().getExtras();
-        email = bundle.getString(CONSTANTS.email);
+        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+//        Bundle bundle= getIntent().getExtras();
+//        email = bundle.getString(CONSTANTS.email);
+        email = sharedPreferences.getString(CONSTANTS.email,"");
 
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +80,7 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
             }
         });
 
-        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+
 
         img_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +151,7 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
                                 editor.putString(CONSTANTS.email,email);
                                 editor.putString(CONSTANTS.pswd, new_pswd);
                                 editor.apply();
-                                Intent intent = new Intent(RecoveryConfirmActivity.this, DashBoardActivity.class);
+                                Intent intent = new Intent(RecoveryConfirmActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.pswd_changed_succcess));
