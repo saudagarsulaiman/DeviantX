@@ -68,8 +68,8 @@ public class WalletDetailsActivity extends AppCompatActivity {
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         myApplication.disableScreenCapture(this);
     }
 

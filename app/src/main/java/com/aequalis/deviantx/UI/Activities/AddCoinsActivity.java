@@ -67,8 +67,8 @@ public class AddCoinsActivity extends AppCompatActivity {
     ArrayList<AllCoins> allCoinsList;
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         myApplication.disableScreenCapture(this);
     }
 

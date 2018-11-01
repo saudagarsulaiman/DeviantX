@@ -48,8 +48,8 @@ public class WalletOptionsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         myApplication.disableScreenCapture(this);
     }
 

@@ -25,8 +25,8 @@ public class ECTActivity extends AppCompatActivity {
     LinearLayout lnr_changelly;
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         myApplication.disableScreenCapture(this);
     }
 

@@ -51,8 +51,8 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         myApplication.disableScreenCapture(this);
     }
 
