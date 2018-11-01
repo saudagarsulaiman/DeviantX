@@ -79,7 +79,7 @@ public class SendCoinActivity extends AppCompatActivity {
     @BindView(R.id.txt_wallet_name)
     TextView txt_wallet_name;
 
-
+    Double usdCoinValue = 0.0;
     AccountWallet selectedAccountWallet;
 
 
@@ -88,6 +88,8 @@ public class SendCoinActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
+
+    Boolean isEditFiat=false,isEditAmount=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,6 @@ public class SendCoinActivity extends AppCompatActivity {
             txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
 
 //            btn_send.setEnabled(false);
-
 
 //            edt_amount_bal.addTextChangedListener(new TextWatcher() {
 //                @Override
@@ -202,8 +203,53 @@ public class SendCoinActivity extends AppCompatActivity {
 //                    }
 //                }
 //            });
+            edt_amount_bal.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    convertAmountToCoin(s.toString().trim());
+                }
+            });
+
+            edt_fiat_bal.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    convertCoinToAmount(s.toString().trim());
+                }
+            });
+
+            edt_amount_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    isEditAmount = b;
+                }
+            });
+
+            edt_fiat_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    isEditFiat = b;
+                }
+            });
             btn_send.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -217,14 +263,13 @@ public class SendCoinActivity extends AppCompatActivity {
 
                         if (!str_btcp_address.isEmpty() || !fiat_bal.isEmpty() || !send_bal.isEmpty()) {
 //                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
-                                customDialog(selectedAccountWallet, send_bal, fiat_bal, fee, ttl_rcv, str_btcp_address);
+                            customDialog(selectedAccountWallet, send_bal, fiat_bal, fee, ttl_rcv, str_btcp_address);
 //                            } else {
 //                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
 //                            }
                         } else {
                             CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_every_detail));
                         }
-
 
 
                     } else {
@@ -248,12 +293,52 @@ public class SendCoinActivity extends AppCompatActivity {
         }
     }
 
+    private void convertAmountToCoin(String amountTextValue) {
+        if(isEditAmount) {
+            if (!amountTextValue.trim().isEmpty()) {
+                try {
+                    if (Double.parseDouble(amountTextValue) != 0) {
+                        Double finalValue = Double.parseDouble(amountTextValue);
+                        edt_fiat_bal.setText(String.format("%.4f", (usdCoinValue * finalValue)));
+                    } else {
+                        edt_fiat_bal.setText("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    edt_fiat_bal.setText("0");
+                }
+            } else {
+                edt_fiat_bal.setText("0");
+            }
+        }
+    }
+
+    private void convertCoinToAmount(String coinTextValue) {
+        if(isEditFiat) {
+            if (!coinTextValue.trim().isEmpty()) {
+                try {
+                    if (Double.parseDouble(coinTextValue) != 0) {
+                        Double finalValue = Double.parseDouble(coinTextValue);
+                        edt_amount_bal.setText(String.format("%.4f", (finalValue/usdCoinValue )));
+                    } else {
+                        edt_amount_bal.setText("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    edt_amount_bal.setText("0");
+                }
+            } else {
+                edt_amount_bal.setText("0");
+            }
+        }
+    }
+
     private void convertCoinValue(final String from_coin, final String to_coin) {
         try {
             progressDialog = ProgressDialog.show(SendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             USDValues apiService = DeviantXApiClient.getClientValues().create(USDValues.class);
             Call<ResponseBody> apiResponse = apiService.getUsdConversion(/*from_coin, to_coin*/);
-            Log.i("API:\t:",apiResponse.toString());
+            Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -263,6 +348,7 @@ public class SendCoinActivity extends AppCompatActivity {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
                             JSONObject jsonObject = new JSONObject(responsevalue);
+                            usdCoinValue = jsonObject.getDouble(to_coin);
                             String str_coinValue = jsonObject.getString(to_coin);
                             editor.putString(CONSTANTS.usdValue, str_coinValue);
                             editor.apply();
@@ -378,7 +464,7 @@ public class SendCoinActivity extends AppCompatActivity {
             JSONObject params = new JSONObject();
             try {
                 params.put("fromAddress", fromAddress);
-                Log.e("fromAddress:",fromAddress);
+                Log.e("fromAddress:", fromAddress);
                 params.put("toAddress", toAddress);
                 params.put("amount", amount);
             } catch (JSONException e) {
