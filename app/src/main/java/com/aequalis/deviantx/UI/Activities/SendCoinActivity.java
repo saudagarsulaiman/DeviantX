@@ -265,7 +265,7 @@ public class SendCoinActivity extends AppCompatActivity {
 
                                 String str_btcp_address = edt_btcp_address.getText().toString();
 
-                                if (!str_btcp_address.isEmpty() || !fiat_bal.isEmpty() || !send_bal.isEmpty()) {
+                                if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
 //                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
                                     customDialog(selectedAccountWallet, send_bal, fiat_bal, fee, ttl_rcv, str_btcp_address);
 //                            } else {
@@ -380,8 +380,8 @@ public class SendCoinActivity extends AppCompatActivity {
                             String str_coinValue = jsonObject.getString(to_coin);
                             editor.putString(CONSTANTS.usdValue, str_coinValue);
                             editor.apply();
-                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, "fetched");
-                            Log.e(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+//                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, "fetched");
+//                            Log.e(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         } else {
 //                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();

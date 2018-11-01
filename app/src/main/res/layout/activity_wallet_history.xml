@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/def_btn_height"
             android:layout_marginTop="@dimen/margin15"
-            android:background="@drawable/rec_lytblue_c1"
+            android:background="@drawable/rec_share_c3"
             android:orientation="horizontal"
             android:weightSum="1">
 

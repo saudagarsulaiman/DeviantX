@@ -39,8 +39,8 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
 
     }
 
-    public void setIsHideBalance(Boolean isHideBalance){
-        this.hideBal=isHideBalance;
+    public void setIsHideBalance(Boolean isHideBalance) {
+        this.hideBal = isHideBalance;
     }
 
     @NonNull
@@ -57,11 +57,21 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
 //        viewHolder.txt_time.setText();
-        if (!hideBal){
-            viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+        if (!hideBal) {
+            if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
+                viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+            } else {
+                String address = transactionList.get(i).getStr_data_toAddress();
+                String dummy = "{...}";
+                String first_half = String.format("%.7s", address);
+                String second_half = address.substring(address.length() - 7);
+
+                viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
+
+            }
             viewHolder.txt_trans_amount.setText(transactionList.get(i).getdbl_data_coinValue() + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
-        }else {
-            viewHolder.txt_trans_address.setText("To " + "***" );
+        } else {
+            viewHolder.txt_trans_address.setText("To " + "***");
             viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
         }
     }

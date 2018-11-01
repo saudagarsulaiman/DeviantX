@@ -79,7 +79,7 @@
             android:paddingRight="@dimen/padding10"
             android:text="@string/amount"
             android:textColor="@color/google_red"
-            android:textSize="@dimen/def_lbl_size" />
+            android:textSize="@dimen/def_text_size" />
 
 
     </LinearLayout>

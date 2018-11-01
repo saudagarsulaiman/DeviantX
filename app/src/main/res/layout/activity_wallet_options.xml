@@ -87,6 +87,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_sweep_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height80"
@@ -131,6 +132,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_message"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height80"

@@ -40,6 +40,7 @@
                 android:textSize="@dimen/def_hint_size" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin25"
@@ -92,6 +93,7 @@
 
             <LinearLayout
                 android:id="@+id/lnr_language"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
                 android:layout_marginLeft="@dimen/def_margin"

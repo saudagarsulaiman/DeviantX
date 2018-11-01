@@ -21,6 +21,7 @@ import com.aequalis.deviantx.UI.Models.AccountWallet;
 import com.aequalis.deviantx.Utilities.CONSTANTS;
 import com.aequalis.deviantx.Utilities.CommonUtilities;
 import com.aequalis.deviantx.Utilities.DeviantXApiClient;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +57,20 @@ public class WalletDetailsActivity extends AppCompatActivity {
     TextView txt_dev_private_key;
     @BindView(R.id.txt_derivation_path)
     TextView txt_derivation_path;
+    @BindView(R.id.txt_coin_name)
+    TextView txt_coin_name;
+
+    @BindView(R.id.img_coin_logo)
+    ImageView img_coin_logo;
+    @BindView(R.id.txt_coin_name_add)
+    TextView txt_coin_name_add;
+    @BindView(R.id.txt_coin_name_pk)
+    TextView txt_coin_name_pk;
+    @BindView(R.id.txt_add_name)
+    TextView txt_add_name;
+
+
+
 
 
     AccountWallet selectedAccountWallet;
@@ -98,16 +113,22 @@ public class WalletDetailsActivity extends AppCompatActivity {
         if (CommonUtilities.isConnectionAvailable(WalletDetailsActivity.this)) {
 
             fetchPrivateKey(selectedAccountWallet.getStr_data_address(), s_pswd);
-            if (hideBal){
+            if (hideBal) {
                 txt_mywallet_usd.setText("$ *** USD");
-                txt_mywallet_btc.setText("***"+ " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
-            }else {
-                txt_mywallet_usd.setText("$ " + selectedAccountWallet.getStr_data_balanceInUSD() + " USD");
-                txt_mywallet_btc.setText(selectedAccountWallet.getStr_data_balance() + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+                txt_mywallet_btc.setText("***" + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+            } else {
+                txt_mywallet_usd.setText("$ " + String.format("%.2f", selectedAccountWallet.getStr_data_balanceInUSD()) + " USD");
+                txt_mywallet_btc.setText(String.format("%.2f", selectedAccountWallet.getStr_data_balance()) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
             }
             txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
 
+            txt_coin_name_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+" "+getResources().getString(R.string.address));
+            txt_coin_name_pk.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+" "+getResources().getString(R.string.privatekey));
+            txt_add_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name()+" "+getResources().getString(R.string.address));
             txt_derivation_path.setText("M/44H/425H/0H");
+
+            Picasso.with(WalletDetailsActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
+            txt_coin_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
 
 //        QR Code Generator
             CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_data_address(), img_dev_qrcode, WalletDetailsActivity.this);

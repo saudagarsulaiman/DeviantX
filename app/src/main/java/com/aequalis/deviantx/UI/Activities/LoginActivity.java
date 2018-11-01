@@ -160,9 +160,15 @@ public class LoginActivity extends AppCompatActivity {
                                     loginResponseData = jsonObject.getString("data");
 
                                     JSONObject jsonObjectData = new JSONObject(loginResponseData);
-                                    loginResponseDataUser = jsonObjectData.getString("user");
                                     loginResponseDataToken = jsonObjectData.getString("token");
 
+                                    loginResponseDataUser = jsonObjectData.getString("user");
+
+                                    JSONObject jsonObjectDataUser = new JSONObject(loginResponseDataUser);
+
+                                    String username= jsonObjectDataUser.getString("userName");
+
+                                    editor.putString(CONSTANTS.usrnm,username);
                                     editor.putString(CONSTANTS.email, s_email);
                                     editor.putString(CONSTANTS.pswd, s_pswd);
                                     editor.putString(CONSTANTS.token, loginResponseDataToken);

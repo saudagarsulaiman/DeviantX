@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAdapter.ViewHolder> {
 
     Context context;
@@ -50,7 +52,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        this.selectedAccountWallet = new ArrayList<>();
         sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
+        this.hideBal = myApplication.getHideBalance();
+    }
+    public void setIsHideBalance(Boolean isHideBalance){
+        this.hideBal=isHideBalance;
     }
 
     @NonNull
@@ -66,8 +71,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         Picasso.with(context).load(accountWalletlist.get(i).getAllCoins().getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
         viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getStr_data_walletName());
         if (!hideBal) {
-            viewHolder.txt_coin_usd_value.setText("$ " + accountWalletlist.get(i).getStr_data_balanceInUSD() + " USD");
-            viewHolder.txt_coin_value.setText(accountWalletlist.get(i).getStr_data_balance() + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+            viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
+            viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         } else {
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
@@ -167,8 +172,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         DecimalFormat value = new DecimalFormat("0.00");
 
         if (!hideBal) {
-            txt_coin_value.setText( value.format(accountWallet.getStr_data_balance()) + " " + accountWallet.getAllCoins().getStr_coin_code());
-            txt_usd_value.setText( value.format(accountWallet.getStr_data_balanceInUSD()) + " USD");
+            txt_coin_value.setText(value.format(accountWallet.getStr_data_balance()) + " " + accountWallet.getAllCoins().getStr_coin_code());
+            txt_usd_value.setText(value.format(accountWallet.getStr_data_balanceInUSD()) + " USD");
         } else {
             txt_coin_value.setText("***" + " " + accountWallet.getAllCoins().getStr_coin_code());
             txt_usd_value.setText("***" + " USD");
@@ -177,9 +182,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         txt_rank.setText(accountWallet.getAllCoins().getInt_coin_rank() + "#");
         txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
         txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
-        txt_h_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
-        txt_d_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
-        txt_m_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
+        txt_h_per.setText( rank.format(accountWallet.getAllCoins().getDbl_coin_24h())+" %");
+        txt_d_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_7d())+" %");
+        txt_m_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_1m())+" %");
 
 
         lnr_information.setOnClickListener(new View.OnClickListener() {
@@ -234,9 +239,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         return accountWalletlist.size();
     }
 
-    public void setIsHideBalance(Boolean isHideBalance){
-        this.hideBal=isHideBalance;
-    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

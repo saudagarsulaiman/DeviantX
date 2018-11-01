@@ -263,6 +263,8 @@
     <string name="changelly">Changelly</string>
     <string name="logout">Logout</string>
     <string name="logout_success">Logged Out Successfully!</string>
+    <string name="address">Address</string>
+    <string name="privatekey">Private Key</string>
 
 
 </resources>

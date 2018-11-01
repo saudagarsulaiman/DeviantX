@@ -49,7 +49,8 @@
         <activity android:name=".UI.Activities.WalletListActivity" />
         <activity android:name=".UI.Activities.AppSettingsActivity" />
         <activity android:name=".UI.Activities.DeviantXActivity" />
-        <activity android:name=".UI.Activities.AddCoinsActivity" />
+        <activity android:name=".UI.Activities.AddCoinsActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".UI.Activities.HelpActivity" />
         <activity
             android:name=".UI.Activities.SearchActivity"
