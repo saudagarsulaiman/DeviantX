@@ -45,6 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 
 public class DashBoardActivity extends AppCompatActivity {
 
@@ -139,6 +141,14 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
     private static final int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

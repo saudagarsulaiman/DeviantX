@@ -7,6 +7,8 @@ import com.aequalis.deviantx.R;
 
 public class ChangellyActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

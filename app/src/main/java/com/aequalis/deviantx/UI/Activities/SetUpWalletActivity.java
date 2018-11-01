@@ -19,6 +19,8 @@ import com.aequalis.deviantx.Utilities.CommonUtilities;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class SetUpWalletActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_wallet)
@@ -31,6 +33,12 @@ public class SetUpWalletActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

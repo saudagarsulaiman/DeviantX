@@ -38,6 +38,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 public class AddCoinsActivity extends AppCompatActivity {
 
     @BindView(R.id.tool)
@@ -63,6 +65,12 @@ public class AddCoinsActivity extends AppCompatActivity {
              str_coin_name, str_coin_code, str_coin_logo;
     
     ArrayList<AllCoins> allCoinsList;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

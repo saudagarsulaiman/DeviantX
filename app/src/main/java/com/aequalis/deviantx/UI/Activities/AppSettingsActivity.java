@@ -2,13 +2,14 @@ package com.aequalis.deviantx.UI.Activities;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.orhanobut.dialogplus.ViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
 
 public class AppSettingsActivity extends AppCompatActivity {
 
@@ -59,6 +62,16 @@ public class AppSettingsActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        if (myApplication.getHideBalance())
+            scompat_hide_bal.setChecked(true);
+        else
+            scompat_hide_bal.setChecked(false);
+
+        if (myApplication.getScreenShot())
+            scompat_privacy.setChecked(true);
+        else
+            scompat_privacy.setChecked(false);
+
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,11 +99,13 @@ public class AppSettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     editor.putBoolean(CONSTANTS.hideBal, true);
                     editor.apply();
-                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_active));
+                    myApplication.setHideBalance(true);
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.hide_bal_active));
                 } else {
                     editor.putBoolean(CONSTANTS.hideBal, false);
                     editor.apply();
-                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_inactive));
+                    myApplication.setHideBalance(false);
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.hide_bal_inactive));
                 }
             }
         });
@@ -101,10 +116,14 @@ public class AppSettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     editor.putBoolean(CONSTANTS.screenshot, true);
                     editor.apply();
+                    myApplication.setScreenShot(true);
+                    onResume();
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_active));
                 } else {
                     editor.putBoolean(CONSTANTS.screenshot, false);
                     editor.apply();
+                    myApplication.setScreenShot(false);
+                    onResume();
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_inactive));
                 }
             }
@@ -126,6 +145,12 @@ public class AppSettingsActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
     }
 
     private void PasswordDialog() {
