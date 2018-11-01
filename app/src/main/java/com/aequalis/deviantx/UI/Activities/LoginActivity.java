@@ -172,6 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString(CONSTANTS.email, s_email);
                                     editor.putString(CONSTANTS.pswd, s_pswd);
                                     editor.putString(CONSTANTS.token, loginResponseDataToken);
+                                    editor.putBoolean(CONSTANTS.first_time,false);
                                     editor.commit();
 
                                     Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);

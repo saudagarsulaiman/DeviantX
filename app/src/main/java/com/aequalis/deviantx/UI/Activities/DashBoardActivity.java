@@ -257,10 +257,11 @@ public class DashBoardActivity extends AppCompatActivity {
                 Intent intent = new Intent(DashBoardActivity.this, WelcomeActivity.class);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                editor.putString(CONSTANTS.usrnm,"dev");
-                editor.putString(CONSTANTS.email,"dev");
-                editor.putString(CONSTANTS.pswd,"dev");
-                editor.putString(CONSTANTS.token,"dev");
+                editor.putString(CONSTANTS.usrnm,"");
+                editor.putString(CONSTANTS.email,"");
+                editor.putString(CONSTANTS.pswd,"");
+                editor.putString(CONSTANTS.token,"");
+                editor.putBoolean(CONSTANTS.first_time,true);
                 editor.apply();
                 startActivity(intent);
             }

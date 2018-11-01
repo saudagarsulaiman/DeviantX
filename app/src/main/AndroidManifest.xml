@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aequalis.deviantx">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,7 +26,9 @@
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:clearTaskOnLaunch="true"
-            android:stateNotNeeded="true">
+            android:screenOrientation="sensorPortrait"
+            android:stateNotNeeded="true"
+            tools:replace="screenOrientation">
             <intent-filter>
                 <action android:name="com.google.zxing.client.android.SCAN" />
 
@@ -49,8 +52,9 @@
         <activity android:name=".UI.Activities.WalletListActivity" />
         <activity android:name=".UI.Activities.AppSettingsActivity" />
         <activity android:name=".UI.Activities.DeviantXActivity" />
-        <activity android:name=".UI.Activities.AddCoinsActivity"
-            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".UI.Activities.AddCoinsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".UI.Activities.HelpActivity" />
         <activity
             android:name=".UI.Activities.SearchActivity"

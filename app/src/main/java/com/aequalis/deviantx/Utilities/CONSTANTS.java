@@ -20,6 +20,7 @@ public class CONSTANTS {
     public static String receiver = "RECEIVER"; // Sender @ Adapters
     public static String total_avail_bal="TOTALAVAILBAL";
     public static String usdValue="USDVALUE";
+    public static String first_time="FIRSTTIME";
 
 
 //    //    Selected Account Wallet Details

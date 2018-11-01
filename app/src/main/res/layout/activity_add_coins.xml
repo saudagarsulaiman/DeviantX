@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <include
+        android:visibility="gone"
         android:id="@+id/tool"
         layout="@layout/toolbar_center_back" />
 

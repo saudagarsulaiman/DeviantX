@@ -260,14 +260,14 @@ public class SendCoinActivity extends AppCompatActivity {
                             if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) > 0) {
                                 String send_bal = edt_amount_bal.getText().toString();
                                 String fiat_bal = edt_fiat_bal.getText().toString();
-                                String fee = "0.0001";
-                                Double ttl_rcv = Double.parseDouble(send_bal) - Double.parseDouble(fee);
+//                                String fee = "0.0001";
+                                Double ttl_rcv = Double.parseDouble(send_bal)/* - Double.parseDouble(fee)*/;
 
                                 String str_btcp_address = edt_btcp_address.getText().toString();
 
                                 if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
 //                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
-                                    customDialog(selectedAccountWallet, send_bal, fiat_bal, fee, ttl_rcv, str_btcp_address);
+                                    customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
 //                            } else {
 //                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
 //                            }
@@ -421,7 +421,7 @@ public class SendCoinActivity extends AppCompatActivity {
         }
     }
 
-    private void customDialog(final AccountWallet selectedAccountWallet, String send_bal, String fiat_bal, String fee, final Double ttl_rcv, final String toAddress) {
+    private void customDialog(final AccountWallet selectedAccountWallet, String send_bal, String fiat_bal/*, String fee*/, final Double ttl_rcv, final String toAddress) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_send_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(SendCoinActivity.this)
@@ -461,7 +461,7 @@ public class SendCoinActivity extends AppCompatActivity {
         txt_fiat_bal.setText(fiat_bal);
 //        txt_fiat_code.setText();
         txt_to_address.setText(toAddress);
-        txt_fee.setText(fee);
+//        txt_fee.setText(fee);
         txt_fee_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
         txt_ttl_receive.setText("" + ttl_rcv);
         txt_ttl_receive_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());

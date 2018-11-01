@@ -40,8 +40,8 @@ public class ECTActivity extends AppCompatActivity {
         lnr_changelly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ECTActivity.this, ChangellyActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ECTActivity.this, ChangellyActivity.class);
+                startActivity(intent);
             }
         });
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
@@ -53,8 +53,8 @@ public class ECTActivity extends AppCompatActivity {
         lnr_shapeshift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(ECTActivity.this, ShapeShiftActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(ECTActivity.this, ShapeShiftActivity.class);
+                startActivity(intent);
             }
         });
 

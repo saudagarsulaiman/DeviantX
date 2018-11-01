@@ -5,6 +5,48 @@
     android:background="@drawable/bg_gradient"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/lnr_tools_ect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin50"
+        android:background="@drawable/rec_brinjal_gradient"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding">
+
+
+        <ImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/height60"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/def_margin"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_challenge" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin50"
+            android:gravity="center"
+            android:text="@string/changelly"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:gravity="center"
+            android:textStyle="bold"    android:text="@string/coming_soon"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
