@@ -12,7 +12,7 @@
         <item name="colorControlActivated">@color/yellow</item>
         <!--<item name="android:colorControlNormal" tools:targetApi="lollipop">@color/white</item>-->
     </style>
-    <style name="edt">
+    <style name="edt" parent="@android:style/Widget.Holo.Light.EditText">
         <item name="colorAccent">@color/white</item>
     </style>
 

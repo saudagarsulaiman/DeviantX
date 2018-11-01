@@ -79,6 +79,7 @@ public class DashboardFragment extends Fragment {
     Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR;
 
     String total_avail_bal = "0.0";
+    boolean hideBal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +94,8 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal,false);
+
 //        total_avail_bal = sharedPreferences.get(CONSTANTS.total_avail_bal, "0.0");
 
         accountWalletlist = new ArrayList<>();
@@ -105,7 +108,11 @@ public class DashboardFragment extends Fragment {
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
             fetchAccountWallet();
-            txt_wallet_bal.setText("~$ " + total_avail_bal);
+            if (hideBal){
+                txt_wallet_bal.setText("~$ " + total_avail_bal);
+            }else {
+                txt_wallet_bal.setText("~$ ***");
+            }
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
@@ -246,7 +253,11 @@ public class DashboardFragment extends Fragment {
                                     for (AccountWallet accountWallet : accountWalletlist) {
                                         totalBalance += accountWallet.getStr_data_balanceInUSD();
                                     }
-                                    txt_wallet_bal.setText("~$ " + totalBalance);
+                                    if (hideBal){
+                                        txt_wallet_bal.setText("~$ " + totalBalance);
+                                    }else {
+                                        txt_wallet_bal.setText("~$ ***");
+                                    }
                                 }
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

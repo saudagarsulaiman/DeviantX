@@ -54,7 +54,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        Bundle bundle = getIntent().getExtras();
+        final Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +73,9 @@ public class WalletOptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Intent intent= new Intent(WalletOptionsActivity.this,.class);
+//                Bundle bundle1 = new Bundle();
+//                bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+//                intent.putExtras(bundle);
 //                startActivity(intent);
             }
         });
@@ -80,6 +83,9 @@ public class WalletOptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Intent intent= new Intent(WalletOptionsActivity.this,.class);
+//                Bundle bundle1 = new Bundle();
+//                bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+//                intent.putExtras(bundle);
 //                startActivity(intent);
             }
         });
@@ -87,6 +93,9 @@ public class WalletOptionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(WalletOptionsActivity.this, WalletHistoryActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

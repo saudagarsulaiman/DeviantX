@@ -153,6 +153,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/def_edt_height"
                         android:layout_gravity="center"
+                        android:theme="@style/edt"
                         android:layout_weight="0.9"
                         android:background="@android:color/transparent"
                         android:hint="@string/btcp_add"
@@ -221,6 +222,7 @@
                             android:background="@android:color/transparent"
                             android:inputType="numberDecimal"
                             android:hint="0"
+                            android:theme="@style/edt"
                             android:paddingRight="@dimen/def_padding"
                             android:paddingLeft="@dimen/def_padding"
                             android:textColor="@color/white"
@@ -278,6 +280,7 @@
                             android:inputType="numberDecimal"
                             android:paddingLeft="@dimen/def_padding"
                             android:textColor="@color/white"
+                            android:theme="@style/edt"
                             android:textColorHint="@color/white"
                             android:textSize="@dimen/def_text_size"
                             android:textStyle="bold" />

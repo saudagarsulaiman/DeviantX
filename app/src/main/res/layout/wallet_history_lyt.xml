@@ -60,10 +60,9 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="top"
-                android:paddingTop="@dimen/padding2"
                 android:text="@string/my_address"
                 android:textColor="@color/grey"
-                android:textSize="@dimen/def_text_size" />
+                android:textSize="@dimen/text10" />
 
         </LinearLayout>
 

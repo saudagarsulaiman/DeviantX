@@ -86,11 +86,11 @@ public class AppSettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     editor.putBoolean(CONSTANTS.hideBal, true);
                     editor.apply();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_active));
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_active));
                 } else {
                     editor.putBoolean(CONSTANTS.hideBal, false);
                     editor.apply();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_inactive));
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.hide_bal_inactive));
                 }
             }
         });

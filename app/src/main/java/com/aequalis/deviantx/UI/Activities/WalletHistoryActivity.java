@@ -80,6 +80,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     WalletHistoryRAdapter walletHistoryRAdapter;
     LinearLayoutManager layoutManager;
 
+    AccountWallet selectedAccountWallet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +88,9 @@ public class WalletHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet_history);
 
         ButterKnife.bind(this);
+
+        Bundle bundle = getIntent().getExtras();
+        selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -100,7 +104,10 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(WalletHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_trans_history.setLayoutManager(layoutManager);
+        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
+        rview_trans_history.setAdapter(walletHistoryRAdapter);
 
+        
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
 //            Transaction History
             fetchTransactionHistory();

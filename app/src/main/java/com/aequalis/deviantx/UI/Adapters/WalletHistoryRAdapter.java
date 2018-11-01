@@ -13,11 +13,13 @@ import android.widget.TextView;
 
 import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.UI.Models.Transaction;
+import com.aequalis.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAdapter.ViewHolder> {
     Context context;
@@ -25,6 +27,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     Transaction transaction;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    boolean hideBal;
 
     public WalletHistoryRAdapter(Context context, ArrayList<Transaction> transactions) {
         this.context = context;
@@ -32,6 +35,8 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         transaction = null;
         sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
 
     }
 
@@ -48,9 +53,14 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
 
         Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
-        viewHolder.txt_trans_address.setText("To "+transactionList.get(i).getStr_data_toAddress());
 //        viewHolder.txt_time.setText();
-        viewHolder.txt_trans_amount.setText(transactionList.get(i).getdbl_data_coinValue()+" "+transactionList.get(i).getAllCoins().getStr_coin_code());
+        if (hideBal){
+            viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+            viewHolder.txt_trans_amount.setText(transactionList.get(i).getdbl_data_coinValue() + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+        }else {
+            viewHolder.txt_trans_address.setText("To " + "***" );
+            viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+        }
     }
 
     @Override
@@ -74,6 +84,8 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
 
         public ViewHolder(View itemView) {
             super(itemView);
+
+            ButterKnife.bind(this, itemView);
 
         }
     }

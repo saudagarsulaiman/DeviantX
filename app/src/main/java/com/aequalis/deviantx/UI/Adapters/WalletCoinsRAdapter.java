@@ -33,7 +33,7 @@ public class WalletCoinsRAdapter extends RecyclerView.Adapter<WalletCoinsRAdapte
     AccountWallet accountWallet;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
+boolean hideBal;
     public WalletCoinsRAdapter(Context context, ArrayList<AccountWallet> accountWalletlist) {
         this.context = context;
         this.accountWalletlist = accountWalletlist;
@@ -41,6 +41,9 @@ public class WalletCoinsRAdapter extends RecyclerView.Adapter<WalletCoinsRAdapte
         accountWallet = null;
         sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal,false);
+
     }
 
     @NonNull
@@ -58,9 +61,13 @@ public class WalletCoinsRAdapter extends RecyclerView.Adapter<WalletCoinsRAdapte
 
         viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getStr_data_walletName());
 
-        viewHolder.txt_coin_usd_value.setText("$ " + accountWalletlist.get(i).getStr_data_balanceInUSD() + " USD");
-
-        viewHolder.txt_coin_value.setText(accountWalletlist.get(i).getStr_data_balance() + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        if (hideBal){
+            viewHolder.txt_coin_usd_value.setText("$ " + accountWalletlist.get(i).getStr_data_balanceInUSD() + " USD");
+            viewHolder.txt_coin_value.setText(accountWalletlist.get(i).getStr_data_balance() + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        }else {
+            viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
+            viewHolder.txt_coin_value.setText("***"+ " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        }
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -219,8 +219,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
-
-
                                     }
                                 };
                                 coinsListRAdapter = new CoinsListRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);

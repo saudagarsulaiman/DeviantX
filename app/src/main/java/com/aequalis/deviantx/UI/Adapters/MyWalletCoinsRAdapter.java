@@ -40,6 +40,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     AccountWallet accountWallet;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    boolean hideBal;
 
     public MyWalletCoinsRAdapter(Context context, ArrayList<AccountWallet> accountWalletlist) {
         this.context = context;
@@ -48,6 +49,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        this.selectedAccountWallet = new ArrayList<>();
         sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
     }
 
     @NonNull
@@ -62,8 +64,13 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     public void onBindViewHolder(MyWalletCoinsRAdapter.ViewHolder viewHolder, final int i) {
         Picasso.with(context).load(accountWalletlist.get(i).getAllCoins().getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
         viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getStr_data_walletName());
-        viewHolder.txt_coin_usd_value.setText("$ " + accountWalletlist.get(i).getStr_data_balanceInUSD() + " USD");
-        viewHolder.txt_coin_value.setText(accountWalletlist.get(i).getStr_data_balance() + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        if (hideBal) {
+            viewHolder.txt_coin_usd_value.setText("$ " + accountWalletlist.get(i).getStr_data_balanceInUSD() + " USD");
+            viewHolder.txt_coin_value.setText(accountWalletlist.get(i).getStr_data_balance() + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        } else {
+            viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
+            viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+        }
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
@@ -150,14 +157,17 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         TextView txt_vol_usd = view.findViewById(R.id.txt_vol_usd);
 
 
-
-
         ImageView img_coin_logo = view.findViewById(R.id.img_coin_logo);
 
         Picasso.with(context).load(accountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-        txt_coin_value.setText(accountWallet.getStr_data_balance()+" "+accountWallet.getAllCoins().getStr_coin_code());
         txt_wallet_name.setText(accountWallet.getStr_data_walletName());
-        txt_usd_value.setText(accountWallet.getStr_data_balanceInUSD()+" USD");
+        if (hideBal) {
+            txt_coin_value.setText(accountWallet.getStr_data_balance() + " " + accountWallet.getAllCoins().getStr_coin_code());
+            txt_usd_value.setText(accountWallet.getStr_data_balanceInUSD() + " USD");
+        } else {
+            txt_coin_value.setText("***"+ " " + accountWallet.getAllCoins().getStr_coin_code());
+            txt_usd_value.setText("***"+ " USD");
+        }
 
 
 //        txt_dev_coin_name.setText();
