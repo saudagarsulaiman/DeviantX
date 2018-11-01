@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="@dimen/def_padding">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rview_wallet_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/txt_add_wallet"
+        android:layout_marginBottom="@dimen/margin10" />
+
+    <TextView
+        android:id="@+id/txt_add_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height80"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rec_dash_grey_trans_c5"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/add_wallet"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/def_lbl_size"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

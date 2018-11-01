@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Default Colors-->
+    <color name="colorPrimary">#0C1149</color>
+    <color name="colorPrimaryDark">#0C1149</color>
+    <color name="colorAccent">#000000</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="l_white">#F8F8F8</color>
+
+    <color name="black">#000000</color>
+
+    <color name="lgreen">#2CD584</color>
+    <color name="green">#176C43</color>
+
+    <color name="yellow">#FBB03B</color>
+    <color name="brdr_yellow">#DE9623</color>
+
+    <!--<color name="grey">#808B96</color>-->
+    <!--<color name="l_grey">#CBD1D6</color>-->
+    <color name="grey">#767778</color>
+    <color name="l_grey">#FAF0E6</color>
+
+    <color name="mar_red">#64182A</color>
+    <color name="google_red">#DB4545</color>
+    <color name="brdr_google_red">#C62323</color>
+
+    <color name="fb_blue">#3A559F</color>
+    <color name="brdr_fb_blue">#102D7F</color>
+
+    <color name="blue_search">#232753</color>
+    <color name="sky_blue">#01C6DB</color>
+    <color name="l_blue">#448BCA</color>
+    <color name="bg_start_blue">#050822</color>
+    <color name="bg_center_blue">#080C35</color>
+    <color name="bg_end_blue">#0C124E</color>
+    <color name="lyt_blue">#161B4F</color>
+
+
+    <color name="brinjal">#8B00DC</color>
+    <color name="bg_end_brinjal">#19238E</color>
+    <color name="bg_center_brinjal">#331B92</color>
+    <color name="bg_start_brinjal">#4A1395</color>
+
+
+    <color name="bg_end_sweep">#0A394D</color>
+    <color name="bg_center_sweep">#0E276F</color>
+    <color name="bg_start_sweep">#121393</color>
+
+    <color name="bg_end_msg">#0C0C59</color>
+    <color name="bg_center_msg">#360F74</color>
+    <color name="bg_start_msg">#681394</color>
+
+
+    <color name="bg_end_wh">#0C3259</color>
+    <color name="bg_center_wh">#065372</color>
+    <color name="bg_start_wh">#00748B</color>
+    <color name="share">#3A3E5F</color>
+
+
+</resources>

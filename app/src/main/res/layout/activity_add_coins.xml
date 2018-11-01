@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool"
+        layout="@layout/toolbar_center_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tool"
+        android:layout_above="@+id/btn_ready"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/def_margin"
+            android:text="@string/add_coins_to_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/lnr_search"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_margin="@dimen/def_margin"
+            android:background="@color/blue_search">
+
+            <ImageView
+                android:layout_width="@dimen/width25"
+                android:layout_height="@dimen/height25"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/height25"
+                android:layout_marginLeft="@dimen/height25"
+                android:src="@drawable/search" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rview_coins_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ready"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rec_orange_gradient"
+        android:text="@string/ready"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+</RelativeLayout>

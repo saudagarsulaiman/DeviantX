@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width150"
+    android:layout_height="@dimen/height130"
+    android:id="@+id/lnr_item"
+    android:layout_marginBottom="@dimen/margin10"
+    android:background="@drawable/rec_lytblue_c5"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding10"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_coin"
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/height45"
+            android:src="@drawable/coin" />
+
+        <TextView
+            android:id="@+id/txt_coin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin15"
+            android:text="@string/coin_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_coin_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin3"
+            android:text="@string/coin_name"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/def_hint_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_avail"
+            android:layout_width="@dimen/width15"
+            android:layout_height="@dimen/height15"
+            android:src="@drawable/dot_inactive" />
+
+    </LinearLayout>
+
+</LinearLayout>

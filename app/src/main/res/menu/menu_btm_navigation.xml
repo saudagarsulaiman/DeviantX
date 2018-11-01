@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/item_btm_nav_dashboard"
+        android:title=" "
+        android:enabled="true"
+        android:icon="@drawable/selector_btm_nav_dashboard"/>
+
+    <item android:id="@+id/item_btm_nav_exp_coins"
+        android:title=" "
+        android:enabled="true"
+        android:icon="@drawable/selector_btm_nav_exp_coins"/>
+
+    <item android:id="@+id/item_btm_nav_acc_list"
+        android:enabled="true"
+        android:title=" "
+        android:icon="@drawable/selector_btm_nav_acc_list"/>
+
+    <item android:id="@+id/item_btm_nav_tools"
+        android:enabled="true"
+        android:title=" "
+        android:icon="@drawable/selector_btm_nav_tools"/>
+
+</menu>

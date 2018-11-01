@@ -1,0 +1,254 @@
+<resources>
+    <!--Application Name-->
+    <string name="app_name">Deviant X</string>
+
+
+    <!-- Activity-->
+
+    <!--Welcome Activity-->
+    <string name="get_started">Get Started</string>
+
+
+    <!--Get Started Dialog-->
+    <string name="account_must">You must have an account to continue</string>
+    <string name="signup_email">Sign up with Email</string>
+    <string name="signup_with">Or Sign up with</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="by_registering">By registering, you confirm that you accept our <font color='#01C6DB'>Terms of Use</font> and the fact that you have read and understood our <font color='#01C6DB'>Privacy Policy</font>.</string>
+    <string name="have_acc">Do you already have an account?</string>
+    <string name="login">Login</string>
+
+
+    <!--SignUp Email Activity -->
+    <string name="signin_deviantx">Sign In on Deviant X</string>
+    <string name="create_uname">Create your username</string>
+    <string name="note_usename">It will show like that on your profile.</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="note_email">Use at least 8 characters, a number and a symbol.</string>
+    <string name="confirm_email">Confirm your email</string>
+    <string name="note_confirm_email">It must be identical to the previous one.</string>
+    <string name="password">Password</string>
+    <string name="hint_password">Mypassw</string>
+    <string name="note_password">For your security your password should include:</string>
+    <string name="confirm_password">Confirm your password</string>
+    <string name="note_confirm_password">It must be identical to the previous one.</string>
+    <string name="lower_case">A lower case letter</string>
+    <string name="upper_case">An upper case letter</string>
+    <string name="number">A number</string>
+    <string name="characters">8 - 25 characters</string>
+    <string name="info_deviantx">For more information about how Deviant X collects, uses and protects your personal information, read Deviant X\'s </string>
+    <string name="continu">Continue</string>
+    <string name="privacy_policy"><u>Priacy Policy</u>.</string>
+
+
+    <!--Terms Conditions Dialog-->
+    <string name="terms_conditions">Terms and Conditions</string>
+    <string name="note_terms_conditions">By registering, you are accepting the <font color='#FBB03B'><u>Terms and Conditions of use</u></font> of Deviant X.</string>
+    <string name="agree">I Agree</string>
+    <string name="reject">Reject</string>
+
+
+    <!--SetUp Wallet Activity-->
+    <string name="setup_wallet">Set up your wallet</string>
+    <string name="enter_wallet_name">Enter a name for your wallet</string>
+    <string name="note_wallet_name">This will be your default wallet.</string>
+    <string name="save">Save</string>
+
+
+    <!--Login Activity-->
+    <string name="login_deviantx">Login on Deviant X</string>
+    <string name="forgot_pswd">Have you forgotton your password?</string>
+    <string name="get_help">Get Help</string>
+
+
+    <!--Account Recovery Activity-->
+    <string name="recover_acc">Recover your account</string>
+    <string name="send">Send</string>
+    <string name="note_recovery_acc">Enter your Deviant X email that you used to sign-in. We will send you an email with instructions to recover your account.</string>
+    <string name="hint_email">test@deviantcoin.io</string>
+
+
+    <!--DashBoard Activity-->
+    <string name="mini_deviant">Mini Deviant</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="explore_coins">Explore Coins</string>
+    <string name="account_list">Account List</string>
+    <string name="tools">Tools</string>
+    <string name="my_wallet_list">My Wallet Lists</string>
+    <string name="app_settings">App Settings</string>
+    <string name="help">Help</string>
+    <string name="add_coins_to_wallet">Add coins to your wallet</string>
+    <string name="ready">Ready</string>
+    <string name="more_coins">More than 500 coins available</string>
+    <string name="search_ct">Search for Cryptocurrencies and Tokens</string>
+    <string name="search">Search</string>
+    <string name="coin_name">Coin Name</string>
+
+    <!--Common Utilities-->
+    <string name="Prmsns_nec">Permission necessary</string>
+    <string name="Prmsns_extrnl_strg">External Storage permission is necessary</string>
+    <string name="Prmsns_cam">Camera permission is necessary</string>
+
+    <!--Wallet List Activity-->
+    <string name="note_modify_wallet">To modify your wallet, slide to the right, to</string>
+    <string name="my_wallet">My Wallet</string>
+    <string name="coin_value">coin_value</string>
+    <string name="security_wallet">Security Wallet</string>
+    <string name="test_wallet">Test Wallet</string>
+    <string name="create_new_wallet">+ Create new wallet</string>
+
+    <!--Explore Coins Fragment-->
+    <string name="add_coins_want">Add all the coins you want.</string>
+    <string name="note_add_coins">To add to your portfolio, slide to the right.</string>
+    <string name="note_see_info">To see information, slide to left.</string>
+
+    <!--Account List Fragment-->
+    <string name="add_wallet">+ Add New Wallet</string>
+
+    <!--DashBoard Fragment-->
+    <string name="my_coins_list">My Coins List</string>
+
+
+    <!--Used in Multiple Activities-->
+    <string name="login_success">Login Successful</string>
+    <string name="invalid_pswd">Invalid Password</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="empty_pswd">Password should not be empty!</string>
+    <string name="empty_usrnm">Username should not be empty!</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="signing_in">Signing In…</string>
+    <string name="internetconnection">This App needs Internet Connection, You are currently not connected to internet</string>
+    <string name="errortxt">Something went wrong we are working over it.Please try after some time</string>
+    <string name="Timeout">Request Time out. Please try again.</string>
+    <string name="networkerror">Network error,Please try after some time</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="empty_email">Email should not be empty!</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="unmatch_email">Email does not match</string>
+    <string name="unmatch_pswd">Password does not match</string>
+    <string name="registering">Registering</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="acc_success">Account Created Successfully</string>
+
+
+    <!---->
+    <string name="empty_wallet">Wallet Name is empty</string>
+    <string name="empty_coins_list">Your coin list is empty</string>
+    <string name="add_coins">Add Coins</string>
+    <string name="view_info">View Information</string>
+    <string name="dev_coin">Deviant Coin</string>
+    <string name="hours24">24H</string>
+    <string name="days7">7D</string>
+    <string name="month1">1M</string>
+    <string name="rank">Rank</string>
+    <string name="marketcap">Market Cap</string>
+    <string name="volume">Volume</string>
+
+
+    <!--Receive Coin Activity-->
+    <string name="receive">Receive</string>
+    <string name="dev">Dev</string>
+    <string name="my_address">My Address</string>
+    <string name="dev_address">DEV Address</string>
+    <string name="attention_dev_address">Attention: This address only supports receiving from DEV. Please do not use it for other coins.</string>
+    <string name="share_qrcode">Share QR Code</string>
+
+
+    <!--Send Coins Activity-->
+    <string name="avail_bal">AVAILABLE TO SEND</string>
+    <string name="send_to">Send to</string>
+    <string name="btcp_add">BTCP Address</string>
+    <string name="hint_check_add">Check the address because  the operation isn\'t reversible.</string>
+    <string name="amount">Amount</string>
+    <string name="in_fiat">In Fiat</string>
+    <string name="fees">Fees</string>
+    <string name="confirm_data">Confirmation of data</string>
+    <string name="note_sure">Are you sure you want to:</string>
+    <string name="cancel">Cancel</string>
+    <string name="to">To</string>
+    <string name="fee">Fee</string>
+    <string name="total_to_rec">Total to receive</string>
+    <string name="wallet_added">Wallet Created Successfully</string>
+    <string name="select_one">Please Select Only One Coin</string>
+    <string name="selected_none">You have not seleted any coin</string>
+
+
+    <!--App Settings Activity-->
+    <string name="note_app_set">Preferences of your account all in one place.</string>
+    <string name="display">Display</string>
+    <string name="light_mode">Light Mode</string>
+    <string name="language">Language</string>
+    <string name="privacy">Privacy</string>
+    <string name="inc_privacy">Increased Privacy</string>
+    <string name="screeenshots_dsiable"><![CDATA[Disable screenshots & screen preview on recent apps]]></string>
+    <string name="hide_bal">Hide balances</string>
+    <string name="note_hide_bal">Hide sensitive informtion from account overview</string>
+    <string name="screen_lock">Screen Lock</string>
+    <string name="none">None</string>
+    <string name="wallet">Wallet</string>
+    <string name="rec_phrase">Show recovery phrase</string>
+    <string name="change_pswd">Change password</string>
+    <string name="res_wallet">Create / Restore wallet</string>
+    <string name="sys_lang">System Language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="chinese_simp">Chinese (Simplified)</string>
+    <string name="chinese_trad">Chinese (Traditional)</string>
+    <string name="czesh">Czesh</string>
+    <string name="dutch">Dutch</string>
+    <string name="old_pswd">Old password</string>
+    <string name="note_old_pswd">Enter your current password.</string>
+    <string name="new_pswd">New password</string>
+    <string name="my_pass">Mypassw</string>
+    <string name="hide_bal_active">Privacy: Hide Balance Activated</string>
+    <string name="hide_bal_inactive">Privacy: Hide Balance Deactivated</string>
+    <string name="screenshots_active">Privacy: Screenshot Sheild Activated</string>
+    <string name="screenshots_inactive">Privacy: Screenshot Sheild Deactivated</string>
+    <string name="nightmode_inactive">Night Mode Deactivated</string>
+    <string name="nightmode_active">Night Mode Activated</string>
+
+    <!--Wallet Options Activity-->
+    <string name="wallet_options">Options for this wallet</string>
+    <string name="wallet_details">Wallet Details</string>
+    <string name="note_walletdetails">The most important data of your wallet.</string>
+    <string name="sweep_wallet">Sweep Wallet</string>
+    <string name="note_sweep_wallet">Your paper wallet becomes digital wallet.</string>
+    <string name="sov_message">Sign / Verify Message</string>
+    <string name="note_sov_msg">Highly encrypted message.</string>
+    <string name="wallet_history">Wallet History</string>
+    <string name="note_wallet_history">All your transactions are registered.</string>
+
+
+    <!--Wallet Details Activity-->
+    <string name="deviant">Deviant</string>
+    <string name="share">Share</string>
+    <string name="deviant_address">Deviant Address</string>
+    <string name="copy">Copy</string>
+    <string name="dev_private_key">DEV Private Key</string>
+    <string name="derivation_path">Derivation Path (BIT32)</string>
+    <string name="note_dev_share">Sharing  your public key will allow anybody to view your balance and transaction history</string>
+    <string name="insufficient_fund">Insufficient Fund</string>
+    <string name="enter_amount">Please enter amount</string>
+    <string name="res_not_found">Result not found</string>
+    <string name="copied">Copied</string>
+    <string name="transaction">Transaction:</string>
+    <string name="history">History</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="enter_every_detail">Enyer every detail</string>
+    <string name="submit">Submit</string>
+    <string name="verify_u">Verify It\'s You</string>
+    <string name="empty_data">Data not found</string>
+    <string name="hrs">hrs</string>
+    <string name="trans_type">Transaction Type</string>
+    <string name="Token">Token</string>
+    <string name="enter_token">Enter Token</string>
+    <string name="note_token">Enter the token we sent you to your Email.</string>
+    <string name="empty_field">Field in empty</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="empty_token">Token is empty</string>
+    <string name="pswd_changed_succcess">Password Changed Sucessfully</string>
+
+
+</resources>

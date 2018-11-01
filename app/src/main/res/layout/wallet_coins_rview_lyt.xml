@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lnr_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height80"
+    android:layout_marginTop="@dimen/margin10"
+    android:background="@drawable/rec_lytblue_c8"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding10"
+        android:paddingLeft="@dimen/padding10"
+        android:paddingTop="@dimen/def_padding"
+        android:paddingBottom="@dimen/def_padding"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/img_coin_logo"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height40"
+            android:layout_weight="0.5"
+            android:src="@drawable/coin" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_coin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin10"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/coin_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_lbl_size"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_coin_usd_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$6542,89 USD"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_coin_value"
+                android:layout_width="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin1"
+                android:text="@string/coin_value"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_go"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_go"
+                android:layout_width="@dimen/width15"
+                android:layout_height="@dimen/height15"
+                android:layout_gravity="center"
+                android:src="@drawable/go" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

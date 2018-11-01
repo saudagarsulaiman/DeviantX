@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:text="@string/add_coins_want"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin5"
+        android:text="@string/note_add_coins"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin2"
+        android:text="@string/note_see_info"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rview_all_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin" />
+
+</LinearLayout>

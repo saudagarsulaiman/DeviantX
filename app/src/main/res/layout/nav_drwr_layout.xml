@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_nav_logo"
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/height80"
+            android:layout_marginTop="@dimen/def_margin"
+            android:src="@drawable/nav_logo" />
+
+        <TextView
+            android:id="@+id/txt_nav_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="@string/mini_deviant"
+            android:textColor="@color/black"
+            android:textSize="@dimen/def_lbl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_nav_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_marginBottom="@dimen/def_margin"
+            android:text="@string/hint_email"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/def_text_size" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lnr_nav_drwr_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height40"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_nav_drwr_wallet"
+                android:layout_width="@dimen/width5"
+                android:layout_height="match_parent"
+                android:background="@color/yellow"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_nav_drwr_wallet"
+                android:layout_width="@dimen/width16"
+                android:layout_height="@dimen/height16"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin50"
+                android:layout_marginLeft="@dimen/margin50"
+                android:src="@drawable/ic_nav_drwr_wallet_unselected" />
+
+            <TextView
+                android:id="@+id/txt_nav_drwr_wallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/my_wallet_list"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_nav_drwr_settings"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width40"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_nav_drwr_settings"
+                android:layout_width="@dimen/width5"
+                android:layout_height="match_parent"
+                android:background="@color/yellow"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_nav_drwr_settings"
+                android:layout_width="@dimen/width16"
+                android:layout_height="@dimen/height16"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin50"
+                android:layout_marginLeft="@dimen/margin50"
+                android:src="@drawable/ic_nav_drwr_settings_unselected" />
+
+            <TextView
+                android:id="@+id/txt_nav_drwr_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/app_settings"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_nav_drwr_deviant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width40"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_nav_drwr_deviant"
+                android:layout_width="@dimen/width5"
+                android:layout_height="match_parent"
+                android:background="@color/yellow"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_nav_drwr_deviant"
+                android:layout_width="@dimen/width12"
+                android:layout_height="@dimen/height14"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin50"
+                android:layout_marginLeft="@dimen/margin50"
+                android:src="@drawable/ic_nav_drwr_x_unselected" />
+
+            <TextView
+                android:id="@+id/txt_nav_drwr_deviant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/app_name"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_nav_drwr_help"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width40"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_nav_drwr_help"
+                android:layout_width="@dimen/width5"
+                android:layout_height="match_parent"
+                android:background="@color/yellow"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_nav_drwr_help"
+                android:layout_width="@dimen/width16"
+                android:layout_height="@dimen/height16"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin50"
+                android:layout_marginLeft="@dimen/margin50"
+                android:src="@drawable/ic_nav_drwr_help_unselected" />
+
+            <TextView
+                android:id="@+id/txt_nav_drwr_help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/help"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

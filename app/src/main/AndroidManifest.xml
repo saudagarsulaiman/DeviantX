@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aequalis.deviantx">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".UI.Activities.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true">
+            <intent-filter>
+                <action android:name="com.google.zxing.client.android.SCAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".UI.Activities.DashBoardActivity" />
+        <activity android:name=".UI.Activities.WelcomeActivity" />
+        <activity
+            android:name=".UI.Activities.SignUpEmailActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.Activities.SetUpWalletActivity" />
+        <activity android:name=".UI.Activities.LoginActivity" />
+        <activity android:name=".UI.Activities.AccountRecoveryActivity" />
+        <activity android:name=".UI.Activities.WalletListActivity" />
+        <activity android:name=".UI.Activities.AppSettingsActivity" />
+        <activity android:name=".UI.Activities.DeviantXActivity" />
+        <activity android:name=".UI.Activities.AddCoinsActivity" />
+        <activity android:name=".UI.Activities.HelpActivity" />
+        <activity android:name=".UI.Activities.SearchActivity" />
+        <activity android:name=".UI.Activities.SendCoinActivity" />
+        <activity android:name=".UI.Activities.ReceiveCoinActivity" />
+        <activity android:name=".UI.Activities.CoinInformationActivity" />
+        <activity android:name=".UI.Activities.WalletOptionsActivity" />
+        <activity android:name=".UI.Activities.WalletDetailsActivity" />
+        <activity android:name=".UI.Activities.WalletHistoryActivity" />
+        <activity android:name=".UI.Activities.RecoveryConfirmActivity"></activity>
+    </application>
+
+</manifest>

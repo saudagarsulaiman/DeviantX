@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <!--<android.support.v4.view.ViewPager-->
+    <!--android:id="@+id/viewPager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/height140" />-->
+
+    <LinearLayout
+        android:id="@+id/lnr_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/def_margin"
+        android:background="@drawable/rec_brinjal_gradient_c7"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_wallet_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:text="@string/my_wallet"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:id="@+id/txt_wallet_percentage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="%"
+                android:visibility="gone"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_wallet_bal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="~$ 0.0"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text22" />
+
+        <TextView
+            android:id="@+id/txt_wallet_coin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="~0 BTC"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/def_text_size" />
+
+        <!--<com.jjoe64.graphview.GraphView-->
+        <!--android:id="@+id/graph"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/height60"-->
+        <!--android:layout_marginTop="@dimen/margin10"-->
+        <!--android:background="@android:color/transparent" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/my_coins_list"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="end">
+
+            <ImageView
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:src="@drawable/z" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rview_wallet_coins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginRight="@dimen/def_margin"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/lnr_empty_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/def_margin"
+        android:background="@drawable/rec_lytblue_c8"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/height80"
+            android:layout_gravity="center"
+            android:src="@drawable/empty_coins" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="@string/empty_coins_list"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/width16"
+                android:layout_height="@dimen/height16"
+                android:layout_gravity="center"
+                android:src="@drawable/plus" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin8"
+                android:layout_marginLeft="@dimen/margin8"
+                android:text="@string/add_coins"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_lbl_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

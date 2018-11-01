@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:text="@string/my_wallet_list"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin5"
+        android:text="@string/note_modify_wallet"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size" />
+
+
+    <LinearLayout
+        android:id="@+id/lnr_my_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height70"
+        android:background="@drawable/rec_lytblue_c8"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin50"
+        android:layout_marginRight="@dimen/def_margin"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding7"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding20"
+            android:paddingLeft="@dimen/padding20"
+            android:text="@string/my_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txt_mywallet_bal"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~$ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_mywallet_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="0 BTC"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnr_security_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height70"
+        android:background="@drawable/rec_lytblue_c8"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginRight="@dimen/def_margin"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding7"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding20"
+            android:paddingLeft="@dimen/padding20"
+            android:text="@string/security_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_secwal_bal"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="~$ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_secwal_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="0 BTC"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnr_test_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height70"
+        android:background="@drawable/rec_lytblue_c8"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginRight="@dimen/def_margin"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/padding7"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding20"
+            android:paddingLeft="@dimen/padding20"
+            android:text="@string/test_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:layout_weight="0.9"
+            android:gravity="end"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txt_testwal_bal"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_testwal_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="0 BTC"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_marginBottom="@dimen/margin2"
+            android:id="@+id/btn_create_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rec_brinjal_gradient"
+            android:text="@string/create_new_wallet"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

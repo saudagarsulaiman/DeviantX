@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_start_blue">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/def_margin"
+        android:background="@drawable/dlg_white_trtl_c15"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin60"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding50"
+            android:paddingRight="@dimen/padding50"
+            android:text="@string/terms_conditions"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding75"
+            android:paddingRight="@dimen/padding75"
+            android:text="@string/note_terms_conditions"
+            android:textColor="@color/black"
+            android:textSize="@dimen/def_hint_size" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height1"
+            android:layout_marginTop="@dimen/margin50"
+            android:background="@color/l_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_reject"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/reject"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_agree"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/agree"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/width60"
+        android:layout_height="@dimen/height60"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/icon_tc" />
+
+</RelativeLayout>

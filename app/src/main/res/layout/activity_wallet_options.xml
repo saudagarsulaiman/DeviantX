@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/def_margin"
+                android:gravity="center"
+                android:paddingLeft="@dimen/padding50"
+                android:paddingRight="@dimen/padding50"
+                android:text="@string/wallet_options"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text22"
+                android:textStyle="bold" />
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="@dimen/margin5"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="@dimen/def_hint_size" />-->
+
+            <LinearLayout
+                android:id="@+id/lnr_wallet_details"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height80"
+                android:layout_marginTop="@dimen/margin40"
+                android:background="@drawable/rec_brinjal_gradient_c2"
+                android:gravity="center"
+                android:padding="@dimen/padding10">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin5"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:src="@drawable/wallet_details" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin15"
+                    android:layout_marginLeft="@dimen/margin15"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wallet_details"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin2"
+                        android:text="@string/note_walletdetails"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_sweep_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height80"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@drawable/rec_sweep_gradient_c7"
+                android:gravity="center"
+                android:padding="@dimen/padding10">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin5"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:src="@drawable/wallet_sweep" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin15"
+                    android:layout_marginLeft="@dimen/margin15"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sweep_wallet"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin2"
+                        android:text="@string/note_sweep_wallet"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_message"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height80"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@drawable/rec_msg_gradient_c7"
+                android:gravity="center"
+                android:padding="@dimen/padding10">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin5"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:src="@drawable/wallet_msg" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin15"
+                    android:layout_marginLeft="@dimen/margin15"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sov_message"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin2"
+                        android:text="@string/note_sov_msg"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_wallet_history"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height80"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@drawable/rec_wh_gradient_c7"
+                android:gravity="center"
+                android:padding="@dimen/padding10">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin5"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:src="@drawable/wallet_history" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin15"
+                    android:layout_marginLeft="@dimen/margin15"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wallet_history"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin2"
+                        android:text="@string/note_wallet_history"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

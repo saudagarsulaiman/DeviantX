@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/item_nav_drwr_wallet_list"
+        android:enabled="true"
+        android:icon="@drawable/selector_nav_drwr_wallet_list"
+        android:title="@string/my_wallet_list" />
+
+    <item
+        android:id="@+id/item_nav_drwr_settings"
+        android:enabled="true"
+        android:icon="@drawable/selector_nav_drwr_settings"
+        android:title="@string/app_settings" />
+
+    <item
+        android:id="@+id/item_nav_drwr_deviantx"
+        android:enabled="true"
+        android:icon="@drawable/selector_nav_drwr_deviantx"
+        android:title="@string/app_name" />
+
+    <item
+        android:id="@+id/item_nav_drwr_help"
+        android:enabled="true"
+        android:icon="@drawable/selector_nav_drwr_help"
+        android:title="@string/help" />
+
+</menu>
