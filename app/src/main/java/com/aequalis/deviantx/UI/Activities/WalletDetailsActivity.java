@@ -64,7 +64,7 @@ public class WalletDetailsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-
+    boolean hideBal;
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     @Override
@@ -79,7 +79,7 @@ public class WalletDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet_details);
 
         ButterKnife.bind(this);
-
+        hideBal = myApplication.getHideBalance();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -98,9 +98,13 @@ public class WalletDetailsActivity extends AppCompatActivity {
         if (CommonUtilities.isConnectionAvailable(WalletDetailsActivity.this)) {
 
             fetchPrivateKey(selectedAccountWallet.getStr_data_address(), s_pswd);
-
-            txt_mywallet_usd.setText("$ " + selectedAccountWallet.getStr_data_balanceInUSD() + " USD");
-            txt_mywallet_btc.setText(selectedAccountWallet.getStr_data_balance() + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+            if (hideBal){
+                txt_mywallet_usd.setText("$ *** USD");
+                txt_mywallet_btc.setText("***"+ " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+            }else {
+                txt_mywallet_usd.setText("$ " + selectedAccountWallet.getStr_data_balanceInUSD() + " USD");
+                txt_mywallet_btc.setText(selectedAccountWallet.getStr_data_balance() + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+            }
             txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
 
             txt_derivation_path.setText("M/44H/425H/0H");
