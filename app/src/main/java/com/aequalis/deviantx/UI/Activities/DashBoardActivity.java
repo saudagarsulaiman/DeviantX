@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -140,8 +141,8 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
-    private static final int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
-
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.account_list, R.string.tools};
 
     @Override
     protected void onResume() {
@@ -156,7 +157,7 @@ public class DashBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
 
         ButterKnife.bind(this);
-
+        txt_btm_nav_lbl.setText(channelsName[0]);
 
 //        BottomNavigationViewHelper.disableShiftMode(btm_nav);
 //      Icon Tint Mode
@@ -247,6 +248,22 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter.addFragment(new AccountListFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                txt_btm_nav_lbl.setText(channelsName[i]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
 
