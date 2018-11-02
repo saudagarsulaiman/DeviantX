@@ -40,6 +40,7 @@
                 android:textSize="@dimen/def_hint_size" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin25"
@@ -50,6 +51,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
                 android:layout_marginLeft="@dimen/def_margin"
@@ -84,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:checked="false"
                     android:theme="@style/SwitchStyle" />
 
 
@@ -92,6 +93,7 @@
 
             <LinearLayout
                 android:id="@+id/lnr_language"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
                 android:layout_marginLeft="@dimen/def_margin"
@@ -197,7 +199,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:checked="false"
                     android:theme="@style/SwitchStyle" />
 
             </LinearLayout>
@@ -252,12 +253,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:checked="false"
                     android:theme="@style/SwitchStyle" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_screen_lock"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
@@ -346,6 +347,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="@dimen/def_margin"
                 android:id="@+id/lnr_change_pswd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"
@@ -377,6 +379,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_restore_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"

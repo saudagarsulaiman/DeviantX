@@ -3,6 +3,10 @@
     <string name="app_name">Deviant X</string>
 
 
+    <string name="lower_letters">abcdefghijklmnopqrstuvwxyz</string>
+    <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="digits">0123456789</string>
+
     <!-- Activity-->
 
     <!--Welcome Activity-->
@@ -39,7 +43,7 @@
     <string name="characters">8 - 25 characters</string>
     <string name="info_deviantx">For more information about how Deviant X collects, uses and protects your personal information, read Deviant X\'s </string>
     <string name="continu">Continue</string>
-    <string name="privacy_policy"><u>Priacy Policy</u>.</string>
+    <string name="privacy_policy"><u>Privacy Policy</u>.</string>
 
 
     <!--Terms Conditions Dialog-->
@@ -152,7 +156,8 @@
     <string name="dev">Dev</string>
     <string name="my_address">My Address</string>
     <string name="dev_address">DEV Address</string>
-    <string name="attention_dev_address">Attention: This address only supports receiving from DEV. Please do not use it for other coins.</string>
+    <string name="attention_dev_address1">Attention: This address only supports receiving from</string>
+    <string name="attention_dev_address2">Please do not use it for other coins.</string>
     <string name="share_qrcode">Share QR Code</string>
 
 
@@ -244,7 +249,7 @@
     <string name="trans_type">Transaction Type</string>
     <string name="Token">Token</string>
     <string name="enter_token">Enter Token</string>
-    <string name="note_token">Enter the token we sent you to your Email.</string>
+    <string name="note_token">Enter the code we sent you to your Email.</string>
     <string name="empty_field">Field in empty</string>
     <string name="enter_code">Enter Code</string>
     <string name="empty_token">Token is empty</string>
@@ -261,6 +266,12 @@
     <string name="shapeshift_exchange">ShapeShift Exchange</string>
     <string name="shapeshift">ShapeShift</string>
     <string name="changelly">Changelly</string>
+    <string name="logout">Logout</string>
+    <string name="logout_success">Logged Out Successfully!</string>
+    <string name="address">Address</string>
+    <string name="privatekey">Private Key</string>
+    <string name="signup_deviantx">Sign up for Deviant X</string>
+    <string name="coming_soon">Coming Soon</string>
 
 
 </resources>

@@ -36,6 +36,7 @@
             android:textSize="@dimen/def_text_size" />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
@@ -69,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
@@ -151,6 +153,7 @@
             android:text="@string/by_registering"
             android:textColor="@color/grey"
             android:textSize="@dimen/text12" />
+
     </LinearLayout>
 
 

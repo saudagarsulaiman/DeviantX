@@ -40,6 +40,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -75,11 +77,26 @@ public class DashboardFragment extends Fragment {
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
             str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
             str_data_account, str_data_coin;
-    int int_coin_id, int_data_id;
-    Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR;
+    int int_coin_id, int_data_id, int_coin_rank;
+    Double totalBalance = 0.0, dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
 
-    String total_avail_bal = "0.0";
+    Double total_avail_bal = 0.00000000;
     boolean hideBal;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (myWalletCoinsRAdapter != null) {
+            myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
+            myWalletCoinsRAdapter.notifyDataSetChanged();
+        }
+
+        if (myApplication.getHideBalance()) {
+            txt_wallet_bal.setText("~$ ***");
+        } else {
+            txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +111,7 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal,false);
+        hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
 
 //        total_avail_bal = sharedPreferences.get(CONSTANTS.total_avail_bal, "0.0");
 
@@ -108,10 +125,10 @@ public class DashboardFragment extends Fragment {
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
             fetchAccountWallet();
-            if (hideBal){
-                txt_wallet_bal.setText("~$ " + total_avail_bal);
-            }else {
+            if (myApplication.getHideBalance()) {
                 txt_wallet_bal.setText("~$ ***");
+            } else {
+                txt_wallet_bal.setText("~$ " + String.format("%.4f",total_avail_bal));
             }
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
@@ -215,7 +232,9 @@ public class DashboardFragment extends Fragment {
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+
                                         JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
+
                                         try {
                                             int_coin_id = jsonObjectCoins.getInt("id");
                                         } catch (Exception e) {
@@ -241,22 +260,52 @@ public class DashboardFragment extends Fragment {
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue);
+                                        try {
+                                            int_coin_rank = jsonObjectCoins.getInt("rank");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
                                                 dbl_data_balanceInINR, str_data_account, allCoins));
                                     }
                                     myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-
-                                    Double totalBalance = 0.00;
+                                    Double totalBalance = 0.0;
                                     for (AccountWallet accountWallet : accountWalletlist) {
                                         totalBalance += accountWallet.getStr_data_balanceInUSD();
                                     }
-                                    if (hideBal){
-                                        txt_wallet_bal.setText("~$ " + totalBalance);
-                                    }else {
+                                    if (myApplication.getHideBalance()) {
                                         txt_wallet_bal.setText("~$ ***");
+                                    } else {
+                                        txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
                                     }
                                 }
                             } else {

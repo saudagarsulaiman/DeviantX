@@ -49,6 +49,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lnr_nav_drwr_wallet"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height40"
@@ -121,6 +122,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lnr_nav_drwr_deviant"
             android:layout_width="match_parent"
             android:layout_height="@dimen/width40"
@@ -157,6 +159,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lnr_nav_drwr_help"
             android:layout_width="match_parent"
             android:layout_height="@dimen/width40"
@@ -187,6 +190,42 @@
                 android:layout_marginStart="@dimen/margin15"
                 android:layout_marginLeft="@dimen/margin15"
                 android:text="@string/help"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_nav_drwr_logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width40"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_nav_drwr_logout"
+                android:layout_width="@dimen/width5"
+                android:layout_height="match_parent"
+                android:background="@color/yellow"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/img_nav_drwr_logout"
+                android:layout_width="@dimen/width16"
+                android:layout_height="@dimen/height16"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin50"
+                android:layout_marginLeft="@dimen/margin50"
+                android:src="@drawable/logout" />
+
+            <TextView
+                android:id="@+id/txt_nav_drwr_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin15"
+                android:layout_marginLeft="@dimen/margin15"
+                android:text="@string/logout"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/def_text_size" />
 

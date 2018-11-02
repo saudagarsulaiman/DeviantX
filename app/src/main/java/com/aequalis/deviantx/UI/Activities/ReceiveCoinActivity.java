@@ -46,6 +46,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     TextView txt_coin_value;
     @BindView(R.id.txt_wallet_name)
     TextView txt_wallet_name;
+    @BindView(R.id.txt_note_dev_add)
+    TextView txt_note_dev_add;
+    @BindView(R.id.txt_lbl_coin_add)
+    TextView txt_lbl_coin_add;
+
+
 
     AccountWallet selectedAccountWallet;
 
@@ -75,12 +81,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
         txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
-
+        txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1)+" "+selectedAccountWallet.getAllCoins().getStr_coin_code()+". "+getResources().getString(R.string.attention_dev_address2));
 
         Picasso.with(ReceiveCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
         txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
         txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
-
+        txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+ " Address");
 
         img_copy_address.setOnClickListener(new View.OnClickListener() {
             @Override
