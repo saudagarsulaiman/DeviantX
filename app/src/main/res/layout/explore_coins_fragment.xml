@@ -5,6 +5,40 @@
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/lnr_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:background="@color/blue_search">
+
+        <ImageView
+            android:layout_width="@dimen/width25"
+            android:layout_height="@dimen/height25"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/height25"
+            android:layout_marginLeft="@dimen/height25"
+            android:src="@drawable/search" />
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/def_text_size"
+            android:paddingLeft="@dimen/def_padding"
+            style="@style/edt"
+            android:hint="@string/search"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_marginLeft="@dimen/margin10"/>
+
+    </LinearLayout>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,7 +47,8 @@
         android:text="@string/add_coins_want"
         android:textColor="@color/white"
         android:textSize="@dimen/def_ttl_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,7 +57,8 @@
         android:layout_marginTop="@dimen/margin5"
         android:text="@string/note_add_coins"
         android:textColor="@color/white"
-        android:textSize="@dimen/def_text_size" />
+        android:textSize="@dimen/def_text_size"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,7 +67,8 @@
         android:layout_marginTop="@dimen/margin2"
         android:text="@string/note_see_info"
         android:textColor="@color/white"
-        android:textSize="@dimen/def_text_size" />
+        android:textSize="@dimen/def_text_size"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rview_all_coins"

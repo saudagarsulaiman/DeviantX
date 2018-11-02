@@ -272,6 +272,10 @@
     <string name="privatekey">Private Key</string>
     <string name="signup_deviantx">Sign up for Deviant X</string>
     <string name="coming_soon">Coming Soon</string>
+    <string name="devx_tools">Deviant X Tools</string>
+    <string name="devx_wallet">Deviant X Wallet</string>
+    <string name="devx_coin_list">Deviant X Coin List</string>
+    <string name="cancelled">Cancelled</string>
 
 
 </resources>

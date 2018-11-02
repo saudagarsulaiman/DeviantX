@@ -581,7 +581,7 @@ public class SendCoinActivity extends AppCompatActivity {
                 edt_btcp_address.setText(data.getStringExtra("SCAN_RESULT"));
                 // Handle successful scan
             } else if (resultCode == RESULT_CANCELED) {
-                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.res_not_found));
+                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.cancelled));
             }
 
         } else {

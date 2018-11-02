@@ -147,6 +147,7 @@ public class DashBoardActivity extends AppCompatActivity {
     LinearLayout lnr_nav_drwr_help;
     int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
     int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.account_list, R.string.tools};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_wallet, R.string.devx_tools};
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
     LinearLayout lnr_nav_drwr_logout;
@@ -154,8 +155,6 @@ public class DashBoardActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
-    private static final int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
 
 
     @Override
@@ -172,6 +171,8 @@ public class DashBoardActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         txt_btm_nav_lbl.setText(channelsName[0]);
+        txt_tlbr_title.setText(channelTtlName[0]);
+
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -295,6 +296,7 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 txt_btm_nav_lbl.setText(channelsName[i]);
+                txt_tlbr_title.setText(channelTtlName[i]);
             }
 
             @Override

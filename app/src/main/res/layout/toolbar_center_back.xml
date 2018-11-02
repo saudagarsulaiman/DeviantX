@@ -27,6 +27,7 @@
             android:src="@drawable/line" />
 
         <View
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height1"
             android:background="@color/grey" />

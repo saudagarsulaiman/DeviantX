@@ -128,23 +128,23 @@ public class SignUpEmailActivity extends AppCompatActivity {
         if (text.matches("[a-z]+")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
+        }
 
         if (text.matches("[A-Z]+")) {
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
+        }
 
         if (text.matches("\\d+")) {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
+        }
 
 
 //        if (text.matches("[a-zA-Z]+")) {
@@ -181,33 +181,33 @@ public class SignUpEmailActivity extends AppCompatActivity {
 //        }
 
 
-        if (text.matches("[a-z&&[A-Z]]")) {
+        if (text.matches("(?=.*[A-Z])(?=.*[a-z]).*")) {
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
-        if (text.matches("[a-z&&[\\d+]]")) {
+        }
+        if (text.matches("(?=.*[A-Z])(?=.*[0-9]).*")) {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
-        if (text.matches("[\\d&&[A-Z]]")) {
+        }
+        if (text.matches("(?=.*[A-Z])(?=.*[0-9]).*")) {
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             return;
-        } /*else {
+        } else {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }*/
+        }
 
 
-        if (text.matches("[\\d&&[a-z&&[A-Z]]]")) {
+        if (text.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]$")) {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
