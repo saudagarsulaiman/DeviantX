@@ -34,7 +34,7 @@
     <string name="note_confirm_email">It must be identical to the previous one.</string>
     <string name="password">Password</string>
     <string name="hint_password">Mypassw</string>
-    <string name="note_password">For your security your password should include:</string>
+    <string name="note_password">For your security, your password should include:</string>
     <string name="confirm_password">Confirm your password</string>
     <string name="note_confirm_password">It must be identical to the previous one.</string>
     <string name="lower_case">A lower case letter</string>
@@ -135,6 +135,12 @@
     <string name="registering">Registering</string>
     <string name="please_wait">Please Wait...</string>
     <string name="acc_success">Account Created Successfully</string>
+    <string name="empty_old_pswd">Old password should not be empty!</string>
+    <string name="unmatch_old_pswd">Old password does not match</string>
+    <string name="empty_new_pswd"> New password should not be empty!</string>
+    <string name="invalid_new_pswd">New Password is invalid</string>
+    <string name="empty_conf_pswd"> Confirm password should not be empty!</string>
+    <string name="unmatch_conf_pswd">Confirm password does not match</string>
 
 
     <!---->
@@ -277,6 +283,7 @@
     <string name="devx_wallet">Deviant X Wallet</string>
     <string name="devx_coin_list">Deviant X Coin List</string>
     <string name="cancelled">Cancelled</string>
+    <string name="ect_cs">Exchange Coin Transfer <![CDATA[<font size="10">(Coming Soon)</font>]]></string>
 
 
 </resources>

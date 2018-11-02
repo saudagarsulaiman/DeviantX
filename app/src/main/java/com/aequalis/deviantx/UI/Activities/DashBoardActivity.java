@@ -178,9 +178,8 @@ public class DashBoardActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
 
-
-        txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm,"MiniDeviant"));
-        txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email,"test@deviantcoin.io"));
+        txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
+        txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
 
 //        BottomNavigationViewHelper.disableShiftMode(btm_nav);
 //      Icon Tint Mode
@@ -257,15 +256,15 @@ public class DashBoardActivity extends AppCompatActivity {
         lnr_nav_drwr_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtilities.ShowToastMessage(DashBoardActivity.this,getResources().getString(R.string.logout_success));
+                CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.logout_success));
                 Intent intent = new Intent(DashBoardActivity.this, WelcomeActivity.class);
                 intent.addCategory(Intent.CATEGORY_HOME);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                editor.putString(CONSTANTS.usrnm,"");
-                editor.putString(CONSTANTS.email,"");
-                editor.putString(CONSTANTS.pswd,"");
-                editor.putString(CONSTANTS.token,"");
-                editor.putBoolean(CONSTANTS.first_time,true);
+                editor.putString(CONSTANTS.usrnm, "");
+                editor.putString(CONSTANTS.email, "");
+                editor.putString(CONSTANTS.pswd, "");
+                editor.putString(CONSTANTS.token, "");
+                editor.putBoolean(CONSTANTS.first_time, true);
                 editor.apply();
                 startActivity(intent);
             }
@@ -297,6 +296,23 @@ public class DashBoardActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 txt_btm_nav_lbl.setText(channelsName[i]);
                 txt_tlbr_title.setText(channelTtlName[i]);
+                switch (i) {
+                    case 0:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+                        break;
+                    case 1:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
+                        break;
+                    case 2:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
+                        break;
+                    case 3:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
+                        break;
+                    default:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                }
             }
 
             @Override

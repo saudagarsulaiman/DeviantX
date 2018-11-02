@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/margin50"
+            android:layout_margin="@dimen/margin40"
             android:background="@drawable/rec_brinjal_gradient"
             android:orientation="vertical"
             android:padding="@dimen/def_padding">
@@ -48,14 +48,15 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/tools_ect" />
 
-            
+
             <TextView
+                android:id="@+id/txt_ect_cs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/def_margin"
                 android:gravity="left"
-                android:text="@string/ect"
+                android:text="@string/ect_cs"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_ttl_size"
                 android:textStyle="bold" />
@@ -73,7 +74,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/margin10"
                 android:gravity="left"

@@ -34,6 +34,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     Boolean first_time = true;
+    String email = "email", pswd = "pswd", usrnm = "usrnm", tkn = "tkn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,31 +42,49 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor editor = prefs.edit();
 
 //        first_time = sharedPreferences.getBoolean(CONSTANTS.first_time, true);
 
+        try {
+            email = sharedPreferences.getString(CONSTANTS.email, "email");
+            usrnm = sharedPreferences.getString(CONSTANTS.usrnm, "usrnm");
+            pswd = sharedPreferences.getString(CONSTANTS.pswd, "pswd");
+            tkn = sharedPreferences.getString(CONSTANTS.pswd, "tkn");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 //                try {
 //                if (first_time) {
-                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-                    startActivity(intent);
+//                Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+//                startActivity(intent);
 //                    editor.putBoolean(CONSTANTS.first_time, false);
 //                    editor.apply();
 //                } else {
 //                    String email = sharedPreferences.getString(CONSTANTS.email, " ");
 //                    String usrnm = sharedPreferences.getString(CONSTANTS.usrnm, " ");
 //                    String pswd = sharedPreferences.getString(CONSTANTS.pswd, " ");
-//                    if (!email.trim().isEmpty() && !usrnm.trim().isEmpty() && !pswd.trim().isEmpty()) {
-//                        Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
-//                        startActivity(intent);
-//                    } else {
-//                        Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-//                        startActivity(intent);
-//                    }
+//                if (!email.trim().isEmpty() && !usrnm.trim().isEmpty() && !pswd.trim().isEmpty()) {
+                if (!email.equals("email") && !usrnm.equals("usrnm") && !pswd.equals("pswd")) {
+                    try {
+                        email = sharedPreferences.getString(CONSTANTS.email, "email");
+                        usrnm = sharedPreferences.getString(CONSTANTS.usrnm, "usrnm");
+                        pswd = sharedPreferences.getString(CONSTANTS.pswd, "pswd");
+                        tkn = sharedPreferences.getString(CONSTANTS.pswd, "tkn");
+                        Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                }
 //                }
                 finish();
 
