@@ -299,7 +299,7 @@ public class DashboardFragment extends Fragment {
                                     }
                                     myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-                                    Double totalBalance = 0.0;
+                                    totalBalance = 0.0;
                                     for (AccountWallet accountWallet : accountWalletlist) {
                                         totalBalance += accountWallet.getStr_data_balanceInUSD();
                                     }
