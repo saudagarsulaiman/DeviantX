@@ -124,175 +124,35 @@ public class SignUpEmailActivity extends AppCompatActivity {
     }
 
     private void matchingPasswordText(String text) {
-
-        if (text.matches("[a-z]+")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-
-        if (text.matches("[A-Z]+")) {
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-
-        if (text.matches("\\d+")) {
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-
-
-//        if (text.matches("[a-zA-Z]+")) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.matches("[a-z0-9]+")) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.matches("[0-9A-Z]+")) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//
-//
-//        if (text.matches("[0-9a-zA-Z]+")) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-
-
-        if (text.matches("(?=.*[A-Z])(?=.*[a-z]).*")) {
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-        if (text.matches("(?=.*[A-Z])(?=.*[0-9]).*")) {
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-        if (text.matches("(?=.*[A-Z])(?=.*[0-9]).*")) {
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-
-
-        if (text.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]$")) {
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-            return;
-        } else {
-            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
-
-
-//        if (text.matches("[a-z]+") && text.matches("[A-Z]+")) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.matches("[a-z]+") && text.matches("\\d+")) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.matches("\\d+") && text.matches("[A-Z]+")) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//
-//
-//        if (text.matches("\\d+") && text.matches("[a-z]+") && text.matches("[A-Z]+")) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-
-
-//        if (text.contains(getResources().getString(R.string.lower_letters)) && text.contains(getResources().getString(R.string.upper_letters))) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.contains(getResources().getString(R.string.lower_letters)) && text.contains(getResources().getString(R.string.digits))) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//        if (text.contains(getResources().getString(R.string.upper_letters)) && text.contains(getResources().getString(R.string.number))) {
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-//
-//
-//        if (text.contains(getResources().getString(R.string.lower_letters)) && text.contains(getResources().getString(R.string.upper_letters))&&text.contains(getResources().getString(R.string.digits))) {
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
-//        } else {
-//            txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//            txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-//        }
-
-
-        if (text.length() > 7 && text.length() < 26) {
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
-        }
+            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+                txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+            if (text.matches("(?![.\\n])(?=.*[A-Z]).*$+")) {
+                txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
 
+            if (text.matches("(?![.\\n])(?=.*\\d).*$+")) {
+                txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_number.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+
+            if (text.length() > 7 && text.length() < 26) {
+                txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+        }
     }
 
     private void CheckingInputs() {

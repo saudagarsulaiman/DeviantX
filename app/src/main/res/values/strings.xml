@@ -149,6 +149,7 @@
     <string name="rank">Rank</string>
     <string name="marketcap">Market Cap</string>
     <string name="volume">Volume</string>
+    <string name="scanner_msg">Place a barcode inside the viewfinder rectangle to scan it.</string>
 
 
     <!--Receive Coin Activity-->

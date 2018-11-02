@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import com.aequalis.deviantx.UI.Models.AccountWallet;
 import com.aequalis.deviantx.Utilities.CONSTANTS;
 import com.aequalis.deviantx.Utilities.CommonUtilities;
 import com.aequalis.deviantx.Utilities.DeviantXApiClient;
+import com.google.zxing.Result;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +52,7 @@ import retrofit2.Response;
 
 import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
 
-public class SendCoinActivity extends AppCompatActivity {
+public class SendCoinActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     //    @BindView(R.id.) ;
     @BindView(R.id.toolbar_center_back)
@@ -80,6 +83,10 @@ public class SendCoinActivity extends AppCompatActivity {
     TextView txt_coin_value;
     @BindView(R.id.txt_wallet_name)
     TextView txt_wallet_name;
+    @BindView(R.id.scan_qr)
+    ZXingScannerView mScannerView;
+    @BindView(R.id.scan_view)
+    RelativeLayout mScannerLayout;
 
     Double usdCoinValue = 0.0;
     AccountWallet selectedAccountWallet;
@@ -92,6 +99,13 @@ public class SendCoinActivity extends AppCompatActivity {
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     Boolean isEditFiat = false, isEditAmount = false;
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mScannerView.stopCamera();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,9 +303,12 @@ public class SendCoinActivity extends AppCompatActivity {
             img_scanner.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                   /* Intent intent = new Intent("com.google.zxing.client.android.SCAN");
                     intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-                    startActivityForResult(intent, 0);
+                    startActivityForResult(intent, 0);*/
+                    mScannerLayout.setVisibility(View.VISIBLE);
+                    mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
+                    mScannerView.startCamera();
                 }
             });
 
@@ -342,7 +359,7 @@ public class SendCoinActivity extends AppCompatActivity {
                         Double finalValue = Double.parseDouble(coinTextValue);
                         if (selectedAccountWallet.getStr_data_balance() > (finalValue / usdCoinValue)) {
                             edt_amount_bal.setText(String.format("%.4f", (finalValue / usdCoinValue)));
-                        }else {
+                        } else {
                             edt_amount_bal.setText("0");
                             edt_fiat_bal.setText("0");
 
@@ -569,15 +586,15 @@ public class SendCoinActivity extends AppCompatActivity {
     }
 
 
-    //Getting the scan results
+   /* //Getting the scan results
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //  IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         //  if (result != null) {
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
-                            /*String contents = intent.getStringExtra("SCAN_RESULT");
-                            String format = intent.getStringExtra("SCAN_RESULT_FORMAT");*/
+                            *//*String contents = intent.getStringExtra("SCAN_RESULT");
+                            String format = intent.getStringExtra("SCAN_RESULT_FORMAT");*//*
                 edt_btcp_address.setText(data.getStringExtra("SCAN_RESULT"));
                 // Handle successful scan
             } else if (resultCode == RESULT_CANCELED) {
@@ -587,7 +604,21 @@ public class SendCoinActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }*/
+
+
+    @Override
+    public void handleResult(Result result) {
+        edt_btcp_address.setText(result.getText());
+        mScannerLayout.setVisibility(View.GONE);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (mScannerLayout.getVisibility() == View.VISIBLE) {
+            mScannerLayout.setVisibility(View.GONE);
+            CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.cancelled));
+        } else
+            super.onBackPressed();
+    }
 }
