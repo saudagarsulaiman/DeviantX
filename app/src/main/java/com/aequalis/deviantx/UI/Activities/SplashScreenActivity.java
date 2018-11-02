@@ -45,7 +45,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
 
 //        first_time = sharedPreferences.getBoolean(CONSTANTS.first_time, true);
-
         try {
             email = sharedPreferences.getString(CONSTANTS.email, "email");
             usrnm = sharedPreferences.getString(CONSTANTS.usrnm, "usrnm");
