@@ -1,9 +1,13 @@
 package com.aequalis.deviantx.UI.Fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +39,12 @@ public class ToolsFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        String s= getResources().getString(R.string.ect)+" ("+getResources().getString(R.string.coming_soon)+")";
+        SpannableString ss1=  new SpannableString(s);
+        ss1.setSpan(new RelativeSizeSpan(2f), 0,22, 0); // set size
+//        ss1.setSpan(new ForegroundColorSpan(Color.RED), 0, 5, 0);// set color
+        txt_ect_cs.setText(ss1);
+
         lnr_tools_ect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,8 +53,8 @@ public class ToolsFragment extends Fragment {
             }
         });
 
-        txt_ect_cs.setText(Html.fromHtml(getString(R.string.ect_cs)));
-
+//        txt_ect_cs.setText(Html.fromHtml(getString(R.string.ect_cs)));
+//txt_ect_cs.setText(Html.fromHtml("<html><body><font size=22 > "+getResources().getString(R.string.ect)+" </font> <font size=10 > "+getResources().getString(R.string.coming_soon)+" </font> </body><html>"));
         return view;
     }
 

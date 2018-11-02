@@ -56,9 +56,9 @@
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/def_margin"
                 android:gravity="left"
-                android:text="@string/ect_cs"
+                android:text="@string/ect"
                 android:textColor="@color/white"
-                android:textSize="@dimen/def_ttl_size"
+                android:textSize="@dimen/text10"
                 android:textStyle="bold" />
 
             <!--<TextView-->
