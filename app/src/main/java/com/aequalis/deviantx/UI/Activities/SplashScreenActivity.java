@@ -55,12 +55,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 } catch (NullPointerException e) {
-                    Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
                     startActivity(intent);
                     finish();
                     e.printStackTrace();
