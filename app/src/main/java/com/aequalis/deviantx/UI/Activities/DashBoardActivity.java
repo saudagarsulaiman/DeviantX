@@ -256,20 +256,9 @@ public class DashBoardActivity extends AppCompatActivity {
         lnr_nav_drwr_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.logout_success));
-                Intent intent = new Intent(DashBoardActivity.this, WelcomeActivity.class);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                editor.putString(CONSTANTS.usrnm, "");
-                editor.putString(CONSTANTS.email, "");
-                editor.putString(CONSTANTS.pswd, "");
-                editor.putString(CONSTANTS.token, "");
-                editor.putBoolean(CONSTANTS.first_time, true);
-                editor.apply();
-                startActivity(intent);
+                CommonUtilities.sessionExpired(DashBoardActivity.this, getResources().getString(R.string.logout_success));
             }
         });
-
 
         img_tlbr_nav.setOnClickListener(new View.OnClickListener() {
             @Override

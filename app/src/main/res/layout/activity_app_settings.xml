@@ -316,6 +316,7 @@
                 android:layout_marginStart="@dimen/margin25" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/lnr_rec_phrase"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"

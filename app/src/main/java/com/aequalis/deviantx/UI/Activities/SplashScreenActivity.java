@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,57 +42,33 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
 
-//        first_time = sharedPreferences.getBoolean(CONSTANTS.first_time, true);
-        try {
-            email = sharedPreferences.getString(CONSTANTS.email, "email");
-            usrnm = sharedPreferences.getString(CONSTANTS.usrnm, "usrnm");
-            pswd = sharedPreferences.getString(CONSTANTS.pswd, "pswd");
-            tkn = sharedPreferences.getString(CONSTANTS.pswd, "tkn");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                try {
-//                if (first_time) {
-//                Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
-//                startActivity(intent);
-//                    editor.putBoolean(CONSTANTS.first_time, false);
-//                    editor.apply();
-//                } else {
-//                    String email = sharedPreferences.getString(CONSTANTS.email, " ");
-//                    String usrnm = sharedPreferences.getString(CONSTANTS.usrnm, " ");
-//                    String pswd = sharedPreferences.getString(CONSTANTS.pswd, " ");
-//                if (!email.trim().isEmpty() && !usrnm.trim().isEmpty() && !pswd.trim().isEmpty()) {
-                if (!email.equals("email") && !usrnm.equals("usrnm") && !pswd.equals("pswd")) {
-                    try {
-                        email = sharedPreferences.getString(CONSTANTS.email, "email");
-                        usrnm = sharedPreferences.getString(CONSTANTS.usrnm, "usrnm");
-                        pswd = sharedPreferences.getString(CONSTANTS.pswd, "pswd");
-                        tkn = sharedPreferences.getString(CONSTANTS.pswd, "tkn");
+                try {
+                    SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+                    String token = prefs.getString(CONSTANTS.token, null);
+                    if (token != null) {
                         Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
                         startActivity(intent);
                         finish();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                } else {
-                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                } catch (NullPointerException e) {
+                    Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
+                    e.printStackTrace();
                 }
-//                }
-                finish();
 
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
+
             }
-        }, 3000);
+        }, 2000);
 
 
     }

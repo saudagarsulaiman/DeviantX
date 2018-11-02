@@ -2,6 +2,7 @@ package com.aequalis.deviantx.UI.Fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -308,7 +309,9 @@ public class DashboardFragment extends Fragment {
                                         txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
                                     }
                                 }
-                            } else {
+                            } else if(loginResponseStatus.equals("401")){
+                                CommonUtilities.sessionExpired(getActivity(),loginResponseMsg);
+                            }else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
                             }
                         } else {

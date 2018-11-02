@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.LocaleList;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
+import com.aequalis.deviantx.UI.Activities.LoginActivity;
 import com.aequalis.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -230,6 +232,22 @@ public final class CommonUtilities {
         }
     }
 
+
+    public static void sessionExpired(Activity activity,String loginResponseMsg) {
+        ShowToastMessage(activity, loginResponseMsg);
+        SharedPreferences prefs = activity.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(CONSTANTS.token, null);
+        editor.putString(CONSTANTS.usrnm, null);
+        editor.putString(CONSTANTS.email, null);
+        editor.putString(CONSTANTS.pswd, null);
+        editor.commit();
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        activity.finish();
+    }
 
 //    public static boolean checkExtrnlStrgPermission(final Context context) {
 //        int result = ContextCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE);
