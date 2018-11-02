@@ -1,29 +1,45 @@
 package com.aequalis.deviantx.UI.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
+import com.aequalis.deviantx.ServiceAPIs.UserControllerApi;
 import com.aequalis.deviantx.Utilities.CONSTANTS;
 import com.aequalis.deviantx.Utilities.CommonUtilities;
+import com.aequalis.deviantx.Utilities.DeviantXApiClient;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.aequalis.deviantx.Utilities.MyApplication.myApplication;
 
@@ -48,6 +64,11 @@ public class AppSettingsActivity extends AppCompatActivity {
     @BindView(R.id.scompat_hide_bal)
     SwitchCompat scompat_hide_bal;
 
+
+    String loginResponseMsg, loginResponseStatus, tkn;
+
+    ProgressDialog progressDialog;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
@@ -61,6 +82,8 @@ public class AppSettingsActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        tkn = sharedPreferences.getString(CONSTANTS.token, "");
 
         if (myApplication.getHideBalance())
             scompat_hide_bal.setChecked(true);
@@ -89,7 +112,7 @@ public class AppSettingsActivity extends AppCompatActivity {
         lnr_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PasswordDialog();
+                PasswordDialog(tkn);
             }
         });
 
@@ -152,52 +175,6 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
     }
-
-    private void PasswordDialog() {
-        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_change_password);
-        final DialogPlus dialog = DialogPlus.newDialog(AppSettingsActivity.this)
-                .setContentHolder(viewHolder)
-                .setGravity(Gravity.BOTTOM)
-                .setCancelable(true)
-                .setInAnimation(R.anim.slide_in_bottom)
-                .setOutAnimation(R.anim.slide_out_bottom)
-                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
-                .create();
-
-//                Initializing Widgets
-        View view = dialog.getHolderView();
-
-        EditText edt_old_pswd = view.findViewById(R.id.edt_old_pswd);
-        EditText edt_new_pswd = view.findViewById(R.id.edt_new_pswd);
-        TextView txt_lower_case = view.findViewById(R.id.txt_lower_case);
-        TextView txt_upper_case = view.findViewById(R.id.txt_upper_case);
-        TextView txt_number = view.findViewById(R.id.txt_number);
-        TextView txt_chars = view.findViewById(R.id.txt_chars);
-        EditText edt_confirm_pswd = view.findViewById(R.id.edt_confirm_pswd);
-        Button btn_change_pswd = view.findViewById(R.id.btn_change_pswd);
-
-
-        btn_change_pswd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-//                Displaying DialogPlus
-        dialog.show();
-
-
-    }
-
 
     private void LanguageDialog() {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_languages);
@@ -281,4 +258,167 @@ public class AppSettingsActivity extends AppCompatActivity {
 
     }
 
+
+    private void PasswordDialog(final String tkn) {
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_change_password);
+        final DialogPlus dialog = DialogPlus.newDialog(AppSettingsActivity.this)
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+//                        .setOnDismissListener(new OnDismissListener() {
+//                            @Override
+//                            public void onDismiss(DialogPlus dialog) {
+//
+//                            }
+//                        })
+//                        .setExpanded(true) // default is false, only works for grid and list
+                .create();
+
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+
+        final EditText edt_old_pswd = view.findViewById(R.id.edt_old_pswd);
+        final EditText edt_new_pswd = view.findViewById(R.id.edt_new_pswd);
+        TextView txt_lower_case = view.findViewById(R.id.txt_lower_case);
+        TextView txt_upper_case = view.findViewById(R.id.txt_upper_case);
+        TextView txt_number = view.findViewById(R.id.txt_number);
+        TextView txt_chars = view.findViewById(R.id.txt_chars);
+        final EditText edt_confirm_pswd = view.findViewById(R.id.edt_confirm_pswd);
+        Button btn_change_pswd = view.findViewById(R.id.btn_change_pswd);
+
+
+        btn_change_pswd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String old_pswd = edt_old_pswd.getText().toString();
+                String new_pswd = edt_new_pswd.getText().toString();
+                String conf_pswd = edt_confirm_pswd.getText().toString();
+                CheckingInputs(tkn, old_pswd, new_pswd, conf_pswd);
+//                dialog.dismiss();
+            }
+        });
+
+//                Displaying DialogPlus
+        dialog.show();
+
+
+    }
+
+
+    private void CheckingInputs(String tkn, String old_pswd, String new_pswd, String conf_pswd) {
+        if (!old_pswd.isEmpty()) {
+            if (old_pswd.equals(sharedPreferences.getString(CONSTANTS.pswd, ""))) {
+                if (!new_pswd.isEmpty()) {
+                    if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
+                        if (!conf_pswd.isEmpty()) {
+                            if (new_pswd.equals(conf_pswd)) {
+                                if (CommonUtilities.isConnectionAvailable(AppSettingsActivity.this)) {
+                                    invokeEmailRecovery(tkn, new_pswd);
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                                } else {
+                                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.internetconnection));
+                                }
+                            } else {
+                                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.unmatch_conf_pswd));
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.empty_conf_pswd));
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.invalid_new_pswd));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.empty_new_pswd));
+                }
+
+            } else {
+                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.unmatch_old_pswd));
+            }
+        } else {
+            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.empty_old_pswd));
+        }
+
+    }
+
+    private void invokeEmailRecovery(String tkn, final String new_pswd) {
+        try {
+            JSONObject params = new JSONObject();
+            try {
+                params.put("password", new_pswd);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog = ProgressDialog.show(AppSettingsActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.updatePassword(params.toString(), CONSTANTS.DeviantMulti+tkn);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+                            if (loginResponseStatus.equals("true")) {
+                                editor.putString(CONSTANTS.pswd, new_pswd);
+                                editor.apply();
+                                finish();
+                                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pswd_changed_succcess));
+                            } else {
+                                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
 }
+
