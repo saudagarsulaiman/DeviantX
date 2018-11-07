@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.UI.Activities.LoginActivity;
 import com.aequalis.deviantx.UI.Activities.ReceiveCoinActivity;
+import com.aequalis.deviantx.UI.Activities.WelcomeActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -233,7 +234,7 @@ public final class CommonUtilities {
     }
 
 
-    public static void sessionExpired(Activity activity,String loginResponseMsg) {
+    public static void sessionExpired(Activity activity, String loginResponseMsg) {
         ShowToastMessage(activity, loginResponseMsg);
         SharedPreferences prefs = activity.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -241,8 +242,9 @@ public final class CommonUtilities {
         editor.putString(CONSTANTS.usrnm, null);
         editor.putString(CONSTANTS.email, null);
         editor.putString(CONSTANTS.pswd, null);
-        editor.commit();
-        Intent intent = new Intent(activity, LoginActivity.class);
+        editor.putBoolean(CONSTANTS.seed, false);
+        editor.apply();
+        Intent intent = new Intent(activity, WelcomeActivity.class);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);

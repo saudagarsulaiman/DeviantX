@@ -35,6 +35,10 @@ public interface UserControllerApi {
     Call<ResponseBody> updatePassword(@Body String body,@Header("Authorization") String AuthorizationDX);
 
 
+    @GET("/api/account/get_seed")
+    Call<ResponseBody> getSeed();
+
+
 
 //    @FormUrlEncoded
 //    @POST("/api/account/create")

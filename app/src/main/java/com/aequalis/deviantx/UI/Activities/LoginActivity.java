@@ -166,20 +166,33 @@ public class LoginActivity extends AppCompatActivity {
 
                                     JSONObject jsonObjectDataUser = new JSONObject(loginResponseDataUser);
 
-                                    String username= jsonObjectDataUser.getString("userName");
+                                    String username = jsonObjectDataUser.getString("userName");
 
-                                    editor.putString(CONSTANTS.usrnm,username);
-                                    editor.putString(CONSTANTS.email, s_email);
-                                    editor.putString(CONSTANTS.pswd, s_pswd);
-                                    editor.putString(CONSTANTS.token, loginResponseDataToken);
-                                    editor.putBoolean(CONSTANTS.first_time,false);
-                                    editor.commit();
+                                    String seed = jsonObjectDataUser.getString("seed");
 
-                                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
-
+                                    if (seed.equals("true")) {
+                                        editor.putString(CONSTANTS.usrnm, username);
+                                        editor.putString(CONSTANTS.email, s_email);
+                                        editor.putString(CONSTANTS.pswd, s_pswd);
+                                        editor.putString(CONSTANTS.token, loginResponseDataToken);
+                                        editor.putBoolean(CONSTANTS.first_time, false);
+                                        editor.commit();
+                                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                    } else {
+                                        editor.putString(CONSTANTS.usrnm, username);
+                                        editor.putString(CONSTANTS.email, s_email);
+                                        editor.putString(CONSTANTS.pswd, s_pswd);
+                                        editor.putString(CONSTANTS.token, loginResponseDataToken);
+                                        editor.putBoolean(CONSTANTS.first_time, false);
+                                        editor.commit();
+                                        Intent intent = new Intent(LoginActivity.this, AddPhraseActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                    }
                                 } else {
                                     CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
                                 }
@@ -295,7 +308,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (loginResponseStatus.equals("true")) {
 
-                                loggingInAccount(edt_email.getText().toString(),edt_pswd.getText().toString());
+                                loggingInAccount(edt_email.getText().toString(), edt_pswd.getText().toString());
                                 //                                Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                startActivity(intent);

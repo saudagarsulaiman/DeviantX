@@ -32,4 +32,9 @@ public interface AuthenticationApi {
     @POST("/api/authenticate/login")
     Call<ResponseBody> loginAccount(@Body String body);
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/authenticate/add_seed")
+    Call<ResponseBody> addSeed(@Body String body);
+
+
 }

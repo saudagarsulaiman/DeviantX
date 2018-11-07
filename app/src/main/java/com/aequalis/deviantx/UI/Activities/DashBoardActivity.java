@@ -145,9 +145,11 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
+
     int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
     int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.account_list, R.string.tools};
     int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_wallet, R.string.devx_tools};
+
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
     LinearLayout lnr_nav_drwr_logout;

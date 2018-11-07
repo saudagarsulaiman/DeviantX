@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_confirm"
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar_center_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/def_margin"
+            android:gravity="center"
+            android:text="@string/confirm_recovery_phase"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
+            android:text="@string/confirm_recovery_top_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_hint_size" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:elevation="10dp"
+                app:cardCornerRadius="5dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rec_white_c2"
+                    android:minHeight="100dp">
+
+                    <TextView
+                        android:id="@+id/txt_selected_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/def_text_size" />
+
+                </TableRow>
+
+            </android.support.v7.widget.CardView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:fillViewport="false"
+                android:overScrollMode="never"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:scrollbars="none">
+
+                <com.greenfrvr.hashtagview.HashtagView
+                    android:id="@+id/hashtag_confirm_phrase"
+                    style="@style/HashtagView"
+                    android:layout_gravity="center"
+                    app:rowDistribution="random"
+                    app:rowGravity="center"
+                    app:rowMargin="5dp"
+                    app:selectionMode="true"
+                    app:tagBackground="@drawable/selector_tag_bg_1"
+                    app:tagDrawablePadding="4dp"
+                    app:tagForeground="@drawable/flat_button_light"
+                    app:tagMargin="5dp"
+                    app:tagPaddingBottom="@dimen/padding8"
+                    app:tagPaddingLeft="@dimen/padding8"
+                    app:tagPaddingRight="@dimen/padding8"
+                    app:tagPaddingTop="@dimen/padding8"
+                    app:tagTextColor="@color/white" />
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rec_orange_gradient"
+        android:text="@string/confirm"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold" />
+
+</RelativeLayout>
