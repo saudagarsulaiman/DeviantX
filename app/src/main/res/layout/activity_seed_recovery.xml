@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:gravity="center"
+        android:paddingLeft="@dimen/padding50"
+        android:paddingRight="@dimen/padding50"
+        android:text="@string/enter_seed"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text22"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_seed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height120"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/def_margin"
+        android:background="@drawable/rec_white_c2"
+        android:gravity="start"
+        android:hint="@string/confirm_recovery_phase"
+        android:inputType="text"
+        android:padding="@dimen/def_padding"
+        android:textColor="@color/black"
+        android:textSize="@dimen/def_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingLeft="@dimen/padding50"
+        android:paddingRight="@dimen/padding50"
+        android:text="@string/note_seed_rec"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_hint_size"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rec_orange_gradient"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

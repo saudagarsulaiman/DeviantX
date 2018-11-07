@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
@@ -249,6 +250,39 @@ public final class CommonUtilities {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
         activity.finish();
+    }
+
+
+    public static void matchingPasswordText(Activity activity, String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+            txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            txt_upper_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            txt_number.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            txt_chars.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+        } else {
+            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+                txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+            if (text.matches("(?![.\\n])(?=.*[A-Z]).*$+")) {
+                txt_upper_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_upper_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+
+            if (text.matches("(?![.\\n])(?=.*\\d).*$+")) {
+                txt_number.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_number.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+
+            if (text.length() > 7 && text.length() < 26) {
+                txt_chars.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
+            } else {
+                txt_chars.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
+            }
+        }
     }
 
 //    public static boolean checkExtrnlStrgPermission(final Context context) {

@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
@@ -45,15 +48,25 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
     @BindView(R.id.edt_token)
     EditText edt_token;
 
+    @BindView(R.id.txt_lower_case)
+    TextView txt_lower_case;
+    @BindView(R.id.txt_upper_case)
+    TextView txt_upper_case;
+    @BindView(R.id.txt_number)
+    TextView txt_number;
+    @BindView(R.id.txt_chars)
+    TextView txt_chars;
+
+
     String tkn, new_pswd, conf_pswd;
 
     String loginResponseMsg, loginResponseStatus;
 
     ProgressDialog progressDialog;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+//    SharedPreferences sharedPreferences;
+//    SharedPreferences.Editor editor;
 
-    String email;
+//    String email;
 
 
     @Override
@@ -63,12 +76,12 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+//        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+//        editor = sharedPreferences.edit();
 
 //        Bundle bundle= getIntent().getExtras();
 //        email = bundle.getString(CONSTANTS.email);
-        email = sharedPreferences.getString(CONSTANTS.email,"");
+//        email = sharedPreferences.getString(CONSTANTS.email,"");
 
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,10 +89,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
                 String tkn = edt_token.getText().toString();
                 String new_pswd = edt_new_pswd.getText().toString();
                 String conf_pswd = edt_confirm_pswd.getText().toString();
-                CheckingInputs(tkn, new_pswd, conf_pswd,email);
+                CheckingInputs(tkn, new_pswd, conf_pswd/*,email*/);
             }
         });
-
 
 
         img_center_back.setOnClickListener(new View.OnClickListener() {
@@ -89,18 +101,37 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
             }
         });
 
+        edt_new_pswd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                CommonUtilities.matchingPasswordText(RecoveryConfirmActivity.this,text,txt_lower_case,txt_upper_case,txt_number,txt_chars);
+
+            }
+        });
+
 
     }
 
 
-    private void CheckingInputs(String tkn, String new_pswd, String conf_pswd, String email) {
+    private void CheckingInputs(String tkn, String new_pswd, String conf_pswd/*, String email*/) {
         if (!tkn.isEmpty()) {
             if (!new_pswd.isEmpty()) {
                 if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
                     if (!conf_pswd.isEmpty()) {
                         if (new_pswd.equals(conf_pswd)) {
                             if (CommonUtilities.isConnectionAvailable(RecoveryConfirmActivity.this)) {
-                                invokeEmailRecovery(tkn, new_pswd, email);
+                                invokeEmailRecovery(tkn, new_pswd/*, email*/);
                                 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                             } else {
@@ -124,7 +155,7 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
 
     }
 
-    private void invokeEmailRecovery(String tkn, final String new_pswd, final String email) {
+    private void invokeEmailRecovery(String tkn, final String new_pswd/*, final String email*/) {
         try {
             JSONObject params = new JSONObject();
             try {
@@ -148,9 +179,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
                             if (loginResponseStatus.equals("true")) {
-                                editor.putString(CONSTANTS.email,email);
-                                editor.putString(CONSTANTS.pswd, new_pswd);
-                                editor.apply();
+//                                editor.putString(CONSTANTS.email,email);
+//                                editor.putString(CONSTANTS.pswd, new_pswd);
+//                                editor.apply();
                                 Intent intent = new Intent(RecoveryConfirmActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);

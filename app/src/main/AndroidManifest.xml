@@ -74,7 +74,8 @@
         <activity android:name=".UI.Activities.ECTActivity" />
         <activity android:name=".UI.Activities.ChangellyActivity" />
         <activity android:name=".UI.Activities.AddPhraseActivity" />
-        <activity android:name=".UI.Activities.ConfirmPhraseActivity"></activity>
+        <activity android:name=".UI.Activities.ConfirmPhraseActivity" />
+        <activity android:name=".UI.Activities.SeedRecoveryActivity"></activity>
     </application>
 
 </manifest>

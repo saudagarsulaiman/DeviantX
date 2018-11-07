@@ -38,6 +38,10 @@ public interface UserControllerApi {
     @GET("/api/account/get_seed")
     Call<ResponseBody> getSeed();
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/account/restore_seed")
+    Call<ResponseBody> restoreSeed(@Body String body);
+
 
 
 //    @FormUrlEncoded

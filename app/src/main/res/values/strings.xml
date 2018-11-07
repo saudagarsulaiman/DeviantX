@@ -196,7 +196,7 @@
     <string name="inc_privacy">Increased Privacy</string>
     <string name="screeenshots_dsiable"><![CDATA[Disable screenshots & screen preview on recent apps]]></string>
     <string name="hide_bal">Hide balances</string>
-    <string name="note_hide_bal">Hide sensitive informtion from account overview</string>
+    <string name="note_hide_bal">Hide sensitive information from account overview</string>
     <string name="screen_lock">Screen Lock</string>
     <string name="none">None</string>
     <string name="wallet">Wallet</string>
@@ -213,11 +213,11 @@
     <string name="old_pswd">Old password</string>
     <string name="note_old_pswd">Enter your current password.</string>
     <string name="new_pswd">New password</string>
-    <string name="my_pass">Mypassw</string>
+    <string name="my_pass">My password</string>
     <string name="hide_bal_active">Privacy: Hide Balance Activated</string>
     <string name="hide_bal_inactive">Privacy: Hide Balance Deactivated</string>
-    <string name="screenshots_active">Privacy: Screenshot Sheild Activated</string>
-    <string name="screenshots_inactive">Privacy: Screenshot Sheild Deactivated</string>
+    <string name="screenshots_active">Privacy: Screenshot Shield Activated</string>
+    <string name="screenshots_inactive">Privacy: Screenshot Shield Deactivated</string>
     <string name="nightmode_inactive">Night Mode Deactivated</string>
     <string name="nightmode_active">Night Mode Activated</string>
 
@@ -260,7 +260,7 @@
     <string name="empty_field">Field in empty</string>
     <string name="enter_code">Enter Code</string>
     <string name="empty_token">Token is empty</string>
-    <string name="pswd_changed_succcess">Password Changed Sucessfully</string>
+    <string name="pswd_changed_succcess">Password Changed Successfully</string>
     <string name="check_email">Please check your registered Email for OTP.</string>
     <string name="no_trans_avail">No Transactions Available</string>
 
@@ -302,6 +302,10 @@
     <string name="select_same_words_order">Please select the Words in same order</string>
     <string name="prof_updated_success">Profile updated successfully!</string>
     <string name="please_add_seed">Please Add Recovery Phrase After Login</string>
+
+    <string name="restore_acc_seed"><u>Restore your Account with Seed Phrase</u></string>
+    <string name="enter_seed">Enter Recovery Phrase</string>
+    <string name="note_seed_rec">Note: Please use two spaces between words</string>
 
 
 </resources>

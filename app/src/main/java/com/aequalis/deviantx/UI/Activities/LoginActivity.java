@@ -49,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText edt_pswd;
     @BindView(R.id.help_txt)
     TextView help_txt;
+    @BindView(R.id.txt_seed_recovery)
+    TextView txt_seed_recovery;
     @BindView(R.id.btn_login)
     Button btn_login;
 
@@ -90,6 +92,14 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.internetconnection));
                 }
+            }
+        });
+
+        txt_seed_recovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SeedRecoveryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -176,6 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString(CONSTANTS.pswd, s_pswd);
                                         editor.putString(CONSTANTS.token, loginResponseDataToken);
                                         editor.putBoolean(CONSTANTS.first_time, false);
+                                        editor.putBoolean(CONSTANTS.seed, true);
                                         editor.commit();
                                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

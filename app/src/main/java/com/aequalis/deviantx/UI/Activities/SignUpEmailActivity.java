@@ -115,7 +115,9 @@ public class SignUpEmailActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
 
-                matchingPasswordText(text);
+                CommonUtilities.matchingPasswordText(SignUpEmailActivity.this,text,txt_lower_case,txt_upper_case,txt_number,txt_chars);
+
+//                matchingPasswordText(text);
 
             }
         });

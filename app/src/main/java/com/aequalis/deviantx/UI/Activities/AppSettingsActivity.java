@@ -305,7 +305,9 @@ public class AppSettingsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                matchingPasswordText(s.toString(),txt_lower_case,txt_upper_case,txt_number,txt_chars);
+                String text=s.toString();
+//                CommonUtilities.matchingPasswordText(AppSettingsActivity.this, text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
+                matchingPasswordText(text,txt_lower_case,txt_upper_case,txt_number,txt_chars);
             }
         });
 
@@ -404,7 +406,7 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
             progressDialog = ProgressDialog.show(AppSettingsActivity.this, "", getResources().getString(R.string.please_wait), true);
             UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.updatePassword(params.toString(), CONSTANTS.DeviantMulti+tkn);
+            Call<ResponseBody> apiResponse = apiService.updatePassword(params.toString(), CONSTANTS.DeviantMulti + tkn);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
