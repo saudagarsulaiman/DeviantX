@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.aequalis.deviantx.UI.Activities.DashBoardActivity;
+import com.aequalis.deviantx.UI.Activities.SetUpWalletActivity;
 import com.aequalis.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.aequalis.deviantx.UI.Models.AccountWallet;
 import com.aequalis.deviantx.UI.Models.AllCoins;
@@ -63,6 +64,10 @@ public class DashboardFragment extends Fragment {
     TextView txt_wallet_bal;
     @BindView(R.id.txt_wallet_coin)
     TextView txt_wallet_coin;
+    @BindView(R.id.lnr_add_coins)
+    LinearLayout lnr_add_coins;
+
+
 //    @BindView(R.id.)
 //    TextView ;
 
@@ -129,13 +134,19 @@ public class DashboardFragment extends Fragment {
             if (myApplication.getHideBalance()) {
                 txt_wallet_bal.setText("~$ ***");
             } else {
-                txt_wallet_bal.setText("~$ " + String.format("%.4f",total_avail_bal));
+                txt_wallet_bal.setText("~$ " + String.format("%.4f", total_avail_bal));
             }
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
 
-
+        lnr_add_coins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SetUpWalletActivity.class);
+                startActivity(intent);
+            }
+        });
 //        lnr_wallet.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -309,9 +320,9 @@ public class DashboardFragment extends Fragment {
                                         txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
                                     }
                                 }
-                            } else if(loginResponseStatus.equals("401")){
-                                CommonUtilities.sessionExpired(getActivity(),loginResponseMsg);
-                            }else {
+                            } else if (loginResponseStatus.equals("401")) {
+                                CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
+                            } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
                             }
                         } else {

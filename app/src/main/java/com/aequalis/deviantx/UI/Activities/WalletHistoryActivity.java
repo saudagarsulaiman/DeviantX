@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -58,7 +60,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
     LinearLayout lnr_no_trans;
     @BindView(R.id.lnr_trans_avail)
     LinearLayout lnr_trans_avail;
-
 
 
     SharedPreferences sharedPreferences;
@@ -120,7 +121,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
         rview_trans_history.setAdapter(walletHistoryRAdapter);
 
-        
+
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
 //            Transaction History
             fetchTransactionHistory();
@@ -129,6 +130,29 @@ public class WalletHistoryActivity extends AppCompatActivity {
             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.internetconnection));
         }
 
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ArrayList<Transaction> searchCoinsList = new ArrayList<>();
+                for (Transaction senderAddress : transactions) {
+                    if (senderAddress.getStr_data_toAddress().toLowerCase().contains(s.toString().toLowerCase())) {
+                        searchCoinsList.add(senderAddress);
+                    }
+                }
+                walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, searchCoinsList);
+                rview_trans_history.setAdapter(walletHistoryRAdapter);
+            }
+        });
 
     }
 

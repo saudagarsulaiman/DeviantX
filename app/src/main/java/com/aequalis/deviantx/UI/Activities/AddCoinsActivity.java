@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.aequalis.deviantx.ServiceAPIs.CryptoControllerApi;
+import com.aequalis.deviantx.UI.Adapters.AllCoinsRAdapter;
 import com.aequalis.deviantx.UI.Adapters.CoinsListRAdapter;
 import com.aequalis.deviantx.UI.Models.AllCoins;
 import com.aequalis.deviantx.UI.Interfaces.CoinSelectableListener;
@@ -50,6 +54,8 @@ public class AddCoinsActivity extends AppCompatActivity {
     RecyclerView rview_coins_list;
     @BindView(R.id.btn_ready)
     Button btn_ready;
+    @BindView(R.id.edt_search)
+    EditText edt_search;
 
     CoinsListRAdapter coinsListRAdapter;
     GridLayoutManager layoutManager;
@@ -60,11 +66,12 @@ public class AddCoinsActivity extends AppCompatActivity {
 
     int int_data_id;
     Double dbl_coin_usdValue;
-    
+
     String loginResponseData, loginResponseStatus, loginResponseMsg,
-             str_coin_name, str_coin_code, str_coin_logo;
-    
+            str_coin_name, str_coin_code, str_coin_logo;
+
     ArrayList<AllCoins> allCoinsList;
+    CoinSelectableListener coinSelectableListener;
 
     @Override
     protected void onResume() {
@@ -108,6 +115,31 @@ public class AddCoinsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
+                for (AllCoins coinName : allCoinsList) {
+                    if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
+                        searchCoinsList.add(coinName);
+                    }
+                }
+                coinsListRAdapter = new CoinsListRAdapter(AddCoinsActivity.this, searchCoinsList, coinSelectableListener);
+                rview_coins_list.setAdapter(coinsListRAdapter);
+                coinsListRAdapter.notifyDataSetChanged();
             }
         });
 
@@ -168,12 +200,11 @@ public class AddCoinsActivity extends AppCompatActivity {
                                 }
 
 
-                                CoinSelectableListener coinSelectableListener = new CoinSelectableListener() {
+                                coinSelectableListener = new CoinSelectableListener() {
                                     @Override
-                                    public void CoinSelected(ArrayList<AllCoins> allCoinsList) {
+                                    public void CoinSelected(ArrayList<AllCoins> selected_allCoinsList) {
                                         btn_ready.setVisibility(View.GONE);
-
-
+                                        allCoinsList = selected_allCoinsList;
 //                                        for (final AllCoins coins : allCoinsList) {
 //                                            if (coins.getSelected()) {
 //                                                btn_ready.setVisibility(View.VISIBLE);
@@ -198,7 +229,7 @@ public class AddCoinsActivity extends AppCompatActivity {
 
                                         int i = 0;
                                         final AllCoins selectedCoin = new AllCoins();
-                                        for (AllCoins coins : allCoinsList) {
+                                        for (AllCoins coins : selected_allCoinsList) {
                                             if (coins.getSelected()) {
                                                 i++;
                                             }
@@ -208,9 +239,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                                         } else if (i > 1) {
                                             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.select_one));
                                         } else {
-                                            for (int j = 0; j < allCoinsList.size(); j++) {
-                                                if (allCoinsList.get(j).getSelected()) {
-                                                    selectedCoin.setStr_coin_code(allCoinsList.get(j).getStr_coin_code());
+                                            for (int j = 0; j < selected_allCoinsList.size(); j++) {
+                                                if (selected_allCoinsList.get(j).getSelected()) {
+                                                    selectedCoin.setStr_coin_code(selected_allCoinsList.get(j).getStr_coin_code());
                                                     btn_ready.setVisibility(View.VISIBLE);
                                                     btn_ready.setOnClickListener(new View.OnClickListener() {
                                                         @Override
@@ -231,7 +262,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                                 };
                                 coinsListRAdapter = new CoinsListRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);
                                 rview_coins_list.setAdapter(coinsListRAdapter);
-
+                                coinsListRAdapter.notifyDataSetChanged();
                             } else {
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
                             }

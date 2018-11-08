@@ -19,7 +19,7 @@
     <string name="signup_with">Or Sign up with</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
-    <string name="by_registering">By registering, you confirm that you accept our <font color='#01C6DB'>Terms and Conditions</font>.</string>
+    <string name="by_registering">By registering, you confirm that you accept our <font color='#01C6DB'>Terms and Conditions</font> of use of Deviant X.</string>
     <string name="have_acc">Do you have an account?</string>
     <string name="login">Login</string>
 
@@ -48,7 +48,7 @@
 
     <!--Terms Conditions Dialog-->
     <string name="terms_conditions">Terms and Conditions</string>
-    <string name="note_terms_conditions">By registering, you are accepting the <font color='#FBB03B'><u>Terms and Conditions of use</u></font> of Deviant X.</string>
+    <string name="note_terms_conditions">By registering, you are accepting the <font color='#FBB03B'><u>Terms and Conditions</u></font> of use of Deviant X.</string>
     <string name="agree">I Agree</string>
     <string name="reject">Reject</string>
 

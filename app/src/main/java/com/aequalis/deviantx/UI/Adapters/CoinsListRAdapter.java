@@ -44,20 +44,25 @@ public class CoinsListRAdapter extends RecyclerView.Adapter<CoinsListRAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
+        if(allCoinsList.get(i).getSelected()){
+            Picasso.with(context).load(R.drawable.dot_active).into(viewHolder.img_avail);
+//                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_active));
+            viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_yellow_lytblue_c5);
+        }else {
+            Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_avail);
+//                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_inactive));
+            viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_lytblue_c5);
+        }
+
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (allCoinsList.get(i).getSelected()) {
                     allCoinsList.get(i).setSelected(false);
-                    Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_avail);
-//                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_inactive));
-                    viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_lytblue_c5);
                 } else{
                     allCoinsList.get(i).setSelected(true);
-                    Picasso.with(context).load(R.drawable.dot_active).into(viewHolder.img_avail);
-//                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_active));
-                    viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_yellow_lytblue_c5);
                 }
+                notifyItemChanged(i);
                 coinSelectableListener.CoinSelected(allCoinsList);
             }
         });

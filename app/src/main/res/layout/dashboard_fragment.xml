@@ -142,6 +142,7 @@
             android:textSize="@dimen/def_text_size" />
 
         <LinearLayout
+            android:id="@+id/lnr_add_coins"
             android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

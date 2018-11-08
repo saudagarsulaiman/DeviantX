@@ -34,6 +34,7 @@ import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.aequalis.deviantx.ServiceAPIs.USDValues;
 import com.aequalis.deviantx.UI.Models.AccountWallet;
+import com.aequalis.deviantx.UI.Models.USDValue;
 import com.aequalis.deviantx.Utilities.CONSTANTS;
 import com.aequalis.deviantx.Utilities.CommonUtilities;
 import com.aequalis.deviantx.Utilities.DeviantXApiClient;
@@ -155,12 +156,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 }
             });
 
-//            selectedAccountWallet = new AccountWallet();
-//            Bundle bundle = getIntent().getExtras();
-//            selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
-
-//        Log.e("selectedAccount:::::\n", selectedAccountWallet.toString());
-
             edt_btcp_address.setHint(selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
 
             txt_avail_bal.setText("" + selectedAccountWallet.getStr_data_balance());
@@ -170,80 +165,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
             txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
 
-//            btn_send.setEnabled(false);
-
-//            edt_amount_bal.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable s) {
-//                    if (s.toString().trim().length() > 0) {
-//                        if (selectedAccountWallet.getStr_data_balance() > 0) {
-////                        Double value = CommonUtilities.getCoinUsdValue(selectedAccountWallet.getAllCoins().getStr_coin_code());
-////                        edt_fiat_bal.setText(""+value);
-//
-//                            String usd = sharedPreferences.getString(CONSTANTS.usdValue, "");
-//                            Double result = Double.parseDouble(usd) * Double.parseDouble(s.toString());
-//                            edt_fiat_bal.setText(result.toString());
-//                            btn_send.setEnabled(true);
-//
-//                        } else {
-//                            btn_send.setEnabled(false);
-////                        edt_amount_bal.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
-////                        edt_fiat_bal.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
-//                            edt_amount_bal.setError(getResources().getString(R.string.insufficient_fund));
-////                        CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
-//                        }
-//                    } else {
-//                        edt_amount_bal.setText("0");
-//                        edt_fiat_bal.setText("0");
-//                    }
-//
-//                }
-//            });
-//
-//            edt_fiat_bal.addTextChangedListener(new TextWatcher() {
-//                @Override
-//                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                }
-//
-//                @Override
-//                public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                }
-//
-//                @Override
-//                public void afterTextChanged(Editable s) {
-//                    if (s.toString().trim().length() > 0) {
-//                        if (selectedAccountWallet.getStr_data_balanceInUSD() > 0) {
-////                        Double value = CommonUtilities.getCoinValue(Double.parseDouble(edt_fiat_bal.getText().toString()),selectedAccountWallet.getAllCoins().getStr_coin_code(),selectedAccountWallet.getAllCoins().getStr_coin_usdValue());
-////                        edt_fiat_bal.setText(""+value);
-//                            String usd = sharedPreferences.getString(CONSTANTS.usdValue, "");
-//                            Double result = Double.parseDouble(usd) * Double.parseDouble(s.toString());
-//                            edt_amount_bal.setText(result.toString());
-//                            btn_send.setEnabled(true);
-//                        } else {
-//                            btn_send.setEnabled(false);
-////                        edt_fiat_bal.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
-////                        edt_amount_bal.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1)});
-////                        edt_fiat_bal.setError(getResources().getString(R.string.insufficient_fund));
-//                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
-//                        }
-//                    } else {
-//                        edt_amount_bal.setText("");
-//                        edt_fiat_bal.setText("");
-//                    }
-//                }
-//            });
             edt_amount_bal.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -425,27 +346,24 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         try {
             progressDialog = ProgressDialog.show(SendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             USDValues apiService = DeviantXApiClient.getClientValues().create(USDValues.class);
-            Call<ResponseBody> apiResponse = apiService.getUsdConversion(/*from_coin, to_coin*/);
+            Call<USDValue> apiResponse = apiService.getUsdConversion(from_coin/*, to_coin*/);
             Log.i("API:\t:", apiResponse.toString());
-            apiResponse.enqueue(new Callback<ResponseBody>() {
+            apiResponse.enqueue(new Callback<USDValue>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                public void onResponse(Call<USDValue> call, Response<USDValue> response) {
                     try {
-                        String responsevalue = response.body().string();
 
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                        if ( response != null) {
                             progressDialog.dismiss();
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            usdCoinValue = jsonObject.getDouble(to_coin);
-                            String str_coinValue = jsonObject.getString(to_coin);
-                            editor.putString(CONSTANTS.usdValue, str_coinValue);
+                            usdCoinValue = response.body().getUSD();
+                            editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
                             editor.apply();
 //                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, "fetched");
 //                            Log.e(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         } else {
 //                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                         }
 
                     } catch (Exception e) {
@@ -457,7 +375,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 }
 
                 @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                public void onFailure(Call<USDValue> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.Timeout));
@@ -472,7 +390,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            } );
         } catch (Exception ex) {
             progressDialog.dismiss();
             ex.printStackTrace();
