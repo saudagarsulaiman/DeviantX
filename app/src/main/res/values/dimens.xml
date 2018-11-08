@@ -354,6 +354,7 @@
     <dimen name="height160">160dp</dimen>
     <dimen name="width160">160dp</dimen>
     <dimen name="height65">65dp</dimen>
+    <dimen name="text11">11sp</dimen>
 
 
     <!--Newly Added-->

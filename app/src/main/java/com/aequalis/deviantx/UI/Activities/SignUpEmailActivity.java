@@ -1,6 +1,7 @@
 package com.aequalis.deviantx.UI.Activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,14 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -115,7 +122,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
 
-                CommonUtilities.matchingPasswordText(SignUpEmailActivity.this,text,txt_lower_case,txt_upper_case,txt_number,txt_chars);
+                CommonUtilities.matchingPasswordText(SignUpEmailActivity.this, text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
 
 //                matchingPasswordText(text);
 
@@ -166,14 +173,13 @@ public class SignUpEmailActivity extends AppCompatActivity {
 
         if (!s_usrnm.isEmpty()) {
             if (!s_email.isEmpty()) {
-                if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$") && s_email.length() >= 8) {
+                if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") && s_email.length() >= 8) {
                     if (!s_conf_email.isEmpty()) {
                         if (s_conf_email.equals(s_email)) {
                             if (!s_pswd.isEmpty()) {
                                 if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
                                     if (!s_conf_pswd.isEmpty()) {
                                         if (s_pswd.equals(s_conf_pswd)) {
-
                                             CustomDialog(s_usrnm, s_email, s_pswd);
                                             InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                                             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
@@ -182,7 +188,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
                                             CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_pswd));
                                         }
                                     } else {
-                                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_pswd));
+                                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_conf_pswd));
                                     }
                                 } else {
                                     CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.invalid_pswd));
@@ -194,7 +200,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
                             CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_email));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_email));
+                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_conf_email));
                     }
                 } else {
                     CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.invalid_email));
@@ -232,6 +238,24 @@ public class SignUpEmailActivity extends AppCompatActivity {
         View view = dialog.getHolderView();
         TextView txt_reject = view.findViewById(R.id.txt_reject);
         TextView txt_agree = view.findViewById(R.id.txt_agree);
+        TextView txt_tc = view.findViewById(R.id.txt_tc);
+        final LinearLayout lnr_tc = view.findViewById(R.id.lnr_tc);
+
+        SpannableString spannableString = new SpannableString(getResources().getString(R.string.note_terms_conditions));
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                lnr_tc.setVisibility(View.VISIBLE);
+//                TCDialog();
+//                dialog.dismiss();
+//                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
+            }
+        };
+        spannableString.setSpan(clickableSpan, spannableString.length() - 41, spannableString.length() - 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        txt_tc.setText(spannableString, TextView.BufferType.SPANNABLE);
+        txt_tc.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         txt_reject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,6 +275,40 @@ public class SignUpEmailActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+//    private void TCDialog() {
+//        //                Creating A Custom Dialog Using DialogPlus
+////        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_tc);
+////        final DialogPlus dialog = DialogPlus.newDialog(SignUpEmailActivity.this)
+////                .setContentHolder(viewHolder)
+////                .setGravity(Gravity.CENTER)
+////                .setCancelable(false)
+////                .setInAnimation(R.anim.fade_in_center)
+////                .setOutAnimation(R.anim.fade_out_center)
+////                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+////                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+////                .create();
+////
+//////                Initializing Widgets
+////        View view = dialog.getHolderView();
+////        TextView txt_close = view.findViewById(R.id.txt_close);
+//
+//        final Dialog dialog = new Dialog(SignUpEmailActivity.this);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setCancelable(false);
+//        dialog.setContentView(R.layout.dialog_tc);
+//        TextView txt_close = dialog.findViewById(R.id.txt_close);
+//
+//        txt_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+////                Displaying DialogPlus
+//        dialog.show();
+//    }
 
     private void RegisteringAccount(final String s_email, final String s_pswd, final String s_usrnm) {
         try {

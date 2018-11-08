@@ -19,8 +19,8 @@
     <string name="signup_with">Or Sign up with</string>
     <string name="facebook">Facebook</string>
     <string name="google">Google</string>
-    <string name="by_registering">By registering, you confirm that you accept our <font color='#01C6DB'>Terms of Use</font> and the fact that you have read and understood our <font color='#01C6DB'>Privacy Policy</font>.</string>
-    <string name="have_acc">Do you already have an account?</string>
+    <string name="by_registering">By registering, you confirm that you accept our <font color='#01C6DB'>Terms and Conditions</font>.</string>
+    <string name="have_acc">Do you have an account?</string>
     <string name="login">Login</string>
 
 
@@ -62,7 +62,7 @@
 
     <!--Login Activity-->
     <string name="login_deviantx">Login on Deviant X</string>
-    <string name="forgot_pswd">Have you forgotton your password?</string>
+    <string name="forgot_pswd">Forgot password?</string>
     <string name="get_help">Get Help</string>
 
 
@@ -303,9 +303,36 @@
     <string name="prof_updated_success">Profile updated successfully!</string>
     <string name="please_add_seed">Please Add Recovery Phrase After Login</string>
 
-    <string name="restore_acc_seed"><u>Restore your Account with Seed Phrase</u></string>
+    <string name="restore_acc_seed"><u>Restore your Account with Recovery Phrase</u></string>
     <string name="enter_seed">Enter Recovery Phrase</string>
     <string name="note_seed_rec">Note: Please use two spaces between words</string>
+    <string name="empty_conf_email">Confirm Email should not be empty!</string>
+
+    <!--TC Dialog @ SignUp Activity-->
+    <string name="ok">O K</string>
+    <string name="close">Close</string>
+    <string name="terms_conditions_service">Terms and Conditions of Service</string>
+    <string name="legal_disclaimer">Legal disclaimer</string>
+    <string name="tc_risk_factors">⦁\tRisk factors</string>
+    <string name="tc_dev_categ">Deviant X will not be responsible for any losses, damages, or claims from the following mentioned categories:</string>
+    <string name="tc_dev_categ_a">a) User errors such as forgotten passwords, wrong payments, and deletion of wallets.</string>
+    <string name="tc_dev_categ_b">b) Software problems of any Cryptocurrency related software or service , e.g., malware affecting user wallets, corrupted wallet files, unsafe Cryptographic libraries and/or any Cryptocurrency related softwares/services.</string>
+    <string name="tc_dev_categ_c">c) Security problems experienced by the user of any Cryptocurrency related software or service such as an unauthorized access to user wallets/accounts.</string>
+    <string name="tc_dev_categ_d">d) Actions of a third party such as bankruptcy of a service provider, information security attacks on service providers, and fraudulent activities by third parties.</string>
+    <string name="tc_dev_categ_e">e) Data loss due to damaged storage device resulting in technical failures in the hardware of the user.</string>
+    <string name="tc_adhe_tax">⦁\tAdherence with tax obligations</string>
+    <string name="tc_adhe_tax_desc">The end user of the Deviant X wallet is solely responsible for taxes that apply to their cryptocurrency transactions. The owners at Deviant X are in NO way responsible for tax determination that apply to the transactions being made.</string>
+    <string name="tc_trade_invest"><![CDATA[⦁\tTrading & Investment risks]]></string>
+    <string name="tc_trade_invest_desc">Any transaction involving currencies involves risks including, but not limited to the potential for changing economic conditions that may substantially affect the price or liquidity of a currency. Investments may also be susceptible to sharp rises/falls as the relevant market values fluctuate. There is always a considerable exposure to risk in any cryptocurrency related exchange transaction. It is advisable to use only risk capita when speculating in such markets.</string>
+    <string name="tc_etrade">⦁\tE-trading risks</string>
+    <string name="tc_etrade_desc">Online trading has inherent risks due to system responses and access times that will vary due to market conditions/system performances and many other factors. Users are thereby requested to carefully review the rules and regulations of the exchanges offering the system / listing you intend to trade. It is mandatory for all users to understand the additional risks in store before trading.</string>
+    <string name="tc_arbitration">⦁\tArbitration</string>
+    <string name="tc_arbitration_desc">The user of the wallet agrees to arbitrate any dispute arising from or in connection with the wallet or this disclaimer, except for disputes related to logos, copyrights, trademarks, trade names, and patents.</string>
+    <string name="tc_nil_war">⦁\tNil warranty</string>
+    <string name="tc_nil_war_desc">Services, content, data, and materials provided on this wallet will be without any warranties.</string>
+    <string name="tc_liability">⦁\tLiability scenarios</string>
+    <string name="tc_liability_desc">The owners, or contributors to the wallet, will not be liable for any damages of any kind, including but not limited to: loss of use, loss of profits, loss of data arising out of or in any way connecting with the wallet usage. The owners and contributors of Deviant X wallet, will also NOT be responsible for the actions, decisions, or other behaviors taken/not taken by you pertaining the usage of the wallet.</string>
+    <string name="tc_dev_final">This disclaimer was amended for the last time on November 1st 2018</string>
 
 
 </resources>

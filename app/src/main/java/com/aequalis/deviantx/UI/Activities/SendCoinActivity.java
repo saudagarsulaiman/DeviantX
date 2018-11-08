@@ -114,7 +114,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     }
 
 
-
     public static int PERMISSION_ALL = 1;
     public static String[] PERMISSIONS = {Manifest.permission.CAMERA};
 
@@ -139,9 +138,11 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+
         selectedAccountWallet = new AccountWallet();
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
+
 
         if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
 
@@ -159,6 +160,8 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //            selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
 //        Log.e("selectedAccount:::::\n", selectedAccountWallet.toString());
+
+            edt_btcp_address.setHint(selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
 
             txt_avail_bal.setText("" + selectedAccountWallet.getStr_data_balance());
             txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
@@ -328,13 +331,13 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                    /* Intent intent = new Intent("com.google.zxing.client.android.SCAN");
                     intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
                     startActivityForResult(intent, 0);*/
-                   if (hasPermissions(SendCoinActivity.this,PERMISSIONS)){
-                       mScannerLayout.setVisibility(View.VISIBLE);
-                       mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
-                       mScannerView.startCamera();
-                   }else {
-                       ActivityCompat.requestPermissions(SendCoinActivity.this, PERMISSIONS, PERMISSION_ALL);
-                   }
+                    if (hasPermissions(SendCoinActivity.this, PERMISSIONS)) {
+                        mScannerLayout.setVisibility(View.VISIBLE);
+                        mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
+                        mScannerView.startCamera();
+                    } else {
+                        ActivityCompat.requestPermissions(SendCoinActivity.this, PERMISSIONS, PERMISSION_ALL);
+                    }
                 }
             });
 
@@ -351,8 +354,8 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             mScannerLayout.setVisibility(View.VISIBLE);
             mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
             mScannerView.startCamera();
-        }else {
-            CommonUtilities.ShowToastMessage(SendCoinActivity.this,getResources().getString(R.string.cam_per_failed));
+        } else {
+            CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.cam_per_failed));
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 

@@ -8,10 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aequalis.deviantx.R;
@@ -43,6 +46,8 @@ public class ExploreCoinsFragment extends Fragment {
     View view;
     @BindView(R.id.rview_all_coins)
     RecyclerView rview_all_coins;
+    @BindView(R.id.edt_search)
+    EditText edt_search;
 
     AllCoinsRAdapter allCoinsRAdapter;
     LinearLayoutManager layoutManager;
@@ -82,6 +87,29 @@ public class ExploreCoinsFragment extends Fragment {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
 
+        edt_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                ArrayList<AllCoins> searchCoinsList=new ArrayList<>();
+                for (AllCoins coinName : allCoinsList){
+                    if(coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())){
+                        searchCoinsList.add(coinName);
+                    }
+                }
+                allCoinsRAdapter = new AllCoinsRAdapter(getActivity(), searchCoinsList);
+                rview_all_coins.setAdapter(allCoinsRAdapter);
+            }
+        });
 
         return view;
     }

@@ -14,9 +14,15 @@ import android.widget.TextView;
 import com.aequalis.deviantx.R;
 import com.aequalis.deviantx.UI.Models.Transaction;
 import com.aequalis.deviantx.Utilities.CONSTANTS;
+import com.aequalis.deviantx.Utilities.CommonUtilities;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,9 +60,10 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
+//        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
-//        viewHolder.txt_time.setText();
+        viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
+
         if (!hideBal) {
             if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
                 viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
@@ -101,5 +108,18 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
             ButterKnife.bind(this, itemView);
 
         }
+    }
+
+    private String getTime(String started) {
+
+        try {
+            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        return "";
     }
 }

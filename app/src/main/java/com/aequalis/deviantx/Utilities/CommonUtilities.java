@@ -32,6 +32,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 import static android.graphics.Color.BLACK;
@@ -284,6 +285,41 @@ public final class CommonUtilities {
             }
         }
     }
+
+
+
+    public static String convertToHumanReadable(long milliseconds) {
+        Calendar today = Calendar.getInstance();
+        Calendar postedDay = Calendar.getInstance();
+        postedDay.setTimeInMillis(milliseconds);
+        long day = 86400000L;
+        long hour = 3600000L;
+        long minute = 60000L;
+        long month = 2628000000L;
+        long year = 31536000000L;
+        int time;
+
+        if (today.getTimeInMillis() - postedDay.getTimeInMillis() > year) {
+            time = Math.round((today.getTimeInMillis() - postedDay.getTimeInMillis()) / year);
+            return time + (time == 1 ? "yr" : "yrs");
+        } else if (today.getTimeInMillis() - postedDay.getTimeInMillis() > month) {
+            time = Math.round((today.getTimeInMillis() - postedDay.getTimeInMillis()) / month);
+            return time + (time == 1 ? "m" : "m");
+        } else if (today.getTimeInMillis() - postedDay.getTimeInMillis() > day) {
+            time = Math.round((today.getTimeInMillis() - postedDay.getTimeInMillis()) / day);
+            return time + (time == 1 ? "d" : "d");
+        } else if (today.getTimeInMillis() - postedDay.getTimeInMillis() > hour) {
+            time = Math.round((today.getTimeInMillis() - postedDay.getTimeInMillis()) / hour);
+            return time + (time == 1 ? "hr" : "hrs");
+        } else {
+            time = Math.round((today.getTimeInMillis() - postedDay.getTimeInMillis()) / minute);
+            return time + (time == 1 ? "min" : "mins");
+        }
+    }
+
+
+
+
 
 //    public static boolean checkExtrnlStrgPermission(final Context context) {
 //        int result = ContextCompat.checkSelfPermission(context, WRITE_EXTERNAL_STORAGE);
