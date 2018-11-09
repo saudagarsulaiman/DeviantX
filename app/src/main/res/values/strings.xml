@@ -335,4 +335,12 @@
     <string name="tc_dev_final">This disclaimer was amended for the last time on November 1st 2018</string>
 
 
+    <!--ShapShift Activity-->
+    <string name="select_coins">Select the coins you wish to exchange</string>
+    <string name="exc_amt">Exchange Amount</string>
+    <string name="rev_amt">Receive Amount</string>
+    <string name="note_rate_fee">Given rate includes transaction fee</string>
+    <string name="note_add_to_wallet">The converted coins will be automatically added to your wallet.</string>
+
+
 </resources>
