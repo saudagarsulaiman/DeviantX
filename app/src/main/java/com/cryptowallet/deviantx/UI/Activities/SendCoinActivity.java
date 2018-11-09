@@ -155,7 +155,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
             edt_btcp_address.setHint(selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
 
-            txt_avail_bal.setText("" + selectedAccountWallet.getStr_data_balance());
+            txt_avail_bal.setText("" +String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
             txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
 
             Picasso.with(SendCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
