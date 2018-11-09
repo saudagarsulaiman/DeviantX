@@ -40,7 +40,7 @@ public final class CommonUtilities {
     public static final String URL = "http://178.128.15.223:7070";
 
     //Client Link
-//    public static final String URL = "http://";
+//    public static final String URL = "https://";
 
 
     private static Locale myLocale;
