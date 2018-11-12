@@ -3,9 +3,12 @@
     <string name="app_name">Deviant X</string>
 
 
+    <!--Digits-->
     <string name="lower_letters">abcdefghijklmnopqrstuvwxyz</string>
     <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digits">0123456789</string>
+
+
 
     <!-- Activity-->
 
@@ -143,7 +146,7 @@
     <string name="unmatch_conf_pswd">Confirm password does not match</string>
 
 
-    <!---->
+    <!--Dialog Coins Transactions-->
     <string name="empty_wallet">Wallet Name is empty</string>
     <string name="empty_coins_list">Your coin list is empty</string>
     <string name="add_coins">Add Coins</string>
@@ -220,6 +223,7 @@
     <string name="screenshots_inactive">Privacy: Screenshot Shield Deactivated</string>
     <string name="nightmode_inactive">Night Mode Deactivated</string>
     <string name="nightmode_active">Night Mode Activated</string>
+
 
     <!--Wallet Options Activity-->
     <string name="wallet_options">Options for this wallet</string>
@@ -307,6 +311,7 @@
     <string name="enter_seed">Enter Recovery Phrase</string>
     <string name="note_seed_rec">Note: Please use two spaces between words</string>
     <string name="empty_conf_email">Confirm Email should not be empty!</string>
+
 
     <!--TC Dialog @ SignUp Activity-->
     <string name="ok">O K</string>
