@@ -6,9 +6,10 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:layout_above="@+id/btn_continue"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_continue">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,6 +104,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.7"
+                            android:inputType="numberDecimal"
                             android:backgroundTint="@android:color/transparent"
                             android:maxLines="1"
                             android:singleLine="true"
@@ -117,11 +119,9 @@
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="center"
-                            android:text="ETH"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_lbl_size"
                             android:textStyle="bold" />
-
 
                     </LinearLayout>
 
@@ -139,13 +139,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_interchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/def_margin">
 
                 <ImageView
-                    android:id="@+id/img_interchange"
                     android:layout_width="@dimen/width40"
                     android:layout_height="@dimen/height40"
                     android:background="@drawable/cir_lytblue"
@@ -192,6 +192,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:inputType="none"
+                            android:editable="false"
                             android:layout_weight="0.7"
                             android:backgroundTint="@android:color/transparent"
                             android:maxLines="1"
@@ -203,11 +205,11 @@
                         <TextView
                             android:id="@+id/txt_rec_amt_code"
                             android:layout_width="0dp"
+                            android:inputType="numberDecimal"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
                             android:gravity="center"
-                            android:text="ETH"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_lbl_size"
                             android:textStyle="bold" />
@@ -239,7 +241,8 @@
                     android:layout_height="@dimen/height15"
                     android:layout_gravity="center"
                     android:background="@drawable/cir_grey"
-                    android:padding="@dimen/padding3" />
+                    android:padding="@dimen/padding4"
+                    android:src="@drawable/info_y" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -272,7 +275,6 @@
     </ScrollView>
 
     <Button
-        android:visibility="visible"
         android:id="@+id/btn_continue"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_btn_height"
@@ -282,15 +284,16 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/def_text_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_gradient"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
 
         <LinearLayout
