@@ -2,6 +2,9 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Adapters.ViewPagerAdapter;
+import com.cryptowallet.deviantx.UI.Fragments.StartedAFragment;
+import com.cryptowallet.deviantx.UI.Fragments.StartedBFragment;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +50,13 @@ public class WelcomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        viewPagerAdapter.addFragment(new StartedAFragment(), "");
+        viewPagerAdapter.addFragment(new StartedBFragment(), "");
         viewPager.setAdapter(viewPagerAdapter);
+
+//        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+//        viewPager.setAdapter(viewPagerAdapter);
 
         dotscount = viewPagerAdapter.getCount();
         dots = new ImageView[dotscount];
@@ -82,37 +94,6 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-//        btn_get_started.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                // custom dialog
-//                final Dialog dialog = new Dialog(context);
-//                dialog.setContentView(R.layout.dialog_get_started);
-//
-//                // set the custom dialog components - text, image and button
-//                Button signup_email_btn = dialog.findViewById(R.id.signup_email_btn);
-//                LinearLayout facebook_lnr_lyt = dialog.findViewById(R.id.facebook_lnr_lyt);
-//                LinearLayout google_lnr_lyt = dialog.findViewById(R.id.google_lnr_lyt);
-//                TextView login_txt = dialog.findViewById(R.id.login_txt);
-//
-//                WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-//                lp.copyFrom(dialog.getWindow().getAttributes());
-//                lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-//                lp.gravity = Gravity.BOTTOM;
-//                lp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-////                lp.x = 0;   //x position
-////                lp.y = 0;   //y position
-////                dialog.getWindow().setGravity(Gravity.BOTTOM);
-////                dialog.getWindow().getAttributes().gravity = Gravity.BOTTOM;
-//
-////                dialog.show();
-//                dialog.getWindow().setAttributes(lp);
-//
-//                dialog.show();
-//            }
-//        });
-
         btn_get_started.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,13 +108,6 @@ public class WelcomeActivity extends AppCompatActivity {
                         .setOutAnimation(R.anim.slide_out_bottom)
                         .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                         .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
                         .create();
 
 //                Initializing Widgets
@@ -186,4 +160,33 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+
+    public class ViewPagerAdapter  extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
 }

@@ -397,7 +397,6 @@ public class DashBoardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     //  Fragments Replacements
    /* private void loadFragment(Fragment fragment) {
         // load fragment

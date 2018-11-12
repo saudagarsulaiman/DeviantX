@@ -8,12 +8,13 @@
     <include
         android:id="@+id/tool_nav"
         layout="@layout/toolbar_nav" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/lnr_btm"
-        android:layout_below="@id/tool_nav"
-        android:layout_height="match_parent"/>
+        android:layout_below="@id/tool_nav" />
     <!--<FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
@@ -30,7 +31,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:visibility="visible"
             android:id="@+id/txt_btm_nav_lbl"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height25"
@@ -38,30 +38,32 @@
             android:gravity="center"
             android:text="@string/app_name"
             android:textColor="@color/grey"
-            android:textSize="@dimen/def_hint_size" />
+            android:textSize="@dimen/def_hint_size"
+            android:visibility="visible" />
+
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/magic_indicator"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_height="@dimen/large_navigator_height" />
+            android:layout_height="@dimen/large_navigator_height"
+            android:layout_alignParentBottom="true" />
 
-      <!--  <android.support.design.widget.BottomNavigationView
-            android:id="@+id/btm_nav"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:labelVisibilityMode="labeled"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin3"
-            app:menu="@menu/menu_btm_navigation" />-->
+        <!--  <android.support.design.widget.BottomNavigationView
+              android:id="@+id/btm_nav"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:labelVisibilityMode="labeled"
+              android:layout_gravity="center"
+              android:layout_marginTop="@dimen/margin3"
+              app:menu="@menu/menu_btm_navigation" />-->
 
     </LinearLayout>
 
-   <!-- <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height4"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin1"
-        android:background="@color/yellow" />-->
+    <!-- <View
+         android:id="@+id/view_line"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/height4"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="@dimen/margin1"
+         android:background="@color/yellow" />-->
 
 </RelativeLayout>

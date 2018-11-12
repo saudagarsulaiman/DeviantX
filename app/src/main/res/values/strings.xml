@@ -355,6 +355,10 @@
     <string name="u_trans">You will transfer</string>
     <string name="u_receive">You will receive</string>
     <string name="conf_terms_conditions">You confirm that you agree to our <font color='#FBB03B'>terms and conditions.</font></string>
+    <string name="started_a">End-to-end security</string>
+    <string name="started_a1">All your information is safe.</string>
+    <string name="started_b">Multi-coin  Wallet</string>
+    <string name="started_b1">Native Support for bitcoin and most major altcoins and tokens.</string>
 
 
 </resources>

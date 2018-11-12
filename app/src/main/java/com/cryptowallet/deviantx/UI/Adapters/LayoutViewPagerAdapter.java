@@ -14,7 +14,7 @@
 //
 //    private Context context;
 //    private LayoutInflater layoutInflater;
-//    private Integer[] images = {R.drawable.starteda, R.drawable.startedb};
+//    private Integer[] images = {R.drawable.starteda_fragment, R.drawable.startedb_fragment};
 //
 //    public LayoutViewPagerAdapter(Context context) {
 //        this.context = context;
