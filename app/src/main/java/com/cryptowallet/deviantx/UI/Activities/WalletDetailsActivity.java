@@ -115,8 +115,8 @@ public class WalletDetailsActivity extends AppCompatActivity {
                 txt_mywallet_usd.setText("$ *** USD");
                 txt_mywallet_btc.setText("***" + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
             } else {
-                txt_mywallet_usd.setText("$ " + String.format("%.2f", selectedAccountWallet.getStr_data_balanceInUSD()) + " USD");
-                txt_mywallet_btc.setText(String.format("%.2f", selectedAccountWallet.getStr_data_balance()) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+                txt_mywallet_usd.setText("$ " + String.format("%.4f", selectedAccountWallet.getStr_data_balanceInUSD()) + " USD");
+                txt_mywallet_btc.setText(String.format("%.4f", selectedAccountWallet.getStr_data_balance()) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
             }
             txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
 

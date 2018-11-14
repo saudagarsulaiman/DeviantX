@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
-            android:background="@drawable/rec_wh_gradient_c7"
+            android:background="@drawable/rec_wh_gradient_c2"
             android:orientation="horizontal"
             android:padding="20dp"
             android:weightSum="5">

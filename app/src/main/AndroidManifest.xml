@@ -10,13 +10,13 @@
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
-        android:name="com.cryptowallet.deviantx.Utilities.MyApplication"
+        android:name=".Utilities.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.SplashScreenActivity">
+        <activity android:name=".UI.Activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,47 +35,48 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.DashBoardActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.WelcomeActivity" />
+        <activity android:name=".UI.Activities.DashBoardActivity" />
+        <activity android:name=".UI.Activities.WelcomeActivity" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.SignUpEmailActivity"
+            android:name=".UI.Activities.SignUpEmailActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity"
+            android:name=".UI.Activities.SetUpWalletActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.LoginActivity"
+            android:name=".UI.Activities.LoginActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.AccountRecoveryActivity"
+            android:name=".UI.Activities.AccountRecoveryActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.WalletListActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.AppSettingsActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.DeviantXActivity" />
+        <activity android:name=".UI.Activities.WalletListActivity" />
+        <activity android:name=".UI.Activities.AppSettingsActivity" />
+        <activity android:name=".UI.Activities.DeviantXActivity" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity"
+            android:name=".UI.Activities.AddCoinsActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.HelpActivity" />
+        <activity android:name=".UI.Activities.HelpActivity" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.SearchActivity"
+            android:name=".UI.Activities.SearchActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.SendCoinActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.WalletDetailsActivity" />
+        <activity android:name=".UI.Activities.SendCoinActivity" />
+        <activity android:name=".UI.Activities.ReceiveCoinActivity" />
+        <activity android:name=".UI.Activities.CoinInformationActivity" />
+        <activity android:name=".UI.Activities.WalletOptionsActivity" />
+        <activity android:name=".UI.Activities.WalletDetailsActivity" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity"
+            android:name=".UI.Activities.WalletHistoryActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="com.cryptowallet.deviantx.UI.Activities.RecoveryConfirmActivity"
+            android:name=".UI.Activities.RecoveryConfirmActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.ShapeShiftActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.ECTActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.ChangellyActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.AddPhraseActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.ConfirmPhraseActivity" />
-        <activity android:name="com.cryptowallet.deviantx.UI.Activities.SeedRecoveryActivity"></activity>
+        <activity android:name=".UI.Activities.ShapeShiftActivity" />
+        <activity android:name=".UI.Activities.ECTActivity" />
+        <activity android:name=".UI.Activities.ChangellyActivity" />
+        <activity android:name=".UI.Activities.AddPhraseActivity" />
+        <activity android:name=".UI.Activities.ConfirmPhraseActivity" />
+        <activity android:name=".UI.Activities.SeedRecoveryActivity" />
+        <activity android:name=".UI.Activities.ExploreCoinsActivity"></activity>
     </application>
 
 </manifest>

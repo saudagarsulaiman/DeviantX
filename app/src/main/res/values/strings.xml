@@ -9,7 +9,6 @@
     <string name="digits">0123456789</string>
 
 
-
     <!-- Activity-->
 
     <!--Welcome Activity-->
@@ -283,9 +282,10 @@
     <string name="privatekey">Private Key</string>
     <string name="signup_deviantx">Sign up for Deviant X</string>
     <string name="coming_soon">Coming Soon</string>
-    <string name="devx_tools">Deviant X Tools</string>
-    <string name="devx_wallet">Deviant X Wallet</string>
-    <string name="devx_coin_list">Deviant X Coin List</string>
+    <string name="devx_tools">DeviantX Tools</string>
+    <string name="devx_wallet">DeviantX Wallet</string>
+    <string name="devx_airdrop">DeviantX Air Drop</string>
+    <string name="devx_coin_list">DeviantX Coin List</string>
     <string name="cancelled">Cancelled</string>
     <string name="cam_per_failed">Camera Permissions are not granted.</string>
     <string name="backup_rec_phrase">Backup Recovery Phrase</string>
@@ -356,9 +356,21 @@
     <string name="u_receive">You will receive</string>
     <string name="conf_terms_conditions">You confirm that you agree to our <font color='#FBB03B'>terms and conditions.</font></string>
     <string name="started_a">End-to-end security</string>
-    <string name="started_a1">All your information is safe.</string>
+    <string name="started_a1">All your information is safe, not even we get access.</string>
     <string name="started_b">Multi-coin  Wallet</string>
     <string name="started_b1">Native Support for bitcoin and most major altcoins and tokens.</string>
+
+
+    <!--WalletList (AirDrop) Fragment-->
+    <string name="air_drop">Air Drop</string>
+    <string name="reload">Reload</string>
+
+
+    <!--Coin Information Activity-->
+    <string name="change_24h">24h Change</string>
+    <string name="high_24h">24h High</string>
+    <string name="low_24h">24h Low</string>
+    <string name="info">Information</string>
 
 
 </resources>

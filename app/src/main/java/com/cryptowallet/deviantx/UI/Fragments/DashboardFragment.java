@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
+import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
@@ -62,6 +64,10 @@ public class DashboardFragment extends Fragment {
     TextView txt_wallet_coin;
     @BindView(R.id.lnr_add_coins)
     LinearLayout lnr_add_coins;
+    @BindView(R.id.img_add_coin)
+    ImageView img_add_coin;
+    @BindView(R.id.lnr_reload)
+    LinearLayout lnr_reload;
 
 
 //    @BindView(R.id.)
@@ -124,8 +130,18 @@ public class DashboardFragment extends Fragment {
         myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
         rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 
+
+        img_add_coin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
+            lnr_reload.setVisibility(View.GONE);
             fetchAccountWallet();
             if (myApplication.getHideBalance()) {
                 txt_wallet_bal.setText("~$ ***");
@@ -135,6 +151,25 @@ public class DashboardFragment extends Fragment {
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
+
+
+        lnr_reload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommonUtilities.isConnectionAvailable(getActivity())) {
+//            GET Account Wallet
+                    lnr_reload.setVisibility(View.GONE);
+                    fetchAccountWallet();
+                    if (myApplication.getHideBalance()) {
+                        txt_wallet_bal.setText("~$ ***");
+                    } else {
+                        txt_wallet_bal.setText("~$ " + String.format("%.4f", total_avail_bal));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                }
+            }
+        });
 
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +182,7 @@ public class DashboardFragment extends Fragment {
 //            @Override
 //            public void onClick(View v) {
 //                // load fragment
-//                Fragment fragment = new AccountListFragment();
+//                Fragment fragment = new AirDropFragment();
 //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 //                FragmentTransaction transaction = fragmentManager.beginTransaction();
 //                transaction.replace(R.id.frame_container, fragment);
@@ -174,11 +209,13 @@ public class DashboardFragment extends Fragment {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
 
+                            lnr_reload.setVisibility(View.GONE);
                             JSONObject jsonObject = new JSONObject(responsevalue);
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
+                                lnr_reload.setVisibility(View.GONE);
                                 loginResponseData = jsonObject.getString("data");
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
@@ -329,6 +366,7 @@ public class DashboardFragment extends Fragment {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        lnr_reload.setVisibility(View.VISIBLE);
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
@@ -338,15 +376,18 @@ public class DashboardFragment extends Fragment {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
+                        lnr_reload.setVisibility(View.VISIBLE);
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
+                        lnr_reload.setVisibility(View.VISIBLE);
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
 //                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
+                        lnr_reload.setVisibility(View.VISIBLE);
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
@@ -356,6 +397,7 @@ public class DashboardFragment extends Fragment {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+            lnr_reload.setVisibility(View.VISIBLE);
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }

@@ -30,6 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin5"
+            android:layout_marginLeft="@dimen/margin50"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/margin50"
             android:text="@string/started_a1"
             android:textColor="@color/white"
             android:textSize="@dimen/def_lbl_size" />
@@ -38,10 +41,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height30"
+        android:layout_height="@dimen/height80"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-        android:src="@drawable/getstarteda" />
+        android:src="@drawable/cloud_white" />
 
 
 </RelativeLayout>

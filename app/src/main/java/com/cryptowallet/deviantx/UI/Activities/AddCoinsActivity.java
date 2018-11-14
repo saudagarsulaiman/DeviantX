@@ -101,13 +101,13 @@ public class AddCoinsActivity extends AppCompatActivity {
         }
 
 
-        lnr_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddCoinsActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
+//        lnr_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(AddCoinsActivity.this, SearchActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         tool.setOnClickListener(new View.OnClickListener() {
@@ -241,14 +241,15 @@ public class AddCoinsActivity extends AppCompatActivity {
                                             for (int j = 0; j < selected_allCoinsList.size(); j++) {
                                                 if (selected_allCoinsList.get(j).getSelected()) {
                                                     selectedCoin.setStr_coin_code(selected_allCoinsList.get(j).getStr_coin_code());
+                                                    selectedCoin.setStr_coin_name(selected_allCoinsList.get(j).getStr_coin_name());
                                                     btn_ready.setVisibility(View.VISIBLE);
                                                     btn_ready.setOnClickListener(new View.OnClickListener() {
                                                         @Override
                                                         public void onClick(View v) {
                                                             if (CommonUtilities.isConnectionAvailable(AddCoinsActivity.this)) {
-                                                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "");
+//                                                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "");
 //                                                              Creating Wallet
-                                                                CreateWallet(wallet_name, selectedCoin.getStr_coin_code());
+                                                                CreateWallet(selectedCoin.getStr_coin_name(), selectedCoin.getStr_coin_code());
                                                             } else {
                                                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.internetconnection));
                                                             }
@@ -307,7 +308,6 @@ public class AddCoinsActivity extends AppCompatActivity {
     }
 
     private void CreateWallet(String wallet_name, String str_coin_code) {
-
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(AddCoinsActivity.this, "", getResources().getString(R.string.please_wait), true);

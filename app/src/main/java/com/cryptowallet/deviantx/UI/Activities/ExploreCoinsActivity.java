@@ -1,18 +1,17 @@
-package com.cryptowallet.deviantx.UI.Fragments;
+package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,13 +36,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ExploreCoinsFragment extends Fragment {
+public class ExploreCoinsActivity extends AppCompatActivity {
 
-    View view;
     @BindView(R.id.rview_all_coins)
     RecyclerView rview_all_coins;
     @BindView(R.id.edt_search)
     EditText edt_search;
+    @BindView(R.id.toolbar_center_back)
+    Toolbar toolbar_center_back;
 
     ExploreCoinsRAdapter allCoinsRAdapter;
     LinearLayoutManager layoutManager;
@@ -54,33 +54,39 @@ public class ExploreCoinsFragment extends Fragment {
 
     int int_coin_id;
     Double dbl_coin_usdValue;
-    String loginResponseData, loginResponseStatus, loginResponseMsg,  str_coin_name, str_coin_code, str_coin_logo;
+    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
     ArrayList<AllCoins> allCoinsList;
-    
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.explore_coins_fragment, container, false);
-        ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_explore_coins);
 
+        ButterKnife.bind(this);
 
-        sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        toolbar_center_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        sharedPreferences = ExploreCoinsActivity.this.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         allCoinsList = new ArrayList<>();
 
-        layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(ExploreCoinsActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_all_coins.setLayoutManager(layoutManager);
 
-//        allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity().getApplicationContext());
+//        allCoinsRAdapter = new ExploreCoinsRAdapter(ExploreCoinsActivity.this.getApplicationContext());
 //        rview_all_coins.setAdapter(allCoinsRAdapter);
 
-        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+        if (CommonUtilities.isConnectionAvailable(ExploreCoinsActivity.this)) {
             //GET ALL COINS
             fetchCoins();
         } else {
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+            CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.internetconnection));
         }
 
         edt_search.addTextChangedListener(new TextWatcher() {
@@ -96,24 +102,24 @@ public class ExploreCoinsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<AllCoins> searchCoinsList=new ArrayList<>();
-                for (AllCoins coinName : allCoinsList){
-                    if(coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())){
+                ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
+                for (AllCoins coinName : allCoinsList) {
+                    if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
                         searchCoinsList.add(coinName);
                     }
                 }
-                allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), searchCoinsList);
+                allCoinsRAdapter = new ExploreCoinsRAdapter(ExploreCoinsActivity.this, searchCoinsList);
                 rview_all_coins.setAdapter(allCoinsRAdapter);
             }
         });
 
-        return view;
     }
+
 
     private void fetchCoins() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(ExploreCoinsActivity.this, "", getResources().getString(R.string.please_wait), true);
             CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -162,15 +168,15 @@ public class ExploreCoinsFragment extends Fragment {
                                     }
                                     allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue));
                                 }
-                                allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), allCoinsList);
+                                allCoinsRAdapter = new ExploreCoinsRAdapter(ExploreCoinsActivity.this, allCoinsList);
                                 rview_all_coins.setAdapter(allCoinsRAdapter);
 
                             } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                                CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, loginResponseMsg);
                             }
 
                         } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
@@ -178,7 +184,7 @@ public class ExploreCoinsFragment extends Fragment {
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                        CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -187,15 +193,15 @@ public class ExploreCoinsFragment extends Fragment {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                        CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                        CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(ExploreCoinsActivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                        CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -203,7 +209,7 @@ public class ExploreCoinsFragment extends Fragment {
         } catch (Exception ex) {
             progressDialog.dismiss();
             ex.printStackTrace();
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+            CommonUtilities.ShowToastMessage(ExploreCoinsActivity.this, getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 

@@ -26,9 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Fragments.AccountListFragment;
+import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
 import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
-import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -145,13 +144,25 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.account_list, R.string.tools};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_wallet, R.string.devx_tools};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, /*R.drawable.selector_btm_nav_exp_coins,*/ R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
+    int[] channelsName = new int[]{R.string.dashboard, /*R.string.explore_coins,*/ R.string.air_drop, R.string.tools};
+    int[] channelTtlName = new int[]{R.string.app_name, /*R.string.devx_coin_list,*/ R.string.devx_airdrop, R.string.devx_tools};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
     LinearLayout lnr_nav_drwr_logout;
+
+    @Nullable
+    @BindView(R.id.lnr_nav_drwr_expcoins)
+    LinearLayout lnr_nav_drwr_expcoins;
+    @BindView(R.id.view_nav_drwr_expcoins)
+    View view_nav_drwr_expcoins;
+    @Nullable
+    @BindView(R.id.img_nav_drwr_expcoins)
+    ImageView img_nav_drwr_expcoins;
+    @Nullable
+    @BindView(R.id.txt_nav_drwr_expcoins)
+    TextView txt_nav_drwr_expcoins;
 
 
     SharedPreferences sharedPreferences;
@@ -213,7 +224,7 @@ public class DashBoardActivity extends AppCompatActivity {
                         img_tlbr_search.setVisibility(View.VISIBLE);
                         txt_btm_nav_lbl.setText(R.string.account_list);
                         view_line.setBackgroundColor(getResources().getColor(R.color.l_blue));
-                        loadFragment(new AccountListFragment());
+                        loadFragment(new AirDropFragment());
                         return true;
                     case R.id.item_btm_nav_tools:
                         img_tlbr_search.setVisibility(View.GONE);
@@ -254,6 +265,12 @@ public class DashBoardActivity extends AppCompatActivity {
                 navDrawerHelp();
             }
         });
+        lnr_nav_drwr_expcoins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navDrawerExpCoins();
+            }
+        });
         lnr_nav_drwr_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,11 +286,12 @@ public class DashBoardActivity extends AppCompatActivity {
         });
     }
 
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
-        adapter.addFragment(new ExploreCoinsFragment(), "");
-        adapter.addFragment(new AccountListFragment(), "");
+//        adapter.addFragment(new ExploreCoinsFragment(), "");
+        adapter.addFragment(new AirDropFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -291,14 +309,14 @@ public class DashBoardActivity extends AppCompatActivity {
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
                         break;
                     case 1:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
-                        break;
-                    case 2:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
                         break;
-                    case 3:
+                    case 2:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
                         break;
+//                    case 3:
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
+//                        break;
                     default:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
@@ -316,19 +334,21 @@ public class DashBoardActivity extends AppCompatActivity {
     private void navDrawerWallet() {
         view_nav_drwr_wallet.setVisibility(View.VISIBLE);
         view_nav_drwr_settings.setVisibility(View.GONE);
-        view_nav_drwr_deviant.setVisibility(View.GONE);
-        view_nav_drwr_help.setVisibility(View.GONE);
-
+        view_nav_drwr_expcoins.setVisibility(View.GONE);
+//        view_nav_drwr_deviant.setVisibility(View.GONE);
+//        view_nav_drwr_help.setVisibility(View.GONE);
 
         img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_selected));
         txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.yellow));
 
         img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
-        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
-        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
+        img_nav_drwr_expcoins.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_expcoins_unselected));
+        txt_nav_drwr_expcoins.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
+//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
+//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
 
 
         Intent intent = new Intent(DashBoardActivity.this, WalletListActivity.class);
@@ -339,62 +359,92 @@ public class DashBoardActivity extends AppCompatActivity {
     private void navDrawerSettings() {
         view_nav_drwr_settings.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
-        view_nav_drwr_deviant.setVisibility(View.GONE);
-        view_nav_drwr_help.setVisibility(View.GONE);
+        view_nav_drwr_expcoins.setVisibility(View.GONE);
+//        view_nav_drwr_deviant.setVisibility(View.GONE);
+//        view_nav_drwr_help.setVisibility(View.GONE);
 
         img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_selected));
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.yellow));
 
         img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_unselected));
         txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
-        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
-        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
+        img_nav_drwr_expcoins.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_expcoins_unselected));
+        txt_nav_drwr_expcoins.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
+//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
+//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
 
         Intent intent = new Intent(DashBoardActivity.this, AppSettingsActivity.class);
         startActivity(intent);
     }
 
-    private void navDrawerDeviant() {
-        view_nav_drwr_deviant.setVisibility(View.VISIBLE);
+
+    private void navDrawerExpCoins() {
+        view_nav_drwr_expcoins.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
         view_nav_drwr_settings.setVisibility(View.GONE);
-        view_nav_drwr_help.setVisibility(View.GONE);
+//        view_nav_drwr_deviant.setVisibility(View.GONE);
+//        view_nav_drwr_help.setVisibility(View.GONE);
 
-        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_selected));
-        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.yellow));
+        img_nav_drwr_expcoins.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_expcoins_selected));
+        txt_nav_drwr_expcoins.setTextColor(getResources().getColor(R.color.yellow));
 
         img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_unselected));
-        txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
+        txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.green));
         img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
-        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
+//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
+//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
 
-        Intent intent = new Intent(DashBoardActivity.this, DeviantXActivity.class);
+
+        Intent intent = new Intent(DashBoardActivity.this, ExploreCoinsActivity.class);
         startActivity(intent);
+        
+    }
+
+
+    private void navDrawerDeviant() {
+//        view_nav_drwr_deviant.setVisibility(View.VISIBLE);
+//        view_nav_drwr_wallet.setVisibility(View.GONE);
+//        view_nav_drwr_settings.setVisibility(View.GONE);
+//        view_nav_drwr_help.setVisibility(View.GONE);
+//
+//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_selected));
+//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.yellow));
+//
+//        img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_unselected));
+//        txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
+//        txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
+//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
+//
+//        Intent intent = new Intent(DashBoardActivity.this, DeviantXActivity.class);
+//        startActivity(intent);
     }
 
     private void navDrawerHelp() {
-        view_nav_drwr_help.setVisibility(View.VISIBLE);
-        view_nav_drwr_wallet.setVisibility(View.GONE);
-        view_nav_drwr_settings.setVisibility(View.GONE);
-        view_nav_drwr_deviant.setVisibility(View.GONE);
-
-        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_selected));
-        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.yellow));
-
-        img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_unselected));
-        txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
-        txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
-        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
-        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
-
-
-        Intent intent = new Intent(DashBoardActivity.this, HelpActivity.class);
-        startActivity(intent);
+//        view_nav_drwr_help.setVisibility(View.VISIBLE);
+//        view_nav_drwr_wallet.setVisibility(View.GONE);
+//        view_nav_drwr_settings.setVisibility(View.GONE);
+//        view_nav_drwr_deviant.setVisibility(View.GONE);
+//
+//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_selected));
+//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.yellow));
+//
+//        img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_unselected));
+//        txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
+//        txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
+//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
+//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
+//
+//
+//        Intent intent = new Intent(DashBoardActivity.this, HelpActivity.class);
+//        startActivity(intent);
     }
 
     //  Fragments Replacements

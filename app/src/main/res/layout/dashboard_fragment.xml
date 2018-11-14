@@ -41,9 +41,9 @@
                 android:layout_weight="0.8"
                 android:gravity="center"
                 android:text="%"
-                android:visibility="gone"
                 android:textColor="@color/grey"
-                android:textSize="@dimen/def_text_size" />
+                android:textSize="@dimen/def_text_size"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -57,14 +57,14 @@
             android:textSize="@dimen/text22" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/txt_wallet_coin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin5"
             android:text="~0 BTC"
             android:textColor="@color/grey"
-            android:textSize="@dimen/def_text_size" />
+            android:textSize="@dimen/def_text_size"
+            android:visibility="gone" />
 
         <!--<com.jjoe64.graphview.GraphView-->
         <!--android:id="@+id/graph"-->
@@ -95,7 +95,21 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/img_add_coin"
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:src="@drawable/add_coin" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
             android:gravity="end">
 
             <ImageView
@@ -115,6 +129,35 @@
         android:layout_marginTop="@dimen/margin10"
         android:layout_marginRight="@dimen/def_margin"
         android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/lnr_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/width50"
+            android:layout_height="@dimen/height50"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_dlg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="@string/reload"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size" />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/lnr_empty_coins"
@@ -143,11 +186,11 @@
 
         <LinearLayout
             android:id="@+id/lnr_add_coins"
-            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible">
 
             <ImageView
                 android:layout_width="@dimen/width16"

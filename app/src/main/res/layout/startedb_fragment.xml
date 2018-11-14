@@ -42,10 +42,10 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height30"
+        android:layout_height="@dimen/height80"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
-        android:src="@drawable/getstarteda" />
+        android:src="@drawable/cloud_white" />
 
 
 </RelativeLayout>

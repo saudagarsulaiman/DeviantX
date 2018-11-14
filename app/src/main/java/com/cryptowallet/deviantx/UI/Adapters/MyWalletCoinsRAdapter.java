@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.SendCoinActivity;
+import com.cryptowallet.deviantx.UI.Activities.WalletDetailsActivity;
+import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
@@ -52,8 +54,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         editor = sharedPreferences.edit();
         this.hideBal = myApplication.getHideBalance();
     }
-    public void setIsHideBalance(Boolean isHideBalance){
-        this.hideBal=isHideBalance;
+
+    public void setIsHideBalance(Boolean isHideBalance) {
+        this.hideBal = isHideBalance;
     }
 
     @NonNull
@@ -148,6 +151,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         LinearLayout lnr_send = view.findViewById(R.id.lnr_send);
         LinearLayout lnr_receive = view.findViewById(R.id.lnr_receive);
         LinearLayout lnr_delete = view.findViewById(R.id.lnr_delete);
+        LinearLayout lnr_details = view.findViewById(R.id.lnr_details);
+        LinearLayout lnr_history = view.findViewById(R.id.lnr_history);
 
         TextView txt_coin_value = view.findViewById(R.id.txt_coin_value);
         TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
@@ -180,9 +185,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         txt_rank.setText(accountWallet.getAllCoins().getInt_coin_rank() + "#");
         txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
         txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
-        txt_h_per.setText( rank.format(accountWallet.getAllCoins().getDbl_coin_24h())+" %");
-        txt_d_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_7d())+" %");
-        txt_m_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_1m())+" %");
+        txt_h_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + " ");
+        txt_d_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + " ");
+        txt_m_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + " ");
 
 
         lnr_information.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +223,30 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
+        lnr_details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WalletDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        lnr_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, WalletHistoryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
         lnr_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,7 +265,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        return 10;
         return accountWalletlist.size();
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

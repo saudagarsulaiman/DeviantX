@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.AllCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MyAdapter;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;

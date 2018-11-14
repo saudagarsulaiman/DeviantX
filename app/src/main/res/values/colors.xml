@@ -55,7 +55,11 @@
     <color name="bg_end_wh">#0C3259</color>
     <color name="bg_center_wh">#065372</color>
     <color name="bg_start_wh">#00748B</color>
+
     <color name="share">#3A3E5F</color>
+
+
+    <color name="yellow_trans">#13fa8704</color>
 
 
 </resources>

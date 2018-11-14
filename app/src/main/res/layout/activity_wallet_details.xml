@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginRight="@dimen/def_margin"
             android:orientation="vertical">
@@ -32,7 +32,7 @@
                 <ImageView
                     android:id="@+id/img_coin_logo"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
                     android:layout_weight="0.6"
                     android:src="@drawable/ic_dlg" />
@@ -57,7 +57,6 @@
                     android:layout_weight="1.4"
                     android:gravity="end"
                     android:orientation="vertical"
-                    android:paddingTop="@dimen/padding5"
                     android:paddingEnd="@dimen/padding10"
                     android:paddingRight="@dimen/padding10">
 
@@ -85,7 +84,6 @@
                         android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
-
 
             </LinearLayout>
 

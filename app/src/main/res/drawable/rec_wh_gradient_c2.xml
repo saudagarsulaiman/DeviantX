@@ -9,6 +9,6 @@
         android:startColor="@color/bg_start_wh"
         android:type="linear" />
 
-    <corners android:radius="@dimen/radius7"/>
+    <corners android:radius="@dimen/radius2"/>
 
 </shape>

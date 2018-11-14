@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lnr_my_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height70"
+        android:background="@drawable/rec_lytblue_c8"
+        android:layout_marginTop="@dimen/margin5"
+        android:layout_marginBottom="@dimen/margin5"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingBottom="@dimen/padding7"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/txt_wallet_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:gravity="start"
+            android:paddingStart="@dimen/padding20"
+            android:paddingLeft="@dimen/padding20"
+            android:text="@string/my_wallet"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:layout_weight="0.9"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txt_wallet_bal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="~$ 0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txt_wallet_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="0 BTC"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

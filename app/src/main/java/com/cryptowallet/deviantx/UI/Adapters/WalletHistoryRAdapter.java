@@ -68,7 +68,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
                 viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
 
             }
-            viewHolder.txt_trans_amount.setText(transactionList.get(i).getdbl_data_coinValue() + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
         } else {
             viewHolder.txt_trans_address.setText("To " + "***");
             viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());

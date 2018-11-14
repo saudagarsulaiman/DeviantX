@@ -52,7 +52,6 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
     }
 
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(mLineColor);
@@ -60,13 +59,13 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
         mPaint.setStyle(Paint.Style.FILL);       // set to FILL
         mPaint.setStrokeJoin(Paint.Join.ROUND);    // set the join to round you want
         mPaint.setStrokeCap(Paint.Cap.ROUND);      // set the paint cap to round too
-        mPaint.setPathEffect(new CornerPathEffect(20) );   // set the path effect when they join.
+        mPaint.setPathEffect(new CornerPathEffect(20));   // set the path effect when they join.
         mPaint.setAntiAlias(true);
         if (mReverse) {
             canvas.drawRect(0, getHeight() - mYOffset - mTriangleHeight, getWidth(), getHeight() - mYOffset - mTriangleHeight + mLineHeight, mPaint);
         } else {
             canvas.drawRect(0, getHeight() - mLineHeight - mYOffset, getWidth(), getHeight() - mYOffset, mPaint);
-          //  canvas.drawCircle(getHeight() - mLineHeight - mYOffset, getHeight(), 10, mPaint);
+            //  canvas.drawCircle(getHeight() - mLineHeight - mYOffset, getHeight(), 10, mPaint);
         }
         mPath.reset();
         if (mReverse) {
@@ -86,15 +85,15 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         // 计算颜色
-        if (position==0) {
-            mLineColor= Color.parseColor("#ed871a");
-        }else  if (position==1) {
-            mLineColor= Color.parseColor("#64182A");
-        }else  if (position==2) {
-            mLineColor= Color.parseColor("#01C6DB");
-        }else  if (position==3) {
-            mLineColor= Color.parseColor("#8B00DC");
-        }
+        if (position == 0) {
+            mLineColor = Color.parseColor("#ed871a");
+        } else if (position == 1) {
+            mLineColor = Color.parseColor("#01C6DB");
+        } else if (position == 2) {
+            mLineColor = Color.parseColor("#8B00DC");
+        } /*else if (position == 3) {
+            mLineColor = Color.parseColor("#64182A");
+        }*/
 
         if (mPositionDataList == null || mPositionDataList.isEmpty()) {
             return;
@@ -112,7 +111,7 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
         invalidate();
     }
 
-    public void setInvalidate(){
+    public void setInvalidate() {
         invalidate();
     }
 

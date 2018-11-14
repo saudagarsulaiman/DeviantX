@@ -54,18 +54,27 @@ public class SetUpWalletActivity extends AppCompatActivity {
                 if (s_WalletName.isEmpty()) {
                     CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, getResources().getString(R.string.empty_wallet));
                 } else {
-                    Intent intent = new Intent(SetUpWalletActivity.this, AddCoinsActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(CONSTANTS.walletName,s_WalletName);
-//                    intent.putExtras(bundle);
-//                    editor.putBoolean(CONSTANTS.wallet,true);
-                    editor.putString(CONSTANTS.walletName,s_WalletName);
-                    editor.apply();
-                    startActivity(intent);
+                    if (CommonUtilities.isConnectionAvailable(SetUpWalletActivity.this)){
+                        createWallet(s_WalletName);
+                    }else {
+                        CommonUtilities.ShowToastMessage(SetUpWalletActivity.this,getResources().getString(R.string.internetconnection));
+                    }
                 }
             }
         });
 
+    }
+
+    private void createWallet(String s_walletName) {
+
+        Intent intent = new Intent(SetUpWalletActivity.this, DashBoardActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString(CONSTANTS.walletName,s_WalletName);
+//                    intent.putExtras(bundle);
+//                    editor.putBoolean(CONSTANTS.wallet,true);
+//                    editor.putString(CONSTANTS.walletName,s_WalletName);
+//                    editor.apply();
+        startActivity(intent);
     }
 
     /**
