@@ -22,6 +22,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.WalletHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.CryptoWallet;
 import com.cryptowallet.deviantx.UI.Models.Transaction;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -67,8 +68,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     int int_data_id;
-    String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account;
-    Double dbl_data_coinValue;
+    String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, str_data_cryptoWallet_address;
+    Double dbl_data_coinValue, dbl_data_cryptoWallet_bal;
     AllCoins allCoins;
     int int_coin_id;
     Double dbl_coin_usdValue;
@@ -114,13 +115,13 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(WalletHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_trans_history.setLayoutManager(layoutManager);
-        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
+        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions, selectedAccountWallet);
         rview_trans_history.setAdapter(walletHistoryRAdapter);
 
 
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
 //            Transaction History
-            fetchTransactionHistory();
+            fetchTransactionHistory(selectedAccountWallet);
 
         } else {
             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.internetconnection));
@@ -145,14 +146,14 @@ public class WalletHistoryActivity extends AppCompatActivity {
                         searchCoinsList.add(senderAddress);
                     }
                 }
-                walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, searchCoinsList);
+                walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, searchCoinsList, selectedAccountWallet);
                 rview_trans_history.setAdapter(walletHistoryRAdapter);
             }
         });
 
     }
 
-    private void fetchTransactionHistory() {
+    private void fetchTransactionHistory(final AccountWallet selectedAccountWallet) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
@@ -212,20 +213,16 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                             }
 
                                             try {
-                                                str_data_account = jsonObjectData.getString("account");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_cryptoWallet = jsonObjectData.getString("cryptoWallet");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
                                                 str_data_icoTokenwallet = jsonObjectData.getString("icoTokenwallet");
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
+                                            try {
+                                                str_data_account = jsonObjectData.getString("account");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
 
                                             try {
                                                 str_data_coin = jsonObjectData.getString("coin");
@@ -258,10 +255,32 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
+
+
+                                            try {
+                                                str_data_cryptoWallet = jsonObjectData.getString("cryptoWallet");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            if (!str_data_cryptoWallet.isEmpty()) {
+                                                JSONObject jsonObjectcrypto = new JSONObject(str_data_cryptoWallet);
+                                                try {
+                                                    str_data_cryptoWallet_address = jsonObjectcrypto.getString("address");
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                                try {
+                                                    dbl_data_cryptoWallet_bal = jsonObjectcrypto.getDouble("balance");
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            CryptoWallet cryptoWallet = new CryptoWallet(str_data_cryptoWallet_address, dbl_data_cryptoWallet_bal);
                                             AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue);
-                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, allCoins));
+                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, allCoins, cryptoWallet));
                                         }
-                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions);
+                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions, selectedAccountWallet);
                                         rview_trans_history.setAdapter(walletHistoryRAdapter);
                                     }
 

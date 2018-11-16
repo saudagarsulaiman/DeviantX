@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.Transaction;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 
@@ -25,16 +27,15 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     Context context;
     ArrayList<Transaction> transactionList;
     Transaction transaction;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     boolean hideBal;
+    AccountWallet selectedAccountWallet;
 
-    public WalletHistoryRAdapter(Context context, ArrayList<Transaction> transactions) {
+    public WalletHistoryRAdapter(Context context, ArrayList<Transaction> transactions, AccountWallet selectedAccountWallet) {
         this.context = context;
         this.transactionList = transactions;
         transaction = null;
         this.hideBal = myApplication.getHideBalance();
-
+        this.selectedAccountWallet = selectedAccountWallet;
     }
 
     public void setIsHideBalance(Boolean isHideBalance) {
@@ -52,27 +53,31 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
+        if (selectedAccountWallet.getStr_data_address().equals(transactionList.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
+//            viewHolder.lnr_trans_avail.setVisibility(View.VISIBLE);
+//            viewHolder.lnr_no_trans.setVisibility(View.GONE);
 //        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
-        viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
+            viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
+            if (!hideBal) {
+                if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
+                    viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+                } else {
+                    String address = transactionList.get(i).getStr_data_toAddress();
+                    String dummy = "{...}";
+                    String first_half = String.format("%.7s", address);
+                    String second_half = address.substring(address.length() - 7);
 
-        if (!hideBal) {
-            if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
-                viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+                    viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
+
+                }
+                viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
             } else {
-                String address = transactionList.get(i).getStr_data_toAddress();
-                String dummy = "{...}";
-                String first_half = String.format("%.7s", address);
-                String second_half = address.substring(address.length() - 7);
-
-                viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
-
+                viewHolder.txt_trans_address.setText("To " + "***");
+                viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
             }
-            viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
-        } else {
-            viewHolder.txt_trans_address.setText("To " + "***");
-            viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
         }
+
     }
 
     @Override
@@ -93,6 +98,12 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         TextView txt_trans_address;
         @BindView(R.id.txt_trans_amount)
         TextView txt_trans_amount;
+
+        @BindView(R.id.lnr_no_trans)
+        LinearLayout lnr_no_trans;
+        @BindView(R.id.lnr_trans_avail)
+        LinearLayout lnr_trans_avail;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
