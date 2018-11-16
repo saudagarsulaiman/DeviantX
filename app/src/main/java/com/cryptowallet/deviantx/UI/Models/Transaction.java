@@ -3,15 +3,16 @@ package com.cryptowallet.deviantx.UI.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Transaction implements Parcelable{
+public class Transaction implements Parcelable {
 
     int int_data_id;
-    String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet,str_data_icoTokenwallet, str_data_account;
+    String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account;
     Double dbl_data_coinValue;
     AllCoins allCoins;
+    CryptoWallet cryptoWallet;
 
 
-    public Transaction(int int_data_id, String str_data_txnHash, String str_data_toAddress, String str_data_txnDate, String str_data_cryptoWallet, String str_data_icoTokenwallet, String str_data_account, Double dbl_data_coinValue, AllCoins allCoins) {
+    public Transaction(int int_data_id, String str_data_txnHash, String str_data_toAddress, String str_data_txnDate, String str_data_cryptoWallet, String str_data_icoTokenwallet, String str_data_account, Double dbl_data_coinValue, AllCoins allCoins, CryptoWallet cryptoWallet) {
         this.int_data_id = int_data_id;
         this.str_data_txnHash = str_data_txnHash;
         this.str_data_toAddress = str_data_toAddress;
@@ -21,13 +22,13 @@ public class Transaction implements Parcelable{
         this.str_data_account = str_data_account;
         this.dbl_data_coinValue = dbl_data_coinValue;
         this.allCoins = allCoins;
+        this.cryptoWallet = cryptoWallet;
     }
 
 
     public Transaction() {
 
     }
-
 
     protected Transaction(Parcel in) {
         int_data_id = in.readInt();
@@ -43,6 +44,7 @@ public class Transaction implements Parcelable{
             dbl_data_coinValue = in.readDouble();
         }
         allCoins = in.readParcelable(AllCoins.class.getClassLoader());
+        cryptoWallet = in.readParcelable(CryptoWallet.class.getClassLoader());
     }
 
     public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
@@ -56,6 +58,22 @@ public class Transaction implements Parcelable{
             return new Transaction[size];
         }
     };
+
+    public Double getDbl_data_coinValue() {
+        return dbl_data_coinValue;
+    }
+
+    public void setDbl_data_coinValue(Double dbl_data_coinValue) {
+        this.dbl_data_coinValue = dbl_data_coinValue;
+    }
+
+    public CryptoWallet getCryptoWallet() {
+        return cryptoWallet;
+    }
+
+    public void setCryptoWallet(CryptoWallet cryptoWallet) {
+        this.cryptoWallet = cryptoWallet;
+    }
 
     public int getInt_data_id() {
         return int_data_id;
@@ -150,5 +168,6 @@ public class Transaction implements Parcelable{
             dest.writeDouble(dbl_data_coinValue);
         }
         dest.writeParcelable(allCoins, flags);
+        dest.writeParcelable(cryptoWallet, flags);
     }
 }
