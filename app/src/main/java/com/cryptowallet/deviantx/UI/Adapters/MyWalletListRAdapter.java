@@ -1,18 +1,23 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Activities.EditWalletActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletListActivity;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import java.util.ArrayList;
 
@@ -46,20 +51,24 @@ public class MyWalletListRAdapter extends RecyclerView.Adapter<MyWalletListRAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.txt_wallet_name.setText(walletList.get(i).getStr_data_name());
-        if (hideBal){
+        if (hideBal) {
             viewHolder.txt_wallet_bal.setText("~$ " + "***");
-        }else {
+        } else {
             viewHolder.txt_wallet_bal.setText("~$ " + String.format("%.4f", walletList.get(i).getDbl_data_totalBal()));
         }
-//        viewHolder.lnr_my_wallet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        viewHolder.lnr_my_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditWalletActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CONSTANTS.walletName, walletList.get(i).getStr_data_name());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

@@ -13,9 +13,13 @@ public interface WalletControllerApi {
     @GET("/api/wallet/get_all_wallet")
     Call<ResponseBody> getAllWallet(@Header("Authorization") String tokenDX);
 
-//    @Headers("Content-Type: application/json")
+    //    @Headers("Content-Type: application/json")
     @GET("/api/wallet/new_wallet/{name}/{defaultWallet}")
     Call<ResponseBody> getAddNewWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("defaultWallet") boolean defaultWallet);
 
+
+    //    @Headers("Content-Type: application/json")
+    @GET("/api/wallet/update_wallet/{name}/{defaultWallet}")
+    Call<ResponseBody> updateWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("defaultWallet") boolean defaultWallet);
 
 }

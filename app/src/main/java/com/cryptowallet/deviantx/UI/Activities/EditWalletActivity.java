@@ -71,6 +71,10 @@ public class EditWalletActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        Bundle bundle = getIntent().getExtras();
+        String walletName = bundle.getString(CONSTANTS.walletName, null);
+        edt_wallet.setText(walletName);
+        
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +106,7 @@ public class EditWalletActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(EditWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAddNewWallet(CONSTANTS.DeviantMulti + token, s_walletName);
+            Call<ResponseBody> apiResponse = apiService.updateWallet(CONSTANTS.DeviantMulti + token, s_walletName, scompat_defWallet.isChecked());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -111,22 +115,11 @@ public class EditWalletActivity extends AppCompatActivity {
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
-
                             JSONObject jsonObject = new JSONObject(responsevalue);
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
-
                             if (loginResponseStatus.equals("true")) {
-                                editor.putBoolean(CONSTANTS.empty_wallet, false);
-                                editor.apply();
-                                Intent intent = new Intent(EditWalletActivity.this, DashBoardActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(CONSTANTS.walletName,s_WalletName);
-//                    intent.putExtras(bundle);
-//                    editor.putBoolean(CONSTANTS.wallet,true);
-//                    editor.putString(CONSTANTS.walletName,s_WalletName);
-//                    editor.apply();
-                                startActivity(intent);
+                                onBackPressed();
                             } else {
                                 CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
                             }
