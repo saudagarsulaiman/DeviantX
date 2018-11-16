@@ -39,18 +39,13 @@
 
               -->
             <com.cryptowallet.deviantx.Utilities.VerticalTextView
+                android:id="@+id/new_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:outlineAmbientShadowColor="@color/white"
-                android:outlineSpotShadowColor="@color/white"
-                android:shadowColor="@color/white"
                 android:text="@string/new_wallet"
                 android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="@color/white"
-                android:textColorLink="@color/white"
                 android:textSize="@dimen/def_text_size" />
 
 

@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,7 @@ import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.VerticalTextView;
 import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
@@ -59,7 +62,7 @@ import retrofit2.Response;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
-public class DashboardFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> /*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>*/ {
+public class DashboardFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>/*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>*/ {
 
     View view;
     //    @BindView(R.id.viewPager)
@@ -90,6 +93,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     LinearLayout lnr_new_wallet;
     @BindView(R.id.item_picker)
     DiscreteScrollView itemPicker;
+    @BindView(R.id.new_wallet)
+    VerticalTextView newWallet;
 
 
     WalletListRAdapter walletListRAdapter;
@@ -116,6 +121,13 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     boolean hideBal;
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+            fetchAccountWallet(wallet_name);
+        }
+    }
 
     @Override
     public void onResume() {
@@ -140,7 +152,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
-
+        newWallet.setTextColor(Color.WHITE);
         walletList = new ArrayList<>();
 
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
@@ -169,7 +181,44 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
         rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 
-        SwipeableRecyclerViewTouchListener swipeTouchListener = new SwipeableRecyclerViewTouchListener(rview_wallet_coins, new SwipeableRecyclerViewTouchListener.SwipeListener() {
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.START | ItemTouchHelper.END) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                //awesome code when user grabs recycler card to reorder
+                return true;
+            }
+
+            @Override
+            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+                //awesome code to run when user drops card and completes reorder
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int fromPos = viewHolder.getAdapterPosition();
+                if (direction == ItemTouchHelper.START) {
+                    // DO Action for Left
+                    Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putParcelable(CONSTANTS.selectedCoin,accountWalletlist.get(fromPos).getAllCoins());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if (direction == ItemTouchHelper.END) {
+                    // DO Action for Right
+                    Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putParcelable(CONSTANTS.selectedCoin,accountWalletlist.get(fromPos).getAllCoins());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(rview_wallet_coins);
+
+       /* SwipeableRecyclerViewTouchListener swipeTouchListener = new SwipeableRecyclerViewTouchListener(rview_wallet_coins, new SwipeableRecyclerViewTouchListener.SwipeListener() {
             @Override
             public boolean canSwipeLeft(int position) {
                 return true;
@@ -196,7 +245,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 startActivity(intent);
             }
         });
-        rview_wallet_coins.addOnItemTouchListener(swipeTouchListener);
+        rview_wallet_coins.addOnItemTouchListener(swipeTouchListener);*/
 
         lnr_reload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,14 +265,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 100);
             }
         });
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 100);
             }
         });
         lnr_new_wallet.setOnClickListener(new View.OnClickListener() {
@@ -375,6 +424,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     lnr_empty_coins.setVisibility(View.GONE);
                                     rview_wallet_coins.setVisibility(View.VISIBLE);
                                     double ttl_amt;
+                                    accountWalletlist = new ArrayList<>();
                                     for (int i = 0; i < jsonArrayData.length(); i++) {
                                         JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
                                         try {

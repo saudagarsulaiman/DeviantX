@@ -1,12 +1,15 @@
 package com.cryptowallet.deviantx.Utilities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.TextView;
 
+@SuppressLint("AppCompatCustomView")
 public class VerticalTextView extends TextView {
 
     final boolean topDown;
@@ -16,7 +19,7 @@ public class VerticalTextView extends TextView {
         final int gravity = getGravity();
         this.setTextColor(Color.WHITE);
         if (Gravity.isVertical(gravity) && (gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.BOTTOM) {
-            setGravity( (gravity & Gravity.HORIZONTAL_GRAVITY_MASK) | Gravity.TOP );
+            setGravity((gravity & Gravity.HORIZONTAL_GRAVITY_MASK) | Gravity.TOP);
             topDown = false;
         } else {
             topDown = true;
@@ -41,6 +44,7 @@ public class VerticalTextView extends TextView {
             canvas.translate(0, getHeight());
             canvas.rotate(-90);
         }
+        super.onDraw(canvas);
         canvas.translate(getCompoundPaddingLeft(), getExtendedPaddingTop());
         getLayout().draw(canvas);
     }

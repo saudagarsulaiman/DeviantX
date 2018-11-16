@@ -329,8 +329,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.wallet_added));
-                                Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
-                                startActivity(intent);
+                                /*Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
+                                startActivity(intent);*/
+                                onBackPressed();
 
                             } else {
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
@@ -376,24 +377,6 @@ public class AddCoinsActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Boolean wallet = sharedPreferences.getBoolean(CONSTANTS.wallet, false);
-        if (wallet) {
-            Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            editor.putBoolean(CONSTANTS.wallet, false);
-            editor.apply();
-            startActivity(intent);
-        } else {
-//            Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-            super.onBackPressed();
-        }
-
-    }
 
 
 }
