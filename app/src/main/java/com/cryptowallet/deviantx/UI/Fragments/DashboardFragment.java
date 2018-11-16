@@ -95,6 +95,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     DiscreteScrollView itemPicker;
     @BindView(R.id.new_wallet)
     VerticalTextView newWallet;
+    @BindView(R.id.fav_filter)
+    ImageView favFilter;
 
 
     WalletListRAdapter walletListRAdapter;
@@ -113,11 +115,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             str_data_account, str_data_coin;
     int int_coin_id, int_data_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-
+    boolean isFav=false;
     String str_data_name;
     int int_data_walletid;
     double dbl_data_totalBal;
-    InfiniteScrollAdapter infiniteAdapter;
 
     boolean hideBal;
 
@@ -154,7 +155,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
         newWallet.setTextColor(Color.WHITE);
         walletList = new ArrayList<>();
-
+        editor.putString(CONSTANTS.walletName, "");
+        editor.apply();
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //        Getting Wallets List
             invokeWallet();
@@ -164,9 +166,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
 //        itemPicker.addOnItemChangedListener(this);
-        infiniteAdapter = InfiniteScrollAdapter.wrap(new WalletListRAdapter(getActivity(), walletList));
+        walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
         itemPicker.addOnItemChangedListener(this);
-        itemPicker.setAdapter(infiniteAdapter);
+        itemPicker.setAdapter(walletListRAdapter);
+        itemPicker.setItemTransitionTimeMillis(150);
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)
                 .build());
@@ -201,15 +204,15 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 if (direction == ItemTouchHelper.START) {
                     // DO Action for Left
                     Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putParcelable(CONSTANTS.selectedCoin,accountWalletlist.get(fromPos).getAllCoins());
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(CONSTANTS.selectedCoin, accountWalletlist.get(fromPos).getAllCoins());
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (direction == ItemTouchHelper.END) {
                     // DO Action for Right
                     Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putParcelable(CONSTANTS.selectedCoin,accountWalletlist.get(fromPos).getAllCoins());
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWalletlist.get(fromPos));
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
@@ -217,35 +220,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(rview_wallet_coins);
-
-       /* SwipeableRecyclerViewTouchListener swipeTouchListener = new SwipeableRecyclerViewTouchListener(rview_wallet_coins, new SwipeableRecyclerViewTouchListener.SwipeListener() {
-            @Override
-            public boolean canSwipeLeft(int position) {
-                return true;
-            }
-
-            @Override
-            public boolean canSwipeRight(int position) {
-                return true;
-            }
-
-            @Override
-            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
-//              Toast.makeText(MainActivity.this, mItems.get(position) + " swiped left", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
-//                editor.putString(CONSTANTS.,);
-//                editor.apply();
-                startActivity(intent);
-            }
-
-            @Override
-            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
-//              Toast.makeText(MainActivity.this, mItems.get(position) + " swiped left", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
-                startActivity(intent);
-            }
-        });
-        rview_wallet_coins.addOnItemTouchListener(swipeTouchListener);*/
 
         lnr_reload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,8 +314,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal));
                                 }
 //                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
-                                infiniteAdapter = InfiniteScrollAdapter.wrap(new WalletListRAdapter(getActivity(), walletList));
-                                itemPicker.setAdapter(infiniteAdapter);
+                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
+                                itemPicker.setAdapter(walletListRAdapter);
 //                                itemPicker.setItemTransformer(new ScaleTransformer.Builder()
 //                                        .setMinScale(0.8f)
 //                                        .build());
@@ -535,8 +509,13 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
+                                        try {
+                                            isFav = jsonObjectCoins.getBoolean("fav");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
 
-                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m);
+                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
                                                 dbl_data_balanceInINR, str_data_account, allCoins));
@@ -604,20 +583,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     @Override
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-        int positionInDataSet = infiniteAdapter.getRealPosition(adapterPosition);
-        onItemChanged(walletList.get(positionInDataSet));
+        if (adapterPosition > -1) {
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+            if (!wallet_name.equalsIgnoreCase(walletList.get(adapterPosition).getStr_data_name()))
+                onItemChanged(walletList.get(adapterPosition));
+        }
     }
-
-//    @Override
-//    public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
-//        int positionInDataSet = infiniteAdapter.getRealPosition(position);
-//        onItemChanged(data.get(positionInDataSet));
-//    }
-//    private void onItemChanged(Item item) {
-//        currentItemName.setText(item.getName());
-//        currentItemPrice.setText(item.getPrice());
-//        changeRateButtonState(item);
-//    }
 
 
 }

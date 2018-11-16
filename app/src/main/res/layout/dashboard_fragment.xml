@@ -179,6 +179,7 @@
                 android:gravity="end">
 
                 <ImageView
+                    android:id="@+id/fav_filter"
                     android:layout_width="@dimen/width20"
                     android:layout_height="@dimen/height20"
                     android:src="@drawable/z" />

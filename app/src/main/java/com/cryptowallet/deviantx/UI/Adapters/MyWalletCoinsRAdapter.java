@@ -82,6 +82,12 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         }
+        //Fav
+        if (accountWalletlist.get(i).getAllCoins().getFav())
+            viewHolder.fav_icon.setImageDrawable(context.getDrawable(R.drawable.favourite));
+        else
+            viewHolder.fav_icon.setImageDrawable(context.getDrawable(R.drawable.un_favourite));
+
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
@@ -316,6 +322,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         LinearLayout lnr_item;
         @BindView(R.id.img_coin_logo)
         ImageView img_coin_logo;
+        @BindView(R.id.fav_icon)
+        ImageView fav_icon;
         @BindView(R.id.txt_coin_name)
         TextView txt_coin_name;
         @BindView(R.id.txt_coin_value)
