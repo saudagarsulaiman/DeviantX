@@ -17,6 +17,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -184,6 +185,12 @@ public class CoinInformationActivity extends AppCompatActivity {
         graph.getViewport().setMaxX(40);
 */
 
+        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
+//        GridLabelRenderer.Styles mStyles;
+//        GridLabelRenderer.GridStyle mgridStyle;
+//        GridLabelRenderer.VerticalLabelsVAlign verticalLabelsVAlign;
+        gridLabelRenderer.setHorizontalLabelsVisible(true);
+        gridLabelRenderer.setVerticalLabelsVisible(false);
 
         // first series is a line
         DataPoint[] points = new DataPoint[100];
