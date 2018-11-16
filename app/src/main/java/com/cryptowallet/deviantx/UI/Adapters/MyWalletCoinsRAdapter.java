@@ -25,6 +25,7 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -161,6 +162,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         for (int i = 0; i < points.length; i++) {
             points[i] = new DataPoint(i, Math.sin(i * 0.5) * 20 * (Math.random() * 10 + 1));
         }
+
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
         // set manual X bounds
         grapgh_dlg.getViewport().setYAxisBoundsManual(false);
@@ -180,6 +182,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         grapgh_dlg.getViewport().setScalable(false); // disables horizontal zooming and scrolling
         grapgh_dlg.getViewport().setScalableY(false); // disables vertical zooming and scrolling
         grapgh_dlg.addSeries(series);
+//        Disabling Labels
+        GridLabelRenderer gridLabelRenderer = grapgh_dlg.getGridLabelRenderer();
+        gridLabelRenderer.setHorizontalLabelsVisible(false);
+        gridLabelRenderer.setVerticalLabelsVisible(false);
         /*GRAPH ENDS*/
 
 
