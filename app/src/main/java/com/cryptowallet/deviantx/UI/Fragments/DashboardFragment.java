@@ -691,8 +691,13 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
         if (adapterPosition > -1) {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
-            if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name()))
+            if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name())) {
                 onItemChanged(walletList.get(adapterPosition));
+                accountWalletlist=new ArrayList<>();
+                filterCoinlist=new ArrayList<>();
+                myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
+                rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+            }
         }
     }
 
