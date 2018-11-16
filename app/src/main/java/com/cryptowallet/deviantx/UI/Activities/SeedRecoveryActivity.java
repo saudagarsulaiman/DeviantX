@@ -29,6 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class SeedRecoveryActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -42,6 +44,11 @@ public class SeedRecoveryActivity extends AppCompatActivity {
 
     String loginResponseMsg, loginResponseStatus;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

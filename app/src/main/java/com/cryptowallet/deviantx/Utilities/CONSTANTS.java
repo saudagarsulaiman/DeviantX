@@ -25,6 +25,7 @@ public class CONSTANTS {
     public static String selectedTags = "selectedTags"; // Selected Tags (SEEDS)
     public static String seed = "SEED"; // Accound Seed (Recovery Phrase)
     public static String selectedCoin = "SELECTEDCOIN"; // Selected coin from ALL COINS   @ ExploreCoinsRAdapter
+    public static String empty_wallet="EMPTYWALLET";
 
 
 //    //    Selected Account Wallet Details

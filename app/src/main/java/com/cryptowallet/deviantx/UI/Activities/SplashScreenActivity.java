@@ -26,11 +26,18 @@ public class SplashScreenActivity extends AppCompatActivity {
                     SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
                     String token = prefs.getString(CONSTANTS.token, null);
                     boolean seed = prefs.getBoolean(CONSTANTS.seed, false);
+                    boolean empty_wallet = prefs.getBoolean(CONSTANTS.empty_wallet, false);
                     if (token != null) {
                         if (seed) {
-                            Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if (empty_wallet){
+                                Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         } else {
                             Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
 //                            CommonUtilities.ShowToastMessage(SplashScreenActivity.this, getResources().getString(R.string.please_add_seed));

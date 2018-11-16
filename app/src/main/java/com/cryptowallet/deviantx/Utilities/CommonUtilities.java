@@ -37,7 +37,8 @@ public final class CommonUtilities {
     /******************** * Test Server Links  ****************************************************/
 
     //Local Link
-    public static final String URL = "http://178.128.15.223:7070";
+    public static final String URL = "http://142.93.51.57:6060";
+//    public static final String URL = "http://178.128.15.223:7070";
 
     //Client Link
 //    public static final String URL = "https://";

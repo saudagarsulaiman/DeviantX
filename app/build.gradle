@@ -77,4 +77,13 @@ dependencies {
 ////    Graphs
 //    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
+//    Layout Rotation
+    implementation 'rongi.rotate-layout:rotate-layout:3.0.0'
+
+//    Scroll View Design
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.9'
+
+//    Swipe Recycler View Items
+    implementation 'com.github.brnunes:swipeablerecyclerview:1.0.2'
+
 }

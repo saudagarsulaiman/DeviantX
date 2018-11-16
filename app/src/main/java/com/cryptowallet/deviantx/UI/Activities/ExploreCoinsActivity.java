@@ -36,6 +36,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class ExploreCoinsActivity extends AppCompatActivity {
 
     @BindView(R.id.rview_all_coins)
@@ -56,6 +58,12 @@ public class ExploreCoinsActivity extends AppCompatActivity {
     Double dbl_coin_usdValue;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
     ArrayList<AllCoins> allCoinsList;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

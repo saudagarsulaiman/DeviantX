@@ -8,6 +8,7 @@
     <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digits">0123456789</string>
 
+    <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>
 
     <!-- Activity-->
 
@@ -371,6 +372,12 @@
     <string name="high_24h">24h High</string>
     <string name="low_24h">24h Low</string>
     <string name="info">Information</string>
+
+    <!--SetUp Wallet Activity-->
+    <string name="def_wallet">Default Wallet</string>
+    <string name="create">Create</string>
+    <string name="add_new_coins">Add New Coin</string>
+    <string name="new_wallet">+ New Wallet</string>
 
 
 </resources>

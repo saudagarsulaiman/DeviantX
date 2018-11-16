@@ -35,7 +35,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Activities.DashBoardActivity" />
+        <activity android:name=".UI.Activities.DashBoardActivity"
+            android:theme="@style/DashBoardTheme"/>
         <activity android:name=".UI.Activities.WelcomeActivity" />
         <activity
             android:name=".UI.Activities.SignUpEmailActivity"
@@ -76,7 +77,9 @@
         <activity android:name=".UI.Activities.AddPhraseActivity" />
         <activity android:name=".UI.Activities.ConfirmPhraseActivity" />
         <activity android:name=".UI.Activities.SeedRecoveryActivity" />
-        <activity android:name=".UI.Activities.ExploreCoinsActivity"></activity>
+        <activity
+            android:name=".UI.Activities.ExploreCoinsActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

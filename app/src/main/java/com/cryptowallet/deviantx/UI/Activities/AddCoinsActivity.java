@@ -247,9 +247,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onClick(View v) {
                                                             if (CommonUtilities.isConnectionAvailable(AddCoinsActivity.this)) {
-//                                                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "");
+                                                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
 //                                                              Creating Wallet
-                                                                CreateWallet(selectedCoin.getStr_coin_name(), selectedCoin.getStr_coin_code());
+                                                                CreateWallet(selectedCoin.getStr_coin_name(), selectedCoin.getStr_coin_code(),wallet_name);
                                                             } else {
                                                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.internetconnection));
                                                             }
@@ -307,12 +307,12 @@ public class AddCoinsActivity extends AppCompatActivity {
 
     }
 
-    private void CreateWallet(String wallet_name, String str_coin_code) {
+    private void CreateWallet(String coin_name, String str_coin_code, String wallet_name) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(AddCoinsActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.createNewWallet(str_coin_code, wallet_name, CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.createWalletCoin(CONSTANTS.DeviantMulti + token, str_coin_code, coin_name, wallet_name);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -329,8 +329,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.wallet_added));
-                                editor.putString(CONSTANTS.walletName, "");
-                                editor.apply();
                                 Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
                                 startActivity(intent);
 

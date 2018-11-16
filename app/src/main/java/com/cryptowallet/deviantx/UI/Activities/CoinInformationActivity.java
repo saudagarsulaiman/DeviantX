@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
@@ -19,6 +20,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,8 +29,17 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class CoinInformationActivity extends AppCompatActivity {
 
+
+    @BindView(R.id.img_coin_logo)
+    ImageView img_coin_logo;
+    @BindView(R.id.txt_coin_name)
+    TextView txt_coin_name;
+    @BindView(R.id.txt_coin_usd)
+    TextView txt_coin_usd;
     @BindView(R.id.txt_per_change)
     TextView txt_per_change;
     @BindView(R.id.txt_per_high)
@@ -47,14 +58,19 @@ public class CoinInformationActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
 
-   /*
-   private final Handler mHandler = new Handler();
-    private Runnable mTimer1;
-    private Runnable mTimer2;
-    private LineGraphSeries<DataPoint> mSeries1;
-    private LineGraphSeries<DataPoint> mSeries2;
-    private double graph2LastXValue = 5d;
-*/
+    /*
+    private final Handler mHandler = new Handler();
+     private Runnable mTimer1;
+     private Runnable mTimer2;
+     private LineGraphSeries<DataPoint> mSeries1;
+     private LineGraphSeries<DataPoint> mSeries2;
+     private double graph2LastXValue = 5d;
+ */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +95,15 @@ public class CoinInformationActivity extends AppCompatActivity {
         });
 
 
+        Picasso.with(CoinInformationActivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
+        txt_coin_name.setText(selectedCoin.getStr_coin_name());
+        txt_coin_usd.setText("$" + String.format("%.4f", selectedCoin.getDbl_coin_usdValue()));
+
+//        if (.contains("-")) {
+//            txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
+//        } else {
+//            txt_per_change.setTextColor(getResources().getColor(R.color.green));
+//        }
 //        txt_per_change.setText(+"%");
 //        txt_per_high.setText("$"+String.format("%.6f", ));
 //        txt_per_low.setText("$"+String.format("%.6f", ));
@@ -151,7 +176,6 @@ public class CoinInformationActivity extends AppCompatActivity {
         graph.addSeries(mSeries1);
 */
 
-
 /*
         mSeries2 = new LineGraphSeries<>();
         graph.addSeries(mSeries2);
@@ -161,40 +185,35 @@ public class CoinInformationActivity extends AppCompatActivity {
 */
 
 
-
-
-      /*
-       // first series is a line
+        // first series is a line
         DataPoint[] points = new DataPoint[100];
         for (int i = 0; i < points.length; i++) {
-            points[i] = new DataPoint(i, Math.sin(i*0.5) * 20*(Math.random()*10+1));
+            points[i] = new DataPoint(i, Math.sin(i * 0.5) * 20 * (Math.random() * 10 + 1));
         }
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
 
         // set manual X bounds
-        graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(-150);
-        graph.getViewport().setMaxY(150);
+        graph.getViewport().setYAxisBoundsManual(false);
+//        graph.getViewport().setMinY(-150);
+//        graph.getViewport().setMaxY(150);
 
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(4);
-        graph.getViewport().setMaxX(80);
-
-        // enable scaling and scrolling
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(true);
-
+        graph.getViewport().setXAxisBoundsManual(false);
+//        graph.getViewport().setMinX(4);
+//        graph.getViewport().setMaxX(80);
+//        // styling series
+//        series.setTitle("Random Curve 1");
+        series.setColor(getResources().getColor(R.color.yellow));
+        series.setThickness(8);
+        series.setDrawBackground(true);
+        series.setBackgroundColor(getResources().getColor(R.color.yellow_trans));
+        graph.getViewport().setScrollable(false); // disables horizontal scrolling
+        graph.getViewport().setScrollableY(false); // disables vertical scrolling
+        graph.getViewport().setScalable(false); // disables horizontal zooming and scrolling
+        graph.getViewport().setScalableY(false); // disables vertical zooming and scrolling
         graph.addSeries(series);
 
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
-        graph.getViewport().setScrollableY(true); // enables vertical scrolling
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
-*/
 
     }
-
-
 
 
 //    @Override

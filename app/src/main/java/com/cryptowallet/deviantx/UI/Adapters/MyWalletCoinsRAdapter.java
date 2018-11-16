@@ -24,6 +24,9 @@ import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.squareup.picasso.Picasso;
 
@@ -83,22 +86,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                editor.putString(CONSTANTS.data_id, accountWalletlist.get(i).getStr_data_id());
-//                editor.putString(CONSTANTS.data_address, accountWalletlist.get(i).getStr_data_address());
-//                editor.putString(CONSTANTS.data_walletName, accountWalletlist.get(i).getStr_data_walletName());
-//                editor.putString(CONSTANTS.data_privatekey, accountWalletlist.get(i).getStr_data_privatekey());
-//                editor.putString(CONSTANTS.data_passcode, accountWalletlist.get(i).getStr_data_passcode());
-//                editor.putString(CONSTANTS.data_balance,accountWalletlist.get(i).getStr_data_balance());
-//                editor.putString(CONSTANTS.data_balUsd,accountWalletlist.get(i).getStr_data_balanceInUSD());
-//                editor.putString(CONSTANTS.data_balInr,accountWalletlist.get(i).getStr_data_balanceInINR());
-//                editor.putString(CONSTANTS.data_account,accountWalletlist.get(i).getStr_data_account());
-//                editor.putString(CONSTANTS.data_coin_id,accountWalletlist.get(i).getAllCoins().getStr_coin_id());
-//                editor.putString(CONSTANTS.data_coin_name,accountWalletlist.get(i).getAllCoins().getStr_coin_name());
-//                editor.putString(CONSTANTS.data_coin_code,accountWalletlist.get(i).getAllCoins().getStr_coin_code());
-//                editor.putString(CONSTANTS.data_coin_logo,accountWalletlist.get(i).getAllCoins().getStr_coin_logo());
-//                editor.putString(CONSTANTS.data_coin_usdval, accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue());
-//                editor.apply();
 
                 if (CommonUtilities.isConnectionAvailable(context)) {
                     accountWallet = new AccountWallet(
@@ -164,9 +151,37 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         TextView txt_rank = view.findViewById(R.id.txt_rank);
         TextView txt_markcap_usd = view.findViewById(R.id.txt_markcap_usd);
         TextView txt_vol_usd = view.findViewById(R.id.txt_vol_usd);
-
-
         ImageView img_coin_logo = view.findViewById(R.id.img_coin_logo);
+
+
+        /*GRAPH STARTS*/
+        GraphView grapgh_dlg = view.findViewById(R.id.grapgh_dlg);
+        // first series is a line
+        DataPoint[] points = new DataPoint[100];
+        for (int i = 0; i < points.length; i++) {
+            points[i] = new DataPoint(i, Math.sin(i * 0.5) * 20 * (Math.random() * 10 + 1));
+        }
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+        // set manual X bounds
+        grapgh_dlg.getViewport().setYAxisBoundsManual(false);
+//        grapgh_dlg.getViewport().setMinY(-150);
+//        grapgh_dlg.getViewport().setMaxY(150);
+        grapgh_dlg.getViewport().setXAxisBoundsManual(false);
+//        grapgh_dlg.getViewport().setMinX(4);
+//        grapgh_dlg.getViewport().setMaxX(80);
+//        // styling series
+//        series.setTitle("Random Curve 1");
+        series.setColor(context.getResources().getColor(R.color.yellow));
+        series.setThickness(8);
+        series.setDrawBackground(true);
+        series.setBackgroundColor(context.getResources().getColor(R.color.yellow_trans));
+        grapgh_dlg.getViewport().setScrollable(false); // disables horizontal scrolling
+        grapgh_dlg.getViewport().setScrollableY(false); // disables vertical scrolling
+        grapgh_dlg.getViewport().setScalable(false); // disables horizontal zooming and scrolling
+        grapgh_dlg.getViewport().setScalableY(false); // disables vertical zooming and scrolling
+        grapgh_dlg.addSeries(series);
+        /*GRAPH ENDS*/
+
 
         Picasso.with(context).load(accountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
         txt_wallet_name.setText(accountWallet.getStr_data_walletName());
@@ -185,9 +200,27 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         txt_rank.setText(accountWallet.getAllCoins().getInt_coin_rank() + "#");
         txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
         txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
+
         txt_h_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + " ");
         txt_d_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + " ");
         txt_m_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + " ");
+
+
+        if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+            txt_h_per.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            txt_h_per.setTextColor(context.getResources().getColor(R.color.green));
+        }
+        if (accountWallet.getAllCoins().getDbl_coin_7d() < 0) {
+            txt_d_per.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            txt_d_per.setTextColor(context.getResources().getColor(R.color.green));
+        }
+        if (accountWallet.getAllCoins().getDbl_coin_1m() < 0) {
+            txt_m_per.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            txt_m_per.setTextColor(context.getResources().getColor(R.color.green));
+        }
 
 
         lnr_information.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +291,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         dialog.show();
 
 
+    }
+
+    private boolean isNegative(double d) {
+        return Double.doubleToRawLongBits(d) < 0;
     }
 
     @Override

@@ -105,6 +105,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     Boolean isEditFiat = false, isEditAmount = false;
 
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -279,12 +280,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        myApplication.disableScreenCapture(this);
 
-    }
 
     private void convertAmountToCoin(String amountTextValue) {
         if (isEditAmount) {
@@ -564,6 +560,12 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         }
     }*/
 
+   @Override
+   protected void onResume() {
+       super.onResume();
+       myApplication.disableScreenCapture(this);
+
+   }
 
     @Override
     public void handleResult(Result result) {

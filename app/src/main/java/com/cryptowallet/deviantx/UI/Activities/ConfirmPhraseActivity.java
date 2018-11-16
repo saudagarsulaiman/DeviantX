@@ -15,11 +15,13 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AuthenticationApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.greenfrvr.hashtagview.HashtagView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -136,8 +138,12 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
                                 editor.putBoolean(CONSTANTS.seed, true);
                                 editor.apply();
                                 CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.prof_updated_success));
-                                Intent intent = new Intent(ConfirmPhraseActivity.this, DashBoardActivity.class);
-                                startActivity(intent);
+
+//                                GetWalletsList
+                                invokeWallet();
+
+//                                Intent intent = new Intent(ConfirmPhraseActivity.this, DashBoardActivity.class);
+//                                startActivity(intent);
                             } else {
                                 CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, loginResponseMsg);
                             }
@@ -180,6 +186,87 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
         }
 
     }
+
+
+    private void invokeWallet() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(ConfirmPhraseActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                                if (jsonArrayData.length() == 0) {
+                                    Intent intent = new Intent(ConfirmPhraseActivity.this, SetUpWalletActivity.class);
+                                    startActivity(intent);
+                                    CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.login_success));
+                                } else {
+                                    Intent intent = new Intent(ConfirmPhraseActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                    CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.login_success));
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
 
     public void displayTags(String allTags[]) {
         List<String> DATA = new ArrayList<>();

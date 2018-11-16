@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,17 +16,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
+import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
+import com.cryptowallet.deviantx.UI.Activities.DashBoardActivity;
+import com.cryptowallet.deviantx.UI.Activities.ECTActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
+import com.cryptowallet.deviantx.UI.Activities.WalletListActivity;
+import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.MyWalletListRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
+import com.yarolegovich.discretescrollview.DSVOrientation;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,7 +59,7 @@ import retrofit2.Response;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> /*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder>*/ {
 
     View view;
     //    @BindView(R.id.viewPager)
@@ -54,25 +70,30 @@ public class DashboardFragment extends Fragment {
     LinearLayout lnr_wallet;
     @BindView(R.id.lnr_empty_coins)
     LinearLayout lnr_empty_coins;
-    @BindView(R.id.txt_wallet_name)
-    TextView txt_wallet_name;
-    @BindView(R.id.txt_wallet_percentage)
-    TextView txt_wallet_percentage;
-    @BindView(R.id.txt_wallet_bal)
-    TextView txt_wallet_bal;
-    @BindView(R.id.txt_wallet_coin)
-    TextView txt_wallet_coin;
+    //    @BindView(R.id.txt_wallet_name)
+//    TextView txt_wallet_name;
+//    @BindView(R.id.txt_wallet_percentage)
+//    TextView txt_wallet_percentage;
+//    @BindView(R.id.txt_wallet_bal)
+//    TextView txt_wallet_bal;
+//    @BindView(R.id.txt_wallet_coin)
+//    TextView txt_wallet_coin;
     @BindView(R.id.lnr_add_coins)
     LinearLayout lnr_add_coins;
     @BindView(R.id.img_add_coin)
     ImageView img_add_coin;
     @BindView(R.id.lnr_reload)
     LinearLayout lnr_reload;
+    @BindView(R.id.lnr_add_new_coins)
+    LinearLayout lnr_add_new_coins;
+    @BindView(R.id.lnr_new_wallet)
+    LinearLayout lnr_new_wallet;
+    @BindView(R.id.item_picker)
+    DiscreteScrollView itemPicker;
 
 
-//    @BindView(R.id.)
-//    TextView ;
-
+    WalletListRAdapter walletListRAdapter;
+    ArrayList<WalletList> walletList;
 
     MyWalletCoinsRAdapter myWalletCoinsRAdapter;
     LinearLayoutManager layoutManager;
@@ -86,10 +107,15 @@ public class DashboardFragment extends Fragment {
             str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
             str_data_account, str_data_coin;
     int int_coin_id, int_data_id, int_coin_rank;
-    Double totalBalance = 0.0, dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
+    Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
 
-    Double total_avail_bal = 0.00000000;
+    String str_data_name;
+    int int_data_walletid;
+    double dbl_data_totalBal;
+    InfiniteScrollAdapter infiniteAdapter;
+
     boolean hideBal;
+
 
     @Override
     public void onResume() {
@@ -98,11 +124,9 @@ public class DashboardFragment extends Fragment {
             myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
             myWalletCoinsRAdapter.notifyDataSetChanged();
         }
-
-        if (myApplication.getHideBalance()) {
-            txt_wallet_bal.setText("~$ ***");
-        } else {
-            txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
+        if (walletListRAdapter != null) {
+            walletListRAdapter.setIsHideBalance(myApplication.getHideBalance());
+            walletListRAdapter.notifyDataSetChanged();
         }
     }
 
@@ -113,15 +137,30 @@ public class DashboardFragment extends Fragment {
         view = inflater.inflate(R.layout.dashboard_fragment, container, false);
         ButterKnife.bind(this, view);
 
-//        LayoutViewPagerAdapter viewPagerAdapter = new LayoutViewPagerAdapter(getActivity());
-//        viewPager.setAdapter(viewPagerAdapter);
-
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
         hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
 
-//        total_avail_bal = sharedPreferences.get(CONSTANTS.total_avail_bal, "0.0");
+        walletList = new ArrayList<>();
+
+        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+//        Getting Wallets List
+            invokeWallet();
+        } else {
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+        }
+
+        itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+//        itemPicker.addOnItemChangedListener(this);
+        infiniteAdapter = InfiniteScrollAdapter.wrap(new WalletListRAdapter(getActivity(), walletList));
+        itemPicker.addOnItemChangedListener(this);
+        itemPicker.setAdapter(infiniteAdapter);
+        itemPicker.setItemTransformer(new ScaleTransformer.Builder()
+                .setMinScale(0.8f)
+                .build());
+        if (!walletList.isEmpty()) {
+            onItemChanged(walletList.get(0));
+        }
 
         accountWalletlist = new ArrayList<>();
 
@@ -130,28 +169,34 @@ public class DashboardFragment extends Fragment {
         myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
         rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 
-
-        img_add_coin.setOnClickListener(new View.OnClickListener() {
+        SwipeableRecyclerViewTouchListener swipeTouchListener = new SwipeableRecyclerViewTouchListener(rview_wallet_coins, new SwipeableRecyclerViewTouchListener.SwipeListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
+            public boolean canSwipeLeft(int position) {
+                return true;
+            }
+
+            @Override
+            public boolean canSwipeRight(int position) {
+                return true;
+            }
+
+            @Override
+            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+//              Toast.makeText(MainActivity.this, mItems.get(position) + " swiped left", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
+//                editor.putString(CONSTANTS.,);
+//                editor.apply();
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+//              Toast.makeText(MainActivity.this, mItems.get(position) + " swiped left", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
                 startActivity(intent);
             }
         });
-
-        if (CommonUtilities.isConnectionAvailable(getActivity())) {
-//            GET Account Wallet
-            lnr_reload.setVisibility(View.GONE);
-            fetchAccountWallet();
-            if (myApplication.getHideBalance()) {
-                txt_wallet_bal.setText("~$ ***");
-            } else {
-                txt_wallet_bal.setText("~$ " + String.format("%.4f", total_avail_bal));
-            }
-        } else {
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
-        }
-
+        rview_wallet_coins.addOnItemTouchListener(swipeTouchListener);
 
         lnr_reload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,47 +204,150 @@ public class DashboardFragment extends Fragment {
                 if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
                     lnr_reload.setVisibility(View.GONE);
-                    fetchAccountWallet();
-                    if (myApplication.getHideBalance()) {
-                        txt_wallet_bal.setText("~$ ***");
-                    } else {
-                        txt_wallet_bal.setText("~$ " + String.format("%.4f", total_avail_bal));
-                    }
+                    String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+                    fetchAccountWallet(wallet_name);
                 } else {
                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                 }
             }
         });
 
+        lnr_add_new_coins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
+                startActivity(intent);
+            }
+        });
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
+                startActivity(intent);
+            }
+        });
+        lnr_new_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetUpWalletActivity.class);
                 startActivity(intent);
             }
         });
-//        lnr_wallet.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // load fragment
-//                Fragment fragment = new AirDropFragment();
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction transaction = fragmentManager.beginTransaction();
-//                transaction.replace(R.id.frame_container, fragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }
-//        });
 
         return view;
     }
 
-    private void fetchAccountWallet() {
+    private void onItemChanged(WalletList walletList) {
+        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+//            GET Account Wallet
+            lnr_reload.setVisibility(View.GONE);
+            editor.putString(CONSTANTS.walletName, walletList.getStr_data_name());
+            editor.apply();
+            fetchAccountWallet(walletList.getStr_data_name());
+        } else {
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+        }
+    }
+
+    private void invokeWallet() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                                for (int i = 0; i < jsonArrayData.length(); i++) {
+                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                                    try {
+                                        int_data_walletid = jsonObjectData.getInt("id");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        str_data_name = jsonObjectData.getString("name");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal));
+                                }
+//                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
+                                infiniteAdapter = InfiniteScrollAdapter.wrap(new WalletListRAdapter(getActivity(), walletList));
+                                itemPicker.setAdapter(infiniteAdapter);
+//                                itemPicker.setItemTransformer(new ScaleTransformer.Builder()
+//                                        .setMinScale(0.8f)
+//                                        .build());
+//                                onItemChanged(walletList.get(0));
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void fetchAccountWallet(String walletName) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAccountWallet(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getAccountWallet(CONSTANTS.DeviantMulti + token, walletName);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -220,8 +368,10 @@ public class DashboardFragment extends Fragment {
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
                                     lnr_empty_coins.setVisibility(View.VISIBLE);
+                                    lnr_add_new_coins.setVisibility(View.GONE);
                                     rview_wallet_coins.setVisibility(View.GONE);
                                 } else {
+                                    lnr_add_new_coins.setVisibility(View.VISIBLE);
                                     lnr_empty_coins.setVisibility(View.GONE);
                                     rview_wallet_coins.setVisibility(View.VISIBLE);
                                     double ttl_amt;
@@ -343,15 +493,15 @@ public class DashboardFragment extends Fragment {
                                     }
                                     myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-                                    totalBalance = 0.0;
-                                    for (AccountWallet accountWallet : accountWalletlist) {
-                                        totalBalance += accountWallet.getStr_data_balanceInUSD();
-                                    }
-                                    if (myApplication.getHideBalance()) {
-                                        txt_wallet_bal.setText("~$ ***");
-                                    } else {
-                                        txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
-                                    }
+//                                    totalBalance = 0.0;
+//                                    for (AccountWallet accountWallet : accountWalletlist) {
+//                                        totalBalance += accountWallet.getStr_data_balanceInUSD();
+//                                    }
+//                                    if (myApplication.getHideBalance()) {
+//                                        txt_wallet_bal.setText("~$ ***");
+//                                    } else {
+//                                        txt_wallet_bal.setText("~$ " + String.format("%.4f", totalBalance));
+//                                    }
                                 }
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
@@ -401,5 +551,23 @@ public class DashboardFragment extends Fragment {
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+        int positionInDataSet = infiniteAdapter.getRealPosition(adapterPosition);
+        onItemChanged(walletList.get(positionInDataSet));
+    }
+
+//    @Override
+//    public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+//        int positionInDataSet = infiniteAdapter.getRealPosition(position);
+//        onItemChanged(data.get(positionInDataSet));
+//    }
+//    private void onItemChanged(Item item) {
+//        currentItemName.setText(item.getName());
+//        currentItemPrice.setText(item.getPrice());
+//        changeRateButtonState(item);
+//    }
+
 
 }

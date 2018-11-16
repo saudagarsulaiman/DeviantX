@@ -13,6 +13,8 @@ import com.cryptowallet.deviantx.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class SearchActivity extends AppCompatActivity {
 
     @BindView(R.id.img_center_back)
@@ -24,6 +26,11 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.lnr_bg)
     LinearLayout lnr_bg;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
