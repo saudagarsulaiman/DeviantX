@@ -2,10 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <stroke
-        android:width="@dimen/width2"
+        android:width="@dimen/width1"
         android:color="@color/grey"
-        android:dashWidth="@dimen/width5"
-        android:dashGap="@dimen/width5" />
+        android:dashWidth="@dimen/width4"
+        android:dashGap="@dimen/width4" />
 
     <solid android:color="@android:color/transparent" />
 

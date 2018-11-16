@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:gravity="center"
+        android:text="@string/backup_rec_phrase"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/def_margin">
+
+        <TextView
+            android:id="@+id/txt_note_hastag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
+            android:text="@string/recovery_bottom_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_hint_size" />
+
+        <com.greenfrvr.hashtagview.HashtagView
+            android:id="@+id/hashtag_add_phrase"
+            style="@style/HashtagView"
+            android:layout_below="@+id/txt_note_hastag"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            app:rowGravity="center"
+            app:rowMargin="5dp"
+            app:selectionMode="true"
+            app:tagBackground="@drawable/selector_tag_bg_1"
+            app:tagDrawablePadding="4dp"
+            app:tagForeground="@drawable/flat_button_light"
+            app:tagMargin="5dp"
+            app:tagPaddingBottom="@dimen/padding8"
+            app:tagPaddingLeft="@dimen/padding8"
+            app:tagPaddingRight="@dimen/padding8"
+            app:tagPaddingTop="@dimen/padding8"
+            app:tagTextColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rec_orange_gradient"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.aequalis.deviantx">
+    package="com.cryptowallet.deviantx">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,7 +35,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Activities.DashBoardActivity" />
+        <activity android:name=".UI.Activities.DashBoardActivity"
+            android:theme="@style/DashBoardTheme"/>
         <activity android:name=".UI.Activities.WelcomeActivity" />
         <activity
             android:name=".UI.Activities.SignUpEmailActivity"
@@ -72,7 +73,13 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".UI.Activities.ShapeShiftActivity" />
         <activity android:name=".UI.Activities.ECTActivity" />
-        <activity android:name=".UI.Activities.ChangellyActivity"></activity>
+        <activity android:name=".UI.Activities.ChangellyActivity" />
+        <activity android:name=".UI.Activities.AddPhraseActivity" />
+        <activity android:name=".UI.Activities.ConfirmPhraseActivity" />
+        <activity android:name=".UI.Activities.SeedRecoveryActivity" />
+        <activity
+            android:name=".UI.Activities.ExploreCoinsActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

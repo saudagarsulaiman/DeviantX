@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_start_blue">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/def_margin"
+        android:background="@drawable/dlg_white_trtl_c15"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin60"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding50"
+            android:paddingRight="@dimen/padding50"
+            android:text="@string/terms_conditions_service"
+            android:textColor="@color/black"
+            android:textSize="@dimen/def_lbl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:gravity="start"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
+            android:text="@string/legal_disclaimer"
+            android:textColor="@color/black"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:background="@drawable/rec_grey2_white"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:layout_height="@dimen/height120"
+            android:layout_marginTop="@dimen/margin10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height120"
+                android:orientation="vertical"
+                android:padding="@dimen/padding10">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:text="@string/tc_risk_factors"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ_a"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ_b"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ_c"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ_d"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_categ_e"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_adhe_tax"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_adhe_tax_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_trade_invest"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_trade_invest_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_etrade"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_etrade_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_arbitration"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_arbitration_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_nil_war"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_nil_war_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:textColor="@color/black"
+                    android:text="@string/tc_liability"
+                    android:textSize="@dimen/def_hint_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:gravity="start"
+                    android:text="@string/tc_liability_desc"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:gravity="start"
+                    android:text="@string/tc_dev_final"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text11" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height1"
+            android:layout_marginTop="@dimen/margin50"
+            android:background="@color/l_grey" />
+
+        <TextView
+            android:id="@+id/txt_close"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:gravity="center"
+            android:text="@string/close"
+            android:textAllCaps="true"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/width60"
+        android:layout_height="@dimen/height60"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/logo" />
+
+</RelativeLayout>

@@ -317,6 +317,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -328,6 +329,7 @@
                     android:textSize="@dimen/def_hint_size" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/txt_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

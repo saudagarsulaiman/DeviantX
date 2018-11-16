@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="@dimen/def_padding"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:id="@+id/lnr_tools_ect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin40"
+        android:background="@drawable/rec_brinjal_gradient"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding">
+
+
+        <ImageView
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/height60"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/def_margin"
+            android:scaleType="fitXY"
+            android:src="@drawable/tools_ect" />
+
+
+        <TextView
+            android:id="@+id/txt_ect_cs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/def_margin"
+            android:gravity="center"
+            android:text="@string/air_drop"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:gravity="center"
+            android:text="@string/coming_soon"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size" />
+
+
+    </LinearLayout>
+
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/lnr_empty_coins"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_above="@+id/txt_add_wallet"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="@dimen/def_margin"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical"-->
+    <!--android:visibility="gone">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/width80"-->
+    <!--android:layout_height="@dimen/height80"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:src="@drawable/empty_coins" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginTop="@dimen/margin10"-->
+    <!--android:text="@string/empty_coins_list"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="@dimen/def_text_size" />-->
+
+    <!--<LinearLayout-->
+    <!--android:visibility="visible"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/def_margin"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/width16"-->
+    <!--android:layout_height="@dimen/height16"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:src="@drawable/plus" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginStart="@dimen/margin8"-->
+    <!--android:layout_marginLeft="@dimen/margin8"-->
+    <!--android:text="@string/add_coins"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textSize="@dimen/def_lbl_size" />-->
+
+    <!--</LinearLayout>-->
+
+
+    <!--</LinearLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rview_wallet_coins"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_above="@id/txt_add_wallet"-->
+    <!--android:layout_marginBottom="@dimen/margin10" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/txt_add_wallet"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/height80"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@drawable/rec_dash_grey_trans_c5"-->
+    <!--android:clickable="true"-->
+    <!--android:focusable="true"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/add_wallet"-->
+    <!--android:textColor="@color/grey"-->
+    <!--android:textSize="@dimen/def_lbl_size"-->
+    <!--android:textStyle="bold" />-->
+
+
+</RelativeLayout>

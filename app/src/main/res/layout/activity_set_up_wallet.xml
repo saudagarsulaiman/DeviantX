@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/css" href="some_name.css"?>
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/css" href="some_name.css"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
+    <include layout="@layout/toolbar_center_back" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/btn_save"
+        android:layout_above="@+id/btn_create"
         android:orientation="vertical">
 
         <TextView
@@ -68,15 +69,74 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/def_margin"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/margin40"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="@string/def_wallet"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/scompat_defWallet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:theme="@style/SwitchStyle" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/def_margin"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="@string/def_wallet"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/scompat_pin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:theme="@style/SwitchStyle" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_create"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_btn_height"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/rec_orange_gradient"
-        android:text="@string/save"
+        android:background="@drawable/rec_brinjal_gradient"
+        android:text="@string/create"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/def_text_size"

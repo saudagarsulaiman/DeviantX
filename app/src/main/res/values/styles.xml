@@ -8,12 +8,35 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="DashBoardTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
     <style name="SwitchStyle">
         <item name="colorControlActivated">@color/yellow</item>
         <!--<item name="android:colorControlNormal" tools:targetApi="lollipop">@color/white</item>-->
     </style>
+
     <style name="edt" parent="@android:style/Widget.Holo.Light.EditText">
         <item name="colorAccent">@color/white</item>
+    </style>
+
+    <style name="txt" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="HashtagView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="tagTextSize">@dimen/def_text_size</item>
     </style>
 
 </resources>
