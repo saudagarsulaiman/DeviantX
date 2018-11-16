@@ -105,7 +105,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(SetUpWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAddNewWallet(CONSTANTS.DeviantMulti + token, s_walletName);
+            Call<ResponseBody> apiResponse = apiService.getAddNewWallet(CONSTANTS.DeviantMulti + token, s_walletName,scompat_defWallet.isChecked());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

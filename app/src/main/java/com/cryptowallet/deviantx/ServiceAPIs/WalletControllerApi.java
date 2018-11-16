@@ -14,8 +14,8 @@ public interface WalletControllerApi {
     Call<ResponseBody> getAllWallet(@Header("Authorization") String tokenDX);
 
 //    @Headers("Content-Type: application/json")
-    @GET("/api/wallet/new_wallet/{name}")
-    Call<ResponseBody> getAddNewWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX);
+    @GET("/api/wallet/new_wallet/{name}/{defaultWallet}")
+    Call<ResponseBody> getAddNewWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("defaultWallet") boolean defaultWallet);
 
 
 }

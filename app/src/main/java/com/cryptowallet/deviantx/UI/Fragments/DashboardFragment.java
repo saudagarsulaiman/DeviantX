@@ -33,6 +33,7 @@ import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
@@ -59,6 +60,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.CONSTANTS.token;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
@@ -110,15 +112,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     ProgressDialog progressDialog;
 
     ArrayList<AccountWallet> accountWalletlist;
+    ArrayList<AccountWallet> filterCoinlist;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
             str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
             str_data_account, str_data_coin;
     int int_coin_id, int_data_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    boolean isFav=false;
+    boolean isFav = false;
     String str_data_name;
     int int_data_walletid;
     double dbl_data_totalBal;
+    FavListener favListener;
 
     boolean hideBal;
 
@@ -178,10 +182,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         }
 
         accountWalletlist = new ArrayList<>();
+        filterCoinlist = new ArrayList<>();
+        favListener = new FavListener() {
+            @Override
+            public void addOrRemoveFav(AccountWallet accountWallet, int pos) {
+                favAddRemove(accountWallet.getStr_data_address(), !accountWallet.getAllCoins().getFav(), pos);
+            }
+        };
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_wallet_coins.setLayoutManager(layoutManager);
-        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
+        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
         rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 
 
@@ -254,6 +265,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SetUpWalletActivity.class);
                 startActivity(intent);
+            }
+        });
+        favFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterLoad();
             }
         });
 
@@ -365,6 +382,89 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     }
 
+    private void favAddRemove(final String address, final boolean isFav, final int position) {
+        try {
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.favAddRemove(CONSTANTS.DeviantMulti + token, address, isFav);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                if (filterCoinlist.size() > 0) {
+                                    for (AccountWallet wallet : accountWalletlist) {
+                                        if (wallet.getStr_data_address().equalsIgnoreCase(address))
+                                            wallet.getAllCoins().setFav(!isFav);
+                                    }
+                                    filterLoad();
+                                } else {
+                                    accountWalletlist.get(position).getAllCoins().setFav(!isFav);
+                                    myWalletCoinsRAdapter.notifyItemChanged(position);
+                                }
+                            } else if (loginResponseStatus.equals("401")) {
+                                CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void filterLoad() {
+        filterCoinlist = new ArrayList<>();
+        for (AccountWallet wallet : accountWalletlist) {
+            if (wallet.getAllCoins().getFav())
+                filterCoinlist.add(wallet);
+        }
+        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
+        rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+    }
+
     private void fetchAccountWallet(String walletName) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -399,6 +499,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     rview_wallet_coins.setVisibility(View.VISIBLE);
                                     double ttl_amt;
                                     accountWalletlist = new ArrayList<>();
+                                    filterCoinlist = new ArrayList<>();
                                     for (int i = 0; i < jsonArrayData.length(); i++) {
                                         JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
                                         try {
@@ -520,7 +621,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
                                                 dbl_data_balanceInINR, str_data_account, allCoins));
                                     }
-                                    myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist);
+                                    myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 //                                    totalBalance = 0.0;
 //                                    for (AccountWallet accountWallet : accountWalletlist) {
@@ -589,6 +690,5 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 onItemChanged(walletList.get(adapterPosition));
         }
     }
-
 
 }
