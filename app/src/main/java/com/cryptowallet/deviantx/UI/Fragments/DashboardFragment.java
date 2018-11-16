@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
@@ -25,13 +24,9 @@ import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
 import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
-import com.cryptowallet.deviantx.UI.Activities.DashBoardActivity;
-import com.cryptowallet.deviantx.UI.Activities.ECTActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
-import com.cryptowallet.deviantx.UI.Activities.WalletListActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
-import com.cryptowallet.deviantx.UI.Adapters.MyWalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
@@ -41,10 +36,8 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.VerticalTextView;
-import com.github.brnunes.swipeablerecyclerview.SwipeableRecyclerViewTouchListener;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
-import com.yarolegovich.discretescrollview.InfiniteScrollAdapter;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
 import org.json.JSONArray;
@@ -60,7 +53,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cryptowallet.deviantx.Utilities.CONSTANTS.token;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
@@ -122,6 +114,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     String str_data_name;
     int int_data_walletid;
     double dbl_data_totalBal;
+    boolean defaultWallet=false;
     FavListener favListener;
 
     boolean hideBal;
@@ -328,7 +321,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal));
+                                    try {
+                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal,defaultWallet));
                                 }
 //                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
                                 walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
@@ -384,6 +382,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     private void favAddRemove(final String address, final boolean isFav, final int position) {
         try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.favAddRemove(CONSTANTS.DeviantMulti + token, address, isFav);
@@ -404,12 +403,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                 if (filterCoinlist.size() > 0) {
                                     for (AccountWallet wallet : accountWalletlist) {
                                         if (wallet.getStr_data_address().equalsIgnoreCase(address))
-                                            wallet.getAllCoins().setFav(!isFav);
+                                            wallet.getAllCoins().setFav(isFav);
                                     }
                                     filterLoad();
                                 } else {
-                                    accountWalletlist.get(position).getAllCoins().setFav(!isFav);
-                                    myWalletCoinsRAdapter.notifyItemChanged(position);
+                                    accountWalletlist.get(position).getAllCoins().setFav(isFav);
+                                    myWalletCoinsRAdapter.updateData(accountWalletlist,position);
                                 }
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
@@ -504,6 +503,11 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                         JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
                                         try {
                                             int_data_id = jsonObjectData.getInt("id");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            isFav = jsonObjectData.getBoolean("fav");
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -610,11 +614,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-                                        try {
-                                            isFav = jsonObjectCoins.getBoolean("fav");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+
 
                                         AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,

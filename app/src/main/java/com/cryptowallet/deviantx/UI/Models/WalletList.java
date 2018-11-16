@@ -8,16 +8,12 @@ public class WalletList implements Parcelable {
     double dbl_data_totalBal;
     String str_data_name;
 
-    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal) {
-        this.int_data_id = int_data_id;
-        this.dbl_data_totalBal = dbl_data_totalBal;
-        this.str_data_name = str_data_name;
-    }
 
     protected WalletList(Parcel in) {
         int_data_id = in.readInt();
         dbl_data_totalBal = in.readDouble();
         str_data_name = in.readString();
+        defaultWallet = in.readByte() != 0;
     }
 
     public static final Creator<WalletList> CREATOR = new Creator<WalletList>() {
@@ -31,6 +27,30 @@ public class WalletList implements Parcelable {
             return new WalletList[size];
         }
     };
+
+    public boolean isDefaultWallet() {
+        return defaultWallet;
+    }
+
+    public void setDefaultWallet(boolean defaultWallet) {
+        this.defaultWallet = defaultWallet;
+    }
+
+    boolean defaultWallet = false;
+
+    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal, boolean defaultWallet) {
+        this.int_data_id = int_data_id;
+        this.dbl_data_totalBal = dbl_data_totalBal;
+        this.str_data_name = str_data_name;
+        this.defaultWallet = defaultWallet;
+    }
+
+    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal) {
+        this.int_data_id = int_data_id;
+        this.dbl_data_totalBal = dbl_data_totalBal;
+        this.str_data_name = str_data_name;
+    }
+
 
     public int getInt_data_id() {
         return int_data_id;
@@ -63,8 +83,12 @@ public class WalletList implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeInt(int_data_id);
         dest.writeDouble(dbl_data_totalBal);
         dest.writeString(str_data_name);
+        dest.writeByte((byte) (defaultWallet ? 1 : 0));
     }
+
+
 }

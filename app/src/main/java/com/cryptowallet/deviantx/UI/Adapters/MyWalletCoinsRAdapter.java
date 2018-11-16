@@ -51,9 +51,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     boolean hideBal;
     FavListener favListener;
 
-    public MyWalletCoinsRAdapter(Activity context, ArrayList<AccountWallet> accountWalletlist,FavListener favListener) {
+    public MyWalletCoinsRAdapter(Activity context, ArrayList<AccountWallet> accountWalletlist, FavListener favListener) {
         this.context = context;
-        this.favListener=favListener;
+        this.favListener = favListener;
         this.accountWalletlist = accountWalletlist;
         accountWallet = null;
 //        this.selectedAccountWallet = new ArrayList<>();
@@ -96,7 +96,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         viewHolder.fav_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                favListener.addOrRemoveFav(accountWalletlist.get(i),i);
+                favListener.addOrRemoveFav(accountWalletlist.get(i), i);
             }
         });
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +125,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
+    }
+
+    public void updateData(ArrayList<AccountWallet> accountWallet, int pos) {
+        this.accountWalletlist = accountWallet;
+        notifyItemChanged(pos);
     }
 
     private void customDialog(final AccountWallet accountWallet) {
