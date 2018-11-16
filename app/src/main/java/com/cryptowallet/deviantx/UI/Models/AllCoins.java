@@ -49,6 +49,8 @@ public class AllCoins implements Parcelable {
         str_coin_logo = in.readString();
         byte tmpIsSelected = in.readByte();
         isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
+        byte tmpFav = in.readByte();
+        fav = tmpFav == 0 ? null : tmpFav == 1;
     }
 
     public static final Creator<AllCoins> CREATOR = new Creator<AllCoins>() {
@@ -62,6 +64,20 @@ public class AllCoins implements Parcelable {
             return new AllCoins[size];
         }
     };
+
+    public Boolean getFav() {
+        return fav;
+    }
+
+    public void setFav(Boolean fav) {
+        this.fav = fav;
+    }
+
+
+
+    Boolean fav=false;
+
+
 
     public int getInt_coin_id() {
         return int_coin_id;
@@ -127,7 +143,7 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
-    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue,int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue,int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m,boolean fav) {
         this.int_coin_id = int_coin_id;
         this.int_coin_rank = int_coin_rank;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
@@ -139,6 +155,7 @@ public class AllCoins implements Parcelable {
         this.str_coin_name = str_coin_name;
         this.str_coin_code = str_coin_code;
         this.str_coin_logo = str_coin_logo;
+        this.fav=fav;
     }
 
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue) {
@@ -252,5 +269,6 @@ public class AllCoins implements Parcelable {
         dest.writeString(str_coin_code);
         dest.writeString(str_coin_logo);
         dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));
+        dest.writeByte((byte) (fav == null ? 0 : fav ? 1 : 2));
     }
 }
