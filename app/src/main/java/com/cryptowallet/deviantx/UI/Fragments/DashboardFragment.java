@@ -263,7 +263,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         favFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterLoad();
+                filterLoad((filterCoinlist.size()==0));
             }
         });
 
@@ -405,7 +405,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                         if (wallet.getStr_data_address().equalsIgnoreCase(address))
                                             wallet.getAllCoins().setFav(isFav);
                                     }
-                                    filterLoad();
+                                    filterLoad(true);
                                 } else {
                                     accountWalletlist.get(position).getAllCoins().setFav(isFav);
                                     myWalletCoinsRAdapter.updateData(accountWalletlist,position);
@@ -454,14 +454,19 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         }
     }
 
-    private void filterLoad() {
+    private void filterLoad(boolean isFilter) {
         filterCoinlist = new ArrayList<>();
-        for (AccountWallet wallet : accountWalletlist) {
-            if (wallet.getAllCoins().getFav())
-                filterCoinlist.add(wallet);
+        if(isFilter) {
+            for (AccountWallet wallet : accountWalletlist) {
+                if (wallet.getAllCoins().getFav())
+                    filterCoinlist.add(wallet);
+            }
+            myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
+            rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+        }else {
+            myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
+            rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
         }
-        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
-        rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
     }
 
     private void fetchAccountWallet(String walletName) {
@@ -686,7 +691,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
         if (adapterPosition > -1) {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
-            if (!wallet_name.equalsIgnoreCase(walletList.get(adapterPosition).getStr_data_name()))
+            if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name()))
                 onItemChanged(walletList.get(adapterPosition));
         }
     }
