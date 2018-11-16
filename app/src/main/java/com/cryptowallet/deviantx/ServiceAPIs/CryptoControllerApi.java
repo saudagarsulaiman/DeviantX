@@ -36,7 +36,7 @@ public interface CryptoControllerApi {
 //    Call<ResponseBody> getPagedItemDataResponse(@Query("vendorid") int xvendorid, @Query("CategoryID") int xCategoryID, @Query("itemSearchText") String xitemSearchText, @Query("pageno") int xpageno);
 
     @GET("/api/crypto/get_all_transactions")
-    Call<ResponseBody> getTransactions( @Header("Authorization") String AuthorizationDX);
+    Call<ResponseBody> getTransactions(@Header("Authorization") String AuthorizationDX);
 
 //    @GET("/api/crypto/get_account_wallet")
 //    Call<ResponseBody> getAccountWallet(@Header("Authorization") String AuthorizationDX);
@@ -59,5 +59,8 @@ public interface CryptoControllerApi {
 
     @GET("/api/crypto/new_wallet/{coin_code}/{coin_name}/{wallet_name}")
     Call<ResponseBody> createWalletCoin(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX, @Path("coin_name") String coinNameX, @Path("wallet_name") String walletNameX);
+
+    @GET("/api/crypto/update_fav/{address}/{state}")
+    Call<ResponseBody> favAddRemove(@Header("Authorization") String AuthorizationDX, @Path("address") String address, @Path("state") boolean state);
 
 }

@@ -20,6 +20,7 @@ import com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.SendCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletDetailsActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
+import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
@@ -48,9 +49,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     boolean hideBal;
+    FavListener favListener;
 
-    public MyWalletCoinsRAdapter(Context context, ArrayList<AccountWallet> accountWalletlist) {
+    public MyWalletCoinsRAdapter(Activity context, ArrayList<AccountWallet> accountWalletlist,FavListener favListener) {
         this.context = context;
+        this.favListener=favListener;
         this.accountWalletlist = accountWalletlist;
         accountWallet = null;
 //        this.selectedAccountWallet = new ArrayList<>();
@@ -90,6 +93,12 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
 
+        viewHolder.fav_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                favListener.addOrRemoveFav(accountWalletlist.get(i),i);
+            }
+        });
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
