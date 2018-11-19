@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height80"
                 android:layout_marginLeft="@dimen/def_margin"
                 android:layout_marginRight="@dimen/def_margin"
                 android:orientation="vertical">
@@ -36,7 +36,7 @@
                     <ImageView
                         android:id="@+id/img_coin_logo"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/height50"
                         android:layout_gravity="center"
                         android:layout_weight="0.6"
                         android:src="@drawable/ic_dlg" />

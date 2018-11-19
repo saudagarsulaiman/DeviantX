@@ -380,6 +380,7 @@
     <string name="new_wallet">+ New Wallet</string>
     <string name="protect_pin">Protect with Pin</string>
     <string name="rename">Rename</string>
+    <string name="no_fav_avail">No Favourites Available</string>
 
 
 </resources>

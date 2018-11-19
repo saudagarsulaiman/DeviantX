@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -91,6 +92,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     VerticalTextView newWallet;
     @BindView(R.id.fav_filter)
     ImageView favFilter;
+    @BindView(R.id.lnr_no_fav_avail)
+    LinearLayout lnr_no_fav_avail;
 
 
     WalletListRAdapter walletListRAdapter;
@@ -114,14 +117,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     String str_data_name;
     int int_data_walletid;
     double dbl_data_totalBal;
-    boolean defaultWallet=false;
+    boolean defaultWallet = false;
     FavListener favListener;
 
     boolean hideBal;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) {
+        if (requestCode == 101) {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             fetchAccountWallet(wallet_name);
         }
@@ -187,7 +190,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         rview_wallet_coins.setLayoutManager(layoutManager);
         myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
         rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-
+        favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z));
+        favFilter.setTag("unFav");
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.START | ItemTouchHelper.END) {
             @Override
@@ -243,14 +247,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 101);
             }
         });
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivityForResult(intent, 100);
+                startActivityForResult(intent, 101);
             }
         });
         lnr_new_wallet.setOnClickListener(new View.OnClickListener() {
@@ -263,7 +267,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         favFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterLoad((filterCoinlist.size()==0));
+                filterLoad((filterCoinlist.size() == 0) && favFilter.getTag().equals("unFav"));
             }
         });
 
@@ -326,7 +330,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal,defaultWallet));
+                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                                 }
 //                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
                                 walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
@@ -408,7 +412,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     filterLoad(true);
                                 } else {
                                     accountWalletlist.get(position).getAllCoins().setFav(isFav);
-                                    myWalletCoinsRAdapter.updateData(accountWalletlist,position);
+                                    myWalletCoinsRAdapter.updateData(accountWalletlist, position);
                                 }
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
@@ -456,16 +460,28 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     private void filterLoad(boolean isFilter) {
         filterCoinlist = new ArrayList<>();
-        if(isFilter) {
+        if (isFilter) {
             for (AccountWallet wallet : accountWalletlist) {
                 if (wallet.getAllCoins().getFav())
                     filterCoinlist.add(wallet);
             }
-            myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
-            rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-        }else {
+
+                myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
+                rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+                favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
+                favFilter.setTag("Fav");
+                if (filterCoinlist.size()==0){
+                    lnr_no_fav_avail.setVisibility(View.VISIBLE);
+                }else{
+                    lnr_no_fav_avail.setVisibility(View.GONE);
+                }
+
+        } else {
+            lnr_no_fav_avail.setVisibility(View.GONE);
             myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
             rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+            favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z));
+            favFilter.setTag("unFav");
         }
     }
 
@@ -626,6 +642,9 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
                                                 dbl_data_balanceInINR, str_data_account, allCoins));
                                     }
+                                    favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z));
+                                    favFilter.setTag("unFav");
+                                    lnr_no_fav_avail.setVisibility(View.GONE);
                                     myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
 //                                    totalBalance = 0.0;
@@ -693,8 +712,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name())) {
                 onItemChanged(walletList.get(adapterPosition));
-                accountWalletlist=new ArrayList<>();
-                filterCoinlist=new ArrayList<>();
+                accountWalletlist = new ArrayList<>();
+                filterCoinlist = new ArrayList<>();
+                favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z));
+                favFilter.setTag("unFav");
                 myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
                 rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
             }

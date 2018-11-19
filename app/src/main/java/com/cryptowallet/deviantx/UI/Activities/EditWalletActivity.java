@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
+import com.cryptowallet.deviantx.UI.Models.AccountWallet;
+import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -54,6 +56,7 @@ public class EditWalletActivity extends AppCompatActivity {
     String s_WalletName;
     String loginResponseData, loginResponseStatus, loginResponseMsg;
     ProgressDialog progressDialog;
+    WalletList walletList;
 
 
     @Override
@@ -72,9 +75,14 @@ public class EditWalletActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         Bundle bundle = getIntent().getExtras();
-        String walletName = bundle.getString(CONSTANTS.walletName, null);
-        edt_wallet.setText(walletName);
-        
+        walletList = bundle.getParcelable(CONSTANTS.walletName);
+        edt_wallet.setText(walletList.getStr_data_name());
+
+        if (walletList.isDefaultWallet())
+            scompat_defWallet.setChecked(true);
+        else
+            scompat_defWallet.setChecked(false);
+
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +114,7 @@ public class EditWalletActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(EditWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.updateWallet(CONSTANTS.DeviantMulti + token, s_walletName, scompat_defWallet.isChecked());
+            Call<ResponseBody> apiResponse = apiService.updateWallet(CONSTANTS.DeviantMulti + token, walletList.getStr_data_name(), s_walletName, scompat_defWallet.isChecked());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

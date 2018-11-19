@@ -64,7 +64,7 @@ public class MyWalletListRAdapter extends RecyclerView.Adapter<MyWalletListRAdap
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditWalletActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(CONSTANTS.walletName, walletList.get(i).getStr_data_name());
+                bundle.putParcelable(CONSTANTS.walletName, walletList.get(i));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

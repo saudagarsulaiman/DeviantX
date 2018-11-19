@@ -29,6 +29,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     Transaction transaction;
     boolean hideBal;
     AccountWallet selectedAccountWallet;
+    boolean oneTime;
 
     public WalletHistoryRAdapter(Context context, ArrayList<Transaction> transactions, AccountWallet selectedAccountWallet) {
         this.context = context;
@@ -36,6 +37,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         transaction = null;
         this.hideBal = myApplication.getHideBalance();
         this.selectedAccountWallet = selectedAccountWallet;
+        this.oneTime = true;
     }
 
     public void setIsHideBalance(Boolean isHideBalance) {
@@ -54,8 +56,8 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         if (selectedAccountWallet.getStr_data_address().equals(transactionList.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
-//            viewHolder.lnr_trans_avail.setVisibility(View.VISIBLE);
-//            viewHolder.lnr_no_trans.setVisibility(View.GONE);
+            viewHolder.lnr_trans_avail.setVisibility(View.VISIBLE);
+            viewHolder.lnr_no_trans.setVisibility(View.GONE);
 //        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
             viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
@@ -75,6 +77,13 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
             } else {
                 viewHolder.txt_trans_address.setText("To " + "***");
                 viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            }
+        } else {
+//            viewHolder.lnr_trans_avail.setVisibility(View.GONE);
+            if (oneTime) {
+                viewHolder.lnr_no_trans.setVisibility(View.VISIBLE);
+                viewHolder.lnr_trans_avail.setVisibility(View.GONE);
+                oneTime = false;
             }
         }
 

@@ -167,6 +167,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    ViewPagerAdapter adapter;
 
 
     @Override
@@ -202,6 +203,7 @@ public class DashBoardActivity extends AppCompatActivity {
         img_tlbr_search.setVisibility(View.GONE);
         setupViewPager(mViewPager);
         initMagicIndicator();
+        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
 
 
        /* btm_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -287,7 +289,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
 //        adapter.addFragment(new ExploreCoinsFragment(), "");
         adapter.addFragment(new AirDropFragment(), "");
@@ -351,8 +353,18 @@ public class DashBoardActivity extends AppCompatActivity {
 
 
         Intent intent = new Intent(DashBoardActivity.this, WalletListActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 100);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 100) {
+            // mViewPager.setCurrentItem(0, true);
+            if (mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1)
+                setupViewPager(mViewPager);
+//            txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+        }
     }
 
     private void navDrawerSettings() {
@@ -579,6 +591,7 @@ public class DashBoardActivity extends AppCompatActivity {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
+
 
         @Override
         public CharSequence getPageTitle(int position) {

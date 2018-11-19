@@ -53,15 +53,11 @@ public class WalletListActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         myApplication.disableScreenCapture(this);
-        if (myWalletListRAdapter != null) {
-            myWalletListRAdapter.setIsHideBalance(myApplication.getHideBalance());
-            myWalletListRAdapter.notifyDataSetChanged();
-        }
+        invokeWallet();
     }
-
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -70,6 +66,7 @@ public class WalletListActivity extends AppCompatActivity {
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_data_name;
     int int_data_id;
     double dbl_data_totalBal;
+    boolean defaultWallet = false;
 
     ArrayList<WalletList> walletList;
 
@@ -131,6 +128,7 @@ public class WalletListActivity extends AppCompatActivity {
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
+                                walletList = new ArrayList<>();
                                 loginResponseData = jsonObject.getString("data");
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 for (int i = 0; i < jsonArrayData.length(); i++) {
@@ -150,9 +148,14 @@ public class WalletListActivity extends AppCompatActivity {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    walletList.add(new WalletList(int_data_id, str_data_name, dbl_data_totalBal));
+                                    try {
+                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    walletList.add(new WalletList(int_data_id, str_data_name, dbl_data_totalBal, defaultWallet));
                                 }
-                                myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this,walletList);
+                                myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this, walletList);
                                 rview_my_walletlist.setAdapter(myWalletListRAdapter);
 
                             } else {

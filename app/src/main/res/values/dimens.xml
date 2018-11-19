@@ -357,6 +357,7 @@
     <dimen name="text11">11sp</dimen>
     <dimen name="height220">220dp</dimen>
     <dimen name="height200">200dp</dimen>
+    <dimen name="height250">250dp</dimen>
 
 
     <!--Newly Added-->

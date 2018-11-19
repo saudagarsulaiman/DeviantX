@@ -19,7 +19,7 @@ public interface WalletControllerApi {
 
 
     //    @Headers("Content-Type: application/json")
-    @GET("/api/wallet/update_wallet/{name}/{defaultWallet}")
-    Call<ResponseBody> updateWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("defaultWallet") boolean defaultWallet);
+    @GET("/api/wallet/update_wallet/{name}/{new_name}/{defaultWallet}")
+    Call<ResponseBody> updateWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("new_name") String new_Name, @Path("defaultWallet") boolean defaultWallet);
 
 }

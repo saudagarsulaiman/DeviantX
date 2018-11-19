@@ -224,6 +224,34 @@
             android:visibility="visible" />
 
         <LinearLayout
+            android:id="@+id/lnr_no_fav_avail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/def_margin"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/def_padding"
+            android:visibility="gone">
+
+            <!--<ImageView-->
+                <!--android:layout_width="@dimen/width50"-->
+                <!--android:layout_height="@dimen/height50"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/" />-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/no_fav_avail"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_ttl_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/lnr_reload"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
