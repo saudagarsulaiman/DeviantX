@@ -84,6 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
+
                 android:text="@string/def_wallet"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size"
@@ -93,6 +94,7 @@
                 android:id="@+id/scompat_defWallet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:layout_weight="0.4"
                 android:theme="@style/SwitchStyle" />
 

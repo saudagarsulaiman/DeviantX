@@ -3,32 +3,40 @@ package com.cryptowallet.deviantx.UI.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Binder;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import org.json.JSONArray;
+
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -58,6 +66,9 @@ public class CoinInformationActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
+    ArrayList<CoinGraph> coinGraphList;
+    List<String> stringResponseList;
+    CoinGraph coinGraph;
 
     /*
     private final Handler mHandler = new Handler();
@@ -83,6 +94,8 @@ public class CoinInformationActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        coinGraphList = new ArrayList<>();
+        stringResponseList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
@@ -186,7 +199,6 @@ public class CoinInformationActivity extends AppCompatActivity {
 */
 
 
-
 //        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
 //        GridLabelRenderer.Styles mStyles;
 //        GridLabelRenderer.GridStyle mgridStyle;
@@ -194,12 +206,30 @@ public class CoinInformationActivity extends AppCompatActivity {
 //        gridLabelRenderer.setHorizontalLabelsVisible(true);
 //        gridLabelRenderer.setVerticalLabelsVisible(true);
 
+
+        long startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000);
+        long endTime = System.currentTimeMillis();
+        if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+            invokeCoinGraph("ETC", "1d", 800, startTime, endTime);
+        } else {
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+        }
+
         graph.getGridLabelRenderer().setVerticalLabelsVisible(true);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(true);
-        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getResources().getColor(R.color.yellow));
-        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getResources().getColor(R.color.brdr_yellow));
-        graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.grey));
-//        graph.getGridLabelRenderer().set
+        graph.getGridLabelRenderer().setVerticalLabelsColor(getResources().getColor(R.color.yellow));
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(getResources().getColor(R.color.brdr_yellow));
+//        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getResources().getColor(R.color.yellow));
+//        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getResources().getColor(R.color.brdr_yellow));
+        graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.grey1));
+        graph.getGridLabelRenderer().setNumVerticalLabels(3);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(2);
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setMinX(0);
+        graph.getViewport().setMaxX(50);
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(-50);
+        graph.getViewport().setMaxY(50);
 
         // first series is a line
         DataPoint[] points = new DataPoint[100];
@@ -289,5 +319,80 @@ public class CoinInformationActivity extends AppCompatActivity {
     }
 
 */
+
+
+    private void invokeCoinGraph(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
+                            progressDialog.dismiss();
+                            JSONArray jsonArray = new JSONArray(responsevalue);
+
+
+                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONArray childArray = jsonArray.getJSONArray(i);
+                                for (int j = 0; j < childArray.length(); j++) {
+                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                }
+                                responseList.add(coinGraph);
+                            }
+
+//                            graph.getGridLabelRenderer().setLa
+
+//                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responseList" + String.valueOf(responseList));
+//                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "stringResponseList" + String.valueOf(stringResponseList));
+
+
+////                            Log.e(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        } else {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

@@ -338,7 +338,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     private void convertCoinValue(final String from_coin, final String to_coin) {
         try {
             progressDialog = ProgressDialog.show(SendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
-            USDValues apiService = DeviantXApiClient.getClientValues().create(USDValues.class);
+            USDValues apiService = DeviantXApiClient.getCoinValues().create(USDValues.class);
             Call<USDValue> apiResponse = apiService.getUsdConversion(from_coin/*, to_coin*/);
             Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<USDValue>() {

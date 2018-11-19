@@ -37,6 +37,13 @@
         android:background="@drawable/dlg_white_trtl_c15"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:src="@drawable/line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -105,7 +112,7 @@
                     android:text="%"
                     android:textColor="@color/mar_red"
                     android:textSize="@dimen/def_text_size"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
             </LinearLayout>
 

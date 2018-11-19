@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -87,9 +88,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
         //Fav
         if (accountWalletlist.get(i).getAllCoins().getFav())
-            viewHolder.fav_icon.setImageDrawable(context.getDrawable(R.drawable.favourite));
+            viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
         else
-            viewHolder.fav_icon.setImageDrawable(context.getDrawable(R.drawable.un_favourite));
+            viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.un_favourite));
 
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
 
@@ -165,7 +166,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         TextView txt_coin_value = view.findViewById(R.id.txt_coin_value);
         TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
         TextView txt_usd_value = view.findViewById(R.id.txt_usd_value);
-//        TextView txt_percentage = view.findViewById(R.id.txt_percentage);
+        TextView txt_percentage = view.findViewById(R.id.txt_percentage);
         TextView txt_h_per = view.findViewById(R.id.txt_h_per);
         TextView txt_d_per = view.findViewById(R.id.txt_d_per);
         TextView txt_m_per = view.findViewById(R.id.txt_m_per);
@@ -206,6 +207,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         GridLabelRenderer gridLabelRenderer = grapgh_dlg.getGridLabelRenderer();
         gridLabelRenderer.setHorizontalLabelsVisible(false);
         gridLabelRenderer.setVerticalLabelsVisible(false);
+        gridLabelRenderer.setGridColor(Color.WHITE);
         /*GRAPH ENDS*/
 
 
@@ -227,24 +229,30 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
         txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
 
-        txt_h_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + " ");
-        txt_d_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + " ");
-        txt_m_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + " ");
-
 
         if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+            txt_percentage.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
+            txt_h_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
             txt_h_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
+            txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
             txt_h_per.setTextColor(context.getResources().getColor(R.color.green));
+            txt_h_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
         }
         if (accountWallet.getAllCoins().getDbl_coin_7d() < 0) {
+            txt_d_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
             txt_d_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
+            txt_d_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
             txt_d_per.setTextColor(context.getResources().getColor(R.color.green));
         }
         if (accountWallet.getAllCoins().getDbl_coin_1m() < 0) {
+            txt_m_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
             txt_m_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
+            txt_m_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
             txt_m_per.setTextColor(context.getResources().getColor(R.color.green));
         }
 
