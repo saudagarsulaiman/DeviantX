@@ -185,12 +185,21 @@ public class CoinInformationActivity extends AppCompatActivity {
         graph.getViewport().setMaxX(40);
 */
 
-        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
+
+
+//        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
 //        GridLabelRenderer.Styles mStyles;
 //        GridLabelRenderer.GridStyle mgridStyle;
 //        GridLabelRenderer.VerticalLabelsVAlign verticalLabelsVAlign;
-        gridLabelRenderer.setHorizontalLabelsVisible(true);
-        gridLabelRenderer.setVerticalLabelsVisible(false);
+//        gridLabelRenderer.setHorizontalLabelsVisible(true);
+//        gridLabelRenderer.setVerticalLabelsVisible(true);
+
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(true);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(true);
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(getResources().getColor(R.color.yellow));
+        graph.getGridLabelRenderer().setHorizontalAxisTitleColor(getResources().getColor(R.color.brdr_yellow));
+        graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.grey));
+//        graph.getGridLabelRenderer().set
 
         // first series is a line
         DataPoint[] points = new DataPoint[100];
