@@ -3,30 +3,14 @@ package com.cryptowallet.deviantx.UI.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class AccountWallet implements Parcelable {
 
     int int_data_id;
     String str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode, str_data_account;
     Double str_data_balance, str_data_balanceInUSD, str_data_balanceInINR;
     AllCoins allCoins;
-
-    public AccountWallet(int int_data_id, String str_data_address, String str_data_walletName, String str_data_privatekey, String str_data_passcode, Double str_data_balance, Double str_data_balanceInUSD, Double str_data_balanceInINR, String str_data_account, AllCoins allCoins) {
-        this.int_data_id = int_data_id;
-        this.str_data_address = str_data_address;
-        this.str_data_walletName = str_data_walletName;
-        this.str_data_privatekey = str_data_privatekey;
-        this.str_data_passcode = str_data_passcode;
-        this.str_data_balance = str_data_balance;
-        this.str_data_balanceInUSD = str_data_balanceInUSD;
-        this.str_data_balanceInINR = str_data_balanceInINR;
-        this.str_data_account = str_data_account;
-        this.allCoins = allCoins;
-    }
-
-    public AccountWallet() {
-
-    }
-
 
     protected AccountWallet(Parcel in) {
         int_data_id = in.readInt();
@@ -64,6 +48,38 @@ public class AccountWallet implements Parcelable {
             return new AccountWallet[size];
         }
     };
+
+    public ArrayList<CoinGraph> getResponseList() {
+        return responseList;
+    }
+
+    public void setResponseList(ArrayList<CoinGraph> responseList) {
+        this.responseList = responseList;
+    }
+
+    ArrayList<CoinGraph> responseList=new ArrayList<>();
+
+    public AccountWallet(int int_data_id, String str_data_address, String str_data_walletName, String str_data_privatekey, String str_data_passcode, Double str_data_balance, Double str_data_balanceInUSD, Double str_data_balanceInINR, String str_data_account, AllCoins allCoins) {
+        this.int_data_id = int_data_id;
+        this.str_data_address = str_data_address;
+        this.str_data_walletName = str_data_walletName;
+        this.str_data_privatekey = str_data_privatekey;
+        this.str_data_passcode = str_data_passcode;
+        this.str_data_balance = str_data_balance;
+        this.str_data_balanceInUSD = str_data_balanceInUSD;
+        this.str_data_balanceInINR = str_data_balanceInINR;
+        this.str_data_account = str_data_account;
+        this.allCoins = allCoins;
+    }
+
+    public AccountWallet() {
+
+    }
+
+
+
+
+
 
     public int getStr_data_id() {
         return int_data_id;
@@ -144,6 +160,7 @@ public class AccountWallet implements Parcelable {
     public void setAllCoins(AllCoins allCoins) {
         this.allCoins = allCoins;
     }
+
 
     @Override
     public int describeContents() {
