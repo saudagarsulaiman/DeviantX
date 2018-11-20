@@ -205,8 +205,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         grapgh_dlg.addSeries(series);
 //        Disabling Labels
         GridLabelRenderer gridLabelRenderer = grapgh_dlg.getGridLabelRenderer();
-        gridLabelRenderer.setHorizontalLabelsVisible(false);
-        gridLabelRenderer.setVerticalLabelsVisible(false);
+        gridLabelRenderer.setHorizontalLabelsVisible(true);
+        gridLabelRenderer.setVerticalLabelsVisible(true);
         gridLabelRenderer.setGridColor(Color.WHITE);
         /*GRAPH ENDS*/
 

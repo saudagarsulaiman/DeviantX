@@ -2,49 +2,40 @@ package com.cryptowallet.deviantx.UI.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class CoinGraph implements Parcelable {
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
-    long time;
-    double open, high, low, close, change, amplitude;
+public class CoinGraph implements Comparable<CoinGraph> {
+
+   public Date time;
+   public float high;
+   public double open,  low, close, change, amplitude;
 
     public CoinGraph(long time, double open, double high, double low, double close, double change, double amplitude) {
-        this.time = time;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        Date d1 = calendar.getTime();
+        this.time = d1;
         this.open = open;
-        this.high = high;
+        this.high = (float)high;
         this.low = low;
         this.close = close;
         this.change = change;
         this.amplitude = amplitude;
     }
 
-    protected CoinGraph(Parcel in) {
-        time = in.readLong();
-        open = in.readDouble();
-        high = in.readDouble();
-        low = in.readDouble();
-        close = in.readDouble();
-        change = in.readDouble();
-        amplitude = in.readDouble();
-    }
 
-    public static final Creator<CoinGraph> CREATOR = new Creator<CoinGraph>() {
-        @Override
-        public CoinGraph createFromParcel(Parcel in) {
-            return new CoinGraph(in);
-        }
 
-        @Override
-        public CoinGraph[] newArray(int size) {
-            return new CoinGraph[size];
-        }
-    };
-
-    public long getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -56,11 +47,11 @@ public class CoinGraph implements Parcelable {
         this.open = open;
     }
 
-    public double getHigh() {
+    public float getHigh() {
         return high;
     }
 
-    public void setHigh(double high) {
+    public void setHigh(float high) {
         this.high = high;
     }
 
@@ -96,19 +87,24 @@ public class CoinGraph implements Parcelable {
         this.amplitude = amplitude;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+
+
+   /* public Date getDate() {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(time);
+            Date d1 = calendar.getTime();
+            return d1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }*/
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(time);
-        dest.writeDouble(open);
-        dest.writeDouble(high);
-        dest.writeDouble(low);
-        dest.writeDouble(close);
-        dest.writeDouble(change);
-        dest.writeDouble(amplitude);
+    public int compareTo(@NonNull CoinGraph measure) {
+        if (time == null || measure.time == null)
+            return 0;
+        return time.compareTo(measure.time);
     }
 }
