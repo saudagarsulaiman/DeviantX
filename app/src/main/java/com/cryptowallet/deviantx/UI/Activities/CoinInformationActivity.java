@@ -1,18 +1,18 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.RectF;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,37 +23,31 @@ import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.MPPointF;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.PointsGraphSeries;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 
 import java.net.SocketTimeoutException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.text.DateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +58,7 @@ import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class CoinInformationActivity extends AppCompatActivity {
+public class CoinInformationActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     @BindView(R.id.img_coin_logo)
@@ -81,8 +75,22 @@ public class CoinInformationActivity extends AppCompatActivity {
     TextView txt_per_low;
     @BindView(R.id.toolbar_center_back)
     Toolbar toolbar_center_back;
-    @BindView(R.id.graph)
-    LineChart graph;
+    @BindView(R.id.line_chart)
+    LineChart line_chart;
+    @BindView(R.id.lnr_line_graph)
+    LinearLayout lnr_line_graph;
+    @BindView(R.id.lnr_candle_graph)
+    LinearLayout lnr_candle_graph;
+    @BindView(R.id.lnr_spnr)
+    LinearLayout lnr_spnr;
+    @BindView(R.id.spnr_days)
+    Spinner spnr_days;
+    @BindView(R.id.pb)
+    ProgressBar pb;
+    @BindView(R.id.candle_chart)
+    CandleStickChart candle_chart;
+
+
     public static final int DURATION_MILLIS = 1000;
     public static final float SIZE = 9f;
     public static final String DATA_SET_1 = "DataSet 1";
@@ -90,8 +98,8 @@ public class CoinInformationActivity extends AppCompatActivity {
 
     AllCoins selectedCoin;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    //    SharedPreferences sharedPreferences;
+//    SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
     ArrayList<CoinGraph> coinGraphList;
@@ -119,8 +127,8 @@ public class CoinInformationActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+//        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+//        editor = sharedPreferences.edit();
 
         coinGraphList = new ArrayList<>();
         stringResponseList = new ArrayList<>();
@@ -141,14 +149,61 @@ public class CoinInformationActivity extends AppCompatActivity {
         txt_coin_name.setText(selectedCoin.getStr_coin_name());
         txt_coin_usd.setText("$" + String.format("%.4f", selectedCoin.getDbl_coin_usdValue()));
 
-//        if (.contains("-")) {
-//            txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
-//        } else {
-//            txt_per_change.setTextColor(getResources().getColor(R.color.green));
-//        }
-//        txt_per_change.setText(+"%");
-//        txt_per_high.setText("$"+String.format("%.6f", ));
-//        txt_per_low.setText("$"+String.format("%.6f", ));
+        // Spinner click listener
+        spnr_days.setOnItemSelectedListener(this);
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("1 Day");
+        categories.add("7 Days");
+//        categories.add("1 Month");
+//        categories.add("6 Months");
+//        categories.add("1 Year");
+//        categories.add("All");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_days, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spnr_days.setAdapter(dataAdapter);
+
+        lnr_candle_graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lnr_candle_graph.setBackground(getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+                lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
+                line_chart.setVisibility(View.GONE);
+                candle_chart.setVisibility(View.VISIBLE);
+                candleSwitchCases(spnr_days.getSelectedItem().toString());
+            }
+        });
+
+        lnr_line_graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, spnr_days.getSelectedItem().toString());
+                lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+                lnr_candle_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
+                line_chart.setVisibility(View.VISIBLE);
+                candle_chart.setVisibility(View.GONE);
+                lineSwitchCases(spnr_days.getSelectedItem().toString());
+            }
+        });
+
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        long endTime = System.currentTimeMillis();
+        if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+            invokeCoinDefGraph(selectedCoin.getStr_coin_code(), "1h", 800, startTime, endTime);
+            pb.setVisibility(View.VISIBLE);
+        } else {
+            pb.setVisibility(View.GONE);
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+        }
+
+
+
 
     /*
   LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
@@ -174,7 +229,7 @@ public class CoinInformationActivity extends AppCompatActivity {
         series.setDrawBackground(true);
         series.setBackgroundColor(getResources().getColor(R.color.yellow_trans));
 
-        graph.addSeries(series);
+        line_chart.addSeries(series);
 */
 
 
@@ -195,65 +250,461 @@ public class CoinInformationActivity extends AppCompatActivity {
                 new DataPoint(d3, 3)
         });
 
-        graph.addSeries(series);
+        line_chart.addSeries(series);
 
 // set date label formatter
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(CoinInformationActivity.this));
-        graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+        line_chart.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(CoinInformationActivity.this));
+        line_chart.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
 
 // set manual x bounds to have nice steps
-        graph.getViewport().setMinX(d1.getTime());
-        graph.getViewport().setMaxX(d3.getTime());
-        graph.getViewport().setXAxisBoundsManual(true);
+        line_chart.getViewport().setMinX(d1.getTime());
+        line_chart.getViewport().setMaxX(d3.getTime());
+        line_chart.getViewport().setXAxisBoundsManual(true);
 
 // as we use dates as labels, the human rounding to nice readable numbers
 // is not necessary
-        graph.getGridLabelRenderer().setHumanRounding(false);
+        line_chart.getGridLabelRenderer().setHumanRounding(false);
 */
 
 
 
 /*
         mSeries1 = new LineGraphSeries<>(generateData());
-        graph.addSeries(mSeries1);
+        line_chart.addSeries(mSeries1);
 */
 
 /*
         mSeries2 = new LineGraphSeries<>();
-        graph.addSeries(mSeries2);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(40);
+        line_chart.addSeries(mSeries2);
+        line_chart.getViewport().setXAxisBoundsManual(true);
+        line_chart.getViewport().setMinX(0);
+        line_chart.getViewport().setMaxX(40);
 */
 
 
-//        GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
+//        GridLabelRenderer gridLabelRenderer = line_chart.getGridLabelRenderer();
 //        GridLabelRenderer.Styles mStyles;
 //        GridLabelRenderer.GridStyle mgridStyle;
 //        GridLabelRenderer.VerticalLabelsVAlign verticalLabelsVAlign;
 //        gridLabelRenderer.setHorizontalLabelsVisible(true);
 //        gridLabelRenderer.setVerticalLabelsVisible(true);
 
+    }
 
-        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
-        long endTime = System.currentTimeMillis();
-        if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
-            invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 800, startTime, endTime);
+
+    private void invokeCoinDefGraph(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+//            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            //  CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
+                            pb.setVisibility(View.GONE);
+                            //progressDialog.dismiss();
+                            JSONArray jsonArray = new JSONArray(responsevalue);
+
+                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            DataPoint[] points = new DataPoint[jsonArray.length()];
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONArray childArray = jsonArray.getJSONArray(i);
+                                for (int j = 0; j < childArray.length(); j++) {
+                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(coinGraph);
+                                    /*Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(childArray.getLong(0));
+                                    Date d1 = calendar.getTime();
+                                    points[i]=new DataPoint(d1,childArray.getLong(2));*/
+                                }
+
+                            }
+                            setChart();
+                            line_chart.setData(null);
+                            candle_chart.setData(null);
+                            setChartData(responseList);
+
+                            txt_per_high.setText("$" + String.format("%.6f", responseList.get(responseList.size() - 1).getHigh()));
+                            txt_per_low.setText("$" + String.format("%.6f", responseList.get(responseList.size() - 1).getLow()));
+                            if (responseList.get(responseList.size() - 1).getChange() < 0) {
+                                txt_per_change.setText(responseList.get(responseList.size() - 1).getChange() + "%");
+                                txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
+                            } else if (responseList.get(responseList.size() - 1).getChange() == 0) {
+
+                            } else {
+                                txt_per_change.setText("+" + responseList.get(responseList.size() - 1).getChange() + "%");
+                                txt_per_change.setTextColor(getResources().getColor(R.color.green));
+                            }
+
+
+                           /* Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(jsonArray.getJSONArray(0).getLong(0));
+                            Date d1 = calendar.getTime();
+                            Calendar calendar1 = Calendar.getInstance();
+                            calendar1.setTimeInMillis(jsonArray.getJSONArray(jsonArray.length()-1).getLong(0));
+                            Date d2 = calendar1.getTime();
+                            line_chart.getViewport().setMinX(d1.getTime());
+                            line_chart.getViewport().setMaxX(d2.getTime());
+*/
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                            pb.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            pb.setVisibility(View.GONE);
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void invokeCoinGraph(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+//            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            //  CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
+                            pb.setVisibility(View.GONE);
+                            //progressDialog.dismiss();
+                            JSONArray jsonArray = new JSONArray(responsevalue);
+
+                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            DataPoint[] points = new DataPoint[jsonArray.length()];
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONArray childArray = jsonArray.getJSONArray(i);
+                                for (int j = 0; j < childArray.length(); j++) {
+                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(coinGraph);
+                                    /*Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(childArray.getLong(0));
+                                    Date d1 = calendar.getTime();
+                                    points[i]=new DataPoint(d1,childArray.getLong(2));*/
+                                }
+
+                            }
+                            setChart();
+                            line_chart.setData(null);
+                            candle_chart.setData(null);
+                            setChartData(responseList);
+                           /* Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(jsonArray.getJSONArray(0).getLong(0));
+                            Date d1 = calendar.getTime();
+                            Calendar calendar1 = Calendar.getInstance();
+                            calendar1.setTimeInMillis(jsonArray.getJSONArray(jsonArray.length()-1).getLong(0));
+                            Date d2 = calendar1.getTime();
+                            line_chart.getViewport().setMinX(d1.getTime());
+                            line_chart.getViewport().setMaxX(d2.getTime());
+*/
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                            pb.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            pb.setVisibility(View.GONE);
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setChart() {
+        line_chart.setNoDataText(" ");
+        // no description text
+        line_chart.getDescription().setEnabled(false);
+
+        line_chart.setTouchEnabled(true);
+
+        line_chart.setDragEnabled(true);
+        line_chart.setScaleEnabled(true);
+
+        XAxis xAxis = line_chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(true);
+        xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setDrawGridLines(true);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setLabelCount(5);
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        //formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        xAxis.setValueFormatter((value, axis) -> {
+            Date date = new Date((long) value);
+            return formatter.format(date);
+        }); // hide text
+        xAxis.setTextSize(11f);
+
+        xAxis.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        xAxis.setGranularity(GRANULARITY);
+
+        YAxis leftAxis = line_chart.getAxisLeft();
+        leftAxis.setDrawGridLines(true);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.setTextSize(11f);
+        leftAxis.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        line_chart.getAxisRight().setEnabled(false);
+        line_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Long date = (long) e.getX();
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTimeInMillis(date);
+                Date d2 = calendar1.getTime();
+                SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                String newDateStr = curFormater.format(d2);
+                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY() + " USD | " + newDateStr);
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+    }
+
+    public void setChartData(ArrayList<CoinGraph> histories) {
+        // set data
+        Collections.sort(histories);
+        ArrayList<Entry> values = new ArrayList<>();
+        LineDataSet line_set;
+        ArrayList<CandleEntry> candleValues = new ArrayList<>();
+        CandleDataSet candle_set;
+
+
+
+        for (CoinGraph history : histories) {
+            values.add(new Entry(history.time.getTime(), history.high));
+        }
+        if (line_chart.getData() != null && line_chart.getData().getDataSetCount() > 0) {
+            line_set = (LineDataSet) line_chart.getData().getDataSetByIndex(0);
+            line_set.setValues(values);
+//            XAxis xAxis = binding.chart.getXAxis();
+//            xAxis.setValueFormatter(new IAxisValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float value, AxisBase axis) {
+//                    return "sjd";
+//                }
+//            });
+            line_chart.getData().notifyDataChanged();
+            line_chart.notifyDataSetChanged();
         } else {
-            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+            // create a dataset and give it a type
+            line_set = new LineDataSet(values, DATA_SET_1);
+            line_set.setDrawIcons(false);
+            line_set.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brdr_yellow));
+            line_set.setLineWidth(1f);
+            line_set.setDrawCircles(false);
+            line_set.setValueTextSize(SIZE);
+            line_set.setDrawFilled(true);
+            line_set.setDrawValues(false);
+            line_set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+            line_set.setHighlightEnabled(true); // allow highlighting for DataSet
+            // set this to false to disable the drawing of highlight indicator (lines)
+            line_set.setDrawHighlightIndicators(true);
+            //  line_set.setHighlightColor(Color.BLACK); // color for highlight indicator
+//            line_set.setDrawHighlightIndicators(false);
+            // line_set.setFillDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.back_chart));
+            line_set.setFillColor(ContextCompat.getColor(getApplicationContext(), R.color.yellow_trans));
+            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+            dataSets.add(line_set); // add the datasets
+            // create a data object with the datasets
+            LineData data = new LineData(dataSets);
+            // set data
+            line_chart.setData(data);
+            line_chart.getData().setHighlightEnabled(true);
+            line_chart.animateY(DURATION_MILLIS);
+            // get the legend (only possible after setting data)
+            line_chart.getLegend().setEnabled(false);
+            line_chart.getData().notifyDataChanged();
+            line_chart.notifyDataSetChanged();
         }
 
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        lineSwitchCases(item);
+        candleSwitchCases(item);
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void lineSwitchCases(String item) {
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        long endTime = System.currentTimeMillis();
+        switch (item) {
+            case "1 Day":
+                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+                    pb.setVisibility(View.VISIBLE);
+                } else {
+                    pb.setVisibility(View.GONE);
+                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+                }
+                break;
+            case "7 Days":
+                startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000);
+                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+                    pb.setVisibility(View.VISIBLE);
+                } else {
+                    pb.setVisibility(View.GONE);
+                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+                }
+                break;
+//            case "1 Month":
+//                break;
+//            case "6 Months":
+//                break;
+//            case "1 Year":
+//                break;
+//            case "All":
+//                break;
+            default:
+//                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+//                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 800, startTime, endTime);
+//                } else {
+//                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+//                }
+                break;
+        }
+    }
+
+    private void candleSwitchCases(String item) {
+        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        long endTime = System.currentTimeMillis();
+        switch (item) {
+            case "1 Day":
+                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+                    pb.setVisibility(View.VISIBLE);
+                } else {
+                    pb.setVisibility(View.GONE);
+                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+                }
+                break;
+            case "7 Days":
+                startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000);
+                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+                    pb.setVisibility(View.VISIBLE);
+                } else {
+                    pb.setVisibility(View.GONE);
+                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+                }
+                break;
+//            case "1 Month":
+//                break;
+//            case "6 Months":
+//                break;
+//            case "1 Year":
+//                break;
+//            case "All":
+//                break;
+            default:
+//                if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+//                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 800, startTime, endTime);
+//                } else {
+//                    CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+//                }
+                break;
+        }
+    }
+
+
+    //                getArguments().getInt(MainActivity.ARG_SECTION_NUMBER));
+    //        ((MainActivity) activity).onSectionAttached(
+    //        super.onAttach(activity);
+    //    public void onAttach(Activity activity) {
 //    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
-//        ((MainActivity) activity).onSectionAttached(
-//                getArguments().getInt(MainActivity.ARG_SECTION_NUMBER));
-//    }
 
+//    }
     /*  @Override
       public void onResume() {
           super.onResume();
@@ -269,8 +720,8 @@ public class CoinInformationActivity extends AppCompatActivity {
   //        mTimer2 = new Runnable() {
   //            @Override
   //            public void run() {
-  //                graph2LastXValue += 1d;
-  //                mSeries2.appendData(new DataPoint(graph2LastXValue, getRandom()), true, 40);
+  //                line_chart2LastXValue += 1d;
+  //                mSeries2.appendData(new DataPoint(line_chart2LastXValue, getRandom()), true, 40);
   //                mHandler.postDelayed(this, 200);
   //            }
   //        };
@@ -302,210 +753,6 @@ public class CoinInformationActivity extends AppCompatActivity {
       private double getRandom() {
           return mLastRandom += mRand.nextDouble()*0.5 - 0.25;
       }
-
   */
-    private void setChart() {
-
-        graph.setNoDataText(" ");
-        // no description text
-        graph.getDescription().setEnabled(false);
-
-        graph.setTouchEnabled(true);
-
-        graph.setDragEnabled(true);
-        graph.setScaleEnabled(true);
-
-
-        XAxis xAxis = graph.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(true);
-        xAxis.enableGridDashedLine(10f, 10f, 0f);
-        xAxis.setDrawGridLines(true);
-        xAxis.setDrawAxisLine(true);
-        xAxis.setLabelCount(5);
-        DateFormat formatter = new SimpleDateFormat("HH:mm");
-        //formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        xAxis.setValueFormatter((value, axis) -> {
-            Date date = new Date((long) value);
-            return formatter.format(date);
-        }); // hide text
-        xAxis.setTextSize(11f);
-
-        xAxis.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-        xAxis.setGranularity(GRANULARITY);
-
-        YAxis leftAxis = graph.getAxisLeft();
-        leftAxis.setDrawGridLines(true);
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setTextSize(11f);
-        leftAxis.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-        graph.getAxisRight().setEnabled(false);
-        graph.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Long date = (long) e.getX();
-                Calendar calendar1 = Calendar.getInstance();
-                calendar1.setTimeInMillis(date);
-                Date d2 = calendar1.getTime();
-                SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-                String newDateStr = curFormater.format(d2);
-                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY()+" USD | "+newDateStr);
-
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
-    }
-
-    private void invokeCoinGraph(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
-        try {
-            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
-            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
-            Log.i("API:\t:", apiResponse.toString());
-            apiResponse.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
-                            //  CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
-                            progressDialog.dismiss();
-                            JSONArray jsonArray = new JSONArray(responsevalue);
-
-                            ArrayList<CoinGraph> responseList = new ArrayList<>();
-                            DataPoint[] points = new DataPoint[jsonArray.length()];
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONArray childArray = jsonArray.getJSONArray(i);
-                                for (int j = 0; j < childArray.length(); j++) {
-                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
-                                    responseList.add(coinGraph);
-                                    /*Calendar calendar = Calendar.getInstance();
-                                    calendar.setTimeInMillis(childArray.getLong(0));
-                                    Date d1 = calendar.getTime();
-                                    points[i]=new DataPoint(d1,childArray.getLong(2));*/
-                                }
-
-                            }
-                            setChart();
-                            setChartData(responseList);
-                           /* Calendar calendar = Calendar.getInstance();
-                            calendar.setTimeInMillis(jsonArray.getJSONArray(0).getLong(0));
-                            Date d1 = calendar.getTime();
-                            Calendar calendar1 = Calendar.getInstance();
-                            calendar1.setTimeInMillis(jsonArray.getJSONArray(jsonArray.length()-1).getLong(0));
-                            Date d2 = calendar1.getTime();
-                            graph.getViewport().setMinX(d1.getTime());
-                            graph.getViewport().setMaxX(d2.getTime());
-*/
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
-                    } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        } catch (Exception ex) {
-            progressDialog.dismiss();
-            ex.printStackTrace();
-            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void setChartData(ArrayList<CoinGraph> histories) {
-        // set data
-        Collections.sort(histories);
-        ArrayList<Entry> values = new ArrayList<>();
-        LineDataSet set1;
-
-
-        for (CoinGraph history : histories) {
-            values.add(new Entry(history.time.getTime(), history.high));
-        }
-
-        if (graph.getData() != null && graph.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) graph.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-//            XAxis xAxis = binding.chart.getXAxis();
-//            xAxis.setValueFormatter(new IAxisValueFormatter() {
-//                @Override
-//                public String getFormattedValue(float value, AxisBase axis) {
-//                    return "sjd";
-//                }
-//            });
-            graph.getData().notifyDataChanged();
-            graph.notifyDataSetChanged();
-        } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, DATA_SET_1);
-
-            set1.setDrawIcons(false);
-            set1.setColor(ContextCompat.getColor(getApplicationContext(), R.color.brdr_yellow));
-            set1.setLineWidth(1f);
-            set1.setDrawCircles(false);
-            set1.setValueTextSize(SIZE);
-            set1.setDrawFilled(true);
-            set1.setDrawValues(false);
-            set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-
-            set1.setHighlightEnabled(true); // allow highlighting for DataSet
-
-            // set this to false to disable the drawing of highlight indicator (lines)
-            set1.setDrawHighlightIndicators(true);
-            //  set1.setHighlightColor(Color.BLACK); // color for highlight indicator
-//            set1.setDrawHighlightIndicators(false);
-
-            // set1.setFillDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.back_chart));
-            set1.setFillColor(ContextCompat.getColor(getApplicationContext(), R.color.yellow_trans));
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-
-            // set data
-            graph.setData(data);
-            graph.getData().setHighlightEnabled(true);
-
-            graph.animateY(DURATION_MILLIS);
-
-            // get the legend (only possible after setting data)
-            graph.getLegend().setEnabled(false);
-        }
-    }
-
 
 }

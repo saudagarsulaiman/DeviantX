@@ -164,19 +164,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             public void onClick(View v) {
 
                 if (CommonUtilities.isConnectionAvailable(context)) {
-                    accountWallet = new AccountWallet(
-                            accountWalletlist.get(i).getStr_data_id(),
-                            accountWalletlist.get(i).getStr_data_address(),
-                            accountWalletlist.get(i).getStr_data_walletName(),
-                            accountWalletlist.get(i).getStr_data_privatekey(),
-                            accountWalletlist.get(i).getStr_data_passcode(),
-                            accountWalletlist.get(i).getStr_data_balance(),
-                            accountWalletlist.get(i).getStr_data_balanceInUSD(),
-                            accountWalletlist.get(i).getStr_data_balanceInINR(),
-                            accountWalletlist.get(i).getStr_data_account(),
-                            accountWalletlist.get(i).getAllCoins());
-
-                    customDialog(accountWallet);
+                     customDialog(accountWalletlist.get(i));
 
                 } else {
                     CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
@@ -302,9 +290,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
 
         if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-            txt_percentage.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
-            txt_h_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
+            txt_h_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
             txt_h_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
             txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
@@ -313,14 +301,14 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             txt_h_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
         }
         if (accountWallet.getAllCoins().getDbl_coin_7d() < 0) {
-            txt_d_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
+            txt_d_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
             txt_d_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
             txt_d_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
             txt_d_per.setTextColor(context.getResources().getColor(R.color.green));
         }
         if (accountWallet.getAllCoins().getDbl_coin_1m() < 0) {
-            txt_m_per.setText("-" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
+            txt_m_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
             txt_m_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
             txt_m_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
@@ -533,7 +521,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             // create a dataset and give it a type
             set1 = new LineDataSet(values, DATA_SET_1);
             set1.setDrawIcons(false);
-            set1.setColor(ContextCompat.getColor(context, R.color.brdr_yellow));
             set1.setLineWidth(1f);
             set1.setDrawCircles(false);
             set1.setValueTextSize(SIZE);
@@ -541,14 +528,22 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             set1.setDrawValues(false);
             set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
             set1.setHighlightEnabled(false); // allow highlighting for DataSet
-
             // set this to false to disable the drawing of highlight indicator (lines)
             set1.setDrawHighlightIndicators(false);
             //  set1.setHighlightColor(Color.BLACK); // color for highlight indicator
 //            set1.setDrawHighlightIndicators(false);
 
             // set1.setFillDrawable(ContextCompat.getDrawable(context, R.drawable.back_chart));
-            set1.setFillColor(ContextCompat.getColor(context, R.color.yellow_trans));
+//            set1.setColor(ContextCompat.getColor(context, R.color.brdr_yellow));
+//            set1.setFillColor(ContextCompat.getColor(context, R.color.yellow_trans));
+
+            if (histories.get(0).getHigh() < histories.get(histories.size() - 1).getHigh()) {
+                set1.setColor(ContextCompat.getColor(context, R.color.graph_brdr_green));
+                set1.setFillColor(ContextCompat.getColor(context, R.color.graph_green));
+            } else {
+                set1.setColor(ContextCompat.getColor(context, R.color.graph_brdr_red));
+                set1.setFillColor(ContextCompat.getColor(context, R.color.graph_red));
+            }
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1); // add the datasets

@@ -381,6 +381,7 @@
     <string name="protect_pin">Protect with Pin</string>
     <string name="rename">Rename</string>
     <string name="no_fav_avail">No Favourites Available</string>
+    <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
 
 
 </resources>

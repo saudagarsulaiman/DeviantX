@@ -105,6 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/def_margin"
             android:layout_marginLeft="@dimen/def_margin"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/def_margin"
             android:layout_marginEnd="@dimen/def_margin"
             android:layout_marginRight="@dimen/def_margin"

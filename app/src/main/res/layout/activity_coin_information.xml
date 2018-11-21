@@ -18,7 +18,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height80"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/def_margin"
                 android:layout_marginRight="@dimen/def_margin"
                 android:orientation="vertical">
@@ -170,49 +170,66 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin30"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="0.5">
 
                     <LinearLayout
-                        android:id="@+id/lnr_line_graph"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rec_brinjal_gradient_c2"
-                        android:padding="@dimen/padding5">
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.45"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="@dimen/width24"
-                            android:layout_height="@dimen/height20"
-                            android:src="@drawable/line_graph" />
+                        <LinearLayout
+                            android:id="@+id/lnr_line_graph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rec_brinjal_gradient_c2"
+                            android:padding="@dimen/padding5">
 
-                    </LinearLayout>
+                            <ImageView
+                                android:layout_width="@dimen/width24"
+                                android:layout_height="@dimen/height20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/linegraph" />
 
-                    <LinearLayout
-                        android:id="@+id/lnr_candle_graph"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin10"
-                        android:layout_marginLeft="@dimen/margin10"
-                        android:background="@drawable/rec_grey_trans_c8"
-                        android:padding="@dimen/padding5">
+                        </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="@dimen/width24"
-                            android:layout_height="@dimen/height20"
-                            android:src="@drawable/candle_graph" />
+                        <LinearLayout
+
+                            android:id="@+id/lnr_candle_graph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:background="@drawable/rec_grey_trans_c2"
+                            android:padding="@dimen/padding5">
+
+                            <ImageView
+                                android:layout_width="@dimen/width24"
+                                android:layout_height="@dimen/height20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/chandlechart" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/lnr_spnr"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:padding="@dimen/padding5">
+                        android:layout_gravity="end"
+                        android:layout_weight="0.05"
+                        android:background="@drawable/rec_grey_trans_c2"
+                        android:gravity="end">
 
                         <Spinner
                             android:id="@+id/spnr_days"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/white"
+                            android:gravity="center"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
 
@@ -220,12 +237,29 @@
 
             </LinearLayout>
 
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="@dimen/width30"
+                android:layout_height="@dimen/height30"
+                android:layout_gravity="center"
+                android:background="@color/bg_center_blue"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
+
+
             <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/graph"
+                android:id="@+id/line_chart"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height200"
                 android:layout_marginTop="@dimen/def_margin"
                 android:visibility="visible" />
+
+            <com.github.mikephil.charting.charts.CandleStickChart
+                android:id="@+id/candle_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height200"
+                android:layout_marginTop="@dimen/def_margin"
+                android:visibility="gone"/>
 
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/graph_months"
