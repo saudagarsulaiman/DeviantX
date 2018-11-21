@@ -51,17 +51,19 @@ public class ExploreCoinsRAdapter extends RecyclerView.Adapter<ExploreCoinsRAdap
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AllCoins selectedCoin = new AllCoins(
-                        allCoinsList.get(i).getInt_coin_id(),
-                        allCoinsList.get(i).getStr_coin_name(),
-                        allCoinsList.get(i).getStr_coin_code(),
-                        allCoinsList.get(i).getStr_coin_logo(),
-                        allCoinsList.get(i).getDbl_coin_usdValue()
-                );
+                AllCoins selectedcoin = allCoinsList.get(i);
+//                AllCoins selectedCoin = new AllCoins(
+//                        allCoinsList.get(i).getInt_coin_id(),
+//                        allCoinsList.get(i).getStr_coin_name(),
+//                        allCoinsList.get(i).getStr_coin_code(),
+//                        allCoinsList.get(i).getStr_coin_logo(),
+//                        allCoinsList.get(i).getDbl_coin_usdValue()
+//                );
 
                 Intent intent = new Intent(context, CoinInformationActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedCoin, selectedCoin);
+//                bundle.putParcelable(CONSTANTS.selectedWalletCoin);
+                bundle.putParcelable(CONSTANTS.selectedCoin, selectedcoin);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

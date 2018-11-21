@@ -157,11 +157,11 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             txt_per_change.setText(rank.format(selectedCoin.getDbl_coin_24h()) + "%");
             txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
         } /*else if (responseList.get(responseList.size() - 1).getChange() == 0) {
-
                             }*/ else {
             txt_per_change.setText("+" + rank.format(selectedCoin.getDbl_coin_24h()) + "%");
             txt_per_change.setTextColor(getResources().getColor(R.color.green));
         }
+
         // Spinner click listener
         spnr_days.setOnItemSelectedListener(this);
         // Spinner Drop down elements
@@ -542,10 +542,6 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 ////        });
 
 
-
-
-
-
         line_chart.setNoDataText(" ");
         // no description text
         line_chart.getDescription().setEnabled(false);
@@ -650,7 +646,6 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             candle_chart.getData().notifyDataChanged();
             candle_chart.notifyDataSetChanged();
         }
-
 
 
         ArrayList<Entry> line_values = new ArrayList<>();

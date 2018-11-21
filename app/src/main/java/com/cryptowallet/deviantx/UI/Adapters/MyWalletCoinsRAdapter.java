@@ -132,11 +132,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         }
         DecimalFormat rank = new DecimalFormat("00.00");
-        if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-            viewHolder.txt_percentage.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+        if (accountWalletlist.get(i).getAllCoins().getDbl_coin_24h() < 0) {
+            viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
             viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            viewHolder.txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
             viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
         }
 
