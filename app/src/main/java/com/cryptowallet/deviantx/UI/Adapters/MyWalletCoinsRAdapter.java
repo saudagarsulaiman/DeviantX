@@ -131,6 +131,15 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         }
+        DecimalFormat rank = new DecimalFormat("00.00");
+        if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+            viewHolder.txt_percentage.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            viewHolder.txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
+        }
+
         //Fav
         if (accountWalletlist.get(i).getAllCoins().getFav())
             viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
@@ -164,7 +173,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             public void onClick(View v) {
 
                 if (CommonUtilities.isConnectionAvailable(context)) {
-                     customDialog(accountWalletlist.get(i));
+                    customDialog(accountWalletlist.get(i));
 
                 } else {
                     CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));

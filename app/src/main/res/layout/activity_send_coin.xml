@@ -102,6 +102,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:visibility="gone"
                         android:layout_width="@dimen/width15"
                         android:layout_height="@dimen/height15"
                         android:layout_gravity="center"

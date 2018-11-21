@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -105,7 +106,13 @@ public class ExploreCoinsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+//                if (s.length() > 0) {
+//                    // position the text type in the left top corner
+//                    edt_search.setGravity(Gravity.START);
+//                } else {
+//                    // no text entered. Center the hint text.
+//                    edt_search.setGravity(Gravity.CENTER);
+//                }
             }
 
             @Override

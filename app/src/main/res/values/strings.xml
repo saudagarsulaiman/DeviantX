@@ -382,6 +382,8 @@
     <string name="rename">Rename</string>
     <string name="no_fav_avail">No Favourites Available</string>
     <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
+    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
+    <string name="primary_wallet">Primary Wallet</string>
 
 
 </resources>

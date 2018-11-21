@@ -88,7 +88,7 @@
                         android:text="%"
                         android:textColor="@color/google_red"
                         android:textSize="@dimen/def_text_size"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
 
                 </LinearLayout>
 

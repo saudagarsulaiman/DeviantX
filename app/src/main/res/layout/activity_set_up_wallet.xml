@@ -84,8 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
-
-                android:text="@string/def_wallet"
+                android:text="@string/primary_wallet"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size"
                 android:textStyle="bold" />
