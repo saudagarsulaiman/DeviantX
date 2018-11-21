@@ -57,8 +57,7 @@
             android:id="@+id/item_picker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/def_margin"
-            android:layout_marginLeft="@dimen/def_margin" />
+            />
 
         <LinearLayout
             android:id="@+id/lnr_wallet"
@@ -180,8 +179,9 @@
 
                 <ImageView
                     android:id="@+id/fav_filter"
-                    android:layout_width="@dimen/width20"
-                    android:layout_height="@dimen/height20"
+                    android:scaleType="fitXY"
+                    android:layout_width="@dimen/width25"
+                    android:layout_height="@dimen/height25"
                     android:src="@drawable/z" />
 
             </LinearLayout>

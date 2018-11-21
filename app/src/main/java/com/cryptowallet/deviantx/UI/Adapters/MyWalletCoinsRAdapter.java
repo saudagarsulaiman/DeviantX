@@ -131,7 +131,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         }
-        DecimalFormat rank = new DecimalFormat("00.00");
+        DecimalFormat rank = new DecimalFormat("0.00");
         if (accountWalletlist.get(i).getAllCoins().getDbl_coin_24h() < 0) {
             viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
             viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
@@ -151,6 +151,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWalletlist.get(i).getResponseList().size() == 0) {
                 invokeCoinGraph(i, viewHolder.graph, accountWalletlist.get(i).getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
+                invokeCoinJJoeGraph(i, viewHolder.graph_layout, accountWalletlist.get(i).getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
                 viewHolder.pb.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.pb.setVisibility(View.GONE);
@@ -212,12 +213,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
 //                Initializing Widgets
         View view = dialog.getHolderView();
-        LinearLayout lnr_information = view.findViewById(R.id.lnr_information);
         LinearLayout lnr_send = view.findViewById(R.id.lnr_send);
         LinearLayout lnr_receive = view.findViewById(R.id.lnr_receive);
         LinearLayout lnr_delete = view.findViewById(R.id.lnr_delete);
-        LinearLayout lnr_details = view.findViewById(R.id.lnr_details);
-        LinearLayout lnr_history = view.findViewById(R.id.lnr_history);
 
         TextView txt_coin_value = view.findViewById(R.id.txt_coin_value);
         TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
@@ -232,6 +230,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         ImageView img_coin_logo = view.findViewById(R.id.img_coin_logo);
         ImageView img_center_back = view.findViewById(R.id.img_center_back);
         LineChart graph_dlg = view.findViewById(R.id.graph_dlg);
+        GraphView graph_dialog = view.findViewById(R.id.graph_dialog);
 
 
         if (CommonUtilities.isConnectionAvailable(context)) {
@@ -244,6 +243,14 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         } else {
             CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
         }
+
+        if (CommonUtilities.isConnectionAvailable(context)) {
+            if (accountWallet.getResponseList().size() == 0)
+                invokeCoinJJoeGraph(-1, graph_dialog, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
+        } else {
+            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
+        }
+
 //        /*GRAPH STARTS*/
 //        GraphView grapgh_dlg = view.findViewById(R.id.grapgh_dlg);
 //        // first series is a line
@@ -331,15 +338,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
-        lnr_information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent= new Intent(context,CoinInformationActivity.class);
-//                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
         lnr_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -352,34 +350,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
+
         lnr_receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ReceiveCoinActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
-        lnr_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, WalletDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
-        lnr_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, WalletHistoryActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
                 intent.putExtras(bundle);
@@ -398,6 +373,107 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //                Displaying DialogPlus
         dialog.show();
 
+
+    }
+
+    private void invokeCoinJJoeGraph(int pos, final GraphView graph, final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+            // progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        //  progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            //  CommonUtilities.ShowToastMessage(context, "responsevalue" + responsevalue);
+                            //progressDialog.dismiss();
+                            JSONArray jsonArray = new JSONArray(responsevalue);
+
+                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            DataPoint[] points = new DataPoint[jsonArray.length()];
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONArray childArray = jsonArray.getJSONArray(i);
+                                for (int j = 0; j < childArray.length(); j++) {
+                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(coinGraph);
+                                    points[i] = new DataPoint(childArray.getDouble(1), childArray.getDouble(2));
+                                }
+                            }
+                            if (pos >= 0)
+                                accountWalletlist.get(pos).setResponseList(responseList);
+                            else {
+
+                                LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+                                // set manual X bounds
+                                graph.getViewport().setYAxisBoundsManual(false);
+//        graph.getViewport().setMinY(-150);
+//        graph.getViewport().setMaxY(150);
+                                graph.getViewport().setXAxisBoundsManual(false);
+//        graph.getViewport().setMinX(4);
+//        graph.getViewport().setMaxX(80);
+//        // styling series
+//        series.setTitle("Random Curve 1");
+                                series.setColor(context.getResources().getColor(R.color.yellow));
+                                series.setThickness(8);
+                                series.setDrawBackground(true);
+                                series.setBackgroundColor(context.getResources().getColor(R.color.yellow_trans));
+                                graph.getViewport().setScrollable(false); // disables horizontal scrolling
+                                graph.getViewport().setScrollableY(false); // disables vertical scrolling
+                                graph.getViewport().setScalable(false); // disables horizontal zooming and scrolling
+                                graph.getViewport().setScalableY(false); // disables vertical zooming and scrolling
+                                graph.addSeries(series);
+//        Disabling Labels
+                                GridLabelRenderer gridLabelRenderer = graph.getGridLabelRenderer();
+                                gridLabelRenderer.setHorizontalLabelsVisible(false);
+                                gridLabelRenderer.setVerticalLabelsVisible(false);
+                                gridLabelRenderer.setGridColor(Color.BLACK);
+                            }
+                            // progressDialog.dismiss();
+                        } else {
+                            // progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(context, responsevalue);
+//                            Toast.makeText(context, responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                        }
+                        if (pos >= 0)
+                            notifyItemChanged(pos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        //  progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        //  progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.Timeout));
+//                        Toast.makeText(context, context.getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        // progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.networkerror));
+                        Toast.makeText(context, context.getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        // progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            // progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//            Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -598,6 +674,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         LineChart graph;
         @BindView(R.id.pb)
         ProgressBar pb;
+        @BindView(R.id.graph_layout)
+        GraphView graph_layout;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

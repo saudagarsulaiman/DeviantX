@@ -106,16 +106,22 @@
 
         <ProgressBar
             android:id="@+id/pb"
-            android:layout_gravity="center"
             android:layout_width="@dimen/width20"
-            android:visibility="gone"
-            android:layout_height="@dimen/height20" />
+            android:layout_height="@dimen/height20"
+            android:layout_gravity="center"
+            android:visibility="gone" />
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/graph_lyt"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height50"
             android:visibility="visible" />
+
+        <com.jjoe64.graphview.GraphView
+            android:id="@+id/graph_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height50"
+            android:visibility="gone" />
 
     </LinearLayout>
 
