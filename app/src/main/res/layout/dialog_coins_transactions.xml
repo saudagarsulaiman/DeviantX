@@ -119,7 +119,7 @@
 
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.LineChart
+        <com.cryptowallet.trendchart.TrendView
             android:id="@+id/graph_dlg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height80"

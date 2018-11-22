@@ -35,6 +35,8 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.trendchart.DateValue;
+import com.cryptowallet.trendchart.TrendView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -62,6 +64,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -141,12 +144,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWalletlist.get(i).getResponseList().size() == 0) {
-                invokeCoinGraph(i, viewHolder.graph, accountWalletlist.get(i).getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
+                invokeCoinGraph(i, viewHolder.graph, accountWalletlist.get(i).getAllCoins().getStr_coin_code(), "1m", 800, startTime, endTime);
                 viewHolder.pb.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.pb.setVisibility(View.GONE);
-                setChart(viewHolder.graph);
-                setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph);
+                setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph,accountWalletlist.get(i).getHighValue());
             }
         } else {
             viewHolder.pb.setVisibility(View.GONE);
@@ -222,15 +224,14 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         TextView txt_vol_usd = view.findViewById(R.id.txt_vol_usd);
         ImageView img_coin_logo = view.findViewById(R.id.img_coin_logo);
         ImageView img_center_back = view.findViewById(R.id.img_center_back);
-        LineChart graph_dlg = view.findViewById(R.id.graph_dlg);
+        TrendView graph_dlg = view.findViewById(R.id.graph_dlg);
 
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWallet.getResponseList().size() == 0)
                 invokeCoinGraph(-1, graph_dlg, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
             else {
-                setChart(graph_dlg);
-                setChartData(accountWallet.getResponseList(), graph_dlg);
+                setChartData(accountWallet.getResponseList(), graph_dlg,accountWallet.getHighValue());
             }
         } else {
             CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
@@ -392,7 +393,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     }
 
-    private void setChart(LineChart graph) {
+  /*  private void setChart(LineChart graph) {
         graph.setNoDataText(" ");
         // no description text
         graph.getDescription().setEnabled(false);
@@ -426,9 +427,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         graph.getAxisRight().setEnabled(false);
         graph.getLegend().setEnabled(false);
         graph.invalidate();
-    }
+    }*/
 
-    private void invokeCoinGraph(int pos, LineChart graph, final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+    private void invokeCoinGraph(int pos, TrendView graph, final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
         try {
             // progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
@@ -446,20 +447,25 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                             //progressDialog.dismiss();
                             JSONArray jsonArray = new JSONArray(responsevalue);
 
-                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            List<DateValue> responseList = new ArrayList<>();
+                            Double hisghValue=0.0;
                             DataPoint[] points = new DataPoint[jsonArray.length()];
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONArray childArray = jsonArray.getJSONArray(i);
                                 for (int j = 0; j < childArray.length(); j++) {
-                                    coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
-                                    responseList.add(coinGraph);
+                                   if(hisghValue<childArray.getDouble(2))
+                                       hisghValue=childArray.getDouble(2);
+                                   // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(new DateValue(childArray.getDouble(2), childArray.getLong(0)));
                                 }
                             }
-                            if (pos >= 0)
+                            if (pos >= 0) {
                                 accountWalletlist.get(pos).setResponseList(responseList);
+                                accountWalletlist.get(pos).setHighValue(hisghValue);
+                            }
                             else {
-                                setChart(graph);
-                                setChartData(responseList, graph);
+                                //setChart(graph);
+                                setChartData(responseList, graph,hisghValue);
                             }
                             // progressDialog.dismiss();
                         } else {
@@ -504,61 +510,23 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
     }
 
-    private void setChartData(ArrayList<CoinGraph> histories, LineChart graph) {
-        // set data
-        Collections.sort(histories);
-        ArrayList<Entry> values = new ArrayList<>();
-        LineDataSet set1;
-        for (CoinGraph history : histories) {
-            values.add(new Entry(history.time.getTime(), history.high));
-        }
-        if (graph.getData() != null && graph.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) graph.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            graph.getData().notifyDataChanged();
-            graph.notifyDataSetChanged();
+    public void setChartData(List<DateValue> histories, TrendView graph,Double hisghValue) {
+        graph.setBackgroundColor(context.getResources().getColor(R.color.white));
+
+        if (histories.get(0).getValue() < histories.get(histories.size() - 1).getValue()) {
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green),ContextCompat.getColor(context, R.color.graph_green));
         } else {
-            // create a dataset and give it a type
-            set1 = new LineDataSet(values, DATA_SET_1);
-            set1.setDrawIcons(false);
-            set1.setLineWidth(1f);
-            set1.setDrawCircles(false);
-            set1.setValueTextSize(SIZE);
-            set1.setDrawFilled(true);
-            set1.setDrawValues(false);
-            set1.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-            set1.setHighlightEnabled(false); // allow highlighting for DataSet
-            // set this to false to disable the drawing of highlight indicator (lines)
-            set1.setDrawHighlightIndicators(false);
-            //  set1.setHighlightColor(Color.BLACK); // color for highlight indicator
-//            set1.setDrawHighlightIndicators(false);
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_red),ContextCompat.getColor(context, R.color.graph_red));
 
-            // set1.setFillDrawable(ContextCompat.getDrawable(context, R.drawable.back_chart));
-//            set1.setColor(ContextCompat.getColor(context, R.color.brdr_yellow));
-//            set1.setFillColor(ContextCompat.getColor(context, R.color.yellow_trans));
-
-            if (histories.get(0).getHigh() < histories.get(histories.size() - 1).getHigh()) {
-                set1.setColor(ContextCompat.getColor(context, R.color.graph_brdr_green));
-                set1.setFillColor(ContextCompat.getColor(context, R.color.graph_green));
-            } else {
-                set1.setColor(ContextCompat.getColor(context, R.color.graph_brdr_red));
-                set1.setFillColor(ContextCompat.getColor(context, R.color.graph_red));
-            }
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1); // add the datasets
-
-            // create a data object with the datasets
-            LineData data = new LineData(dataSets);
-
-            // set data
-            graph.setData(data);
-            graph.getData().setHighlightEnabled(false);
-
-            graph.animateY(DURATION_MILLIS);
-            // get the legend (only possible after setting data)
-            graph.getLegend().setEnabled(false);
         }
+
+        //set static labels of x axis
+        graph
+                .withLine(new com.cryptowallet.trendchart.Line(histories))
+                .withPrevClose(hisghValue)
+                .withDisplayFrom(0)
+                .withDisplayNumber(histories.size())
+                .show();
     }
 
 
@@ -586,7 +554,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         @BindView(R.id.txt_percentage)
         TextView txt_percentage;
         @BindView(R.id.graph_lyt)
-        LineChart graph;
+        TrendView graph;
         @BindView(R.id.pb)
         ProgressBar pb;
 

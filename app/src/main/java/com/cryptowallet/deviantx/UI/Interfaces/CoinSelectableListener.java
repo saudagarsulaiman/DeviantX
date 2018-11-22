@@ -5,5 +5,5 @@ import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import java.util.ArrayList;
 
 public interface CoinSelectableListener {
-    public void CoinSelected(ArrayList<AllCoins> allCoinsList);
+    public void CoinSelected(ArrayList<AllCoins> allCoinsList,int pos);
 }

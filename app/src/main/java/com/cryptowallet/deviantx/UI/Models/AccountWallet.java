@@ -3,7 +3,10 @@ package com.cryptowallet.deviantx.UI.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.cryptowallet.trendchart.DateValue;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountWallet implements Parcelable {
 
@@ -11,6 +14,28 @@ public class AccountWallet implements Parcelable {
     String str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode, str_data_account;
     Double str_data_balance, str_data_balanceInUSD, str_data_balanceInINR;
     AllCoins allCoins;
+
+    public int getInt_data_id() {
+        return int_data_id;
+    }
+
+    public void setInt_data_id(int int_data_id) {
+        this.int_data_id = int_data_id;
+    }
+
+    public Double getHighValue() {
+        return highValue;
+    }
+
+    public void setHighValue(Double highValue) {
+        this.highValue = highValue;
+    }
+
+    public static Creator<AccountWallet> getCREATOR() {
+        return CREATOR;
+    }
+
+    Double highValue=0.0;
 
     protected AccountWallet(Parcel in) {
         int_data_id = in.readInt();
@@ -49,15 +74,15 @@ public class AccountWallet implements Parcelable {
         }
     };
 
-    public ArrayList<CoinGraph> getResponseList() {
+    public List<DateValue> getResponseList() {
         return responseList;
     }
 
-    public void setResponseList(ArrayList<CoinGraph> responseList) {
+    public void setResponseList(List<DateValue> responseList) {
         this.responseList = responseList;
     }
 
-    ArrayList<CoinGraph> responseList=new ArrayList<>();
+    List<DateValue> responseList=new ArrayList<>();
 
     public AccountWallet(int int_data_id, String str_data_address, String str_data_walletName, String str_data_privatekey, String str_data_passcode, Double str_data_balance, Double str_data_balanceInUSD, Double str_data_balanceInINR, String str_data_account, AllCoins allCoins) {
         this.int_data_id = int_data_id;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
+import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -57,19 +58,24 @@ public class CoinsListRAdapter extends RecyclerView.Adapter<CoinsListRAdapter.Vi
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allCoinsList.get(i).getSelected()) {
+               /* if (allCoinsList.get(i).getSelected()) {
                     allCoinsList.get(i).setSelected(false);
                 } else{
                     allCoinsList.get(i).setSelected(true);
                 }
-                notifyItemChanged(i);
-                coinSelectableListener.CoinSelected(allCoinsList);
+                notifyItemChanged(i);*/
+                coinSelectableListener.CoinSelected(allCoinsList,i);
             }
         });
 
         Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name.setText(allCoinsList.get(i).getStr_coin_name());
         viewHolder.txt_coin_value.setText("$ " + allCoinsList.get(i).getStr_coin_usdValue() + " USD");
+    }
+
+    public void setCoinValue(Boolean isSelected, int pos){
+        allCoinsList.get(pos).setSelected(isSelected);
+        notifyItemChanged(pos);
     }
 
     @Override

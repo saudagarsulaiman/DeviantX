@@ -65,7 +65,7 @@
     <color name="graph_brdr_red">#F8B5B2</color>
     <color name="graph_red">#FAC7C4</color>
     <color name="graph_brdr_green">#27C189</color>
-    <color name="graph_green">#27C189</color>
+    <color name="graph_green">#aaeed5</color>
 
 
 </resources>
