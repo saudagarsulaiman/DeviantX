@@ -40,10 +40,12 @@
     </LinearLayout>
 
     <ImageView
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height80"
         android:layout_alignParentBottom="true"
         android:scaleType="fitXY"
+        android:layout_marginBottom="@dimen/margin45"
         android:src="@drawable/cloud_white" />
 
 

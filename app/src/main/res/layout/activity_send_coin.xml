@@ -75,15 +75,15 @@
                     android:paddingStart="@dimen/padding5">
 
                     <TextView
-                        android:id="@+id/txt_wallet_name"
+                        android:id="@+id/txt_coin_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dev"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/def_lbl_size" />
+                        android:textSize="@dimen/text18" />
 
                     <TextView
-                        android:id="@+id/txt_coin_value"
+                        android:id="@+id/txt_wallet_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dev_coin"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/def_btn_height"
                 android:layout_marginTop="@dimen/def_margin"
-                android:background="@drawable/rec_grey_trans_c8"
+                android:background="@drawable/rec_grey_trans_c2"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -154,7 +154,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/def_margin"
+                android:layout_marginTop="@dimen/margin30"
                 android:orientation="vertical">
 
                 <TextView
@@ -213,6 +213,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin30"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
@@ -221,7 +222,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin5"
                     android:layout_marginRight="@dimen/margin5"
-                    android:layout_marginTop="@dimen/def_margin"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -276,7 +276,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_marginStart="@dimen/margin5"
-                    android:layout_marginTop="@dimen/def_margin"
                     android:layout_weight="1"
                     android:orientation="vertical">
 

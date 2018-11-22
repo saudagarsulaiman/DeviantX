@@ -154,7 +154,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 }
             });
 
-            edt_btcp_address.setHint(selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
+            edt_btcp_address.setHint("\t\t"+selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
 
             txt_avail_bal.setText("" +String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
             txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
