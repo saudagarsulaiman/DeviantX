@@ -308,7 +308,7 @@
 
             <ImageView
                 android:layout_width="@dimen/width60"
-                android:layout_height="@dimen/height60"
+                android:layout_height="@dimen/height80"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/def_margin"
                 android:scaleType="fitXY"

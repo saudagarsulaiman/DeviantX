@@ -6,26 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.ChangellyActivity;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class MyAdapter extends ArrayAdapter<AllCoins> {
+public class SpinnerDaysAdapter extends ArrayAdapter<String> {
     LayoutInflater inflater;
-    ArrayList<AllCoins> objects;
+    List<String> objects;
     ViewHolder holder = null;
 
-    public MyAdapter(Context context, int textViewResourceId, ArrayList<AllCoins> objects) {
-        super(context, textViewResourceId, objects);
+    public SpinnerDaysAdapter(Context context, int spinner_item_days_dropdown, List<String> categories) {
+        super(context, spinner_item_days_dropdown, categories);
         inflater = ((Activity) context).getLayoutInflater();
-        this.objects = objects;
+        this.objects = categories;
     }
 
     @Override
@@ -39,25 +34,21 @@ public class MyAdapter extends ArrayAdapter<AllCoins> {
     }
 
     private View getCustomView(int position, View convertView, ViewGroup parent) {
-        AllCoins allCoins = objects.get(position);
+        String allCoins = objects.get(position);
         View row = convertView;
         if (null == row) {
             holder = new ViewHolder();
-            row = inflater.inflate(R.layout.spinner_row_lyt, parent, false);
-            holder.name = (TextView) row.findViewById(R.id.txt_spnr_coin);
-            holder.img = (ImageView) row.findViewById(R.id.img_spnr_coin);
+            row = inflater.inflate(R.layout.spinner_item_days_dropdown, parent, false);
+            holder.name = (TextView) row.findViewById(R.id.txt_spnr_days);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
         }
-        holder.name.setText(allCoins.getStr_coin_code());
-        Picasso.with(getContext()).load(allCoins.getStr_coin_logo()).into(holder.img);
-//        holder.img.setBackgroundResource(allCoins.getStr_coin_logo());
+        holder.name.setText(allCoins);
         return row;
     }
 
     static class ViewHolder {
         TextView name;
-        ImageView img;
     }
 }

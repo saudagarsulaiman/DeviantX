@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
+import com.cryptowallet.deviantx.UI.Adapters.MyAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.SpinnerDaysAdapter;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -92,8 +94,17 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     ProgressBar pb;
     @BindView(R.id.candle_chart)
     CandleStickChart candle_chart;
-
-
+    @BindView(R.id.lnr_result)
+    LinearLayout lnr_result;
+    @BindView(R.id.txt_open)
+    TextView txt_open;
+    @BindView(R.id.txt_high)
+    TextView txt_high;
+    @BindView(R.id.txt_low)
+    TextView txt_low;
+    @BindView(R.id.txt_close)
+    TextView txt_close;
+    ArrayList<CoinGraph> responseList;
     public static final int DURATION_MILLIS = 1000;
     public static final float SIZE = 9f;
     public static final String DATA_SET_1 = "DataSet 1";
@@ -135,6 +146,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
         coinGraphList = new ArrayList<>();
         stringResponseList = new ArrayList<>();
+        responseList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
@@ -173,14 +185,14 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //        categories.add("1 Year");
 //        categories.add("All");
 
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_days, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Creating adapter for spinner
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_days, categories);
+//
+//        // Drop down layout style - list view with radio button
+//        dataAdapter.setDropDownViewResource(R.layout.spinner_item_days_dropdown);
 
         // attaching data adapter to spinner
-        spnr_days.setAdapter(dataAdapter);
+        spnr_days.setAdapter(new SpinnerDaysAdapter(CoinInformationActivity.this, R.layout.spinner_item_days_dropdown, categories));
 
         lnr_candle_graph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,7 +335,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             //progressDialog.dismiss();
                             JSONArray jsonArray = new JSONArray(responsevalue);
 
-                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            responseList = new ArrayList<>();
                             DataPoint[] points = new DataPoint[jsonArray.length()];
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONArray childArray = jsonArray.getJSONArray(i);
@@ -337,6 +349,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 }
 
                             }
+                            txt_open.setText(getResources().getString(R.string.open));
+                            txt_high.setText(getResources().getString(R.string.high));
+                            txt_low.setText(getResources().getString(R.string.low));
+                            txt_close.setText(getResources().getString(R.string.closee));
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);
@@ -419,7 +435,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             //progressDialog.dismiss();
                             JSONArray jsonArray = new JSONArray(responsevalue);
 
-                            ArrayList<CoinGraph> responseList = new ArrayList<>();
+                            responseList = new ArrayList<>();
                             DataPoint[] points = new DataPoint[jsonArray.length()];
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONArray childArray = jsonArray.getJSONArray(i);
@@ -433,6 +449,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 }
 
                             }
+                            txt_open.setText(getResources().getString(R.string.open));
+                            txt_high.setText(getResources().getString(R.string.high));
+                            txt_low.setText(getResources().getString(R.string.low));
+                            txt_close.setText(getResources().getString(R.string.closee));
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);
@@ -585,6 +605,17 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy HH:mm");
                 String newDateStr = curFormater.format(d2);
                 CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY() + " USD | " + newDateStr);
+                lnr_result.setVisibility(View.VISIBLE);
+                for (int i = 0; i < responseList.size(); i++) {
+                    if (responseList.get(i).getHigh() == e.getY()) {
+                        txt_open.setText(getResources().getString(R.string.open) + " $" + responseList.get(i).getOpen());
+                        txt_high.setText(getResources().getString(R.string.high) + " $" + responseList.get(i).getHigh());
+                        txt_low.setText(getResources().getString(R.string.low) + " $" + responseList.get(i).getLow());
+                        txt_close.setText(getResources().getString(R.string.closee) + " $" + responseList.get(i).getClose());
+//                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY()+ " " + responseList.get(i).getHigh() );
+                        break;
+                    }
+                }
             }
 
             @Override

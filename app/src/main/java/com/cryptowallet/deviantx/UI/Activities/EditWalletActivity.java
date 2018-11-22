@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,9 +86,20 @@ public class EditWalletActivity extends AppCompatActivity {
             txt_note_defWal.setVisibility(View.VISIBLE);
             scompat_defWallet.setChecked(true);
         } else {
-            txt_note_defWal.setVisibility(View.GONE);
+            txt_note_defWal.setVisibility(View.INVISIBLE);
             scompat_defWallet.setChecked(false);
         }
+        scompat_defWallet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (scompat_defWallet.isChecked()) {
+                    txt_note_defWal.setVisibility(View.VISIBLE);
+                } else {
+                    txt_note_defWal.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override

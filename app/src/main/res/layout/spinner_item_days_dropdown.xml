@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lyt_blue"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding5">
+
+    <TextView
+        android:id="@+id/txt_spnr_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/margin5"
+        android:layout_marginLeft="@dimen/margin5"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_hint_size" />
+
+
+</LinearLayout>

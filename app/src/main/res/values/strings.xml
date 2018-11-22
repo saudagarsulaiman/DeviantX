@@ -378,13 +378,18 @@
     <string name="def_wallet">Default Wallet</string>
     <string name="create">Create</string>
     <string name="add_new_coins">Add New Coin</string>
-    <string name="new_wallet">+ New Wallet</string>
+    <string name="new_wallet_plus">+ New Wallet</string>
+    <string name="new_wallet">New Wallet</string>
     <string name="protect_pin">Protect with Pin</string>
     <string name="rename">Rename</string>
     <string name="no_fav_avail">No Favourites Available</string>
     <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
     <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
     <string name="primary_wallet">Primary Wallet</string>
+    <string name="open">Open :</string>
+    <string name="high">High :</string>
+    <string name="low">Low :</string>
+    <string name="closee">Close :</string>
 
 
 </resources>

@@ -18,6 +18,7 @@ import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -47,7 +48,16 @@ public class ExploreCoinsRAdapter extends RecyclerView.Adapter<ExploreCoinsRAdap
         viewHolder.txt_coin_name.setText(allCoinsList.get(i).getStr_coin_name());
         viewHolder.txt_coin_value.setText(allCoinsList.get(i).getStr_coin_code());
         viewHolder.txt_coin_usd_value.setText("$ " + allCoinsList.get(i).getStr_coin_usdValue() + " USD");
-//        viewHolder.txt_percentage.setText();
+
+        DecimalFormat rank = new DecimalFormat("0.00");
+        if (allCoinsList.get(i).getDbl_coin_24h() < 0) {
+            viewHolder.txt_percentage.setText("" + rank.format(allCoinsList.get(i).getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            viewHolder.txt_percentage.setText("+" + rank.format(allCoinsList.get(i).getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
+        }
+
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

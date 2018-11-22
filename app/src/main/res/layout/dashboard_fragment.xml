@@ -22,14 +22,15 @@
         <!--android:rotation="90">-->
 
         <LinearLayout
-            android:id="@+id/lnr_new_wallet"
+            android:id="@+id/lnr_new_wallet1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@color/lyt_blue"
             android:gravity="center"
             android:orientation="horizontal"
-            android:padding="@dimen/padding10">
+            android:padding="@dimen/padding10"
+            android:visibility="gone">
 
             <!--   <ImageView
                    android:layout_width="@dimen/width10"
@@ -56,8 +57,7 @@
         <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:id="@+id/item_picker"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/lnr_wallet"
@@ -179,40 +179,83 @@
 
                 <ImageView
                     android:id="@+id/fav_filter"
-                    android:scaleType="fitXY"
                     android:layout_width="@dimen/width25"
                     android:layout_height="@dimen/height25"
+                    android:scaleType="fitXY"
                     android:src="@drawable/z" />
 
             </LinearLayout>
 
         </LinearLayout>
 
+
         <LinearLayout
-            android:id="@+id/lnr_add_new_coins"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/def_btn_height"
-            android:layout_marginTop="@dimen/def_margin"
-            android:background="@drawable/rec_dash_grey_trans_c5"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:weightSum="1">
 
-            <ImageView
-                android:layout_width="@dimen/width10"
-                android:layout_height="@dimen/height10"
-                android:layout_gravity="center"
-                android:src="@drawable/plus_grey" />
+            <LinearLayout
+                android:id="@+id/lnr_add_new_coins"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_marginTop="@dimen/def_margin"
+                android:layout_marginEnd="@dimen/margin2"
+                android:layout_marginRight="@dimen/margin2"
+                android:layout_weight="0.5"
+                android:background="@drawable/rec_dash_grey_trans_c5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin8"
-                android:layout_marginLeft="@dimen/margin8"
-                android:text="@string/add_coins"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/def_text_size" />
+                <ImageView
+                    android:layout_width="@dimen/width10"
+                    android:layout_height="@dimen/height10"
+                    android:layout_gravity="center"
+                    android:src="@drawable/plus_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin8"
+                    android:layout_marginLeft="@dimen/margin8"
+                    android:text="@string/add_coins"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_new_wallet"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_marginStart="@dimen/margin2"
+                android:layout_marginLeft="@dimen/margin2"
+                android:layout_marginTop="@dimen/def_margin"
+                android:layout_weight="0.5"
+                android:background="@drawable/rec_dash_grey_trans_c5"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/width10"
+                    android:layout_height="@dimen/height10"
+                    android:layout_gravity="center"
+                    android:src="@drawable/plus_grey" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin8"
+                    android:layout_marginLeft="@dimen/margin8"
+                    android:text="@string/new_wallet"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_text_size" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -235,10 +278,10 @@
             android:visibility="gone">
 
             <!--<ImageView-->
-                <!--android:layout_width="@dimen/width50"-->
-                <!--android:layout_height="@dimen/height50"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:src="@drawable/" />-->
+            <!--android:layout_width="@dimen/width50"-->
+            <!--android:layout_height="@dimen/height50"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:src="@drawable/" />-->
 
             <TextView
                 android:layout_width="wrap_content"

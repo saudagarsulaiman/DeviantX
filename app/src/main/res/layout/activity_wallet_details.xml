@@ -25,7 +25,7 @@
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/rec_lytblue_c8"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding10"
+                android:padding="@dimen/def_padding"
                 android:paddingBottom="@dimen/padding7"
                 android:weightSum="3">
 

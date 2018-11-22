@@ -86,14 +86,14 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
 
         // 计算颜色
         if (position == 0) {
-            mLineColor = Color.parseColor("#ed871a");
+            mLineColor = Color.parseColor("#FBB03B");
         } else if (position == 1) {
-            mLineColor = Color.parseColor("#01C6DB");
-        } else if (position == 2) {
-            mLineColor = Color.parseColor("#8B00DC");
-        } else if (position == 3) {
             mLineColor = Color.parseColor("#64182A");
-        }
+        } else if (position == 2) {
+            mLineColor = Color.parseColor("#01C6DB");
+        } /*else if (position == 3) {
+            mLineColor = Color.parseColor("#8B00DC");
+        }*/
 
         if (mPositionDataList == null || mPositionDataList.isEmpty()) {
             return;

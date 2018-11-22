@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.trendchart.TrendView;
 
 import java.util.ArrayList;
 
@@ -50,6 +52,7 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         } else {
             viewHolder.txt_wallet_bal.setText("~$ " + String.format("%.4f", walletList.get(i).getDbl_data_totalBal()));
         }
+
     }
 
     @Override
@@ -66,7 +69,10 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         TextView txt_wallet_bal;
         @BindView(R.id.txt_wallet_coin)
         TextView txt_wallet_coin;
-
+        @BindView(R.id.graph_lyt)
+        TrendView graph;
+        @BindView(R.id.pb)
+        ProgressBar pb;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

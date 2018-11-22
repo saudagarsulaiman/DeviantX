@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="200dp"
+    android:layout_width="250dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rec_brinjal_gradient_c7"
         android:orientation="vertical"
-        android:padding="@dimen/def_padding"
+        android:paddingLeft="@dimen/def_padding"
+        android:paddingRight="@dimen/def_padding"
+        android:paddingTop="@dimen/def_padding"
         android:visibility="visible">
 
         <LinearLayout
@@ -59,12 +61,18 @@
             android:textSize="@dimen/def_text_size"
             android:visibility="gone" />
 
-        <!--<com.jjoe64.graphview.GraphView-->
-        <!--android:id="@+id/graph"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/height60"-->
-        <!--android:layout_marginTop="@dimen/margin10"-->
-        <!--android:background="@android:color/transparent" />-->
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="@dimen/width20"
+            android:layout_height="@dimen/height20"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <com.cryptowallet.trendchart.TrendView
+            android:id="@+id/graph_lyt"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height50"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

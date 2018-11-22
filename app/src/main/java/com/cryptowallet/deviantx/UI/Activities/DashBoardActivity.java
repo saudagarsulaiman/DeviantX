@@ -145,14 +145,13 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools, R.drawable.selector_btm_nav_exp_coins};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.air_drop, R.string.tools};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_tools/*, R.string.air_drop*/};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_tools/*, R.string.devx_airdrop*/};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
     LinearLayout lnr_nav_drwr_logout;
-
     @Nullable
     @BindView(R.id.lnr_nav_drwr_expcoins)
     LinearLayout lnr_nav_drwr_expcoins;
@@ -204,7 +203,8 @@ public class DashBoardActivity extends AppCompatActivity {
         img_tlbr_search.setVisibility(View.GONE);
         setupViewPager(mViewPager);
         initMagicIndicator();
-        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+//        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
 
 
        /* btm_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -293,8 +293,8 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
         adapter.addFragment(new ExploreCoinsFragment(), "");
-        adapter.addFragment(new AirDropFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
+//        adapter.addFragment(new AirDropFragment(), "");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -306,23 +306,28 @@ public class DashBoardActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 txt_btm_nav_lbl.setText(channelsName[i]);
                 txt_tlbr_title.setText(channelTtlName[i]);
-                switch (i) {
+                /*switch (i) {
                     case 0:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                     case 1:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                     case 2:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                     case 3:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                     default:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                 }
+*/
             }
 
             @Override
@@ -527,14 +532,14 @@ public class DashBoardActivity extends AppCompatActivity {
 
                     @Override
                     public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
-                        titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
-                        titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
+//                        titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
+//                        titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
                     }
 
                     @Override
                     public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
-                        titleImg.setScaleX(0.8f + (1.3f - 0.8f) * enterPercent);
-                        titleImg.setScaleY(0.8f + (1.3f - 0.8f) * enterPercent);
+//                        titleImg.setScaleX(0.8f + (1.3f - 0.8f) * enterPercent);
+//                        titleImg.setScaleY(0.8f + (1.3f - 0.8f) * enterPercent);
                     }
                 });
 

@@ -45,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +92,11 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     ZXingScannerView mScannerView;
     @BindView(R.id.scan_view)
     RelativeLayout mScannerLayout;
+    @BindView(R.id.txt_coin_usd_value)
+    TextView txt_coin_usd_value;
+    @BindView(R.id.txt_percentage)
+    TextView txt_percentage;
+
 
     Double usdCoinValue = 0.0;
     AccountWallet selectedAccountWallet;
@@ -103,7 +109,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     Boolean isEditFiat = false, isEditAmount = false;
-
 
 
     @Override
@@ -154,14 +159,25 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 }
             });
 
-            edt_btcp_address.setHint("\t\t"+selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
+            edt_btcp_address.setHint("\t\t" + selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
 
-            txt_avail_bal.setText("" +String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
+            txt_avail_bal.setText("" + String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
             txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
 
             Picasso.with(SendCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
             txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
             txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
+
+
+            txt_coin_usd_value.setText("$ " + selectedAccountWallet.getAllCoins().getStr_coin_usdValue() + " USD");
+            DecimalFormat rank = new DecimalFormat("0.00");
+            if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+                txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+                txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
+            } else {
+                txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+                txt_percentage.setTextColor(getResources().getColor(R.color.green));
+            }
 
             edt_amount_bal.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -281,7 +297,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     }
 
 
-
     private void convertAmountToCoin(String amountTextValue) {
         if (isEditAmount) {
             if (!amountTextValue.trim().isEmpty()) {
@@ -346,7 +361,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 public void onResponse(Call<USDValue> call, Response<USDValue> response) {
                     try {
 
-                        if ( response != null) {
+                        if (response != null) {
                             progressDialog.dismiss();
                             usdCoinValue = response.body().getUSD();
                             editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
@@ -383,7 +398,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
-            } );
+            });
         } catch (Exception ex) {
             progressDialog.dismiss();
             ex.printStackTrace();
@@ -560,12 +575,12 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         }
     }*/
 
-   @Override
-   protected void onResume() {
-       super.onResume();
-       myApplication.disableScreenCapture(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
 
-   }
+    }
 
     @Override
     public void handleResult(Result result) {

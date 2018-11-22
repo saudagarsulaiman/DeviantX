@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lnr_item"
-    android:layout_marginTop="@dimen/margin10"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height80"
+    android:layout_marginTop="@dimen/margin10"
     android:background="@drawable/rec_lytblue_c8"
     android:orientation="vertical">
 
@@ -71,9 +71,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin2"
                 android:text="%"
-                android:visibility="gone"
                 android:textColor="@color/mar_red"
-                android:textSize="@dimen/def_text_size" />
+                android:textSize="@dimen/def_text_size"
+                android:visibility="visible" />
 
         </LinearLayout>
 
