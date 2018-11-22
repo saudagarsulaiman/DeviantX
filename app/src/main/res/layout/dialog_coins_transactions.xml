@@ -126,9 +126,9 @@
             android:visibility="visible" />
 
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/grapgh_dlg"
+            android:id="@+id/graph_dialog"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height80"
+            android:layout_height="@dimen/height60"
             android:background="@color/white"
             android:visibility="gone" />
 

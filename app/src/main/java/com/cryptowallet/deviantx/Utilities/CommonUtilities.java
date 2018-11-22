@@ -23,12 +23,15 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.WelcomeActivity;
 import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
@@ -251,13 +254,15 @@ public final class CommonUtilities {
 
 
     public static void matchingPasswordText(Activity activity, String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+//        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
             txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+//            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
                 txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             } else {
                 txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
@@ -386,8 +391,9 @@ public final class CommonUtilities {
     static Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
         try {
-            result = new MultiFormatWriter().encode(str,
-                    BarcodeFormat.QR_CODE, 500, 500, null);
+            Map<EncodeHintType, Object> hintMap = new HashMap<EncodeHintType, Object>();
+            hintMap.put(EncodeHintType.MARGIN, new Integer(1));
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, 500, 500, hintMap);
         } catch (IllegalArgumentException iae) {
             // Unsupported format
             return null;

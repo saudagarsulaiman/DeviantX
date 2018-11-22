@@ -41,6 +41,7 @@
     <string name="confirm_password">Confirm your password</string>
     <string name="note_confirm_password">It must be identical to the previous one.</string>
     <string name="lower_case">A lower case letter</string>
+    <string name="special_case">Special Character</string>
     <string name="upper_case">An upper case letter</string>
     <string name="number">A number</string>
     <string name="characters">8 - 25 characters</string>
@@ -293,7 +294,7 @@
 
 
     <!--AddPhrase Activity-->
-    <string name="recovery_bottom_text">Make a copy of the following 12 recovery phases in correct order</string>
+    <string name="recovery_bottom_text">Make a copy of the selected 12 recovery phases in correct order</string>
     <string name="next">Next</string>
     <string name="please_select">Please select</string>
     <string name="words">Words</string>
@@ -382,6 +383,8 @@
     <string name="rename">Rename</string>
     <string name="no_fav_avail">No Favourites Available</string>
     <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
+    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
+    <string name="primary_wallet">Primary Wallet</string>
 
 
 </resources>

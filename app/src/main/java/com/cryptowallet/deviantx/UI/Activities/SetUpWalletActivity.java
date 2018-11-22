@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
@@ -38,6 +39,8 @@ public class SetUpWalletActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_wallet)
     EditText edt_wallet;
+    @BindView(R.id.txt_note_defWal)
+    TextView txt_note_defWal;
     @BindView(R.id.btn_create)
     Button btn_create;
     @BindView(R.id.scompat_defWallet)
@@ -70,6 +73,12 @@ public class SetUpWalletActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_up_wallet);
 
         ButterKnife.bind(this);
+
+        if (scompat_defWallet.isChecked()) {
+            txt_note_defWal.setVisibility(View.VISIBLE);
+        } else {
+            txt_note_defWal.setVisibility(View.GONE);
+        }
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -105,7 +114,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(SetUpWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAddNewWallet(CONSTANTS.DeviantMulti + token, s_walletName,scompat_defWallet.isChecked());
+            Call<ResponseBody> apiResponse = apiService.getAddNewWallet(CONSTANTS.DeviantMulti + token, s_walletName, scompat_defWallet.isChecked());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

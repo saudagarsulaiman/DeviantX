@@ -74,9 +74,7 @@ public class AllCoins implements Parcelable {
     }
 
 
-
-    Boolean fav=false;
-
+    Boolean fav = false;
 
 
     public int getInt_coin_id() {
@@ -143,7 +141,7 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
-    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue,int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m,boolean fav) {
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, boolean fav) {
         this.int_coin_id = int_coin_id;
         this.int_coin_rank = int_coin_rank;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
@@ -155,15 +153,21 @@ public class AllCoins implements Parcelable {
         this.str_coin_name = str_coin_name;
         this.str_coin_code = str_coin_code;
         this.str_coin_logo = str_coin_logo;
-        this.fav=fav;
+        this.fav = fav;
     }
 
-    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue) {
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
         this.int_coin_id = int_coin_id;
         this.str_coin_name = str_coin_name;
         this.str_coin_code = str_coin_code;
         this.str_coin_logo = str_coin_logo;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
+        this.int_coin_rank = int_coin_rank;
+        this.dbl_coin_marketCap = dbl_coin_marketCap;
+        this.dbl_coin_volume = dbl_coin_volume;
+        this.dbl_coin_24h = dbl_coin_24h;
+        this.dbl_coin_7d = dbl_coin_7d;
+        this.dbl_coin_1m = dbl_coin_1m;
     }
 
     public AllCoins() {

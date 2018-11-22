@@ -134,6 +134,15 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
             viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
         }
+        DecimalFormat rank = new DecimalFormat("0.00");
+        if (accountWalletlist.get(i).getAllCoins().getDbl_coin_24h() < 0) {
+            viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
+        } else {
+            viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
+        }
+
         //Fav
         if (accountWalletlist.get(i).getAllCoins().getFav())
             viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
@@ -323,15 +332,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
-        lnr_information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent= new Intent(context,CoinInformationActivity.class);
-//                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
         lnr_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,34 +344,11 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
+
         lnr_receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ReceiveCoinActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
-        lnr_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, WalletDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-                dialog.dismiss();
-            }
-        });
-
-        lnr_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, WalletHistoryActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
                 intent.putExtras(bundle);
@@ -393,7 +370,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     }
 
-  /*  private void setChart(LineChart graph) {
+    private void setChart(LineChart graph) {
         graph.setNoDataText(" ");
         // no description text
         graph.getDescription().setEnabled(false);
@@ -427,7 +404,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         graph.getAxisRight().setEnabled(false);
         graph.getLegend().setEnabled(false);
         graph.invalidate();
-    }*/
+    }
 
     private void invokeCoinGraph(int pos, TrendView graph, final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
         try {

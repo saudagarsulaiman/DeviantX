@@ -29,7 +29,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/margin10"
             android:backgroundTint="@android:color/transparent"
-            android:hint="@string/search"
+            android:hint="@string/center_search"
             android:paddingLeft="@dimen/def_padding"
             android:textColor="@color/white"
             android:textColorHint="@color/grey"

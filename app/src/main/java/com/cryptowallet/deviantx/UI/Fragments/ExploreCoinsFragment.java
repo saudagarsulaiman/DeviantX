@@ -52,11 +52,11 @@ public class ExploreCoinsFragment extends Fragment {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    int int_coin_id;
-    Double dbl_coin_usdValue;
-    String loginResponseData, loginResponseStatus, loginResponseMsg,  str_coin_name, str_coin_code, str_coin_logo;
+    int int_coin_id, int_coin_rank;
+    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
+    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
     ArrayList<AllCoins> allCoinsList;
-    
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class ExploreCoinsFragment extends Fragment {
 
         allCoinsList = new ArrayList<>();
 
-        layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_all_coins.setLayoutManager(layoutManager);
 
 //        allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity().getApplicationContext());
@@ -96,9 +96,9 @@ public class ExploreCoinsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<AllCoins> searchCoinsList=new ArrayList<>();
-                for (AllCoins coinName : allCoinsList){
-                    if(coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())){
+                ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
+                for (AllCoins coinName : allCoinsList) {
+                    if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
                         searchCoinsList.add(coinName);
                     }
                 }
@@ -160,7 +160,38 @@ public class ExploreCoinsFragment extends Fragment {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue));
+
+                                    try {
+                                        int_coin_rank = jsonObjectCoins.getInt("rank");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
                                 }
                                 allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), allCoinsList);
                                 rview_all_coins.setAdapter(allCoinsRAdapter);

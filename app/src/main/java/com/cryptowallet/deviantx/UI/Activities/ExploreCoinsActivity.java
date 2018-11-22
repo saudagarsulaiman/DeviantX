@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,8 +55,8 @@ public class ExploreCoinsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    int int_coin_id;
-    Double dbl_coin_usdValue;
+    int int_coin_id, int_coin_rank;
+    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
     ArrayList<AllCoins> allCoinsList;
 
@@ -105,7 +106,13 @@ public class ExploreCoinsActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+//                if (s.length() > 0) {
+//                    // position the text type in the left top corner
+//                    edt_search.setGravity(Gravity.START);
+//                } else {
+//                    // no text entered. Center the hint text.
+//                    edt_search.setGravity(Gravity.CENTER);
+//                }
             }
 
             @Override
@@ -174,7 +181,39 @@ public class ExploreCoinsActivity extends AppCompatActivity {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue));
+
+                                    try {
+                                        int_coin_rank = jsonObjectCoins.getInt("rank");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
                                 }
                                 allCoinsRAdapter = new ExploreCoinsRAdapter(ExploreCoinsActivity.this, allCoinsList);
                                 rview_all_coins.setAdapter(allCoinsRAdapter);

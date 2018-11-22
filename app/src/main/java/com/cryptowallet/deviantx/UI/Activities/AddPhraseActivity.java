@@ -157,6 +157,7 @@ public class AddPhraseActivity extends AppCompatActivity implements HashtagView.
         allTags = values.split(" ");
         List<String> DATA = Arrays.asList(allTags);
         hashtag_add_phrase.setData(DATA);
+        hashtag_add_phrase.setRowCount(5);
         hashtag_add_phrase.setSelectionLimit(12);
         hashtag_add_phrase.invalidate();
 

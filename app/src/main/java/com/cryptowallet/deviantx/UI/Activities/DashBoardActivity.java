@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
 import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
+import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -144,9 +145,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, /*R.drawable.selector_btm_nav_exp_coins,*/ R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools};
-    int[] channelsName = new int[]{R.string.dashboard, /*R.string.explore_coins,*/ R.string.air_drop, R.string.tools};
-    int[] channelTtlName = new int[]{R.string.app_name, /*R.string.devx_coin_list,*/ R.string.devx_airdrop, R.string.devx_tools};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_acc_list, R.drawable.selector_btm_nav_tools, R.drawable.selector_btm_nav_exp_coins};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.air_drop, R.string.tools};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -291,7 +292,7 @@ public class DashBoardActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
-//        adapter.addFragment(new ExploreCoinsFragment(), "");
+        adapter.addFragment(new ExploreCoinsFragment(), "");
         adapter.addFragment(new AirDropFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
@@ -315,9 +316,9 @@ public class DashBoardActivity extends AppCompatActivity {
                     case 2:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
                         break;
-//                    case 3:
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
-//                        break;
+                    case 3:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
+                        break;
                     default:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
@@ -474,13 +475,6 @@ public class DashBoardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (exit) {
-/*
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-*/
             finishAffinity(); // Close all activites
             System.exit(0);  // Releasing resources
             Toast.makeText(this, "Logged Out Successfully.", Toast.LENGTH_SHORT).show();

@@ -197,6 +197,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:id="@+id/lnr_nav_drwr_expcoins"
             android:layout_width="match_parent"
             android:layout_height="@dimen/width40"
