@@ -5,21 +5,39 @@
     <color name="colorPrimaryDark">#0C1149</color>
     <color name="colorAccent">#000000</color>
 
+
+
+    <!--Client's Choosen Colours-->
+    <color name="yellow">#FBB03B</color>
+    <color name="sky_blue">#448BCA</color>
+    <color name="grey">#707070</color>
+    <color name="red">#C1272D</color>
+    <color name="green">#00FFB4</color>
+    <color name="black">#000000</color>
+
+
+
+
+
+
+    <color name="brdr_yellow">#DE9623</color>
+    <color name="lgreen">#2CD584</color>
+    <color name="grey1">#bf777a7c</color>
+
+
     <color name="white">#FFFFFF</color>
     <color name="l_white">#F8F8F8</color>
 
-    <color name="black">#000000</color>
 
-    <color name="lgreen">#2CD584</color>
-    <color name="green">#176C43</color>
+    <!--<color name="lgreen">#2CD584</color>-->
+    <!--<color name="green">#176C43</color>-->
+    <!--<color name="yellow">#FBB03B</color>-->
+    <!--<color name="brdr_yellow">#DE9623</color>-->
 
-    <color name="yellow">#FBB03B</color>
-    <color name="brdr_yellow">#DE9623</color>
 
-    <!--<color name="grey">#808B96</color>-->
-    <!--<color name="l_grey">#CBD1D6</color>-->
-    <color name="grey">#767778</color>
-    <color name="grey1">#bf777a7c</color>
+    <!--<color name="grey">#767778</color>-->
+    <!--<color name="lgreen">#2CD584</color>-->
+    <!--<color name="grey1">#bf777a7c</color>-->
     <color name="l_grey">#FAF0E6</color>
 
     <color name="mar_red">#64182A</color>
@@ -30,7 +48,7 @@
     <color name="brdr_fb_blue">#102D7F</color>
 
     <color name="blue_search">#232753</color>
-    <color name="sky_blue">#01C6DB</color>
+    <!--<color name="sky_blue">#01C6DB</color>-->
     <color name="l_blue">#448BCA</color>
 
     <color name="bg_start_blue">#050822</color>
@@ -66,6 +84,8 @@
     <color name="graph_red">#FAC7C4</color>
     <color name="graph_brdr_green">#27C189</color>
     <color name="graph_green">#aaeed5</color>
+
+
 
 
 </resources>

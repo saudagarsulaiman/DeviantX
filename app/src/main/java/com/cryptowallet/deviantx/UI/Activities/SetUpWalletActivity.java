@@ -67,6 +67,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
+    boolean firstTimeCreation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +76,24 @@ public class SetUpWalletActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        firstTimeCreation = sharedPreferences.getBoolean(CONSTANTS.first_wallet, false);
+        if (firstTimeCreation) {
+            scompat_defWallet.setChecked(true);
+            editor.putBoolean(CONSTANTS.first_wallet, false);
+            editor.apply();
+        } else {
+            scompat_defWallet.setChecked(false);
+        }
+
         if (scompat_defWallet.isChecked()) {
             txt_note_defWal.setVisibility(View.VISIBLE);
         } else {
             txt_note_defWal.setVisibility(View.INVISIBLE);
         }
+
         scompat_defWallet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -91,8 +105,6 @@ public class SetUpWalletActivity extends AppCompatActivity {
             }
         });
 
-        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override

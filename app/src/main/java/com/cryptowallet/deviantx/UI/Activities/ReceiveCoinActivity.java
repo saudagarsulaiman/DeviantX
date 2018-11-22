@@ -15,6 +15,8 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -45,6 +47,11 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     TextView txt_note_dev_add;
     @BindView(R.id.txt_lbl_coin_add)
     TextView txt_lbl_coin_add;
+    @BindView(R.id.txt_coin_usd_value)
+    TextView txt_coin_usd_value;
+    @BindView(R.id.txt_percentage)
+    TextView txt_percentage;
+
 
 
 
@@ -82,6 +89,16 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
         txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
         txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+ " Address");
+
+        txt_coin_usd_value.setText("$ " + selectedAccountWallet.getAllCoins().getStr_coin_usdValue() + " USD");
+        DecimalFormat rank = new DecimalFormat("0.00");
+        if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+            txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
+        } else {
+            txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(getResources().getColor(R.color.green));
+        }
 
         img_copy_address.setOnClickListener(new View.OnClickListener() {
             @Override

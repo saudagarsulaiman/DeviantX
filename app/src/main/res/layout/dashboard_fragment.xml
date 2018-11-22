@@ -355,7 +355,7 @@
                 android:layout_marginTop="@dimen/margin5"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="@dimen/width16"

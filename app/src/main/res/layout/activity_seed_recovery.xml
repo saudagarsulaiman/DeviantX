@@ -28,7 +28,7 @@
         android:layout_margin="@dimen/def_margin"
         android:background="@drawable/rec_white_c2"
         android:gravity="start"
-        android:hint="@string/confirm_recovery_phase"
+        android:hint="@string/confirm_recovery_phase_center"
         android:inputType="textMultiLine"
         android:padding="@dimen/def_padding"
         android:singleLine="false"

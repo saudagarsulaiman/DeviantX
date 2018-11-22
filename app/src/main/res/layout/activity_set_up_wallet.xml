@@ -95,7 +95,7 @@
                 android:id="@+id/scompat_defWallet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:checked="true"
+                android:checked="false"
                 android:layout_weight="0.4"
                 android:theme="@style/SwitchStyle" />
 

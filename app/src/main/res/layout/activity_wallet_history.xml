@@ -42,7 +42,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="0.9"
                 android:backgroundTint="@android:color/transparent"
-                android:hint="@string/search"
+                android:hint="@string/center_search"
                 android:paddingStart="@dimen/def_padding"
                 android:theme="@style/edt"
                 android:paddingLeft="@dimen/def_padding"

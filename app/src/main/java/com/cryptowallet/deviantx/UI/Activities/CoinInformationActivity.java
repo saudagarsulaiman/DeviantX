@@ -104,6 +104,12 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     TextView txt_low;
     @BindView(R.id.txt_close)
     TextView txt_close;
+    @BindView(R.id.txt_time)
+    TextView txt_time;
+    @BindView(R.id.txt_date)
+    TextView txt_date;
+
+
     ArrayList<CoinGraph> responseList;
     public static final int DURATION_MILLIS = 1000;
     public static final float SIZE = 9f;
@@ -201,7 +207,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
                 line_chart.setVisibility(View.GONE);
                 candle_chart.setVisibility(View.VISIBLE);
-                SwitchCases(spnr_days.getSelectedItem().toString());
+//                SwitchCases(spnr_days.getSelectedItem().toString());
             }
         });
 
@@ -213,7 +219,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 lnr_candle_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
                 line_chart.setVisibility(View.VISIBLE);
                 candle_chart.setVisibility(View.GONE);
-                SwitchCases(spnr_days.getSelectedItem().toString());
+//                SwitchCases(spnr_days.getSelectedItem().toString());
             }
         });
 
@@ -353,6 +359,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             txt_high.setText(getResources().getString(R.string.high));
                             txt_low.setText(getResources().getString(R.string.low));
                             txt_close.setText(getResources().getString(R.string.closee));
+                            txt_date.setText(getResources().getString(R.string.date));
+                            txt_time.setText(getResources().getString(R.string.time));
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);
@@ -453,6 +461,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             txt_high.setText(getResources().getString(R.string.high));
                             txt_low.setText(getResources().getString(R.string.low));
                             txt_close.setText(getResources().getString(R.string.closee));
+                            txt_date.setText(getResources().getString(R.string.date));
+                            txt_time.setText(getResources().getString(R.string.time));
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);
@@ -602,9 +612,15 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
                 Date d2 = calendar1.getTime();
-                SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat timeFormater = new SimpleDateFormat("HH:mm");
                 String newDateStr = curFormater.format(d2);
-                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY() + " USD | " + newDateStr);
+                String dateStr = dateFormater.format(d2);
+                String timeStr = timeFormater.format(d2);
+//                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY() + " USD | " + newDateStr);
+                txt_date.setText(getResources().getString(R.string.date) + " " + dateStr);
+                txt_time.setText(getResources().getString(R.string.time) + " " + timeStr);
                 lnr_result.setVisibility(View.VISIBLE);
                 for (int i = 0; i < responseList.size(); i++) {
                     if (responseList.get(i).getHigh() == e.getY()) {

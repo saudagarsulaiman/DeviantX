@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar_nav"
     android:layout_width="match_parent"
     android:layout_height="@dimen/def_toolbar_nav_back_height"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    android:contentInsetStart="0dp"
+    android:contentInsetLeft="0dp"
+    android:contentInsetEnd="0dp"
+    android:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetStart="0dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/img_tlbr_nav"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height25"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:src="@drawable/navbtn" />
+
+        <TextView
+            android:id="@+id/txt_tlbr_title"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_gravity="center"
+            android:layout_weight="1.4"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_tlbr_nav"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height25"
-                android:layout_gravity="center"
-                android:layout_weight="0.4"
-                android:src="@drawable/navbtn" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/img_tlbr_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height20"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:src="@drawable/navsearch" />
 
-            <TextView
-                android:id="@+id/txt_tlbr_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1.2"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textColor="@color/white"
-                android:textSize="@dimen/def_text_size"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_tlbr_search"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height20"
-                android:layout_gravity="center"
-                android:layout_weight="0.4"
-                android:src="@drawable/navsearch" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 
 </android.support.v7.widget.Toolbar>

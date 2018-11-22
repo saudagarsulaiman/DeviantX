@@ -28,6 +28,7 @@ public class CONSTANTS {
     public static String selectedWalletCoin = "SELECTEDWALLETCOIN"; // Selected coin from ALL COINS   @ ExploreCoinsRAdapter
     public static String empty_wallet="EMPTYWALLET";
     public static String selectedWallet="SELECTEDWALLET";
+    public static String first_wallet="FIRSTWALLET";//First Time Wallet Creation
 
 
 //    //    Selected Account Wallet Details

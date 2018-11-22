@@ -109,22 +109,22 @@
                         android:textSize="@dimen/def_text_size" />
 
                     <TextView
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin5"
                         android:text="@string/note_email"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/def_hint_size" />
+                        android:textSize="@dimen/def_hint_size"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/def_margin"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -318,7 +318,6 @@
                 </LinearLayout>
 
                 <TextView
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -327,34 +326,42 @@
                     android:paddingRight="@dimen/padding10"
                     android:text="@string/info_deviantx"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/def_hint_size" />
+                    android:textSize="@dimen/def_hint_size"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/txt_privacy_policy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/margin30"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_marginBottom="@dimen/margin30"
                     android:text="@string/privacy_policy"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/def_hint_size" />
+                    android:textSize="@dimen/def_hint_size"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_continue"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/def_btn_height"
-                android:layout_marginTop="@dimen/def_margin"
-                android:background="@drawable/rec_orange_gradient"
-                android:text="@string/continu"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/def_text_size"
-                android:textStyle="bold" />
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/btn_continue"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/def_btn_height"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:background="@drawable/rec_orange_gradient"
+                    android:text="@string/continu"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 

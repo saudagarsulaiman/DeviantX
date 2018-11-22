@@ -511,7 +511,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
                                     lnr_empty_coins.setVisibility(View.VISIBLE);
-                                    lnr_add_new_coins.setVisibility(View.GONE);
+//                                    lnr_add_new_coins.setVisibility(View.GONE);
                                     rview_wallet_coins.setVisibility(View.GONE);
                                 } else {
                                     lnr_add_new_coins.setVisibility(View.VISIBLE);

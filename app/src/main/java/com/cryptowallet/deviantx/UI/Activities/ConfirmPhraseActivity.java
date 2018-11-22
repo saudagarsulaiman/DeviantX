@@ -212,6 +212,8 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
                                     Intent intent = new Intent(ConfirmPhraseActivity.this, SetUpWalletActivity.class);
+                                    editor.putBoolean(CONSTANTS.first_wallet, true);
+                                    editor.apply();
                                     startActivity(intent);
                                     CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.login_success));
                                 } else {

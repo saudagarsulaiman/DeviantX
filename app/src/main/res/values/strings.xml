@@ -74,7 +74,7 @@
     <string name="recover_acc">Recover your account</string>
     <string name="send">Send</string>
     <string name="note_recovery_acc">Enter your Deviant X email that you used to sign-in. We will send you an email with instructions to recover your account.</string>
-    <string name="hint_email">test@deviantcoin.io</string>
+    <string name="hint_email">\t\ttest@deviantcoin.io</string>
 
 
     <!--DashBoard Activity-->
@@ -217,7 +217,7 @@
     <string name="old_pswd">Old password</string>
     <string name="note_old_pswd">Enter your current password.</string>
     <string name="new_pswd">New password</string>
-    <string name="my_pass">My password</string>
+    <string name="my_pass">\t\tMy password</string>
     <string name="hide_bal_active">Privacy: Hide Balance Activated</string>
     <string name="hide_bal_inactive">Privacy: Hide Balance Deactivated</string>
     <string name="screenshots_active">Privacy: Screenshot Shield Activated</string>
@@ -304,6 +304,7 @@
     <string name="confirm_recovery_top_text">Please enter the 12 words in the correct order</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_recovery_phase">Confirm Recovery Phase</string>
+    <string name="confirm_recovery_phase_center">\t\tConfirm Recovery Phase</string>
     <string name="select_same_words">Please select the Same Words</string>
     <string name="select_same_words_order">Please select the Words in same order</string>
     <string name="prof_updated_success">Profile updated successfully!</string>
@@ -390,6 +391,9 @@
     <string name="high">High :</string>
     <string name="low">Low :</string>
     <string name="closee">Close :</string>
+    <string name="date">Date :</string>
+    <string name="time">Time :</string>
+    <string name="center_address">\t\tAddress</string>
 
 
 </resources>

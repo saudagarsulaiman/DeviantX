@@ -560,7 +560,7 @@ public class DashBoardActivity extends AppCompatActivity {
                 float smallNavigatorHeight = context.getResources().getDimension(R.dimen.small_navigator_height);
                 indicator.setLineHeight(UIUtil.dip2px(context, 5));
                 indicator.setTriangleHeight((int) smallNavigatorHeight);
-                indicator.setLineColor(Color.parseColor("#ed871a"));
+                indicator.setLineColor(Color.parseColor("#FBB03B"));
                 return indicator;
             }
         });

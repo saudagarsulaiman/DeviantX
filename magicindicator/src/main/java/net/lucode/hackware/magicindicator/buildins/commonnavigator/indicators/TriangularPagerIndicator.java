@@ -88,9 +88,9 @@ public class TriangularPagerIndicator extends View implements IPagerIndicator {
         if (position == 0) {
             mLineColor = Color.parseColor("#FBB03B");
         } else if (position == 1) {
-            mLineColor = Color.parseColor("#64182A");
+            mLineColor = Color.parseColor("#C1272D");
         } else if (position == 2) {
-            mLineColor = Color.parseColor("#01C6DB");
+            mLineColor = Color.parseColor("#448BCA");
         } /*else if (position == 3) {
             mLineColor = Color.parseColor("#8B00DC");
         }*/

@@ -358,6 +358,8 @@
     <dimen name="height220">220dp</dimen>
     <dimen name="height200">200dp</dimen>
     <dimen name="height250">250dp</dimen>
+    <dimen name="height300">300dp</dimen>
+    <dimen name="height280">280dp</dimen>
 
 
     <!--Newly Added-->
