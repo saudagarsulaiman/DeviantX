@@ -303,9 +303,9 @@ public class AppSettingsActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String text=s.toString();
+                String text = s.toString();
 //                CommonUtilities.matchingPasswordText(AppSettingsActivity.this, text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
-                matchingPasswordText(text,txt_lower_case,txt_upper_case,txt_number,txt_chars);
+                matchingPasswordText(text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
             }
         });
 
@@ -327,13 +327,15 @@ public class AppSettingsActivity extends AppCompatActivity {
     }
 
     private void matchingPasswordText(String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+//        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+//            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_lgreen_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_gred_c2));
@@ -362,7 +364,7 @@ public class AppSettingsActivity extends AppCompatActivity {
         if (!old_pswd.isEmpty()) {
             if (old_pswd.equals(sharedPreferences.getString(CONSTANTS.pswd, ""))) {
                 if (!new_pswd.isEmpty()) {
-                    if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
+                    if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,25}$")) {
                         if (!conf_pswd.isEmpty()) {
                             if (new_pswd.equals(conf_pswd)) {
                                 if (CommonUtilities.isConnectionAvailable(AppSettingsActivity.this)) {

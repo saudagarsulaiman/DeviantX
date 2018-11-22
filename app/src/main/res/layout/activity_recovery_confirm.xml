@@ -134,7 +134,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rec_marred_c2"
                 android:gravity="center"
-                android:text="@string/lower_case"
+                android:text="@string/special_case"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size" />
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
@@ -40,6 +41,8 @@ public class EditWalletActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_wallet)
     EditText edt_wallet;
+    @BindView(R.id.txt_note_defWal)
+    TextView txt_note_defWal;
     @BindView(R.id.btn_create)
     Button btn_create;
     @BindView(R.id.scompat_defWallet)
@@ -78,10 +81,13 @@ public class EditWalletActivity extends AppCompatActivity {
         walletList = bundle.getParcelable(CONSTANTS.walletName);
         edt_wallet.setText(walletList.getStr_data_name());
 
-        if (walletList.isDefaultWallet())
+        if (walletList.isDefaultWallet()) {
+            txt_note_defWal.setVisibility(View.VISIBLE);
             scompat_defWallet.setChecked(true);
-        else
+        } else {
+            txt_note_defWal.setVisibility(View.GONE);
             scompat_defWallet.setChecked(false);
+        }
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override

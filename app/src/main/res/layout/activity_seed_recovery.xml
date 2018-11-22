@@ -29,8 +29,10 @@
         android:background="@drawable/rec_white_c2"
         android:gravity="start"
         android:hint="@string/confirm_recovery_phase"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:padding="@dimen/def_padding"
+        android:singleLine="false"
+        android:scrollbars="vertical"
         android:textColor="@color/black"
         android:textSize="@dimen/def_text_size" />
 

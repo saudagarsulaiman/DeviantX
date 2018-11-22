@@ -60,6 +60,8 @@
                 android:textSize="@dimen/def_text_size" />
 
             <TextView
+                android:visibility="visible"
+                android:id="@+id/txt_note_defWal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin5"

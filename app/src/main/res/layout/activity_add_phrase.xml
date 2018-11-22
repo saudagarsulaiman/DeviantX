@@ -21,32 +21,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/def_margin">
-
-        <TextView
-            android:id="@+id/txt_note_hastag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/def_margin"
-            android:layout_marginRight="@dimen/def_margin"
-            android:gravity="center"
-            android:paddingLeft="@dimen/def_padding"
-            android:paddingRight="@dimen/def_padding"
-            android:text="@string/recovery_bottom_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/def_hint_size" />
+        android:layout_height="match_parent">
 
         <com.greenfrvr.hashtagview.HashtagView
             android:id="@+id/hashtag_add_phrase"
             style="@style/HashtagView"
-            android:layout_below="@+id/txt_note_hastag"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/margin50"
             android:layout_marginRight="@dimen/def_margin"
+            android:layout_marginBottom="@dimen/margin50"
             app:rowGravity="center"
             app:rowMargin="5dp"
+
             app:selectionMode="true"
             app:tagBackground="@drawable/selector_tag_bg_1"
             app:tagDrawablePadding="4dp"
@@ -57,6 +44,21 @@
             app:tagPaddingRight="@dimen/padding8"
             app:tagPaddingTop="@dimen/padding8"
             app:tagTextColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txt_note_hastag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hashtag_add_phrase"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
+            android:text="@string/recovery_bottom_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_hint_size" />
 
         <Button
             android:id="@+id/btn_next"

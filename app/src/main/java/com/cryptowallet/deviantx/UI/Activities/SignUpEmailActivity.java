@@ -130,13 +130,13 @@ public class SignUpEmailActivity extends AppCompatActivity {
     }
 
     private void matchingPasswordText(String text) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
@@ -164,17 +164,17 @@ public class SignUpEmailActivity extends AppCompatActivity {
     private void CheckingInputs() {
         s_usrnm = edt_usrnm.getText().toString();
         s_email = edt_email.getText().toString();
-        s_conf_email = edt_confirm_email.getText().toString();
+//        s_conf_email = edt_confirm_email.getText().toString();
         s_pswd = edt_pswd.getText().toString();
         s_conf_pswd = edt_confirm_pswd.getText().toString();
 
         if (!s_usrnm.isEmpty()) {
             if (!s_email.isEmpty()) {
                 if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") && s_email.length() >= 8) {
-                    if (!s_conf_email.isEmpty()) {
-                        if (s_conf_email.equals(s_email)) {
+                  /*  if (!s_conf_email.isEmpty()) {
+                        if (s_conf_email.equals(s_email)) {*/
                             if (!s_pswd.isEmpty()) {
-                                if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
+                                if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,25}$")) {
                                     if (!s_conf_pswd.isEmpty()) {
                                         if (s_pswd.equals(s_conf_pswd)) {
                                             CustomDialog(s_usrnm, s_email, s_pswd);
@@ -193,12 +193,12 @@ public class SignUpEmailActivity extends AppCompatActivity {
                             } else {
                                 CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_pswd));
                             }
-                        } else {
+                       /* } else {
                             CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_email));
                         }
                     } else {
                         CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_conf_email));
-                    }
+                    }*/
                 } else {
                     CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.invalid_email));
                 }
