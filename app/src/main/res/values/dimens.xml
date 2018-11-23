@@ -360,6 +360,7 @@
     <dimen name="height250">250dp</dimen>
     <dimen name="height300">300dp</dimen>
     <dimen name="height280">280dp</dimen>
+    <dimen name="width250">250dp</dimen>
 
 
     <!--Newly Added-->

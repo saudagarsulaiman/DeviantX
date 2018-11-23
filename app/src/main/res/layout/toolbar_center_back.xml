@@ -22,7 +22,6 @@
 
         <ImageView
             android:id="@+id/img_center_back"
-            android:scaleType="fitXY"
             android:layout_width="@dimen/width38"
             android:layout_height="wrap_content"
             android:src="@drawable/line" />

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width250"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/lnr_tools_ect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/rec_brinjal_gradient"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding"
+        android:visibility="visible">
+
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/width60"
+            android:layout_height="@dimen/height60"
+            android:layout_gravity="left"
+            android:layout_margin="@dimen/def_margin"
+            android:scaleType="fitXY"
+            android:src="@drawable/tools_ect" />
+
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/margin50"
+            android:gravity="left"
+            android:text="@string/ect"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_ttl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:text="(Coming Soon)"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_hint_size" />
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginTop="@dimen/margin10"-->
+        <!--android:gravity="right"-->
+        <!--android:text="@string/coming_soon"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textSize="@dimen/def_hint_size" />-->
+        <!---->
+
+        <TextView
+            android:id="@+id/txt_slogan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/margin10"
+            android:gravity="left"
+            android:text="@string/note_ect"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

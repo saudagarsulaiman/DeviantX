@@ -9,8 +9,9 @@
 
     <ImageView
         android:id="@+id/title_img"
-        android:layout_width="20dp"
-        android:layout_height="20dp" />
+        android:scaleType="fitXY"
+        android:layout_width="@dimen/width22"
+        android:layout_height="@dimen/height18" />
 
     <TextView
         android:id="@+id/title_text"

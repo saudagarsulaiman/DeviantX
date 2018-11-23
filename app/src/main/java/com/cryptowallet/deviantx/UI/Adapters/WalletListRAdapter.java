@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -78,6 +79,11 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
             viewHolder.txt_wallet_bal.setText("~$ " + String.format("%.4f", walletList.get(i).getDbl_data_totalBal()));
         }
 
+        if (i % 2 == 0) {
+            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+        } else {
+            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+        }
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (walletList.get(i).getResponseList().size() == 0) {
@@ -246,7 +252,8 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         ProgressBar pb;
         @BindView(R.id.graph_wallet)
         GraphView graph_wallet;
-
+        @BindView(R.id.lnr_wallet)
+        LinearLayout lnr_wallet;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
