@@ -74,9 +74,10 @@
 
         <com.cryptowallet.trendchart.TrendView
             android:id="@+id/graph_lyt"
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/height50"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph_wallet"
@@ -84,7 +85,7 @@
             android:layout_height="@dimen/height50"
             android:layout_marginTop="@dimen/margin1"
             android:background="@android:color/transparent"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

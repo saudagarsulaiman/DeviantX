@@ -3,25 +3,41 @@ package com.cryptowallet.deviantx.UI.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.trendchart.DateValue;
 import com.cryptowallet.trendchart.TrendView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import org.json.JSONArray;
+
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -29,11 +45,15 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
     Context context;
     ArrayList<WalletList> walletList;
     boolean hideBal;
+    long startTime;
+    long endTime;
 
     public WalletListRAdapter(Context context, ArrayList<WalletList> walletList) {
         this.context = context;
         this.walletList = walletList;
         this.hideBal = myApplication.getHideBalance();
+        this.startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        this.endTime = System.currentTimeMillis();
     }
 
     public void setIsHideBalance(Boolean isHideBalance) {
@@ -59,7 +79,21 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         }
 
 
-        /*GRAPH STARTS*/
+        if (CommonUtilities.isConnectionAvailable(context)) {
+            if (walletList.get(i).getResponseList().size() == 0) {
+                invokeCoinGraph(i, viewHolder.graph, "BTC", "1m", 800, startTime, endTime);
+                viewHolder.pb.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.pb.setVisibility(View.GONE);
+                setChartData(walletList.get(i).getResponseList(), viewHolder.graph, walletList.get(i).getHighValue());
+            }
+        } else {
+            viewHolder.pb.setVisibility(View.GONE);
+            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
+        }
+
+
+        /*    *//*GRAPH STARTS*//*
         // first series is a line
         DataPoint[] points = new DataPoint[100];
         for (int j = 0; j < points.length; j++) {
@@ -89,9 +123,108 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         gridLabelRenderer.setHorizontalLabelsVisible(false);
         gridLabelRenderer.setVerticalLabelsVisible(false);
         gridLabelRenderer.setGridColor(Color.TRANSPARENT);
-        /*GRAPH ENDS*/
-
+        *//*GRAPH ENDS*//*
+         */
     }
+
+
+    private void invokeCoinGraph(int pos, TrendView graph, final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+            // progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        //  progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            //  CommonUtilities.ShowToastMessage(context, "responsevalue" + responsevalue);
+                            //progressDialog.dismiss();
+                            JSONArray jsonArray = new JSONArray(responsevalue);
+
+                            List<DateValue> responseList = new ArrayList<>();
+                            Double hisghValue = 0.0;
+                            DataPoint[] points = new DataPoint[jsonArray.length()];
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONArray childArray = jsonArray.getJSONArray(i);
+                                for (int j = 0; j < childArray.length(); j++) {
+                                    if (hisghValue < childArray.getDouble(2))
+                                        hisghValue = childArray.getDouble(2);
+                                    // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(new DateValue(childArray.getDouble(2), childArray.getLong(0)));
+                                }
+                            }
+                            if (pos >= 0) {
+                                walletList.get(pos).setResponseList(responseList);
+                                walletList.get(pos).setHighValue(hisghValue);
+                            } else {
+                                //setChart(graph);
+                                setChartData(responseList, graph, hisghValue);
+                            }
+                            // progressDialog.dismiss();
+                        } else {
+                            // progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(context, responsevalue);
+//                            Toast.makeText(context, responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                        }
+                        if (pos >= 0)
+                            notifyItemChanged(pos);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        //  progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        //  progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.Timeout));
+//                        Toast.makeText(context, context.getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        // progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.networkerror));
+                        Toast.makeText(context, context.getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        // progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            // progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//            Toast.makeText(context, context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setChartData(List<DateValue> histories, TrendView graph, Double hisghValue) {
+        graph.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
+
+        if (histories.get(0).getValue() < histories.get(histories.size() - 1).getValue()) {
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green), ContextCompat.getColor(context, R.color.graph_green));
+        } else {
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_red), ContextCompat.getColor(context, R.color.graph_red));
+        }
+        //set static labels of x axis
+        graph
+                .withLine(new com.cryptowallet.trendchart.Line(histories))
+                .withPrevClose(hisghValue)
+                .withDisplayFrom(0)
+                .withDisplayNumber(histories.size())
+                .show();
+    }
+
 
     @Override
     public int getItemCount() {
@@ -113,7 +246,8 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         ProgressBar pb;
         @BindView(R.id.graph_wallet)
         GraphView graph_wallet;
-        
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

@@ -70,7 +70,7 @@ public class ChartView extends View {
   protected void setupPaint() {
     mBorderPaint = new Paint();
     mBorderPaint.setAntiAlias(true);
-    mBorderPaint.setColor(Color.WHITE);
+    mBorderPaint.setColor(Color.TRANSPARENT);
     mLinePaint = new Paint();
     mLinePaint.setAntiAlias(true);
     mLinePaint.setColor(0xFFCCCCCC);

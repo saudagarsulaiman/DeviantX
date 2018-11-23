@@ -3,6 +3,12 @@ package com.cryptowallet.deviantx.UI.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.cryptowallet.trendchart.DateValue;
+
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+
 public class WalletList implements Parcelable {
     int int_data_id;
     double dbl_data_totalBal;
@@ -90,5 +96,24 @@ public class WalletList implements Parcelable {
         dest.writeByte((byte) (defaultWallet ? 1 : 0));
     }
 
+
+    List<DateValue> responseList = new ArrayList<>();
+    Double highValue = 0.0;
+
+    public void setResponseList(List<DateValue> responseList) {
+        this.responseList = responseList;
+    }
+
+    public List<DateValue> getResponseList() {
+        return responseList;
+    }
+
+    public void setHighValue(Double highValue) {
+        this.highValue = highValue;
+    }
+
+    public Double getHighValue() {
+        return highValue;
+    }
 
 }

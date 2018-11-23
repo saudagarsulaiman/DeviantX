@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
+ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
 	package
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:11-55
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:11-55
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
 	android:versionCode
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml:1:1-58
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml:1:1-58
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
 uses-sdk
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		ADDED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
-		INJECTED from /home/sulaiman/AndroidStudioProjects/DeviantX/magicindicator/src/main/AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		ADDED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml
+		INJECTED from D:\DeviantX\magicindicator\src\main\AndroidManifest.xml

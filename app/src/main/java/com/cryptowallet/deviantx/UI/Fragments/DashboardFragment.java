@@ -636,7 +636,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                             e.printStackTrace();
                                         }
 
-
                                         AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
