@@ -28,6 +28,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
@@ -80,9 +81,9 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         }
 
         if (i % 2 == 0) {
-            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c7));
         } else {
-            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c7));
         }
 
         if (CommonUtilities.isConnectionAvailable(context)) {
@@ -138,7 +139,8 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         try {
             // progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
-            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+//            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
             Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -150,31 +152,55 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
                         if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
                             //  CommonUtilities.ShowToastMessage(context, "responsevalue" + responsevalue);
                             //progressDialog.dismiss();
-                            JSONArray jsonArray = new JSONArray(responsevalue);
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            String res_zero = jsonObject.getString("Response");
+                            if (res_zero.equals("Success")) {
 
-                            List<DateValue> responseList = new ArrayList<>();
-                            Double hisghValue = 0.0;
-                            DataPoint[] points = new DataPoint[jsonArray.length()];
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONArray childArray = jsonArray.getJSONArray(i);
-                                for (int j = 0; j < childArray.length(); j++) {
-                                    if (hisghValue < childArray.getDouble(2))
-                                        hisghValue = childArray.getDouble(2);
+                                String res_Data = jsonObject.getString("Data");
+
+                                JSONArray jsonArray = new JSONArray(res_Data);
+                                List<DateValue> responseList = new ArrayList<>();
+                                Double hisghValue = 0.0;
+                                DataPoint[] points = new DataPoint[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject childobject= jsonArray.getJSONObject(i);
+                                    if (hisghValue < childobject.getDouble("high"))
+                                        hisghValue = childobject.getDouble("high");
                                     // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
-                                    responseList.add(new DateValue(childArray.getDouble(2), childArray.getLong(0)));
+                                    responseList.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+
                                 }
-                            }
-                            if (pos >= 0) {
-                                walletList.get(pos).setResponseList(responseList);
-                                walletList.get(pos).setHighValue(hisghValue);
+
+
+/*
+                                JSONArray jsonArray = new JSONArray(responsevalue);
+                                List<DateValue> responseList = new ArrayList<>();
+                                Double hisghValue = 0.0;
+                                DataPoint[] points = new DataPoint[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONArray childArray = jsonArray.getJSONArray(i);
+                                    for (int j = 0; j < childArray.length(); j++) {
+                                        if (hisghValue < childArray.getDouble(2))
+                                            hisghValue = childArray.getDouble(2);
+                                        // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                        responseList.add(new DateValue(childArray.getDouble(2), childArray.getLong(0)));
+                                    }
+                                }*/
+                                if (pos >= 0) {
+                                    walletList.get(pos).setResponseList(responseList);
+                                    walletList.get(pos).setHighValue(hisghValue);
+                                } else {
+                                    //setChart(graph);
+                                    setChartData(responseList, graph, hisghValue);
+                                }
+                                // progressDialog.dismiss();
+
                             } else {
-                                //setChart(graph);
-                                setChartData(responseList, graph, hisghValue);
+                                CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
                             }
-                            // progressDialog.dismiss();
                         } else {
                             // progressDialog.dismiss();
-                            CommonUtilities.ShowToastMessage(context, responsevalue);
+                            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
 //                            Toast.makeText(context, responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                         }
@@ -216,7 +242,6 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
 
     public void setChartData(List<DateValue> histories, TrendView graph, Double hisghValue) {
         graph.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-
         if (histories.get(0).getValue() < histories.get(histories.size() - 1).getValue()) {
             graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green), ContextCompat.getColor(context, R.color.graph_green));
         } else {

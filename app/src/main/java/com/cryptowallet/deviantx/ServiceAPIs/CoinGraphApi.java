@@ -9,7 +9,11 @@ import retrofit2.http.Query;
 
 public interface CoinGraphApi {
 
-    @GET("k-lines?")/*symbol=DOGE&interval=1m&limit=800&startTime=1542279420000&endTime=1542282961000*/
-    Call<ResponseBody> getCoinGraph(@Query("symbol") String symbol_coinCodeX, @Query("interval") String intervalX, @Query("limit") int limitX, @Query("startTime") long startTimeX, @Query("endTime") long endTimeX);
+//    @GET("k-lines?")/*symbol=DOGE&interval=1m&limit=800&startTime=1542279420000&endTime=1542282961000*/
+//    Call<ResponseBody> getCoinGraph(@Query("symbol") String symbol_coinCodeX, @Query("interval") String intervalX, @Query("limit") int limitX, @Query("startTime") long startTimeX, @Query("endTime") long endTimeX);
+
+    @GET("histominute?")/* fsym=BTC&tsym=USD&limit=1000*/
+    Call<ResponseBody> getCoinGraph(@Query("fsym") String symbol_coinCodeX, @Query("tsym") String USDX, @Query("limit") int limitX);
+
 
 }

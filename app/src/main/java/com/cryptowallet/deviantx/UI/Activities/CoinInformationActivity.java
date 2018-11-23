@@ -25,6 +25,7 @@ import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.trendchart.DateValue;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -43,6 +44,7 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
@@ -327,8 +329,9 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         try {
 //            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
-            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
-            Log.i("API:\t:", apiResponse.toString());
+//            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
+//            Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -336,7 +339,62 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                         String responsevalue = response.body().string();
 
                         if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
-                            //  CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
+
+                            pb.setVisibility(View.GONE);
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            String res_zero = jsonObject.getString("Response");
+
+                            if (res_zero.equals("Success")) {
+
+                                String res_Data = jsonObject.getString("Data");
+                                responseList = new ArrayList<>();
+
+                                JSONArray jsonArray = new JSONArray(res_Data);
+                                List<DateValue> responseList2 = new ArrayList<>();
+                                Double hisghValue = 0.0;
+                                DataPoint[] points = new DataPoint[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject childobject = jsonArray.getJSONObject(i);
+//                                    if (hisghValue < childobject.getDouble("high"))
+//                                        hisghValue = childobject.getDouble("high");
+//                                    // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+//                                    responseList2.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+                                    coinGraph = new CoinGraph(childobject.getLong("time"), childobject.getDouble("close"), childobject.getDouble("high"), childobject.getDouble("low"), childobject.getDouble("open"), childobject.getDouble("volumefrom"), childobject.getDouble("volumeto"));
+                                    responseList.add(coinGraph);
+
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTimeInMillis(childobject.getLong("time"));
+                                    Date d1 = calendar.getTime();
+                                    points[i] = new DataPoint(d1, childobject.getLong("high"));
+                                }
+//                                txt_open.setText(getResources().getString(R.string.open));
+//                                txt_high.setText(getResources().getString(R.string.high));
+//                                txt_low.setText(getResources().getString(R.string.low));
+//                                txt_close.setText(getResources().getString(R.string.closee));
+//                                txt_date.setText(getResources().getString(R.string.date));
+//                                txt_time.setText(getResources().getString(R.string.time));
+                                txt_open.setText(getResources().getString(R.string.open)+"$0.1549");
+                                txt_high.setText(getResources().getString(R.string.high)+"$0.1549");
+                                txt_low.setText(getResources().getString(R.string.low)+"0.1525");
+                                txt_close.setText(getResources().getString(R.string.closee)+"0.1452");
+                                txt_date.setText(getResources().getString(R.string.date)+"23/11/2018");
+                                txt_time.setText(getResources().getString(R.string.time)+"11:00");
+                                setChart();
+                                line_chart.setData(null);
+                                candle_chart.setData(null);
+                                setChartData(responseList);
+
+                                txt_per_high.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getHigh()));
+                                txt_per_low.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getLow()));
+
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.empty_data));
+                            }
+
+
+
+                         /*   //  CommonUtilities.ShowToastMessage(CoinInformationActivity.this, "responsevalue" + responsevalue);
                             pb.setVisibility(View.GONE);
                             //progressDialog.dismiss();
                             JSONArray jsonArray = new JSONArray(responsevalue);
@@ -348,10 +406,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 for (int j = 0; j < childArray.length(); j++) {
                                     coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
                                     responseList.add(coinGraph);
-                                    /*Calendar calendar = Calendar.getInstance();
+                                    *//*Calendar calendar = Calendar.getInstance();
                                     calendar.setTimeInMillis(childArray.getLong(0));
                                     Date d1 = calendar.getTime();
-                                    points[i]=new DataPoint(d1,childArray.getLong(2));*/
+                                    points[i]=new DataPoint(d1,childArray.getLong(2));*//*
                                 }
 
                             }
@@ -369,8 +427,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             txt_per_high.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getHigh()));
                             txt_per_low.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getLow()));
 
-
-                           /* Calendar calendar = Calendar.getInstance();
+                           *//* Calendar calendar = Calendar.getInstance();
                             calendar.setTimeInMillis(jsonArray.getJSONArray(0).getLong(0));
                             Date d1 = calendar.getTime();
                             Calendar calendar1 = Calendar.getInstance();
@@ -378,10 +435,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             Date d2 = calendar1.getTime();
                             line_chart.getViewport().setMinX(d1.getTime());
                             line_chart.getViewport().setMaxX(d2.getTime());
-*/
-
+*//*
+                             */
                         } else {
-                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.empty_data));
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                             pb.setVisibility(View.GONE);
@@ -429,7 +486,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         try {
 //            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
-            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+//            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
             Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -457,12 +515,12 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 }
 
                             }
-                            txt_open.setText(getResources().getString(R.string.open));
-                            txt_high.setText(getResources().getString(R.string.high));
-                            txt_low.setText(getResources().getString(R.string.low));
-                            txt_close.setText(getResources().getString(R.string.closee));
-                            txt_date.setText(getResources().getString(R.string.date));
-                            txt_time.setText(getResources().getString(R.string.time));
+                            txt_open.setText(getResources().getString(R.string.open)+"$0.1549");
+                            txt_high.setText(getResources().getString(R.string.high)+"$0.1549");
+                            txt_low.setText(getResources().getString(R.string.low)+"0.1525");
+                            txt_close.setText(getResources().getString(R.string.closee)+"0.1452");
+                            txt_date.setText(getResources().getString(R.string.date)+"23/11/2018");
+                            txt_time.setText(getResources().getString(R.string.time)+"11:00");
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);
@@ -608,7 +666,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         line_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Long date = (long) e.getX();
+//                Long add = Long.parseLong"1000000000000");
+                Long date = (long) e.getX()*1000/* + Long.parseLong("1000000000000")*/;
+//                date = date + add;
+
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
                 Date d2 = calendar1.getTime();

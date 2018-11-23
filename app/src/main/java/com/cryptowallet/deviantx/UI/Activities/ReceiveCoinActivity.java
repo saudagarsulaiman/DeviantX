@@ -53,8 +53,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     TextView txt_percentage;
 
 
-
-
     AccountWallet selectedAccountWallet;
 
 
@@ -83,14 +81,14 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
         txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
-        txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1)+" "+selectedAccountWallet.getAllCoins().getStr_coin_code()+". "+getResources().getString(R.string.attention_dev_address2));
+        txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code() + ". " + getResources().getString(R.string.attention_dev_address2));
 
         Picasso.with(ReceiveCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
         txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
         txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
-        txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+ " Address");
+        txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code() + " Address");
 
-        txt_coin_usd_value.setText("$ " + selectedAccountWallet.getAllCoins().getStr_coin_usdValue() + " USD");
+        txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
         DecimalFormat rank = new DecimalFormat("0.00");
         if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
             txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
@@ -120,7 +118,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
 
     }
-
 
 
 }

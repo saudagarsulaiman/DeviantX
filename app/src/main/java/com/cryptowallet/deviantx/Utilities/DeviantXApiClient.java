@@ -53,7 +53,8 @@ public class DeviantXApiClient {
 
     public static Retrofit getCoinGraph() {
         retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.binance.com/info-api/v1/public/data/")
+//                .baseUrl("https://www.binance.com/info-api/v1/public/data/")
+                .baseUrl("https://min-api.cryptocompare.com/data/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)

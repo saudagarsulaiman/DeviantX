@@ -341,7 +341,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
                                 editor.putString(CONSTANTS.pswd, s_pswd);
                                 editor.commit();
 
-                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, loginResponseMsg);
+                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.pls_check_email));
                                 Intent intent = new Intent(SignUpEmailActivity.this, LoginActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);

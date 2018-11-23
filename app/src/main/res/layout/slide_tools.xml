@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/width250"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginTop="@dimen/margin50"
+            android:layout_marginTop="@dimen/margin40"
             android:gravity="left"
             android:text="@string/ect"
             android:textColor="@color/white"
@@ -74,4 +74,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

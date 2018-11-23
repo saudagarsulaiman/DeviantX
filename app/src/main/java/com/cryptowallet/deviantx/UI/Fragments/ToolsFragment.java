@@ -54,11 +54,24 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
         slogan = new ArrayList<>();
         icons = new ArrayList<>();
 
+        title.add("Exchange Coin Transfer");
+        slogan.add("Transfer your coins from Exchanges.");
+        icons.add(R.drawable.ic_tools);
+
+        title.add("ICO Sales");
+        slogan.add("Buy tokens and receive directly here.");
+        icons.add(R.drawable.ic_ico);
+
+        title.add("Deviant X Airdrop");
+        slogan.add("Win free coins through challenges!");
+        icons.add(R.drawable.ic_airdrop);
+
         title.add("Shapeshift");
-        slogan.add("Leading instant digital asset exchange");
+        slogan.add("Leading instant digital asset exchange.");
         icons.add(R.drawable.ic_shape_shift);
+
         title.add("Changelly");
-        slogan.add("Exchange cryptocurrency at the best rate");
+        slogan.add("Exchange cryptocurrency at the best rate.");
         icons.add(R.drawable.ic_changelly);
 
 
@@ -75,7 +88,7 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
                 startActivity(intent);
             }
         });
-        toolsAdapter = new ToolsAdapter(getActivity(),title,slogan,icons);
+        toolsAdapter = new ToolsAdapter(getActivity(), title, slogan, icons);
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
 //        itemPicker.addOnItemChangedListener(this);
         itemPicker.addOnItemChangedListener(this);

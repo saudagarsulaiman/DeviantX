@@ -17,9 +17,10 @@
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/img_center_back"
+            android:layout_width="@dimen/width38"
             android:layout_gravity="center"
+            android:layout_height="@dimen/height30"
             android:layout_marginTop="@dimen/margin5"
             android:src="@drawable/line" />
 

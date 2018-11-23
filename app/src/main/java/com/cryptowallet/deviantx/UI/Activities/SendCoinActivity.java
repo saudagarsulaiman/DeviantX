@@ -169,7 +169,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
 
 
-            txt_coin_usd_value.setText("$ " + selectedAccountWallet.getAllCoins().getStr_coin_usdValue() + " USD");
+            txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
             DecimalFormat rank = new DecimalFormat("0.00");
             if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
                 txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");

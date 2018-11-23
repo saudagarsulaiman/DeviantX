@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
     <ScrollView
+        android:layout_above="@+id/btn_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -312,6 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin5"
                         android:text="@string/note_confirm_password"
+                        android:layout_marginBottom="@dimen/def_margin"
                         android:textColor="@color/white"
                         android:textSize="@dimen/def_hint_size" />
 
@@ -344,27 +346,22 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:layout_alignParentBottom="true"
-                    android:id="@+id/btn_continue"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/def_btn_height"
-                    android:layout_marginTop="@dimen/def_margin"
-                    android:background="@drawable/rec_orange_gradient"
-                    android:text="@string/continu"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/def_text_size"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rec_orange_gradient"
+        android:text="@string/continu"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold" />
+
+</RelativeLayout>
+

@@ -57,7 +57,7 @@
         <com.yarolegovich.discretescrollview.DiscreteScrollView
             android:id="@+id/item_picker"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:id="@+id/lnr_wallet"
@@ -137,7 +137,6 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/lnr_swipe"
         android:layout_marginLeft="@dimen/def_margin"
-        android:layout_marginTop="@dimen/def_margin"
         android:layout_marginRight="@dimen/def_margin"
         android:orientation="vertical">
 

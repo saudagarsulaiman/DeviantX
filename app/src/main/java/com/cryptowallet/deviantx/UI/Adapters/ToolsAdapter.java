@@ -43,11 +43,33 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ToolsAdapter.ViewHolder viewHolder, int i) {
-        if(i % 2 == 0){
-            viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
-        }else{
-            viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+        switch (i) {
+            case 0:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+                break;
+            case 1:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+                break;
+            case 3:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+                break;
+            case 4:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+                break;
+            case 2:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_gradient));
+                break;
+            default:
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+                break;
         }
+
+//        if (i % 2 == 0) {
+//            viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
+//        } else {
+//            viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+//        }
+
         viewHolder.txt_title.setText(title.get(i));
         viewHolder.txt_slogan.setText(slogan.get(i));
         Picasso.with(context).load(icons.get(i)).into(viewHolder.img_icon);
@@ -55,7 +77,7 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return 2;
+        return title.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

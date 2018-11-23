@@ -55,16 +55,19 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -157,7 +160,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                 viewHolder.pb.setVisibility(View.VISIBLE);
             } else {
                 viewHolder.pb.setVisibility(View.GONE);
-                setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph,accountWalletlist.get(i).getHighValue());
+                setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph, accountWalletlist.get(i).getHighValue());
             }
         } else {
             viewHolder.pb.setVisibility(View.GONE);
@@ -175,7 +178,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             public void onClick(View v) {
 
                 if (CommonUtilities.isConnectionAvailable(context)) {
-                     customDialog(accountWalletlist.get(i));
+                    customDialog(accountWalletlist.get(i));
 
                 } else {
                     CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
@@ -240,7 +243,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             if (accountWallet.getResponseList().size() == 0)
                 invokeCoinGraph(-1, graph_dlg, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
             else {
-                setChartData(accountWallet.getResponseList(), graph_dlg,accountWallet.getHighValue());
+                setChartData(accountWallet.getResponseList(), graph_dlg, accountWallet.getHighValue());
             }
         } else {
             CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
@@ -295,8 +298,36 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
 
         txt_rank.setText(accountWallet.getAllCoins().getInt_coin_rank() + "#");
-        txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
-        txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
+
+/*
+        //The main logic for adding commas to the number.
+        int numLength = inputNum.length();
+        for (int i=0; i<numLength; i++) {
+            if ((numLength-i)%3 == 0 && i != 0) {
+                commafiedNum += ",";
+            }
+            commafiedNum += inputNum.charAt(i);
+        }
+*/
+
+/*
+        DecimalFormat df = new DecimalFormat();
+        df.setDecimalFormatSymbols(symbols);
+        df.setGroupingSize(3);
+        df.setMaximumFractionDigits(2);
+*/
+        NumberFormat nf = NumberFormat.getInstance(Locale.US);
+        String mcap = nf.format(accountWallet.getAllCoins().getDbl_coin_marketCap());
+        String mvol = nf.format(accountWallet.getAllCoins().getDbl_coin_volume());
+
+        txt_markcap_usd.setText("$ " + mcap);
+        txt_vol_usd.setText("$ " + mvol);
+
+//        txt_markcap_usd.setText("$ " +NumberFormat.getCurrencyInstance().format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
+//        txt_vol_usd.setText("$ " + NumberFormat.getCurrencyInstance().format(accountWallet.getAllCoins().getDbl_coin_volume()));
+
+//        txt_markcap_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_marketCap()));
+//        txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
 
 
         if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
@@ -410,8 +441,9 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         try {
             // progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
-            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
-            Log.i("API:\t:", apiResponse.toString());
+//            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, intervalX, limitX, startTimeX, endTimeX);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
+//            Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -420,6 +452,64 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                         //  progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            //  CommonUtilities.ShowToastMessage(context, "responsevalue" + responsevalue);
+                            //progressDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            String res_zero = jsonObject.getString("Response");
+                            if (res_zero.equals("Success")) {
+
+                                String res_Data = jsonObject.getString("Data");
+
+                                JSONArray jsonArray = new JSONArray(res_Data);
+                                List<DateValue> responseList = new ArrayList<>();
+                                Double hisghValue = 0.0;
+                                DataPoint[] points = new DataPoint[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject childobject = jsonArray.getJSONObject(i);
+                                    if (hisghValue < childobject.getDouble("high"))
+                                        hisghValue = childobject.getDouble("high");
+                                    // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                    responseList.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+
+                                }
+
+
+/*
+                                JSONArray jsonArray = new JSONArray(responsevalue);
+                                List<DateValue> responseList = new ArrayList<>();
+                                Double hisghValue = 0.0;
+                                DataPoint[] points = new DataPoint[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONArray childArray = jsonArray.getJSONArray(i);
+                                    for (int j = 0; j < childArray.length(); j++) {
+                                        if (hisghValue < childArray.getDouble(2))
+                                            hisghValue = childArray.getDouble(2);
+                                        // coinGraph = new CoinGraph(childArray.getLong(0), childArray.getDouble(1), childArray.getDouble(2), childArray.getDouble(3), childArray.getDouble(4), childArray.getDouble(5), childArray.getDouble(6));
+                                        responseList.add(new DateValue(childArray.getDouble(2), childArray.getLong(0)));
+                                    }
+                                }*/
+                                if (pos >= 0) {
+                                    accountWalletlist.get(pos).setResponseList(responseList);
+                                    accountWalletlist.get(pos).setHighValue(hisghValue);
+                                } else {
+                                    //setChart(graph);
+                                    setChartData(responseList, graph, hisghValue);
+                                }
+                                // progressDialog.dismiss();
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
+                            }
+                        } else {
+                            // progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
+//                            Toast.makeText(context, responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                        }
+                        if (pos >= 0)
+                            notifyItemChanged(pos);
+
+                       /* if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
                             //  CommonUtilities.ShowToastMessage(context, "responsevalue" + responsevalue);
                             //progressDialog.dismiss();
                             JSONArray jsonArray = new JSONArray(responsevalue);
@@ -447,12 +537,12 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                             // progressDialog.dismiss();
                         } else {
                             // progressDialog.dismiss();
-                            CommonUtilities.ShowToastMessage(context, responsevalue);
+                            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
 //                            Toast.makeText(context, responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                         }
                         if (pos >= 0)
-                            notifyItemChanged(pos);
+                            notifyItemChanged(pos);*/
                     } catch (Exception e) {
                         e.printStackTrace();
                         //  progressDialog.dismiss();
@@ -487,16 +577,14 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
     }
 
-    public void setChartData(List<DateValue> histories, TrendView graph,Double hisghValue) {
+    private void setChartData(List<DateValue> histories, TrendView graph, Double hisghValue) {
         graph.setBackgroundColor(context.getResources().getColor(R.color.white));
-
         if (histories.get(0).getValue() < histories.get(histories.size() - 1).getValue()) {
-            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green),ContextCompat.getColor(context, R.color.graph_green));
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green), ContextCompat.getColor(context, R.color.graph_green));
         } else {
-            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_red),ContextCompat.getColor(context, R.color.graph_red));
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_red), ContextCompat.getColor(context, R.color.graph_red));
 
         }
-
         //set static labels of x axis
         graph
                 .withLine(new com.cryptowallet.trendchart.Line(histories))
