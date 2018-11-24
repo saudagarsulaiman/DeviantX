@@ -256,7 +256,6 @@
                 android:layout_width="@dimen/width30"
                 android:layout_height="@dimen/height30"
                 android:layout_gravity="center"
-                android:background="@color/bg_center_blue"
                 android:indeterminateTint="@color/white"
                 android:visibility="gone" />
 

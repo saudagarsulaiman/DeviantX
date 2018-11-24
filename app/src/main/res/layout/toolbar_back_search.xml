@@ -4,7 +4,7 @@
     android:id="@+id/toolbar_back_search"
     android:layout_width="match_parent"
     android:layout_height="@dimen/def_toolbar_nav_back_height"
-    android:background="@color/bg_end_blue">
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"

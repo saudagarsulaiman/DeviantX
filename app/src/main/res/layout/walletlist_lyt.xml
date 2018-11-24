@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="250dp"
+    android:layout_marginBottom="@dimen/def_margin"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -50,6 +51,7 @@
             android:paddingLeft="@dimen/def_padding"
             android:paddingRight="@dimen/def_padding"
             android:text="~$ 0.0"
+            android:layout_marginBottom="@dimen/margin40"
             android:textColor="@color/white"
             android:textSize="@dimen/text22" />
 
@@ -76,7 +78,7 @@
             android:id="@+id/graph_lyt"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height50"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph_wallet"

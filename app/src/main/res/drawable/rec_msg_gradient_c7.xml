@@ -5,7 +5,6 @@
     <gradient
         android:angle="45"
         android:endColor="@color/bg_end_msg"
-        android:centerColor="@color/bg_center_msg"
         android:startColor="@color/bg_start_msg"
         android:type="linear" />
 

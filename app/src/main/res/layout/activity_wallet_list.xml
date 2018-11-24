@@ -213,7 +213,7 @@
         android:layout_height="@dimen/def_btn_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/margin2"
-        android:background="@drawable/rec_brinjal_gradient"
+        android:background="@drawable/rec_brinjal1_gradient"
         android:text="@string/create_new_wallet"
         android:textAllCaps="false"
         android:textColor="@color/white"

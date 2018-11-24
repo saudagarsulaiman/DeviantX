@@ -57,7 +57,7 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
                 break;
             case 2:
-                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_gradient));
+                viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_airdrop_gradient));
                 break;
             default:
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));

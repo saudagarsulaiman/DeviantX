@@ -373,12 +373,12 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //                                txt_close.setText(getResources().getString(R.string.closee));
 //                                txt_date.setText(getResources().getString(R.string.date));
 //                                txt_time.setText(getResources().getString(R.string.time));
-                                txt_open.setText(getResources().getString(R.string.open)+"$0.1549");
-                                txt_high.setText(getResources().getString(R.string.high)+"$0.1549");
-                                txt_low.setText(getResources().getString(R.string.low)+"0.1525");
-                                txt_close.setText(getResources().getString(R.string.closee)+"0.1452");
-                                txt_date.setText(getResources().getString(R.string.date)+"23/11/2018");
-                                txt_time.setText(getResources().getString(R.string.time)+"11:00");
+                                txt_open.setText(getResources().getString(R.string.open)+"$00.00");
+                                txt_high.setText(getResources().getString(R.string.high)+"$000.00");
+                                txt_low.setText(getResources().getString(R.string.low)+"00.00");
+                                txt_close.setText(getResources().getString(R.string.closee)+"00.00");
+                                txt_date.setText(getResources().getString(R.string.date)+"dd/MM/yyyy");
+                                txt_time.setText(getResources().getString(R.string.time)+"hh:mm");
                                 setChart();
                                 line_chart.setData(null);
                                 candle_chart.setData(null);
@@ -515,12 +515,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 }
 
                             }
-                            txt_open.setText(getResources().getString(R.string.open)+"$0.1549");
-                            txt_high.setText(getResources().getString(R.string.high)+"$0.1549");
-                            txt_low.setText(getResources().getString(R.string.low)+"0.1525");
-                            txt_close.setText(getResources().getString(R.string.closee)+"0.1452");
-                            txt_date.setText(getResources().getString(R.string.date)+"23/11/2018");
-                            txt_time.setText(getResources().getString(R.string.time)+"11:00");
+                            txt_open.setText(getResources().getString(R.string.open)+"$00.00");
+                            txt_high.setText(getResources().getString(R.string.high)+"$000.00");
+                            txt_low.setText(getResources().getString(R.string.low)+"00.00");
+                            txt_close.setText(getResources().getString(R.string.closee)+"00.00");
+                            txt_date.setText(getResources().getString(R.string.date)+"dd/MM/yyyy");
+                            txt_time.setText(getResources().getString(R.string.time)+"hh:mm");
+
                             setChart();
                             line_chart.setData(null);
                             candle_chart.setData(null);

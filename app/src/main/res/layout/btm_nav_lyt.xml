@@ -34,7 +34,7 @@
             android:id="@+id/txt_btm_nav_lbl"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height25"
-            android:background="#00021b"
+            android:background="@color/btm_menu"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/app_name"
@@ -44,7 +44,7 @@
 
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/magic_indicator"
-            android:background="#00021b"
+            android:background="@color/btm_menu"
             android:layout_width="match_parent"
             android:layout_height="@dimen/large_navigator_height"
             android:layout_alignParentBottom="true" />

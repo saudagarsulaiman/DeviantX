@@ -2,51 +2,44 @@
 <resources>
 
 
-    <dimen name="small_navigator_height">12dp</dimen>
-    <dimen name="large_navigator_height">65dp</dimen>
+    <dimen name="small_navigator_height">14dp</dimen>
+    <dimen name="large_navigator_height">70dp</dimen>
     
             <!--APP DEFAULT SIZES-->
     <!--<dimen name="def__size">p</dimen>-->
-    <dimen name="def_hint_size">12sp</dimen>
+    <dimen name="def_hint_size">14sp</dimen>
     <dimen name="def_text_size">14sp</dimen>
-    <dimen name="def_lbl_size">16sp</dimen>
-    <dimen name="def_btn_height">50dp</dimen>
-    <dimen name="def_edt_height">40dp</dimen>
-    <dimen name="def_margin">20dp</dimen>
-    <dimen name="def_toolbar_back_height">35dp</dimen>
-    <dimen name="def_toolbar_nav_back_height">45dp</dimen>
-    <dimen name="def_ttl_size">22sp</dimen>
-    <dimen name="def_padding">20dp</dimen>
-
-
-
-
-
-
-
+    <dimen name="def_lbl_size">18sp</dimen>
+    <dimen name="def_btn_height">60dp</dimen>
+    <dimen name="def_edt_height">50dp</dimen>
+    <dimen name="def_margin">25dp</dimen>
+    <dimen name="def_toolbar_back_height">40dp</dimen>
+    <dimen name="def_toolbar_nav_back_height">50dp</dimen>
+    <dimen name="def_ttl_size">28sp</dimen>
+    <dimen name="def_padding">25dp</dimen>
 
 
 
     <!--TEXT SIZES-->
     <!--<dimen name="text">sp</dimen>-->
     <dimen name="text8">8sp</dimen>
-    <dimen name="text10">10sp</dimen>
+    <dimen name="text10">14sp</dimen>
     <dimen name="text12">12sp</dimen>
     <dimen name="text14">14sp</dimen>
     <dimen name="text16">16sp</dimen>
     <dimen name="text18">18sp</dimen>
-    <dimen name="text20">20sp</dimen>
-    <dimen name="text22">22sp</dimen>
-    <dimen name="text24">24sp</dimen>
-    <dimen name="text25">25sp</dimen>
-    <dimen name="text26">26sp</dimen>
-    <dimen name="text28">28sp</dimen>
-    <dimen name="text30">30sp</dimen>
-    <dimen name="text32">32sp</dimen>
-    <dimen name="text34">34sp</dimen>
-    <dimen name="text36">36sp</dimen>
-    <dimen name="text38">38sp</dimen>
-    <dimen name="text40">40sp</dimen>
+    <dimen name="text20">23sp</dimen>
+    <dimen name="text22">26sp</dimen>
+    <dimen name="text24">27sp</dimen>
+    <dimen name="text25">28sp</dimen>
+    <dimen name="text26">28sp</dimen>
+    <dimen name="text28">30sp</dimen>
+    <dimen name="text30">32sp</dimen>
+    <dimen name="text32">34sp</dimen>
+    <dimen name="text34">36sp</dimen>
+    <dimen name="text36">38sp</dimen>
+    <dimen name="text38">40sp</dimen>
+    <dimen name="text40">44sp</dimen>
 
 
               <!--MARGINS-->
@@ -60,7 +53,7 @@
     <dimen name="margin7">7dp</dimen>
     <dimen name="margin8">8dp</dimen>
     <dimen name="margin9">9dp</dimen>
-    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin10">14dp</dimen>
     <dimen name="margin11">11dp</dimen>
     <dimen name="margin12">12dp</dimen>
     <dimen name="margin13">13dp</dimen>
@@ -70,7 +63,7 @@
     <dimen name="margin17">17dp</dimen>
     <dimen name="margin18">18dp</dimen>
     <dimen name="margin19">19dp</dimen>
-    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin20">25dp</dimen>
     <dimen name="margin21">21dp</dimen>
     <dimen name="margin22">22dp</dimen>
     <dimen name="margin23">23dp</dimen>
@@ -90,7 +83,7 @@
     <dimen name="margin37">37dp</dimen>
     <dimen name="margin38">38dp</dimen>
     <dimen name="margin39">39dp</dimen>
-    <dimen name="margin40">40dp</dimen>
+    <dimen name="margin40">45dp</dimen>
     <dimen name="margin41">41dp</dimen>
     <dimen name="margin42">42dp</dimen>
     <dimen name="margin43">43dp</dimen>
@@ -100,11 +93,11 @@
     <dimen name="margin47">47dp</dimen>
     <dimen name="margin48">48dp</dimen>
     <dimen name="margin49">49dp</dimen>
-    <dimen name="margin50">50dp</dimen>
-    <dimen name="margin80">80dp</dimen>
-    <dimen name="margin70">70dp</dimen>
-    <dimen name="margin60">60dp</dimen>
-    <dimen name="margin100">100dp</dimen>
+    <dimen name="margin50">55dp</dimen>
+    <dimen name="margin80">85dp</dimen>
+    <dimen name="margin70">75dp</dimen>
+    <dimen name="margin60">65dp</dimen>
+    <dimen name="margin100">110dp</dimen>
 
 
 
@@ -121,17 +114,17 @@
     <dimen name="padding7">7dp</dimen>
     <dimen name="padding8">8dp</dimen>
     <dimen name="padding9">9dp</dimen>
-    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding10">14dp</dimen>
     <dimen name="padding11">11dp</dimen>
     <dimen name="padding12">12dp</dimen>
     <dimen name="padding13">13dp</dimen>
-    <dimen name="padding14">14dp</dimen>
+    <dimen name="padding14">16dp</dimen>
     <dimen name="padding15">15dp</dimen>
     <dimen name="padding16">16dp</dimen>
     <dimen name="padding17">17dp</dimen>
     <dimen name="padding18">18dp</dimen>
     <dimen name="padding19">19dp</dimen>
-    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding20">25dp</dimen>
     <dimen name="padding21">21dp</dimen>
     <dimen name="padding22">22dp</dimen>
     <dimen name="padding23">23dp</dimen>
@@ -151,7 +144,7 @@
     <dimen name="padding37">37dp</dimen>
     <dimen name="padding38">38dp</dimen>
     <dimen name="padding39">39dp</dimen>
-    <dimen name="padding40">40dp</dimen>
+    <dimen name="padding40">45dp</dimen>
     <dimen name="padding41">41dp</dimen>
     <dimen name="padding42">42dp</dimen>
     <dimen name="padding43">43dp</dimen>
@@ -161,13 +154,13 @@
     <dimen name="padding47">47dp</dimen>
     <dimen name="padding48">48dp</dimen>
     <dimen name="padding49">49dp</dimen>
-    <dimen name="padding50">50dp</dimen>
-    <dimen name="padding60">60dp</dimen>
-    <dimen name="padding70">70dp</dimen>
-    <dimen name="padding73">73dp</dimen>
-    <dimen name="padding75">75dp</dimen>
-    <dimen name="padding80">80dp</dimen>
-    <dimen name="padding85">85dp</dimen>
+    <dimen name="padding50">55dp</dimen>
+    <dimen name="padding60">65dp</dimen>
+    <dimen name="padding70">73dp</dimen>
+    <dimen name="padding73">76dp</dimen>
+    <dimen name="padding75">80dp</dimen>
+    <dimen name="padding80">85dp</dimen>
+    <dimen name="padding85">90dp</dimen>
 
 
 
@@ -183,17 +176,17 @@
     <dimen name="height7">7dp</dimen>
     <dimen name="height8">8dp</dimen>
     <dimen name="height9">9dp</dimen>
-    <dimen name="height10">10dp</dimen>
+    <dimen name="height10">14dp</dimen>
     <dimen name="height11">11dp</dimen>
     <dimen name="height12">12dp</dimen>
     <dimen name="height13">13dp</dimen>
-    <dimen name="height14">14dp</dimen>
+    <dimen name="height14">16dp</dimen>
     <dimen name="height15">15dp</dimen>
-    <dimen name="height16">16dp</dimen>
+    <dimen name="height16">18dp</dimen>
     <dimen name="height17">17dp</dimen>
     <dimen name="height18">18dp</dimen>
     <dimen name="height19">19dp</dimen>
-    <dimen name="height20">20dp</dimen>
+    <dimen name="height20">25dp</dimen>
     <dimen name="height21">21dp</dimen>
     <dimen name="height22">22dp</dimen>
     <dimen name="height23">23dp</dimen>
@@ -213,7 +206,7 @@
     <dimen name="height37">37dp</dimen>
     <dimen name="height38">38dp</dimen>
     <dimen name="height39">39dp</dimen>
-    <dimen name="height40">40dp</dimen>
+    <dimen name="height40">45dp</dimen>
     <dimen name="height41">41dp</dimen>
     <dimen name="height42">42dp</dimen>
     <dimen name="height43">43dp</dimen>
@@ -223,10 +216,10 @@
     <dimen name="height47">47dp</dimen>
     <dimen name="height48">48dp</dimen>
     <dimen name="height49">49dp</dimen>
-    <dimen name="height50">50dp</dimen>
-    <dimen name="height60">60dp</dimen>
-    <dimen name="height75">75dp</dimen>
-    <dimen name="height80">80dp</dimen>
+    <dimen name="height50">55dp</dimen>
+    <dimen name="height60">65dp</dimen>
+    <dimen name="height75">80dp</dimen>
+    <dimen name="height80">90dp</dimen>
 
 
 
@@ -241,7 +234,7 @@
     <dimen name="width7">7dp</dimen>
     <dimen name="width8">8dp</dimen>
     <dimen name="width9">9dp</dimen>
-    <dimen name="width10">10dp</dimen>
+    <dimen name="width10">14dp</dimen>
     <dimen name="width11">11dp</dimen>
     <dimen name="width12">12dp</dimen>
     <dimen name="width13">13dp</dimen>
@@ -251,8 +244,8 @@
     <dimen name="width17">17dp</dimen>
     <dimen name="width18">18dp</dimen>
     <dimen name="width19">19dp</dimen>
-    <dimen name="width20">20dp</dimen>
-    <dimen name="width21">21dp</dimen>
+    <dimen name="width20">25dp</dimen>
+    <dimen name="width21">25dp</dimen>
     <dimen name="width22">22dp</dimen>
     <dimen name="width23">23dp</dimen>
     <dimen name="width24">24dp</dimen>
@@ -271,7 +264,7 @@
     <dimen name="width37">37dp</dimen>
     <dimen name="width38">38dp</dimen>
     <dimen name="width39">39dp</dimen>
-    <dimen name="width40">40dp</dimen>
+    <dimen name="width40">45dp</dimen>
     <dimen name="width41">41dp</dimen>
     <dimen name="width42">42dp</dimen>
     <dimen name="width43">43dp</dimen>
@@ -281,15 +274,15 @@
     <dimen name="width47">47dp</dimen>
     <dimen name="width48">48dp</dimen>
     <dimen name="width49">49dp</dimen>
-    <dimen name="width50">50dp</dimen>
-    <dimen name="width60">60dp</dimen>
-    <dimen name="width80">80dp</dimen>
-    <dimen name="width100">100dp</dimen>
-    <dimen name="width120">120dp</dimen>
-    <dimen name="width150">150dp</dimen>
-    <dimen name="width180">180dp</dimen>
-    <dimen name="width200">200dp</dimen>
-    <dimen name="width220">220dp</dimen>
+    <dimen name="width50">55dp</dimen>
+    <dimen name="width60">65dp</dimen>
+    <dimen name="width80">90dp</dimen>
+    <dimen name="width100">120dp</dimen>
+    <dimen name="width120">130dp</dimen>
+    <dimen name="width150">160dp</dimen>
+    <dimen name="width180">200dp</dimen>
+    <dimen name="width200">220dp</dimen>
+    <dimen name="width220">240dp</dimen>
 
 
                 <!--RADIUS-->
@@ -303,7 +296,7 @@
     <dimen name="radius7">7dp</dimen>
     <dimen name="radius8">8dp</dimen>
     <dimen name="radius9">9dp</dimen>
-    <dimen name="radius10">10dp</dimen>
+    <dimen name="radius10">14dp</dimen>
     <dimen name="radius11">11dp</dimen>
     <dimen name="radius12">12dp</dimen>
     <dimen name="radius13">13dp</dimen>
@@ -333,7 +326,7 @@
     <dimen name="radius37">37dp</dimen>
     <dimen name="radius38">38dp</dimen>
     <dimen name="radius39">39dp</dimen>
-    <dimen name="radius40">40dp</dimen>
+    <dimen name="radius40">45dp</dimen>
     <dimen name="radius41">41dp</dimen>
     <dimen name="radius42">42dp</dimen>
     <dimen name="radius43">43dp</dimen>
@@ -344,23 +337,24 @@
     <dimen name="radius48">48dp</dimen>
     <dimen name="radius49">49dp</dimen>
     <dimen name="radius50">50dp</dimen>
-    <dimen name="height120">120dp</dimen>
-    <dimen name="height100">100dp</dimen>
-    <dimen name="height150">150dp</dimen>
-    <dimen name="height130">130dp</dimen>
-    <dimen name="height70">70dp</dimen>
-    <dimen name="height140">140dp</dimen>
-    <dimen name="height180">180dp</dimen>
-    <dimen name="height160">160dp</dimen>
-    <dimen name="width160">160dp</dimen>
-    <dimen name="height65">65dp</dimen>
-    <dimen name="text11">11sp</dimen>
-    <dimen name="height220">220dp</dimen>
-    <dimen name="height200">200dp</dimen>
-    <dimen name="height250">250dp</dimen>
-    <dimen name="height300">300dp</dimen>
-    <dimen name="height280">280dp</dimen>
-    <dimen name="width250">250dp</dimen>
+
+    <dimen name="height120">130dp</dimen>
+    <dimen name="height100">110dp</dimen>
+    <dimen name="height150">160dp</dimen>
+    <dimen name="height130">140dp</dimen>
+    <dimen name="height70">75dp</dimen>
+    <dimen name="height140">150dp</dimen>
+    <dimen name="height180">200dp</dimen>
+    <dimen name="height160">170dp</dimen>
+    <dimen name="width160">170dp</dimen>
+    <dimen name="height65">70dp</dimen>
+    <dimen name="text11">14sp</dimen>
+    <dimen name="height220">250dp</dimen>
+    <dimen name="height200">2250dp</dimen>
+    <dimen name="height250">280dp</dimen>
+    <dimen name="height300">320dp</dimen>
+    <dimen name="height280">300dp</dimen>
+    <dimen name="width250">300dp</dimen>
 
 
     <!--Newly Added-->

@@ -24,7 +24,8 @@
         <item name="colorControlNormal" >@color/white</item>
         <item name="colorControlHighlight" >@color/white</item>
         <item name="colorSwitchThumbNormal" >@color/white</item>
-
+        <item name="android:colorForeground">@color/white</item>
+        <item name="trackTint">@color/white</item>
     </style>
 
     <style name="edt" parent="@android:style/Widget.Holo.Light.EditText">

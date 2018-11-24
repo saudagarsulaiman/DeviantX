@@ -81,10 +81,11 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         }
 
         if (i % 2 == 0) {
-            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c7));
+            viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal1_gradient_c7));
         } else {
             viewHolder.lnr_wallet.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c7));
         }
+/*
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (walletList.get(i).getResponseList().size() == 0) {
@@ -99,6 +100,7 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
             CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
         }
 
+*/
 
         /*    *//*GRAPH STARTS*//*
         // first series is a line
@@ -243,7 +245,7 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
     public void setChartData(List<DateValue> histories, TrendView graph, Double hisghValue) {
         graph.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
         if (histories.get(0).getValue() < histories.get(histories.size() - 1).getValue()) {
-            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_green), ContextCompat.getColor(context, R.color.graph_green));
+            graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_wallet_brdr_green), ContextCompat.getColor(context, R.color.graph_wallet_green));
         } else {
             graph.setBorderandFillColor(ContextCompat.getColor(context, R.color.graph_brdr_red), ContextCompat.getColor(context, R.color.graph_red));
         }
