@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height80"
                 android:layout_marginTop="@dimen/margin40"
-                android:background="@drawable/rec_brinjal_gradient_c2"
+                android:background="@drawable/rec_brinjal1_gradient_c2"
                 android:gravity="center"
                 android:padding="@dimen/padding10">
 
