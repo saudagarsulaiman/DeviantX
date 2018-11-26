@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
-import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,13 +21,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CoinsListRAdapter extends RecyclerView.Adapter<CoinsListRAdapter.ViewHolder> {
+public class AddCoinsRAdapter extends RecyclerView.Adapter<AddCoinsRAdapter.ViewHolder> {
 
     Context context;
     ArrayList<AllCoins> allCoinsList;
     CoinSelectableListener coinSelectableListener;
 
-    public CoinsListRAdapter(Activity context, ArrayList<AllCoins> allCoinsList, CoinSelectableListener coinSelectableListener) {
+    public AddCoinsRAdapter(Activity context, ArrayList<AllCoins> allCoinsList, CoinSelectableListener coinSelectableListener) {
         this.context = context;
         this.allCoinsList = allCoinsList;
         this.coinSelectableListener = coinSelectableListener;
@@ -37,19 +36,19 @@ public class CoinsListRAdapter extends RecyclerView.Adapter<CoinsListRAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.add_coins_rview_lyt, viewGroup, false);
-        CoinsListRAdapter.ViewHolder viewHolder = new CoinsListRAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.grid_coins_lyt, viewGroup, false);
+        AddCoinsRAdapter.ViewHolder viewHolder = new AddCoinsRAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
 
-        if(allCoinsList.get(i).getSelected()){
+        if (allCoinsList.get(i).getSelected()) {
             Picasso.with(context).load(R.drawable.dot_active).into(viewHolder.img_avail);
 //                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_active));
             viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_yellow_lytblue_c5);
-        }else {
+        } else {
             Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_avail);
 //                    viewHolder.img_avail.setImageDrawable(context.getResources().getDrawable(R.drawable.dot_inactive));
             viewHolder.lnr_item.setBackgroundResource(R.drawable.rec_lytblue_c5);
@@ -64,16 +63,16 @@ public class CoinsListRAdapter extends RecyclerView.Adapter<CoinsListRAdapter.Vi
                     allCoinsList.get(i).setSelected(true);
                 }
                 notifyItemChanged(i);*/
-                coinSelectableListener.CoinSelected(allCoinsList,i);
+                coinSelectableListener.CoinSelected(allCoinsList, i);
             }
         });
 
         Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name.setText(allCoinsList.get(i).getStr_coin_name());
-        viewHolder.txt_coin_value.setText("$ " + allCoinsList.get(i).getStr_coin_usdValue() + " USD");
+        viewHolder.txt_coin_value.setText("$ " + String.format("%4f", allCoinsList.get(i).getStr_coin_usdValue()) + " USD");
     }
 
-    public void setCoinValue(Boolean isSelected, int pos){
+    public void setCoinValue(Boolean isSelected, int pos) {
         allCoinsList.get(pos).setSelected(isSelected);
         notifyItemChanged(pos);
     }

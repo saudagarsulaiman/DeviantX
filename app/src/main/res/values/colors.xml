@@ -17,9 +17,8 @@
     <color name="lyt_blue">#161B4F</color>
     <color name="btm_menu">#030516</color>
     <color name="share">#3A3E60</color>
-
-
     <color name="brinjal">#8B00DC</color>
+
 
     <!--Client's Graph Colours-->
     <color name="yellow_trans">#4A342F</color>
@@ -57,6 +56,9 @@
     <color name="bg_end_wh">#094567</color>
     <!--<color name="bg_center_wh">#065372</color>-->
     <color name="bg_start_wh">#00748B</color>
+
+
+    <color name="txt">#4596A8</color>
 
 
     <color name="brdr_yellow">#DE9623</color>

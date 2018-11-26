@@ -1,34 +1,72 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Activities.FeaturedADAcivity;
+import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
+import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AirDropFragment extends Fragment {
 
     View view;
-//    @BindView(R.id.rview_wallet_coins)
-//    RecyclerView rview_wallet_coins;
-//    @BindView(R.id.txt_add_wallet)
-//    TextView txt_add_wallet;
-//    @BindView(R.id.lnr_empty_coins)
-//    LinearLayout lnr_empty_coins;
+    @BindView(R.id.rview_fad_coins)
+    RecyclerView rview_fad_coins;
+    @BindView(R.id.rview_radh_coins)
+    RecyclerView rview_radh_coins;
+    @BindView(R.id.txt_coin_name_code)
+    TextView txt_coin_name_code;
+    @BindView(R.id.txt_coin_address)
+    TextView txt_coin_address;
+    @BindView(R.id.txt_holding_bal)
+    TextView txt_holding_bal;
+    @BindView(R.id.txt_holding_days)
+    TextView txt_holding_days;
+    @BindView(R.id.txt_seekbar_per)
+    TextView txt_seekbar_per;
+    @BindView(R.id.txt_fad_viewAll)
+    TextView txt_fad_viewAll;
+    @BindView(R.id.txt_radh_viewAll)
+    TextView txt_radh_viewAll;
+    @BindView(R.id.txt_airdrop_lbl)
+    TextView txt_airdrop_lbl;
+    @BindView(R.id.img_menu)
+    ImageView img_menu;
+    @BindView(R.id.img_coin_icon)
+    ImageView img_coin_icon;
+    @BindView(R.id.seekbar_per)
+    SeekBar seekbar_per;
 
 
-//    WalletCoinsRAdapter walletCoinsRAdapter;
-//    LinearLayoutManager layoutManager;
-//
-//    SharedPreferences sharedPreferences;
-//    SharedPreferences.Editor editor;
-//    ProgressDialog progressDialog;
-//
-//    ArrayList<AccountWallet> accountWalletlist;
+    FeaturedADHorizantalRAdapter featuredADHorizantalRAdapter;
+    RecentADHistoryRAdapter recentADHistoryRAdapter;
+
+    LinearLayoutManager layoutManagerHorizontal;
+    LinearLayoutManager layoutManagerVertical;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    ProgressDialog progressDialog;
+
 //    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
 //            str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
 //            str_data_account, str_data_coin;
@@ -52,12 +90,38 @@ public class AirDropFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-//        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-//        rview_wallet_coins.setLayoutManager(layoutManager);
-//
-//        sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-//        editor = sharedPreferences.edit();
-//
+        sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rview_fad_coins.setLayoutManager(layoutManagerHorizontal);
+        layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rview_radh_coins.setLayoutManager(layoutManagerVertical);
+
+        seekbar_per.setEnabled(false);
+//        seekbar_per.setProgress(95);
+
+        featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity().getApplicationContext());
+        rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
+        recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity().getApplicationContext());
+        rview_radh_coins.setAdapter(recentADHistoryRAdapter);
+
+
+        txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FeaturedADAcivity.class);
+                startActivity(intent);
+            }
+        });
+        txt_radh_viewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RecentADHistoryAcivity.class);
+                startActivity(intent);
+            }
+        });
+
 //        accountWalletlist = new ArrayList<>();
 //
 ////        walletCoinsRAdapter = new WalletCoinsRAdapter(getActivity().getApplicationContext());
@@ -69,8 +133,6 @@ public class AirDropFragment extends Fragment {
 //        } else {
 //            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
 //        }
-//
-//
 //        txt_add_wallet.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -82,7 +144,15 @@ public class AirDropFragment extends Fragment {
         return view;
     }
 
-//    private void fetchAccountWallet() {
+/*
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_items_airdrop, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+*/
+
+    //    private void fetchAccountWallet() {
 //        try {
 //            String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);

@@ -9,7 +9,6 @@
 
     <ImageView
         android:id="@+id/title_img"
-        android:scaleType="fitXY"
         android:layout_width="@dimen/width22"
         android:layout_height="@dimen/height18" />
 

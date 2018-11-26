@@ -145,9 +145,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_tools/*, R.string.air_drop*/};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_tools/*, R.string.devx_airdrop*/};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_tools, R.drawable.selector_btm_nav_airdrop/*, R.drawable.selector_btm_nav_acc_list*/};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_tools, R.string.devx_airdrop};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_tools, R.string.devx_airdrop};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -294,7 +294,7 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter.addFragment(new DashboardFragment(), "");
         adapter.addFragment(new ExploreCoinsFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
-//        adapter.addFragment(new AirDropFragment(), "");
+        adapter.addFragment(new AirDropFragment(), "");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -396,7 +396,6 @@ public class DashBoardActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private void navDrawerExpCoins() {
         view_nav_drwr_expcoins.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
@@ -421,7 +420,6 @@ public class DashBoardActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
 
     private void navDrawerDeviant() {
 //        view_nav_drwr_deviant.setVisibility(View.VISIBLE);

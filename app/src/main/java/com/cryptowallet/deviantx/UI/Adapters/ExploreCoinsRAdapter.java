@@ -37,7 +37,7 @@ public class ExploreCoinsRAdapter extends RecyclerView.Adapter<ExploreCoinsRAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.all_coins_rview_lyt, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.coins_list_lyt, viewGroup, false);
         ExploreCoinsRAdapter.ViewHolder viewHolder = new ExploreCoinsRAdapter.ViewHolder(view);
         return viewHolder;
     }

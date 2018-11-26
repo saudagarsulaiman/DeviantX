@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/height40"
             android:layout_weight="0.5"
-            android:src="@drawable/coin" />
+            android:src="@drawable/ic_dlg" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -33,19 +33,41 @@
                 android:id="@+id/txt_coin_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="@string/coin_name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/txt_coin_value"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin1"
-                android:text="@string/coin_value"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/def_text_size" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_rec"
+                    android:layout_width="@dimen/width10"
+                    android:layout_height="@dimen/height10"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
+                    android:src="@drawable/receive"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txt_coin_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/coin_value"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_text_size" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

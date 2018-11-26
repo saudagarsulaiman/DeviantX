@@ -93,7 +93,9 @@ dependencies {
 //    Swipe Recycler View Items
     implementation 'com.github.brnunes:swipeablerecyclerview:1.0.2'
 
-    //chart
+//    Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 
+//    Custom Menu PopUps
+    implementation 'com.shehabic.droppy:Droppy:0.6.0@aar'
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:text="@string/rec_ad_his"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/lnr_search"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_margin="@dimen/def_margin"
+        android:background="@color/blue_search"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.9"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="@string/center_search"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey"
+            android:textSize="@dimen/def_text_size"
+            android:theme="@style/edt" />
+
+        <ImageView
+            android:id="@+id/img_filter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height12"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:src="@drawable/filter" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginBottom="@dimen/margin10"
+        android:id="@+id/rview_radh_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin" />
+
+</LinearLayout>

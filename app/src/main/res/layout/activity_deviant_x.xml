@@ -2,13 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textColor="@color/white"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height280"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginBottom="@dimen/def_margin"
+        android:visibility="visible" />
+
+    <com.cryptowallet.trendchart.TrendView
+        android:id="@+id/graph_lyt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height200"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/def_margin"
+        android:visibility="visible" />
+
 
 </LinearLayout>

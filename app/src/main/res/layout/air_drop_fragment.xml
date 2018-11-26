@@ -1,134 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
-    android:padding="@dimen/def_padding"
-    android:gravity="center">
+    android:orientation="vertical">
 
-
-    <LinearLayout
-        android:id="@+id/lnr_tools_ect"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/margin40"
-        android:background="@drawable/rec_brinjal_gradient"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="@dimen/def_padding">
+        android:layout_height="match_parent">
 
-
-        <ImageView
-            android:layout_width="@dimen/width60"
-            android:layout_height="@dimen/height60"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/def_margin"
-            android:scaleType="fitXY"
-            android:src="@drawable/tools_ect" />
-
-
-        <TextView
-            android:id="@+id/txt_ect_cs"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/def_margin"
-            android:gravity="center"
-            android:text="@string/air_drop"
-            android:textColor="@color/white"
-            android:textSize="@dimen/def_ttl_size"
-            android:textStyle="bold" />
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin5"
-            android:gravity="center"
-            android:text="@string/coming_soon"
-            android:textColor="@color/white"
-            android:textSize="@dimen/def_text_size" />
+            <TextView
+                android:id="@+id/txt_airdrop_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin10"
+                android:text="@string/airdrop_list"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_ttl_size"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@color/white"
+                app:cardCornerRadius="@dimen/radius10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin10"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <ImageView
+                            android:id="@+id/img_coin_icon"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height40"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.3"
+                            android:src="@drawable/ic_dlg" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.4"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/padding5"
+                            android:paddingLeft="@dimen/padding5">
+
+                            <TextView
+                                android:id="@+id/txt_coin_name_code"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/airdrop_list"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/def_text_size"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txt_coin_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin2"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/airdrop_list"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/text10" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/img_menu"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height20"
+                            android:layout_gravity="top"
+                            android:layout_weight="0.3"
+                            android:src="@drawable/dot_menu" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/def_margin"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.4"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/am_holding"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text10" />
+
+                            <TextView
+                                android:id="@+id/txt_holding_bal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin2"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/balance"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/def_text_size" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.6"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/days_holding"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text10" />
+
+                            <TextView
+                                android:id="@+id/txt_holding_days"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin2"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/days"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/def_text_size" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_seekbar_per"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:text="69%"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/text10" />
+
+                    <SeekBar
+                        android:id="@+id/seekbar_per"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/width3"
+                        android:layout_marginBottom="@dimen/margin10"
+                        android:clickable="false"
+                        android:max="100"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingRight="0dp"
+                        android:progress="69"
+                        android:progressDrawable="@drawable/seekbar_style"
+                        android:thumb="@null" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/featured_ad"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/txt_fad_viewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/view_all"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rview_fad_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rec_ad_his"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size"
+                    android:textStyle="bold" />
 
 
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
 
+                    <TextView
+                        android:id="@+id/txt_radh_viewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/view_all"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/lnr_empty_coins"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_above="@+id/txt_add_wallet"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_margin="@dimen/def_margin"-->
-    <!--android:gravity="center"-->
-    <!--android:orientation="vertical"-->
-    <!--android:visibility="gone">-->
+                </LinearLayout>
 
-    <!--<ImageView-->
-    <!--android:layout_width="@dimen/width80"-->
-    <!--android:layout_height="@dimen/height80"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:src="@drawable/empty_coins" />-->
+            </LinearLayout>
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="@dimen/margin10"-->
-    <!--android:text="@string/empty_coins_list"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textSize="@dimen/def_text_size" />-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rview_radh_coins"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height200"
+                android:layout_marginTop="@dimen/def_margin"
+                android:layout_marginBottom="@dimen/def_margin"/>
 
-    <!--<LinearLayout-->
-    <!--android:visibility="visible"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="@dimen/def_margin"-->
-    <!--android:orientation="horizontal">-->
+        </LinearLayout>
 
-    <!--<ImageView-->
-    <!--android:layout_width="@dimen/width16"-->
-    <!--android:layout_height="@dimen/height16"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:src="@drawable/plus" />-->
+    </ScrollView>
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginStart="@dimen/margin8"-->
-    <!--android:layout_marginLeft="@dimen/margin8"-->
-    <!--android:text="@string/add_coins"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textSize="@dimen/def_lbl_size" />-->
-
-    <!--</LinearLayout>-->
-
-
-    <!--</LinearLayout>-->
-
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rview_wallet_coins"-->
-    <!--android:visibility="gone"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_above="@id/txt_add_wallet"-->
-    <!--android:layout_marginBottom="@dimen/margin10" />-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_add_wallet"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/height80"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:background="@drawable/rec_dash_grey_trans_c5"-->
-    <!--android:clickable="true"-->
-    <!--android:focusable="true"-->
-    <!--android:gravity="center"-->
-    <!--android:text="@string/add_wallet"-->
-    <!--android:textColor="@color/grey"-->
-    <!--android:textSize="@dimen/def_lbl_size"-->
-    <!--android:textStyle="bold" />-->
-
-
-</RelativeLayout>
+</LinearLayout>

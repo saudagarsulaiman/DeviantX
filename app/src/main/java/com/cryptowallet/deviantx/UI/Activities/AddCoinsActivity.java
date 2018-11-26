@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.CoinsListRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.AddCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -56,7 +56,7 @@ public class AddCoinsActivity extends AppCompatActivity {
     @BindView(R.id.edt_search)
     EditText edt_search;
 
-    CoinsListRAdapter coinsListRAdapter;
+    AddCoinsRAdapter addCoinsRAdapter;
     GridLayoutManager layoutManager;
 
     SharedPreferences sharedPreferences;
@@ -141,9 +141,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                         searchCoinsList.add(coinName);
                     }
                 }
-                coinsListRAdapter = new CoinsListRAdapter(AddCoinsActivity.this, searchCoinsList, coinSelectableListener);
-                rview_coins_list.setAdapter(coinsListRAdapter);
-                coinsListRAdapter.notifyDataSetChanged();
+                addCoinsRAdapter = new AddCoinsRAdapter(AddCoinsActivity.this, searchCoinsList, coinSelectableListener);
+                rview_coins_list.setAdapter(addCoinsRAdapter);
+                addCoinsRAdapter.notifyDataSetChanged();
             }
         });
 
@@ -180,11 +180,11 @@ public class AddCoinsActivity extends AppCompatActivity {
                 for (AllCoins coins : selected_allCoinsList) {
                     if (coins.getSelected()) {
                         coins.setSelected(false);
-                        coinsListRAdapter.notifyItemChanged(i);
+                        addCoinsRAdapter.notifyItemChanged(i);
                     }
                     i++;
                 }
-                coinsListRAdapter.setCoinValue(!selected_allCoinsList.get(pos).getSelected(), pos);
+                addCoinsRAdapter.setCoinValue(!selected_allCoinsList.get(pos).getSelected(), pos);
                 if (selected_allCoinsList.get(pos).getSelected()) {
                     selectedCoinId = selected_allCoinsList.get(pos).getInt_coin_id();
                     btn_ready.setVisibility(View.VISIBLE);
@@ -319,9 +319,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                                 }
 
 
-                                coinsListRAdapter = new CoinsListRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);
-                                rview_coins_list.setAdapter(coinsListRAdapter);
-                                coinsListRAdapter.notifyDataSetChanged();
+                                addCoinsRAdapter = new AddCoinsRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);
+                                rview_coins_list.setAdapter(addCoinsRAdapter);
+                                addCoinsRAdapter.notifyDataSetChanged();
                             } else {
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
                             }

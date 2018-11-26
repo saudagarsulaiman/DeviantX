@@ -12,6 +12,38 @@
 
     <!-- Activity-->
 
+
+    <!--Used in Multiple Activities-->
+    <string name="login_success">Login Successful</string>
+    <string name="invalid_pswd">Invalid Password</string>
+    <string name="invalid_username">Invalid Username</string>
+    <string name="empty_pswd">Password should not be empty!</string>
+    <string name="empty_usrnm">Username should not be empty!</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="remember_me">Remember me</string>
+    <string name="signing_in">Signing In…</string>
+    <string name="internetconnection">This App needs Internet Connection, You are currently not connected to internet</string>
+    <string name="errortxt">Something went wrong we are working over it.Please try after some time</string>
+    <string name="Timeout">Request Time out. Please try again.</string>
+    <string name="networkerror">Network error,Please try after some time</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="empty_email">Email should not be empty!</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="unmatch_email">Email does not match</string>
+    <string name="unmatch_pswd">Password does not match</string>
+    <string name="registering">Registering</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="acc_success">Account Created Successfully</string>
+    <string name="empty_old_pswd">Old password should not be empty!</string>
+    <string name="unmatch_old_pswd">Old password does not match</string>
+    <string name="empty_new_pswd"> New password should not be empty!</string>
+    <string name="invalid_new_pswd">New Password is invalid</string>
+    <string name="empty_conf_pswd"> Confirm password should not be empty!</string>
+    <string name="unmatch_conf_pswd">Confirm password does not match</string>
+    <string name="center_address">\t\tAddress</string>
+    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
+
+
     <!--Welcome Activity-->
     <string name="get_started">Get Started</string>
 
@@ -48,6 +80,7 @@
     <string name="info_deviantx">For more information about how Deviant X collects, uses and protects your personal information, read Deviant X\'s </string>
     <string name="continu">Continue</string>
     <string name="privacy_policy"><u>Privacy Policy</u>.</string>
+    <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
 
 
     <!--Terms Conditions Dialog-->
@@ -116,35 +149,6 @@
 
     <!--DashBoard Fragment-->
     <string name="my_coins_list">My Coins List</string>
-
-
-    <!--Used in Multiple Activities-->
-    <string name="login_success">Login Successful</string>
-    <string name="invalid_pswd">Invalid Password</string>
-    <string name="invalid_username">Invalid Username</string>
-    <string name="empty_pswd">Password should not be empty!</string>
-    <string name="empty_usrnm">Username should not be empty!</string>
-    <string name="forgot_password">Forgot Password?</string>
-    <string name="remember_me">Remember me</string>
-    <string name="signing_in">Signing In…</string>
-    <string name="internetconnection">This App needs Internet Connection, You are currently not connected to internet</string>
-    <string name="errortxt">Something went wrong we are working over it.Please try after some time</string>
-    <string name="Timeout">Request Time out. Please try again.</string>
-    <string name="networkerror">Network error,Please try after some time</string>
-    <string name="login_failed">Login Failed</string>
-    <string name="empty_email">Email should not be empty!</string>
-    <string name="invalid_email">Invalid Email</string>
-    <string name="unmatch_email">Email does not match</string>
-    <string name="unmatch_pswd">Password does not match</string>
-    <string name="registering">Registering</string>
-    <string name="please_wait">Please Wait...</string>
-    <string name="acc_success">Account Created Successfully</string>
-    <string name="empty_old_pswd">Old password should not be empty!</string>
-    <string name="unmatch_old_pswd">Old password does not match</string>
-    <string name="empty_new_pswd"> New password should not be empty!</string>
-    <string name="invalid_new_pswd">New Password is invalid</string>
-    <string name="empty_conf_pswd"> Confirm password should not be empty!</string>
-    <string name="unmatch_conf_pswd">Confirm password does not match</string>
 
 
     <!--Dialog Coins Transactions-->
@@ -291,6 +295,7 @@
     <string name="cancelled">Cancelled</string>
     <string name="cam_per_failed">Camera Permissions are not granted.</string>
     <string name="backup_rec_phrase">Backup Recovery Phrase</string>
+    <string name="shapeshift_slogan">Leading instant digital asset exchange</string>
 
 
     <!--AddPhrase Activity-->
@@ -309,7 +314,6 @@
     <string name="select_same_words_order">Please select the Words in same order</string>
     <string name="prof_updated_success">Profile updated successfully!</string>
     <string name="please_add_seed">Please Add Recovery Phrase After Login</string>
-
     <string name="restore_acc_seed"><u>Restore your Account with Recovery Phrase</u></string>
     <string name="enter_seed">Enter Recovery Phrase</string>
     <string name="note_seed_rec">Note: Please use two spaces between words</string>
@@ -374,6 +378,13 @@
     <string name="high_24h">24h High</string>
     <string name="low_24h">24h Low</string>
     <string name="info">Information</string>
+    <string name="open">Open :</string>
+    <string name="high">High :</string>
+    <string name="low">Low :</string>
+    <string name="closee">Close :</string>
+    <string name="date">Date :</string>
+    <string name="time">Time :</string>
+
 
     <!--SetUp Wallet Activity-->
     <string name="def_wallet">Default Wallet</string>
@@ -384,17 +395,31 @@
     <string name="protect_pin">Protect with Pin</string>
     <string name="rename">Rename</string>
     <string name="no_fav_avail">No Favourites Available</string>
-    <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
-    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
     <string name="primary_wallet">Primary Wallet</string>
-    <string name="open">Open :</string>
-    <string name="high">High :</string>
-    <string name="low">Low :</string>
-    <string name="closee">Close :</string>
-    <string name="date">Date :</string>
-    <string name="time">Time :</string>
-    <string name="center_address">\t\tAddress</string>
-    <string name="shapeshift_slogan">Leading instant digital asset exchange</string>
+
+
+    <!--Airdrop Fragment-->
+    <string name="airdrop_list">My Airdrop List</string>
+    <string name="am_holding">I am holding</string>
+    <string name="days_holding">Days holding</string>
+    <string name="days">Days</string>
+    <string name="balance">Balance</string>
+    <string name="featured_ad">Featured Airdrop</string>
+    <string name="view_all">View All</string>
+    <string name="rec_ad_his">Recent Airdrop History</string>
+    <string name="avail_ad">Available Airdrop</string>
+
+    <!--Coin Info AD Activity-->
+    <string name="participate">Participate</string>
+    <string name="estimated">Estimated</string>
+    <string name="token_per_claim">Tokens per Claim</string>
+    <string name="description">Description</string>
+    <string name="ways_enter">Ways to Enter</string>
+    <string name="delete">Delete</string>
+    <string name="ad_info">Airdrop Info</string>
+    <string name="config_wallet">Configure Wallet</string>
+    <string name="withdraw_funds">Withdraw Funds</string>
+    <string name="copy_wallet">Copy Wallet</string>
 
 
 </resources>

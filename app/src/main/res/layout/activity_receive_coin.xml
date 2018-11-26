@@ -54,6 +54,8 @@
                         <TextView
                             android:id="@+id/txt_coin_value"
                             android:layout_width="wrap_content"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:layout_height="wrap_content"
                             android:text="@string/dev"
                             android:textColor="@color/white"
@@ -63,6 +65,8 @@
                             android:id="@+id/txt_wallet_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:text="@string/dev_coin"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
@@ -88,15 +92,20 @@
                         <TextView
                             android:id="@+id/txt_coin_usd_value"
                             android:layout_width="wrap_content"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:layout_height="wrap_content"
                             android:text="usd"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text18" />
+                            android:textSize="@dimen/def_text_size" />
 
                         <TextView
                             android:id="@+id/txt_percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:text="%"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
@@ -160,6 +169,8 @@
                         <TextView
                             android:id="@+id/txt_lbl_coin_add"
                             android:layout_width="0dp"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_weight="0.9"
@@ -169,6 +180,8 @@
 
                         <ImageView
                             android:id="@+id/img_copy_address"
+                            android:singleLine="true"
+                            android:maxLines="1"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height18"
                             android:layout_weight="0.1"

@@ -81,7 +81,10 @@
         <activity
             android:name=".UI.Activities.ExploreCoinsActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.EditWalletActivity"></activity>
+        <activity android:name=".UI.Activities.EditWalletActivity" />
+        <activity android:name=".UI.Activities.FeaturedADAcivity" android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".UI.Activities.RecentADHistoryAcivity" android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.Activities.CoinInfoADAcivity"></activity>
     </application>
 
 </manifest>
