@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
         android:id="@+id/item_copy_wallet"
-        android:title="@string/copy_wallet"
-        android:titleCondensed="Speak" />
+        android:title="@string/copy_wallet" />
     <item
         android:id="@+id/item_withdraw_funds"
-        android:title="@string/withdraw_funds"
-        android:titleCondensed="Stop" />
+        android:title="@string/withdraw_funds" />
     <item
         android:id="@+id/item_config_wallet"
-        android:title="@string/config_wallet"
-        android:titleCondensed="Speak" />
+        android:title="@string/config_wallet" />
     <item
         android:id="@+id/item_info_ad"
-        android:title="@string/ad_info"
-        android:titleCondensed="Stop" />
+        android:title="@string/ad_info" />
     <item
         android:id="@+id/item_delete"
-        android:title="@string/delete"
-        android:titleCondensed="Speak" />
+        android:title="@string/delete" />
 
 </menu>

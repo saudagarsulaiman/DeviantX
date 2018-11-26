@@ -118,6 +118,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     public static final String DATA_SET_1 = "DataSet 1";
     public static final float GRANULARITY = 100f;
 
+    String chart_data, data;
     AllCoins selectedCoin;
 
     //    SharedPreferences sharedPreferences;
@@ -225,6 +226,41 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             }
         });
 
+        try {
+            chart_data = selectedCoin.getStr_coin_chart_data();
+            JSONObject jsonObject = new JSONObject(chart_data);
+            try{
+                data = jsonObject.getString("Data");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            JSONArray jsonArray = new JSONArray(data);
+            List<DateValue> responseList2 = new ArrayList<>();
+            Double hisghValue = 0.0;
+            DataPoint[] points = new DataPoint[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject childobject = jsonArray.getJSONObject(i);
+                coinGraph = new CoinGraph(childobject.getLong("time"), childobject.getDouble("close"), childobject.getDouble("high"), childobject.getDouble("low"), childobject.getDouble("open"), childobject.getDouble("volumefrom"), childobject.getDouble("volumeto"));
+                if (hisghValue < childobject.getDouble("high"))
+                    hisghValue = childobject.getDouble("high");
+                responseList.add(coinGraph);
+                responseList2.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(childobject.getLong("time"));
+                Date d1 = calendar.getTime();
+                points[i] = new DataPoint(d1, childobject.getLong("high"));
+            }
+            setChart();
+            line_chart.setData(null);
+            setChartData(responseList);
+//            setChartData(responseList2, line_chart, hisghValue);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+/*
         long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
         long endTime = System.currentTimeMillis();
         if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
@@ -234,6 +270,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             pb.setVisibility(View.GONE);
             CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
         }
+*/
 
 
 
@@ -373,12 +410,12 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //                                txt_close.setText(getResources().getString(R.string.closee));
 //                                txt_date.setText(getResources().getString(R.string.date));
 //                                txt_time.setText(getResources().getString(R.string.time));
-                                txt_open.setText(getResources().getString(R.string.open)+"$00.00");
-                                txt_high.setText(getResources().getString(R.string.high)+"$000.00");
-                                txt_low.setText(getResources().getString(R.string.low)+"00.00");
-                                txt_close.setText(getResources().getString(R.string.closee)+"00.00");
-                                txt_date.setText(getResources().getString(R.string.date)+"dd/MM/yyyy");
-                                txt_time.setText(getResources().getString(R.string.time)+"hh:mm");
+                                txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                                txt_high.setText(getResources().getString(R.string.high) + "$000.00");
+                                txt_low.setText(getResources().getString(R.string.low) + "00.00");
+                                txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+                                txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                                txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
                                 setChart();
                                 line_chart.setData(null);
                                 candle_chart.setData(null);
@@ -515,12 +552,12 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                                 }
 
                             }
-                            txt_open.setText(getResources().getString(R.string.open)+"$00.00");
-                            txt_high.setText(getResources().getString(R.string.high)+"$000.00");
-                            txt_low.setText(getResources().getString(R.string.low)+"00.00");
-                            txt_close.setText(getResources().getString(R.string.closee)+"00.00");
-                            txt_date.setText(getResources().getString(R.string.date)+"dd/MM/yyyy");
-                            txt_time.setText(getResources().getString(R.string.time)+"hh:mm");
+                            txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                            txt_high.setText(getResources().getString(R.string.high) + "$000.00");
+                            txt_low.setText(getResources().getString(R.string.low) + "00.00");
+                            txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+                            txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                            txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
                             setChart();
                             line_chart.setData(null);
@@ -650,7 +687,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         //formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         xAxis.setValueFormatter((value, axis) -> {
-            Date date = new Date((long) value);
+            Date date = new Date((long) value*1000);
             return formatter.format(date);
         }); // hide text
         xAxis.setTextSize(11f);
@@ -668,7 +705,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             @Override
             public void onValueSelected(Entry e, Highlight h) {
 //                Long add = Long.parseLong"1000000000000");
-                Long date = (long) e.getX()*1000/* + Long.parseLong("1000000000000")*/;
+                Long date = (long) e.getX() * 1000/* + Long.parseLong("1000000000000")*/;
 //                date = date + add;
 
                 Calendar calendar1 = Calendar.getInstance();

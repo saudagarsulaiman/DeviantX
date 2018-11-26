@@ -8,7 +8,7 @@ public class AllCoins implements Parcelable {
 
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String str_coin_name, str_coin_code, str_coin_logo;
+    String str_coin_name, str_coin_code, str_coin_logo, str_coin_chart_data;
     Boolean isSelected = false;
 
     protected AllCoins(Parcel in) {
@@ -47,6 +47,7 @@ public class AllCoins implements Parcelable {
         str_coin_name = in.readString();
         str_coin_code = in.readString();
         str_coin_logo = in.readString();
+        str_coin_chart_data = in.readString();
         byte tmpIsSelected = in.readByte();
         isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
         byte tmpFav = in.readByte();
@@ -141,6 +142,22 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, boolean isFav, String str_coin_chart_data) {
+        this.int_coin_id = int_coin_id;
+        this.int_coin_rank = int_coin_rank;
+        this.dbl_coin_usdValue = dbl_coin_usdValue;
+        this.dbl_coin_marketCap = dbl_coin_marketCap;
+        this.dbl_coin_volume = dbl_coin_volume;
+        this.dbl_coin_24h = dbl_coin_24h;
+        this.dbl_coin_7d = dbl_coin_7d;
+        this.dbl_coin_1m = dbl_coin_1m;
+        this.str_coin_name = str_coin_name;
+        this.str_coin_code = str_coin_code;
+        this.str_coin_logo = str_coin_logo;
+        this.fav = isFav;
+        this.str_coin_chart_data =str_coin_chart_data;
+    }
+
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, boolean fav) {
         this.int_coin_id = int_coin_id;
         this.int_coin_rank = int_coin_rank;
@@ -156,6 +173,21 @@ public class AllCoins implements Parcelable {
         this.fav = fav;
     }
 
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m,String str_coin_chart_data) {
+        this.int_coin_id = int_coin_id;
+        this.str_coin_name = str_coin_name;
+        this.str_coin_code = str_coin_code;
+        this.str_coin_logo = str_coin_logo;
+        this.dbl_coin_usdValue = dbl_coin_usdValue;
+        this.int_coin_rank = int_coin_rank;
+        this.dbl_coin_marketCap = dbl_coin_marketCap;
+        this.dbl_coin_volume = dbl_coin_volume;
+        this.dbl_coin_24h = dbl_coin_24h;
+        this.dbl_coin_7d = dbl_coin_7d;
+        this.dbl_coin_1m = dbl_coin_1m;
+        this.str_coin_chart_data =str_coin_chart_data;
+    }
+
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
         this.int_coin_id = int_coin_id;
         this.str_coin_name = str_coin_name;
@@ -168,12 +200,19 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_24h = dbl_coin_24h;
         this.dbl_coin_7d = dbl_coin_7d;
         this.dbl_coin_1m = dbl_coin_1m;
+        this.str_coin_chart_data =str_coin_chart_data;
     }
-
     public AllCoins() {
 
     }
 
+    public String getStr_coin_chart_data() {
+        return str_coin_chart_data;
+    }
+
+    public void setStr_coin_chart_data(String str_coin_chart_data) {
+        this.str_coin_chart_data = str_coin_chart_data;
+    }
 
     public Boolean getSelected() {
         return isSelected;
@@ -272,6 +311,7 @@ public class AllCoins implements Parcelable {
         dest.writeString(str_coin_name);
         dest.writeString(str_coin_code);
         dest.writeString(str_coin_logo);
+        dest.writeString(str_coin_chart_data);
         dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));
         dest.writeByte((byte) (fav == null ? 0 : fav ? 1 : 2));
     }

@@ -110,7 +110,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     ArrayList<AccountWallet> filterCoinlist;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
             str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
-            str_data_account, str_data_coin;
+            str_data_account, str_data_coin, str_coin_chart_data;
     int int_coin_id, int_data_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
     boolean isFav = false;
@@ -466,15 +466,15 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     filterCoinlist.add(wallet);
             }
 
-                myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
-                rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-                favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
-                favFilter.setTag("Fav");
-                if (filterCoinlist.size()==0){
-                    lnr_no_fav_avail.setVisibility(View.VISIBLE);
-                }else{
-                    lnr_no_fav_avail.setVisibility(View.GONE);
-                }
+            myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), filterCoinlist, favListener);
+            rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+            favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
+            favFilter.setTag("Fav");
+            if (filterCoinlist.size() == 0) {
+                lnr_no_fav_avail.setVisibility(View.VISIBLE);
+            } else {
+                lnr_no_fav_avail.setVisibility(View.GONE);
+            }
 
         } else {
             lnr_no_fav_avail.setVisibility(View.GONE);
@@ -635,8 +635,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-
-                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav);
+                                        try {
+                                            str_coin_chart_data = jsonObjectCoins.getString("chartData");
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
                                         accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
                                                 str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
                                                 dbl_data_balanceInINR, str_data_account, allCoins));

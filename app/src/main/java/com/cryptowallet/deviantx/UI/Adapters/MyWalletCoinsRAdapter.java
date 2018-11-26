@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -23,13 +22,11 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
-import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
 import com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.SendCoinActivity;
-import com.cryptowallet.deviantx.UI.Activities.WalletDetailsActivity;
-import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
@@ -40,17 +37,7 @@ import com.cryptowallet.trendchart.TrendView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.google.android.gms.vision.text.Line;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.squareup.picasso.Picasso;
 
@@ -64,7 +51,6 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -154,6 +140,15 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
 
+        if (accountWalletlist.get(i).getResponseList().size() == 0) {
+            coinCartData(i, accountWalletlist.get(i).getAllCoins(), viewHolder.graph);
+            viewHolder.pb.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.pb.setVisibility(View.GONE);
+            setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph, accountWalletlist.get(i).getHighValue());
+        }
+
+/*
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWalletlist.get(i).getResponseList().size() == 0) {
                 invokeCoinGraph(i, viewHolder.graph, accountWalletlist.get(i).getAllCoins().getStr_coin_code(), "1m", 800, startTime, endTime);
@@ -166,6 +161,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             viewHolder.pb.setVisibility(View.GONE);
             CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
         }
+*/
 
         viewHolder.fav_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +183,42 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
 
+    }
+
+    private void coinCartData(int pos, AllCoins selectedCoin, TrendView graph) {
+        try {
+            String chart_data, data = "";
+            chart_data = selectedCoin.getStr_coin_chart_data();
+            JSONObject jsonObject = new JSONObject(chart_data);
+            try {
+                data = jsonObject.getString("Data");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            JSONArray jsonArray = new JSONArray(data);
+            if (jsonArray.length() != 0) {
+                List<DateValue> responseList = new ArrayList<>();
+                Double hisghValue = 0.0;
+                DataPoint[] points = new DataPoint[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject childobject = jsonArray.getJSONObject(i);
+                    if (hisghValue < childobject.getDouble("high"))
+                        hisghValue = childobject.getDouble("high");
+                    responseList.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+                }
+                if (pos >= 0) {
+                    accountWalletlist.get(pos).setResponseList(responseList);
+                    accountWalletlist.get(pos).setHighValue(hisghValue);
+                } else {
+                    //setChart(graph);
+                    setChartData(responseList, graph, hisghValue);
+                }
+            } else {
+                CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.empty_data));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateData(ArrayList<AccountWallet> accountWallet, int pos) {
@@ -241,7 +273,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWallet.getResponseList().size() == 0)
-                invokeCoinGraph(-1, graph_dlg, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
+                coinCartData(-1, accountWallet.getAllCoins(), graph_dlg);
+//            invokeCoinGraph(-1, graph_dlg, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
             else {
                 setChartData(accountWallet.getResponseList(), graph_dlg, accountWallet.getHighValue());
             }

@@ -13,20 +13,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.FeaturedADAcivity;
 import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
+import com.shehabic.droppy.DroppyClickCallbackInterface;
+import com.shehabic.droppy.DroppyMenuPopup;
+import com.shehabic.droppy.animations.DroppyScaleAnimation;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AirDropFragment extends Fragment {
+public class AirDropFragment extends Fragment implements DroppyClickCallbackInterface {
 
     View view;
     @BindView(R.id.rview_fad_coins)
@@ -51,10 +56,13 @@ public class AirDropFragment extends Fragment {
     TextView txt_airdrop_lbl;
     @BindView(R.id.img_menu)
     ImageView img_menu;
+    @BindView(R.id.btn_menu)
+    Button btn_menu;
     @BindView(R.id.img_coin_icon)
     ImageView img_coin_icon;
     @BindView(R.id.seekbar_per)
     SeekBar seekbar_per;
+    DroppyMenuPopup droppyMenu;
 
 
     FeaturedADHorizantalRAdapter featuredADHorizantalRAdapter;
@@ -106,7 +114,6 @@ public class AirDropFragment extends Fragment {
         recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity().getApplicationContext());
         rview_radh_coins.setAdapter(recentADHistoryRAdapter);
 
-
         txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +128,14 @@ public class AirDropFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        img_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initDroppyMenuFromXml(img_menu);
+            }
+        });
+
 
 //        accountWalletlist = new ArrayList<>();
 //
@@ -142,6 +157,43 @@ public class AirDropFragment extends Fragment {
 //        });
 
         return view;
+    }
+
+    private void initDroppyMenuFromXml(ImageView img_menu) {
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(getActivity(), img_menu);
+        DroppyMenuPopup droppyMenu = droppyBuilder.fromMenu(R.menu.menu_items_airdrop)
+                .triggerOnAnchorClick(false)
+                .setOnClick(this)
+//                .setPopupAnimation(new DroppyScaleAnimation())
+                .build();
+        droppyMenu.show();
+    }
+
+    @Override
+    public void call(View v, int id) {
+        String idText;
+
+        switch (id) {
+            case R.id.item_copy_wallet:
+                idText = "Copied";
+                break;
+            case R.id.item_withdraw_funds:
+                idText = "Withdrawn";
+                break;
+            case R.id.item_config_wallet:
+                idText = "Configured";
+                break;
+            case R.id.item_info_ad:
+                idText = "No Info Available";
+                break;
+            case R.id.item_delete:
+                idText = "Deleted";
+                break;
+            default:
+                idText = String.valueOf(id);
+        }
+
+        Toast.makeText(getActivity(), "Tapped on item with id: " + idText, Toast.LENGTH_SHORT).show();
     }
 
 /*
