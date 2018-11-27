@@ -1,18 +1,24 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -24,6 +30,7 @@ import com.cryptowallet.deviantx.UI.Activities.FeaturedADAcivity;
 import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.shehabic.droppy.animations.DroppyScaleAnimation;
@@ -132,7 +139,9 @@ public class AirDropFragment extends Fragment implements DroppyClickCallbackInte
         img_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initDroppyMenuFromXml(img_menu);
+//                initDroppyMenuFromXml(img_menu);
+                showDialog(getActivity(), v.getRight() - (v.getWidth() * 5), v.getTop() - (v.getHeight() * 4));
+//                showDialog(this, view.getLeft()-(view.getWidth()*2), view.getTop()+(view.getHeight()*2));
             }
         });
 
@@ -157,6 +166,71 @@ public class AirDropFragment extends Fragment implements DroppyClickCallbackInte
 //        });
 
         return view;
+    }
+
+    private void showDialog(Context context, int x, int y) {
+        // x -->  X-Cordinate
+        // y -->  Y-Cordinate
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setContentView(R.layout.dialog_airdrop_menu);
+        dialog.setCanceledOnTouchOutside(true);
+
+        WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
+//        wmlp.gravity = Gravity.TOP | Gravity.LEFT;
+        wmlp.x = x;
+        wmlp.y = y;
+
+        dialog.show();
+
+        TextView txt_copy_wallet = dialog.findViewById(R.id.txt_copy_wallet);
+        TextView txt_withdraw_funds = dialog.findViewById(R.id.txt_withdraw_funds);
+        TextView txt_config_wallet = dialog.findViewById(R.id.txt_config_wallet);
+        TextView txt_ad_info = dialog.findViewById(R.id.txt_ad_info);
+        TextView txt_delete = dialog.findViewById(R.id.txt_delete);
+
+        txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.copy_wallet));
+                dialog.dismiss();
+            }
+        });
+
+        txt_withdraw_funds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.withdraw_funds));
+                dialog.dismiss();
+            }
+        });
+
+        txt_config_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.config_wallet));
+                dialog.dismiss();
+            }
+        });
+
+        txt_ad_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.ad_info));
+                dialog.dismiss();
+            }
+        });
+
+        txt_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.delete));
+                dialog.dismiss();
+            }
+        });
+
+
     }
 
     private void initDroppyMenuFromXml(ImageView img_menu) {

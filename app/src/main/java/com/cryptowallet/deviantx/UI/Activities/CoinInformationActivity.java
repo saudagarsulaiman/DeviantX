@@ -225,13 +225,18 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //                SwitchCases(spnr_days.getSelectedItem().toString());
             }
         });
-
+        txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+        txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+        txt_low.setText(getResources().getString(R.string.low) + "00.00");
+        txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+        txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+        txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
         try {
             chart_data = selectedCoin.getStr_coin_chart_data();
             JSONObject jsonObject = new JSONObject(chart_data);
-            try{
+            try {
                 data = jsonObject.getString("Data");
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             JSONArray jsonArray = new JSONArray(data);
@@ -255,6 +260,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             line_chart.setData(null);
             setChartData(responseList);
 //            setChartData(responseList2, line_chart, hisghValue);
+            txt_per_high.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getHigh()));
+            txt_per_low.setText("$" + String.format("%.4f", responseList.get(responseList.size() - 1).getLow()));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -687,7 +694,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         //formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         xAxis.setValueFormatter((value, axis) -> {
-            Date date = new Date((long) value*1000);
+            Date date = new Date((long) value * 1000);
             return formatter.format(date);
         }); // hide text
         xAxis.setTextSize(11f);
