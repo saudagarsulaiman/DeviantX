@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/css" href="some_name.css"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_submit"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin50"
+            android:gravity="center"
+            android:text="@string/twofa"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin3"
+            android:gravity="center"
+            android:text="@string/two_factor_auth"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/def_margin"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/margin30"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/google_auth_code"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_lbl_size"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edt_google_auth_code"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/def_edt_height"
+                android:layout_marginTop="@dimen/margin5"
+                android:background="@drawable/rec_white_c2"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/padding10"
+                android:paddingLeft="@dimen/padding10"
+                android:paddingEnd="@dimen/padding10"
+                android:paddingRight="@dimen/padding10"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:id="@+id/txt_note_defWal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin5"
+                android:text="@string/note_g_code"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_hint_size"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/def_margin"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginEnd="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:text="@string/protect_pin"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/scompat_pin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.4"
+                android:theme="@style/SwitchStyle" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rec_orange_gradient"
+        android:text="@string/submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
