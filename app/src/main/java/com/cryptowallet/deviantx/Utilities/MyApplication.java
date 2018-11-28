@@ -41,7 +41,16 @@ public class MyApplication extends Application {
         isScreenShot = screenShot;
     }
 
+    public Boolean get2FA() {
+        return is2FAactive;
+    }
+
+    public void set2FA(Boolean twoFA) {
+        is2FAactive = twoFA;
+    }
+
     Boolean isHideBalance;
+    Boolean is2FAactive;
     Boolean isScreenShot;
 
     @Override
@@ -52,13 +61,13 @@ public class MyApplication extends Application {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         isHideBalance = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
+        is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
     }
 
     public void disableScreenCapture(Activity context) {
         if (isScreenShot) {
-            context.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE);
-        }else{
+            context.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        } else {
             context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
     }

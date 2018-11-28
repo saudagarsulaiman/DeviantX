@@ -370,7 +370,58 @@ public class DashBoardActivity extends AppCompatActivity {
             if (mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1)
                 setupViewPager(mViewPager);
 //            txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
-        }
+        }/* else if (requestCode == 200) {
+            setupViewPagerAD(mViewPager);
+        }*/
+    }
+
+    private void setupViewPagerAD(ViewPager viewPager) {
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new DashboardFragment(), "");
+        adapter.addFragment(new ExploreCoinsFragment(), "");
+        adapter.addFragment(new ToolsFragment(), "");
+        adapter.addFragment(new AirDropFragment(), "");
+//        viewPager.set
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                txt_btm_nav_lbl.setText(channelsName[i]);
+                txt_tlbr_title.setText(channelTtlName[i]);
+                /*switch (i) {
+                    case 0:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                    case 1:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                    case 2:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                    case 3:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
+//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                    default:
+                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+                        break;
+                }
+*/
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 
     private void navDrawerSettings() {

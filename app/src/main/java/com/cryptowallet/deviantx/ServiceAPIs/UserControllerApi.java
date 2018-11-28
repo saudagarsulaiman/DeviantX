@@ -43,6 +43,17 @@ public interface UserControllerApi {
     Call<ResponseBody> restoreSeed(@Body String body);
 
 
+    @GET("/api/account/get_two_factor")
+    Call<ResponseBody> get2FACode(@Header("Authorization") String AuthorizationDX);
+
+    @GET("/api/account/disable_2fa/{password}/{totp}")
+    Call<ResponseBody> disable2FA(@Path("password") String passwordX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
+
+    @GET("/api/account/enable_2fa/{password}/{totp}")
+    Call<ResponseBody> enable2FA(@Path("password") String passwordX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
+
+    @GET("/api/account/generate_2fa/{password}/{secret}/{totp}")
+    Call<ResponseBody> generate2FA(@Path("password") String passwordX,@Path("secret") String secretX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
 
 //    @FormUrlEncoded
 //    @POST("/api/account/create")

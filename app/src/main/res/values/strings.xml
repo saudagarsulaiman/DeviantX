@@ -80,6 +80,7 @@
     <string name="info_deviantx">For more information about how Deviant X collects, uses and protects your personal information, read Deviant X\'s </string>
     <string name="continu">Continue</string>
     <string name="privacy_policy"><u>Privacy Policy</u>.</string>
+    <string name="privacy_policy_u">Privacy Policy.</string>
     <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
 
 
@@ -224,10 +225,14 @@
     <string name="my_pass">\t\tMy password</string>
     <string name="hide_bal_active">Privacy: Hide Balance Activated</string>
     <string name="hide_bal_inactive">Privacy: Hide Balance Deactivated</string>
+    <string name="twoFA_active">Privacy: 2FA Activated</string>
+    <string name="twoFA_inactive">Privacy: 2FA Deactivated</string>
     <string name="screenshots_active">Privacy: Screenshot Shield Activated</string>
     <string name="screenshots_inactive">Privacy: Screenshot Shield Deactivated</string>
     <string name="nightmode_inactive">Night Mode Deactivated</string>
     <string name="nightmode_active">Night Mode Activated</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
 
 
     <!--Wallet Options Activity-->
@@ -408,6 +413,7 @@
     <string name="view_all">View All</string>
     <string name="rec_ad_his">Recent Airdrop History</string>
     <string name="avail_ad">Available Airdrop</string>
+    <string name="empty_ad_list">Your Airdrop List is empty</string>
 
     <!--Coin Info AD Activity-->
     <string name="participate">Participate</string>
@@ -420,6 +426,48 @@
     <string name="config_wallet">Configure Wallet</string>
     <string name="withdraw_funds">Withdraw Funds</string>
     <string name="copy_wallet">Copy Wallet</string>
+
+    <!--WithdrawFunds AirDrop Activity-->
+    <string name="avail_withdraw">Avilable to Withdraw</string>
+    <string name="sure_withdraw_funds">Are you sure you want to withdraw your funds?</string>
+    <string name="center_def_add">\t\tDefault Address</string>
+    <string name="center_def_wal">\t\tDefault Wallet</string>
+    <string name="all">All</string>
+    <string name="center_amount">\t\tAmount</string>
+    <string name="withdraw">Withdraw</string>
+
+    <!--TwoFA Activity-->
+    <string name="twofa">2FA</string>
+    <string name="two_factor_auth">Two Factor Authentication</string>
+    <string name="google_auth_code">Google Authentication Code</string>
+    <string name="note_g_code">Open Google Auth and enter the code here.</string>
+    <string name="you_withdraw">You will withdraw</string>
+    <string name="confirm_agree">You confirm that you agree to our</string>
+
+    <!--TwoFA Enable 1 Activity-->
+    <string name="enable_2fa_1">Enable 2FA Step 1</string>
+    <string name="donld_ga">Download and install Google Authentication App on Google Play and Play Store and scan the QR Code.</string>
+    <string name="scan_qrCode">Scan QR Code</string>
+    <string name="enter_this_code">If you have problem enter this code manually</string>
+    <string name="code">code</string>
+
+    <!--TwoFA Enable 2 Activity-->
+    <string name="enable_2fa_2">Enable 2FA Step 2</string>
+    <string name="save_g2fa_key">Please save this key. This key  will allow you to recover your Google Authentication.</string>
+
+    <!--TwoFAEnableActivity-->
+    <string name="enable_2fa">Enable 2FA</string>
+    <string name="login_pswd">Login Password</string>
+    <string name="twofa_key">2FA Key</string>
+    <string name="note_backup_code">Enter your backup key (step 2).</string>
+    <string name="finish">Finish</string>
+
+    <!--TwoFAAbleActivity-->
+    <string name="disable_2fa">Disable 2FA</string>
+    <string name="note_disable_2fa">For security purpose non withdrawls are permitted for 24 hour after disable 2FA</string>
+    <string name="failed_copy">Failed to copy</string>
+    <string name="empty_2fa_key">2FA key can not br empty</string>
+    <string name="empty_google_auth_code">Google Auth Code can not be empty</string>
 
 
 </resources>

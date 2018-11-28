@@ -29,6 +29,8 @@ public class CONSTANTS {
     public static String empty_wallet="EMPTYWALLET";
     public static String selectedWallet="SELECTEDWALLET";
     public static String first_wallet="FIRSTWALLET";//First Time Wallet Creation
+    public static String twoFactorAuth="TWOFACTORAUTHENTICATION";    //Two Factor Authentication
+    public static String twoFACode="2FACODE";
 
 
 //    //    Selected Account Wallet Details

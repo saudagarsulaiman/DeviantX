@@ -32,5 +32,9 @@ public interface AuthenticationApi {
     @POST("/api/authenticate/add_seed")
     Call<ResponseBody> addSeed(@Body String body);
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/authenticate/login_2fa")
+    Call<ResponseBody> Login2FA(@Body String body);
+
 
 }

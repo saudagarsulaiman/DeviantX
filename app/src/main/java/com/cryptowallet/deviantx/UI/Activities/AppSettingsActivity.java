@@ -2,6 +2,7 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,12 @@ public class AppSettingsActivity extends AppCompatActivity {
     SwitchCompat scompat_privacy;
     @BindView(R.id.scompat_hide_bal)
     SwitchCompat scompat_hide_bal;
+    @BindView(R.id.lnr_2fa)
+    LinearLayout lnr_2fa;
+    @BindView(R.id.scompat_2fa)
+    SwitchCompat scompat_2fa;
+    @BindView(R.id.txt_2FA_status)
+    TextView txt_2FA_status;
 
 
     String loginResponseMsg, loginResponseStatus, tkn;
@@ -71,6 +78,7 @@ public class AppSettingsActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
 
 
     @Override
@@ -94,6 +102,14 @@ public class AppSettingsActivity extends AppCompatActivity {
             scompat_privacy.setChecked(true);
         else
             scompat_privacy.setChecked(false);
+
+        if (myApplication.get2FA()) {
+            scompat_2fa.setChecked(true);
+            txt_2FA_status.setText(getResources().getString(R.string.active));
+        } else {
+            scompat_2fa.setChecked(false);
+            txt_2FA_status.setText(getResources().getString(R.string.inactive));
+        }
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +168,37 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
 
+        lnr_2fa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppSettingsActivity.this, TwoFAEnable1Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        scompat_2fa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
+                startActivity(intent);
+                if (isChecked) {
+//                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+//                    editor.apply();
+//                    myApplication.set2FA(true);
+                    scompat_2fa.setChecked(false);
+//                    txt_2FA_status.setText(getResources().getString(R.string.active));
+//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_active));
+                } else {
+//                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+//                    editor.apply();
+//                    myApplication.set2FA(false);
+                    scompat_2fa.setChecked(true);
+//                    txt_2FA_status.setText(getResources().getString(R.string.inactive));
+//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_inactive));
+                }
+            }
+        });
+
         scompat_light_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -174,6 +221,7 @@ public class AppSettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
+        myApplication.get2FA();
     }
 
     private void LanguageDialog() {
@@ -471,5 +519,12 @@ public class AppSettingsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(AppSettingsActivity.this, DashBoardActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }
 

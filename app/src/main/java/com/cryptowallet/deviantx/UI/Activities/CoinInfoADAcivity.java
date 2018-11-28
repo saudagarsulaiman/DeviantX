@@ -11,6 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,8 +26,8 @@ public class CoinInfoADAcivity extends AppCompatActivity {
     ImageView img_coin_logo;
     @BindView(R.id.txt_coin_name)
     TextView txt_coin_name;
-    @BindView(R.id.txt_coin_value)
-    TextView txt_coin_value;
+    @BindView(R.id.txt_coin_code)
+    TextView txt_coin_code;
     @BindView(R.id.lnr_share)
     LinearLayout lnr_share;
     @BindView(R.id.lnr_estimated)
@@ -43,6 +46,7 @@ public class CoinInfoADAcivity extends AppCompatActivity {
     Button btn_participate;
 
 
+    AllCoins selectedCoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,23 @@ public class CoinInfoADAcivity extends AppCompatActivity {
             }
         });
 
+        Bundle bundle = getIntent().getExtras();
+        selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
+
+        Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
+        txt_coin_name.setText(selectedCoin.getStr_coin_name());
+        txt_coin_code.setText(selectedCoin.getStr_coin_code());
+        txt_estimated.setText("$70" +" Ref");
+        txt_tokens.setText("750 DEV");
+
+
+
+        btn_participate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

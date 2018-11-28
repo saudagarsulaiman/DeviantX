@@ -53,7 +53,7 @@
                         android:paddingLeft="@dimen/padding5">
 
                         <TextView
-                            android:id="@+id/txt_coin_value"
+                            android:id="@+id/txt_coin_code"
                             android:layout_width="wrap_content"
                             android:singleLine="true"
                             android:maxLines="1"
@@ -63,7 +63,7 @@
                             android:textSize="@dimen/text18" />
 
                         <TextView
-                            android:id="@+id/txt_wallet_name"
+                            android:id="@+id/txt_coin_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
@@ -91,6 +91,7 @@
                             android:src="@drawable/down" />
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/txt_coin_usd_value"
                             android:layout_width="wrap_content"
                             android:singleLine="true"
@@ -102,6 +103,7 @@
                             android:textSize="@dimen/def_text_size" />
 
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/txt_percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -168,14 +170,13 @@
                         android:weightSum="1">
 
                         <TextView
-                            android:id="@+id/txt_lbl_coin_add"
                             android:layout_width="0dp"
                             android:singleLine="true"
                             android:maxLines="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_weight="0.9"
-                            android:text="@string/dev_address"
+                            android:text="@string/address"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
 
@@ -193,7 +194,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/txt_dev_address"
+                        android:id="@+id/txt_address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
@@ -206,6 +207,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/txt_note_dev_add"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

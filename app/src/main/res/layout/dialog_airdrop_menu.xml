@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/radius5"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    app:cardCornerRadius="@dimen/radius5">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -16,11 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/def_margin"
-            android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginTop="@dimen/def_margin"
-            android:layout_marginEnd="@dimen/def_margin"
-            android:layout_marginRight="@dimen/def_margin"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingEnd="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
             android:text="@string/copy_wallet"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
@@ -31,11 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/def_margin"
-            android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginTop="@dimen/margin10"
-            android:layout_marginEnd="@dimen/def_margin"
-            android:layout_marginRight="@dimen/def_margin"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingEnd="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
             android:text="@string/withdraw_funds"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
@@ -46,11 +46,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/def_margin"
-            android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginTop="@dimen/margin10"
-            android:layout_marginEnd="@dimen/def_margin"
-            android:layout_marginRight="@dimen/def_margin"
+            android:layout_marginBottom="@dimen/def_margin"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingEnd="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
             android:text="@string/config_wallet"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
@@ -61,15 +62,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/def_margin"
-            android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginTop="@dimen/margin10"
-            android:layout_marginEnd="@dimen/def_margin"
-            android:layout_marginRight="@dimen/def_margin"
+            android:layout_marginBottom="@dimen/def_margin"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding"
+            android:paddingEnd="@dimen/def_padding"
+            android:paddingRight="@dimen/def_padding"
             android:text="@string/ad_info"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/txt_delete"
@@ -85,7 +88,8 @@
             android:text="@string/delete"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </LinearLayout>
 

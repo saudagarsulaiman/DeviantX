@@ -290,10 +290,17 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
-                                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                    if (myApplication.get2FA()){
+                                        Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                    }else {
+                                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                    }
                                 }
 
                             } else {

@@ -14,16 +14,22 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.CoinInfoADAcivity;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedADHorizantalRAdapter.ViewHolder> {
     Context context;
+    ArrayList<AllCoins> allCoinsList;
 
-    public FeaturedADHorizantalRAdapter(Context context) {
+    public FeaturedADHorizantalRAdapter(Context context, ArrayList<AllCoins> allCoinsList) {
         this.context = context;
+        this.allCoinsList = allCoinsList;
     }
 
     @NonNull
@@ -37,17 +43,17 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-//        Picasso.with(context).load(i).into(viewHolder.img_coin);
-        viewHolder.txt_coin_name_code.setText("Coin Name" + " (" + "Code" + ")");
+        Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
+        viewHolder.txt_coin_name_code.setText(allCoinsList.get(i).getStr_coin_name() + " (" + allCoinsList.get(i).getStr_coin_code() + ")");
         viewHolder.txt_coin_value.setText("Estimated $" + i + " ref");
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                AllCoins selected_coin = allCoinsList.get(i);
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
                 Bundle bundle = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin,"coin");
-                bundle.putString(CONSTANTS.selectedCoin, "coin");
+                bundle.putParcelable(CONSTANTS.selectedCoin, allCoinsList.get(i));
                 intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -57,7 +63,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
 
     @Override
     public int getItemCount() {
-        return 10;
+        return allCoinsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
