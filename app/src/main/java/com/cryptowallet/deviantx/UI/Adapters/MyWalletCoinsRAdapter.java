@@ -115,7 +115,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     @Override
     public void onBindViewHolder(MyWalletCoinsRAdapter.ViewHolder viewHolder, final int i) {
         Picasso.with(context).load(accountWalletlist.get(i).getAllCoins().getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
-        viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getStr_data_walletName());
+        viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getAllCoins().getStr_coin_name());
         if (!hideBal) {
             viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
             viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
@@ -170,6 +170,19 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
         });
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (CommonUtilities.isConnectionAvailable(context)) {
+                    customDialog(accountWalletlist.get(i));
+
+                } else {
+                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
+                }
+//                CommonUtilities.ShowToastMessage(context,"selected");
+            }
+        });
+        viewHolder.graph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

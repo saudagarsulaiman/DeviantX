@@ -148,6 +148,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
         Bundle bundle = getIntent().getExtras();
         airdropWalletlist = bundle.getParcelableArrayList(CONSTANTS.selectedAccountWallet);
+        txt_avail_bal.setText(String.format("%.4f",airdropWalletlist.get(0).getDbl_data_ad_balance()));
 
         if (cbox_wallet.isChecked()) {
             spnr_wallets.setVisibility(View.VISIBLE);
@@ -450,6 +451,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 */
+                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
+                                onBackPressed();
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
@@ -530,6 +533,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 */
+                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
+                                onBackPressed();
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);

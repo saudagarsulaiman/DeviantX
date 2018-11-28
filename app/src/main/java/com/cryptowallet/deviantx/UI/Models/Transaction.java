@@ -6,13 +6,13 @@ import android.os.Parcelable;
 public class Transaction implements Parcelable {
 
     int int_data_id;
-    String str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account;
+    String str_data_txnHash, str_data_category, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account;
     Double dbl_data_coinValue;
     AllCoins allCoins;
     CryptoWallet cryptoWallet;
 
 
-    public Transaction(int int_data_id, String str_data_txnHash, String str_data_toAddress, String str_data_txnDate, String str_data_cryptoWallet, String str_data_icoTokenwallet, String str_data_account, Double dbl_data_coinValue, AllCoins allCoins, CryptoWallet cryptoWallet) {
+    public Transaction(int int_data_id, String str_data_txnHash, String str_data_toAddress, String str_data_txnDate, String str_data_cryptoWallet, String str_data_icoTokenwallet, String str_data_account, Double dbl_data_coinValue, String str_data_category, AllCoins allCoins, CryptoWallet cryptoWallet) {
         this.int_data_id = int_data_id;
         this.str_data_txnHash = str_data_txnHash;
         this.str_data_toAddress = str_data_toAddress;
@@ -23,16 +23,13 @@ public class Transaction implements Parcelable {
         this.dbl_data_coinValue = dbl_data_coinValue;
         this.allCoins = allCoins;
         this.cryptoWallet = cryptoWallet;
-    }
-
-
-    public Transaction() {
-
+        this.str_data_category = str_data_category;
     }
 
     protected Transaction(Parcel in) {
         int_data_id = in.readInt();
         str_data_txnHash = in.readString();
+        str_data_category = in.readString();
         str_data_toAddress = in.readString();
         str_data_txnDate = in.readString();
         str_data_cryptoWallet = in.readString();
@@ -58,6 +55,19 @@ public class Transaction implements Parcelable {
             return new Transaction[size];
         }
     };
+
+    public String getStr_data_category() {
+        return str_data_category;
+    }
+
+    public void setStr_data_category(String str_data_category) {
+        this.str_data_category = str_data_category;
+    }
+
+    public Transaction() {
+
+    }
+
 
     public Double getDbl_data_coinValue() {
         return dbl_data_coinValue;
@@ -147,6 +157,7 @@ public class Transaction implements Parcelable {
         this.allCoins = allCoins;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -156,6 +167,7 @@ public class Transaction implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(int_data_id);
         dest.writeString(str_data_txnHash);
+        dest.writeString(str_data_category);
         dest.writeString(str_data_toAddress);
         dest.writeString(str_data_txnDate);
         dest.writeString(str_data_cryptoWallet);

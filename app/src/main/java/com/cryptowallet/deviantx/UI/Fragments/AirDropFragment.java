@@ -457,9 +457,9 @@ public class AirDropFragment extends Fragment {
                                     }
                                     try {
                                         timestamp = jsonObjectData.getString("airdropStartDate");
-                                        if (timestamp.equals("null")) {
+                                       /* if (timestamp.equals("null")) {
                                             timestamp = "0";
-                                        }
+                                        }*/
 
                                     } catch (Exception e) {
                                         e.printStackTrace();
@@ -547,7 +547,20 @@ public class AirDropFragment extends Fragment {
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
                                 txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
                                 txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
-                                txt_holding_days.setText(airdropWalletlist.get(0).getTimestamp());
+                                if (airdropWalletlist.get(0).getTimestamp().equals("null")) {
+                                    txt_holding_days.setText("0");
+                                } else {
+                                    txt_holding_days.setText(getTime(airdropWalletlist.get(0).getTimestamp()));
+                                }
+                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
+                                    txt_coin_address.setText("To " + airdropWalletlist.get(0).getStr_data_ad_address());
+                                } else {
+                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
+                                    String dummy = "{...}";
+                                    String first_half = String.format("%.7s", address);
+                                    String second_half = address.substring(address.length() - 7);
+                                    txt_coin_address.setText(first_half + dummy + second_half);
+                                }
 
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -593,4 +606,13 @@ public class AirDropFragment extends Fragment {
 
     }
 
+    private String getTime(String started) {
+        try {
+            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

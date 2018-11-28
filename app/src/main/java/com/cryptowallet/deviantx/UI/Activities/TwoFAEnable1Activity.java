@@ -21,6 +21,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ import java.net.URLEncoder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,8 +138,9 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
                                 txt_code.setText(twoFACode);
                                 String email = sharedPreferences.getString(CONSTANTS.email, "");
 //                                String email=sharedPreferences.getString(CONSTANTS.email,"");
-                                String query = URLEncoder.encode("otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=Deviant X", "utf-8");
-                                qrCodeGenerator(query);
+                                String query = /*URLEncoder.encode(*/"otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=DeviantX"/*, "utf-8")*/;
+//                                Uri.parse(query);
+                                qrCodeGenerator(query, email, twoFACode, "&issuer=DeviantX");
 
 //                                finish();
 //                                CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.pswd_changed_succcess));
@@ -187,11 +190,40 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
 
     }
 
-    private void qrCodeGenerator(String query) {
+    private void qrCodeGenerator(String query, String email, String twoFACode, String dev) {
 //        https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{query}}
 //           QR Code Generator
-//        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + Uri.encode(query);
+        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + /*Uri.encode(*/query/*)*/+"}}";
+        CommonUtilities.qrCodeGenerate(urlEncoded, img_qrcode, TwoFAEnable1Activity.this);
+
 //        CommonUtilities.qrCodeGenerate(query, img_qrcode, TwoFAEnable1Activity.this);
+
+//        String my_query = "http://otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=DeviantX";
+//        CommonUtilities.qrCodeGenerate(my_query, img_qrcode, TwoFAEnable1Activity.this);
+
+        /* String qrCodeCallUrl = "https://api.authy.com/protected/json/users/" + email+ "/secret?api_key="+twoFACode;
+
+         *//** call authy api to get qr code **//*
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST,qrCodeCallUrl,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String qrCodePath = response.getString("qr_code");
+                            *//** set the imageView's src **//*
+                            ImageView qrCodeImgVw = findViewById(R.id.qrCodeImgVw);
+                            Picasso.get().load(qrCodePath).into(qrCodeImgVw);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("ERROR! ",error.getMessage());
+                    }
+                });*/
 
     }
 

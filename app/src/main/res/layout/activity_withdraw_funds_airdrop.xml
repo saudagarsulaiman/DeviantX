@@ -338,6 +338,7 @@
                         android:theme="@style/edt" />
 
                     <TextView
+                        android:visibility="invisible"
                         android:id="@+id/txt_all"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
