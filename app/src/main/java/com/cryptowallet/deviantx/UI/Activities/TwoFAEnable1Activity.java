@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -135,7 +136,8 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
                                 txt_code.setText(twoFACode);
                                 String email = sharedPreferences.getString(CONSTANTS.email, "");
 //                                String email=sharedPreferences.getString(CONSTANTS.email,"");
-                                String query = URLEncoder.encode("otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=Deviant X");
+                                String query = URLEncoder.encode("otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=Deviant X", "utf-8");
+                                qrCodeGenerator(query);
 
 //                                finish();
 //                                CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.pswd_changed_succcess));
@@ -182,6 +184,14 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
+
+    }
+
+    private void qrCodeGenerator(String query) {
+//        https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{query}}
+//           QR Code Generator
+//        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + Uri.encode(query);
+//        CommonUtilities.qrCodeGenerate(query, img_qrcode, TwoFAEnable1Activity.this);
 
     }
 

@@ -112,6 +112,7 @@ public class AirDropFragment extends Fragment {
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
     String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
+    String timestamp;
 
     @Override
     public void onResume() {
@@ -208,7 +209,7 @@ public class AirDropFragment extends Fragment {
         txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtilities.ShowToastMessage(getActivity(), /*getResources().getString(R.string.copy_wallet)*/airdropWalletlist.get(0).getStr_data_ad_address());
+//                CommonUtilities.ShowToastMessage(getActivity(), /*getResources().getString(R.string.copy_wallet)*/airdropWalletlist.get(0).getStr_data_ad_address());
                 CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
                 dialog.dismiss();
             }
@@ -220,7 +221,7 @@ public class AirDropFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), WithdrawFundsAirdropActivity.class);
                 Bundle bundle = new Bundle();
 //                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet,airdropWalletlist);
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.withdraw_funds));
@@ -234,7 +235,7 @@ public class AirDropFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
                 Bundle bundle = new Bundle();
 //                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet,airdropWalletlist);
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.config_wallet));
@@ -454,11 +455,15 @@ public class AirDropFragment extends Fragment {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                  /*  try {
-                                        dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
+                                    try {
+                                        timestamp = jsonObjectData.getString("airdropStartDate");
+                                        if (timestamp.equals("null")) {
+                                            timestamp = "0";
+                                        }
+
                                     } catch (Exception e) {
                                         e.printStackTrace();
-                                    }*/
+                                    }
                                     try {
                                         str_data_ad_account = jsonObjectData.getString("account");
                                     } catch (Exception e) {
@@ -534,15 +539,15 @@ public class AirDropFragment extends Fragment {
                                     }
                                     AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
                                             int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, str_ad_coin_chart_data);
-                                    airdropWalletlist.add(new AirdropWallet(int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
+                                    airdropWalletlist.add(new AirdropWallet(timestamp, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
                                             str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
                                             str_data_ad_account, allCoins));
                                 }
                                 Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
                                 txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
-                                txt_holding_bal.setText("3288.5465"/*+String.format("%.4f",airdropWalletlist.get(0))*/);
-                                txt_holding_days.setText("142");
+                                txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+                                txt_holding_days.setText(airdropWalletlist.get(0).getTimestamp());
 
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

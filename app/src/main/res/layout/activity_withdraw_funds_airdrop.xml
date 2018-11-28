@@ -5,6 +5,32 @@
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
+
+    <RelativeLayout
+        android:id="@+id/scan_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <me.dm7.barcodescanner.zxing.ZXingScannerView
+            android:id="@+id/scan_qr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/refreshbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/margin50"
+            android:paddingTop="150dp"
+            android:paddingRight="@dimen/margin50"
+            android:text="@string/scanner_msg"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -243,12 +269,12 @@
                     <ImageView
                         android:id="@+id/img_scanner"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/height10"
+                        android:layout_height="@dimen/height20"
                         android:layout_gravity="center"
                         android:layout_weight="0.1"
                         android:clickable="true"
                         android:focusable="true"
-                        android:src="@drawable/down"
+                        android:src="@drawable/scanner"
                         android:visibility="gone" />
 
                     <Spinner

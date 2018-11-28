@@ -6,17 +6,17 @@ import android.os.Parcelable;
 public class AirdropWallet implements Parcelable {
 
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
-    String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
+    String timestamp, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
             str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume,
             dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     AllCoins allCoins;
 
-
     protected AirdropWallet(Parcel in) {
         int_ad_data_id = in.readInt();
         int_ad_coin_id = in.readInt();
         int_ad_coin_rank = in.readInt();
+        timestamp = in.readString();
         str_data_ad_address = in.readString();
         str_data_ad_privatekey = in.readString();
         str_data_ad_passcode = in.readString();
@@ -69,6 +69,77 @@ public class AirdropWallet implements Parcelable {
         allCoins = in.readParcelable(AllCoins.class.getClassLoader());
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(int_ad_data_id);
+        dest.writeInt(int_ad_coin_id);
+        dest.writeInt(int_ad_coin_rank);
+        dest.writeString(timestamp);
+        dest.writeString(str_data_ad_address);
+        dest.writeString(str_data_ad_privatekey);
+        dest.writeString(str_data_ad_passcode);
+        dest.writeString(str_data_ad_account);
+        dest.writeString(str_data_ad_coin);
+        dest.writeString(str_ad_coin_name);
+        dest.writeString(str_ad_coin_code);
+        dest.writeString(str_ad_coin_logo);
+        dest.writeString(str_ad_coin_chart_data);
+        if (dbl_data_ad_balance == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_data_ad_balance);
+        }
+        if (dbl_data_ad_balanceInUSD == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_data_ad_balanceInUSD);
+        }
+        if (dbl_ad_coin_usdValue == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_usdValue);
+        }
+        if (dbl_ad_coin_marketCap == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_marketCap);
+        }
+        if (dbl_ad_coin_volume == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_volume);
+        }
+        if (dbl_ad_coin_1m == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_1m);
+        }
+        if (dbl_ad_coin_7d == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_7d);
+        }
+        if (dbl_ad_coin_24h == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_ad_coin_24h);
+        }
+        dest.writeParcelable(allCoins, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public static final Creator<AirdropWallet> CREATOR = new Creator<AirdropWallet>() {
         @Override
         public AirdropWallet createFromParcel(Parcel in) {
@@ -80,6 +151,14 @@ public class AirdropWallet implements Parcelable {
             return new AirdropWallet[size];
         }
     };
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public int getInt_ad_data_id() {
         return int_ad_data_id;
@@ -249,85 +328,18 @@ public class AirdropWallet implements Parcelable {
         this.allCoins = allCoins;
     }
 
-    public AirdropWallet(int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, AllCoins allCoins) {
+    public AirdropWallet(String timestamp, int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, AllCoins allCoins) {
+        this.timestamp = timestamp;
         this.int_ad_data_id = int_ad_data_id;
-       this.str_data_ad_address = str_data_ad_address;
+        this.str_data_ad_address = str_data_ad_address;
         this.str_data_ad_privatekey = str_data_ad_privatekey;
         this.str_data_ad_passcode = str_data_ad_passcode;
         this.str_data_ad_account = str_data_ad_account;
         this.dbl_data_ad_balance = dbl_data_ad_balance;
         this.dbl_data_ad_balanceInUSD = dbl_data_ad_balanceInUSD;
-         this.allCoins = allCoins;
+        this.allCoins = allCoins;
 
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(int_ad_data_id);
-        dest.writeInt(int_ad_coin_id);
-        dest.writeInt(int_ad_coin_rank);
-        dest.writeString(str_data_ad_address);
-        dest.writeString(str_data_ad_privatekey);
-        dest.writeString(str_data_ad_passcode);
-        dest.writeString(str_data_ad_account);
-        dest.writeString(str_data_ad_coin);
-        dest.writeString(str_ad_coin_name);
-        dest.writeString(str_ad_coin_code);
-        dest.writeString(str_ad_coin_logo);
-        dest.writeString(str_ad_coin_chart_data);
-        if (dbl_data_ad_balance == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_data_ad_balance);
-        }
-        if (dbl_data_ad_balanceInUSD == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_data_ad_balanceInUSD);
-        }
-        if (dbl_ad_coin_usdValue == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_usdValue);
-        }
-        if (dbl_ad_coin_marketCap == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_marketCap);
-        }
-        if (dbl_ad_coin_volume == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_volume);
-        }
-        if (dbl_ad_coin_1m == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_1m);
-        }
-        if (dbl_ad_coin_7d == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_7d);
-        }
-        if (dbl_ad_coin_24h == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_ad_coin_24h);
-        }
-        dest.writeParcelable(allCoins, flags);
-    }
 }
