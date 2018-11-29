@@ -227,8 +227,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         });
         txt_open.setText(getResources().getString(R.string.open) + "$00.00");
         txt_high.setText(getResources().getString(R.string.high) + "$00.00");
-        txt_low.setText(getResources().getString(R.string.low) + "00.00");
-        txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+        txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+        txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
         txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
         txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
         try {
@@ -419,8 +419,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //                                txt_time.setText(getResources().getString(R.string.time));
                                 txt_open.setText(getResources().getString(R.string.open) + "$00.00");
                                 txt_high.setText(getResources().getString(R.string.high) + "$000.00");
-                                txt_low.setText(getResources().getString(R.string.low) + "00.00");
-                                txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+                                txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                                txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
                                 txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
                                 txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
                                 setChart();
@@ -561,8 +561,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             }
                             txt_open.setText(getResources().getString(R.string.open) + "$00.00");
                             txt_high.setText(getResources().getString(R.string.high) + "$000.00");
-                            txt_low.setText(getResources().getString(R.string.low) + "00.00");
-                            txt_close.setText(getResources().getString(R.string.closee) + "00.00");
+                            txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                            txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
                             txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
                             txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 

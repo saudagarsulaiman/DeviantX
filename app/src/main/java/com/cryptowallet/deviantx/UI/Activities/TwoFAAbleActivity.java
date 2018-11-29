@@ -55,6 +55,15 @@ public class TwoFAAbleActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
 
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

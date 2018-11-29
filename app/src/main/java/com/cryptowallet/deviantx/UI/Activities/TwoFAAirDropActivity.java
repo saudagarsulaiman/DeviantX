@@ -18,6 +18,8 @@ import com.orhanobut.dialogplus.ViewHolder;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class TwoFAAirDropActivity extends AppCompatActivity {
 
     //    @BindView(R.id.)
@@ -29,6 +31,14 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
     @BindView(R.id.btn_submit)
     Button btn_submit;
 
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

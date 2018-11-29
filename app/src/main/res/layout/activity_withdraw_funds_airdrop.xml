@@ -245,14 +245,14 @@
                     android:weightSum="1">
 
                     <EditText
-                        android:layout_marginBottom="@dimen/margin5"
-                        android:layout_marginTop="@dimen/margin5"
-                        android:layout_marginLeft="@dimen/def_margin"
-                        android:layout_marginStart="@dimen/def_margin"
                         android:id="@+id/edt_wallet_address"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/def_edt_height"
                         android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/def_margin"
+                        android:layout_marginLeft="@dimen/def_margin"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginBottom="@dimen/margin5"
                         android:layout_weight="0.9"
                         android:background="@android:color/transparent"
                         android:hint="@string/center_address"
@@ -278,12 +278,12 @@
                         android:visibility="gone" />
 
                     <Spinner
-                        android:backgroundTint="@color/white"
-                        android:visibility="visible"
                         android:id="@+id/spnr_wallets"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin10" />
+                        android:layout_margin="@dimen/margin10"
+                        android:backgroundTint="@color/white"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 
@@ -338,7 +338,6 @@
                         android:theme="@style/edt" />
 
                     <TextView
-                        android:visibility="invisible"
                         android:id="@+id/txt_all"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -349,7 +348,8 @@
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/def_lbl_size"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 

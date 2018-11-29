@@ -29,6 +29,9 @@
         android:weightSum="1">
 
         <EditText
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true"
             android:id="@+id/edt_search"
             android:layout_width="0dp"
             android:layout_height="match_parent"

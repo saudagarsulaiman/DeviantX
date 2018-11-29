@@ -85,7 +85,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
         Picasso.with(ReceiveCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
         txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
-        txt_wallet_name.setText(selectedAccountWallet.getStr_data_walletName());
+        txt_wallet_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
         txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code() + " Address");
 
         txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");

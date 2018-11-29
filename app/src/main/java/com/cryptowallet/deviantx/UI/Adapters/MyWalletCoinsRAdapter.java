@@ -330,7 +330,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
 
         Picasso.with(context).load(accountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-        txt_wallet_name.setText(accountWallet.getStr_data_walletName());
+        txt_wallet_name.setText(accountWallet.getAllCoins().getStr_coin_name());
 
         DecimalFormat rank = new DecimalFormat("0.00");
         DecimalFormat value = new DecimalFormat("0.00");

@@ -38,6 +38,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class TwoFAEnable1Activity extends AppCompatActivity {
 
     //    @BindView(R.id.)
@@ -59,6 +61,12 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
     String loginResponseMsg, loginResponseStatus, loginResponseData, twoFACode, tkn;
     ProgressDialog progressDialog;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +146,7 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
                                 txt_code.setText(twoFACode);
                                 String email = sharedPreferences.getString(CONSTANTS.email, "");
 //                                String email=sharedPreferences.getString(CONSTANTS.email,"");
-                                String query = /*URLEncoder.encode(*/"otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=DeviantX"/*, "utf-8")*/;
+                                String query = "otpauth://totp/" + URLEncoder.encode(email)+ "?secret=" + twoFACode + "&issuer=DeviantX";
 //                                Uri.parse(query);
                                 qrCodeGenerator(query, email, twoFACode, "&issuer=DeviantX");
 
@@ -193,10 +201,10 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
     private void qrCodeGenerator(String query, String email, String twoFACode, String dev) {
 //        https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{query}}
 //           QR Code Generator
-        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + /*Uri.encode(*/query/*)*/+"}}";
-        CommonUtilities.qrCodeGenerate(urlEncoded, img_qrcode, TwoFAEnable1Activity.this);
+//        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + /*Uri.encode(*/query/*)*/+"}}";
+//        CommonUtilities.qrCodeGenerate(urlEncoded, img_qrcode, TwoFAEnable1Activity.this);
 
-//        CommonUtilities.qrCodeGenerate(query, img_qrcode, TwoFAEnable1Activity.this);
+        CommonUtilities.qrCodeGenerate(query, img_qrcode, TwoFAEnable1Activity.this);
 
 //        String my_query = "http://otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=DeviantX";
 //        CommonUtilities.qrCodeGenerate(my_query, img_qrcode, TwoFAEnable1Activity.this);

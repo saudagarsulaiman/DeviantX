@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class TwoFAEnableActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -48,6 +50,15 @@ public class TwoFAEnableActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

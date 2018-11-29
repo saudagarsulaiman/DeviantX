@@ -16,6 +16,8 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class TwoFAEnable2Activity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_center_back)
@@ -29,6 +31,13 @@ public class TwoFAEnable2Activity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String twoFACode;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

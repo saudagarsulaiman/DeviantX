@@ -68,7 +68,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
     int int_data_id;
-    String str_data_txnHash, str_data_toAddress,str_data_category, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, str_data_cryptoWallet_address;
+    String str_data_txnHash, str_data_toAddress, str_data_category, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, str_data_cryptoWallet_address;
     Double dbl_data_coinValue, dbl_data_cryptoWallet_bal;
     AllCoins allCoins;
     int int_coin_id, int_coin_rank;
@@ -314,10 +314,24 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
                                             CryptoWallet cryptoWallet = new CryptoWallet(str_data_cryptoWallet_address, dbl_data_cryptoWallet_bal);
                                             AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m);
-                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue,str_data_category,allCoins, cryptoWallet));
+                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, str_data_category, allCoins, cryptoWallet));
                                         }
-                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions, selectedAccountWallet);
-                                        rview_trans_history.setAdapter(walletHistoryRAdapter);
+                                        ArrayList<Transaction> selectedCoinTransaction = new ArrayList<>();
+                                        for (int i = 0; i < transactions.size(); i++) {
+                                            if (selectedAccountWallet.getStr_data_address().equals(transactions.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
+                                                selectedCoinTransaction.add(transactions.get(i));
+                                            }
+                                        }
+                                        if (selectedCoinTransaction.size()>0){
+                                            walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, selectedCoinTransaction, selectedAccountWallet);
+                                            rview_trans_history.setAdapter(walletHistoryRAdapter);
+                                            lnr_trans_avail.setVisibility(View.VISIBLE);
+                                            lnr_no_trans.setVisibility(View.GONE);
+                                        }else {
+                                            lnr_no_trans.setVisibility(View.VISIBLE);
+                                            lnr_trans_avail.setVisibility(View.GONE);
+                                        }
+
                                     }
 
                                 } else {
