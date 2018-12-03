@@ -54,7 +54,7 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
         slogan = new ArrayList<>();
         icons = new ArrayList<>();
 
-        title.add("Exchange Coin Transfer");
+        title.add("Exchange");
         slogan.add("Transfer your coins from Exchanges.");
         icons.add(R.drawable.ic_tools);
 

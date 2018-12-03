@@ -89,6 +89,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:digits="@string/pswd"
                 android:id="@+id/edt_new_pswd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/def_edt_height"
@@ -204,6 +205,7 @@
 
             <EditText
                 android:id="@+id/edt_confirm_pswd"
+                android:digits="@string/pswd"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/def_edt_height"
                 android:layout_marginTop="@dimen/margin5"

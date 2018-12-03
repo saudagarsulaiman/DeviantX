@@ -136,7 +136,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));

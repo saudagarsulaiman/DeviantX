@@ -376,14 +376,14 @@ public class AppSettingsActivity extends AppCompatActivity {
 
     private void matchingPasswordText(String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
 //        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
 //            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
-            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_lgreen_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_gred_c2));

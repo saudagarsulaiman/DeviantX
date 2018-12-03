@@ -256,14 +256,14 @@ public final class CommonUtilities {
 
     public static void matchingPasswordText(Activity activity, String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
 //        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*]).*$")) {
             txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
 //            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
-            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*]).*$+")) {
                 txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_green_c2));
             } else {
                 txt_lower_case.setBackground(activity.getResources().getDrawable(R.drawable.rec_marred_c2));
@@ -369,7 +369,7 @@ public final class CommonUtilities {
 //    }
 
     public static String getValueFromSP(Context ctx, String Key) {
-        SharedPreferences sp = ctx.getSharedPreferences("config_info", 0);
+        SharedPreferences sp = ctx.getSharedPreferences("CommonPrefs", Context.MODE_PRIVATE);
         return sp.getString(Key, "");
     }
 
@@ -412,57 +412,6 @@ public final class CommonUtilities {
         bitmap.setPixels(pixels, 0, 500, 0, 0, w, h);
         return bitmap;
     }
-
-    public static Double getCoinUsdValue(String str_coin_code) {
-        Double result = 0.0;
-        switch (str_coin_code) {
-            case "BTC":
-                break;
-            case "BCH":
-                break;
-            case "ETH":
-                break;
-            case "DASH":
-                break;
-            case "LTC":
-                break;
-            case "ETC":
-                break;
-            case "ZEC":
-                break;
-            case "XRP":
-                break;
-            case "DOGE":
-                break;
-        }
-        return result;
-    }
-
-    public static Double getCoinValue(double userUsdValue, String str_coin_code, double str_coin_usdValue) {
-        Double result = 0.0;
-        switch (str_coin_code) {
-            case "BTC":
-                break;
-            case "BCH":
-                break;
-            case "ETH":
-                break;
-            case "DASH":
-                break;
-            case "LTC":
-                break;
-            case "ETC":
-                break;
-            case "ZEC":
-                break;
-            case "XRP":
-                break;
-            case "DOGE":
-                break;
-        }
-        return result;
-    }
-
 
     public static void copyToClipboard(Context context, String address, String str_coin_name) {
         int sdk = android.os.Build.VERSION.SDK_INT;

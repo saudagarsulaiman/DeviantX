@@ -2,6 +2,7 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -9,6 +10,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +122,28 @@ public class WelcomeActivity extends AppCompatActivity {
                 LinearLayout facebook_lnr_lyt = view.findViewById(R.id.facebook_lnr_lyt);
                 LinearLayout google_lnr_lyt = view.findViewById(R.id.google_lnr_lyt);
                 TextView login_txt = view.findViewById(R.id.login_txt);
+                TextView txt_tc = view.findViewById(R.id.txt_tc);
+                LinearLayout lnr_tc = view.findViewById(R.id.lnr_tc);
+
+
+                SpannableString spannableString = new SpannableString(getResources().getString(R.string.by_registering));
+
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                        lnr_tc.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(getResources().getColor(R.color.sky_blue1));
+                        textPaint.setUnderlineText(false);
+                    }
+                };
+                spannableString.setSpan(clickableSpan, spannableString.length() - 41, spannableString.length() - 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                txt_tc.setText(spannableString, TextView.BufferType.SPANNABLE);
+                txt_tc.setHighlightColor(Color.TRANSPARENT);
+                txt_tc.setMovementMethod(LinkMovementMethod.getInstance());
 
 //                Signing Up With Email
                 signup_email_btn.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +189,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    public class ViewPagerAdapter  extends FragmentPagerAdapter {
+    public class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 

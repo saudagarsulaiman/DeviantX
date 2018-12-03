@@ -128,6 +128,7 @@ public class TwoFAEnableActivity extends AppCompatActivity {
                             loginResponseStatus = jsonObject.getString("status");
                             if (loginResponseStatus.equals("true")) {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                myApplication.set2FA(true);
                                 editor.apply();
                                 Intent intent = new Intent(TwoFAEnableActivity.this, AppSettingsActivity.class);
                                 startActivity(intent);

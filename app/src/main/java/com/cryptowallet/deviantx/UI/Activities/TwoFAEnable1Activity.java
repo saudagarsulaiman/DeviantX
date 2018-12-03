@@ -108,7 +108,7 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                twoFACode = sharedPreferences.getString(CONSTANTS.twoFACode, null);
-                Intent intent = new Intent(TwoFAEnable1Activity.this, TwoFAEnable2Activity.class);
+                Intent intent = new Intent(TwoFAEnable1Activity.this, TwoFAEnableActivity.class);
                 startActivity(intent);
 //                finish();
             }

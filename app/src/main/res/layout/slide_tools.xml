@@ -35,7 +35,7 @@
             android:layout_gravity="left"
             android:layout_marginTop="@dimen/margin40"
             android:gravity="left"
-            android:text="@string/ect"
+            android:text="@string/exchange"
             android:textColor="@color/white"
             android:textSize="@dimen/def_ttl_size"
             android:textStyle="bold" />

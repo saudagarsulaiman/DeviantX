@@ -7,6 +7,8 @@
     <string name="lower_letters">abcdefghijklmnopqrstuvwxyz</string>
     <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digits">0123456789</string>
+    <string name="pswd">0123456789@#$%^&amp;+=!*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+
 
     <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>
 
@@ -255,7 +257,7 @@
     <string name="dev_private_key">DEV Private Key</string>
     <string name="derivation_path">Derivation Path (BIT32)</string>
     <string name="note_dev_share">Sharing  your public key will allow anybody to view your balance and transaction history</string>
-    <string name="insufficient_fund">Insufficient Fund</string>
+    <string name="insufficient_fund">Insufficient Funds</string>
     <string name="enter_amount">Please enter amount</string>
     <string name="res_not_found">Result not found</string>
     <string name="copied">Copied</string>
@@ -282,6 +284,7 @@
     <!--Tools Fragment-->
     <string name="new_tools">We are continuously implementing new tools!</string>
     <string name="ect">Exchange Coin Transfer</string>
+    <string name="exchange">Exchange</string>
     <string name="note_ect">Transfer your coins from exchanges.</string>
     <string name="select_ect">Select the exchange to transfer your coin</string>
     <string name="shapeshift_exchange">ShapeShift Exchange</string>
@@ -293,10 +296,10 @@
     <string name="privatekey">Private Key</string>
     <string name="signup_deviantx">Sign up for Deviant X</string>
     <string name="coming_soon">Coming Soon</string>
-    <string name="devx_tools">DeviantX Tools</string>
-    <string name="devx_wallet">DeviantX Wallet</string>
-    <string name="devx_airdrop">DeviantX Air Drop</string>
-    <string name="devx_coin_list">DeviantX Coin List</string>
+    <string name="devx_tools">Deviant X Tools</string>
+    <string name="devx_wallet">Deviant X Wallet</string>
+    <string name="devx_airdrop">Deviant X Airdrop</string>
+    <string name="devx_coin_list">Deviant X Coin List</string>
     <string name="cancelled">Cancelled</string>
     <string name="cam_per_failed">Camera Permissions are not granted.</string>
     <string name="backup_rec_phrase">Backup Recovery Phrase</string>
@@ -374,7 +377,7 @@
 
 
     <!--WalletList (AirDrop) Fragment-->
-    <string name="air_drop">Air Drop</string>
+    <string name="air_drop">Airdrop</string>
     <string name="reload">Reload</string>
 
 
@@ -399,7 +402,7 @@
     <string name="new_wallet">New Wallet</string>
     <string name="protect_pin">Protect with Pin</string>
     <string name="rename">Rename</string>
-    <string name="no_fav_avail">No Favourites Available</string>
+    <string name="no_fav_avail">No Favorites Available </string>
     <string name="primary_wallet">Primary Wallet</string>
 
 
@@ -440,7 +443,7 @@
     <string name="twofa">2FA</string>
     <string name="two_factor_auth">Two Factor Authentication</string>
     <string name="google_auth_code">Google Authentication Code</string>
-    <string name="note_g_code">Open Google Auth and enter the code here.</string>
+    <string name="note_g_code">Open Google Authenticator and enter the code here.</string>
     <string name="you_withdraw">You will withdraw</string>
     <string name="confirm_agree">You confirm that you agree to our</string>
 
@@ -459,7 +462,7 @@
     <string name="enable_2fa">Enable 2FA</string>
     <string name="login_pswd">Login Password</string>
     <string name="twofa_key">2FA Key</string>
-    <string name="note_backup_code">Enter your backup key (step 2).</string>
+    <string name="note_backup_code">Enter your backup key (step 1).</string>
     <string name="finish">Finish</string>
 
     <!--TwoFAAbleActivity-->

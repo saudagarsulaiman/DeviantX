@@ -238,10 +238,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/lnr_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin5"
                     android:background="@drawable/rec_lytblue_c5"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <EditText
@@ -283,7 +285,15 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/margin10"
                         android:backgroundTint="@color/white"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
+
+                    <com.yarolegovich.discretescrollview.DiscreteScrollView
+                        android:id="@+id/item_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/def_btn_height"
+                        android:layout_gravity="center"
+                        android:visibility="visible"/>
+
 
                 </LinearLayout>
 

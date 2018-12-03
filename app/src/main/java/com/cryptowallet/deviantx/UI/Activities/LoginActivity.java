@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent intent = new Intent(LoginActivity.this, AddPhraseActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+//                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     }
                                 } else {
                                     CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
@@ -286,7 +286,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.apply();
                                     Intent intent = new Intent(LoginActivity.this, SetUpWalletActivity.class);
                                     startActivity(intent);
-                                    CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+//                                    CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                 } else {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
@@ -294,12 +294,12 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+//                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     }else {
                                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+//                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     }
                                 }
 

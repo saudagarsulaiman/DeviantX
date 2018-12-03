@@ -608,6 +608,12 @@ public class AirDropFragment extends Fragment {
 
     private String getTime(String started) {
         try {
+          /*  int days = (int) (Long.parseLong(started) / 86400000);
+            if (days>1){
+                return days + " Days";
+            }else {
+                return days + " Day";
+            }*/
             return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
         } catch (Exception e) {
             // TODO Auto-generated catch block

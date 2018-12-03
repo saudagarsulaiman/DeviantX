@@ -49,9 +49,18 @@ public class MyApplication extends Application {
         is2FAactive = twoFA;
     }
 
+    public int getDefaultWallet() {
+        return defaultWallet;
+    }
+
+    public void setDefaultWallet(int dDefaultWallet) {
+        defaultWallet = dDefaultWallet;
+    }
+
     Boolean isHideBalance;
     Boolean is2FAactive;
     Boolean isScreenShot;
+    int defaultWallet;
 
     @Override
     public void onCreate() {
@@ -62,6 +71,7 @@ public class MyApplication extends Application {
         isHideBalance = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
+        defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
     }
 
     public void disableScreenCapture(Activity context) {
