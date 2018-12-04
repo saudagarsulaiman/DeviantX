@@ -249,8 +249,19 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     if (!amount.isEmpty()) {
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
-                            toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                            if (myApplication.get2FA()) {
+                                Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                Bundle bundle1 = new Bundle();
+                                bundle1.putString(CONSTANTS.walletName, walletName);
+                                bundle1.putString(CONSTANTS.address, null);
+                                bundle1.putString(CONSTANTS.amount, amount);
+                                bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                intent.putExtras(bundle1);
+                                startActivity(intent);
+                            } else {
+                                toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                            }
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
                         }
@@ -259,14 +270,25 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     }
 
                 } else {
-                    String edt_address = edt_wallet_address.getText().toString();
+                    String to_address = edt_wallet_address.getText().toString();
                     String amount = edt_amount.getText().toString();
-                    if (!edt_address.isEmpty()) {
+                    if (!to_address.isEmpty()) {
                         if (!amount.isEmpty()) {
                             float amt = Float.parseFloat(amount);
                             if (amt > 0) {
-                                toAddressDialog(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                if (myApplication.get2FA()) {
+                                    Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                    Bundle bundle1 = new Bundle();
+                                    bundle1.putString(CONSTANTS.walletName, null);
+                                    bundle1.putString(CONSTANTS.address, to_address);
+                                    bundle1.putString(CONSTANTS.amount, amount);
+                                    bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                    intent.putExtras(bundle1);
+                                    startActivity(intent);
+                                } else {
+                                    toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                            transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
+                                }
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
                             }
@@ -319,151 +341,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                 isEditAmount = b;
             }
         });
-    }
-
-    private void toAddressDialog(String edt_address, String amount, String str_data_ad_address, String str_coin_code) {
-        //                Creating A Custom Dialog Using DialogPlus
-        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
-        final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
-                .setContentHolder(viewHolder)
-                .setGravity(Gravity.BOTTOM)
-                .setCancelable(true)
-                .setInAnimation(R.anim.slide_in_bottom)
-                .setOutAnimation(R.anim.slide_out_bottom)
-                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .create();
-
-//                Initializing Widgets
-        View view = dialog.getHolderView();
-        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
-        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
-        TextView txt_withdraw_amt = view.findViewById(R.id.txt_withdraw_amt);
-        TextView txt_withdraw_amt_code = view.findViewById(R.id.txt_withdraw_amt_code);
-        TextView txt_fee_amt = view.findViewById(R.id.txt_fee_amt);
-        TextView txt_fee_amt_code = view.findViewById(R.id.txt_fee_amt_code);
-        TextView txt_address = view.findViewById(R.id.txt_address);
-        TextView txt_privacy_policy = view.findViewById(R.id.txt_privacy_policy);
-
-        txt_withdraw_amt.setText(amount);
-        txt_withdraw_amt_code.setText(str_coin_code);
-//        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
-        txt_fee_amt_code.setText(str_coin_code);
-        txt_address.setText(edt_address);
-/*
-        txt_privacy_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-*/
-
-        txt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        txt_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
-                dialog.dismiss();
-            }
-        });
-
-
-        dialog.show();
-    }
-
-    private void toWalletDialog(String walletName, String amount, String str_data_ad_address, String str_coin_code) {
-        //                Creating A Custom Dialog Using DialogPlus
-        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
-        final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
-                .setContentHolder(viewHolder)
-                .setGravity(Gravity.BOTTOM)
-                .setCancelable(true)
-                .setInAnimation(R.anim.slide_in_bottom)
-                .setOutAnimation(R.anim.slide_out_bottom)
-                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-                .create();
-
-//                Initializing Widgets
-        View view = dialog.getHolderView();
-        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
-        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
-        TextView txt_withdraw_amt = view.findViewById(R.id.txt_withdraw_amt);
-        TextView txt_withdraw_amt_code = view.findViewById(R.id.txt_withdraw_amt_code);
-        TextView txt_fee_amt = view.findViewById(R.id.txt_fee_amt);
-        TextView txt_fee_amt_code = view.findViewById(R.id.txt_fee_amt_code);
-        TextView txt_address = view.findViewById(R.id.txt_address);
-        TextView txt_privacy_policy = view.findViewById(R.id.txt_privacy_policy);
-
-
-        txt_withdraw_amt.setText(amount);
-        txt_withdraw_amt_code.setText(str_coin_code);
-//        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
-        txt_fee_amt_code.setText(str_coin_code);
-        txt_address.setText(getResources().getString(R.string.my_wallet) + " : " + walletName);
-
-        txt_privacy_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-        txt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        txt_confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
-                dialog.dismiss();
-            }
-        });
-
-
-        dialog.show();
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            mScannerLayout.setVisibility(View.VISIBLE);
-            mScannerView.setResultHandler(WithdrawFundsAirdropActivity.this); // Register ourselves as a handler for scan results.<br />
-            mScannerView.startCamera();
-        } else {
-            CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.cam_per_failed));
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    }
-
-    @Override
-    public void handleResult(Result result) {
-        edt_wallet_address.setText(result.getText());
-        mScannerLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mScannerLayout.getVisibility() == View.VISIBLE) {
-            mScannerLayout.setVisibility(View.GONE);
-            CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.cancelled));
-        } else
-            super.onBackPressed();
     }
 
     private void getAllWallets() {
@@ -573,17 +450,119 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     }
 
+    private void toAddressDialog(String edt_address, String amount, String str_data_ad_address, String str_coin_code) {
+        //                Creating A Custom Dialog Using DialogPlus
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
+        final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        walletName = parent.getItemAtPosition(position).toString();
-//        transferAmount(walletName);
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
+        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
+        TextView txt_withdraw_amt = view.findViewById(R.id.txt_withdraw_amt);
+        TextView txt_withdraw_amt_code = view.findViewById(R.id.txt_withdraw_amt_code);
+        TextView txt_fee_amt = view.findViewById(R.id.txt_fee_amt);
+        TextView txt_fee_amt_code = view.findViewById(R.id.txt_fee_amt_code);
+        TextView txt_address = view.findViewById(R.id.txt_address);
+        TextView txt_privacy_policy = view.findViewById(R.id.txt_privacy_policy);
+
+        txt_withdraw_amt.setText(amount);
+        txt_withdraw_amt_code.setText(str_coin_code);
+//        txt_fee_amt.setText(String.format("%.4f",));
+        txt_fee_amt.setText("0.001");
+        txt_fee_amt_code.setText(str_coin_code);
+        txt_address.setText(edt_address);
+/*
+        txt_privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+*/
+
+        txt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        txt_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    private void toWalletDialog(String walletName, String amount, String str_data_ad_address, String str_coin_code) {
+        //                Creating A Custom Dialog Using DialogPlus
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
+        final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
 
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
+        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
+        TextView txt_withdraw_amt = view.findViewById(R.id.txt_withdraw_amt);
+        TextView txt_withdraw_amt_code = view.findViewById(R.id.txt_withdraw_amt_code);
+        TextView txt_fee_amt = view.findViewById(R.id.txt_fee_amt);
+        TextView txt_fee_amt_code = view.findViewById(R.id.txt_fee_amt_code);
+        TextView txt_address = view.findViewById(R.id.txt_address);
+        TextView txt_privacy_policy = view.findViewById(R.id.txt_privacy_policy);
+
+
+        txt_withdraw_amt.setText(amount);
+        txt_withdraw_amt_code.setText(str_coin_code);
+//        txt_fee_amt.setText(String.format("%.4f",));
+        txt_fee_amt.setText("0.001");
+        txt_fee_amt_code.setText(str_coin_code);
+        txt_address.setText(walletName);
+
+        txt_privacy_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        txt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        txt_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
     }
 
     private void transferAmountToAddress(String edt_address, String amount, String walletAddress) {
@@ -615,14 +594,13 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
-/*
-                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.login_success));
+//                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.login_success));
                                 Intent intent = new Intent(WithdrawFundsAirdropActivity.this, DashBoardActivity.class);
+                                intent.putExtra(CONSTANTS.seletedTab, 2);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-*/
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
-                                onBackPressed();
+//                                onBackPressed();
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
@@ -696,14 +674,13 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
-/*
-                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.login_success));
+//                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.login_success));
                                 Intent intent = new Intent(WithdrawFundsAirdropActivity.this, DashBoardActivity.class);
+                                intent.putExtra(CONSTANTS.seletedTab, 2);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-*/
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
-                                onBackPressed();
+//                                onBackPressed();
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
@@ -748,6 +725,49 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            mScannerLayout.setVisibility(View.VISIBLE);
+            mScannerView.setResultHandler(WithdrawFundsAirdropActivity.this); // Register ourselves as a handler for scan results.<br />
+            mScannerView.startCamera();
+        } else {
+            CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.cam_per_failed));
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        edt_wallet_address.setText(result.getText());
+        mScannerLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mScannerLayout.getVisibility() == View.VISIBLE) {
+            mScannerLayout.setVisibility(View.GONE);
+            CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.cancelled));
+        } else
+            super.onBackPressed();
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        walletName = parent.getItemAtPosition(position).toString();
+//        transferAmount(walletName);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+
+    @Override
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
         if (adapterPosition > -1) {
             walletName = walletList.get(adapterPosition).getStr_data_name();
@@ -768,4 +788,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         }
 */
     }
+
+
 }

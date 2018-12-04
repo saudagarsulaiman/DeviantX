@@ -561,18 +561,15 @@ public class AirDropFragment extends Fragment {
                                     txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getStartDate()) + "%");
                                 }
 
-//                                seekbar_per.setProgress(95);
-//                                txt_seekbar_per.setText(+"%");
-
-                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
-                                    txt_coin_address.setText("To " + airdropWalletlist.get(0).getStr_data_ad_address());
-                                } else {
-                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
-                                    String dummy = "{...}";
-                                    String first_half = String.format("%.7s", address);
-                                    String second_half = address.substring(address.length() - 7);
-                                    txt_coin_address.setText(first_half + dummy + second_half);
-                                }
+//                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
+                                    txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+//                                } else {
+//                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
+//                                    String dummy = "{...}";
+//                                    String first_half = String.format("%.7s", address);
+//                                    String second_half = address.substring(address.length() - 7);
+//                                    txt_coin_address.setText(first_half + dummy + second_half);
+//                                }
 
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

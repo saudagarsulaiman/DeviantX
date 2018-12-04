@@ -348,6 +348,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 //                                        .setMinScale(0.8f)
 //                                        .build());
 //                                onItemChanged(walletList.get(defaultWalletPos));
+                                walletListRAdapter.notifyDataSetChanged();
 
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -659,6 +660,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     lnr_no_fav_avail.setVisibility(View.GONE);
                                     myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
                                     rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+                                    myWalletCoinsRAdapter.notifyDataSetChanged();
                                 }
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);

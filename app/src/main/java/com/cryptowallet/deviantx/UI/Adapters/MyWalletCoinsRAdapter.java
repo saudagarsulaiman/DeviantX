@@ -142,7 +142,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
         if (accountWalletlist.get(i).getResponseList().size() == 0) {
             coinCartData(i, accountWalletlist.get(i).getAllCoins(), viewHolder.graph);
-            viewHolder.pb.setVisibility(View.VISIBLE);
+            viewHolder.pb.setVisibility(View.GONE);
         } else {
             viewHolder.pb.setVisibility(View.GONE);
             setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph, accountWalletlist.get(i).getHighValue());
@@ -222,6 +222,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                 if (pos >= 0) {
                     accountWalletlist.get(pos).setResponseList(responseList);
                     accountWalletlist.get(pos).setHighValue(hisghValue);
+                    setChartData(responseList, graph, hisghValue);
                 } else {
                     //setChart(graph);
                     setChartData(responseList, graph, hisghValue);

@@ -32,6 +32,7 @@ import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.CustomViewPager;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -64,7 +65,7 @@ public class DashBoardActivity extends AppCompatActivity {
     TextView txt_btm_nav_lbl;
     @Nullable
     @BindView(R.id.view_pager)
-    ViewPager mViewPager;
+    CustomViewPager mViewPager;
     @Nullable
     @BindView(R.id.tool_nav)
     Toolbar toolbar_nav;
@@ -190,6 +191,7 @@ public class DashBoardActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        mViewPager.setPagingEnabled(false);
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
@@ -201,8 +203,8 @@ public class DashBoardActivity extends AppCompatActivity {
 //        Fragments Replacements
         // loadFragment(new DashboardFragment());
         img_tlbr_search.setVisibility(View.GONE);
-        setupViewPager(mViewPager);
         initMagicIndicator();
+        setupViewPager(mViewPager);
 //        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
 
@@ -296,6 +298,8 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter.addFragment(new AirDropFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
+        int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
+        viewPager.setCurrentItem(selectedTab);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {

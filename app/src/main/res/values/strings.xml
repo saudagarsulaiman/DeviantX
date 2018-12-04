@@ -473,6 +473,7 @@
     <string name="empty_google_auth_code">Google Auth Code can not be empty</string>
     <string name="empty_address">Address cannot be empty</string>
     <string name="empty_amount">Amount cannot be empty</string>
+    <string name="invalid_code">Invalid Code</string>
 
 
 </resources>

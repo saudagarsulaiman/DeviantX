@@ -44,7 +44,8 @@
                     android:layout_width="@dimen/width25"
                     android:layout_height="@dimen/height25"
                     android:layout_gravity="center"
-                    android:src="@drawable/one" />
+                    android:src="@drawable/one"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:layout_width="wrap_content"

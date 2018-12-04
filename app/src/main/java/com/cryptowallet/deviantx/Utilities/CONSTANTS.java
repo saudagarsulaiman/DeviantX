@@ -26,12 +26,16 @@ public class CONSTANTS {
     public static String seed = "SEED"; // Accound Seed (Recovery Phrase)
     public static String selectedCoin = "SELECTEDCOIN"; // Selected coin from ALL COINS   @ ExploreCoinsRAdapter
     public static String selectedWalletCoin = "SELECTEDWALLETCOIN"; // Selected coin from ALL COINS   @ ExploreCoinsRAdapter
-    public static String empty_wallet="EMPTYWALLET";
-    public static String selectedWallet="SELECTEDWALLET";
-    public static String first_wallet="FIRSTWALLET";//First Time Wallet Creation
-    public static String twoFactorAuth="TWOFACTORAUTHENTICATION";    //Two Factor Authentication
-    public static String twoFACode="2FACODE";
-    public static String defaultWallet="DEFAULTWALLET"; //Default Wallet
+    public static String empty_wallet = "EMPTYWALLET";
+    public static String selectedWallet = "SELECTEDWALLET";
+    public static String first_wallet = "FIRSTWALLET";//First Time Wallet Creation
+    public static String twoFactorAuth = "TWOFACTORAUTHENTICATION";    //Two Factor Authentication
+    public static String twoFACode = "2FACODE";
+    public static String defaultWallet = "DEFAULTWALLET"; //Default Wallet
+    public static String seletedTab = "SELECTEDTAB";
+    public static String amount = "AMOUNT";
+    public static String address = "ADDRESS";
+    public static String coinCode="COINCODE";
 
 
 //    //    Selected Account Wallet Details

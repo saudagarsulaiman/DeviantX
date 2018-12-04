@@ -117,13 +117,13 @@ public class LoginActivity extends AppCompatActivity {
         if (!s_email.isEmpty()) {
             if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$") && s_email.length() >= 8) {
                 if (!s_pswd.isEmpty()) {
-                    if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
+//                    if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
                         loggingInAccount(s_email, s_pswd);
                         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    } else {
-                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.invalid_pswd));
-                    }
+//                    } else {
+//                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.invalid_pswd));
+//                    }
                 } else {
                     CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.empty_pswd));
                 }
@@ -290,17 +290,18 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
-                                    if (myApplication.get2FA()){
+                                    get2FAstatus();
+                                  /*  if (myApplication.get2FA()) {
                                         Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
 //                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
-                                    }else {
+                                    } else {
                                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
 //                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
-                                    }
+                                    }*/
                                 }
 
                             } else {
@@ -347,6 +348,87 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void get2FAstatus() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(LoginActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.get2FAStatus(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (loginResponseData.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.apply();
+                                    Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void ShowTokenDialog() {
