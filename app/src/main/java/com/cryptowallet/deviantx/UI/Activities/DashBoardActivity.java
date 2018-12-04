@@ -145,9 +145,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_tools, R.drawable.selector_btm_nav_airdrop/*, R.drawable.selector_btm_nav_acc_list*/};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_tools, R.string.devx_airdrop};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_tools, R.string.devx_airdrop};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -293,8 +293,8 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
         adapter.addFragment(new ExploreCoinsFragment(), "");
-        adapter.addFragment(new ToolsFragment(), "");
         adapter.addFragment(new AirDropFragment(), "");
+        adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

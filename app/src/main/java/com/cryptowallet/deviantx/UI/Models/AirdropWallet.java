@@ -6,7 +6,7 @@ import android.os.Parcelable;
 public class AirdropWallet implements Parcelable {
 
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
-    String timestamp, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
+    String startDate, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
             str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume,
             dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
@@ -16,7 +16,7 @@ public class AirdropWallet implements Parcelable {
         int_ad_data_id = in.readInt();
         int_ad_coin_id = in.readInt();
         int_ad_coin_rank = in.readInt();
-        timestamp = in.readString();
+        startDate = in.readString();
         str_data_ad_address = in.readString();
         str_data_ad_privatekey = in.readString();
         str_data_ad_passcode = in.readString();
@@ -74,7 +74,7 @@ public class AirdropWallet implements Parcelable {
         dest.writeInt(int_ad_data_id);
         dest.writeInt(int_ad_coin_id);
         dest.writeInt(int_ad_coin_rank);
-        dest.writeString(timestamp);
+        dest.writeString(startDate);
         dest.writeString(str_data_ad_address);
         dest.writeString(str_data_ad_privatekey);
         dest.writeString(str_data_ad_passcode);
@@ -152,12 +152,12 @@ public class AirdropWallet implements Parcelable {
         }
     };
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public int getInt_ad_data_id() {
@@ -328,8 +328,8 @@ public class AirdropWallet implements Parcelable {
         this.allCoins = allCoins;
     }
 
-    public AirdropWallet(String timestamp, int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, AllCoins allCoins) {
-        this.timestamp = timestamp;
+    public AirdropWallet(String startDate, int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, AllCoins allCoins) {
+        this.startDate = startDate;
         this.int_ad_data_id = int_ad_data_id;
         this.str_data_ad_address = str_data_ad_address;
         this.str_data_ad_privatekey = str_data_ad_privatekey;

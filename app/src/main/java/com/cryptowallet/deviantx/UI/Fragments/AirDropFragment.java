@@ -112,7 +112,7 @@ public class AirDropFragment extends Fragment {
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
     String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
-    String timestamp;
+    String startDate;
 
     @Override
     public void onResume() {
@@ -138,8 +138,11 @@ public class AirDropFragment extends Fragment {
         layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
 
+
         seekbar_per.setEnabled(false);
 //        seekbar_per.setProgress(95);
+//        txt_seekbar_per.setText("0%");
+
 
 //        featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
 //        rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
@@ -456,9 +459,9 @@ public class AirDropFragment extends Fragment {
                                         e.printStackTrace();
                                     }
                                     try {
-                                        timestamp = jsonObjectData.getString("airdropStartDate");
-                                       /* if (timestamp.equals("null")) {
-                                            timestamp = "0";
+                                        startDate = jsonObjectData.getString("airdropStartDate");
+                                       /* if (startDate.equals("null")) {
+                                            startDate = "0";
                                         }*/
 
                                     } catch (Exception e) {
@@ -539,7 +542,7 @@ public class AirDropFragment extends Fragment {
                                     }
                                     AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
                                             int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, str_ad_coin_chart_data);
-                                    airdropWalletlist.add(new AirdropWallet(timestamp, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
+                                    airdropWalletlist.add(new AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
                                             str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
                                             str_data_ad_account, allCoins));
                                 }
@@ -547,11 +550,20 @@ public class AirDropFragment extends Fragment {
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
                                 txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
                                 txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
-                                if (airdropWalletlist.get(0).getTimestamp().equals("null")) {
-                                    txt_holding_days.setText("0");
+
+                                if (airdropWalletlist.get(0).getStartDate().equals("null")) {
+                                    txt_holding_days.setText("0 Days");
+                                    seekbar_per.setProgress(0);
+                                    txt_seekbar_per.setText("0" + "%");
                                 } else {
-                                    txt_holding_days.setText(getTime(airdropWalletlist.get(0).getTimestamp()));
+                                    txt_holding_days.setText(getDays(airdropWalletlist.get(0).getStartDate()));
+                                    seekbar_per.setProgress(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getStartDate()));
+                                    txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getStartDate()) + "%");
                                 }
+
+//                                seekbar_per.setProgress(95);
+//                                txt_seekbar_per.setText(+"%");
+
                                 if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
                                     txt_coin_address.setText("To " + airdropWalletlist.get(0).getStr_data_ad_address());
                                 } else {
@@ -606,15 +618,34 @@ public class AirDropFragment extends Fragment {
 
     }
 
-    private String getTime(String started) {
+    private int getDaysPer(String startDate, String endDate) {
+        int result = 0;
+
+        endDate = "1551378600000";  // endDate = 1551378600000 = 01/03/2019
+        long start = Long.parseLong(startDate);
+        long end = Long.parseLong(endDate);
+        long totalDiff = end - start;
+        long currentDiff = System.currentTimeMillis() - start;
+
+        int totalDays = (int) (totalDiff / 86400000);
+        int currentDays = (int) (currentDiff / 86400000);
+
+        result = (currentDays * totalDays) / 100;
+
+        return result;
+    }
+
+    private String getDays(String started) {
         try {
-          /*  int days = (int) (Long.parseLong(started) / 86400000);
-            if (days>1){
+            long time = System.currentTimeMillis();
+            long diff = time - Long.parseLong(started);
+            int days = (int) (diff / 86400000);     //86400000 = 1000 * 60 * 60 * 24;
+            if (days > 1) {
                 return days + " Days";
-            }else {
+            } else {
                 return days + " Day";
-            }*/
-            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
+            }
+//            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

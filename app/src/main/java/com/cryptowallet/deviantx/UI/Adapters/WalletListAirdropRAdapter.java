@@ -47,8 +47,8 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
             viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
             viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal1_gradient_c2));
         } else {
-            viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.black));
-            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_white));
+            viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
+            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
         }
 
     }
