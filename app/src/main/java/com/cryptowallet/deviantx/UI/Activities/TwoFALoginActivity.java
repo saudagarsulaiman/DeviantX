@@ -97,7 +97,7 @@ public class TwoFALoginActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(TwoFALoginActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(TwoFALoginActivity.this, "", getResources().getString(R.string.please_wait), true);
             AuthenticationApi apiService = DeviantXApiClient.getClient().create(AuthenticationApi.class);
             Call<ResponseBody> apiResponse = apiService.Login2FA(params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -114,12 +114,16 @@ public class TwoFALoginActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
+                                editor.putBoolean(CONSTANTS.login2FA, true);
+                                editor.apply();
                                 CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.login_success));
                                 Intent intent = new Intent(TwoFALoginActivity.this, DashBoardActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
+                                editor.putBoolean(CONSTANTS.login2FA, false);
+                                editor.apply();
                                 CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, regResponseMsg);
                             }
                         } else {
@@ -159,7 +163,6 @@ public class TwoFALoginActivity extends AppCompatActivity {
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
 }

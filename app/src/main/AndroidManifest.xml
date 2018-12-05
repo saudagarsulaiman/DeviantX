@@ -16,7 +16,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Activities.SplashScreenActivity">
+        <activity
+            android:name=".UI.Activities.SplashScreenActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,66 +39,130 @@
         </activity>
         <activity
             android:name=".UI.Activities.DashBoardActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/DashBoardTheme" />
-        <activity android:name=".UI.Activities.WelcomeActivity" />
+        <activity
+            android:name=".UI.Activities.WelcomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.SignUpEmailActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.Activities.SetUpWalletActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.Activities.LoginActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.Activities.AccountRecoveryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.WalletListActivity" />
-        <activity android:name=".UI.Activities.AppSettingsActivity" />
-        <activity android:name=".UI.Activities.DeviantXActivity" />
+        <activity
+            android:name=".UI.Activities.WalletListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.AppSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.DeviantXActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.AddCoinsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.HelpActivity" />
+        <activity
+            android:name=".UI.Activities.HelpActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.SearchActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.SendCoinActivity" />
-        <activity android:name=".UI.Activities.ReceiveCoinActivity" />
-        <activity android:name=".UI.Activities.CoinInformationActivity" />
-        <activity android:name=".UI.Activities.WalletOptionsActivity" />
-        <activity android:name=".UI.Activities.WalletDetailsActivity" />
+        <activity
+            android:name=".UI.Activities.SendCoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ReceiveCoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.CoinInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.WalletOptionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.WalletDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.WalletHistoryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.Activities.RecoveryConfirmActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.ShapeShiftActivity" />
-        <activity android:name=".UI.Activities.ECTActivity" />
-        <activity android:name=".UI.Activities.ChangellyActivity" />
-        <activity android:name=".UI.Activities.AddPhraseActivity" />
-        <activity android:name=".UI.Activities.ConfirmPhraseActivity" />
-        <activity android:name=".UI.Activities.SeedRecoveryActivity" />
+        <activity
+            android:name=".UI.Activities.ShapeShiftActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ECTActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ChangellyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.AddPhraseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ConfirmPhraseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.SeedRecoveryActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.ExploreCoinsActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.EditWalletActivity" />
+        <activity
+            android:name=".UI.Activities.EditWalletActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.FeaturedADAcivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.Activities.RecentADHistoryAcivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.CoinInfoADAcivity" />
-        <activity android:name=".UI.Activities.WithdrawFundsAirdropActivity" />
-        <activity android:name=".UI.Activities.TwoFAAirDropActivity" />
-        <activity android:name=".UI.Activities.ConfigWalletAirdropActivity" />
-        <activity android:name=".UI.Activities.TwoFAEnable1Activity" />
-        <activity android:name=".UI.Activities.TwoFAEnable2Activity" />
-        <activity android:name=".UI.Activities.TwoFAEnableActivity" />
-        <activity android:name=".UI.Activities.TwoFAAbleActivity" />
-        <activity android:name=".UI.Activities.TwoFALoginActivity"></activity>
+        <activity
+            android:name=".UI.Activities.CoinInfoADAcivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.WithdrawFundsAirdropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFAAirDropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ConfigWalletAirdropActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFAEnable1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFAEnable2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFAEnableActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFAAbleActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFALoginActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

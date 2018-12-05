@@ -92,8 +92,8 @@
         android:id="@+id/item_picker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin10"
-        android:layout_marginTop="@dimen/margin60" />
+        android:layout_marginTop="@dimen/marginNew"
+        android:layout_marginBottom="@dimen/margin10" />
 
 
 </LinearLayout>

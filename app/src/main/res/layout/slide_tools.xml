@@ -7,9 +7,10 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_alignParentBottom="true"
         android:id="@+id/lnr_tools_ect"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:background="@drawable/rec_brinjal_gradient"

@@ -119,7 +119,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, "", getResources().getString(R.string.please_wait), true);
             AuthenticationApi apiService = DeviantXApiClient.getClient().create(AuthenticationApi.class);
             Call<ResponseBody> apiResponse = apiService.Login2FA(params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -136,11 +136,11 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
-
                                 if (walletName.isEmpty())
                                     toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
                                 else
                                     toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+
 
                             } else {
                                 CommonUtilities.ShowToastMessage(TwoFAAirDropActivity.this, regResponseMsg);
@@ -254,7 +254,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.transferToAddress(params.toString(), "DEVIANTMULTI " + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -393,7 +393,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.transferToWallet(params.toString(), "DEVIANTMULTI " + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {

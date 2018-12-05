@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
@@ -80,7 +81,6 @@ public class AppSettingsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,21 +93,36 @@ public class AppSettingsActivity extends AppCompatActivity {
 
         tkn = sharedPreferences.getString(CONSTANTS.token, "");
 
-        if (myApplication.getHideBalance())
+        if (myApplication.getHideBalance()) {
             scompat_hide_bal.setChecked(true);
-        else
+            scompat_hide_bal.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_hide_bal.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        } else {
+            scompat_hide_bal.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
             scompat_hide_bal.setChecked(false);
+            scompat_hide_bal.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+        }
 
-        if (myApplication.getScreenShot())
+
+        if (myApplication.getScreenShot()) {
             scompat_privacy.setChecked(true);
-        else
+            scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        } else {
+            scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+            scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
             scompat_privacy.setChecked(false);
+        }
 
         if (myApplication.get2FA()) {
             scompat_2fa.setChecked(true);
+            scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             txt_2FA_status.setText(getResources().getString(R.string.active));
         } else {
+            scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
             scompat_2fa.setChecked(false);
+            scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
             txt_2FA_status.setText(getResources().getString(R.string.inactive));
         }
 
@@ -136,11 +151,15 @@ public class AppSettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    scompat_hide_bal.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                    scompat_hide_bal.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                     editor.putBoolean(CONSTANTS.hideBal, true);
                     editor.apply();
                     myApplication.setHideBalance(true);
                     CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.hide_bal_active));
                 } else {
+                    scompat_hide_bal.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_hide_bal.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                     editor.putBoolean(CONSTANTS.hideBal, false);
                     editor.apply();
                     myApplication.setHideBalance(false);
@@ -153,12 +172,16 @@ public class AppSettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                    scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                     editor.putBoolean(CONSTANTS.screenshot, true);
                     editor.apply();
                     myApplication.setScreenShot(true);
                     onResume();
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_active));
                 } else {
+                    scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                     editor.putBoolean(CONSTANTS.screenshot, false);
                     editor.apply();
                     myApplication.setScreenShot(false);
@@ -182,6 +205,8 @@ public class AppSettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
                 startActivity(intent);
                 if (isChecked) {
+                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
 //                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
 //                    editor.apply();
 //                    myApplication.set2FA(true);
@@ -189,6 +214,8 @@ public class AppSettingsActivity extends AppCompatActivity {
 //                    txt_2FA_status.setText(getResources().getString(R.string.active));
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_active));
                 } else {
+                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
 //                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
 //                    editor.apply();
 //                    myApplication.set2FA(false);
@@ -205,10 +232,14 @@ public class AppSettingsActivity extends AppCompatActivity {
                 if (isChecked) {
                     editor.putBoolean(CONSTANTS.lightmode, true);
                     editor.apply();
+                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_active));
                 } else {
                     editor.putBoolean(CONSTANTS.lightmode, false);
                     editor.apply();
+                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_inactive));
                 }
             }

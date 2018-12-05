@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
@@ -74,7 +75,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin10"
                     android:layout_marginLeft="@dimen/margin10"
-                    android:layout_weight="1.9"
+                    android:layout_weight="2.2"
                     android:text="@string/light_mode"
                     android:textColor="@color/white"
                     android:textSize="@dimen/def_text_size"
@@ -169,9 +170,11 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_marginLeft="@dimen/margin5"
+                    android:layout_marginEnd="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
                     android:layout_marginStart="@dimen/margin5"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.9"
+                    android:layout_weight="2.2"
                     android:orientation="vertical">
 
                     <TextView
@@ -198,7 +201,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
+                    android:background="@drawable/rec_white_trans_c16"
+                    android:layout_weight="0.5"
                     android:theme="@style/SwitchStyle" />
 
             </LinearLayout>
@@ -225,8 +229,10 @@
                     android:layout_width="0dp"
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_marginStart="@dimen/margin5"
+                    android:layout_marginEnd="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.9"
+                    android:layout_weight="2.2"
                     android:orientation="vertical">
 
                     <TextView
@@ -250,9 +256,10 @@
                 <android.support.v7.widget.SwitchCompat
                     android:id="@+id/scompat_hide_bal"
                     android:layout_width="0dp"
+                    android:background="@drawable/rec_white_trans_c16"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.5"
                     android:theme="@style/SwitchStyle" />
 
             </LinearLayout>
@@ -325,11 +332,13 @@
 
                 <LinearLayout
                     android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
                     android:layout_width="0dp"
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_marginStart="@dimen/margin5"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.9"
+                    android:layout_weight="2.2"
                     android:orientation="vertical">
 
                     <TextView
@@ -355,8 +364,9 @@
                     android:id="@+id/scompat_2fa"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/rec_white_trans_c16"
                     android:layout_gravity="center"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.5"
                     android:theme="@style/SwitchStyle" />
 
             </LinearLayout>

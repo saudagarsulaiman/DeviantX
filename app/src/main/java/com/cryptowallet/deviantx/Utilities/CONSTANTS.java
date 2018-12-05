@@ -36,6 +36,8 @@ public class CONSTANTS {
     public static String amount = "AMOUNT";
     public static String address = "ADDRESS";
     public static String coinCode="COINCODE";
+    public static String check="CHECK";
+    public static String login2FA="2FALOGIN";
 
 
 //    //    Selected Account Wallet Details

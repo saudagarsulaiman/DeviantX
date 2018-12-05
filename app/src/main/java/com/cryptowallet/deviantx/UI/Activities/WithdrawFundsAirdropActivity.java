@@ -178,15 +178,20 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         airdropWalletlist = bundle.getParcelableArrayList(CONSTANTS.selectedAccountWallet);
         txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
 
+
         if (cbox_wallet.isChecked()) {
             spnr_wallets.setVisibility(View.GONE);
-//            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_grey2_white));
+            editor.putBoolean(CONSTANTS.check, true);
+            editor.apply();
+            //            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_grey2_white));
 //            spnr_wallets.setVisibility(View.VISIBLE);
             itemPicker.setVisibility(View.VISIBLE);
             edt_wallet_address.setVisibility(View.GONE);
             img_scanner.setVisibility(View.GONE);
         } else {
-//            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
+            editor.putBoolean(CONSTANTS.check, false);
+            editor.apply();
+            //            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
             itemPicker.setVisibility(View.GONE);
             spnr_wallets.setVisibility(View.GONE);
             edt_wallet_address.setVisibility(View.VISIBLE);
@@ -197,14 +202,18 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-//                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_grey2_white));
+                    editor.putBoolean(CONSTANTS.check, true);
+                    editor.apply();
+                    //                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_grey2_white));
                     spnr_wallets.setVisibility(View.GONE);
 //                    spnr_wallets.setVisibility(View.VISIBLE);
                     itemPicker.setVisibility(View.VISIBLE);
                     edt_wallet_address.setVisibility(View.GONE);
                     img_scanner.setVisibility(View.GONE);
                 } else {
-//                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
+                    editor.putBoolean(CONSTANTS.check, false);
+                    editor.apply();
+                    //                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
                     itemPicker.setVisibility(View.GONE);
                     spnr_wallets.setVisibility(View.GONE);
                     edt_wallet_address.setVisibility(View.VISIBLE);
@@ -253,7 +262,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
                                 Bundle bundle1 = new Bundle();
                                 bundle1.putString(CONSTANTS.walletName, walletName);
-                                bundle1.putString(CONSTANTS.address, null);
+                                bundle1.putString(CONSTANTS.address, "");
                                 bundle1.putString(CONSTANTS.amount, amount);
                                 bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
                                 intent.putExtras(bundle1);
@@ -279,7 +288,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 if (myApplication.get2FA()) {
                                     Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
                                     Bundle bundle1 = new Bundle();
-                                    bundle1.putString(CONSTANTS.walletName, null);
+                                    bundle1.putString(CONSTANTS.walletName, "");
                                     bundle1.putString(CONSTANTS.address, to_address);
                                     bundle1.putString(CONSTANTS.amount, amount);
                                     bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
@@ -577,7 +586,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(WithdrawFundsAirdropActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(WithdrawFundsAirdropActivity.this, "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.transferToAddress(params.toString(), "DEVIANTMULTI " + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -657,7 +666,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(WithdrawFundsAirdropActivity.this, " ", getResources().getString(R.string.please_wait), true);
+            progressDialog = ProgressDialog.show(WithdrawFundsAirdropActivity.this, "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.transferToWallet(params.toString(), "DEVIANTMULTI " + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
