@@ -43,7 +43,7 @@
     <string name="empty_conf_pswd"> Confirm password should not be empty!</string>
     <string name="unmatch_conf_pswd">Confirm password does not match</string>
     <string name="center_address">\t\tAddress</string>
-    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t \t \t Search</string>
+    <string name="center_search">\u0009 \u0009 \t \t \u0009 \u0009 \t \t Search</string>
 
 
     <!--Welcome Activity-->

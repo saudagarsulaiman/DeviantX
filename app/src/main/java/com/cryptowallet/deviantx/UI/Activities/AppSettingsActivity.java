@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -205,8 +206,8 @@ public class AppSettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
                 startActivity(intent);
                 if (isChecked) {
-                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
 //                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
 //                    editor.apply();
 //                    myApplication.set2FA(true);
@@ -214,8 +215,8 @@ public class AppSettingsActivity extends AppCompatActivity {
 //                    txt_2FA_status.setText(getResources().getString(R.string.active));
 //                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_active));
                 } else {
-                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
 //                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
 //                    editor.apply();
 //                    myApplication.set2FA(false);
@@ -367,7 +368,10 @@ public class AppSettingsActivity extends AppCompatActivity {
         final TextView txt_number = view.findViewById(R.id.txt_number);
         final TextView txt_chars = view.findViewById(R.id.txt_chars);
         final EditText edt_confirm_pswd = view.findViewById(R.id.edt_confirm_pswd);
+        final ImageView img_center_back = view.findViewById(R.id.img_center_back);
+
         Button btn_change_pswd = view.findViewById(R.id.btn_change_pswd);
+
 
         edt_new_pswd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -396,6 +400,12 @@ public class AppSettingsActivity extends AppCompatActivity {
                 String conf_pswd = edt_confirm_pswd.getText().toString();
                 CheckingInputs(tkn, old_pswd, new_pswd, conf_pswd);
 //                dialog.dismiss();
+            }
+        });
+        img_center_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
 
