@@ -1,5 +1,7 @@
 package com.cryptowallet.deviantx.UI.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,10 +10,13 @@ import com.cryptowallet.trendchart.DateValue;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName = "account_wallet_table")
 public class AccountWallet implements Parcelable {
 
+    @PrimaryKey
+    String str_data_walletName;
     int int_data_id;
-    String str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode, str_data_account;
+    String str_data_address, str_data_privatekey, str_data_passcode, str_data_account;
     Double str_data_balance, str_data_balanceInUSD, str_data_balanceInINR;
     AllCoins allCoins;
 
@@ -35,7 +40,7 @@ public class AccountWallet implements Parcelable {
         return CREATOR;
     }
 
-    Double highValue=0.0;
+    Double highValue = 0.0;
 
     protected AccountWallet(Parcel in) {
         int_data_id = in.readInt();
@@ -82,7 +87,7 @@ public class AccountWallet implements Parcelable {
         this.responseList = responseList;
     }
 
-    List<DateValue> responseList=new ArrayList<>();
+    List<DateValue> responseList = new ArrayList<>();
 
     public AccountWallet(int int_data_id, String str_data_address, String str_data_walletName, String str_data_privatekey, String str_data_passcode, Double str_data_balance, Double str_data_balanceInUSD, Double str_data_balanceInINR, String str_data_account, AllCoins allCoins) {
         this.int_data_id = int_data_id;
@@ -100,10 +105,6 @@ public class AccountWallet implements Parcelable {
     public AccountWallet() {
 
     }
-
-
-
-
 
 
     public int getStr_data_id() {

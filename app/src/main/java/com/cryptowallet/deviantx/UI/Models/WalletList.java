@@ -1,5 +1,7 @@
 package com.cryptowallet.deviantx.UI.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,9 +11,12 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
+@Entity(tableName = "wallet_list_table")
 public class WalletList implements Parcelable {
     int int_data_id;
     double dbl_data_totalBal;
+
+    @PrimaryKey
     String str_data_name;
 
 

@@ -1,13 +1,19 @@
 package com.cryptowallet.deviantx.UI.Models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity(tableName = "airdrop_wallet_coins_table")
 public class AirdropWallet implements Parcelable {
+
+    @PrimaryKey
+    String str_ad_coin_code;
 
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
     String startDate, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
-            str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
+            str_data_ad_coin, str_ad_coin_name, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume,
             dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     AllCoins allCoins;
