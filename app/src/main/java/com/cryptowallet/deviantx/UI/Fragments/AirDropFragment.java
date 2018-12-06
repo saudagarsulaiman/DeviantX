@@ -12,7 +12,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -39,15 +41,22 @@ import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.google.android.gms.vision.clearcut.LogUtils;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuPopup;
+import com.shehabic.droppy.animations.DroppyScaleAnimation;
 import com.squareup.picasso.Picasso;
+import com.zyyoona7.popup.BasePopup;
+import com.zyyoona7.popup.EasyPopup;
+import com.zyyoona7.popup.XGravity;
+import com.zyyoona7.popup.YGravity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,7 +65,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AirDropFragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class AirDropFragment extends Fragment /*implements DroppyClickCallbackInterface, DroppyMenuPopup.OnDismissCallback */ {
 
     View view;
     @BindView(R.id.rview_fad_coins)
@@ -114,6 +125,12 @@ public class AirDropFragment extends Fragment {
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     String startDate;
 
+
+    EasyPopup mRvPop;
+    private float mLastX;
+    private float mLastY;
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -167,12 +184,19 @@ public class AirDropFragment extends Fragment {
         img_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(getActivity(), v.getRight() - (v.getWidth() * 5), v.getTop() - (v.getHeight() * 6));
-//                showDialog(getActivity(), v.getX(), v.getY());
-//                showDialog(getActivity(), v.getRight(), v.getBottom());
-//                showDialog(this, view.getLeft()-(view.getWidth()*2), view.getTop()+(view.getHeight()*2));
+////                showDialog(getActivity(), v.getRight() , v.getBottom());
+////                showDialog(getActivity(), v.getRight() - (v.getWidth() * 5), v.getTop() - (v.getHeight() * 6));
+////                showDialog(getActivity(), v.getX(), v.getY());
+////                showDialog(getActivity(), v.getRight(), v.getBottom());
+////                showDialog(this, view.getLeft()-(view.getWidth()*2), view.getTop()+(view.getHeight()*2));
+//
+////                initDroppyMenuFromXml(img_menu);
+//
+                initEvents(v);
+
             }
         });
+
 
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET AIRDROP WALLET
@@ -262,6 +286,96 @@ public class AirDropFragment extends Fragment {
             }
         });
 
+
+    }
+
+    private void initDroppyMenuFromXml(ImageView btn) {
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(getActivity(), btn);
+        DroppyMenuPopup droppyMenu = droppyBuilder.fromMenu(R.menu.menu_items_airdrop)
+                .triggerOnAnchorClick(false)
+//                .setOnClick(this)
+//                .setOnDismissCallback(this)
+                .setPopupAnimation(new DroppyScaleAnimation())
+                .build();
+        droppyMenu.show();
+    }
+
+    private void initEvents(View v) {
+
+        mRvPop = EasyPopup.create()
+                .setContext(getActivity())
+                .setContentView(R.layout.dialog_airdrop_menu)
+//                .setAnimationStyle(R.style.RightTopPopAnim)
+//                .setHeight(700)
+//                .setWidth(600)
+                .setFocusAndOutsideEnable(true)
+                .setBackgroundDimEnable(true)
+//                .setDimValue(0.5f)
+//                .setDimColor(Color.RED)
+//                .setDimView(mTitleBar)
+                .apply();
+
+
+        TextView txt_copy_wallet = mRvPop.findViewById(R.id.txt_copy_wallet);
+        TextView txt_withdraw_funds = mRvPop.findViewById(R.id.txt_withdraw_funds);
+        TextView txt_config_wallet = mRvPop.findViewById(R.id.txt_config_wallet);
+        TextView txt_ad_info = mRvPop.findViewById(R.id.txt_ad_info);
+        TextView txt_delete = mRvPop.findViewById(R.id.txt_delete);
+
+        txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CommonUtilities.ShowToastMessage(getActivity(), /*getResources().getString(R.string.copy_wallet)*/airdropWalletlist.get(0).getStr_data_ad_address());
+                CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
+                mRvPop.dismiss();
+            }
+        });
+
+        txt_withdraw_funds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), WithdrawFundsAirdropActivity.class);
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                intent.putExtras(bundle);
+                startActivity(intent);
+//                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.withdraw_funds));
+                mRvPop.dismiss();
+            }
+        });
+
+        txt_config_wallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                intent.putExtras(bundle);
+                startActivity(intent);
+//                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.config_wallet));
+                mRvPop.dismiss();
+            }
+        });
+
+        txt_ad_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.ad_info));
+                mRvPop.dismiss();
+            }
+        });
+
+        txt_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.delete));
+                mRvPop.dismiss();
+            }
+        });
+
+        mRvPop.showAtAnchorView(v, YGravity.BELOW, XGravity.LEFT);
 
     }
 
@@ -562,7 +676,7 @@ public class AirDropFragment extends Fragment {
                                 }
 
 //                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
-                                    txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+                                txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
 //                                } else {
 //                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
 //                                    String dummy = "{...}";
@@ -649,4 +763,46 @@ public class AirDropFragment extends Fragment {
         }
         return "";
     }
+
+/*
+    @Override
+    public void call(View v, int id) {
+        switch (id) {
+            case R.id.item_copy_wallet:
+                CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
+                break;
+            case R.id.item_withdraw_funds:
+                Intent intent = new Intent(getActivity(), WithdrawFundsAirdropActivity.class);
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.item_config_wallet:
+                Intent intent1 = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
+                Bundle bundle1 = new Bundle();
+//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
+                bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
+                break;
+            case R.id.item_info_ad:
+                ;
+                break;
+            case R.id.item_delete:
+                ;
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    public void call() {
+
+    }
+*/
 }

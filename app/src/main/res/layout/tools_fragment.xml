@@ -47,7 +47,7 @@
                 android:layout_gravity="left"
                 android:layout_margin="@dimen/def_margin"
                 android:scaleType="fitXY"
-                android:src="@drawable/tools_ect" />
+                android:src="@drawable/ic_tools" />
 
 
             <TextView
@@ -92,7 +92,6 @@
         android:id="@+id/item_picker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/marginNew"
         android:layout_marginBottom="@dimen/margin10" />
 
 
