@@ -387,7 +387,7 @@ public class AddCoinsActivity extends AppCompatActivity {
 
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
-                                CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.wallet_added));
+                                CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.coin_added));
                                 Intent intent = new Intent(AddCoinsActivity.this, DashBoardActivity.class);
                                 startActivity(intent);
                                 // onBackPressed();
