@@ -66,6 +66,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class AirDropFragment extends Fragment /*implements DroppyClickCallbackInterface, DroppyMenuPopup.OnDismissCallback */ {
 
@@ -668,7 +669,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                 Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
                                 txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
-                                txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+                                if (myApplication.getHideBalance()){
+                                    txt_holding_bal.setText(String.format("%.4f", "***"));
+                                }else {
+                                    txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+                                }
 
                                 if (airdropWalletlist.get(0).getStartDate().equals("null")) {
                                     txt_holding_days.setText("0 Days");
