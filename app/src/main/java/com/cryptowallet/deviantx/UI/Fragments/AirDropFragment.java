@@ -670,7 +670,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
                                 txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
                                 if (myApplication.getHideBalance()){
-                                    txt_holding_bal.setText(String.format("%.4f", "***"));
+                                    txt_holding_bal.setText("***");
                                 }else {
                                     txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                                 }
