@@ -163,6 +163,8 @@
         <activity
             android:name=".UI.Activities.TwoFALoginActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".UI.Activities.ExchangeDashBoardActivity" />
+        <activity android:name=".UI.Activities.TwoFASendCoinActivity"></activity>
     </application>
 
 </manifest>

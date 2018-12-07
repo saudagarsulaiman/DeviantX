@@ -101,7 +101,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     Double usdCoinValue = 0.0;
     AccountWallet selectedAccountWallet;
 
-
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
@@ -241,7 +240,19 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
                                 if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
 //                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
-                                    customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                    if (myApplication.get2FA()) {
+                                        Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
+                                        Bundle bundle1 = new Bundle();
+                                        bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                                        bundle1.putString(CONSTANTS.send_bal, send_bal);
+                                        bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
+                                        bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
+                                        bundle1.putString(CONSTANTS.address, str_btcp_address);
+                                        intent.putExtras(bundle1);
+                                        startActivity(intent);
+                                    } else {
+                                        customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                    }
 //                            } else {
 //                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
 //                            }

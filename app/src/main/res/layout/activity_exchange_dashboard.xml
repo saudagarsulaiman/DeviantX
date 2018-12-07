@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/def_margin"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:background="@drawable/rec_blue_rc25"
+            android:gravity="end"
+            android:paddingEnd="@dimen/padding15"
+            android:paddingRight="@dimen/padding15">
+
+            <ImageView
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:layout_gravity="center"
+                android:src="@drawable/back" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.05"
+            android:background="@color/transparent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="0.8"
+            android:background="@drawable/rec_blue_lc25"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding15"
+                android:paddingLeft="@dimen/padding15">
+
+                <ImageView
+                    android:background="@drawable/cir_blue"
+                    android:layout_width="@dimen/width40"
+                    android:padding="@dimen/padding10"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding15"
+                android:paddingLeft="@dimen/padding15">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:padding="@dimen/padding10"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding15"
+                android:paddingLeft="@dimen/padding15">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:padding="@dimen/padding10"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding15"
+                android:paddingLeft="@dimen/padding15">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:padding="@dimen/padding10"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding15"
+                android:paddingLeft="@dimen/padding15">
+
+                <ImageView
+                    android:layout_width="@dimen/width40"
+                    android:padding="@dimen/padding10"
+                    android:layout_height="@dimen/height40"
+                    android:layout_gravity="center"
+                    android:src="@drawable/back" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

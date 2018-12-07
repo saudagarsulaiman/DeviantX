@@ -120,7 +120,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
 
     ArrayList<AirdropWallet> airdropWalletlist;
-    int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
+    int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank, int_ad_noOfDays;
     String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     String startDate;
@@ -591,6 +591,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+                                    try {
+                                        int_ad_noOfDays = jsonObjectData.getInt("noOfDays");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
                                     JSONObject jsonObjectCoins = new JSONObject(str_data_ad_coin);
 
@@ -655,10 +660,10 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                         e.printStackTrace();
                                     }
                                     AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
-                                            int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, false,str_ad_coin_chart_data);
+                                            int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, false, str_ad_coin_chart_data);
                                     airdropWalletlist.add(new AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
                                             str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
-                                            str_data_ad_account, allCoins));
+                                            str_data_ad_account, int_ad_noOfDays, allCoins));
                                 }
                                 Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
                                 txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
@@ -671,8 +676,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                     txt_seekbar_per.setText("0" + "%");
                                 } else {
                                     txt_holding_days.setText(getDays(airdropWalletlist.get(0).getStartDate()));
-                                    seekbar_per.setProgress(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getStartDate()));
-                                    txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getStartDate()) + "%");
+                                    seekbar_per.setProgress(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()));
+                                    txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()) + "%");
                                 }
 
 //                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
@@ -729,19 +734,20 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     }
 
-    private int getDaysPer(String startDate, String endDate) {
+    private int getDaysPer(String startDate, int noOfDays) {
         int result = 0;
 
-        endDate = "1551378600000";  // endDate = 1551378600000 = 01/03/2019
+//        String endDate = "1551378600000";  // endDate = 1551378600000 = 01/03/2019
         long start = Long.parseLong(startDate);
-        long end = Long.parseLong(endDate);
-        long totalDiff = end - start;
+//        long end = Long.parseLong(endDate);
+//        long totalDiff = end - start;
         long currentDiff = System.currentTimeMillis() - start;
 
-        int totalDays = (int) (totalDiff / 86400000);
+//        int totalDays = (int) (totalDiff / 86400000);
+        int totalDays = noOfDays;
         int currentDays = (int) (currentDiff / 86400000);
 
-        result = (currentDays * totalDays) / 100;
+        result = (currentDays * 100) / 60;
 
         return result;
     }

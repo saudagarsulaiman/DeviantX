@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.AuthenticationApi;
+import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -98,7 +99,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String code = edt_google_auth_code.getText().toString();
                 if (code.length() == 6)
-                    login2FA(code, walletName, to_address, amount, airdropWalletlist);
+                    Verify2FA(code, walletName, to_address, amount, airdropWalletlist);
                 else
                     CommonUtilities.ShowToastMessage(TwoFAAirDropActivity.this, getResources().getString(R.string.invalid_code));
             }
@@ -106,8 +107,9 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
 
     }
 
-    private void login2FA(String google_auth_code, String walletName, String to_address, String amount, ArrayList<AirdropWallet> airdropWalletlist) {
+    private void Verify2FA(String google_auth_code, String walletName, String to_address, String amount, ArrayList<AirdropWallet> airdropWalletlist) {
         try {
+/*
             JSONObject params = new JSONObject();
             String s_email = sharedPreferences.getString(CONSTANTS.email, "");
             String s_pswd = sharedPreferences.getString(CONSTANTS.pswd, "");
@@ -119,9 +121,11 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+*/
+            String tkn = sharedPreferences.getString(CONSTANTS.token, "");
             progressDialog = ProgressDialog.show(TwoFAAirDropActivity.this, "", getResources().getString(R.string.please_wait), true);
-            AuthenticationApi apiService = DeviantXApiClient.getClient().create(AuthenticationApi.class);
-            Call<ResponseBody> apiResponse = apiService.Login2FA(params.toString());
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.verify2FA(google_auth_code, CONSTANTS.DeviantMulti + tkn);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

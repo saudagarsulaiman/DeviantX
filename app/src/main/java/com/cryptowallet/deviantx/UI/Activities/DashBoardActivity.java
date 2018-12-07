@@ -146,9 +146,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*//*, R.drawable.ic_exchange_unselected*/};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools,R.string.devx_exchange};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools,R.string.devx_exchange};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -297,9 +297,11 @@ public class DashBoardActivity extends AppCompatActivity {
         adapter.addFragment(new ExploreCoinsFragment(), "");
         adapter.addFragment(new AirDropFragment(), "");
         adapter.addFragment(new ToolsFragment(), "");
+        adapter.addFragment(new ToolsFragment(), "");
         viewPager.setAdapter(adapter);
         int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
         viewPager.setCurrentItem(selectedTab);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {
@@ -310,6 +312,11 @@ public class DashBoardActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 txt_btm_nav_lbl.setText(channelsName[i]);
                 txt_tlbr_title.setText(channelTtlName[i]);
+                if (i == 4) {
+                    Intent intent = new Intent(DashBoardActivity.this, ExchangeDashBoardActivity.class);
+                    startActivity(intent);
+                }
+
                 /*switch (i) {
                     case 0:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));

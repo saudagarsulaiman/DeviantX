@@ -38,6 +38,9 @@ public class CONSTANTS {
     public static String coinCode="COINCODE";
     public static String check="CHECK";
     public static String login2FA="2FALOGIN";
+    public static String send_bal="SENDBAL";
+    public static String fiat_bal="FIATBAl";
+    public static String ttl_rcv="TOTALRECEIVE";
 
 
 //    //    Selected Account Wallet Details

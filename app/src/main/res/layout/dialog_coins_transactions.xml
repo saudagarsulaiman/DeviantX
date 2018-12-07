@@ -40,8 +40,8 @@
         <ImageView
             android:id="@+id/img_center_back"
             android:layout_width="@dimen/width38"
-            android:layout_gravity="center"
             android:layout_height="@dimen/height30"
+            android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin5"
             android:src="@drawable/line" />
 
@@ -234,9 +234,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_weight="0.8"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/def_padding"
+                android:paddingLeft="@dimen/def_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -249,8 +251,6 @@
                     android:id="@+id/txt_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin5"
-                    android:layout_marginLeft="@dimen/margin5"
                     android:text="#"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text10" />
@@ -261,7 +261,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
                 android:gravity="start"
                 android:orientation="vertical">
 
@@ -276,8 +276,6 @@
                     android:id="@+id/txt_markcap_usd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin5"
-                    android:layout_marginLeft="@dimen/margin5"
                     android:text="$ 0"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text10" />
@@ -288,7 +286,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_weight="1.1"
+                android:layout_weight="1"
                 android:gravity="start"
                 android:orientation="vertical">
 
@@ -303,8 +301,6 @@
                     android:id="@+id/txt_vol_usd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin5"
-                    android:layout_marginLeft="@dimen/margin5"
                     android:text="$ 0"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text10" />

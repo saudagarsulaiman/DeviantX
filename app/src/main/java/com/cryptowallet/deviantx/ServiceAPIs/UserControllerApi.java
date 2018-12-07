@@ -58,10 +58,14 @@ public interface UserControllerApi {
     @GET("/api/account/generate_2fa/{password}/{secret}/{totp}")
     Call<ResponseBody> generate2FA(@Path("password") String passwordX,@Path("secret") String secretX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
 
-//    @FormUrlEncoded
-//    @POST("/api/account/create")
-//    Call<ResponseBody> createAccount(@Field("email") String emailDX, @Field("password") String passwordDX, @Field("userName") String userNameDX);
+    @GET("/api/account/verify_2fa/{totp}")
+    Call<ResponseBody> verify2FA(@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
 
+
+    //    @POST("/api/account/create")
+//    @FormUrlEncoded
+
+//    Call<ResponseBody> createAccount(@Field("email") String emailDX, @Field("password") String passwordDX, @Field("userName") String userNameDX);
 //    @GET("/api/account/get_seed")
 //    Call<ResponseBody> getSeeds();
 

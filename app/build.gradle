@@ -100,7 +100,6 @@ dependencies {
     implementation 'com.shehabic.droppy:Droppy:0.6.0@aar'
     implementation 'com.github.zyyoona7:EasyPopup:1.1.2'
 
-
     // Room components
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
@@ -110,4 +109,6 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
+// Offline Work
+    implementation "com.google.android.gms:play-services-vision-common:17.0.2"
 }

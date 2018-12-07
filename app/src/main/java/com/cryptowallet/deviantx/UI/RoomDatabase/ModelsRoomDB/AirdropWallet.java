@@ -7,18 +7,26 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "airdrop_wallet_coins_table")
-public class AirdropWallet{
+public class AirdropWallet {
 
     @PrimaryKey
     @NonNull
     String str_ad_coin_code;
 
-    int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
+    int int_ad_noOfDays, int_ad_data_id, int_ad_coin_id, int_ad_coin_rank;
     String startDate, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
             str_data_ad_coin, str_ad_coin_name, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume,
             dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     String allCoins;
+
+    public int getInt_ad_noOfDays() {
+        return int_ad_noOfDays;
+    }
+
+    public void setInt_ad_noOfDays(int int_ad_noOfDays) {
+        this.int_ad_noOfDays = int_ad_noOfDays;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -196,7 +204,7 @@ public class AirdropWallet{
         this.allCoins = allCoins;
     }
 
-    public AirdropWallet(@NonNull String startDate, @NonNull int int_ad_data_id, @NonNull String str_data_ad_address, @NonNull String str_data_ad_privatekey, @NonNull String str_data_ad_passcode, @NonNull Double dbl_data_ad_balance, @NonNull Double dbl_data_ad_balanceInUSD, @NonNull String str_data_ad_account, @NonNull String allCoins) {
+    public AirdropWallet(@NonNull String startDate, @NonNull int int_ad_data_id, @NonNull String str_data_ad_address, @NonNull String str_data_ad_privatekey, @NonNull String str_data_ad_passcode, @NonNull Double dbl_data_ad_balance, @NonNull Double dbl_data_ad_balanceInUSD, @NonNull String str_data_ad_account, @NonNull int int_ad_noOfDays, @NonNull String allCoins) {
         this.startDate = startDate;
         this.int_ad_data_id = int_ad_data_id;
         this.str_data_ad_address = str_data_ad_address;
@@ -206,6 +214,7 @@ public class AirdropWallet{
         this.dbl_data_ad_balance = dbl_data_ad_balance;
         this.dbl_data_ad_balanceInUSD = dbl_data_ad_balanceInUSD;
         this.allCoins = allCoins;
+        this.int_ad_noOfDays = int_ad_noOfDays;
 
     }
 

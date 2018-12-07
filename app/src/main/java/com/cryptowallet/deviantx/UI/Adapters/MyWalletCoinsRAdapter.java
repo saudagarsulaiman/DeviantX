@@ -380,26 +380,26 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
             txt_percentage.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
-            txt_h_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
+            txt_h_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
             txt_h_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
             txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
             txt_h_per.setTextColor(context.getResources().getColor(R.color.green));
-            txt_h_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()));
+            txt_h_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
         }
         if (accountWallet.getAllCoins().getDbl_coin_7d() < 0) {
-            txt_d_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
+            txt_d_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + "%");
             txt_d_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            txt_d_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()));
+            txt_d_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + "%");
             txt_d_per.setTextColor(context.getResources().getColor(R.color.green));
         }
         if (accountWallet.getAllCoins().getDbl_coin_1m() < 0) {
-            txt_m_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
+            txt_m_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + "%");
             txt_m_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            txt_m_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()));
+            txt_m_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + "%");
             txt_m_per.setTextColor(context.getResources().getColor(R.color.green));
         }
 
