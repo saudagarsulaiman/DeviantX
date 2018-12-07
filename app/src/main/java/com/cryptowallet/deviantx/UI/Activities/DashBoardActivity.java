@@ -2,6 +2,7 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
 import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
@@ -33,6 +36,7 @@ import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.CustomViewPager;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -44,11 +48,18 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
 
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -147,8 +158,8 @@ public class DashBoardActivity extends AppCompatActivity {
     LinearLayout lnr_nav_drwr_help;
 
     int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*//*, R.drawable.ic_exchange_unselected*/};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools,R.string.devx_exchange};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools,R.string.devx_exchange};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -170,6 +181,8 @@ public class DashBoardActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ViewPagerAdapter adapter;
 
+    String loginResponseMsg, loginResponseStatus, loginResponseData;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onResume() {
@@ -186,6 +199,7 @@ public class DashBoardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         txt_btm_nav_lbl.setText(channelsName[0]);
         txt_tlbr_title.setText(channelTtlName[0]);
+
 
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
@@ -207,6 +221,14 @@ public class DashBoardActivity extends AppCompatActivity {
         setupViewPager(mViewPager);
 //        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
+
+/*
+        if (CommonUtilities.isConnectionAvailable(DashBoardActivity.this)) {
+            get2FAstatus();
+        } else {
+            CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.internetconnection));
+        }
+*/
 
 
        /* btm_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -657,5 +679,85 @@ public class DashBoardActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+    private void get2FAstatus() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(DashBoardActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.get2FAStatus(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (loginResponseData.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.apply();
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(DashBoardActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(DashBoardActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(DashBoardActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

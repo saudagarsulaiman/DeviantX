@@ -74,7 +74,7 @@ public class AppSettingsActivity extends AppCompatActivity {
     TextView txt_2FA_status;
 
 
-    String loginResponseMsg, loginResponseStatus, tkn;
+    String loginResponseMsg, loginResponseStatus, tkn, loginResponseData;
 
     ProgressDialog progressDialog;
 
@@ -113,6 +113,12 @@ public class AppSettingsActivity extends AppCompatActivity {
             scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
             scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
             scompat_privacy.setChecked(false);
+        }
+
+        if (CommonUtilities.isConnectionAvailable(AppSettingsActivity.this)) {
+            get2FAstatus();
+        } else {
+            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.internetconnection));
         }
 
         if (myApplication.get2FA()) {
@@ -563,9 +569,92 @@ public class AppSettingsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(AppSettingsActivity.this, DashBoardActivity.class);
+        Intent intent = new Intent(AppSettingsActivity.this, AppSettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+    private void get2FAstatus() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(AppSettingsActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.get2FAStatus(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (loginResponseData.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.apply();
+                                    scompat_2fa.setChecked(true);
+                                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                                    txt_2FA_status.setText(getResources().getString(R.string.active));
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                                    scompat_2fa.setChecked(false);
+                                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                                    txt_2FA_status.setText(getResources().getString(R.string.inactive));
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
 
