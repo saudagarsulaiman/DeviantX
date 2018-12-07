@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     String token = prefs.getString(CONSTANTS.token, null);
                     boolean seed = prefs.getBoolean(CONSTANTS.seed, false);
                     boolean empty_wallet = prefs.getBoolean(CONSTANTS.empty_wallet, false);
-                    boolean login2FA = prefs.getBoolean(CONSTANTS.login2FA, false);
+                    boolean login2FA = prefs.getBoolean(CONSTANTS.twoFactorAuth, false);
                     if (token != null) {
                         if (seed) {
                             if (empty_wallet) {

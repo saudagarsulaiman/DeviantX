@@ -14,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -74,9 +75,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.txt_btm_nav_lbl)
     TextView txt_btm_nav_lbl;
-    @Nullable
+    /*@Nullable
     @BindView(R.id.view_pager)
-    CustomViewPager mViewPager;
+    CustomViewPager mViewPager;*/
     @Nullable
     @BindView(R.id.tool_nav)
     Toolbar toolbar_nav;
@@ -176,7 +177,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.txt_nav_drwr_expcoins)
     TextView txt_nav_drwr_expcoins;
 
-
+    FragmentManager supportFragmentManager;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ViewPagerAdapter adapter;
@@ -200,12 +201,11 @@ public class DashBoardActivity extends AppCompatActivity {
         txt_btm_nav_lbl.setText(channelsName[0]);
         txt_tlbr_title.setText(channelTtlName[0]);
 
-
-
+        supportFragmentManager = getSupportFragmentManager();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        mViewPager.setPagingEnabled(false);
+       // mViewPager.setPagingEnabled(false);
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
@@ -218,7 +218,9 @@ public class DashBoardActivity extends AppCompatActivity {
         // loadFragment(new DashboardFragment());
         img_tlbr_search.setVisibility(View.GONE);
         initMagicIndicator();
-        setupViewPager(mViewPager);
+        int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
+        setAllSelection(selectedTab);
+       // setupViewPager(mViewPager);
 //        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
 
@@ -312,14 +314,59 @@ public class DashBoardActivity extends AppCompatActivity {
         });
     }
 
+    private void setCurrentTabFragment(int tabPosition) {
+        switch (tabPosition) {
+            case 0:
+                replaceFragment(new DashboardFragment());
+                break;
+            case 1:
+                replaceFragment(new ExploreCoinsFragment());
+                break;
+            case 2:
+                replaceFragment(new AirDropFragment());
+                break;
+            case 3:
+                replaceFragment(new ToolsFragment());
+                break;
+            case 4:
+                replaceFragment(new ToolsFragment());
+                break;
+        }
+    }
 
-    private void setupViewPager(ViewPager viewPager) {
+    public void replaceFragment(Fragment fragment) {
+        /*FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.frame_container, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();*/
+
+        Fragment f1 = supportFragmentManager.findFragmentByTag(fragment.getClass().getName());
+
+        if (f1 == null){
+            f1 = fragment;
+            supportFragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .add(R.id.frame_container, f1, fragment.getClass().getName())
+                    .addToBackStack(fragment.getClass().getName()).commit();
+        }else {
+            supportFragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .replace(R.id.frame_container, f1, fragment.getClass().getName())
+                    .addToBackStack(fragment.getClass().getName()).commit();
+        }
+
+
+    }
+
+   /* private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DashboardFragment(), "");
-        adapter.addFragment(new ExploreCoinsFragment(), "");
-        adapter.addFragment(new AirDropFragment(), "");
-        adapter.addFragment(new ToolsFragment(), "");
-        adapter.addFragment(new ToolsFragment(), "");
+        adapter.addFragment(new Fragment(), "");
+        adapter.addFragment(new Fragment(), "");
+        adapter.addFragment(new Fragment(), "");
+        adapter.addFragment(new Fragment(), "");
+        adapter.addFragment(new Fragment(), "");
         viewPager.setAdapter(adapter);
         int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
         viewPager.setCurrentItem(selectedTab);
@@ -339,7 +386,7 @@ public class DashBoardActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
 
-                /*switch (i) {
+                switch (i) {
                     case 0:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
 //                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
@@ -360,7 +407,7 @@ public class DashBoardActivity extends AppCompatActivity {
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                 }
-*/
+
             }
 
             @Override
@@ -368,7 +415,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
 
     private void navDrawerWallet() {
@@ -400,15 +447,15 @@ public class DashBoardActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100) {
             // mViewPager.setCurrentItem(0, true);
-            if (mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1)
-                setupViewPager(mViewPager);
+           /* if (mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1)
+                setupViewPager(mViewPager);*/
 //            txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
         }/* else if (requestCode == 200) {
             setupViewPagerAD(mViewPager);
         }*/
     }
 
-    private void setupViewPagerAD(ViewPager viewPager) {
+   /* private void setupViewPagerAD(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new DashboardFragment(), "");
         adapter.addFragment(new ExploreCoinsFragment(), "");
@@ -426,7 +473,7 @@ public class DashBoardActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 txt_btm_nav_lbl.setText(channelsName[i]);
                 txt_tlbr_title.setText(channelTtlName[i]);
-                /*switch (i) {
+                *//*switch (i) {
                     case 0:
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
 //                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
@@ -447,7 +494,7 @@ public class DashBoardActivity extends AppCompatActivity {
                         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
                         break;
                 }
-*/
+*//*
             }
 
             @Override
@@ -455,7 +502,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     private void navDrawerSettings() {
         view_nav_drwr_settings.setVisibility(View.VISIBLE);
@@ -628,7 +675,7 @@ public class DashBoardActivity extends AppCompatActivity {
                 commonPagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mViewPager.setCurrentItem(index);
+                        setAllSelection(index);
                     }
                 });
 
@@ -647,7 +694,15 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
         magicIndicator.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(magicIndicator, mViewPager);
+    }
+
+    private void setAllSelection(int index){
+        setCurrentTabFragment(index);
+        txt_btm_nav_lbl.setText(channelsName[index]);
+        txt_tlbr_title.setText(channelTtlName[index]);
+        magicIndicator.onPageSelected(index);
+        magicIndicator.onPageScrollStateChanged(index);
+        magicIndicator.onPageScrolled(index, 0, 0);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -761,3 +816,4 @@ public class DashBoardActivity extends AppCompatActivity {
 
 
 }
+

@@ -9,20 +9,19 @@
         android:id="@+id/tool_nav"
         layout="@layout/toolbar_nav" />
 
-    <com.cryptowallet.deviantx.Utilities.CustomViewPager
+   <!-- <com.cryptowallet.deviantx.Utilities.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lnr_btm"
-        android:layout_below="@id/tool_nav" />
-    <!--<FrameLayout
+        android:layout_below="@id/tool_nav" />-->
+    <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lnr_btm"
         android:layout_below="@id/tool_nav"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
--->
     <LinearLayout
         android:id="@+id/lnr_btm"
         android:layout_width="match_parent"
