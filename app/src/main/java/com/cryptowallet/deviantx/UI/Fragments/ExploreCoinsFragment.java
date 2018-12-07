@@ -54,7 +54,7 @@ public class ExploreCoinsFragment extends Fragment {
 
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,str_coin_chart_data;
+    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo, str_coin_chart_data;
     ArrayList<AllCoins> allCoinsList;
 
 
@@ -196,7 +196,7 @@ public class ExploreCoinsFragment extends Fragment {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, str_coin_chart_data));
+                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, false, str_coin_chart_data));
                                 }
                                 allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), allCoinsList);
                                 rview_all_coins.setAdapter(allCoinsRAdapter);

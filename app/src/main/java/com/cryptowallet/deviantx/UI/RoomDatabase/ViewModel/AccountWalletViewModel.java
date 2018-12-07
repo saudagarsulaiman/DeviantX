@@ -5,15 +5,19 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
-import com.cryptowallet.deviantx.UI.Models.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Repository.AccountWalletRepository;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 
 public class AccountWalletViewModel extends AndroidViewModel {
 
     private AccountWalletRepository mRepository;
-    private LiveData<ArrayList<AccountWallet>> mList;
+    private LiveData<List<AccountWallet>> mList;
 
     public AccountWalletViewModel(@NonNull Application application) {
         super(application);
@@ -21,7 +25,7 @@ public class AccountWalletViewModel extends AndroidViewModel {
         mList = mRepository.getAllAccountWallet();
     }
 
-    public LiveData<ArrayList<AccountWallet>> getAllAccountWallet() {
+    public LiveData<List<AccountWallet>> getAllAccountWallet() {
         return mList;
     }
 

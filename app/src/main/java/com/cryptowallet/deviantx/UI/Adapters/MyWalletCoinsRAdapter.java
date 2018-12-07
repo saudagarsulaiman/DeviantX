@@ -210,7 +210,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             }
             JSONArray jsonArray = new JSONArray(data);
             if (jsonArray.length() != 0) {
-                List<DateValue> responseList = new ArrayList<>();
+                ArrayList<DateValue> responseList = new ArrayList<>();
                 Double hisghValue = 0.0;
                 DataPoint[] points = new DataPoint[jsonArray.length()];
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -508,7 +508,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                                 String res_Data = jsonObject.getString("Data");
 
                                 JSONArray jsonArray = new JSONArray(res_Data);
-                                List<DateValue> responseList = new ArrayList<>();
+                                ArrayList<DateValue> responseList = new ArrayList<>();
                                 Double hisghValue = 0.0;
                                 DataPoint[] points = new DataPoint[jsonArray.length()];
                                 for (int i = 0; i < jsonArray.length(); i++) {

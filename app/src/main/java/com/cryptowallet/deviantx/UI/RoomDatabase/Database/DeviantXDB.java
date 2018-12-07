@@ -5,10 +5,10 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
-import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;

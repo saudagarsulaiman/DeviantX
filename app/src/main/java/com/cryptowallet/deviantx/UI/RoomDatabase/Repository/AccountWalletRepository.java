@@ -4,16 +4,19 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.cryptowallet.deviantx.UI.Models.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AccountWalletRepository {
 
     private AccountWalletDao accountWalletDao;
-    private LiveData<ArrayList<AccountWallet>> accountWallet;
+    private LiveData<List<AccountWallet>> accountWallet;
 
     public AccountWalletRepository(Application application) {
         DeviantXDB db = DeviantXDB.getDatabase(application);
@@ -22,7 +25,7 @@ public class AccountWalletRepository {
     }
 
 
-    public LiveData<ArrayList<AccountWallet>> getAllAccountWallet() {
+    public LiveData<List<AccountWallet>> getAllAccountWallet() {
         return accountWallet;
     }
 

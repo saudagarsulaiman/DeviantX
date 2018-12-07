@@ -163,7 +163,7 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
                                 String res_Data = jsonObject.getString("Data");
 
                                 JSONArray jsonArray = new JSONArray(res_Data);
-                                List<DateValue> responseList = new ArrayList<>();
+                                ArrayList<DateValue> responseList = new ArrayList<>();
                                 Double hisghValue = 0.0;
                                 DataPoint[] points = new DataPoint[jsonArray.length()];
                                 for (int i = 0; i < jsonArray.length(); i++) {

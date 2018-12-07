@@ -1,4 +1,4 @@
-package com.cryptowallet.deviantx.UI.Models;
+package com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
@@ -9,35 +9,16 @@ import android.support.annotation.NonNull;
 import com.cryptowallet.trendchart.DateValue;
 
 import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
 
-public class WalletList implements Parcelable {
+@Entity(tableName = "wallet_list_table")
+public class WalletList {
     int int_data_id;
     double dbl_data_totalBal;
 
-
+    @PrimaryKey
+    @NonNull
     String str_data_name;
 
-
-    protected WalletList(Parcel in) {
-        int_data_id = in.readInt();
-        dbl_data_totalBal = in.readDouble();
-        str_data_name = in.readString();
-        defaultWallet = in.readByte() != 0;
-    }
-
-    public static final Creator<WalletList> CREATOR = new Creator<WalletList>() {
-        @Override
-        public WalletList createFromParcel(Parcel in) {
-            return new WalletList(in);
-        }
-
-        @Override
-        public WalletList[] newArray(int size) {
-            return new WalletList[size];
-        }
-    };
 
     public boolean isDefaultWallet() {
         return defaultWallet;
@@ -49,7 +30,7 @@ public class WalletList implements Parcelable {
 
     boolean defaultWallet = false;
 
-    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal, boolean defaultWallet) {
+    public WalletList(@NonNull int int_data_id, @NonNull String str_data_name, @NonNull double dbl_data_totalBal, @NonNull boolean defaultWallet) {
         this.int_data_id = int_data_id;
         this.dbl_data_totalBal = dbl_data_totalBal;
         this.str_data_name = str_data_name;
@@ -89,30 +70,17 @@ public class WalletList implements Parcelable {
         this.str_data_name = str_data_name;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt(int_data_id);
-        dest.writeDouble(dbl_data_totalBal);
-        dest.writeString(str_data_name);
-        dest.writeByte((byte) (defaultWallet ? 1 : 0));
-    }
-
-
-    ArrayList<DateValue> responseList = new ArrayList<>();
+//    ArrayList<DateValue> responseList = new ArrayList<>();
+String responseList;
 
     Double highValue = 0.0;
 
-    public void setResponseList(ArrayList<DateValue> responseList) {
+    public void setResponseList(String responseList) {
         this.responseList = responseList;
     }
 
-    public ArrayList<DateValue> getResponseList() {
+    public String getResponseList() {
         return responseList;
     }
 

@@ -75,7 +75,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        selectedAccountWallet = new AccountWallet();
+//        selectedAccountWallet = new AccountWallet();
 
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
