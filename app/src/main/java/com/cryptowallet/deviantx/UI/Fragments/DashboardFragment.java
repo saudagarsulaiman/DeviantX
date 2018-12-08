@@ -124,6 +124,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == 101) {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             fetchAccountWallet(wallet_name);

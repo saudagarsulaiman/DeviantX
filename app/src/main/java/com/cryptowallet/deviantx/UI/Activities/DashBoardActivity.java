@@ -205,7 +205,7 @@ public class DashBoardActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-       // mViewPager.setPagingEnabled(false);
+        // mViewPager.setPagingEnabled(false);
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
@@ -220,7 +220,7 @@ public class DashBoardActivity extends AppCompatActivity {
         initMagicIndicator();
         int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
         setAllSelection(selectedTab);
-       // setupViewPager(mViewPager);
+        // setupViewPager(mViewPager);
 //        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
 
@@ -334,6 +334,7 @@ public class DashBoardActivity extends AppCompatActivity {
         }
     }
 
+
     public void replaceFragment(Fragment fragment) {
         /*FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -344,17 +345,40 @@ public class DashBoardActivity extends AppCompatActivity {
 
         Fragment f1 = supportFragmentManager.findFragmentByTag(fragment.getClass().getName());
 
-        if (f1 == null){
+        if (f1 == null) {
             f1 = fragment;
             supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .add(R.id.frame_container, f1, fragment.getClass().getName())
                     .addToBackStack(fragment.getClass().getName()).commit();
-        }else {
-            supportFragmentManager.beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .replace(R.id.frame_container, f1, fragment.getClass().getName())
-                    .addToBackStack(fragment.getClass().getName()).commit();
+        } else {
+            FragmentTransaction transaction = supportFragmentManager.beginTransaction();
+            DashboardFragment dashboardFragment = (DashboardFragment) supportFragmentManager.findFragmentByTag(DashboardFragment.class.getName());
+            ExploreCoinsFragment exploreCoinsFragment = (ExploreCoinsFragment) supportFragmentManager.findFragmentByTag(ExploreCoinsFragment.class.getName());
+            AirDropFragment airDropFragment = (AirDropFragment) supportFragmentManager.findFragmentByTag(AirDropFragment.class.getName());
+            ToolsFragment toolsFragment = (ToolsFragment) supportFragmentManager.findFragmentByTag(ToolsFragment.class.getName());
+            if (toolsFragment != null)
+                if (toolsFragment != f1)
+                    transaction.hide(toolsFragment);
+
+            if (dashboardFragment != null)
+                if (dashboardFragment != f1)
+                    transaction.hide(dashboardFragment);
+
+            if (exploreCoinsFragment != null)
+                if (exploreCoinsFragment != f1)
+                    transaction.hide(exploreCoinsFragment);
+
+            if (airDropFragment != null)
+                if (airDropFragment != f1)
+                    transaction.hide(airDropFragment);
+
+            transaction.show(f1);
+            transaction.commit();
+            // supportFragmentManager.beginTransaction()
+            //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            //  .replace(R.id.frame_container, f1, fragment.getClass().getName())
+            // .addToBackStack(fragment.getClass().getName()).commit();
         }
 
 
@@ -445,6 +469,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == 100) {
             // mViewPager.setCurrentItem(0, true);
            /* if (mViewPager.getCurrentItem() == 0 || mViewPager.getCurrentItem() == 1)
@@ -696,7 +721,7 @@ public class DashBoardActivity extends AppCompatActivity {
         magicIndicator.setNavigator(commonNavigator);
     }
 
-    private void setAllSelection(int index){
+    private void setAllSelection(int index) {
         setCurrentTabFragment(index);
         txt_btm_nav_lbl.setText(channelsName[index]);
         txt_tlbr_title.setText(channelTtlName[index]);
