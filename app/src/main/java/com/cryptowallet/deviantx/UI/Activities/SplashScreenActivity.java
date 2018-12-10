@@ -27,7 +27,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                     String token = prefs.getString(CONSTANTS.token, null);
                     boolean seed = prefs.getBoolean(CONSTANTS.seed, false);
                     boolean empty_wallet = prefs.getBoolean(CONSTANTS.empty_wallet, false);
-                    boolean login2FA = prefs.getBoolean(CONSTANTS.twoFactorAuth, false);
+                    boolean status2FA = prefs.getBoolean(CONSTANTS.twoFactorAuth, false);
+                    boolean login2FA = prefs.getBoolean(CONSTANTS.login2FA, false);
                     if (token != null) {
                         if (seed) {
                             if (empty_wallet) {
@@ -35,12 +36,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             } else {
-                                if (login2FA) {
-                                    Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                                if (status2FA && !login2FA) {
+                                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                    Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }
