@@ -118,9 +118,9 @@ public class LoginActivity extends AppCompatActivity {
             if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$") && s_email.length() >= 8) {
                 if (!s_pswd.isEmpty()) {
 //                    if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
-                        loggingInAccount(s_email, s_pswd);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    loggingInAccount(s_email, s_pswd);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 //                    } else {
 //                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.invalid_pswd));
 //                    }
@@ -283,11 +283,13 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONArray jsonArrayData = new JSONArray(loginResponseData);
                                 if (jsonArrayData.length() == 0) {
                                     editor.putBoolean(CONSTANTS.empty_wallet, true);
+                                    editor.putBoolean(CONSTANTS.first_wallet, true);
                                     editor.apply();
                                     Intent intent = new Intent(LoginActivity.this, SetUpWalletActivity.class);
                                     startActivity(intent);
 //                                    CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                 } else {
+                                    editor.putBoolean(CONSTANTS.first_wallet, false);
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
                                     get2FAstatus();
@@ -374,6 +376,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (loginResponseData.equals("true")) {
                                     myApplication.set2FA(true);
                                     editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.putBoolean(CONSTANTS.login2FA, false);
                                     editor.apply();
                                     Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
