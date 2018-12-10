@@ -158,7 +158,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/, R.drawable.ic_exchange_unselected};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*//*, R.drawable.ic_exchange_unselected*/};
     int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
     int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
 
@@ -329,7 +329,9 @@ public class DashBoardActivity extends AppCompatActivity {
                 replaceFragment(new ToolsFragment());
                 break;
             case 4:
-                replaceFragment(new ToolsFragment());
+                Intent intent = new Intent(DashBoardActivity.this, ExchangeDashBoardActivity.class);
+                startActivity(intent);
+//                replaceFragment(new ToolsFragment());
                 break;
         }
     }
@@ -723,11 +725,13 @@ public class DashBoardActivity extends AppCompatActivity {
 
     private void setAllSelection(int index) {
         setCurrentTabFragment(index);
-        txt_btm_nav_lbl.setText(channelsName[index]);
-        txt_tlbr_title.setText(channelTtlName[index]);
-        magicIndicator.onPageSelected(index);
-        magicIndicator.onPageScrollStateChanged(index);
-        magicIndicator.onPageScrolled(index, 0, 0);
+        if (index != 4) {
+            txt_btm_nav_lbl.setText(channelsName[index]);
+            txt_tlbr_title.setText(channelTtlName[index]);
+            magicIndicator.onPageSelected(index);
+            magicIndicator.onPageScrollStateChanged(index);
+            magicIndicator.onPageScrolled(index, 0, 0);
+        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

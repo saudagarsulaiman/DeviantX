@@ -45,6 +45,8 @@ public class TwoFAAbleActivity extends AppCompatActivity {
     Button btn_submit;
     @BindView(R.id.txt_ttl_2FA)
     TextView txt_ttl_2FA;
+    @BindView(R.id.txt_ttl_note)
+    TextView txt_ttl_note;
 
 
     SharedPreferences sharedPreferences;
@@ -75,10 +77,14 @@ public class TwoFAAbleActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
 
-        if (myApplication.get2FA())
+        if (myApplication.get2FA()){
             txt_ttl_2FA.setText(getResources().getString(R.string.disable_2fa));
-        else
+            txt_ttl_note.setText(getResources().getString(R.string.disable_2fa_note));
+        }
+        else{
             txt_ttl_2FA.setText(getResources().getString(R.string.enable_2fa));
+            txt_ttl_note.setText(getResources().getString(R.string.enable_2fa_note));
+        }
 
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {

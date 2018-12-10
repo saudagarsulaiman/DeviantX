@@ -63,27 +63,47 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
 //        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
         viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
-        if (!hideBal) {
-            if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
-                viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
-            } else {
-                String address = transactionList.get(i).getStr_data_toAddress();
-                String dummy = "{...}";
-                String first_half = String.format("%.7s", address);
-                String second_half = address.substring(address.length() - 7);
-                viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
-            }
-            viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
-        } else {
-            viewHolder.txt_trans_address.setText("To " + "***");
-            viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
-        }
-        viewHolder.txt_trans_type.setText(transactionList.get(i).getStr_data_category());
+
+
+
+
         if (transactionList.get(i).getStr_data_category().equals("sent")) {
+            if (!hideBal) {
+                if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
+                    viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+                } else {
+                    String address = transactionList.get(i).getStr_data_toAddress();
+                    String dummy = "{...}";
+                    String first_half = String.format("%.7s", address);
+                    String second_half = address.substring(address.length() - 7);
+                    viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
+                }
+                viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            } else {
+                viewHolder.txt_trans_address.setText("To " + "***");
+                viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            }
+            viewHolder.txt_trans_type.setText(context.getResources().getString(R.string.sent));
             viewHolder.img_send_type.setBackground(context.getResources().getDrawable(R.drawable.cir_brdr_red));
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.send));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
+            if (!hideBal) {
+                if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
+                    viewHolder.txt_trans_address.setText("From " + transactionList.get(i).getStr_data_toAddress());
+                } else {
+                    String address = transactionList.get(i).getStr_data_toAddress();
+                    String dummy = "{...}";
+                    String first_half = String.format("%.7s", address);
+                    String second_half = address.substring(address.length() - 7);
+                    viewHolder.txt_trans_address.setText("From " + first_half + dummy + second_half);
+                }
+                viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            } else {
+                viewHolder.txt_trans_address.setText("From " + "***");
+                viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+            }
+            viewHolder.txt_trans_type.setText(context.getResources().getString(R.string.receive));
             viewHolder.img_send_type.setBackground(context.getResources().getDrawable(R.drawable.cir_brdr_green));
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.receive));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.green));

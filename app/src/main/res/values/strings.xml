@@ -272,7 +272,7 @@
     <string name="trans_type">Transaction Type</string>
     <string name="Token">Token</string>
     <string name="enter_token">Enter Token</string>
-    <string name="note_token">Enter the code we sent you to your Email.</string>
+    <string name="note_token">Enter the code we sent to your Email.</string>
     <string name="empty_field">Field in empty</string>
     <string name="enter_code">Enter Code</string>
     <string name="empty_token">Token is empty</string>
@@ -337,7 +337,7 @@
     <string name="tc_risk_factors">⦁\tRisk factors</string>
     <string name="tc_dev_categ">Deviant X will not be responsible for any losses, damages, or claims from the following mentioned categories:</string>
     <string name="tc_dev_categ_a">a) User errors such as forgotten passwords, wrong payments, and deletion of wallets.</string>
-    <string name="tc_dev_categ_b">b) Software problems of any Cryptocurrency related software or service , e.g., malware affecting user wallets, corrupted wallet files, unsafe Cryptographic libraries and/or any Cryptocurrency related softwares/services.</string>
+    <string name="tc_dev_categ_b">b) Software problems of any Cryptocurrency related software or service, e.g., malware affecting user wallets, corrupted wallet files, unsafe Cryptographic libraries and/or any Cryptocurrency related softwares/services.</string>
     <string name="tc_dev_categ_c">c) Security problems experienced by the user of any Cryptocurrency related software or service such as an unauthorized access to user wallets/accounts.</string>
     <string name="tc_dev_categ_d">d) Actions of a third party such as bankruptcy of a service provider, information security attacks on service providers, and fraudulent activities by third parties.</string>
     <string name="tc_dev_categ_e">e) Data loss due to damaged storage device resulting in technical failures in the hardware of the user.</string>
@@ -477,6 +477,9 @@
     <string name="invalid_code">Invalid Code</string>
     <string name="coin_added">Coin Added Successfully</string>
     <string name="select_wallet">Please select wallet</string>
+    <string name="sent">Sent</string>
+    <string name="enable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after enabling 2FA</string>
+    <string name="disable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after disabling 2FA</string>
 
 
 </resources>

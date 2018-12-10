@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient">
 
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <LinearLayout
+        android:id="@+id/lnr_bnv"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_btn_height"
         android:layout_alignParentBottom="true"
@@ -15,6 +22,7 @@
         android:weightSum="1">
 
         <LinearLayout
+            android:id="@+id/lnr_back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.15"
@@ -46,6 +54,7 @@
             android:weightSum="1">
 
             <LinearLayout
+                android:id="@+id/lnr_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -54,16 +63,18 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
-                    android:background="@drawable/cir_blue"
+                    android:id="@+id/img_home"
                     android:layout_width="@dimen/width40"
-                    android:padding="@dimen/padding10"
                     android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
-                    android:src="@drawable/back" />
+                    android:background="@drawable/cir_menublue"
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/home" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_trade"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -72,15 +83,17 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
+                    android:id="@+id/img_trade"
                     android:layout_width="@dimen/width40"
-                    android:padding="@dimen/padding10"
                     android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
-                    android:src="@drawable/back" />
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/trade" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_funds"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -89,15 +102,17 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
+                    android:id="@+id/img_funds"
                     android:layout_width="@dimen/width40"
-                    android:padding="@dimen/padding10"
                     android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
-                    android:src="@drawable/back" />
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/funds" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_market"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -106,15 +121,17 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
+                    android:id="@+id/img_market"
                     android:layout_width="@dimen/width40"
-                    android:padding="@dimen/padding10"
                     android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
-                    android:src="@drawable/back" />
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/market" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_settings"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -123,11 +140,12 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
+                    android:id="@+id/img_settings"
                     android:layout_width="@dimen/width40"
-                    android:padding="@dimen/padding10"
                     android:layout_height="@dimen/height40"
                     android:layout_gravity="center"
-                    android:src="@drawable/back" />
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/settings" />
 
             </LinearLayout>
 
