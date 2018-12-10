@@ -195,7 +195,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (CommonUtilities.isConnectionAvailable(AddCoinsActivity.this)) {
-                            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+                            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, " ");
 //                                                              Creating Wallet
                             CreateWallet(selected_allCoinsList.get(pos).getStr_coin_name(), selected_allCoinsList.get(pos).getStr_coin_code(),wallet_name);
                         } else {

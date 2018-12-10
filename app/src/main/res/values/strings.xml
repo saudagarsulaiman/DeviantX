@@ -476,6 +476,7 @@
     <string name="empty_amount">Amount cannot be empty</string>
     <string name="invalid_code">Invalid Code</string>
     <string name="coin_added">Coin Added Successfully</string>
+    <string name="select_wallet">Please select wallet</string>
 
 
 </resources>

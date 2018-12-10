@@ -19,12 +19,18 @@ public class WalletList implements Parcelable {
 
     String str_data_name;
 
-
     protected WalletList(Parcel in) {
         int_data_id = in.readInt();
         dbl_data_totalBal = in.readDouble();
         str_data_name = in.readString();
+        byte tmpIsSelected = in.readByte();
+        isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
         defaultWallet = in.readByte() != 0;
+        if (in.readByte() == 0) {
+            highValue = null;
+        } else {
+            highValue = in.readDouble();
+        }
     }
 
     public static final Creator<WalletList> CREATOR = new Creator<WalletList>() {
@@ -38,6 +44,17 @@ public class WalletList implements Parcelable {
             return new WalletList[size];
         }
     };
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
+
+    Boolean isSelected = false;
+
 
     public boolean isDefaultWallet() {
         return defaultWallet;
@@ -89,20 +106,6 @@ public class WalletList implements Parcelable {
         this.str_data_name = str_data_name;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt(int_data_id);
-        dest.writeDouble(dbl_data_totalBal);
-        dest.writeString(str_data_name);
-        dest.writeByte((byte) (defaultWallet ? 1 : 0));
-    }
-
 
     ArrayList<DateValue> responseList = new ArrayList<>();
 
@@ -124,4 +127,23 @@ public class WalletList implements Parcelable {
         return highValue;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(int_data_id);
+        dest.writeDouble(dbl_data_totalBal);
+        dest.writeString(str_data_name);
+        dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));
+        dest.writeByte((byte) (defaultWallet ? 1 : 0));
+        if (highValue == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(highValue);
+        }
+    }
 }

@@ -41,9 +41,12 @@ import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.SpinnerDaysAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListAirdropRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -96,8 +99,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     @BindView(R.id.img_scanner)
     ImageView img_scanner;
 
-    /*@BindView(R.id.lnr_address)
-    LinearLayout lnr_address;*/
+    @BindView(R.id.lnr_address)
+    LinearLayout lnr_address;
 
     @BindView(R.id.scan_qr)
     ZXingScannerView mScannerView;
@@ -122,8 +125,11 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     String /*walletName,*/ regResponseMsg, regResponseStatus, regResponsedata;
     Boolean isEditAmount = false;
 
+    WalletSelectableListener walletSelectableListener;
 
     ArrayList<AirdropWallet> airdropWalletlist;
+    int selectedCoinId = 0;
+    String selectedWalletName = "";
 
     @Override
     protected void onResume() {
@@ -167,7 +173,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
         itemPicker.addOnItemChangedListener(this);
-        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList);
+        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener);
         itemPicker.setAdapter(walletListAirdropRAdapter);
         itemPicker.setItemTransitionTimeMillis(150);
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
@@ -188,10 +194,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             itemPicker.setVisibility(View.VISIBLE);
             edt_wallet_address.setVisibility(View.GONE);
             img_scanner.setVisibility(View.GONE);
+            lnr_address.setBackground(getResources().getDrawable(R.color.transparent));
         } else {
             editor.putBoolean(CONSTANTS.check, false);
             editor.apply();
             //            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
+            lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
             itemPicker.setVisibility(View.GONE);
             spnr_wallets.setVisibility(View.GONE);
             edt_wallet_address.setVisibility(View.VISIBLE);
@@ -204,16 +212,17 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                 if (isChecked) {
                     editor.putBoolean(CONSTANTS.check, true);
                     editor.apply();
-                    //                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_grey2_white));
+                    lnr_address.setBackground(getResources().getDrawable(R.color.transparent));
                     spnr_wallets.setVisibility(View.GONE);
 //                    spnr_wallets.setVisibility(View.VISIBLE);
                     itemPicker.setVisibility(View.VISIBLE);
                     edt_wallet_address.setVisibility(View.GONE);
+
                     img_scanner.setVisibility(View.GONE);
                 } else {
                     editor.putBoolean(CONSTANTS.check, false);
                     editor.apply();
-                    //                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
+                    lnr_address.setBackground(getResources().getDrawable(R.drawable.rec_lytblue_c5));
                     itemPicker.setVisibility(View.GONE);
                     spnr_wallets.setVisibility(View.GONE);
                     edt_wallet_address.setVisibility(View.VISIBLE);
@@ -247,29 +256,62 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         }
 //        spnr_wallets.setAdapter(new SpinnerDaysAdapter(WithdrawFundsAirdropActivity.this, R.layout.spinner_item_days_dropdown, categories));
 
+
+        walletSelectableListener = new WalletSelectableListener() {
+            @Override
+            public void WalletSelected(ArrayList<WalletList> selected_allWalletList, int pos) {
+
+                int i = 0;
+                //  final WalletList selectedWallet = new WalletList();
+                for (WalletList wallets : selected_allWalletList) {
+                    if (wallets.getSelected()) {
+                        wallets.setSelected(false);
+                        walletListAirdropRAdapter.notifyItemChanged(i);
+                    }
+                    i++;
+                }
+
+                walletListAirdropRAdapter.setWalletValue(!selected_allWalletList.get(pos).getSelected(), pos);
+
+                if (selected_allWalletList.get(pos).getSelected()) {
+                    selectedCoinId = selected_allWalletList.get(pos).getInt_data_id();
+                    selectedWalletName = selected_allWalletList.get(pos).getStr_data_name();
+//                    btn_withdraw.setVisibility(View.VISIBLE);
+                } /*else*/
+//                    btn_withdraw.setVisibility(View.GONE);
+
+
+            }
+        };
+
         btn_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (cbox_wallet.isChecked()) {
                     int position = spnr_wallets.getSelectedItemPosition();
 //                    String walletName = spnr_wallets.getItemAtPosition(position).toString();
-                    String walletName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
+//                            String walletName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
+                    String walletName = selectedWalletName;
                     String amount = edt_amount.getText().toString();
                     if (!amount.isEmpty()) {
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
-                            if (myApplication.get2FA()) {
-                                Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
-                                Bundle bundle1 = new Bundle();
-                                bundle1.putString(CONSTANTS.walletName, walletName);
-                                bundle1.putString(CONSTANTS.address, "");
-                                bundle1.putString(CONSTANTS.amount, amount);
-                                bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                                intent.putExtras(bundle1);
-                                startActivity(intent);
-                            } else {
-                                toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                            if (walletName.length() > 0) {
+                                if (myApplication.get2FA()) {
+                                    Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                    Bundle bundle1 = new Bundle();
+                                    bundle1.putString(CONSTANTS.walletName, walletName);
+                                    bundle1.putString(CONSTANTS.address, "");
+                                    bundle1.putString(CONSTANTS.amount, amount);
+                                    bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                    intent.putExtras(bundle1);
+                                    startActivity(intent);
+                                } else {
+                                    toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                }
+                            } else {
+                                CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.select_wallet));
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
@@ -311,6 +353,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                 }
             }
         });
+
 
         edt_amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -405,7 +448,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                     }
                                     walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                                 }
-                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList);
+                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener);
                                 itemPicker.setAdapter(walletListAirdropRAdapter);
 //                                itemPicker.scrollToPosition(defaultWalletPos);
                                 itemPicker.scrollToPosition(myApplication.getDefaultWallet());

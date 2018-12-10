@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
 
     Context context;
     ArrayList<WalletList> walletLists;
+    WalletSelectableListener walletSelectableListener;
 
-    public WalletListAirdropRAdapter(Context context, ArrayList<WalletList> walletList) {
+    public WalletListAirdropRAdapter(Context context, ArrayList<WalletList> walletList, WalletSelectableListener walletSelectableListener) {
         this.context = context;
         this.walletLists = walletList;
+        this.walletSelectableListener = walletSelectableListener;
     }
 
     @NonNull
@@ -42,16 +45,58 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         viewHolder.txt_wallet_name.setText(walletLists.get(i).getStr_data_name());
+        viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
+
+
+       /* if (myApplication.getDefaultWallet() == i) {
+            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_brinjal1_gradient_c2));
+        } else {
+            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_wh_gradient_c2));
+        }*/
 
         if (myApplication.getDefaultWallet() == i) {
-            viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
-            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal1_gradient_c2));
-        } else {
-            viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
-            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
+            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
         }
 
+        if (walletLists.get(i).getSelected()) {
+            if (myApplication.getDefaultWallet() == i) {
+                viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
+            } else {
+                viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_wh_gradient_c2));
+            }
+        } else {
+            if (myApplication.getDefaultWallet() == i) {
+                viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_brinjal1_gradient_c2));
+            } else {
+                viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_wh_gradient_c2));
+            }
+        }
+
+        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                walletSelectableListener.WalletSelected(walletLists, i);
+
+/*
+                if (myApplication.getDefaultWallet() == i) {
+                    viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
+                } else {
+                    viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_wh_gradient_c2));
+                }
+*/
+            }
+        });
+
     }
+
+    public void setWalletValue(Boolean isSelected, int pos) {
+        walletLists.get(pos).setSelected(isSelected);
+        notifyItemChanged(pos);
+    }
+
 
     @Override
     public int getItemCount() {
