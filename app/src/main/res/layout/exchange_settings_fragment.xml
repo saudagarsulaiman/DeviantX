@@ -5,4 +5,41 @@
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_toolbar_back_height"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height25"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:src="@drawable/candle_chart"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="@string/devx_settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height20"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:src="@drawable/search"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
 </LinearLayout>

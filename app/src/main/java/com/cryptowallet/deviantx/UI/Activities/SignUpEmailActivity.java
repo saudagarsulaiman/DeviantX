@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -248,9 +250,15 @@ public class SignUpEmailActivity extends AppCompatActivity {
 //                dialog.dismiss();
 //                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
             }
+            @Override
+            public void updateDrawState(final TextPaint textPaint) {
+                textPaint.setColor(getResources().getColor(R.color.sky_blue1));
+                textPaint.setUnderlineText(false);
+            }
         };
-        spannableString.setSpan(clickableSpan, spannableString.length() - 41, spannableString.length() - 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(clickableSpan, spannableString.length() - 41, spannableString.length() - 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         txt_tc.setText(spannableString, TextView.BufferType.SPANNABLE);
+        txt_tc.setHighlightColor(Color.TRANSPARENT);
         txt_tc.setMovementMethod(LinkMovementMethod.getInstance());
 
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width250"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <ImageView
+        android:id="@+id/img_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:paddingLeft="@dimen/padding10"
+        android:paddingRight="@dimen/padding10"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/img_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/margin10"
+            android:id="@+id/img_right"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height50"
+            android:layout_gravity="center"
+            android:layout_weight="0.6"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/margin10" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/def_margin"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+
+</RelativeLayout>
