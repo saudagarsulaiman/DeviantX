@@ -146,7 +146,7 @@ public class TwoFAAbleActivity extends AppCompatActivity {
                                 Intent intent = new Intent(TwoFAAbleActivity.this, AppSettingsActivity.class);
                                 startActivity(intent);
                                 finish();
-                                CommonUtilities.ShowToastMessage(TwoFAAbleActivity.this, loginResponseMsg);
+                                CommonUtilities.ShowToastMessage(TwoFAAbleActivity.this, /*loginResponseMsg*/getResources().getString(R.string.enabled_2fa));
                             } else {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, false);
                                 myApplication.set2FA(false);
@@ -218,7 +218,7 @@ public class TwoFAAbleActivity extends AppCompatActivity {
                                 Intent intent = new Intent(TwoFAAbleActivity.this, AppSettingsActivity.class);
                                 startActivity(intent);
                                 finish();
-                                CommonUtilities.ShowToastMessage(TwoFAAbleActivity.this, loginResponseMsg);
+                                CommonUtilities.ShowToastMessage(TwoFAAbleActivity.this, /*loginResponseMsg*/getResources().getString(R.string.disabled_2fa));
                             } else {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, true);
                                 editor.apply();

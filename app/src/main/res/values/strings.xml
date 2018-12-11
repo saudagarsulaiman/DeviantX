@@ -480,6 +480,8 @@
     <string name="sent">Sent</string>
     <string name="enable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after enabling 2FA</string>
     <string name="disable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after disabling 2FA</string>
+    <string name="disabled_2fa">2FA Disabled</string>
+    <string name="enabled_2fa">2FA Enabled</string>
 
 
 </resources>
