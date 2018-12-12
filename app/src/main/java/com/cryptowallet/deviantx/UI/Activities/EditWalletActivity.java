@@ -20,6 +20,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -145,7 +146,11 @@ public class EditWalletActivity extends AppCompatActivity {
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
                             if (loginResponseStatus.equals("true")) {
-                                onBackPressed();
+                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent.putExtra("walletList", true);
+                                serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
+                                startService(serviceIntent);
+                                finish();
                             } else {
                                 CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
                             }

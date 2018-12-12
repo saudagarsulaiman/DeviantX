@@ -37,7 +37,10 @@ public class MyWalletListRAdapter extends RecyclerView.Adapter<MyWalletListRAdap
         this.walletList = walletList;
         this.hideBal = myApplication.getHideBalance();
     }
-
+    public void setAllWallets(ArrayList<WalletList> walletList){
+        this.walletList = walletList;
+        notifyDataSetChanged();
+    }
     public void setIsHideBalance(Boolean isHideBalance) {
         this.hideBal = isHideBalance;
     }

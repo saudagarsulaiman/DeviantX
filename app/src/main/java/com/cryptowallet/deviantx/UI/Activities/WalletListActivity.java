@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,16 +18,21 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletListRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,24 +57,50 @@ public class WalletListActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     MyWalletListRAdapter myWalletListRAdapter;
 
-
+    /*  @Override
+      protected void onRestart() {
+          super.onRestart();
+          myApplication.disableScreenCapture(this);
+          invokeWallet();
+      }
+  */
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        myApplication.disableScreenCapture(this);
-        invokeWallet();
+    public void onDestroy() {
+        super.onDestroy();
+        if (walletUIChangeListener != null) {
+            myApplication.setWalletUIChangeListener(null);
+        }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setWalletUIChangeListener(walletUIChangeListener);
+    }
+
+    WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {
+        @Override
+        public void onWalletUIChanged(String wallets, Boolean isDefaultWalle) {
+            walletUpdate(wallets);
+        }
+
+        @Override
+        public void onWalletCoinUIChanged(String allCoins) {
+
+        }
+    };
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_data_name;
-    int int_data_id;
+    int int_data_id, int_data_walletid;
     double dbl_data_totalBal;
     boolean defaultWallet = false;
 
     ArrayList<WalletList> walletList;
+
+    DeviantXDB db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +108,10 @@ public class WalletListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet_list);
 
         ButterKnife.bind(this);
+        db = DeviantXDB.getDatabase(this);
+
         walletList = new ArrayList<>();
+        myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this, walletList);
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -88,8 +123,19 @@ public class WalletListActivity extends AppCompatActivity {
             }
         });
 
+/*
 //        Getting Wallets List
         invokeWallet();
+
+*/
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onLoadWallet();
+            }
+        }, 100);
+
 
         linearLayoutManager = new LinearLayoutManager(WalletListActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_my_walletlist.setLayoutManager(linearLayoutManager);
@@ -107,11 +153,93 @@ public class WalletListActivity extends AppCompatActivity {
 
     }
 
+    private void onLoadWallet() {
+
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AccountWalletDao accountWalletDao = db.accountWalletDao();
+                if ((accountWalletDao.getAllAccountWallet()).size() > 0) {
+                    String walletResult = (accountWalletDao.getAllAccountWallet()).get(0).walletDatas;
+                    walletUpdate(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getApplicationContext())) {
+                        invokeWallet();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getApplicationContext(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    private void walletUpdate(String responsevalue) {
+        try {
+            if (!responsevalue.isEmpty() && responsevalue != null) {
+                walletList = new ArrayList<>();
+                JSONObject jsonObject = new JSONObject(responsevalue);
+                loginResponseMsg = jsonObject.getString("msg");
+                loginResponseStatus = jsonObject.getString("status");
+
+                if (loginResponseStatus.equals("true")) {
+                    loginResponseData = jsonObject.getString("data");
+                    WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
+                    walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
+                   /*
+                                       JSONArray jsonArrayData = new JSONArray(loginResponseData);
+for (int i = 0; i < jsonArrayData.length(); i++) {
+                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                        try {
+                            int_data_walletid = jsonObjectData.getInt("id");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            str_data_name = jsonObjectData.getString("name");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                            if (defaultWallet) {
+                                editor.putInt(CONSTANTS.defaultWallet, i);
+                                editor.apply();
+                                myApplication.setDefaultWallet(i);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                    }*/
+                    myWalletListRAdapter.setAllWallets(walletList);
+                    rview_my_walletlist.setAdapter(myWalletListRAdapter);
+
+                } else {
+                    CommonUtilities.ShowToastMessage(this, loginResponseMsg);
+                }
+
+            } else {
+                CommonUtilities.ShowToastMessage(this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            CommonUtilities.ShowToastMessage(this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void invokeWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(WalletListActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -119,90 +247,139 @@ public class WalletListActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                walletList = new ArrayList<>();
-                                loginResponseData = jsonObject.getString("data");
-                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                                for (int i = 0; i < jsonArrayData.length(); i++) {
-                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                    try {
-                                        int_data_id = jsonObjectData.getInt("id");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_data_name = jsonObjectData.getString("name");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    walletList.add(new WalletList(int_data_id, str_data_name, dbl_data_totalBal, defaultWallet));
-                                }
-                                myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this, walletList);
-                                rview_my_walletlist.setAdapter(myWalletListRAdapter);
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(WalletListActivity.this, loginResponseMsg);
-                            }
-
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(WalletListActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
+                        walletUpdate(responsevalue);
+                        AccountWalletDao accountWalletDao = db.accountWalletDao();
+                        accountWalletDao.deleteAllAccountWallet();
+                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
+                        accountWalletDao.insertAccountWallet(accountWallet);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WalletListActivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
+//    private void invokeWallet() {
+//        try {
+//            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(WalletListActivity.this, "", getResources().getString(R.string.please_wait), true);
+//            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+//            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+//            apiResponse.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    try {
+//                        String responsevalue = response.body().string();
+//
+//                        if (!responsevalue.isEmpty() && responsevalue != null) {
+//                            progressDialog.dismiss();
+//
+//                            JSONObject jsonObject = new JSONObject(responsevalue);
+//                            loginResponseMsg = jsonObject.getString("msg");
+//                            loginResponseStatus = jsonObject.getString("status");
+//
+//                            if (loginResponseStatus.equals("true")) {
+//                                walletList = new ArrayList<>();
+//                                loginResponseData = jsonObject.getString("data");
+//                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+//                                for (int i = 0; i < jsonArrayData.length(); i++) {
+//                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+//                                    try {
+//                                        int_data_id = jsonObjectData.getInt("id");
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    try {
+//                                        str_data_name = jsonObjectData.getString("name");
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    try {
+//                                        dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    try {
+//                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                    walletList.add(new WalletList(int_data_id, str_data_name, dbl_data_totalBal, defaultWallet));
+//                                }
+//                                myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this, walletList);
+//                                rview_my_walletlist.setAdapter(myWalletListRAdapter);
+//
+//                            } else {
+//                                CommonUtilities.ShowToastMessage(WalletListActivity.this, loginResponseMsg);
+//                            }
+//
+//
+//                        } else {
+//                            CommonUtilities.ShowToastMessage(WalletListActivity.this, loginResponseMsg);
+////                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+//                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.Timeout));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+//                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//        } catch (Exception ex) {
+//            progressDialog.dismiss();
+//            ex.printStackTrace();
+//            CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
+////            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//        }
+//
+//
+//    }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(WalletListActivity.this,DashBoardActivity.class);
+        startActivity(intent);
+    }
 }

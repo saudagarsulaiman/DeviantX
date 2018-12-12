@@ -162,15 +162,15 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FeaturedADAcivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), FeaturedADAcivity.class);
+//                startActivity(intent);
             }
         });
         txt_radh_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RecentADHistoryAcivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), RecentADHistoryAcivity.class);
+//                startActivity(intent);
             }
         });
 

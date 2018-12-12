@@ -7,17 +7,22 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import com.cryptowallet.trendchart.DateValue;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
 public class WalletList implements Parcelable {
+
+    @SerializedName("id")
     int int_data_id;
+    @SerializedName("toatalBalance")
     double dbl_data_totalBal;
-
-
+    @SerializedName("name")
     String str_data_name;
+    @SerializedName("defaultWallet")
+    boolean defaultWallet;
 
     protected WalletList(Parcel in) {
         int_data_id = in.readInt();
@@ -64,7 +69,6 @@ public class WalletList implements Parcelable {
         this.defaultWallet = defaultWallet;
     }
 
-    boolean defaultWallet = false;
 
     public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal, boolean defaultWallet) {
         this.int_data_id = int_data_id;
