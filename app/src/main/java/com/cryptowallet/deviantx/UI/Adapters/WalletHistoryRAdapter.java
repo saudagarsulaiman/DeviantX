@@ -73,7 +73,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
                     viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
                 } else {
                     String address = transactionList.get(i).getStr_data_toAddress();
-                    String dummy = "{...}";
+                    String dummy = ".....";
                     String first_half = String.format("%.7s", address);
                     String second_half = address.substring(address.length() - 7);
                     viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
@@ -93,7 +93,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
                     viewHolder.txt_trans_address.setText("From " + transactionList.get(i).getStr_data_toAddress());
                 } else {
                     String address = transactionList.get(i).getStr_data_toAddress();
-                    String dummy = "{...}";
+                    String dummy = ".....";
                     String first_half = String.format("%.7s", address);
                     String second_half = address.substring(address.length() - 7);
                     viewHolder.txt_trans_address.setText("From " + first_half + dummy + second_half);

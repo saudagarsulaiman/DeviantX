@@ -5,4 +5,57 @@
     android:background="@drawable/bg_gradient"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_toolbar_back_height"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/img_user"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height25"
+            android:layout_gravity="center"
+            android:layout_weight="0.4"
+            android:src="@drawable/user" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.15"
+            android:gravity="center"
+            android:text="@string/devx_exchange"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_support"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height23"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/support"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/img_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height20"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/search"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <com.yarolegovich.discretescrollview.DiscreteScrollView
+        android:id="@+id/item_picker"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height120"
+        android:layout_marginBottom="@dimen/margin10" />
+
+
 </LinearLayout>

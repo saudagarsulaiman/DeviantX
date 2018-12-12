@@ -1,6 +1,7 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +22,8 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class ExchangeDashBoardActivity extends AppCompatActivity {
 
@@ -58,6 +61,12 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
     FragmentManager supportFragmentManager;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_dashboard);
@@ -76,8 +85,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         });
 
         BtmClickEvents();
-        int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
-        setCurrentTabFragment(selectedTab);
+        setCurrentTabFragment(0);
 
     }
 
@@ -86,7 +94,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         img_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setCurrentTabFragment(0);
                 img_home.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -96,10 +104,23 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         });
 
 
+        img_trade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setCurrentTabFragment(1);
+                img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+                img_funds.setBackground(getResources().getDrawable(R.color.transparent));
+                img_market.setBackground(getResources().getDrawable(R.color.transparent));
+                img_settings.setBackground(getResources().getDrawable(R.color.transparent));
+                img_home.setBackground(getResources().getDrawable(R.color.transparent));
+            }
+        });
+
+
         img_funds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setCurrentTabFragment(2);
                 img_funds.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -112,7 +133,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         img_market.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setCurrentTabFragment(3);
                 img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
@@ -125,7 +146,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         img_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setCurrentTabFragment(4);
                 img_settings.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -133,20 +154,6 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_trade.setBackground(getResources().getDrawable(R.color.transparent));
             }
         });
-
-
-        img_trade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
-                img_funds.setBackground(getResources().getDrawable(R.color.transparent));
-                img_market.setBackground(getResources().getDrawable(R.color.transparent));
-                img_settings.setBackground(getResources().getDrawable(R.color.transparent));
-                img_home.setBackground(getResources().getDrawable(R.color.transparent));
-            }
-        });
-
 
     }
 
@@ -167,9 +174,6 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
             case 4:
                 replaceFragment(new ExchangeSettingsFragment());
                 break;
-            default:
-                replaceFragment(new ExchangeDashboardFragment());
-                break;
         }
     }
 
@@ -187,7 +191,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             ExchangeDashboardFragment dashboardFragment = (ExchangeDashboardFragment) supportFragmentManager.findFragmentByTag(ExchangeDashboardFragment.class.getName());
             ExchangeTradeFragment tradeFragment = (ExchangeTradeFragment) supportFragmentManager.findFragmentByTag(ExchangeTradeFragment.class.getName());
-            ExchangeFundsFragment fundsFragment = (ExchangeFundsFragment) supportFragmentManager.findFragmentByTag(ExchangeTradeFragment.class.getName());
+            ExchangeFundsFragment fundsFragment = (ExchangeFundsFragment) supportFragmentManager.findFragmentByTag(ExchangeFundsFragment.class.getName());
             ExchangeMarketFragment marketFragment = (ExchangeMarketFragment) supportFragmentManager.findFragmentByTag(ExchangeMarketFragment.class.getName());
             ExchangeSettingsFragment settingsFragment = (ExchangeSettingsFragment) supportFragmentManager.findFragmentByTag(ExchangeSettingsFragment.class.getName());
 
@@ -223,16 +227,10 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ExchangeDashBoardActivity.this, DashBoardActivity.class);
+        startActivity(intent);
+    }
 
-
-
-
-    /*
-        @Override
-        public void onBackPressed() {
-            Intent intent = new Intent(ExchangeDashBoardActivity.this, DashBoardActivity.class);
-            intent.putExtra(CONSTANTS.seletedTab, 0);
-            startActivity(intent);
-        }
-    */
 }

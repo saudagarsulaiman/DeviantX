@@ -348,7 +348,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             txt_usd_value.setText("***" + " USD");
         }
 
-        txt_rank.setText(accountWallet.getAllCoins().getInt_coin_rank() + "#");
+        txt_rank.setText("#" + accountWallet.getAllCoins().getInt_coin_rank());
 
 /*
         //The main logic for adding commas to the number.

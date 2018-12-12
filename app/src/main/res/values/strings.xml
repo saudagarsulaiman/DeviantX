@@ -88,7 +88,7 @@
 
     <!--Terms Conditions Dialog-->
     <string name="terms_conditions">Terms and Conditions</string>
-    <string name="note_terms_conditions">By registering, you are accepting the <font color='#FBB03B'><u>Terms and Conditions</u></font> of use of Deviant X.</string>
+    <string name="note_terms_conditions">By registering, you are accepting the <font color='#01C6DB'><u>Terms and Conditions</u></font> of use of Deviant X.</string>
     <string name="agree">I Agree</string>
     <string name="reject">Reject</string>
 
@@ -480,6 +480,12 @@
     <string name="sent">Sent</string>
     <string name="enable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after enabling 2FA</string>
     <string name="disable_2fa_note">For security purposes, no withdrawals are permitted for 24 hours after disabling 2FA</string>
+    <string name="disabled_2fa">2FA Disabled</string>
+    <string name="enabled_2fa">2FA Enabled</string>
+    <string name="devx_market">Deviant X Market</string>
+    <string name="btc_eth">BTC/ETH</string>
+    <string name="devx_funds">Deviant X Funds</string>
+    <string name="devx_settings">Deviant X Settings</string>
 
 
 </resources>
