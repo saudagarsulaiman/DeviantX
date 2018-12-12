@@ -28,12 +28,14 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,16 +83,12 @@ public class ExploreCoinsFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_all_coins.setLayoutManager(layoutManager);
-
-//        allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity().getApplicationContext());
-//        rview_all_coins.setAdapter(allCoinsRAdapter);
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 onLoadAllCoins();
             }
-        }, 200);
+        }, 150);
 
 
         edt_search.addTextChangedListener(new TextWatcher() {
@@ -173,9 +171,9 @@ public class ExploreCoinsFragment extends Fragment {
 
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
-                        JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                        allCoinsList = new ArrayList<>();
-                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
+                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+                       /* for (int i = 0; i < jsonArrayData.length(); i++) {
                             JSONObject jsonObjectCoins = jsonArrayData.getJSONObject(i);
 
                             try {
@@ -240,7 +238,7 @@ public class ExploreCoinsFragment extends Fragment {
                                 e.printStackTrace();
                             }
                             allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, false, str_coin_chart_data));
-                        }
+                        }*/
                         if (!edt_search.getText().toString().isEmpty()) {
                             ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
                             for (AllCoins coinName : allCoinsList) {

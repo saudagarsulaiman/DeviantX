@@ -43,6 +43,7 @@ import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.cryptowallet.deviantx.Utilities.VerticalTextView;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
@@ -51,8 +52,10 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -175,8 +178,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {
         @Override
-        public void onWalletUIChanged(String wallets) {
-            walletUIChange(wallets);
+        public void onWalletUIChanged(String wallets, Boolean isDefaultWalle) {
+            walletUIChange(wallets, isDefaultWalle);
         }
 
         @Override
@@ -224,7 +227,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         });
     }
 
-    private void walletUIChange(String responsevalue) {
+    private void walletUIChange(String responsevalue, Boolean isDefaultWalle) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -269,6 +272,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             }
 
                             walletListRAdapter.setAllWallets(walletList);
+                            if (isDefaultWalle)
+                                itemPicker.scrollToPosition(myApplication.getDefaultWallet());
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -335,7 +340,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         favListener = new FavListener() {
             @Override
             public void addOrRemoveFav(AccountWallet accountWallet, int pos) {
-                favAddRemove(accountWallet.getStr_data_address(), !accountWallet.getAllCoins().getFav(), pos);
+                favAddRemove(accountWallet.getStr_data_address(), !accountWallet.getFav(), pos);
             }
         };
 
@@ -590,11 +595,11 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                 if (filterCoinlist.size() > 0) {
                                     for (AccountWallet wallet : accountWalletlist) {
                                         if (wallet.getStr_data_address().equalsIgnoreCase(address))
-                                            wallet.getAllCoins().setFav(isFav);
+                                            wallet.setFav(isFav);
                                     }
                                     filterLoad(true);
                                 } else {
-                                    accountWalletlist.get(position).getAllCoins().setFav(isFav);
+                                    accountWalletlist.get(position).setFav(isFav);
                                     myWalletCoinsRAdapter.updateData(accountWalletlist, position);
                                 }
                             } else if (loginResponseStatus.equals("401")) {
@@ -636,7 +641,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         filterCoinlist = new ArrayList<>();
         if (isFilter) {
             for (AccountWallet wallet : accountWalletlist) {
-                if (wallet.getAllCoins().getFav())
+                if (wallet.getFav())
                     filterCoinlist.add(wallet);
             }
 
@@ -671,8 +676,11 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 if (loginResponseStatus.equals("true")) {
                     lnr_reload.setVisibility(View.GONE);
                     loginResponseData = jsonObject.getString("data");
-                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                    if (jsonArrayData.length() == 0) {
+                    accountWalletlist = new ArrayList<>();
+                    filterCoinlist = new ArrayList<>();
+                    AccountWallet[] accountWallets = GsonUtils.getInstance().fromJson(loginResponseData, AccountWallet[].class);
+                    accountWalletlist = new ArrayList<AccountWallet>(Arrays.asList(accountWallets));
+                    if (accountWalletlist.size() == 0) {
                         rview_wallet_coins.setVisibility(View.GONE);
                         lnr_empty_coins.setVisibility(View.VISIBLE);
 //                                    lnr_add_new_coins.setVisibility(View.GONE);
@@ -680,134 +688,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                         lnr_add_new_coins.setVisibility(View.VISIBLE);
                         lnr_empty_coins.setVisibility(View.GONE);
                         rview_wallet_coins.setVisibility(View.VISIBLE);
-                        double ttl_amt;
-                        accountWalletlist = new ArrayList<>();
-                        filterCoinlist = new ArrayList<>();
-                        for (int i = 0; i < jsonArrayData.length(); i++) {
-                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                            try {
-                                int_data_id = jsonObjectData.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                isFav = jsonObjectData.getBoolean("fav");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_address = jsonObjectData.getString("address");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_walletName = jsonObjectData.getString("walletName");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_privatekey = jsonObjectData.getString("privatekey");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_passcode = jsonObjectData.getString("passcode");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balance = jsonObjectData.getDouble("balance");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_account = jsonObjectData.getString("account");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_coin = jsonObjectData.getString("coin");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
-
-                            try {
-                                int_coin_id = jsonObjectCoins.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_name = jsonObjectCoins.getString("name");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_code = jsonObjectCoins.getString("code");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_logo = jsonObjectCoins.getString("logo");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                int_coin_rank = jsonObjectCoins.getInt("rank");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_chart_data = jsonObjectCoins.getString("chartData");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
-                            accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
-                                    str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
-                                    dbl_data_balanceInINR, str_data_account, allCoins));
-                        }
                         favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
                         favFilter.setTag("unFav");
                         lnr_no_fav_avail.setVisibility(View.GONE);
@@ -842,175 +722,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             }
         });
 
-       /* try {
-            if (!responsevalue.isEmpty() && responsevalue != null) {
-                lnr_reload.setVisibility(View.GONE);
-                JSONObject jsonObject = new JSONObject(responsevalue);
-                loginResponseMsg = jsonObject.getString("msg");
-                loginResponseStatus = jsonObject.getString("status");
-
-                if (loginResponseStatus.equals("true")) {
-                    lnr_reload.setVisibility(View.GONE);
-                    loginResponseData = jsonObject.getString("data");
-                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                    if (jsonArrayData.length() == 0) {
-                        lnr_empty_coins.setVisibility(View.VISIBLE);
-//                                    lnr_add_new_coins.setVisibility(View.GONE);
-                        rview_wallet_coins.setVisibility(View.GONE);
-                    } else {
-                        lnr_add_new_coins.setVisibility(View.VISIBLE);
-                        lnr_empty_coins.setVisibility(View.GONE);
-                        rview_wallet_coins.setVisibility(View.VISIBLE);
-                        double ttl_amt;
-                        accountWalletlist = new ArrayList<>();
-                        filterCoinlist = new ArrayList<>();
-                        for (int i = 0; i < jsonArrayData.length(); i++) {
-                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                            try {
-                                int_data_id = jsonObjectData.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                isFav = jsonObjectData.getBoolean("fav");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_address = jsonObjectData.getString("address");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_walletName = jsonObjectData.getString("walletName");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_privatekey = jsonObjectData.getString("privatekey");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_passcode = jsonObjectData.getString("passcode");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balance = jsonObjectData.getDouble("balance");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_account = jsonObjectData.getString("account");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_coin = jsonObjectData.getString("coin");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
-
-                            try {
-                                int_coin_id = jsonObjectCoins.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_name = jsonObjectCoins.getString("name");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_code = jsonObjectCoins.getString("code");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_logo = jsonObjectCoins.getString("logo");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                int_coin_rank = jsonObjectCoins.getInt("rank");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_chart_data = jsonObjectCoins.getString("chartData");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
-                            accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
-                                    str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
-                                    dbl_data_balanceInINR, str_data_account, allCoins));
-                        }
-                        favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
-                        favFilter.setTag("unFav");
-                        lnr_no_fav_avail.setVisibility(View.GONE);
-                        myWalletCoinsRAdapter.setAllCoins(accountWalletlist);
-                    }
-                } else if (loginResponseStatus.equals("401")) {
-                    CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
-                } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-                }
-            } else {
-                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            lnr_reload.setVisibility(View.VISIBLE);
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     private void onLineFetchAccountWallet(String walletName, int walletId) {

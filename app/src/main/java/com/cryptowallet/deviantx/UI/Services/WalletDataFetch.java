@@ -77,12 +77,12 @@ public class WalletDataFetch extends IntentService {
             boolean coinDataIsRefresh = intent.getBooleanExtra("isRefresh", true);
             fetchWalletCoins(intent.getStringExtra("walletName"), intent.getIntExtra("walletId", 0), coinDataIsRefresh);
         } else
-            invokeWallet(intent.getBooleanExtra("walletList", false));
+            invokeWallet(intent.getBooleanExtra("walletList", false),intent.getBooleanExtra("walletIsDefault", false));
 
     }
 
 
-    private void invokeWallet(boolean isWalletOnly) {
+    private void invokeWallet(boolean isWalletOnly,boolean isDefault) {
         try {
             sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -96,7 +96,7 @@ public class WalletDataFetch extends IntentService {
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
-                            new WalletDbAsync(deviantXDB, isWalletOnly).execute(responsevalue);
+                            new WalletDbAsync(deviantXDB, isWalletOnly,isDefault).execute(responsevalue);
 
                         } else {
 
@@ -170,10 +170,12 @@ public class WalletDataFetch extends IntentService {
 
         private final AccountWalletDao mDao;
         private boolean isWallet = false;
+        private boolean isDefaultWallet=false;
 
-        WalletDbAsync(DeviantXDB db, boolean isWalletOnly) {
+        WalletDbAsync(DeviantXDB db, boolean isWalletOnly,boolean isDefault) {
             mDao = db.accountWalletDao();
             isWallet = isWalletOnly;
+            isDefaultWallet=isDefault;
         }
 
         @Override
@@ -191,7 +193,7 @@ public class WalletDataFetch extends IntentService {
             Log.d("Local_cache", "Service Completed");
             walletUIChangeListener = myApplication.getWalletUIChangeListener();
             if (walletUIChangeListener != null) {
-                walletUIChangeListener.onWalletUIChanged(response);
+                walletUIChangeListener.onWalletUIChanged(response,isDefaultWallet);
             }
         }
     }

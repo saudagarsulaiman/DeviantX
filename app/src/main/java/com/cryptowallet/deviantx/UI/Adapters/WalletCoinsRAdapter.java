@@ -31,7 +31,6 @@ public class WalletCoinsRAdapter extends RecyclerView.Adapter<WalletCoinsRAdapte
 
     Context context;
     ArrayList<AccountWallet> accountWalletlist;
-    AccountWallet accountWallet;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     boolean hideBal;
@@ -73,21 +72,10 @@ public class WalletCoinsRAdapter extends RecyclerView.Adapter<WalletCoinsRAdapte
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                accountWallet = new AccountWallet(
-                        accountWalletlist.get(i).getStr_data_id(),
-                        accountWalletlist.get(i).getStr_data_address(),
-                        accountWalletlist.get(i).getStr_data_walletName(),
-                        accountWalletlist.get(i).getStr_data_privatekey(),
-                        accountWalletlist.get(i).getStr_data_passcode(),
-                        accountWalletlist.get(i).getStr_data_balance(),
-                        accountWalletlist.get(i).getStr_data_balanceInUSD(),
-                        accountWalletlist.get(i).getStr_data_balanceInINR(),
-                        accountWalletlist.get(i).getStr_data_account(),
-                        accountWalletlist.get(i).getAllCoins());
 
                 Intent intent = new Intent(context, WalletOptionsActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWallet);
+                bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWalletlist.get(i));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }

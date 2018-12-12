@@ -661,7 +661,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                         e.printStackTrace();
                                     }
                                     AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
-                                            int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, false, str_ad_coin_chart_data);
+                                            int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, str_ad_coin_chart_data);
                                     airdropWalletlist.add(new AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
                                             str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
                                             str_data_ad_account, int_ad_noOfDays, allCoins));

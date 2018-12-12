@@ -32,12 +32,14 @@ import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,7 +109,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                 onLoadAllCoins();
             }
         }, 100);
-
 
 
         tool.setOnClickListener(new View.OnClickListener() {
@@ -254,19 +255,22 @@ public class AddCoinsActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(String responsevalue){
+    private void updateUI(String responsevalue) {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject jsonObject = new JSONObject(responsevalue);
-                    loginResponseMsg = jsonObject.getString("msg");
-                    loginResponseStatus = jsonObject.getString("status");
+                   // loginResponseMsg = jsonObject.getString("msg");
+                  //  loginResponseStatus = jsonObject.getString("status");
 
-                    if (loginResponseStatus.equals("true")) {
+                    if (true) {
                         loginResponseData = jsonObject.getString("data");
-                        JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                        //JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
+
+                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+                        /*for (int i = 0; i < jsonArrayData.length(); i++) {
                             JSONObject jsonObjectCoins = jsonArrayData.getJSONObject(i);
 
                             try {
@@ -326,7 +330,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             allCoinsList.add(new AllCoins(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
-                        }
+                        }*/
 
 
                         addCoinsRAdapter = new AddCoinsRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);
@@ -335,7 +339,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                     } else {
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
