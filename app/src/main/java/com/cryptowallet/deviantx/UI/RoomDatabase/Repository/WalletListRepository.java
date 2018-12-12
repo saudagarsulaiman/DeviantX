@@ -5,17 +5,12 @@ import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
 
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletListDao;
 
-import java.util.List;
 import java.util.List;
 
 public class WalletListRepository {

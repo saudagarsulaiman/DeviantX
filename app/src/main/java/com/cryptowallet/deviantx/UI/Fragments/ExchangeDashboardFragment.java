@@ -52,4 +52,5 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
 
     }
+
 }

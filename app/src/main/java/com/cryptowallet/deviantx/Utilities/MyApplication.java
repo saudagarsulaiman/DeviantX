@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 
@@ -29,6 +30,7 @@ public class MyApplication extends Application {
     SharedPreferences sharedPreferences;
     public WalletUIChangeListener walletUIChangeListener;
     public AllCoinsUIListener allCoinsUIListener;
+    public AirdropWalletUIListener airdropWalletUIListener;
 
     public Boolean getHideBalance() {
         return isHideBalance;
@@ -121,4 +123,13 @@ public class MyApplication extends Application {
     public AllCoinsUIListener getAllCoinsUIListener() {
         return allCoinsUIListener;
     }
+
+    public void setAirdropWalletUIListener(AirdropWalletUIListener airdropWalletUIListener) {
+        this.airdropWalletUIListener = airdropWalletUIListener;
+    }
+
+    public AirdropWalletUIListener getAirdropWalletUIListener() {
+        return airdropWalletUIListener;
+    }
+
 }

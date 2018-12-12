@@ -5,12 +5,8 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Dao

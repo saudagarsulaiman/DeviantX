@@ -164,20 +164,30 @@
         <activity
             android:name=".UI.Activities.TwoFALoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Activities.ExchangeDashBoardActivity" />
-        <activity android:name=".UI.Activities.TwoFASendCoinActivity"></activity>
+        <activity
+            android:name=".UI.Activities.ExchangeDashBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.TwoFASendCoinActivity"
+            android:screenOrientation="portrait"></activity>
+
         <service
             android:name=".UI.Services.WalletDataFetch"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name=".UI.Services.AllCoinsFetch"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+        <service
+            android:name=".UI.Services.AirdropWalletFetch"
+            android:enabled="true"
+            android:exported="false" />
+
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
-            android:process=":remote">
-        </receiver>
+            android:process=":remote"></receiver>
+
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
 import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 
@@ -18,5 +19,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
         context.startService(walletIntent);
         Intent coinsIntent = new Intent(context, AllCoinsFetch.class);
         context.startService(coinsIntent);
+        Intent airdropIntent = new Intent(context, AirdropWalletFetch.class);
+        context.startService(airdropIntent);
     }
 }

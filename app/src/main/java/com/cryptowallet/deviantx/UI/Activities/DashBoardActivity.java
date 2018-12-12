@@ -37,6 +37,7 @@ import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.CustomViewPager;
@@ -194,13 +195,13 @@ public class DashBoardActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
-    private void serviceStart(){
-        AlarmManager am=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+    private void serviceStart() {
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
         //intent.putExtra(ONE_TIME, Boolean.TRUE);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0,
                 intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() , (1000 * 60*3), pi);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000 * 60 * 3), pi);
 
        /* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
@@ -320,6 +321,8 @@ public class DashBoardActivity extends AppCompatActivity {
         lnr_nav_drwr_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DeviantXDB db = DeviantXDB.getDatabase(getApplicationContext());
+                db.clearAllTables();
                 CommonUtilities.sessionExpired(DashBoardActivity.this, getResources().getString(R.string.logout_success));
             }
         });

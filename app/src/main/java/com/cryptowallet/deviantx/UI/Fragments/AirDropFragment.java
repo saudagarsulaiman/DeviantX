@@ -8,13 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -28,25 +27,23 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
-import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ConfigWalletAirdropActivity;
 import com.cryptowallet.deviantx.UI.Activities.FeaturedADAcivity;
 import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
 import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
-import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
+import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
-import com.google.android.gms.vision.clearcut.LogUtils;
-import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuPopup;
 import com.shehabic.droppy.animations.DroppyScaleAnimation;
 import com.squareup.picasso.Picasso;
-import com.zyyoona7.popup.BasePopup;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
@@ -56,7 +53,6 @@ import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,7 +61,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class AirDropFragment extends Fragment /*implements DroppyClickCallbackInterface, DroppyMenuPopup.OnDismissCallback */ {
@@ -120,7 +115,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
 
 
-    ArrayList<AirdropWallet> airdropWalletlist;
+    ArrayList<com.cryptowallet.deviantx.UI.Models.AirdropWallet> airdropWalletlist;
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank, int_ad_noOfDays;
     String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
@@ -131,11 +126,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private float mLastX;
     private float mLastY;
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
+    DeviantXDB deviantXDB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -144,6 +135,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         view = inflater.inflate(R.layout.air_drop_fragment, container, false);
 
         ButterKnife.bind(this, view);
+        deviantXDB = DeviantXDB.getDatabase(getActivity());
 
         allCoinsList = new ArrayList<>();
         airdropWalletlist = new ArrayList<>();
@@ -199,14 +191,13 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         });
 
 
-        if (CommonUtilities.isConnectionAvailable(getActivity())) {
-//            GET AIRDROP WALLET
-            fetchAirdropWallet();
-          /*  //GET ALL COINS
-            fetchCoins();*/
-        } else {
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
-        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onLoadAirDropWallet();
+            }
+        }, 200);
+
 
         return view;
     }
@@ -381,137 +372,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     }
 
 
-//    private void fetchCoins() {
-//        try {
-//            String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
-//            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
-//            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
-//            apiResponse.enqueue(new Callback<ResponseBody>() {
-//                @Override
-//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                    try {
-//                        String responsevalue = response.body().string();
-//
-//                        if (!responsevalue.isEmpty() && responsevalue != null) {
-//                            progressDialog.dismiss();
-//
-//                            JSONObject jsonObject = new JSONObject(responsevalue);
-//                            loginResponseMsg = jsonObject.getString("msg");
-//                            loginResponseStatus = jsonObject.getString("status");
-//
-//                            if (loginResponseStatus.equals("true")) {
-//                                loginResponseData = jsonObject.getString("data");
-//                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
-//                                for (int i = 0; i < jsonArrayData.length(); i++) {
-//                                    JSONObject jsonObjectCoins = jsonArrayData.getJSONObject(i);
-//
-//                                    try {
-//                                        int_coin_id = jsonObjectCoins.getInt("id");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        str_coin_name = jsonObjectCoins.getString("name");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        str_coin_code = jsonObjectCoins.getString("code");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        str_coin_logo = jsonObjectCoins.getString("logo");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                    try {
-//                                        int_coin_rank = jsonObjectCoins.getInt("rank");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                    try {
-//                                        dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-//
-//                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
-//                                }
-//                                featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), allCoinsList);
-//                                rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
-//
-//                            } else {
-//                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            }
-//
-//                        } else {
-//                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-////                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-//                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-//                        }
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        progressDialog.dismiss();
-//                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                    if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
-//                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
-//                    } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
-//                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        progressDialog.dismiss();
-//                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
-//        } catch (Exception ex) {
-//            progressDialog.dismiss();
-//            ex.printStackTrace();
-//            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-////            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-//        }
-//
-//    }
-
     private void fetchAirdropWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -526,178 +386,10 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                loginResponseData = jsonObject.getString("data");
-                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                                airdropWalletlist = new ArrayList<>();
-                                for (int i = 0; i < jsonArrayData.length(); i++) {
-                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                    try {
-                                        int_ad_data_id = jsonObjectData.getInt("id");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-//                                    try {
-//                                        isFav = jsonObjectData.getBoolean("fav");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-                                    try {
-                                        str_data_ad_address = jsonObjectData.getString("address");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    try {
-                                        str_data_ad_privatekey = jsonObjectData.getString("airdropPrivatekey");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_data_ad_passcode = jsonObjectData.getString("airdropPasscode");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_data_ad_balance = jsonObjectData.getDouble("balance");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_data_ad_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        startDate = jsonObjectData.getString("airdropStartDate");
-                                       /* if (startDate.equals("null")) {
-                                            startDate = "0";
-                                        }*/
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_data_ad_account = jsonObjectData.getString("account");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_data_ad_coin = jsonObjectData.getString("coin");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        int_ad_noOfDays = jsonObjectData.getInt("noOfDays");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    JSONObject jsonObjectCoins = new JSONObject(str_data_ad_coin);
-
-                                    try {
-                                        int_ad_coin_id = jsonObjectCoins.getInt("id");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_ad_coin_name = jsonObjectCoins.getString("name");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_ad_coin_code = jsonObjectCoins.getString("code");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_ad_coin_logo = jsonObjectCoins.getString("logo");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        int_ad_coin_rank = jsonObjectCoins.getInt("rank");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_volume = jsonObjectCoins.getDouble("volume");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_24h = jsonObjectCoins.getDouble("change24H");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_7d = jsonObjectCoins.getDouble("change7D");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_ad_coin_1m = jsonObjectCoins.getDouble("change1M");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_ad_coin_chart_data = jsonObjectCoins.getString("chartData");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
-                                            int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, false, str_ad_coin_chart_data);
-                                    airdropWalletlist.add(new AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
-                                            str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
-                                            str_data_ad_account, int_ad_noOfDays, allCoins));
-                                }
-                                Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
-                                txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
-                                txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
-                                if (myApplication.getHideBalance()){
-                                    txt_holding_bal.setText("***");
-                                }else {
-                                    txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
-                                }
-
-                                if (airdropWalletlist.get(0).getStartDate().equals("null")) {
-                                    txt_holding_days.setText("0 Days");
-                                    seekbar_per.setProgress(0);
-                                    txt_seekbar_per.setText("0" + "%");
-                                } else {
-                                    txt_holding_days.setText(getDays(airdropWalletlist.get(0).getStartDate()));
-                                    seekbar_per.setProgress(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()));
-                                    txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()) + "%");
-                                }
-
-//                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
-                                txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
-//                                } else {
-//                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
-//                                    String dummy = "{...}";
-//                                    String first_half = String.format("%.7s", address);
-//                                    String second_half = address.substring(address.length() - 7);
-//                                    txt_coin_address.setText(first_half + dummy + second_half);
-//                                }
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-                            }
+                            updateUI(responsevalue);
+                            AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
+                            AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
+                            mDao.insertAirdropWallet(airdropWallet);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -773,6 +465,233 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setAirdropWalletUIListener(airdropWalletUIListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myApplication.setAirdropWalletUIListener(null);
+    }
+
+    AirdropWalletUIListener airdropWalletUIListener = new AirdropWalletUIListener() {
+        @Override
+        public void onChangedAirdropWallet(String airdropWalletList) {
+            updateUI(airdropWalletList);
+        }
+    };
+
+    private void updateUI(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                        airdropWalletlist = new ArrayList<>();
+                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                            try {
+                                int_ad_data_id = jsonObjectData.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+//                                    try {
+//                                        isFav = jsonObjectData.getBoolean("fav");
+//                                    } catch (Exception e) {
+//                                        e.printStackTrace();
+//                                    }
+                            try {
+                                str_data_ad_address = jsonObjectData.getString("address");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            try {
+                                str_data_ad_privatekey = jsonObjectData.getString("airdropPrivatekey");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_ad_passcode = jsonObjectData.getString("airdropPasscode");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_ad_balance = jsonObjectData.getDouble("balance");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_ad_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                startDate = jsonObjectData.getString("airdropStartDate");
+                                       /* if (startDate.equals("null")) {
+                                            startDate = "0";
+                                        }*/
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_ad_account = jsonObjectData.getString("account");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_ad_coin = jsonObjectData.getString("coin");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                int_ad_noOfDays = jsonObjectData.getInt("noOfDays");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            JSONObject jsonObjectCoins = new JSONObject(str_data_ad_coin);
+
+                            try {
+                                int_ad_coin_id = jsonObjectCoins.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_ad_coin_name = jsonObjectCoins.getString("name");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_ad_coin_code = jsonObjectCoins.getString("code");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_ad_coin_logo = jsonObjectCoins.getString("logo");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                int_ad_coin_rank = jsonObjectCoins.getInt("rank");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_volume = jsonObjectCoins.getDouble("volume");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_24h = jsonObjectCoins.getDouble("change24H");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_7d = jsonObjectCoins.getDouble("change7D");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_ad_coin_1m = jsonObjectCoins.getDouble("change1M");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_ad_coin_chart_data = jsonObjectCoins.getString("chartData");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
+                                    int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, false, str_ad_coin_chart_data);
+                            airdropWalletlist.add(new com.cryptowallet.deviantx.UI.Models.AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
+                                    str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
+                                    str_data_ad_account, int_ad_noOfDays, allCoins));
+                        }
+                        Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
+                        txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
+                        txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+                        if (myApplication.getHideBalance()) {
+                            txt_holding_bal.setText("***");
+                        } else {
+                            txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+                        }
+
+                        if (airdropWalletlist.get(0).getStartDate().equals("null")) {
+                            txt_holding_days.setText("0 Days");
+                            seekbar_per.setProgress(0);
+                            txt_seekbar_per.setText("0" + "%");
+                        } else {
+                            txt_holding_days.setText(getDays(airdropWalletlist.get(0).getStartDate()));
+                            seekbar_per.setProgress(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()));
+                            txt_seekbar_per.setText(getDaysPer(airdropWalletlist.get(0).getStartDate(), airdropWalletlist.get(0).getInt_ad_noOfDays()) + "%");
+                        }
+
+//                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
+                        txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+//                                } else {
+//                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
+//                                    String dummy = "{...}";
+//                                    String first_half = String.format("%.7s", address);
+//                                    String second_half = address.substring(address.length() - 7);
+//                                    txt_coin_address.setText(first_half + dummy + second_half);
+//                                }
+
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+    }
+
+
+    private void onLoadAirDropWallet() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AirdropWalletDao airdropWalletDao = deviantXDB.airdropWalletDao();
+                if ((airdropWalletDao.getAllAirdropWallet()) != null) {
+                    String walletResult = airdropWalletDao.getAllAirdropWallet().airdropWallet;
+                    updateUI(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchAirdropWallet();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
     }
 
 /*
