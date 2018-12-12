@@ -16,7 +16,7 @@ import java.util.List;
 public class AccountWalletRepository {
 
     private AccountWalletDao accountWalletDao;
-    private LiveData<List<AccountWallet>> accountWallet;
+    private List<AccountWallet> accountWallet;
 
     public AccountWalletRepository(Application application) {
         DeviantXDB db = DeviantXDB.getDatabase(application);
@@ -25,7 +25,7 @@ public class AccountWalletRepository {
     }
 
 
-    public LiveData<List<AccountWallet>> getAllAccountWallet() {
+    public List<AccountWallet> getAllAccountWallet() {
         return accountWallet;
     }
 

@@ -7,6 +7,9 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
+
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -24,6 +27,8 @@ public class MyApplication extends Application {
 
     public AppCompatActivity activity;
     SharedPreferences sharedPreferences;
+    public WalletUIChangeListener walletUIChangeListener;
+    public AllCoinsUIListener allCoinsUIListener;
 
     public Boolean getHideBalance() {
         return isHideBalance;
@@ -72,6 +77,7 @@ public class MyApplication extends Application {
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
+
     }
 
     public void disableScreenCapture(Activity context) {
@@ -100,5 +106,19 @@ public class MyApplication extends Application {
         //return false;
     }
 
+    public void setWalletUIChangeListener(WalletUIChangeListener walletUIChangeListener) {
+        this.walletUIChangeListener = walletUIChangeListener;
+    }
 
+    public WalletUIChangeListener getWalletUIChangeListener() {
+        return walletUIChangeListener;
+    }
+
+    public void setAllCoinsUIListener(AllCoinsUIListener allCoinsUIListener) {
+        this.allCoinsUIListener = allCoinsUIListener;
+    }
+
+    public AllCoinsUIListener getAllCoinsUIListener() {
+        return allCoinsUIListener;
+    }
 }

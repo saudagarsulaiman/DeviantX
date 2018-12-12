@@ -293,6 +293,14 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin50"
+            android:layout_gravity="center_horizontal" />
+
         <LinearLayout
             android:id="@+id/lnr_reload"
             android:layout_width="match_parent"

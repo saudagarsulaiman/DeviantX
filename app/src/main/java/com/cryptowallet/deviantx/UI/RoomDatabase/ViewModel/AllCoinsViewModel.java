@@ -18,7 +18,7 @@ import java.util.List;
 public class AllCoinsViewModel extends AndroidViewModel {
 
     private AllCoinsRepository mRepository;
-    private LiveData<List<AllCoins>> mList;
+    private AllCoins mList;
 
     public AllCoinsViewModel(@NonNull Application application) {
         super(application);
@@ -26,7 +26,7 @@ public class AllCoinsViewModel extends AndroidViewModel {
         mList = mRepository.getAllAllCoins();
     }
 
-    public LiveData<List<AllCoins>> getAllAllCoins() {
+    public AllCoins getAllAllCoins() {
         return mList;
     }
 

@@ -5,8 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
@@ -30,9 +32,14 @@ import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -82,6 +89,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     ImageView img_add_coin;
     @BindView(R.id.lnr_reload)
     LinearLayout lnr_reload;
+    @BindView(R.id.pb)
+    ProgressBar pb;
     @BindView(R.id.lnr_add_new_coins)
     LinearLayout lnr_add_new_coins;
     @BindView(R.id.lnr_new_wallet)
@@ -119,21 +128,23 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     double dbl_data_totalBal;
     boolean defaultWallet = false;
     FavListener favListener;
-
+    DeviantXDB db;
     boolean hideBal;
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101) {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, " ");
-            fetchAccountWallet(wallet_name);
+            int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+            fetchAccountWallet(wallet_name, wallet_id);
         }
-    }
+    }*/
 
     @Override
     public void onResume() {
         super.onResume();
+        myApplication.setWalletUIChangeListener(walletUIChangeListener);
         if (myWalletCoinsRAdapter != null) {
             myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
             myWalletCoinsRAdapter.notifyDataSetChanged();
@@ -141,7 +152,141 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         if (walletListRAdapter != null) {
             walletListRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletListRAdapter.notifyDataSetChanged();
+           /* String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, " ");
+            int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+            fetchAccountWallet(wallet_name, wallet_id);*/
         }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (walletUIChangeListener != null) {
+            myApplication.setWalletUIChangeListener(null);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {
+        @Override
+        public void onWalletUIChanged(String wallets) {
+            walletUIChange(wallets);
+        }
+
+        @Override
+        public void onWalletCoinUIChanged(String loadedWalletName) {
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+            int walletId = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+            if (loadedWalletName.equalsIgnoreCase(wallet_name))
+                fetchAccountWallet(wallet_name, walletId);
+        }
+    };
+
+    private void onProgressLoad() {
+        pb.setVisibility(View.VISIBLE);
+        lnr_empty_coins.setVisibility(View.GONE);
+        rview_wallet_coins.setVisibility(View.GONE);
+    }
+
+    private void onProgressHide() {
+        pb.setVisibility(View.GONE);
+    }
+
+    private void fetchAccountWallet(String wallet_name, int walletId) {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onProgressLoad();
+                try {
+                    AllCoinsDao allCoinsDao = db.allCoinsDao();
+                    if ((allCoinsDao.getAllAllCoins(wallet_name) != null)) {
+                        updateCoins(allCoinsDao.getAllAllCoins(wallet_name).coinsList);
+                    } else {
+                        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                            onLineFetchAccountWallet(wallet_name, walletId);
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                        }
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void walletUIChange(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (!responsevalue.isEmpty() && responsevalue != null) {
+                        JSONObject jsonObject = new JSONObject(responsevalue);
+                        loginResponseMsg = jsonObject.getString("msg");
+                        loginResponseStatus = jsonObject.getString("status");
+
+                        if (loginResponseStatus.equals("true")) {
+                            loginResponseData = jsonObject.getString("data");
+                            JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                            walletList = new ArrayList<>();
+                            for (int i = 0; i < jsonArrayData.length(); i++) {
+                                JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                                try {
+                                    int_data_walletid = jsonObjectData.getInt("id");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    str_data_name = jsonObjectData.getString("name");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                                    if (defaultWallet) {
+                                        editor.putInt(CONSTANTS.defaultWallet, i);
+                                        editor.apply();
+                                        myApplication.setDefaultWallet(i);
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                            }
+
+                            walletListRAdapter.setAllWallets(walletList);
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                        }
+
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                        Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -149,33 +294,41 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.dashboard_fragment, container, false);
         ButterKnife.bind(this, view);
-
+        db = DeviantXDB.getDatabase(getContext());
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         hideBal = sharedPreferences.getBoolean(CONSTANTS.hideBal, true);
         newWallet.setTextColor(Color.WHITE);
         walletList = new ArrayList<>();
+        accountWalletlist = new ArrayList<>();
+        pb.getIndeterminateDrawable().setColorFilter(
+                getResources().getColor(R.color.white),
+                android.graphics.PorterDuff.Mode.SRC_IN);
         editor.putString(CONSTANTS.walletName, "");
+        editor.putInt(CONSTANTS.walletId, 0);
         editor.apply();
-        if (CommonUtilities.isConnectionAvailable(getActivity())) {
-//        Getting Wallets List
-            invokeWallet();
-        } else {
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
-        }
+        walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
+        itemPicker.setAdapter(walletListRAdapter);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onLoadWallet();
+            }
+        }, 100);
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
-//        itemPicker.addOnItemChangedListener(this);
-        walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
         itemPicker.addOnItemChangedListener(this);
-        itemPicker.setAdapter(walletListRAdapter);
         itemPicker.setItemTransitionTimeMillis(150);
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
                 .setMinScale(0.8f)
                 .build());
-        if (!walletList.isEmpty()) {
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rview_wallet_coins.setLayoutManager(layoutManager);
+        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
+        rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+        /*if (!walletList.isEmpty()) {
             onItemChanged(walletList.get(0));
-        }
+        }*/
 
         accountWalletlist = new ArrayList<>();
         filterCoinlist = new ArrayList<>();
@@ -186,10 +339,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             }
         };
 
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        rview_wallet_coins.setLayoutManager(layoutManager);
-        myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
-        rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
+        //layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        //rview_wallet_coins.setLayoutManager(layoutManager);
+        //myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
+        //rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
         favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
         favFilter.setTag("unFav");
 
@@ -236,7 +389,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 //            GET Account Wallet
                     lnr_reload.setVisibility(View.GONE);
                     String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
-                    fetchAccountWallet(wallet_name);
+                    int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+                    fetchAccountWallet(wallet_name, wallet_id);
                 } else {
                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                 }
@@ -247,14 +401,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivityForResult(intent, 101);
+                startActivity(intent);
             }
         });
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivityForResult(intent, 101);
+                startActivity(intent);
             }
         });
         lnr_new_wallet.setOnClickListener(new View.OnClickListener() {
@@ -274,22 +428,40 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         return view;
     }
 
+    private void onLoadWallet() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AccountWalletDao accountWalletDao = db.accountWalletDao();
+                if ((accountWalletDao.getAllAccountWallet()).size() > 0) {
+                    String walletResult = (accountWalletDao.getAllAccountWallet()).get(0).walletDatas;
+                    walletUpdate(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        invokeWallet();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
     private void onItemChanged(WalletList walletList) {
-        if (CommonUtilities.isConnectionAvailable(getActivity())) {
 //            GET Account Wallet
-            lnr_reload.setVisibility(View.GONE);
-            editor.putString(CONSTANTS.walletName, walletList.getStr_data_name());
-            editor.apply();
-            fetchAccountWallet(walletList.getStr_data_name());
-        } else {
-            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
-        }
+        lnr_reload.setVisibility(View.GONE);
+        editor.putString(CONSTANTS.walletName, walletList.getStr_data_name());
+        editor.putInt(CONSTANTS.walletId, walletList.getInt_data_id());
+        editor.apply();
+        fetchAccountWallet(walletList.getStr_data_name(), walletList.getInt_data_id());
+
     }
 
     private void invokeWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -297,97 +469,31 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                int defaultWalletPos = 0;
-                                loginResponseData = jsonObject.getString("data");
-                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                                for (int i = 0; i < jsonArrayData.length(); i++) {
-                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                    try {
-                                        int_data_walletid = jsonObjectData.getInt("id");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        str_data_name = jsonObjectData.getString("name");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    try {
-                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
-                                        if (defaultWallet) {
-                                            defaultWalletPos = i;
-                                            editor.putInt(CONSTANTS.defaultWallet, i);
-                                            editor.apply();
-                                            myApplication.setDefaultWallet(i);
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
-                                }
-
-                                walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
-                                itemPicker.setAdapter(walletListRAdapter);
-//                                itemPicker.scrollToPosition(defaultWalletPos); //position becomes selected
-                                itemPicker.scrollToPosition(myApplication.getDefaultWallet());
-//                                itemPicker.smoothScrollToPosition(defaultWalletPos);
-//                                itemPicker.setItemTransformer(new ScaleTransformer.Builder()
-//                                        .setMinScale(0.8f)
-//                                        .build());
-//                                onItemChanged(walletList.get(defaultWalletPos));
-                                walletListRAdapter.notifyDataSetChanged();
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-                            }
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
+                        walletUpdate(responsevalue);
+                        AccountWalletDao accountWalletDao = db.accountWalletDao();
+                        accountWalletDao.deleteAllAccountWallet();
+                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
+                        accountWalletDao.insertAccountWallet(accountWallet);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                         Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
@@ -395,10 +501,70 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     }
 
+    private void walletUpdate(String responsevalue) {
+        try {
+            if (!responsevalue.isEmpty() && responsevalue != null) {
+
+                JSONObject jsonObject = new JSONObject(responsevalue);
+                loginResponseMsg = jsonObject.getString("msg");
+                loginResponseStatus = jsonObject.getString("status");
+
+                if (loginResponseStatus.equals("true")) {
+                    loginResponseData = jsonObject.getString("data");
+                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                    for (int i = 0; i < jsonArrayData.length(); i++) {
+                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                        try {
+                            int_data_walletid = jsonObjectData.getInt("id");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            str_data_name = jsonObjectData.getString("name");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                            if (defaultWallet) {
+                                editor.putInt(CONSTANTS.defaultWallet, i);
+                                editor.apply();
+                                myApplication.setDefaultWallet(i);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                    }
+
+                    walletListRAdapter.setAllWallets(walletList);
+                    itemPicker.scrollToPosition(myApplication.getDefaultWallet());
+
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                }
+
+            } else {
+                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void favAddRemove(final String address, final boolean isFav, final int position) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.favAddRemove(CONSTANTS.DeviantMulti + token, address, isFav);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -408,13 +574,19 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                         String responsevalue = response.body().string();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
 
                             JSONObject jsonObject = new JSONObject(responsevalue);
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
+                                Intent serviceIntent = new Intent(getActivity(), WalletDataFetch.class);
+                                int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+                                serviceIntent.putExtra("walletName", wallet_name);
+                                serviceIntent.putExtra("walletId", wallet_id);
+                                serviceIntent.putExtra("isRefresh", false);
+                                getActivity().startService(serviceIntent);
                                 if (filterCoinlist.size() > 0) {
                                     for (AccountWallet wallet : accountWalletlist) {
                                         if (wallet.getStr_data_address().equalsIgnoreCase(address))
@@ -432,37 +604,28 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
 //                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
@@ -496,10 +659,363 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         }
     }
 
-    private void fetchAccountWallet(String walletName) {
+
+    private void coinValueUpdate(String responsevalue) {
+        try {
+            if (!responsevalue.isEmpty() && responsevalue != null) {
+                lnr_reload.setVisibility(View.GONE);
+                JSONObject jsonObject = new JSONObject(responsevalue);
+                loginResponseMsg = jsonObject.getString("msg");
+                loginResponseStatus = jsonObject.getString("status");
+
+                if (loginResponseStatus.equals("true")) {
+                    lnr_reload.setVisibility(View.GONE);
+                    loginResponseData = jsonObject.getString("data");
+                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                    if (jsonArrayData.length() == 0) {
+                        rview_wallet_coins.setVisibility(View.GONE);
+                        lnr_empty_coins.setVisibility(View.VISIBLE);
+//                                    lnr_add_new_coins.setVisibility(View.GONE);
+                    } else {
+                        lnr_add_new_coins.setVisibility(View.VISIBLE);
+                        lnr_empty_coins.setVisibility(View.GONE);
+                        rview_wallet_coins.setVisibility(View.VISIBLE);
+                        double ttl_amt;
+                        accountWalletlist = new ArrayList<>();
+                        filterCoinlist = new ArrayList<>();
+                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                            try {
+                                int_data_id = jsonObjectData.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                isFav = jsonObjectData.getBoolean("fav");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_address = jsonObjectData.getString("address");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_walletName = jsonObjectData.getString("walletName");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_privatekey = jsonObjectData.getString("privatekey");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_passcode = jsonObjectData.getString("passcode");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balance = jsonObjectData.getDouble("balance");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_account = jsonObjectData.getString("account");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_coin = jsonObjectData.getString("coin");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
+
+                            try {
+                                int_coin_id = jsonObjectCoins.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_name = jsonObjectCoins.getString("name");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_code = jsonObjectCoins.getString("code");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_logo = jsonObjectCoins.getString("logo");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                int_coin_rank = jsonObjectCoins.getInt("rank");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_chart_data = jsonObjectCoins.getString("chartData");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
+                            accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
+                                    str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
+                                    dbl_data_balanceInINR, str_data_account, allCoins));
+                        }
+                        favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
+                        favFilter.setTag("unFav");
+                        lnr_no_fav_avail.setVisibility(View.GONE);
+                        myWalletCoinsRAdapter.setAllCoins(accountWalletlist);
+                    }
+                } else if (loginResponseStatus.equals("401")) {
+                    CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                }
+            } else {
+                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            lnr_reload.setVisibility(View.VISIBLE);
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateCoins(String responsevalue) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                // this will run in the main thread
+                coinValueUpdate(responsevalue);
+                onProgressHide();
+                myWalletCoinsRAdapter.notifyDataSetChanged();
+            }
+        });
+
+       /* try {
+            if (!responsevalue.isEmpty() && responsevalue != null) {
+                lnr_reload.setVisibility(View.GONE);
+                JSONObject jsonObject = new JSONObject(responsevalue);
+                loginResponseMsg = jsonObject.getString("msg");
+                loginResponseStatus = jsonObject.getString("status");
+
+                if (loginResponseStatus.equals("true")) {
+                    lnr_reload.setVisibility(View.GONE);
+                    loginResponseData = jsonObject.getString("data");
+                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                    if (jsonArrayData.length() == 0) {
+                        lnr_empty_coins.setVisibility(View.VISIBLE);
+//                                    lnr_add_new_coins.setVisibility(View.GONE);
+                        rview_wallet_coins.setVisibility(View.GONE);
+                    } else {
+                        lnr_add_new_coins.setVisibility(View.VISIBLE);
+                        lnr_empty_coins.setVisibility(View.GONE);
+                        rview_wallet_coins.setVisibility(View.VISIBLE);
+                        double ttl_amt;
+                        accountWalletlist = new ArrayList<>();
+                        filterCoinlist = new ArrayList<>();
+                        for (int i = 0; i < jsonArrayData.length(); i++) {
+                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                            try {
+                                int_data_id = jsonObjectData.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                isFav = jsonObjectData.getBoolean("fav");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_address = jsonObjectData.getString("address");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_walletName = jsonObjectData.getString("walletName");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_privatekey = jsonObjectData.getString("privatekey");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_passcode = jsonObjectData.getString("passcode");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balance = jsonObjectData.getDouble("balance");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_account = jsonObjectData.getString("account");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_data_coin = jsonObjectData.getString("coin");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
+
+                            try {
+                                int_coin_id = jsonObjectCoins.getInt("id");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_name = jsonObjectCoins.getString("name");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_code = jsonObjectCoins.getString("code");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_logo = jsonObjectCoins.getString("logo");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                int_coin_rank = jsonObjectCoins.getInt("rank");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
+                                str_coin_chart_data = jsonObjectCoins.getString("chartData");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
+                            accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
+                                    str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
+                                    dbl_data_balanceInINR, str_data_account, allCoins));
+                        }
+                        favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
+                        favFilter.setTag("unFav");
+                        lnr_no_fav_avail.setVisibility(View.GONE);
+                        myWalletCoinsRAdapter.setAllCoins(accountWalletlist);
+                    }
+                } else if (loginResponseStatus.equals("401")) {
+                    CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                }
+            } else {
+                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            lnr_reload.setVisibility(View.VISIBLE);
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
+    private void onLineFetchAccountWallet(String walletName, int walletId) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAccountWallet(CONSTANTS.DeviantMulti + token, walletName);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -507,179 +1023,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            lnr_reload.setVisibility(View.GONE);
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                lnr_reload.setVisibility(View.GONE);
-                                loginResponseData = jsonObject.getString("data");
-                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                                if (jsonArrayData.length() == 0) {
-                                    lnr_empty_coins.setVisibility(View.VISIBLE);
-//                                    lnr_add_new_coins.setVisibility(View.GONE);
-                                    rview_wallet_coins.setVisibility(View.GONE);
-                                } else {
-                                    lnr_add_new_coins.setVisibility(View.VISIBLE);
-                                    lnr_empty_coins.setVisibility(View.GONE);
-                                    rview_wallet_coins.setVisibility(View.VISIBLE);
-                                    double ttl_amt;
-                                    accountWalletlist = new ArrayList<>();
-                                    filterCoinlist = new ArrayList<>();
-                                    for (int i = 0; i < jsonArrayData.length(); i++) {
-                                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                        try {
-                                            int_data_id = jsonObjectData.getInt("id");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            isFav = jsonObjectData.getBoolean("fav");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_address = jsonObjectData.getString("address");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_walletName = jsonObjectData.getString("walletName");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_privatekey = jsonObjectData.getString("privatekey");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_passcode = jsonObjectData.getString("passcode");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_data_balance = jsonObjectData.getDouble("balance");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_data_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_data_balanceInINR = jsonObjectData.getDouble("balanceInINR");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_account = jsonObjectData.getString("account");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_data_coin = jsonObjectData.getString("coin");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
-
-                                        try {
-                                            int_coin_id = jsonObjectCoins.getInt("id");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_name = jsonObjectCoins.getString("name");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_code = jsonObjectCoins.getString("code");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_logo = jsonObjectCoins.getString("logo");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            int_coin_rank = jsonObjectCoins.getInt("rank");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            str_coin_chart_data = jsonObjectCoins.getString("chartData");
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, isFav, str_coin_chart_data);
-                                        accountWalletlist.add(new AccountWallet(int_data_id, str_data_address, str_data_walletName,
-                                                str_data_privatekey, str_data_passcode, dbl_data_balance, dbl_data_balanceInUSD,
-                                                dbl_data_balanceInINR, str_data_account, allCoins));
-                                    }
-                                    favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
-                                    favFilter.setTag("unFav");
-                                    lnr_no_fav_avail.setVisibility(View.GONE);
-                                    myWalletCoinsRAdapter = new MyWalletCoinsRAdapter(getActivity(), accountWalletlist, favListener);
-                                    rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
-                                    myWalletCoinsRAdapter.notifyDataSetChanged();
-                                }
-                            } else if (loginResponseStatus.equals("401")) {
-                                CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
-                            } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateCoins(responsevalue);
+                                AllCoinsDao mDao = db.allCoinsDao();
+                                com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins allCoins = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins(walletName, responsevalue, walletId);
+                                mDao.insertAllCoins(allCoins);
                             }
-                        } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
+                        });
                     } catch (Exception e) {
                         e.printStackTrace();
-                        lnr_reload.setVisibility(View.VISIBLE);
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -687,16 +1041,13 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         lnr_reload.setVisibility(View.VISIBLE);
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         lnr_reload.setVisibility(View.VISIBLE);
-                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
 //                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
                         lnr_reload.setVisibility(View.VISIBLE);
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
@@ -704,7 +1055,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
             lnr_reload.setVisibility(View.VISIBLE);

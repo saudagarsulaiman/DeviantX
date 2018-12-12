@@ -17,16 +17,16 @@ import java.util.List;
 public class AllCoinsRepository {
 
     private AllCoinsDao allCoinsDao;
-    private LiveData<List<AllCoins>> allCoins;
+    private AllCoins allCoins;
 
     public AllCoinsRepository(Application application) {
         DeviantXDB db = DeviantXDB.getDatabase(application);
         allCoinsDao = db.allCoinsDao();
-        allCoins = allCoinsDao.getAllAllCoins();
+        allCoins = allCoinsDao.getAllAllCoins("");
     }
 
 
-    public LiveData<List<AllCoins>> getAllAllCoins() {
+    public AllCoins getAllAllCoins() {
         return allCoins;
     }
 

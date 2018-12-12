@@ -18,7 +18,7 @@ public interface AccountWalletDao {
     @Query("DELETE FROM account_wallet_table")
     void deleteAllAccountWallet();
 
-    @Query("SELECT * from account_wallet_table ORDER BY str_data_walletName ASC")
-    LiveData<List<AccountWallet>> getAllAccountWallet();
+    @Query("SELECT * from account_wallet_table")
+    List<AccountWallet> getAllAccountWallet();
 
 }

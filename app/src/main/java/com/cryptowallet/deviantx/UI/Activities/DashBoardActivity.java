@@ -2,6 +2,8 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,7 @@ import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
 import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
+import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.CustomViewPager;
@@ -191,6 +194,21 @@ public class DashBoardActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
+    private void serviceStart(){
+        AlarmManager am=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+        //intent.putExtra(ONE_TIME, Boolean.TRUE);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0,
+                intent, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() , (1000 * 60*3), pi);
+
+       /* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(DashBoardActivity.this, 0, intent, 0);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),60000, pendingIntent);
+*/
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -204,7 +222,7 @@ public class DashBoardActivity extends AppCompatActivity {
         supportFragmentManager = getSupportFragmentManager();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-
+        serviceStart();
         // mViewPager.setPagingEnabled(false);
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));

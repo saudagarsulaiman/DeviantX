@@ -30,6 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class TwoFAEnableActivity extends AppCompatActivity {
@@ -50,8 +51,6 @@ public class TwoFAEnableActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
-
 
 
     @Override
@@ -131,6 +130,8 @@ public class TwoFAEnableActivity extends AppCompatActivity {
                                 myApplication.set2FA(true);
                                 editor.apply();
                                 Intent intent = new Intent(TwoFAEnableActivity.this, AppSettingsActivity.class);
+                                intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
                                 CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);

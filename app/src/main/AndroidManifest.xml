@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
@@ -165,6 +166,18 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Activities.ExchangeDashBoardActivity" />
         <activity android:name=".UI.Activities.TwoFASendCoinActivity"></activity>
+        <service
+            android:name=".UI.Services.WalletDataFetch"
+            android:enabled="true"
+            android:exported="false"/>
+        <service
+            android:name=".UI.Services.AllCoinsFetch"
+            android:enabled="true"
+            android:exported="false"/>
+        <receiver
+            android:name=".UI.Receiver.RefreshServiceReceiver"
+            android:process=":remote">
+        </receiver>
     </application>
 
 </manifest>

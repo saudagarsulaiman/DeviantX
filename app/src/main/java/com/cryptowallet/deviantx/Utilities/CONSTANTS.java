@@ -11,6 +11,7 @@ public class CONSTANTS {
     public static String token = "TOKEN";     //Account token for Authorization @API Services
     public static String TAG = "!!--DeviantX--!!";  // Console/LogCat
     public static String walletName = "WALLETNAME";   // User Wallet Name @ SetUp Wallet Activity
+    public static String walletId = "WALLETID";   // User Wallet Id @ SetUp Wallet Activity
     public static String hideBal = "HIDEBALANCE";  //  Hiding Balance @AppSettingsActivity
     public static String screenshot = "SCREENSHOT";  //  Disable Screenshots @AppSettingsActivity
     public static String lightmode = "LIGHTMODE";  //  lIGHT MODE @AppSettingsActivity

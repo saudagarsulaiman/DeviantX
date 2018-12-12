@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -154,14 +155,10 @@ public class SetUpWalletActivity extends AppCompatActivity {
                             if (loginResponseStatus.equals("true")) {
                                 editor.putBoolean(CONSTANTS.empty_wallet, false);
                                 editor.apply();
-                                Intent intent = new Intent(SetUpWalletActivity.this, DashBoardActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString(CONSTANTS.walletName,s_WalletName);
-//                    intent.putExtras(bundle);
-//                    editor.putBoolean(CONSTANTS.wallet,true);
-//                    editor.putString(CONSTANTS.walletName,s_WalletName);
-//                    editor.apply();
-                                startActivity(intent);
+                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent.putExtra("walletList", true);
+                                startService(serviceIntent);
+                                finish();
                             } else {
                                 CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, loginResponseMsg);
                             }

@@ -57,6 +57,10 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
         this.startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
         this.endTime = System.currentTimeMillis();
     }
+    public void setAllWallets(ArrayList<WalletList> walletList){
+        this.walletList = walletList;
+        notifyDataSetChanged();
+    }
 
     public void setIsHideBalance(Boolean isHideBalance) {
         this.hideBal = isHideBalance;

@@ -99,6 +99,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         editor = sharedPreferences.edit();
         this.hideBal = myApplication.getHideBalance();
     }
+    public void setAllCoins(ArrayList<AccountWallet> accountWalletlist) {
+        this.accountWalletlist = accountWalletlist;
+      //  notifyDataSetChanged();
+    }
 
     public void setIsHideBalance(Boolean isHideBalance) {
         this.hideBal = isHideBalance;
@@ -647,6 +651,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        return 10;
         return accountWalletlist.size();
     }
+
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

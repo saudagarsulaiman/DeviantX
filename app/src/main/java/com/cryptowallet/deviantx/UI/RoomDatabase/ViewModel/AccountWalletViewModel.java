@@ -17,7 +17,7 @@ import java.util.List;
 public class AccountWalletViewModel extends AndroidViewModel {
 
     private AccountWalletRepository mRepository;
-    private LiveData<List<AccountWallet>> mList;
+    private List<AccountWallet> mList;
 
     public AccountWalletViewModel(@NonNull Application application) {
         super(application);
@@ -25,7 +25,7 @@ public class AccountWalletViewModel extends AndroidViewModel {
         mList = mRepository.getAllAccountWallet();
     }
 
-    public LiveData<List<AccountWallet>> getAllAccountWallet() {
+    public List<AccountWallet> getAllAccountWallet() {
         return mList;
     }
 

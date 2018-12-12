@@ -9,6 +9,11 @@ android {
         versionCode 2
         versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -111,4 +116,6 @@ dependencies {
 
 // Offline Work
     implementation "com.google.android.gms:play-services-vision-common:17.0.2"
+
+    implementation 'io.reactivex:rxjava:1.1.0'
 }
