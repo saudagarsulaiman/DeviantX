@@ -43,6 +43,8 @@ public class AddCoinsRAdapter extends RecyclerView.Adapter<AddCoinsRAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+        if (allCoinsList.get(i).getSelected() == null)
+            allCoinsList.get(i).setSelected(false);
 
         if (allCoinsList.get(i).getSelected()) {
             Picasso.with(context).load(R.drawable.dot_active).into(viewHolder.img_avail);

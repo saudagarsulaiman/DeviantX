@@ -99,9 +99,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         editor = sharedPreferences.edit();
         this.hideBal = myApplication.getHideBalance();
     }
+
     public void setAllCoins(ArrayList<AccountWallet> accountWalletlist) {
         this.accountWalletlist = accountWalletlist;
-      //  notifyDataSetChanged();
+        //  notifyDataSetChanged();
     }
 
     public void setIsHideBalance(Boolean isHideBalance) {
@@ -120,6 +121,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     public void onBindViewHolder(MyWalletCoinsRAdapter.ViewHolder viewHolder, final int i) {
         Picasso.with(context).load(accountWalletlist.get(i).getAllCoins().getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
         viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getAllCoins().getStr_coin_name());
+        if (accountWalletlist.get(i).getResponseList() == null)
+            accountWalletlist.get(i).setResponseList(new ArrayList<>());
         if (!hideBal) {
             viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
             viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
@@ -137,7 +140,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
 
         //Fav
-        if (accountWalletlist.get(i).getAllCoins().getFav())
+        if (accountWalletlist.get(i).getFav())
             viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
         else
             viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.un_favourite));
@@ -651,8 +654,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        return 10;
         return accountWalletlist.size();
     }
-
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {

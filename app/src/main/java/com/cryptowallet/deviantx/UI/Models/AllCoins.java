@@ -7,13 +7,47 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 public class AllCoins implements Parcelable {
 
+
+    @SerializedName("code")
     String str_coin_code;
 
-    int int_coin_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String str_coin_name, str_coin_logo, str_coin_chart_data;
+    @SerializedName("id")
+    int int_coin_id;
+
+    @SerializedName("rank")
+    int int_coin_rank;
+
+    @SerializedName("usdValue")
+    Double dbl_coin_usdValue;
+
+    @SerializedName("marketCap")
+    Double dbl_coin_marketCap;
+
+    @SerializedName("volume")
+    Double dbl_coin_volume;
+
+    @SerializedName("change24H")
+    Double dbl_coin_24h;
+
+    @SerializedName("change7D")
+    Double dbl_coin_7d;
+
+    @SerializedName("change1M")
+    Double dbl_coin_1m;
+
+    @SerializedName("name")
+    String str_coin_name;
+
+    @SerializedName("logo")
+    String str_coin_logo;
+
+    @SerializedName("chartData")
+    String str_coin_chart_data;
+
     Boolean isSelected = false;
 
     protected AllCoins(Parcel in) {
@@ -55,8 +89,6 @@ public class AllCoins implements Parcelable {
         str_coin_chart_data = in.readString();
         byte tmpIsSelected = in.readByte();
         isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
-        byte tmpFav = in.readByte();
-        fav = tmpFav == 0 ? null : tmpFav == 1;
     }
 
     public static final Creator<AllCoins> CREATOR = new Creator<AllCoins>() {
@@ -70,17 +102,6 @@ public class AllCoins implements Parcelable {
             return new AllCoins[size];
         }
     };
-
-    public Boolean getFav() {
-        return fav;
-    }
-
-    public void setFav(Boolean fav) {
-        this.fav = fav;
-    }
-
-
-    Boolean fav = false;
 
 
     public int getInt_coin_id() {
@@ -147,53 +168,21 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
-    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, boolean isFav, String str_coin_chart_data) {
-        this.int_coin_id = int_coin_id;
-        this.int_coin_rank = int_coin_rank;
-        this.dbl_coin_usdValue = dbl_coin_usdValue;
-        this.dbl_coin_marketCap = dbl_coin_marketCap;
-        this.dbl_coin_volume = dbl_coin_volume;
-        this.dbl_coin_24h = dbl_coin_24h;
-        this.dbl_coin_7d = dbl_coin_7d;
-        this.dbl_coin_1m = dbl_coin_1m;
-        this.str_coin_name = str_coin_name;
-        this.str_coin_code = str_coin_code;
-        this.str_coin_logo = str_coin_logo;
-        this.fav = isFav;
-        this.str_coin_chart_data = str_coin_chart_data;
-    }
-
-//    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, boolean fav) {
-//        this.int_coin_id = int_coin_id;
-//        this.int_coin_rank = int_coin_rank;
-//        this.dbl_coin_usdValue = dbl_coin_usdValue;
-//        this.dbl_coin_marketCap = dbl_coin_marketCap;
-//        this.dbl_coin_volume = dbl_coin_volume;
-//        this.dbl_coin_24h = dbl_coin_24h;
-//        this.dbl_coin_7d = dbl_coin_7d;
-//        this.dbl_coin_1m = dbl_coin_1m;
-//        this.str_coin_name = str_coin_name;
-//        this.str_coin_code = str_coin_code;
-//        this.str_coin_logo = str_coin_logo;
-//        this.fav = fav;
-//    }
-
-/*
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, String str_coin_chart_data) {
         this.int_coin_id = int_coin_id;
-        this.str_coin_name = str_coin_name;
-        this.str_coin_code = str_coin_code;
-        this.str_coin_logo = str_coin_logo;
-        this.dbl_coin_usdValue = dbl_coin_usdValue;
         this.int_coin_rank = int_coin_rank;
+        this.dbl_coin_usdValue = dbl_coin_usdValue;
         this.dbl_coin_marketCap = dbl_coin_marketCap;
         this.dbl_coin_volume = dbl_coin_volume;
         this.dbl_coin_24h = dbl_coin_24h;
         this.dbl_coin_7d = dbl_coin_7d;
         this.dbl_coin_1m = dbl_coin_1m;
+        this.str_coin_name = str_coin_name;
+        this.str_coin_code = str_coin_code;
+        this.str_coin_logo = str_coin_logo;
         this.str_coin_chart_data = str_coin_chart_data;
     }
-*/
+
 
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
         this.int_coin_id = int_coin_id;
@@ -323,6 +312,5 @@ public class AllCoins implements Parcelable {
         dest.writeString(str_coin_logo);
         dest.writeString(str_coin_chart_data);
         dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));
-        dest.writeByte((byte) (fav == null ? 0 : fav ? 1 : 2));
     }
 }
