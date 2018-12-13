@@ -242,6 +242,13 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
                             walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
 
+                            for (int i=0;i<walletList.size();i++){
+                                if (walletList.get(i).isDefaultWallet()){
+                                    editor.putInt(CONSTANTS.defaultWallet, i);
+                                    editor.apply();
+                                    myApplication.setDefaultWallet(i);
+                                }
+                            }
                             /*JSONArray jsonArrayData = new JSONArray(loginResponseData);
                             for (int i = 0; i < jsonArrayData.length(); i++) {
                                 JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
@@ -518,7 +525,18 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
                 if (loginResponseStatus.equals("true")) {
                     loginResponseData = jsonObject.getString("data");
-                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
+
+                    WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
+                    walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
+
+                    for (int i=0;i<walletList.size();i++){
+                        if (walletList.get(i).isDefaultWallet()){
+                            editor.putInt(CONSTANTS.defaultWallet, i);
+                            editor.apply();
+                            myApplication.setDefaultWallet(i);
+                        }
+                    }
+                    /*   JSONArray jsonArrayData = new JSONArray(loginResponseData);
                     for (int i = 0; i < jsonArrayData.length(); i++) {
                         JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
                         try {
@@ -548,7 +566,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                         }
                         walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                     }
-
+*/
                     walletListRAdapter.setAllWallets(walletList);
                     itemPicker.scrollToPosition(myApplication.getDefaultWallet());
 

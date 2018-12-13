@@ -21,6 +21,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -271,7 +272,10 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                                 loginResponseData = jsonObject.getString("data");
 
                                 CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, loginResponseMsg);
-
+                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent.putExtra("walletList", true);
+                                startService(serviceIntent);
+//                                finish();
                                 Intent intent = new Intent(TwoFASendCoinActivity.this, DashBoardActivity.class);
                                 startActivity(intent);
 

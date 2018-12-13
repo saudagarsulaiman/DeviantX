@@ -33,6 +33,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.USDValues;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.USDValue;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -250,6 +251,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                                         bundle1.putString(CONSTANTS.address, str_btcp_address);
                                         intent.putExtras(bundle1);
                                         startActivity(intent);
+//                                        finish();
                                     } else {
                                         customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
                                     }
@@ -517,8 +519,13 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
                                 CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
 
-                                Intent intent = new Intent(SendCoinActivity.this, DashBoardActivity.class);
-                                startActivity(intent);
+                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent.putExtra("walletList", true);
+                                startService(serviceIntent);
+                                finish();
+
+//                                Intent intent = new Intent(SendCoinActivity.this, DashBoardActivity.class);
+//                                startActivity(intent);
 
                             } else {
 //                                Intent intent = new Intent(SendCoinActivity.this, DashBoardActivity.class);

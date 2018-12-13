@@ -130,6 +130,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     ArrayList<AirdropWallet> airdropWalletlist;
     int selectedCoinId = 0;
     String selectedWalletName = "";
+    Double avail_bal = 0.0;
 
     @Override
     protected void onResume() {
@@ -184,6 +185,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         airdropWalletlist = bundle.getParcelableArrayList(CONSTANTS.selectedAccountWallet);
         txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
 
+        avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
 
         if (cbox_wallet.isChecked()) {
             spnr_wallets.setVisibility(View.GONE);
@@ -373,7 +375,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     try {
                         if (Double.parseDouble(amountTextValue) != 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
-                            if (airdropWalletlist.get(0).getDbl_data_ad_balance() < finalValue) {
+                            avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
+                            if (avail_bal < finalValue) {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
                                 edt_amount.setText("0");
                             }
@@ -387,12 +390,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-        edt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+       /* edt_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 isEditAmount = b;
             }
-        });
+        });*/
     }
 
     private void getAllWallets() {
@@ -602,6 +605,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_avail_bal.setText(String.format("%.4f", avail_bal + 0.001));
                 dialog.dismiss();
             }
         });
@@ -613,8 +617,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-
+        txt_avail_bal.setText(String.format("%.4f", avail_bal));
         dialog.show();
+
     }
 
     private void transferAmountToAddress(String edt_address, String amount, String walletAddress) {
