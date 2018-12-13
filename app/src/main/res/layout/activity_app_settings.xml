@@ -223,7 +223,7 @@
                     android:layout_height="@dimen/height20"
                     android:layout_gravity="center"
                     android:layout_weight="0.3"
-                    android:src="@drawable/hide" />
+                    android:src="@drawable/password" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -431,7 +431,7 @@
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_marginStart="@dimen/margin5"
                     android:layout_gravity="center"
-                    android:src="@drawable/password" />
+                    android:src="@drawable/hide" />
 
                 <TextView
                     android:layout_width="wrap_content"

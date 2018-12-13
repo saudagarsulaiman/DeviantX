@@ -486,6 +486,7 @@
     <string name="btc_eth">BTC/ETH</string>
     <string name="devx_funds">Deviant X Funds</string>
     <string name="devx_settings">Deviant X Settings</string>
+    <string name="airdrop">Aidrop</string>
 
 
 </resources>
