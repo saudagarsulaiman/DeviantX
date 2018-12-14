@@ -191,12 +191,13 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         });
 
 
-        Handler handler = new Handler();
+      /*  Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadAirDropWallet();
-            }
-        }, 200);
+                */
+        onLoadAirDropWallet();
+//            }
+//        }, 200);
 
 
         return view;
@@ -387,9 +388,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
-                            AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
-                            AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
-                            mDao.insertAirdropWallet(airdropWallet);
+//                            AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
+//                            AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
+//                            mDao.insertAirdropWallet(airdropWallet);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -678,17 +679,17 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AirdropWalletDao airdropWalletDao = deviantXDB.airdropWalletDao();
-                if ((airdropWalletDao.getAllAirdropWallet()) != null) {
-                    String walletResult = airdropWalletDao.getAllAirdropWallet().airdropWallet;
-                    updateUI(walletResult);
-                } else {
+//                AirdropWalletDao airdropWalletDao = deviantXDB.airdropWalletDao();
+//                if ((airdropWalletDao.getAllAirdropWallet()) != null) {
+//                    String walletResult = airdropWalletDao.getAllAirdropWallet().airdropWallet;
+//                    updateUI(walletResult);
+//                } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
                         fetchAirdropWallet();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
-                }
+//                }
             }
         });
 

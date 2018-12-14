@@ -83,12 +83,12 @@ public class ExploreCoinsFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_all_coins.setLayoutManager(layoutManager);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
                 onLoadAllCoins();
-            }
-        }, 150);
+//            }
+//        }, 150);
 
 
         edt_search.addTextChangedListener(new TextWatcher() {
@@ -123,17 +123,17 @@ public class ExploreCoinsFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
-                if ((exploreCoinsDao.getExploreCoins()) != null) {
-                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
-                    updateUI(walletResult);
-                } else {
+//                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
+//                if ((exploreCoinsDao.getExploreCoins()) != null) {
+//                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
+//                    updateUI(walletResult);
+//                } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
                         fetchCoins();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
-                }
+//                }
             }
         });
 
@@ -278,9 +278,9 @@ public class ExploreCoinsFragment extends Fragment {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
-                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+//                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
+//                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
+//                            mDao.insertAllCoins(exploreCoins);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

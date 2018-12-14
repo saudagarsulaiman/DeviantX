@@ -129,12 +129,12 @@ public class WalletListActivity extends AppCompatActivity {
 
 */
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
                 onLoadWallet();
-            }
-        }, 100);
+//            }
+//        }, 100);
 
 
         linearLayoutManager = new LinearLayoutManager(WalletListActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -158,17 +158,17 @@ public class WalletListActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AccountWalletDao accountWalletDao = db.accountWalletDao();
-                if ((accountWalletDao.getAllAccountWallet()).size() > 0) {
-                    String walletResult = (accountWalletDao.getAllAccountWallet()).get(0).walletDatas;
-                    walletUpdate(walletResult);
-                } else {
+//                AccountWalletDao accountWalletDao = db.accountWalletDao();
+//                if ((accountWalletDao.getAllAccountWallet()).size() > 0) {
+//                    String walletResult = (accountWalletDao.getAllAccountWallet()).get(0).walletDatas;
+//                    walletUpdate(walletResult);
+//                } else {
                     if (CommonUtilities.isConnectionAvailable(getApplicationContext())) {
                         invokeWallet();
                     } else {
                         CommonUtilities.ShowToastMessage(getApplicationContext(), getResources().getString(R.string.internetconnection));
                     }
-                }
+//                }
             }
         });
 
@@ -248,10 +248,10 @@ for (int i = 0; i < jsonArrayData.length(); i++) {
                     try {
                         String responsevalue = response.body().string();
                         walletUpdate(responsevalue);
-                        AccountWalletDao accountWalletDao = db.accountWalletDao();
-                        accountWalletDao.deleteAllAccountWallet();
-                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
-                        accountWalletDao.insertAccountWallet(accountWallet);
+//                        AccountWalletDao accountWalletDao = db.accountWalletDao();
+//                        accountWalletDao.deleteAllAccountWallet();
+//                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
+//                        accountWalletDao.insertAccountWallet(accountWallet);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

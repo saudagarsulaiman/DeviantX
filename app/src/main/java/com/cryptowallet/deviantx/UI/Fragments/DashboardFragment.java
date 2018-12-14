@@ -134,7 +134,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     DeviantXDB db;
     boolean hideBal;
 
-   /* @Override
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 101) {
@@ -142,7 +142,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
             fetchAccountWallet(wallet_name, wallet_id);
         }
-    }*/
+    }
 
     @Override
     public void onResume() {
@@ -155,9 +155,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         if (walletListRAdapter != null) {
             walletListRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletListRAdapter.notifyDataSetChanged();
-           /* String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, " ");
-            int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
-            fetchAccountWallet(wallet_name, wallet_id);*/
         }
 
     }
@@ -208,17 +205,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             public void run() {
                 onProgressLoad();
                 try {
-                    AllCoinsDao allCoinsDao = db.allCoinsDao();
-                    if ((allCoinsDao.getAllAllCoins(wallet_name) != null)) {
-                        updateCoins(allCoinsDao.getAllAllCoins(wallet_name).coinsList);
-                    } else {
+//                    AllCoinsDao allCoinsDao = db.allCoinsDao();
+//                    if ((allCoinsDao.getAllAllCoins(wallet_name) != null)) {
+//                        updateCoins(allCoinsDao.getAllAllCoins(wallet_name).coinsList);
+//                    } else {
                         if (CommonUtilities.isConnectionAvailable(getActivity())) {
                             onLineFetchAccountWallet(wallet_name, walletId);
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                         }
 
-                    }
+//                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -323,12 +320,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         editor.apply();
         walletListRAdapter = new WalletListRAdapter(getActivity(), walletList);
         itemPicker.setAdapter(walletListRAdapter);
-        Handler handler = new Handler();
+       /* Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
-            public void run() {
+            public void run() {*/
                 onLoadWallet();
-            }
-        }, 100);
+          /*  }
+        }, 100);*/
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
         itemPicker.addOnItemChangedListener(this);
@@ -415,14 +412,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,101);
             }
         });
         lnr_add_coins.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddCoinsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,101);
             }
         });
         lnr_new_wallet.setOnClickListener(new View.OnClickListener() {
@@ -447,17 +444,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AccountWalletDao accountWalletDao = db.accountWalletDao();
+               /* AccountWalletDao accountWalletDao = db.accountWalletDao();
                 if ((accountWalletDao.getAllAccountWallet()).size() > 0) {
                     String walletResult = (accountWalletDao.getAllAccountWallet()).get(0).walletDatas;
                     walletUpdate(walletResult);
-                } else {
+                } else {*/
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
                         invokeWallet();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
-                }
+              //  }
             }
         });
 
@@ -484,10 +481,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     try {
                         String responsevalue = response.body().string();
                         walletUpdate(responsevalue);
-                        AccountWalletDao accountWalletDao = db.accountWalletDao();
+                       /* AccountWalletDao accountWalletDao = db.accountWalletDao();
                         accountWalletDao.deleteAllAccountWallet();
                         com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
-                        accountWalletDao.insertAccountWallet(accountWallet);
+                        accountWalletDao.insertAccountWallet(accountWallet);*/
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -758,9 +755,9 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             @Override
                             public void run() {
                                 updateCoins(responsevalue);
-                                AllCoinsDao mDao = db.allCoinsDao();
-                                com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins allCoins = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins(walletName, responsevalue, walletId);
-                                mDao.insertAllCoins(allCoins);
+//                                AllCoinsDao mDao = db.allCoinsDao();
+//                                com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins allCoins = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins(walletName, responsevalue, walletId);
+//                                mDao.insertAllCoins(allCoins);
                             }
                         });
                     } catch (Exception e) {

@@ -155,11 +155,13 @@ public class SetUpWalletActivity extends AppCompatActivity {
                             if (loginResponseStatus.equals("true")) {
                                 editor.putBoolean(CONSTANTS.empty_wallet, false);
                                 editor.apply();
-                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
-                                serviceIntent.putExtra("walletList", true);
-                                serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
-                                startService(serviceIntent);
-                                finish();
+//                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+//                                serviceIntent.putExtra("walletList", true);
+//                                serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
+//                                startService(serviceIntent);
+//                                finish();
+                                Intent intent = new Intent(SetUpWalletActivity.this, DashBoardActivity.class);
+                                startActivity(intent);
                             } else {
                                 CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, loginResponseMsg);
                             }

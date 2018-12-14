@@ -103,12 +103,12 @@ public class AddCoinsActivity extends AppCompatActivity {
         layoutManager = new GridLayoutManager(AddCoinsActivity.this, 2, GridLayoutManager.VERTICAL, false);
         rview_coins_list.setLayoutManager(layoutManager);
 
-        Handler handler = new Handler();
+       /* Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
-            public void run() {
+            public void run() {*/
                 onLoadAllCoins();
-            }
-        }, 100);
+           /* }
+        }, 100);*/
 
 
         tool.setOnClickListener(new View.OnClickListener() {
@@ -239,17 +239,17 @@ public class AddCoinsActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
+               /* ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
                 if ((exploreCoinsDao.getExploreCoins()) != null) {
                     String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
                     updateUI(walletResult);
-                } else {
+                } else {*/
                     if (CommonUtilities.isConnectionAvailable(getApplicationContext())) {
                         fetchCoins();
                     } else {
                         CommonUtilities.ShowToastMessage(getApplicationContext(), getResources().getString(R.string.internetconnection));
                     }
-                }
+              //  }
             }
         });
 
@@ -362,9 +362,9 @@ public class AddCoinsActivity extends AppCompatActivity {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
-                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
+                           /* ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
                             ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+                            mDao.insertAllCoins(exploreCoins);*/
 
                         } else {
                             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
@@ -428,11 +428,11 @@ public class AddCoinsActivity extends AppCompatActivity {
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
                                 CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.coin_added));
-                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                /*Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
                                 serviceIntent.putExtra("walletName", wallet_name);
                                 serviceIntent.putExtra("walletId", wallet_id);
-                                startService(serviceIntent);
+                                startService(serviceIntent);*/
                                 onBackPressed();
 
                             } else {

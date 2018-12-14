@@ -223,7 +223,7 @@ public class DashBoardActivity extends AppCompatActivity {
         supportFragmentManager = getSupportFragmentManager();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        serviceStart();
+//        serviceStart();
         // mViewPager.setPagingEnabled(false);
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
@@ -359,13 +359,6 @@ public class DashBoardActivity extends AppCompatActivity {
 
 
     public void replaceFragment(Fragment fragment) {
-        /*FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frame_container, fragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack(null);
-        ft.commit();*/
-
         Fragment f1 = supportFragmentManager.findFragmentByTag(fragment.getClass().getName());
 
         if (f1 == null) {
@@ -375,33 +368,33 @@ public class DashBoardActivity extends AppCompatActivity {
                     .add(R.id.frame_container, f1, fragment.getClass().getName())
                     .addToBackStack(fragment.getClass().getName()).commit();
         } else {
-            FragmentTransaction transaction = supportFragmentManager.beginTransaction();
-            DashboardFragment dashboardFragment = (DashboardFragment) supportFragmentManager.findFragmentByTag(DashboardFragment.class.getName());
-            ExploreCoinsFragment exploreCoinsFragment = (ExploreCoinsFragment) supportFragmentManager.findFragmentByTag(ExploreCoinsFragment.class.getName());
-            AirDropFragment airDropFragment = (AirDropFragment) supportFragmentManager.findFragmentByTag(AirDropFragment.class.getName());
-            ToolsFragment toolsFragment = (ToolsFragment) supportFragmentManager.findFragmentByTag(ToolsFragment.class.getName());
-            if (toolsFragment != null)
-                if (toolsFragment != f1)
-                    transaction.hide(toolsFragment);
-
-            if (dashboardFragment != null)
-                if (dashboardFragment != f1)
-                    transaction.hide(dashboardFragment);
-
-            if (exploreCoinsFragment != null)
-                if (exploreCoinsFragment != f1)
-                    transaction.hide(exploreCoinsFragment);
-
-            if (airDropFragment != null)
-                if (airDropFragment != f1)
-                    transaction.hide(airDropFragment);
-
-            transaction.show(f1);
-            transaction.commit();
-            // supportFragmentManager.beginTransaction()
-            //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            //  .replace(R.id.frame_container, f1, fragment.getClass().getName())
-            // .addToBackStack(fragment.getClass().getName()).commit();
+//            FragmentTransaction transaction = supportFragmentManager.beginTransaction();
+//            DashboardFragment dashboardFragment = (DashboardFragment) supportFragmentManager.findFragmentByTag(DashboardFragment.class.getName());
+//            ExploreCoinsFragment exploreCoinsFragment = (ExploreCoinsFragment) supportFragmentManager.findFragmentByTag(ExploreCoinsFragment.class.getName());
+//            AirDropFragment airDropFragment = (AirDropFragment) supportFragmentManager.findFragmentByTag(AirDropFragment.class.getName());
+//            ToolsFragment toolsFragment = (ToolsFragment) supportFragmentManager.findFragmentByTag(ToolsFragment.class.getName());
+//            if (toolsFragment != null)
+//                if (toolsFragment != f1)
+//                    transaction.hide(toolsFragment);
+//
+//            if (dashboardFragment != null)
+//                if (dashboardFragment != f1)
+//                    transaction.hide(dashboardFragment);
+//
+//            if (exploreCoinsFragment != null)
+//                if (exploreCoinsFragment != f1)
+//                    transaction.hide(exploreCoinsFragment);
+//
+//            if (airDropFragment != null)
+//                if (airDropFragment != f1)
+//                    transaction.hide(airDropFragment);
+//
+//            transaction.show(f1);
+//            transaction.commit();
+             supportFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+              .replace(R.id.frame_container, f1, fragment.getClass().getName())
+             .addToBackStack(fragment.getClass().getName()).commit();
         }
 
 
