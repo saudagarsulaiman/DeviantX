@@ -176,32 +176,20 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
                 favListener.addOrRemoveFav(accountWalletlist.get(i), i);
             }
         });
-        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (CommonUtilities.isConnectionAvailable(context)) {
                     customDialog(accountWalletlist.get(i));
-
                 } else {
                     CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
                 }
 //                CommonUtilities.ShowToastMessage(context,"selected");
             }
         });
-        viewHolder.graph.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (CommonUtilities.isConnectionAvailable(context)) {
-                    customDialog(accountWalletlist.get(i));
 
-                } else {
-                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
-                }
-//                CommonUtilities.ShowToastMessage(context,"selected");
-            }
-        });
+
 
     }
 

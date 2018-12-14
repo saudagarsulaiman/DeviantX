@@ -547,6 +547,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                 dialog.dismiss();
             }
         });
@@ -558,7 +559,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-
+        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
         dialog.show();
     }
 
@@ -605,7 +606,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txt_avail_bal.setText(String.format("%.4f", avail_bal + 0.001));
+                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                 dialog.dismiss();
             }
         });
@@ -617,7 +618,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-        txt_avail_bal.setText(String.format("%.4f", avail_bal));
+        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
         dialog.show();
 
     }
