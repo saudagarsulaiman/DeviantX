@@ -57,7 +57,7 @@ public class ExploreCoinsActivity extends AppCompatActivity {
 
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,str_ad_coin_chart_data;
+    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,str_ad_coin_chart_data,str_ad_coin_daily_chart_data;
     ArrayList<AllCoins> allCoinsList;
 
     @Override
@@ -217,7 +217,12 @@ public class ExploreCoinsActivity extends AppCompatActivity {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, str_ad_coin_chart_data));
+                                    try {
+                                        str_ad_coin_daily_chart_data = jsonObjectCoins.getString("dailyChartData");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, str_ad_coin_chart_data,str_ad_coin_daily_chart_data));
                                 }
                                 allCoinsRAdapter = new ExploreCoinsRAdapter(ExploreCoinsActivity.this, allCoinsList);
                                 rview_all_coins.setAdapter(allCoinsRAdapter);

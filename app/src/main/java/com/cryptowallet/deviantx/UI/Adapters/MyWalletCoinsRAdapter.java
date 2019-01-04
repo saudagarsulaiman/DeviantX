@@ -196,7 +196,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     private void coinCartData(int pos, AllCoins selectedCoin, TrendView graph) {
         try {
             String chart_data, data = "";
-            chart_data = selectedCoin.getStr_coin_chart_data();
+            chart_data = selectedCoin.getStr_coin_daily_chart_data();
             JSONObject jsonObject = new JSONObject(chart_data);
             try {
                 data = jsonObject.getString("Data");

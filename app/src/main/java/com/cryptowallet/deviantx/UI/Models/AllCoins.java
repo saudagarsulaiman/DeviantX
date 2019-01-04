@@ -1,11 +1,7 @@
 package com.cryptowallet.deviantx.UI.Models;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -48,6 +44,9 @@ public class AllCoins implements Parcelable {
     @SerializedName("chartData")
     String str_coin_chart_data;
 
+    @SerializedName("dailyChartData")
+    String str_coin_daily_chart_data;
+
     Boolean isSelected = false;
 
     protected AllCoins(Parcel in) {
@@ -87,6 +86,7 @@ public class AllCoins implements Parcelable {
         str_coin_code = in.readString();
         str_coin_logo = in.readString();
         str_coin_chart_data = in.readString();
+        str_coin_daily_chart_data = in.readString();
         byte tmpIsSelected = in.readByte();
         isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
     }
@@ -168,7 +168,7 @@ public class AllCoins implements Parcelable {
         this.dbl_coin_1m = dbl_coin_1m;
     }
 
-    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, String str_coin_chart_data) {
+    public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, String str_coin_chart_data, String str_coin_daily_chart_data) {
         this.int_coin_id = int_coin_id;
         this.int_coin_rank = int_coin_rank;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
@@ -181,6 +181,7 @@ public class AllCoins implements Parcelable {
         this.str_coin_code = str_coin_code;
         this.str_coin_logo = str_coin_logo;
         this.str_coin_chart_data = str_coin_chart_data;
+        this.str_coin_daily_chart_data = str_coin_daily_chart_data;
     }
 
 
@@ -211,6 +212,14 @@ public class AllCoins implements Parcelable {
 
     public void setStr_coin_chart_data(String str_coin_chart_data) {
         this.str_coin_chart_data = str_coin_chart_data;
+    }
+
+    public String getStr_coin_daily_chart_data() {
+        return str_coin_daily_chart_data;
+    }
+
+    public void setStr_coin_daily_chart_data(String str_coin_daily_chart_data) {
+        this.str_coin_daily_chart_data = str_coin_daily_chart_data;
     }
 
     public Boolean getSelected() {
@@ -311,6 +320,7 @@ public class AllCoins implements Parcelable {
         dest.writeString(str_coin_code);
         dest.writeString(str_coin_logo);
         dest.writeString(str_coin_chart_data);
+        dest.writeString(str_coin_daily_chart_data);
         dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));
     }
 }
