@@ -6,8 +6,8 @@ android {
         applicationId "com.cryptowallet.deviantx"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 3
-        versionName "1.4"
+        versionCode 4
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
