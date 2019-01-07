@@ -63,6 +63,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
+
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
@@ -214,6 +217,8 @@ public class DashBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dash_board);
 
         ButterKnife.bind(this);
+        Fabric.with(this, new Crashlytics());
+
         txt_btm_nav_lbl.setText(channelsName[0]);
         txt_tlbr_title.setText(channelTtlName[0]);
 
