@@ -83,7 +83,7 @@
     <string name="continu">Continue</string>
     <string name="privacy_policy"><u>Privacy Policy</u>.</string>
     <string name="privacy_policy_u">Privacy Policy.</string>
-    <string name="pls_check_email">We have sent you code. Please Check Your Email.</string>
+    <string name="pls_check_email">We have sent you a code. Please Check Your Email.</string>
 
 
     <!--Terms Conditions Dialog-->
@@ -171,6 +171,7 @@
 
     <!--Receive Coin Activity-->
     <string name="receive">Receive</string>
+    <string name="received">Received</string>
     <string name="dev">Dev</string>
     <string name="my_address">My Address</string>
     <string name="dev_address">DEV Address</string>
@@ -488,6 +489,7 @@
     <string name="devx_settings">Deviant X Settings</string>
     <string name="airdrop">Airdrop</string>
     <string name="update">Update</string>
+    <string name="email_exist">Email already exists</string>
 
 
 </resources>

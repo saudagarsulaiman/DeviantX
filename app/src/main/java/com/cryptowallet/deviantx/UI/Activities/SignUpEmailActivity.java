@@ -132,13 +132,13 @@ public class SignUpEmailActivity extends AppCompatActivity {
     }
 
     private void matchingPasswordText(String text) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*_]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
-            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*_]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_marred_c2));
@@ -176,7 +176,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
                   /*  if (!s_conf_email.isEmpty()) {
                         if (s_conf_email.equals(s_email)) {*/
                             if (!s_pswd.isEmpty()) {
-                                if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,25}$")) {
+                                if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=!*_])(?=\\S+$).{8,25}$")) {
                                     if (!s_conf_pswd.isEmpty()) {
                                         if (s_pswd.equals(s_conf_pswd)) {
                                             CustomDialog(s_usrnm, s_email, s_pswd);
@@ -360,7 +360,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
 
                             } else {
-                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, regResponseMsg);
+                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.email_exist));
                             }
 
                         } else {

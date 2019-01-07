@@ -3,8 +3,8 @@ package com.cryptowallet.deviantx.UI.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -158,7 +158,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getTransactions(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_data_address());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -322,12 +322,12 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                                 selectedCoinTransaction.add(transactions.get(i));
                                             }
                                         }
-                                        if (selectedCoinTransaction.size()>0){
+                                        if (selectedCoinTransaction.size() > 0) {
                                             walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, selectedCoinTransaction, selectedAccountWallet);
                                             rview_trans_history.setAdapter(walletHistoryRAdapter);
                                             lnr_trans_avail.setVisibility(View.VISIBLE);
                                             lnr_no_trans.setVisibility(View.GONE);
-                                        }else {
+                                        } else {
                                             lnr_no_trans.setVisibility(View.VISIBLE);
                                             lnr_trans_avail.setVisibility(View.GONE);
                                         }

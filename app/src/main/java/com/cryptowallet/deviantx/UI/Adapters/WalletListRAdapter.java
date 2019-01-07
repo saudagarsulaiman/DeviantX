@@ -79,9 +79,9 @@ public class WalletListRAdapter extends RecyclerView.Adapter<WalletListRAdapter.
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.txt_wallet_name.setText(walletList.get(i).getStr_data_name());
         if (hideBal) {
-            viewHolder.txt_wallet_bal.setText("~$ " + "***");
+            viewHolder.txt_wallet_bal.setText("$ " + "***");
         } else {
-            viewHolder.txt_wallet_bal.setText("~$ " + String.format("%.4f", walletList.get(i).getDbl_data_totalBal()));
+            viewHolder.txt_wallet_bal.setText("$ " + String.format("%.4f", walletList.get(i).getDbl_data_totalBal()));
         }
 
         if (i % 2 == 0) {

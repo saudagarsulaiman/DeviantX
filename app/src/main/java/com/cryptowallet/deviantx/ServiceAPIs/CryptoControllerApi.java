@@ -36,7 +36,10 @@ public interface CryptoControllerApi {
 //    Call<ResponseBody> getPagedItemDataResponse(@Query("vendorid") int xvendorid, @Query("CategoryID") int xCategoryID, @Query("itemSearchText") String xitemSearchText, @Query("pageno") int xpageno);
 
     @GET("/api/crypto/get_all_transactions")
-    Call<ResponseBody> getTransactions(@Header("Authorization") String AuthorizationDX);
+    Call<ResponseBody> getAllTransactions(@Header("Authorization") String AuthorizationDX);
+
+    @GET("/api/crypto/get_transactions_by_address/{address}")
+    Call<ResponseBody> getTransactions(@Header("Authorization") String AuthorizationDX, @Path("address") String addressX);
 
 //    @GET("/api/crypto/get_account_wallet")
 //    Call<ResponseBody> getAccountWallet(@Header("Authorization") String AuthorizationDX);
