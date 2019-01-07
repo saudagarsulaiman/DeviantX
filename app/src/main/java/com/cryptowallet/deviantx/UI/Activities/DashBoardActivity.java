@@ -17,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,11 +39,9 @@ import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
-import com.cryptowallet.deviantx.Utilities.CustomViewPager;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -324,6 +321,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 DeviantXDB db = DeviantXDB.getDatabase(getApplicationContext());
                 db.clearAllTables();
                 CommonUtilities.sessionExpired(DashBoardActivity.this, getResources().getString(R.string.logout_success));
+                Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+                stopService(intent);
             }
         });
 
@@ -657,9 +656,11 @@ public class DashBoardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (exit) {
+            Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+            stopService(intent);
             finishAffinity(); // Close all activites
             System.exit(0);  // Releasing resources
-            Toast.makeText(this, "Logged Out Successfully.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Exit.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
             exit = true;
