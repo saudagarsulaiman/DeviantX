@@ -131,7 +131,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     CoinGraph coinGraph;
 
 
-    String respData, respStatus,respMsg;
+    String respData, respStatus, respMsg;
 //    boolean  = false;
 
     @Override
@@ -752,10 +752,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 lnr_result.setVisibility(View.VISIBLE);
                 for (int i = 0; i < responseList.size(); i++) {
                     if (responseList.get(i).getHigh() == e.getY()) {
-                        txt_open.setText(getResources().getString(R.string.open) + " $" + responseList.get(i).getOpen());
-                        txt_high.setText(getResources().getString(R.string.high) + " $" + responseList.get(i).getHigh());
-                        txt_low.setText(getResources().getString(R.string.low) + " $" + responseList.get(i).getLow());
-                        txt_close.setText(getResources().getString(R.string.closee) + " $" + responseList.get(i).getClose());
+                        txt_open.setText(getResources().getString(R.string.open) + " $" + String.format("%.4f", responseList.get(i).getOpen()));
+                        txt_high.setText(getResources().getString(R.string.high) + " $" + String.format("%.4f", responseList.get(i).getHigh()));
+                        txt_low.setText(getResources().getString(R.string.low) + " $" + String.format("%.4f", responseList.get(i).getLow()));
+                        txt_close.setText(getResources().getString(R.string.closee) + " $" + String.format("%.4f", responseList.get(i).getClose()));
 //                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY()+ " " + responseList.get(i).getHigh() );
                         break;
                     }
