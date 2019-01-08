@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -76,7 +77,27 @@ public class WalletListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
+        CommonUtilities.serviceStart(WalletListActivity.this);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(WalletListActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(WalletListActivity.this);
+        super.onPause();
+    }
+
 
     WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {
         @Override

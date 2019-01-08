@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -91,7 +92,27 @@ public class WalletHistoryActivity extends AppCompatActivity {
             walletHistoryRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletHistoryRAdapter.notifyDataSetChanged();
         }
+        CommonUtilities.serviceStart(WalletHistoryActivity.this);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(WalletHistoryActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(WalletHistoryActivity.this);
+        super.onPause();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

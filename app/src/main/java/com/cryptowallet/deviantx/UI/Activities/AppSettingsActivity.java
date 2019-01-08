@@ -13,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +27,6 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
-import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -261,6 +261,25 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
         myApplication.get2FA();
+        CommonUtilities.serviceStart(AppSettingsActivity.this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(AppSettingsActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(AppSettingsActivity.this);
+        super.onPause();
     }
 
     private void LanguageDialog() {

@@ -3,11 +3,12 @@ package com.cryptowallet.deviantx.UI.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ import com.cryptowallet.deviantx.UI.Fragments.ExchangeFundsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExchangeMarketFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExchangeSettingsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExchangeTradeFragment;
-import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,7 +65,27 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
+        CommonUtilities.serviceStart(ExchangeDashBoardActivity.this);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(ExchangeDashBoardActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(ExchangeDashBoardActivity.this);
+        super.onPause();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

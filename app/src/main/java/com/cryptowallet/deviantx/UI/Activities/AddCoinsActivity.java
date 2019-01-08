@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +24,8 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.AddCoinsRAdapter;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
@@ -34,7 +35,6 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -86,7 +86,27 @@ public class AddCoinsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
+        CommonUtilities.serviceStart(AddCoinsActivity.this);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(AddCoinsActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(AddCoinsActivity.this);
+        super.onPause();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +251,6 @@ public class AddCoinsActivity extends AppCompatActivity {
             }
         };
 
-
     }
 
     private void onLoadAllCoins() {
@@ -261,8 +280,8 @@ public class AddCoinsActivity extends AppCompatActivity {
             public void run() {
                 try {
                     JSONObject jsonObject = new JSONObject(responsevalue);
-                   // loginResponseMsg = jsonObject.getString("msg");
-                  //  loginResponseStatus = jsonObject.getString("status");
+                    // loginResponseMsg = jsonObject.getString("msg");
+                    //  loginResponseStatus = jsonObject.getString("status");
 
                     if (true) {
                         loginResponseData = jsonObject.getString("data");

@@ -8,15 +8,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -111,12 +112,14 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     Boolean isEditFiat = false, isEditAmount = false;
 
 
+
+/*
     @Override
     public void onPause() {
         super.onPause();
         mScannerView.stopCamera();
     }
-
+*/
 
     public static int PERMISSION_ALL = 1;
     public static String[] PERMISSIONS = {Manifest.permission.CAMERA};
@@ -597,8 +600,28 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-
+        CommonUtilities.serviceStart(SendCoinActivity.this);
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(SendCoinActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        mScannerView.stopCamera();
+        CommonUtilities.serviceStop(SendCoinActivity.this);
+        super.onPause();
+    }
+
 
     @Override
     public void handleResult(Result result) {

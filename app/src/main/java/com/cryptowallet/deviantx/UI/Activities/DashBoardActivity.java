@@ -2,8 +2,6 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
@@ -58,13 +58,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -193,8 +191,10 @@ public class DashBoardActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
+        CommonUtilities.serviceStart(DashBoardActivity.this);
     }
 
+/*
     private void serviceStart() {
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
@@ -203,12 +203,15 @@ public class DashBoardActivity extends AppCompatActivity {
                 intent, 0);
         am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000 * 60 * 3), pi);
 
-       /* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+       */
+/* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(DashBoardActivity.this, 0, intent, 0);
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),60000, pendingIntent);
-*/
+*//*
+
     }
+*/
 
 
     @Override
@@ -225,8 +228,13 @@ public class DashBoardActivity extends AppCompatActivity {
         supportFragmentManager = getSupportFragmentManager();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        serviceStart();
+
+//        Background Service
+        CommonUtilities.serviceStart(DashBoardActivity.this);
+//        serviceStart();
+
         // mViewPager.setPagingEnabled(false);
+
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
@@ -654,30 +662,6 @@ public class DashBoardActivity extends AppCompatActivity {
         transaction.commit();
     }*/
 
-    /**
-     * Back button listener.
-     * Will close the application if the back button pressed twice.
-     */
-    @Override
-    public void onBackPressed() {
-        if (exit) {
-            Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
-            stopService(intent);
-            finishAffinity(); // Close all activites
-            System.exit(0);  // Releasing resources
-//            Toast.makeText(this, "Exit.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 2 * 1000);
-        }
-    }
-
     private void initMagicIndicator() {
         final CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
@@ -760,6 +744,49 @@ public class DashBoardActivity extends AppCompatActivity {
             magicIndicator.onPageScrolled(index, 0, 0);
         }
     }
+
+    /**
+     * Back button listener.
+     * Will close the application if the back button pressed twice.
+     */
+    @Override
+    public void onBackPressed() {
+        if (exit) {
+            Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+            stopService(intent);
+            finishAffinity(); // Close all activites
+            System.exit(0);  // Releasing resources
+//            Toast.makeText(this, "Exit.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.", Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 2 * 1000);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+//            Log.e("home key pressed", "****");
+            // write your code here to stop the activity
+            CommonUtilities.serviceStop(DashBoardActivity.this);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+//        Log.e("home key pressed on pause", "****");
+        // write your code here to stop your service
+        CommonUtilities.serviceStop(DashBoardActivity.this);
+        super.onPause();
+    }
+
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();

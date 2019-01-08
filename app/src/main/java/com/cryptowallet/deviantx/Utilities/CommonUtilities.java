@@ -3,7 +3,9 @@ package com.cryptowallet.deviantx.Utilities;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.WelcomeActivity;
+import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -290,7 +293,6 @@ public final class CommonUtilities {
     }
 
 
-
     public static String convertToHumanReadable(long milliseconds) {
         Calendar today = Calendar.getInstance();
         Calendar postedDay = Calendar.getInstance();
@@ -319,9 +321,6 @@ public final class CommonUtilities {
             return time + (time == 1 ? "min" : "mins");
         }
     }
-
-
-
 
 
 //    public static boolean checkExtrnlStrgPermission(final Context context) {
@@ -435,6 +434,26 @@ public final class CommonUtilities {
         context.startActivity(sendIntent);
     }
 
+
+    public static void serviceStart(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, RefreshServiceReceiver.class);
+        //intent.putExtra(ONE_TIME, Boolean.TRUE);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0,
+                intent, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000 * 60 * 3), pi);
+
+       /* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(DashBoardActivity.this, 0, intent, 0);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),60000, pendingIntent);
+*/
+    }
+
+    public static void serviceStop(Context context) {
+        Intent intent = new Intent(context, RefreshServiceReceiver.class);
+        context.stopService(intent);
+    }
 
 }
 
