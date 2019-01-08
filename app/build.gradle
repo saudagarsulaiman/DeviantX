@@ -41,6 +41,8 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') {
         transitive = true;
     }
+
+//    Magic Indicator (Bottom Navigation)
     implementation project(':magicindicator')
 
 //    Widgets
