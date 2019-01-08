@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -213,12 +213,17 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
                                 if (jsonArrayData.length() == 0) {
                                     Intent intent = new Intent(ConfirmPhraseActivity.this, SetUpWalletActivity.class);
                                     editor.putBoolean(CONSTANTS.first_wallet, true);
+                                    editor.putBoolean(CONSTANTS.empty_wallet, true);
                                     editor.apply();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.login_success));
                                 } else {
                                     Intent intent = new Intent(ConfirmPhraseActivity.this, DashBoardActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    editor.putBoolean(CONSTANTS.first_wallet, false);
+                                    editor.putBoolean(CONSTANTS.empty_wallet, false);
+                                    editor.apply();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.login_success));
                                 }

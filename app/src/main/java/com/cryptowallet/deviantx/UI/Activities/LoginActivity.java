@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString(CONSTANTS.email, s_email);
                                         editor.putString(CONSTANTS.pswd, s_pswd);
                                         editor.putString(CONSTANTS.token, loginResponseDataToken);
-                                        editor.putBoolean(CONSTANTS.first_time, false);
+//                                        editor.putBoolean(CONSTANTS.first_time, false);
                                         editor.putBoolean(CONSTANTS.seed, true);
                                         editor.commit();
 //                                        GetWalletsList
@@ -205,7 +205,8 @@ public class LoginActivity extends AppCompatActivity {
                                         editor.putString(CONSTANTS.email, s_email);
                                         editor.putString(CONSTANTS.pswd, s_pswd);
                                         editor.putString(CONSTANTS.token, loginResponseDataToken);
-                                        editor.putBoolean(CONSTANTS.first_time, false);
+                                        editor.putBoolean(CONSTANTS.seed, false);
+//                                        editor.putBoolean(CONSTANTS.first_time, false);
                                         editor.commit();
                                         Intent intent = new Intent(LoginActivity.this, AddPhraseActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

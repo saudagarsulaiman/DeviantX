@@ -93,7 +93,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
     }
 
 
-    boolean firstTimeCreation = false;
+    boolean firstTimeCreation = false, emptyWallet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,12 +106,15 @@ public class SetUpWalletActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         firstTimeCreation = sharedPreferences.getBoolean(CONSTANTS.first_wallet, false);
+        emptyWallet = sharedPreferences.getBoolean(CONSTANTS.empty_wallet, false);
         if (firstTimeCreation) {
             scompat_defWallet.setChecked(true);
+            scompat_defWallet.setClickable(false);
             editor.putBoolean(CONSTANTS.first_wallet, false);
             editor.apply();
         } else {
             scompat_defWallet.setChecked(false);
+            scompat_defWallet.setClickable(true);
         }
 
         if (scompat_defWallet.isChecked()) {
@@ -178,17 +181,22 @@ public class SetUpWalletActivity extends AppCompatActivity {
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
-                                editor.putBoolean(CONSTANTS.empty_wallet, false);
-                                editor.apply();
-                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
-                                serviceIntent.putExtra("walletList", true);
-                                serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
-                                startService(serviceIntent);
-                                finish();
+                                if (emptyWallet) {
+                                    editor.putBoolean(CONSTANTS.empty_wallet, false);
+                                    editor.putBoolean(CONSTANTS.first_wallet, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(SetUpWalletActivity.this, DashBoardActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                    serviceIntent.putExtra("walletList", true);
+                                    serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
+                                    startService(serviceIntent);
+                                    finish();
+                                }
                             } else {
                                 CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, loginResponseMsg);
                             }
-
                         } else {
                             CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();

@@ -187,10 +187,10 @@
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
             android:process=":remote"></receiver>
-        <meta-data
+       <!-- <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
-            />
+            />-->
     </application>
 
 </manifest>

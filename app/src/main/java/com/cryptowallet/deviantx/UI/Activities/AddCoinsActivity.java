@@ -194,14 +194,16 @@ public class AddCoinsActivity extends AppCompatActivity {
 //                                            }
 //                                        }
 
+//                try {
 
                 int i = 0;
                 //  final AllCoins selectedCoin = new AllCoins();
                 for (AllCoins coins : selected_allCoinsList) {
-                    if (coins.getSelected()) {
-                        coins.setSelected(false);
-                        addCoinsRAdapter.notifyItemChanged(i);
-                    }
+                    if (coins.getSelected() != null)
+                        if (coins.getSelected()) {
+                            coins.setSelected(false);
+                            addCoinsRAdapter.notifyDataSetChanged();
+                        }
                     i++;
                 }
                 addCoinsRAdapter.setCoinValue(!selected_allCoinsList.get(pos).getSelected(), pos);
@@ -248,6 +250,11 @@ public class AddCoinsActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }*/
+
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+
             }
         };
 
