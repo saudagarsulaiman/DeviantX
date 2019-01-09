@@ -14,6 +14,7 @@
     <color name="l_grey1">#E1E1E1</color>
     <color name="red">#C1272D</color>
     <color name="green">#176C43</color>
+    <color name="green_txt">#16C338</color>
     <color name="black">#000000</color>
     <color name="lyt_blue">#161B4F</color>
     <color name="btm_menu">#030516</color>
@@ -21,6 +22,7 @@
     <color name="brinjal">#8B00DC</color>
     <color name="blue">#3137EC</color>
     <color name="menu_blue">#3A60DB</color>
+    <color name="grey_exc">#12152E</color>
 
 
     <!--Client's Graph Colours-->
@@ -86,6 +88,8 @@
     <color name="l_blue">#448BCA</color>
     <color name="bg_end_orange">#FBAD3B</color>
     <color name="bg_start_orange">#C7352E</color>
+    <color name="grey_line">#1a1a45</color>
+    <color name="grey_excl">#151727</color>
 
 
 </resources>

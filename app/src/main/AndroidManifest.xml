@@ -187,10 +187,24 @@
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
             android:process=":remote"></receiver>
-       <!-- <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
-            />-->
+        <!-- <meta-data
+             android:name="io.fabric.ApiKey"
+             android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
+             />-->
+
+        <activity
+            android:name=".UI.Activities.ExchangeSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.SetPinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ExchangeOrderHistoryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".UI.Activities.ExchangeCoinInfoActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -42,4 +42,457 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/padding80"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin25"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:text="@string/wallets"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/lnr_def_wallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/wallet" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/def_wallet"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_def_wallet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin2"
+                            android:text="@string/wallet"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_hint_size" />
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/key" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/allow_asswal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/scompat_asswal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/key" />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/use_dev_pay_fee"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/scompat_dev_fees"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin25"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:text="@string/security"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/lnr_pin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/pin" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pin"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin2"
+                            android:text="@string/note_pin"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_hint_size" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/scompat_pin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnr_fingerprint"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/fingerprint" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fingerprint"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin2"
+                            android:text="@string/note_fingerprint"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_hint_size" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/scompat_fingerprint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin25"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:text="@string/others"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text18"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/lnr_frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/reload_icon" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/update_frequency"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/lnr_color_pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height75"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/picker" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:layout_marginLeft="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="2.2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/color_pref"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rec_white_trans_c16"
+                        android:theme="@style/SwitchStyle"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_toolbar_back_height"
         android:orientation="horizontal"
@@ -16,8 +17,8 @@
             android:layout_height="@dimen/height25"
             android:layout_gravity="center"
             android:layout_weight="0.4"
-            android:visibility="invisible"
-            android:src="@drawable/candle_chart" />
+            android:src="@drawable/candle_chart"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/txt_title"
@@ -35,12 +36,63 @@
         <ImageView
             android:id="@+id/img_history"
             android:layout_width="0dp"
-            android:layout_height="@dimen/height20"
+            android:layout_height="@dimen/height15"
             android:layout_gravity="center"
             android:layout_weight="0.4"
+            android:scaleType="fitCenter"
             android:src="@drawable/history" />
 
     </LinearLayout>
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/txt_total_bal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/def_margin"
+        android:gravity="center"
+        android:text="0.16357865 BTC"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:visibility="visible"
+        android:id="@+id/txt_total_bal_usd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableStart="@drawable/equal"
+        android:drawableLeft="@drawable/equal"
+        android:drawablePadding="@dimen/padding5"
+        android:gravity="center"
+        android:text="$654.12 USD"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/def_margin"
+        android:gravity="center"
+        android:text="@string/asso_wal"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size" />
+
+    <ExpandableListView
+        android:visibility="visible"
+        android:id="@+id/expandable_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginStart="@dimen/def_margin"
+        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginEnd="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:layout_marginBottom="@dimen/margin80"
+        android:groupIndicator="@null" />
 
 
 </LinearLayout>

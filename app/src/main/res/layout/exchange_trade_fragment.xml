@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/img_chart"
             android:layout_width="0dp"
-            android:layout_height="@dimen/height25"
+            android:scaleType="fitCenter"
+            android:layout_height="@dimen/height18"
             android:layout_gravity="center"
             android:layout_weight="0.4"
             android:src="@drawable/candle_chart" />
@@ -35,8 +36,9 @@
         <ImageView
             android:id="@+id/img_history"
             android:layout_width="0dp"
-            android:layout_height="@dimen/height20"
+            android:layout_height="@dimen/height15"
             android:layout_gravity="center"
+            android:scaleType="fitCenter"
             android:layout_weight="0.4"
             android:src="@drawable/history" />
 

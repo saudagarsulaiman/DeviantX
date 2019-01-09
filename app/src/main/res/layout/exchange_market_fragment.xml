@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
@@ -16,8 +17,8 @@
             android:layout_height="@dimen/height25"
             android:layout_gravity="center"
             android:layout_weight="0.4"
-            android:visibility="invisible"
-            android:src="@drawable/candle_chart" />
+            android:src="@drawable/candle_chart"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/txt_title"
@@ -35,12 +36,118 @@
         <ImageView
             android:id="@+id/img_search"
             android:layout_width="0dp"
-            android:layout_height="@dimen/height20"
+            android:layout_height="@dimen/height15"
             android:layout_gravity="center"
             android:layout_weight="0.4"
+            android:scaleType="fitCenter"
             android:src="@drawable/search" />
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_lyt_coinsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/graph_brdr_green"
+            app:tabIndicatorHeight="@dimen/height5"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/graph_brdr_green"
+            app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+            app:tabTextColor="@color/white" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height2"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lyt_blue" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_toolbar_back_height"
+        android:layout_margin="@dimen/def_margin"
+        android:background="@color/lyt_blue"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:paddingStart="@dimen/def_padding"
+            android:paddingLeft="@dimen/def_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/pair"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_hint_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/last_price"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_hint_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/trend_24h"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_hint_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:visibility="visible"
+        android:id="@+id/view_pager_Sup_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"/>
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rview_coin"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="@dimen/def_margin"-->
+    <!--android:layout_marginRight="@dimen/def_margin"-->
+    <!--android:layout_marginBottom="@dimen/margin80" />-->
 
 </LinearLayout>

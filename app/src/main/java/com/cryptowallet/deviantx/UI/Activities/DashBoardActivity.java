@@ -158,9 +158,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*//*, R.drawable.ic_exchange_unselected*/};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools/*, R.string.exchange*/};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools/*, R.string.devx_exchange*/};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/, R.drawable.ic_exchange_unselected};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools, R.string.exchange};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)

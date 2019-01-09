@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lnr_item"
+    android:layout_width="@dimen/width150"
+    android:layout_height="@dimen/height140"
+    android:layout_marginStart="@dimen/margin3"
+    android:layout_marginLeft="@dimen/margin3"
+    android:layout_marginEnd="@dimen/margin2"
+    android:layout_marginRight="@dimen/margin2"
+    android:layout_marginBottom="@dimen/margin10"
+    android:background="@drawable/rec_lytblue_c5"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/padding10">
+
+    <TextView
+        android:id="@+id/txt_coin_per"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/margin10"
+        android:layout_marginRight="@dimen/margin10"
+        android:text="+12.56%"
+        android:textColor="@color/green_txt"
+        android:textSize="@dimen/text10"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_coin"
+        android:layout_width="@dimen/width45"
+        android:layout_height="@dimen/height45"
+        android:layout_marginTop="@dimen/margin3"
+        android:src="@drawable/ic_dlg" />
+
+    <TextView
+        android:id="@+id/txt_coin_name_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="DEV/USDT"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text10"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_coin_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$1305.56"
+        android:textColor="@color/green_txt"
+        android:textSize="@dimen/def_text_size" />
+
+</LinearLayout>

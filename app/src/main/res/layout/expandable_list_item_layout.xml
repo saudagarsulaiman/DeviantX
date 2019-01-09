@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/padding5"
+    android:paddingBottom="@dimen/padding5"
+    android:weightSum="3">
+
+
+    <TextView
+        android:id="@+id/exp_tview_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin5"
+        android:layout_weight="1.8"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:textSize="@dimen/def_lbl_size"
+        android:hint="@string/wallet"
+        android:textColor="@color/white"
+        android:textColorHint="@color/black" />
+
+    <ImageView
+        android:id="@+id/exp_iview_item"
+        android:layout_width="@dimen/width18"
+        android:layout_height="@dimen/height10"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/margin5"
+        android:layout_marginRight="@dimen/margin5"
+        android:layout_weight="0.5"
+        android:src="@drawable/up_yellow"
+        android:visibility="visible" />
+
+
+</LinearLayout>

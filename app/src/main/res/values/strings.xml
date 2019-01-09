@@ -492,4 +492,41 @@
     <string name="email_exist">Email already exists</string>
 
 
+    <!--ExchangeSettingsFragment-->
+    <string name="wallets">Wallets</string>
+    <string name="allow_asswal">Allow associate wallets</string>
+    <string name="use_dev_pay_fee">Use DEV to pay fees (50% Discount)</string>
+    <string name="security">Security</string>
+    <string name="pin">PIN</string>
+    <string name="note_pin">Protect your trades with PIN.</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="note_fingerprint">Use fingerprint sensor to make trade. You\'ll also need configure the pin.</string>
+    <string name="others">Others</string>
+    <string name="update_frequency">Update Frequency</string>
+    <string name="color_pref">Color Preference</string>
+    <string name="featured_coins">Featured Coins</string>
+    <string name="devx_news">Deviant X News</string>
+    <string name="pair">Pair</string>
+    <string name="price_change">Price/Change(24h)</string>
+    <string name="trend_24h">Trend(24h)</string>
+    <string name="gainers">Gainers</string>
+    <string name="losers">Losers</string>
+    <string name="headline">Headline</string>
+    <string name="text">text</string>
+    <string name="last_price">Last Price</string>
+    <string name="asso_wal">Associated Wallet</string>
+    <string name="set_pin">Set PIN</string>
+    <string name="enter_pin">Enter the new PIN</string>
+    <string name="repeat_pin">Repeat your PIN</string>
+    <string name="hint_pin">Only numbers, max 4 numbers.</string>
+    <string name="order_history">Order History</string>
+
+
+    <!--Exchange Coin Info Activity-->
+    <string name="market_deph">Market Deph</string>
+    <string name="mrkt_trades">Market Trades</string>
+    <string name="time1">Time</string>
+    <string name="price">Price</string>
+
+
 </resources>
