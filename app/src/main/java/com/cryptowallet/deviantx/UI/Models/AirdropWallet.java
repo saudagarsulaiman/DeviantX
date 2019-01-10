@@ -1,10 +1,7 @@
 package com.cryptowallet.deviantx.UI.Models;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 public class AirdropWallet implements Parcelable {
 
@@ -17,12 +14,11 @@ public class AirdropWallet implements Parcelable {
 
 
     int int_ad_noOfDays;
-    String startDate, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
+    String str_airdropStatus, startDate, str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account,
             str_data_ad_coin, str_ad_coin_name, str_ad_coin_logo, str_ad_coin_chart_data;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume,
             dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     AllCoins allCoins;
-
 
     protected AirdropWallet(Parcel in) {
         str_ad_coin_code = in.readString();
@@ -30,6 +26,7 @@ public class AirdropWallet implements Parcelable {
         int_ad_coin_id = in.readInt();
         int_ad_coin_rank = in.readInt();
         int_ad_noOfDays = in.readInt();
+        str_airdropStatus = in.readString();
         startDate = in.readString();
         str_data_ad_address = in.readString();
         str_data_ad_privatekey = in.readString();
@@ -93,6 +90,14 @@ public class AirdropWallet implements Parcelable {
             return new AirdropWallet[size];
         }
     };
+
+    public String getStr_airdropStatus() {
+        return str_airdropStatus;
+    }
+
+    public void setStr_airdropStatus(String str_airdropStatus) {
+        this.str_airdropStatus = str_airdropStatus;
+    }
 
     public String getStartDate() {
         return startDate;
@@ -278,7 +283,8 @@ public class AirdropWallet implements Parcelable {
         this.allCoins = allCoins;
     }
 
-    public AirdropWallet(String startDate, int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, int int_ad_noOfDays, AllCoins allCoins) {
+    public AirdropWallet(String str_airdropStatus, String startDate, int int_ad_data_id, String str_data_ad_address, String str_data_ad_privatekey, String str_data_ad_passcode, Double dbl_data_ad_balance, Double dbl_data_ad_balanceInUSD, String str_data_ad_account, int int_ad_noOfDays, AllCoins allCoins) {
+        this.str_airdropStatus = str_airdropStatus;
         this.startDate = startDate;
         this.int_ad_data_id = int_ad_data_id;
         this.str_data_ad_address = str_data_ad_address;
@@ -290,7 +296,6 @@ public class AirdropWallet implements Parcelable {
         this.int_ad_noOfDays = int_ad_noOfDays;
         this.allCoins = allCoins;
     }
-
 
     @Override
     public int describeContents() {
@@ -304,6 +309,7 @@ public class AirdropWallet implements Parcelable {
         dest.writeInt(int_ad_coin_id);
         dest.writeInt(int_ad_coin_rank);
         dest.writeInt(int_ad_noOfDays);
+        dest.writeString(str_airdropStatus);
         dest.writeString(startDate);
         dest.writeString(str_data_ad_address);
         dest.writeString(str_data_ad_privatekey);

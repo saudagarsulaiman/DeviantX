@@ -90,6 +90,8 @@
     <color name="bg_start_orange">#C7352E</color>
     <color name="grey_line">#1a1a45</color>
     <color name="grey_excl">#151727</color>
+    <color name="google_red1">#590C19</color>
+    <color name="green1">#00D8C1</color>
 
 
 </resources>
