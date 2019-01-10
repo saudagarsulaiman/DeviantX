@@ -94,6 +94,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     SeekBar seekbar_per;
     @BindView(R.id.lnr_empty_coins)
     LinearLayout lnr_empty_coins;
+    @BindView(R.id.txt_acc_status)
+    TextView txt_acc_status;
 
 
     FeaturedADHorizantalRAdapter featuredADHorizantalRAdapter;
@@ -115,7 +117,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     ArrayList<com.cryptowallet.deviantx.UI.Models.AirdropWallet> airdropWalletlist;
     int int_ad_data_id, int_ad_coin_id, int_ad_coin_rank, int_ad_noOfDays;
-    String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data,str_ad_coin_daily_chart_data;
+    String str_data_ad_address, str_data_ad_privatekey, str_data_ad_passcode, str_data_ad_account, str_data_ad_coin, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, str_ad_coin_chart_data, str_ad_coin_daily_chart_data, str_airdropStatus;
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     String startDate;
 
@@ -537,6 +539,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                 e.printStackTrace();
                             }
                             try {
+                                str_airdropStatus = jsonObjectData.getString("airdropStatus");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            try {
                                 startDate = jsonObjectData.getString("airdropStartDate");
                                        /* if (startDate.equals("null")) {
                                             startDate = "0";
@@ -624,13 +631,13 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                                 e.printStackTrace();
                             }
                             try {
-                                str_ad_coin_daily_chart_data= jsonObjectCoins.getString("dailyChartData");
+                                str_ad_coin_daily_chart_data = jsonObjectCoins.getString("dailyChartData");
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                             AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
                                     int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, str_ad_coin_chart_data, str_ad_coin_daily_chart_data);
-                            airdropWalletlist.add(new com.cryptowallet.deviantx.UI.Models.AirdropWallet(startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
+                            airdropWalletlist.add(new com.cryptowallet.deviantx.UI.Models.AirdropWallet(str_airdropStatus, startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
                                     str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
                                     str_data_ad_account, int_ad_noOfDays, allCoins));
                         }
@@ -642,6 +649,16 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         } else {
                             txt_holding_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                         }
+
+
+                        if (airdropWalletlist.get(0).getStr_airdropStatus().equals("false")) {
+                            txt_acc_status.setText(getResources().getString(R.string.inactive));
+                            txt_acc_status.setBackground(getResources().getDrawable(R.drawable.rec_google_red_c5));
+                        } else {
+                            txt_acc_status.setText(getResources().getString(R.string.active));
+                            txt_acc_status.setBackground(getResources().getDrawable(R.drawable.rec_green_c5));
+                        }
+
 
                         if (airdropWalletlist.get(0).getStartDate().equals("null")) {
                             txt_holding_days.setText("0 Days");
