@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,28 +164,47 @@ public class LoginActivity extends AppCompatActivity {
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
 
-                            if (loginResponseMsg.equals("Email is not yet verified")) {
-                                editor.putString(CONSTANTS.email, s_email);
-                                editor.putString(CONSTANTS.pswd, s_pswd);
-                                editor.apply();
+//                            if (loginResponseMsg.equals("Email is not yet verified")) {
+////                                editor.putString(CONSTANTS.email, s_email);
+////                                editor.putString(CONSTANTS.pswd, s_pswd);
+////                                editor.apply();
+////
+////                                ShowTokenDialog();
+////
+////                            } else {
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
 
-                                ShowTokenDialog();
+                                JSONObject jsonObjectData = new JSONObject(loginResponseData);
+                                loginResponseDataToken = jsonObjectData.getString("token");
 
-                            } else {
-                                if (loginResponseStatus.equals("true")) {
-                                    loginResponseData = jsonObject.getString("data");
+//                                    loginResponseDataUser = jsonObjectData.getString("user");
+//                                JSONObject jsonObjectDataUser = new JSONObject(loginResponseDataUser);
+//                                String username = jsonObjectDataUser.getString("userName");
+//                                String seed = jsonObjectDataUser.getString("seed");
 
-                                    JSONObject jsonObjectData = new JSONObject(loginResponseData);
-                                    loginResponseDataToken = jsonObjectData.getString("token");
+                                String username = jsonObjectData.getString("userName");
+                                String seed = jsonObjectData.getString("seed");
+                                String twoFactorAuthenStatus = jsonObjectData.getString("twoFactorAuthenStatus");
+                                String emailVerificationstatus = jsonObjectData.getString("emailVerificationstatus");
 
-                                    loginResponseDataUser = jsonObjectData.getString("user");
+                                if (twoFactorAuthenStatus.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.putBoolean(CONSTANTS.login2FA, false);
+                                    editor.apply();
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                }
 
-                                    JSONObject jsonObjectDataUser = new JSONObject(loginResponseDataUser);
-
-                                    String username = jsonObjectDataUser.getString("userName");
-
-                                    String seed = jsonObjectDataUser.getString("seed");
-
+                                if (emailVerificationstatus.equals("false")) {
+                                    editor.putString(CONSTANTS.email, s_email);
+                                    editor.putString(CONSTANTS.pswd, s_pswd);
+                                    editor.apply();
+                                    ShowTokenDialog();
+                                } else {
                                     if (seed.equals("true")) {
                                         editor.putString(CONSTANTS.usrnm, username);
                                         editor.putString(CONSTANTS.email, s_email);
@@ -213,11 +233,14 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(intent);
 //                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     }
-                                } else {
-                                    CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
                                 }
 
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
                             }
+
+//                            }
 
                         } else {
                             CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
@@ -242,7 +265,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
@@ -294,16 +317,21 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
                                     get2FAstatus();
-                                  /*  if (myApplication.get2FA()) {
+                                    /*if (loginResponseData.equals("true")) {
+                                        myApplication.set2FA(true);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                        editor.putBoolean(CONSTANTS.login2FA, false);
+                                        editor.apply();
                                         Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-//                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     } else {
+                                        myApplication.set2FA(false);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                        editor.apply();
                                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
-//                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
                                     }*/
                                 }
 
@@ -353,8 +381,27 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     private void get2FAstatus() {
-        try {
+        boolean twoFactorAuthenStatus = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
+        if (twoFactorAuthenStatus) {
+            myApplication.set2FA(true);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+            editor.putBoolean(CONSTANTS.login2FA, false);
+            editor.apply();
+            Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            myApplication.set2FA(false);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+            editor.apply();
+            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+
+/*        try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(LoginActivity.this, "", getResources().getString(R.string.please_wait), true);
             UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
@@ -433,7 +480,9 @@ public class LoginActivity extends AppCompatActivity {
             CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
+ */
     }
+
 
     private void ShowTokenDialog() {
 
@@ -459,6 +508,8 @@ public class LoginActivity extends AppCompatActivity {
         View view = dialog.getHolderView();
 
         final EditText edt_token = view.findViewById(R.id.edt_token);
+        final ImageView img_center_back = view.findViewById(R.id.img_center_back);
+
         Button btn_submit = view.findViewById(R.id.btn_submit);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -475,6 +526,12 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.internetconnection));
                 }
+            }
+        });
+        img_center_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
 

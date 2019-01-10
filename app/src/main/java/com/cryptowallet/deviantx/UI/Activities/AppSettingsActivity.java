@@ -116,11 +116,11 @@ public class AppSettingsActivity extends AppCompatActivity {
             scompat_privacy.setChecked(false);
         }
 
-        if (CommonUtilities.isConnectionAvailable(AppSettingsActivity.this)) {
-            get2FAstatus();
-        } else {
-            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.internetconnection));
-        }
+//        if (CommonUtilities.isConnectionAvailable(AppSettingsActivity.this)) {
+        get2FAstatus();
+//        } else {
+//            CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.internetconnection));
+//        }
 
         if (myApplication.get2FA()) {
             scompat_2fa.setChecked(true);
@@ -595,7 +595,28 @@ public class AppSettingsActivity extends AppCompatActivity {
     }
 
     private void get2FAstatus() {
-        try {
+        boolean twoFactorAuthenStatus = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
+        if (twoFactorAuthenStatus) {
+            myApplication.set2FA(true);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+            editor.putBoolean(CONSTANTS.login2FA, true);
+            editor.apply();
+            scompat_2fa.setChecked(true);
+            scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            txt_2FA_status.setText(getResources().getString(R.string.active));
+        } else {
+            myApplication.set2FA(false);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+            editor.putBoolean(CONSTANTS.login2FA, false);
+            editor.apply();
+            scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+            scompat_2fa.setChecked(false);
+            scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+            txt_2FA_status.setText(getResources().getString(R.string.inactive));
+        }
+
+   /*     try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(AppSettingsActivity.this, "", getResources().getString(R.string.please_wait), true);
             UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
@@ -634,7 +655,7 @@ public class AppSettingsActivity extends AppCompatActivity {
                                     scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                                     txt_2FA_status.setText(getResources().getString(R.string.inactive));
                                 }
-/*
+*//*
                                 if (myApplication.get2FA()) {
                                     scompat_2fa.setChecked(true);
                                     scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
@@ -646,7 +667,7 @@ public class AppSettingsActivity extends AppCompatActivity {
                                     scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                                     txt_2FA_status.setText(getResources().getString(R.string.inactive));
                                 }
-*/
+*//*
 
                             } else {
                                 CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
@@ -688,7 +709,7 @@ public class AppSettingsActivity extends AppCompatActivity {
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
 }

@@ -320,7 +320,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
             JSONObject params = new JSONObject();
             try {
                 params.put("password", s_pswd);
-                params.put("userName", s_usrnm);
+                params.put("username", s_usrnm);
                 params.put("email", s_email);
 
             } catch (JSONException e) {
@@ -360,7 +360,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
 
                             } else {
-                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.email_exist));
+                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, /*getResources().getString(R.string.email_exist)*/regResponseMsg);
                             }
 
                         } else {
