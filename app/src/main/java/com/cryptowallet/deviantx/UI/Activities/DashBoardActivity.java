@@ -158,9 +158,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*/, R.drawable.ic_exchange_unselected};
-    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools, R.string.exchange};
-    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.selector_btm_nav_acc_list*//*, R.drawable.ic_exchange_unselected*/};
+    int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools/*, R.string.exchange*/};
+    int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools/*, R.string.devx_exchange*/};
 
     @Nullable
     @BindView(R.id.lnr_nav_drwr_logout)
@@ -815,6 +815,86 @@ public class DashBoardActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+
+    private void get2FAstatus() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(DashBoardActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.get2FAStatus(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (loginResponseData.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.apply();
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(DashBoardActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(DashBoardActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(DashBoardActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
 

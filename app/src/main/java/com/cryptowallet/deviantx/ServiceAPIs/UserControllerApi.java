@@ -46,8 +46,8 @@ public interface UserControllerApi {
     @GET("/api/account/get_two_factor")
     Call<ResponseBody> get2FACode(@Header("Authorization") String AuthorizationDX);
 
-//    @GET("/api/account/get_two_factor_status")
-//    Call<ResponseBody> get2FAStatus(@Header("Authorization") String AuthorizationDX);
+    @GET("/api/account/get_two_factor_status")
+    Call<ResponseBody> get2FAStatus(@Header("Authorization") String AuthorizationDX);
 
     @GET("/api/account/disable_2fa/{password}/{totp}")
     Call<ResponseBody> disable2FA(@Path("password") String passwordX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);

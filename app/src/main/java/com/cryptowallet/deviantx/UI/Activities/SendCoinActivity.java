@@ -153,7 +153,19 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
         if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
 
-            convertCoinValue(selectedAccountWallet.getAllCoins().getStr_coin_code(), "USD");
+            String coinCode = selectedAccountWallet.getAllCoins().getStr_coin_code();
+
+            if (coinCode.equals("FDN")) {
+                usdCoinValue = 0.1;
+                editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
+                editor.apply();
+            } else if (coinCode.equals("ROCO")) {
+                usdCoinValue = 0.2;
+                editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
+                editor.apply();
+            } else {
+                convertCoinValue(coinCode, "USD");
+            }
 
             toolbar_center_back.setOnClickListener(new View.OnClickListener() {
                 @Override
