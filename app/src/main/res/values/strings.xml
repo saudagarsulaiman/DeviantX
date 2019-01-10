@@ -527,6 +527,7 @@
     <string name="mrkt_trades">Market Trades</string>
     <string name="time1">Time</string>
     <string name="price">Price</string>
+    <string name="enter_mbl_num">Enter Mobile Number</string>
 
 
 </resources>

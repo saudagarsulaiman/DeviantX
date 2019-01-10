@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:layout_above="@+id/btn_continue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_continue">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,6 +130,65 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/enter_mbl_num"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_lbl_size"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/def_edt_height"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:weightSum="1">
+
+                        <Spinner
+                            android:id="@+id/spnr_ccode"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.2" />
+
+                        <EditText
+                            android:id="@+id/edt_mbl_num"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:layout_weight="0.8"
+                            android:background="@drawable/rec_white_c2"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/padding10"
+                            android:paddingLeft="@dimen/padding10"
+                            android:paddingEnd="@dimen/padding10"
+                            android:paddingRight="@dimen/padding10"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/black"
+                            android:textSize="@dimen/def_text_size" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="@string/note_email"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="@string/confirm_email"
                         android:textColor="@color/white"
                         android:textSize="@dimen/def_lbl_size"
@@ -177,12 +236,12 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:digits="@string/pswd"
                         android:id="@+id/edt_pswd"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/def_edt_height"
                         android:layout_marginTop="@dimen/margin5"
                         android:background="@drawable/rec_white_c2"
+                        android:digits="@string/pswd"
                         android:inputType="textPassword"
                         android:maxLength="25"
                         android:maxLines="1"
@@ -291,12 +350,12 @@
                         android:textStyle="bold" />
 
                     <EditText
-                        android:digits="@string/pswd"
                         android:id="@+id/edt_confirm_pswd"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/def_edt_height"
                         android:layout_marginTop="@dimen/margin5"
                         android:background="@drawable/rec_white_c2"
+                        android:digits="@string/pswd"
                         android:inputType="textPassword"
                         android:maxLength="25"
                         android:maxLines="1"
@@ -313,8 +372,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin5"
-                        android:text="@string/note_confirm_password"
                         android:layout_marginBottom="@dimen/def_margin"
+                        android:text="@string/note_confirm_password"
                         android:textColor="@color/white"
                         android:textSize="@dimen/def_hint_size" />
 
