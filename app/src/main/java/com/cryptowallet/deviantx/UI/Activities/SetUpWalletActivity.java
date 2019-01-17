@@ -185,6 +185,10 @@ public class SetUpWalletActivity extends AppCompatActivity {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.putBoolean(CONSTANTS.first_wallet, false);
                                     editor.apply();
+                                    Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                    serviceIntent.putExtra("walletList", true);
+                                    serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
+                                    startService(serviceIntent);
                                     Intent intent = new Intent(SetUpWalletActivity.this, DashBoardActivity.class);
                                     startActivity(intent);
                                 } else {
