@@ -3,8 +3,8 @@ package com.cryptowallet.deviantx.UI.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -69,9 +69,6 @@ public class WalletDetailsActivity extends AppCompatActivity {
     TextView txt_add_name;
 
 
-
-
-
     AccountWallet selectedAccountWallet;
 
     SharedPreferences sharedPreferences;
@@ -131,31 +128,43 @@ public class WalletDetailsActivity extends AppCompatActivity {
 
         if (CommonUtilities.isConnectionAvailable(WalletDetailsActivity.this)) {
 
+/*
             fetchPrivateKey(selectedAccountWallet.getStr_data_address(), s_pswd);
+*/
+            fetchPrivateKey(selectedAccountWallet.getStr_coin_name(), s_pswd);
             if (hideBal) {
                 txt_mywallet_usd.setText("$ *** USD");
-                txt_mywallet_btc.setText("***" + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+                txt_mywallet_btc.setText("***" + " " + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
             } else {
                 txt_mywallet_usd.setText("$ " + String.format("%.4f", selectedAccountWallet.getStr_data_balanceInUSD()) + " USD");
-                txt_mywallet_btc.setText(String.format("%.4f", selectedAccountWallet.getStr_data_balance()) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code());
+                txt_mywallet_btc.setText(String.format("%.4f", selectedAccountWallet.getStr_data_balance()) + " " + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
             }
+/*
             txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
+*/
+            txt_dev_address.setText(selectedAccountWallet.getStr_coin_name());
 
-            txt_coin_name_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+" "+getResources().getString(R.string.address));
-            txt_coin_name_pk.setText(selectedAccountWallet.getAllCoins().getStr_coin_code()+" "+getResources().getString(R.string.privatekey));
-            txt_add_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name()+" "+getResources().getString(R.string.address));
+            txt_coin_name_add.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + " " + getResources().getString(R.string.address));
+            txt_coin_name_pk.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + " " + getResources().getString(R.string.privatekey));
+            txt_add_name.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name() + " " + getResources().getString(R.string.address));
             txt_derivation_path.setText("M/44H/425H/0H");
 
-            Picasso.with(WalletDetailsActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-            txt_coin_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
+            Picasso.with(WalletDetailsActivity.this).load(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_logo()).into(img_coin_logo);
+            txt_coin_name.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
 
 //        QR Code Generator
+/*
             CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_data_address(), img_dev_qrcode, WalletDetailsActivity.this);
+*/
+            CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_coin_name(), img_dev_qrcode, WalletDetailsActivity.this);
 
             lnr_copy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CommonUtilities.copyToClipboard(WalletDetailsActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet.getAllCoins().getStr_coin_name());
+/*
+                    CommonUtilities.copyToClipboard(WalletDetailsActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet/*.getAllCoins()/*.getStr_coin_name());
+*/
+                    CommonUtilities.copyToClipboard(WalletDetailsActivity.this, selectedAccountWallet.getStr_coin_name(), selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
                 }
             });
 
@@ -163,7 +172,10 @@ public class WalletDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 //           Sharing Address
+/*
                     CommonUtilities.shareAddress(selectedAccountWallet.getStr_data_address(), WalletDetailsActivity.this);
+*/
+                    CommonUtilities.shareAddress(selectedAccountWallet.getStr_coin_name(), WalletDetailsActivity.this);
                 }
             });
 

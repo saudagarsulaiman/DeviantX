@@ -101,39 +101,52 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
+/*
         txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
-        txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1) + " " + selectedAccountWallet.getAllCoins().getStr_coin_code() + ". " + getResources().getString(R.string.attention_dev_address2));
+*/
+        txt_dev_address.setText(selectedAccountWallet.getStr_coin_name());
 
-        Picasso.with(ReceiveCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-        txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
-        txt_wallet_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
-        txt_lbl_coin_add.setText(selectedAccountWallet.getAllCoins().getStr_coin_code() + " Address");
+        txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1) + " " + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + ". " + getResources().getString(R.string.attention_dev_address2));
 
-        txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
+        Picasso.with(ReceiveCoinActivity.this).load(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_logo()).into(img_coin_logo);
+        txt_coin_value.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
+        txt_wallet_name.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
+        txt_lbl_coin_add.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + " Address");
+
+        txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet/*.getAllCoins().getStr_coin_usdValue()*/.getDbl_coin_usdValue()) + " USD");
         DecimalFormat rank = new DecimalFormat("0.00");
-        if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-            txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+        if (selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
+            txt_percentage.setText("" + rank.format(selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
         } else {
-            txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setText("+" + rank.format(selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(getResources().getColor(R.color.green));
         }
 
         img_copy_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet.getAllCoins().getStr_coin_name());
+/*
+                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet*//*.getAllCoins()*//*.getStr_coin_name());
+                 */
+                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_coin_name(), selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
             }
         });
 
 //           QR Code Generator
+/*
         CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_data_address(), img_qrcode, ReceiveCoinActivity.this);
+*/
+        CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_coin_name(), img_qrcode, ReceiveCoinActivity.this);
 
         btn_share_qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //           Sharing Address
+/*
                 CommonUtilities.shareAddress(selectedAccountWallet.getStr_data_address(), ReceiveCoinActivity.this);
+*/
+                CommonUtilities.shareAddress(selectedAccountWallet.getStr_coin_name(), ReceiveCoinActivity.this);
             }
         });
 

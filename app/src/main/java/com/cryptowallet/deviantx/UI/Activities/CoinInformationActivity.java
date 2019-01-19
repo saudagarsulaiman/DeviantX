@@ -22,6 +22,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.SpinnerDaysAdapter;
+import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -121,7 +122,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     public static final float GRANULARITY = 100f;
 
     String chart_data, data;
-    AllCoins selectedCoin;
+    /*AllCoins*/ AccountWallet selectedCoin;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -294,7 +295,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
     }
 
-    private void getCoinChartData(AllCoins selectedCoin) {
+    private void getCoinChartData(AccountWallet selectedCoin) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);

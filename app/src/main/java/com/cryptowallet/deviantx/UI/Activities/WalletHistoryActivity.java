@@ -179,7 +179,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_data_address());
+            Call<ResponseBody> apiResponse = apiService.getTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -339,7 +339,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         }
                                         ArrayList<Transaction> selectedCoinTransaction = new ArrayList<>();
                                         for (int i = 0; i < transactions.size(); i++) {
-                                            if (selectedAccountWallet.getStr_data_address().equals(transactions.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
+                                            if (selectedAccountWallet.getStr_coin_name().equals(transactions.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
                                                 selectedCoinTransaction.add(transactions.get(i));
                                             }
                                         }

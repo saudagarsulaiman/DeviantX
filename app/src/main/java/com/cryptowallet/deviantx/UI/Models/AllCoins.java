@@ -8,11 +8,13 @@ import com.google.gson.annotations.SerializedName;
 public class AllCoins implements Parcelable {
 
 
-    @SerializedName("code")
+    @SerializedName("coinCode")
     String str_coin_code;
 
+/*
     @SerializedName("id")
     int int_coin_id;
+*/
 
     @SerializedName("rank")
     int int_coin_rank;
@@ -26,16 +28,16 @@ public class AllCoins implements Parcelable {
     @SerializedName("volume")
     Double dbl_coin_volume;
 
-    @SerializedName("change24H")
+    @SerializedName("changeOneDay")
     Double dbl_coin_24h;
 
-    @SerializedName("change7D")
+    @SerializedName("changeSevenDays")
     Double dbl_coin_7d;
 
-    @SerializedName("change1M")
+    @SerializedName("changeOneMonth")
     Double dbl_coin_1m;
 
-    @SerializedName("name")
+    @SerializedName("coinName")
     String str_coin_name;
 
     @SerializedName("logo")
@@ -50,7 +52,9 @@ public class AllCoins implements Parcelable {
     Boolean isSelected = false;
 
     protected AllCoins(Parcel in) {
+/*
         int_coin_id = in.readInt();
+*/
         int_coin_rank = in.readInt();
         if (in.readByte() == 0) {
             dbl_coin_usdValue = null;
@@ -104,6 +108,7 @@ public class AllCoins implements Parcelable {
     };
 
 
+/*
     public int getInt_coin_id() {
         return int_coin_id;
     }
@@ -111,6 +116,7 @@ public class AllCoins implements Parcelable {
     public void setInt_coin_id(int int_coin_id) {
         this.int_coin_id = int_coin_id;
     }
+*/
 
     public int getInt_coin_rank() {
         return int_coin_rank;
@@ -169,7 +175,9 @@ public class AllCoins implements Parcelable {
     }
 
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m, String str_coin_chart_data, String str_coin_daily_chart_data) {
+/*
         this.int_coin_id = int_coin_id;
+*/
         this.int_coin_rank = int_coin_rank;
         this.dbl_coin_usdValue = dbl_coin_usdValue;
         this.dbl_coin_marketCap = dbl_coin_marketCap;
@@ -186,7 +194,9 @@ public class AllCoins implements Parcelable {
 
 
     public AllCoins(int int_coin_id, String str_coin_name, String str_coin_code, String str_coin_logo, Double dbl_coin_usdValue, int int_coin_rank, Double dbl_coin_marketCap, Double dbl_coin_volume, Double dbl_coin_24h, Double dbl_coin_7d, Double dbl_coin_1m) {
+/*
         this.int_coin_id = int_coin_id;
+*/
         this.str_coin_name = str_coin_name;
         this.str_coin_code = str_coin_code;
         this.str_coin_logo = str_coin_logo;
@@ -230,6 +240,7 @@ public class AllCoins implements Parcelable {
         isSelected = selected;
     }
 
+/*
     public int getStr_coin_id() {
         return int_coin_id;
     }
@@ -237,6 +248,7 @@ public class AllCoins implements Parcelable {
     public void setStr_coin_id(int int_coin_id) {
         this.int_coin_id = int_coin_id;
     }
+*/
 
     public String getStr_coin_name() {
         return str_coin_name;
@@ -278,7 +290,9 @@ public class AllCoins implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+/*
         dest.writeInt(int_coin_id);
+*/
         dest.writeInt(int_coin_rank);
         if (dbl_coin_usdValue == null) {
             dest.writeByte((byte) 0);

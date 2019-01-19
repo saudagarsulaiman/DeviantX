@@ -154,7 +154,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                 ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
                 for (AllCoins coinName : allCoinsList) {
                     if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
-                        if (coinName.getInt_coin_id() == selectedCoinId)
+                        if (coinName./*getInt_coin_id() */getInt_coin_rank()== selectedCoinId)
                             coinName.setSelected(true);
                         else
                             coinName.setSelected(false);
@@ -208,7 +208,10 @@ public class AddCoinsActivity extends AppCompatActivity {
                 }
                 addCoinsRAdapter.setCoinValue(!selected_allCoinsList.get(pos).getSelected(), pos);
                 if (selected_allCoinsList.get(pos).getSelected()) {
+/*
                     selectedCoinId = selected_allCoinsList.get(pos).getInt_coin_id();
+*/
+                    selectedCoinId = selected_allCoinsList.get(pos).getInt_coin_rank();
                     btn_ready.setVisibility(View.VISIBLE);
                 } else
                     btn_ready.setVisibility(View.GONE);
@@ -437,7 +440,7 @@ public class AddCoinsActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(AddCoinsActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.createWalletCoin(CONSTANTS.DeviantMulti + token, str_coin_code, coin_name, wallet_name);
+            Call<ResponseBody> apiResponse = apiService.createWalletCoin(CONSTANTS.DeviantMulti + token, str_coin_code, /*coin_name,*/ wallet_name);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

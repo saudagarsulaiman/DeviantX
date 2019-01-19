@@ -119,23 +119,23 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     @Override
     public void onBindViewHolder(MyWalletCoinsRAdapter.ViewHolder viewHolder, final int i) {
-        Picasso.with(context).load(accountWalletlist.get(i).getAllCoins().getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
-        viewHolder.txt_coin_name.setText(accountWalletlist.get(i).getAllCoins().getStr_coin_name());
+        Picasso.with(context).load(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
+        viewHolder.txt_coin_name.setText(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_name());
         if (accountWalletlist.get(i).getResponseList() == null)
             accountWalletlist.get(i).setResponseList(new ArrayList<>());
         if (!hideBal) {
             viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
-            viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+            viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
         } else {
             viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
-            viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i).getAllCoins().getStr_coin_code());
+            viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
         }
         DecimalFormat rank = new DecimalFormat("0.00");
-        if (accountWalletlist.get(i).getAllCoins().getDbl_coin_24h() < 0) {
-            viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
+        if (accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
+            viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i).getAllCoins().getDbl_coin_24h()) + "%");
+            viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
         }
 
@@ -145,10 +145,10 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         else
             viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.un_favourite));
 
-//        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i).getAllCoins().getStr_coin_usdValue()+" USD");
+//        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_usdValue()+" USD");
 
         if (accountWalletlist.get(i).getResponseList().size() == 0) {
-            coinCartData(i, accountWalletlist.get(i).getAllCoins(), viewHolder.graph);
+            coinCartData(i, accountWalletlist.get(i)/*.getAllCoins()*/, viewHolder.graph);
             viewHolder.pb.setVisibility(View.GONE);
         } else {
             viewHolder.pb.setVisibility(View.GONE);
@@ -193,7 +193,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     }
 
-    private void coinCartData(int pos, AllCoins selectedCoin, TrendView graph) {
+    private void coinCartData(int pos, AccountWallet selectedCoin, TrendView graph) {
         try {
             String chart_data, data = "";
             chart_data = selectedCoin.getStr_coin_daily_chart_data();
@@ -282,7 +282,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWallet.getResponseList().size() == 0)
-                coinCartData(-1, accountWallet.getAllCoins(), graph_dlg);
+                coinCartData(-1, accountWallet/*.getAllCoins()*/, graph_dlg);
 //            invokeCoinGraph(-1, graph_dlg, accountWallet.getAllCoins().getStr_coin_code(), "1h", 800, startTime, endTime);
             else {
                 setChartData(accountWallet.getResponseList(), graph_dlg, accountWallet.getHighValue());
@@ -325,21 +325,21 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        /*GRAPH ENDS*/
 
 
-        Picasso.with(context).load(accountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-        txt_wallet_name.setText(accountWallet.getAllCoins().getStr_coin_name());
+        Picasso.with(context).load(accountWallet/*.getAllCoins()*/.getStr_coin_logo()).into(img_coin_logo);
+        txt_wallet_name.setText(accountWallet/*.getAllCoins()*/.getStr_coin_name());
 
         DecimalFormat rank = new DecimalFormat("0.00");
         DecimalFormat value = new DecimalFormat("0.00");
 
         if (!hideBal) {
-            txt_coin_value.setText(value.format(accountWallet.getStr_data_balance()) + " " + accountWallet.getAllCoins().getStr_coin_code());
+            txt_coin_value.setText(value.format(accountWallet.getStr_data_balance()) + " " + accountWallet/*.getAllCoins()*/.getStr_coin_code());
             txt_usd_value.setText(value.format(accountWallet.getStr_data_balanceInUSD()) + " USD");
         } else {
-            txt_coin_value.setText("***" + " " + accountWallet.getAllCoins().getStr_coin_code());
+            txt_coin_value.setText("***" + " " + accountWallet/*.getAllCoins()*/.getStr_coin_code());
             txt_usd_value.setText("***" + " USD");
         }
 
-        txt_rank.setText("#" + accountWallet.getAllCoins().getInt_coin_rank());
+        txt_rank.setText("#" + accountWallet/*.getAllCoins()*/.getInt_coin_rank());
 
 /*
         //The main logic for adding commas to the number.
@@ -359,8 +359,8 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         df.setMaximumFractionDigits(2);
 */
         NumberFormat nf = NumberFormat.getInstance(Locale.US);
-        String mcap = nf.format(accountWallet.getAllCoins().getDbl_coin_marketCap());
-        String mvol = nf.format(accountWallet.getAllCoins().getDbl_coin_volume());
+        String mcap = nf.format(accountWallet/*.getAllCoins()*/.getDbl_coin_marketCap());
+        String mvol = nf.format(accountWallet/*.getAllCoins()*/.getDbl_coin_volume());
 
         txt_markcap_usd.setText("$ " + mcap);
         txt_vol_usd.setText("$ " + mvol);
@@ -372,29 +372,29 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 //        txt_vol_usd.setText("$ " + value.format(accountWallet.getAllCoins().getDbl_coin_volume()));
 
 
-        if (accountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-            txt_percentage.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+        if (accountWallet/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
+            txt_percentage.setText("" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
-            txt_h_per.setText(rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_h_per.setText(rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             txt_h_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            txt_percentage.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setText("+" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
             txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
             txt_h_per.setTextColor(context.getResources().getColor(R.color.green));
-            txt_h_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_h_per.setText("+" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
         }
-        if (accountWallet.getAllCoins().getDbl_coin_7d() < 0) {
-            txt_d_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + "%");
+        if (accountWallet/*.getAllCoins()*/.getDbl_coin_7d() < 0) {
+            txt_d_per.setText("" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_7d()) + "%");
             txt_d_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            txt_d_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_7d()) + "%");
+            txt_d_per.setText("+" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_7d()) + "%");
             txt_d_per.setTextColor(context.getResources().getColor(R.color.green));
         }
-        if (accountWallet.getAllCoins().getDbl_coin_1m() < 0) {
-            txt_m_per.setText("" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + "%");
+        if (accountWallet/*.getAllCoins()*/.getDbl_coin_1m() < 0) {
+            txt_m_per.setText("" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_1m()) + "%");
             txt_m_per.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
-            txt_m_per.setText("+" + rank.format(accountWallet.getAllCoins().getDbl_coin_1m()) + "%");
+            txt_m_per.setText("+" + rank.format(accountWallet/*.getAllCoins()*/.getDbl_coin_1m()) + "%");
             txt_m_per.setTextColor(context.getResources().getColor(R.color.green));
         }
 

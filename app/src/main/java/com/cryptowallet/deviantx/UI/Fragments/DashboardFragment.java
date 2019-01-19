@@ -34,7 +34,6 @@ import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
@@ -49,10 +48,8 @@ import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -242,8 +239,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
                             walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
 
-                            for (int i=0;i<walletList.size();i++){
-                                if (walletList.get(i).isDefaultWallet()){
+                            for (int i = 0; i < walletList.size(); i++) {
+                                if (walletList.get(i).isDefaultWallet()) {
                                     editor.putInt(CONSTANTS.defaultWallet, i);
                                     editor.apply();
                                     myApplication.setDefaultWallet(i);
@@ -349,7 +346,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         favListener = new FavListener() {
             @Override
             public void addOrRemoveFav(AccountWallet accountWallet, int pos) {
-                favAddRemove(accountWallet.getStr_data_address(), !accountWallet.getFav(), pos);
+                favAddRemove(accountWallet.getInt_data_id(), !accountWallet.getFav(), pos);
             }
         };
 
@@ -380,7 +377,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     // DO Action for Left
                     Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(CONSTANTS.selectedCoin, accountWalletlist.get(fromPos).getAllCoins());
+                    bundle.putParcelable(CONSTANTS.selectedCoin, accountWalletlist.get(fromPos)/*.getAllCoins()*/);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (direction == ItemTouchHelper.END) {
@@ -529,8 +526,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
                     walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
 
-                    for (int i=0;i<walletList.size();i++){
-                        if (walletList.get(i).isDefaultWallet()){
+                    for (int i = 0; i < walletList.size(); i++) {
+                        if (walletList.get(i).isDefaultWallet()) {
                             editor.putInt(CONSTANTS.defaultWallet, i);
                             editor.apply();
                             myApplication.setDefaultWallet(i);
@@ -587,11 +584,11 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         }
     }
 
-    private void favAddRemove(final String address, final boolean isFav, final int position) {
+    private void favAddRemove(final int id, final boolean isFav, final int position) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.favAddRemove(CONSTANTS.DeviantMulti + token, address, isFav);
+            Call<ResponseBody> apiResponse = apiService.favAddRemove(CONSTANTS.DeviantMulti + token, id, isFav);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -614,7 +611,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                 getActivity().startService(serviceIntent);
                                 if (filterCoinlist.size() > 0) {
                                     for (AccountWallet wallet : accountWalletlist) {
+/*
                                         if (wallet.getStr_data_address().equalsIgnoreCase(address))
+*/
+                                        if (wallet.getInt_data_id() == id)
                                             wallet.setFav(isFav);
                                     }
                                     filterLoad(true);

@@ -231,14 +231,14 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         TextView txt_ttl_receive_code = view.findViewById(R.id.txt_ttl_receive_code);
 
         txt_amount_bal.setText(send_bal);
-        txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_amount_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
         txt_fiat_bal.setText(fiat_bal);
 //        txt_fiat_code.setText();
         txt_to_address.setText(toAddress);
 //        txt_fee.setText(fee);
-        txt_fee_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_fee_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
         txt_ttl_receive.setText("" + ttl_rcv);
-        txt_ttl_receive_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_ttl_receive_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
 
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,7 +251,10 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //            Senidng Coins
+/*
                 SendingCoins(selectedAccountWallet.getStr_data_address(), toAddress, ttl_rcv);
+*/
+                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
                 dialog.dismiss();
 
             }

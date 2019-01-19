@@ -60,10 +60,10 @@ public interface CryptoControllerApi {
     @GET("/api/crypto/get_account_wallet/{wallet_name}")
     Call<ResponseBody> getAccountWallet(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX);
 
-    @GET("/api/crypto/new_wallet/{coin_code}/{coin_name}/{wallet_name}")
-    Call<ResponseBody> createWalletCoin(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX, @Path("coin_name") String coinNameX, @Path("wallet_name") String walletNameX);
+    @GET("/api/crypto/new_wallet/{coin_code}/{wallet_name}")
+    Call<ResponseBody> createWalletCoin(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX, @Path("wallet_name") String walletNameX);
 
-    @GET("/api/crypto/update_fav/{address}/{state}")
-    Call<ResponseBody> favAddRemove(@Header("Authorization") String AuthorizationDX, @Path("address") String address, @Path("state") boolean state);
+    @GET("/api/crypto/update_fav/{id}/{state}")
+    Call<ResponseBody> favAddRemove(@Header("Authorization") String AuthorizationDX, @Path("id") int id, @Path("state") boolean state);
 
 }

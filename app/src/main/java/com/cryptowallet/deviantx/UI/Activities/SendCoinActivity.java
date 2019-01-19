@@ -153,7 +153,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
         if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
 
-            String coinCode = selectedAccountWallet.getAllCoins().getStr_coin_code();
+            String coinCode = selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code();
 
             if (coinCode.equals("FDN")) {
                 usdCoinValue = 0.1;
@@ -174,23 +174,23 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 }
             });
 
-            edt_btcp_address.setHint("\t\t" + selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
+            edt_btcp_address.setHint("\t\t" + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + " " + getResources().getString(R.string.address));
 
             txt_avail_bal.setText("" + String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
-            txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+            txt_amount_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
 
-            Picasso.with(SendCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-            txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
-            txt_wallet_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
+            Picasso.with(SendCoinActivity.this).load(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_logo()).into(img_coin_logo);
+            txt_coin_value.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
+            txt_wallet_name.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
 
 
-            txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
+            txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet/*.getAllCoins().getStr_coin_usdValue()*/.getDbl_coin_usdValue()) + " USD");
             DecimalFormat rank = new DecimalFormat("0.00");
-            if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-                txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            if (selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
+                txt_percentage.setText("" + rank.format(selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
                 txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
             } else {
-                txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+                txt_percentage.setText("+" + rank.format(selectedAccountWallet/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
                 txt_percentage.setTextColor(getResources().getColor(R.color.green));
             }
 
@@ -471,14 +471,14 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         TextView txt_ttl_receive_code = view.findViewById(R.id.txt_ttl_receive_code);
 
         txt_amount_bal.setText(send_bal);
-        txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_amount_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
         txt_fiat_bal.setText(fiat_bal);
 //        txt_fiat_code.setText();
         txt_to_address.setText(toAddress);
 //        txt_fee.setText(fee);
-        txt_fee_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_fee_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
         txt_ttl_receive.setText("" + ttl_rcv);
-        txt_ttl_receive_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_ttl_receive_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
 
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -491,7 +491,10 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             @Override
             public void onClick(View v) {
 //            Senidng Coins
+/*
                 SendingCoins(selectedAccountWallet.getStr_data_address(), toAddress, ttl_rcv);
+*/
+                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
                 dialog.dismiss();
 
             }

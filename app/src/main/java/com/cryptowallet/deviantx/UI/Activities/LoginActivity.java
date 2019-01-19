@@ -164,83 +164,82 @@ public class LoginActivity extends AppCompatActivity {
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
 
-//                            if (loginResponseMsg.equals("Email is not yet verified")) {
-////                                editor.putString(CONSTANTS.email, s_email);
-////                                editor.putString(CONSTANTS.pswd, s_pswd);
-////                                editor.apply();
-////
-////                                ShowTokenDialog();
-////
-////                            } else {
-                            if (loginResponseStatus.equals("true")) {
-                                loginResponseData = jsonObject.getString("data");
+                            if (loginResponseMsg.equals("Email is not yet verified")) {
+                                editor.putString(CONSTANTS.email, s_email);
+                                editor.putString(CONSTANTS.pswd, s_pswd);
+                                editor.apply();
 
-                                JSONObject jsonObjectData = new JSONObject(loginResponseData);
-                                loginResponseDataToken = jsonObjectData.getString("token");
+                                ShowTokenDialog();
+
+                            } else {
+                                if (loginResponseStatus.equals("true")) {
+                                    loginResponseData = jsonObject.getString("data");
+
+                                    JSONObject jsonObjectData = new JSONObject(loginResponseData);
+                                    loginResponseDataToken = jsonObjectData.getString("token");
 
 //                                    loginResponseDataUser = jsonObjectData.getString("user");
 //                                JSONObject jsonObjectDataUser = new JSONObject(loginResponseDataUser);
 //                                String username = jsonObjectDataUser.getString("userName");
 //                                String seed = jsonObjectDataUser.getString("seed");
 
-                                String username = jsonObjectData.getString("userName");
-                                String seed = jsonObjectData.getString("seed");
-                                String twoFactorAuthenStatus = jsonObjectData.getString("twoFactorAuthenStatus");
-                                String emailVerificationstatus = jsonObjectData.getString("emailVerificationstatus");
+                                    String username = jsonObjectData.getString("userName");
+                                    String seed = jsonObjectData.getString("seed");
+                                    String twoFactorAuthenStatus = jsonObjectData.getString("twoFactorAuthenStatus");
+                                    String emailVerificationstatus = jsonObjectData.getString("emailVerificationstatus");
 
-                                if (twoFactorAuthenStatus.equals("true")) {
-                                    myApplication.set2FA(true);
-                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
-                                    editor.putBoolean(CONSTANTS.login2FA, false);
-                                    editor.apply();
-                                } else {
-                                    myApplication.set2FA(false);
-                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
-                                    editor.apply();
-                                }
+                                    if (twoFactorAuthenStatus.equals("true")) {
+                                        myApplication.set2FA(true);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                        editor.putBoolean(CONSTANTS.login2FA, false);
+                                        editor.apply();
+                                    } else {
+                                        myApplication.set2FA(false);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                        editor.apply();
+                                    }
 
-                                if (emailVerificationstatus.equals("false")) {
-                                    editor.putString(CONSTANTS.email, s_email);
-                                    editor.putString(CONSTANTS.pswd, s_pswd);
-                                    editor.apply();
-                                    ShowTokenDialog();
-                                } else {
-                                    if (seed.equals("true")) {
-                                        editor.putString(CONSTANTS.usrnm, username);
+                                    if (emailVerificationstatus.equals("false")) {
                                         editor.putString(CONSTANTS.email, s_email);
                                         editor.putString(CONSTANTS.pswd, s_pswd);
-                                        editor.putString(CONSTANTS.token, loginResponseDataToken);
+                                        editor.apply();
+                                        ShowTokenDialog();
+                                    } else {
+                                        if (seed.equals("true")) {
+                                            editor.putString(CONSTANTS.usrnm, username);
+                                            editor.putString(CONSTANTS.email, s_email);
+                                            editor.putString(CONSTANTS.pswd, s_pswd);
+                                            editor.putString(CONSTANTS.token, loginResponseDataToken);
 //                                        editor.putBoolean(CONSTANTS.first_time, false);
-                                        editor.putBoolean(CONSTANTS.seed, true);
-                                        editor.commit();
+                                            editor.putBoolean(CONSTANTS.seed, true);
+                                            editor.commit();
 //                                        GetWalletsList
-                                        invokeWallet();
+                                            invokeWallet();
 
 //                                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
 //                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                        startActivity(intent);
 //                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
-                                    } else {
-                                        editor.putString(CONSTANTS.usrnm, username);
-                                        editor.putString(CONSTANTS.email, s_email);
-                                        editor.putString(CONSTANTS.pswd, s_pswd);
-                                        editor.putString(CONSTANTS.token, loginResponseDataToken);
-                                        editor.putBoolean(CONSTANTS.seed, false);
+                                        } else {
+                                            editor.putString(CONSTANTS.usrnm, username);
+                                            editor.putString(CONSTANTS.email, s_email);
+                                            editor.putString(CONSTANTS.pswd, s_pswd);
+                                            editor.putString(CONSTANTS.token, loginResponseDataToken);
+                                            editor.putBoolean(CONSTANTS.seed, false);
 //                                        editor.putBoolean(CONSTANTS.first_time, false);
-                                        editor.commit();
-                                        Intent intent = new Intent(LoginActivity.this, AddPhraseActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
+                                            editor.commit();
+                                            Intent intent = new Intent(LoginActivity.this, AddPhraseActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
 //                                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.login_success));
+                                        }
                                     }
+
+                                } else {
+                                    CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
                                 }
 
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
                             }
-
-//                            }
 
                         } else {
                             CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
@@ -248,7 +247,10 @@ public class LoginActivity extends AppCompatActivity {
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
-                    } catch (Exception e) {
+                    } catch (
+                            Exception e)
+
+                    {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
@@ -273,7 +275,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-        } catch (Exception ex) {
+        } catch (
+                Exception ex)
+
+        {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));

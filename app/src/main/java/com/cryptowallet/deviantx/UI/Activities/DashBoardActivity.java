@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.UI.Fragments.AirDropFragment;
 import com.cryptowallet.deviantx.UI.Fragments.DashboardFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
@@ -38,7 +36,6 @@ import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
-import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -49,18 +46,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
 
-import org.json.JSONObject;
-
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -75,10 +65,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.txt_btm_nav_lbl)
     TextView txt_btm_nav_lbl;
-    /*@Nullable
-    @BindView(R.id.view_pager)
-    CustomViewPager mViewPager;*/
-    @Nullable
+     @Nullable
     @BindView(R.id.tool_nav)
     Toolbar toolbar_nav;
     @Nullable
@@ -91,7 +78,6 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.img_tlbr_search)
     ImageView img_tlbr_search;
 
-    //    Activity DashBoard
     @Nullable
     @BindView(R.id.nav_drwr)
     NavigationView nav_drwr;
@@ -99,7 +85,6 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer_layout;
 
-    //    Navigation Drawer Layout (nav_drwr_layout) Widgets
     @Nullable
     @BindView(R.id.view_nav_drwr_wallet)
     View view_nav_drwr_wallet;
@@ -231,67 +216,17 @@ public class DashBoardActivity extends AppCompatActivity {
         CommonUtilities.serviceStart(DashBoardActivity.this);
 //        serviceStart();
 
-        // mViewPager.setPagingEnabled(false);
 
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
 
-//        BottomNavigationViewHelper.disableShiftMode(btm_nav);
-//      Icon Tint Mode
-        //  btm_nav.setItemIconTintList(null);
-
-//        Fragments Replacements
-        // loadFragment(new DashboardFragment());
         img_tlbr_search.setVisibility(View.GONE);
         initMagicIndicator();
         int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
         setAllSelection(selectedTab);
-        // setupViewPager(mViewPager);
-//        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
+
         txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-
-/*
-        if (CommonUtilities.isConnectionAvailable(DashBoardActivity.this)) {
-            get2FAstatus();
-        } else {
-            CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.internetconnection));
-        }
-*/
-
-
-       /* btm_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.item_btm_nav_dashboard:
-                        img_tlbr_search.setVisibility(View.GONE);
-                        txt_btm_nav_lbl.setText(R.string.dashboard);
-                        view_line.setBackgroundColor(getResources().getColor(R.color.yellow));
-                        loadFragment(new DashboardFragment());
-                        return true;
-                    case R.id.item_btm_nav_exp_coins:
-                        img_tlbr_search.setVisibility(View.VISIBLE);
-                        txt_btm_nav_lbl.setText(R.string.explore_coins);
-                        view_line.setBackgroundColor(getResources().getColor(R.color.mar_red));
-                        loadFragment(new ExploreCoinsFragment());
-                        return true;
-                    case R.id.item_btm_nav_acc_list:
-                        img_tlbr_search.setVisibility(View.VISIBLE);
-                        txt_btm_nav_lbl.setText(R.string.account_list);
-                        view_line.setBackgroundColor(getResources().getColor(R.color.l_blue));
-                        loadFragment(new AirDropFragment());
-                        return true;
-                    case R.id.item_btm_nav_tools:
-                        img_tlbr_search.setVisibility(View.GONE);
-                        txt_btm_nav_lbl.setText(R.string.tools);
-                        view_line.setBackgroundColor(getResources().getColor(R.color.brinjal));
-                        loadFragment(new ToolsFragment());
-                        return true;
-                }
-                return false;
-            }
-        });*/
 
         lnr_nav_drwr_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -362,7 +297,6 @@ public class DashBoardActivity extends AppCompatActivity {
             case 4:
                 Intent intent = new Intent(DashBoardActivity.this, ExchangeDashBoardActivity.class);
                 startActivity(intent);
-//                replaceFragment(new ToolsFragment());
                 break;
         }
     }
@@ -417,70 +351,10 @@ public class DashBoardActivity extends AppCompatActivity {
 
     }
 
-   /* private void setupViewPager(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Fragment(), "");
-        adapter.addFragment(new Fragment(), "");
-        adapter.addFragment(new Fragment(), "");
-        adapter.addFragment(new Fragment(), "");
-        adapter.addFragment(new Fragment(), "");
-        viewPager.setAdapter(adapter);
-        int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
-        viewPager.setCurrentItem(selectedTab);
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                txt_btm_nav_lbl.setText(channelsName[i]);
-                txt_tlbr_title.setText(channelTtlName[i]);
-                if (i == 4) {
-                    Intent intent = new Intent(DashBoardActivity.this, ExchangeDashBoardActivity.class);
-                    startActivity(intent);
-                }
-
-                switch (i) {
-                    case 0:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 1:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 2:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 3:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    default:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-    }*/
-
-
     private void navDrawerWallet() {
         view_nav_drwr_wallet.setVisibility(View.VISIBLE);
         view_nav_drwr_settings.setVisibility(View.GONE);
         view_nav_drwr_expcoins.setVisibility(View.GONE);
-//        view_nav_drwr_deviant.setVisibility(View.GONE);
-//        view_nav_drwr_help.setVisibility(View.GONE);
 
         img_nav_drwr_wallet.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_wallet_selected));
         txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.yellow));
@@ -489,11 +363,6 @@ public class DashBoardActivity extends AppCompatActivity {
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
         img_nav_drwr_expcoins.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_expcoins_unselected));
         txt_nav_drwr_expcoins.setTextColor(getResources().getColor(R.color.grey));
-//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
-//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
-//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
-//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
-
 
         Intent intent = new Intent(DashBoardActivity.this, WalletListActivity.class);
         startActivityForResult(intent, 100);
@@ -513,56 +382,7 @@ public class DashBoardActivity extends AppCompatActivity {
         }*/
     }
 
-   /* private void setupViewPagerAD(ViewPager viewPager) {
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DashboardFragment(), "");
-        adapter.addFragment(new ExploreCoinsFragment(), "");
-        adapter.addFragment(new ToolsFragment(), "");
-        adapter.addFragment(new AirDropFragment(), "");
-//        viewPager.set
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i1) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-                txt_btm_nav_lbl.setText(channelsName[i]);
-                txt_tlbr_title.setText(channelTtlName[i]);
-                *//*switch (i) {
-                    case 0:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.yellow));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 1:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.sky_blue));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 2:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.brinjal));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    case 3:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.mar_red));
-//                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                    default:
-                        txt_btm_nav_lbl.setTextColor(getResources().getColor(R.color.grey));
-                        break;
-                }
-*//*
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
-    }*/
-
-    private void navDrawerSettings() {
+      private void navDrawerSettings() {
         view_nav_drwr_settings.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
         view_nav_drwr_expcoins.setVisibility(View.GONE);
@@ -589,8 +409,6 @@ public class DashBoardActivity extends AppCompatActivity {
         view_nav_drwr_expcoins.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
         view_nav_drwr_settings.setVisibility(View.GONE);
-//        view_nav_drwr_deviant.setVisibility(View.GONE);
-//        view_nav_drwr_help.setVisibility(View.GONE);
 
         img_nav_drwr_expcoins.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_expcoins_selected));
         txt_nav_drwr_expcoins.setTextColor(getResources().getColor(R.color.yellow));
@@ -599,11 +417,6 @@ public class DashBoardActivity extends AppCompatActivity {
         txt_nav_drwr_wallet.setTextColor(getResources().getColor(R.color.grey));
         img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
-//        img_nav_drwr_deviant.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_x_unselected));
-//        txt_nav_drwr_deviant.setTextColor(getResources().getColor(R.color.grey));
-//        img_nav_drwr_help.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_help_unselected));
-//        txt_nav_drwr_help.setTextColor(getResources().getColor(R.color.grey));
-
 
         Intent intent = new Intent(DashBoardActivity.this, ExploreCoinsActivity.class);
         startActivity(intent);
@@ -650,15 +463,6 @@ public class DashBoardActivity extends AppCompatActivity {
 //        Intent intent = new Intent(DashBoardActivity.this, HelpActivity.class);
 //        startActivity(intent);
     }
-
-    //  Fragments Replacements
-   /* private void loadFragment(Fragment fragment) {
-        // load fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }*/
 
     private void initMagicIndicator() {
         final CommonNavigator commonNavigator = new CommonNavigator(this);
@@ -784,7 +588,6 @@ public class DashBoardActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(DashBoardActivity.this);
         super.onPause();
     }
-
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
