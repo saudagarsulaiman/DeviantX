@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -18,11 +20,13 @@ import java.util.Map;
 
 
 /*
- * Created by Sulaiman on 28/3/2018.
+ * Created by Sulaiman on 25/11/2018.
  */
 
 public class MyApplication extends Application {
+/*
     Typeface font;
+*/
 
     public static MyApplication myApplication;
 
@@ -72,13 +76,19 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+/*
         String strLocale = CommonUtilities.loadLocale(this);
+*/
         myApplication = this;
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         isHideBalance = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
+
+        new Instabug.Builder(this, "c90aaf55987fd8140ea3ffb8470b98c9")
+                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+                .build();
 
     }
 
@@ -91,6 +101,7 @@ public class MyApplication extends Application {
     }
 
 
+/*
     private boolean injectTypeface(String fontFamily, Typeface typeface) {
         try {
             Field field = Typeface.class.getDeclaredField("sSystemFontMap");
@@ -107,6 +118,7 @@ public class MyApplication extends Application {
         return true;
         //return false;
     }
+*/
 
     public void setWalletUIChangeListener(WalletUIChangeListener walletUIChangeListener) {
         this.walletUIChangeListener = walletUIChangeListener;
