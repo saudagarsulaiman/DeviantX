@@ -1,8 +1,12 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,15 +15,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
 import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -56,6 +69,11 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
     AccountWallet selectedAccountWallet;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    ProgressDialog progressDialog;
+    String loginResponseMsg, loginResponseStatus, loginResponseData;
+
 
     @Override
     protected void onResume() {
@@ -89,6 +107,8 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receive_coin);
 
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +116,16 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-//        selectedAccountWallet = new AccountWallet();
+
+
+        if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
+//            Transaction History
+            fetchAddress(selectedAccountWallet);
+
+        } else {
+            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.internetconnection));
+        }
+
 
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
@@ -104,7 +133,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
         txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
 */
-        txt_dev_address.setText(selectedAccountWallet.getStr_coin_name());
 
         txt_note_dev_add.setText(getResources().getString(R.string.attention_dev_address1) + " " + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code() + ". " + getResources().getString(R.string.attention_dev_address2));
 
@@ -129,7 +157,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
                 CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet*//*.getAllCoins()*//*.getStr_coin_name());
                  */
-                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_coin_name(), selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
+                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, txt_dev_address.getText().toString()/* selectedAccountWallet.getStr_coin_name()*/, selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
             }
         });
 
@@ -137,7 +165,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
         CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_data_address(), img_qrcode, ReceiveCoinActivity.this);
 */
-        CommonUtilities.qrCodeGenerate(selectedAccountWallet.getStr_coin_name(), img_qrcode, ReceiveCoinActivity.this);
 
         btn_share_qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,10 +173,73 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
                 CommonUtilities.shareAddress(selectedAccountWallet.getStr_data_address(), ReceiveCoinActivity.this);
 */
-                CommonUtilities.shareAddress(selectedAccountWallet.getStr_coin_name(), ReceiveCoinActivity.this);
+                CommonUtilities.shareAddress(txt_dev_address.getText().toString()/*selectedAccountWallet.getStr_coin_name()*/, ReceiveCoinActivity.this);
             }
         });
 
+
+    }
+
+    private void fetchAddress(final AccountWallet selectedAccountWallet) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(ReceiveCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.receiveCoins(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_code(), selectedAccountWallet.getStr_data_walletName());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                txt_dev_address.setText(loginResponseData);
+                                CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                            } else {
+                                CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

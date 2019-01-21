@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
@@ -277,7 +278,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             }
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(TwoFASendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+            WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.transferCoins(params.toString(), CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
