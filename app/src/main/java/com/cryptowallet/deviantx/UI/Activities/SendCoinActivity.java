@@ -150,12 +150,12 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
+        usdCoinValue = selectedAccountWallet.getAllCoins().getDbl_coin_usdValue();
+        editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
+        editor.apply();
 
-        if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
-
-            String coinCode = selectedAccountWallet.getAllCoins().getStr_coin_code();
-
-            if (coinCode.equals("FDN")) {
+   /*                  String coinCode = selectedAccountWallet.getAllCoins().getStr_coin_code();
+   if (coinCode.equals("FDN")) {
                 usdCoinValue = 0.1;
                 editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
                 editor.apply();
@@ -169,86 +169,87 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 editor.apply();
             } else {
                 convertCoinValue(coinCode, "USD");
+            }*/
+
+        toolbar_center_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        edt_btcp_address.setHint("\t\t" + selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
+
+        txt_avail_bal.setText("" + String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
+        txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+
+        Picasso.with(SendCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
+        txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
+        txt_wallet_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
+
+
+        txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
+        DecimalFormat rank = new DecimalFormat("0.00");
+        if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
+            txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
+        } else {
+            txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
+            txt_percentage.setTextColor(getResources().getColor(R.color.green));
+        }
+
+        edt_amount_bal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
-            toolbar_center_back.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            edt_btcp_address.setHint("\t\t" + selectedAccountWallet.getAllCoins().getStr_coin_code() + " " + getResources().getString(R.string.address));
-
-            txt_avail_bal.setText("" + String.format("%.4f", selectedAccountWallet.getStr_data_balance()));
-            txt_amount_code.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
-
-            Picasso.with(SendCoinActivity.this).load(selectedAccountWallet.getAllCoins().getStr_coin_logo()).into(img_coin_logo);
-            txt_coin_value.setText(selectedAccountWallet.getAllCoins().getStr_coin_code());
-            txt_wallet_name.setText(selectedAccountWallet.getAllCoins().getStr_coin_name());
-
-
-            txt_coin_usd_value.setText("$ " + String.format("%.4f", selectedAccountWallet.getAllCoins().getStr_coin_usdValue()) + " USD");
-            DecimalFormat rank = new DecimalFormat("0.00");
-            if (selectedAccountWallet.getAllCoins().getDbl_coin_24h() < 0) {
-                txt_percentage.setText("" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
-                txt_percentage.setTextColor(getResources().getColor(R.color.google_red));
-            } else {
-                txt_percentage.setText("+" + rank.format(selectedAccountWallet.getAllCoins().getDbl_coin_24h()) + "%");
-                txt_percentage.setTextColor(getResources().getColor(R.color.green));
             }
 
-            edt_amount_bal.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void afterTextChanged(Editable s) {
+                convertAmountToCoin(s.toString().trim());
+            }
+        });
 
-                }
+        edt_fiat_bal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
-                }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                @Override
-                public void afterTextChanged(Editable s) {
-                    convertAmountToCoin(s.toString().trim());
-                }
-            });
+            }
 
-            edt_fiat_bal.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void afterTextChanged(Editable s) {
+                convertCoinToAmount(s.toString().trim());
+            }
+        });
 
-                }
+        edt_amount_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                isEditAmount = b;
+            }
+        });
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-                    convertCoinToAmount(s.toString().trim());
-                }
-            });
-
-            edt_amount_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    isEditAmount = b;
-                }
-            });
-
-            edt_fiat_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean b) {
-                    isEditFiat = b;
-                }
-            });
-            btn_send.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!edt_amount_bal.getText().toString().isEmpty()) {
+        edt_fiat_bal.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                isEditFiat = b;
+            }
+        });
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!edt_amount_bal.getText().toString().isEmpty()) {
+                    if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
                         try {
                             if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) > 0) {
                                 String send_bal = edt_amount_bal.getText().toString();
@@ -287,31 +288,32 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             e.printStackTrace();
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_amount));
+                        CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.internetconnection));
+                        onBackPressed();
                     }
+                } else {
+                    CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_amount));
                 }
-            });
+            }
+        });
 
-            img_scanner.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        img_scanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                    /* Intent intent = new Intent("com.google.zxing.client.android.SCAN");
                     intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
                     startActivityForResult(intent, 0);*/
-                    if (hasPermissions(SendCoinActivity.this, PERMISSIONS)) {
-                        mScannerLayout.setVisibility(View.VISIBLE);
-                        mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
-                        mScannerView.startCamera();
-                    } else {
-                        ActivityCompat.requestPermissions(SendCoinActivity.this, PERMISSIONS, PERMISSION_ALL);
-                    }
+                if (hasPermissions(SendCoinActivity.this, PERMISSIONS)) {
+                    mScannerLayout.setVisibility(View.VISIBLE);
+                    mScannerView.setResultHandler(SendCoinActivity.this); // Register ourselves as a handler for scan results.<br />
+                    mScannerView.startCamera();
+                } else {
+                    ActivityCompat.requestPermissions(SendCoinActivity.this, PERMISSIONS, PERMISSION_ALL);
                 }
-            });
+            }
+        });
 
-        } else {
-            CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.internetconnection));
-            onBackPressed();
-        }
+
     }
 
     @Override
