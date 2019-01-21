@@ -124,8 +124,13 @@ dependencies {
 
     implementation 'io.reactivex:rxjava:1.1.0'
 
+/*
 //    FCM Notifications
     implementation 'com.google.firebase:firebase-core:16.0.6'
+*/
+
 }
 
+/*
 apply plugin: 'com.google.gms.google-services'
+*/

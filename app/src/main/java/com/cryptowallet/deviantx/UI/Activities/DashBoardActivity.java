@@ -2,13 +2,17 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,10 +22,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +42,8 @@ import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -65,7 +73,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.txt_btm_nav_lbl)
     TextView txt_btm_nav_lbl;
-     @Nullable
+    @Nullable
     @BindView(R.id.tool_nav)
     Toolbar toolbar_nav;
     @Nullable
@@ -196,6 +204,7 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 */
 
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,7 +224,6 @@ public class DashBoardActivity extends AppCompatActivity {
 //        Background Service
         CommonUtilities.serviceStart(DashBoardActivity.this);
 //        serviceStart();
-
 
 
         txt_nav_lbl.setText(sharedPreferences.getString(CONSTANTS.usrnm, "MiniDeviant"));
@@ -278,6 +286,8 @@ public class DashBoardActivity extends AppCompatActivity {
                 drawer_layout.openDrawer(Gravity.START);
             }
         });
+
+
     }
 
     private void setCurrentTabFragment(int tabPosition) {
@@ -382,7 +392,7 @@ public class DashBoardActivity extends AppCompatActivity {
         }*/
     }
 
-      private void navDrawerSettings() {
+    private void navDrawerSettings() {
         view_nav_drwr_settings.setVisibility(View.VISIBLE);
         view_nav_drwr_wallet.setVisibility(View.GONE);
         view_nav_drwr_expcoins.setVisibility(View.GONE);

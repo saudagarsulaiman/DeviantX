@@ -10,9 +10,8 @@
     <string name="pswd">0123456789@#$%^&amp;+=!*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
 
-    <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>
 
-    <!-- Activity-->
+    <!-- Activities-->
 
 
     <!--Used in Multiple Activities-->
