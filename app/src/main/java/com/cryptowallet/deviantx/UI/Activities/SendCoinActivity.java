@@ -163,6 +163,10 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                 usdCoinValue = 0.2;
                 editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
                 editor.apply();
+            } else if (coinCode.equals("DASHG")) {
+                usdCoinValue = 0.34;
+                editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
+                editor.apply();
             } else {
                 convertCoinValue(coinCode, "USD");
             }
