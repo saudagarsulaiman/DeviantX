@@ -137,7 +137,7 @@ public class EditWalletActivity extends AppCompatActivity {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s_WalletName = edt_wallet.getText().toString();
+                s_WalletName = edt_wallet.getText().toString().trim();
                 if (s_WalletName.isEmpty()) {
                     CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.empty_wallet));
                 } else {
