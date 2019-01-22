@@ -418,6 +418,9 @@
     <string name="rec_ad_his">Recent Airdrop History</string>
     <string name="avail_ad">Available Airdrop</string>
     <string name="empty_ad_list">Your Airdrop List is empty</string>
+    <string name="no_partcpt">Your aren\'t participating in any Airdrop.</string>
+    <string name="search_ad">Search Airdrops</string>
+
 
     <!--Coin Info AD Activity-->
     <string name="participate">Participate</string>
@@ -527,8 +530,6 @@
     <string name="time1">Time</string>
     <string name="price">Price</string>
     <string name="enter_mbl_num">Enter Mobile Number</string>
-    <string name="no_partcpt">Your aren\'t participating in any Airdrop.</string>
-    <string name="search_ad">Search Airdorps</string>
 
 
 </resources>
