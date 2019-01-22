@@ -139,6 +139,7 @@ public class EditWalletActivity extends AppCompatActivity {
             public void onClick(View v) {
                 s_WalletName = edt_wallet.getText().toString().trim();
                 if (s_WalletName.isEmpty()) {
+                    edt_wallet.setText("");
                     CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.empty_wallet));
                 } else {
                     if (CommonUtilities.isConnectionAvailable(EditWalletActivity.this)) {
