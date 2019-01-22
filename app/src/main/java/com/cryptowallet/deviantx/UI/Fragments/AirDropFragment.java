@@ -1,12 +1,9 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -16,8 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,8 +34,6 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
-import com.shehabic.droppy.DroppyMenuPopup;
-import com.shehabic.droppy.animations.DroppyScaleAnimation;
 import com.squareup.picasso.Picasso;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
@@ -121,11 +114,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     Double dbl_data_ad_balance, dbl_data_ad_balanceInUSD, dbl_ad_coin_usdValue, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_1m, dbl_ad_coin_7d, dbl_ad_coin_24h;
     String startDate;
 
-
     EasyPopup mRvPop;
-    private float mLastX;
-    private float mLastY;
-
     DeviantXDB deviantXDB;
 
     @Override
@@ -136,6 +125,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
         ButterKnife.bind(this, view);
         deviantXDB = DeviantXDB.getDatabase(getActivity());
+        seekbar_per.setEnabled(false);
 
         allCoinsList = new ArrayList<>();
         airdropWalletlist = new ArrayList<>();
@@ -147,11 +137,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         rview_fad_coins.setLayoutManager(layoutManagerHorizontal);
         layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
-
-
-        seekbar_per.setEnabled(false);
-//        seekbar_per.setProgress(95);
-//        txt_seekbar_per.setText("0%");
 
 
 //        featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
@@ -177,14 +162,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         img_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-////                showDialog(getActivity(), v.getRight() , v.getBottom());
-////                showDialog(getActivity(), v.getRight() - (v.getWidth() * 5), v.getTop() - (v.getHeight() * 6));
-////                showDialog(getActivity(), v.getX(), v.getY());
-////                showDialog(getActivity(), v.getRight(), v.getBottom());
-////                showDialog(this, view.getLeft()-(view.getWidth()*2), view.getTop()+(view.getHeight()*2));
-//
-////                initDroppyMenuFromXml(img_menu);
-//
+
                 initEvents(v);
 
             }
@@ -200,96 +178,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
 
         return view;
-    }
-
-    //    private void showDialog(Context context, int x, int y) {
-    private void showDialog(Context context, float x, float y) {
-// x -->  X-Cordinate
-        // y -->  Y-Cordinate
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.setContentView(R.layout.dialog_airdrop_menu);
-        dialog.setCanceledOnTouchOutside(true);
-
-        WindowManager.LayoutParams wmlp = dialog.getWindow().getAttributes();
-//        wmlp.gravity = Gravity.TOP | Gravity.LEFT;
-        wmlp.x = (int) x;
-        wmlp.y = (int) y;
-
-        dialog.show();
-
-        TextView txt_copy_wallet = dialog.findViewById(R.id.txt_copy_wallet);
-        TextView txt_withdraw_funds = dialog.findViewById(R.id.txt_withdraw_funds);
-        TextView txt_config_wallet = dialog.findViewById(R.id.txt_config_wallet);
-        TextView txt_ad_info = dialog.findViewById(R.id.txt_ad_info);
-        TextView txt_delete = dialog.findViewById(R.id.txt_delete);
-
-        txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                CommonUtilities.ShowToastMessage(getActivity(), /*getResources().getString(R.string.copy_wallet)*/airdropWalletlist.get(0).getStr_data_ad_address());
-                CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
-                dialog.dismiss();
-            }
-        });
-
-        txt_withdraw_funds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WithdrawFundsAirdropActivity.class);
-                Bundle bundle = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                intent.putExtras(bundle);
-                startActivity(intent);
-//                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.withdraw_funds));
-                dialog.dismiss();
-            }
-        });
-
-        txt_config_wallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
-                Bundle bundle = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                intent.putExtras(bundle);
-                startActivity(intent);
-//                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.config_wallet));
-                dialog.dismiss();
-            }
-        });
-
-        txt_ad_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.ad_info));
-                dialog.dismiss();
-            }
-        });
-
-        txt_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.delete));
-                dialog.dismiss();
-            }
-        });
-
-
-    }
-
-    private void initDroppyMenuFromXml(ImageView btn) {
-        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(getActivity(), btn);
-        DroppyMenuPopup droppyMenu = droppyBuilder.fromMenu(R.menu.menu_items_airdrop)
-                .triggerOnAnchorClick(false)
-//                .setOnClick(this)
-//                .setOnDismissCallback(this)
-                .setPopupAnimation(new DroppyScaleAnimation())
-                .build();
-        droppyMenu.show();
     }
 
     private void initEvents(View v) {
@@ -370,7 +258,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         mRvPop.showAtAnchorView(v, YGravity.BELOW, XGravity.LEFT);
 
     }
-
 
     private void fetchAirdropWallet() {
         try {
@@ -714,45 +601,5 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     }
 
-/*
-    @Override
-    public void call(View v, int id) {
-        switch (id) {
-            case R.id.item_copy_wallet:
-                CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
-                break;
-            case R.id.item_withdraw_funds:
-                Intent intent = new Intent(getActivity(), WithdrawFundsAirdropActivity.class);
-                Bundle bundle = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                break;
-            case R.id.item_config_wallet:
-                Intent intent1 = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
-                Bundle bundle1 = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
-                bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
-                break;
-            case R.id.item_info_ad:
-                ;
-                break;
-            case R.id.item_delete:
-                ;
-                break;
 
-            default:
-                break;
-        }
-
-    }
-
-    @Override
-    public void call() {
-
-    }
-*/
 }

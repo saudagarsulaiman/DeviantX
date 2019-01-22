@@ -29,11 +29,13 @@
             android:textStyle="bold" />
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cview_airdrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
             android:background="@color/white"
             android:clickable="false"
+            android:visibility="visible"
             app:cardCornerRadius="@dimen/radius10">
 
             <LinearLayout
@@ -152,10 +154,10 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:background="@drawable/rec_google_red_c5"
-                            android:paddingTop="@dimen/padding5"
-                            android:paddingBottom="@dimen/padding5"
                             android:paddingLeft="@dimen/padding10"
+                            android:paddingTop="@dimen/padding5"
                             android:paddingRight="@dimen/padding10"
+                            android:paddingBottom="@dimen/padding5"
                             android:text="@string/inactive"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
