@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -22,7 +24,6 @@ import java.util.Map;
  */
 
 public class MyApplication extends Application {
-    Typeface font;
 
     public static MyApplication myApplication;
 
@@ -72,7 +73,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        String strLocale = CommonUtilities.loadLocale(this);
         myApplication = this;
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         isHideBalance = sharedPreferences.getBoolean(CONSTANTS.hideBal, false);
@@ -80,6 +80,9 @@ public class MyApplication extends Application {
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
 
+        new Instabug.Builder(this, "c90aaf55987fd8140ea3ffb8470b98c9")
+                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+                .build();
     }
 
     public void disableScreenCapture(Activity context) {
@@ -88,24 +91,6 @@ public class MyApplication extends Application {
         } else {
             context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
         }
-    }
-
-
-    private boolean injectTypeface(String fontFamily, Typeface typeface) {
-        try {
-            Field field = Typeface.class.getDeclaredField("sSystemFontMap");
-            field.setAccessible(true);
-            Object fieldValue = field.get(null);
-            Map<String, Typeface> map = (Map<String, Typeface>) fieldValue;
-            map.put(fontFamily, typeface);
-            return true;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //Log.e("Font-Injection", "Failed to inject typeface.", e);
-        }
-        return true;
-        //return false;
     }
 
     public void setWalletUIChangeListener(WalletUIChangeListener walletUIChangeListener) {

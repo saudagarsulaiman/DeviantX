@@ -7,8 +7,9 @@ android {
         applicationId "com.cryptowallet.deviantx"
         minSdkVersion 16
         targetSdkVersion 28
+        multiDexEnabled true
         versionCode 7
-        versionName "2.0"
+        versionName "1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -128,6 +129,12 @@ dependencies {
 //    FCM Notifications
     implementation 'com.google.firebase:firebase-core:16.0.6'
 */
+
+//    Instabug
+    implementation 'com.instabug.library:instabug:8.0.15'
+
+//  Multidex
+    implementation 'com.android.support:multidex:1.0.3'
 
 }
 
