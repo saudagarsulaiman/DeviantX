@@ -46,10 +46,10 @@ public class AllCoinsFetch extends IntentService {
     public void onCreate() {
         super.onCreate();
         Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
-        /*int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
-        }*/
+        }
     }
 
     @Override

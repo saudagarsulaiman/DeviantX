@@ -2,8 +2,10 @@ package com.cryptowallet.deviantx.UI.Services;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Log;
 
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
@@ -47,10 +49,10 @@ public class AirdropWalletFetch extends IntentService {
     public void onCreate() {
         super.onCreate();
         Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
-        /*int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
-        }*/
+        }
     }
 
     @Override
