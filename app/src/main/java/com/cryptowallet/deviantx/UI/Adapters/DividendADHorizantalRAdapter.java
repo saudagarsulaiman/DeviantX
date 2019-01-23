@@ -1,21 +1,18 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.CoinInfoADAcivity;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
-import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,11 +20,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedADHorizantalRAdapter.ViewHolder> {
+public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendADHorizantalRAdapter.ViewHolder> {
+
     Context context;
     ArrayList<AllCoins> allCoinsList;
 
-    public FeaturedADHorizantalRAdapter(Context context, ArrayList<AllCoins> allCoinsList) {
+    public DividendADHorizantalRAdapter(Context context, ArrayList<AllCoins> allCoinsList) {
         this.context = context;
         this.allCoinsList = allCoinsList;
     }
@@ -35,7 +33,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.coins_ad_lyt, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.coins_div_ad_lyt, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -61,6 +59,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
             }
         });
 */
+
     }
 
     @Override
@@ -69,6 +68,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.img_coin)
         ImageView img_coin;
         @BindView(R.id.txt_coin_name_code)
@@ -77,11 +77,14 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
         TextView txt_coin_value;
         @BindView(R.id.lnr_item)
         LinearLayout lnr_item;
+        @BindView(R.id.btn_claim)
+        Button btn_claim;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
     }
 
 }

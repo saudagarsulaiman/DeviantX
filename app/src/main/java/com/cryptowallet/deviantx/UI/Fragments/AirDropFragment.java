@@ -24,6 +24,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ConfigWalletAirdropActivity;
 import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
+import com.cryptowallet.deviantx.UI.Adapters.DividendADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
@@ -89,13 +90,24 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     LinearLayout lnr_empty_coins;
     @BindView(R.id.txt_acc_status)
     TextView txt_acc_status;
+    //    New Design
+    @BindView(R.id.lnr_empty_prtcptn)
+    LinearLayout lnr_empty_prtcptn;
+    @BindView(R.id.lnr_search_airdrops)
+    LinearLayout lnr_search_airdrops;
+    @BindView(R.id.lnr_create_ad_camp)
+    LinearLayout lnr_create_ad_camp;
+    @BindView(R.id.txt_div_ad_viewAll)
+    TextView txt_div_ad_viewAll;
+    @BindView(R.id.rview_div_ad_coins)
+    RecyclerView rview_div_ad_coins;
 
 
     FeaturedADHorizantalRAdapter featuredADHorizantalRAdapter;
+    DividendADHorizantalRAdapter dividendADHorizantalRAdapter;
     RecentADHistoryRAdapter recentADHistoryRAdapter;
 
-    LinearLayoutManager layoutManagerHorizontal;
-    LinearLayoutManager layoutManagerVertical;
+    LinearLayoutManager layoutManagerHorizontal, layoutManagerHorizontalDivAd, layoutManagerVertical;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -135,14 +147,18 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
         layoutManagerHorizontal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rview_fad_coins.setLayoutManager(layoutManagerHorizontal);
+        layoutManagerHorizontalDivAd = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rview_div_ad_coins.setLayoutManager(layoutManagerHorizontalDivAd);
         layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
 
 
 //        featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
 //        rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
-        recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity().getApplicationContext());
-        rview_radh_coins.setAdapter(recentADHistoryRAdapter);
+//        dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
+//        rview_div_ad_coins.setAdapter(dividendADHorizantalRAdapter);
+//        recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity().getApplicationContext());
+//        rview_radh_coins.setAdapter(recentADHistoryRAdapter);
 
         txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override

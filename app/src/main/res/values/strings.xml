@@ -407,21 +407,6 @@
     <string name="primary_wallet">Primary Wallet</string>
 
 
-    <!--Airdrop Fragment-->
-    <string name="airdrop_list">My Airdrop List</string>
-    <string name="am_holding">I am holding</string>
-    <string name="days_holding">Days holding</string>
-    <string name="days">Days</string>
-    <string name="balance">Balance</string>
-    <string name="featured_ad">Featured Airdrop</string>
-    <string name="view_all">View All</string>
-    <string name="rec_ad_his">Recent Airdrop History</string>
-    <string name="avail_ad">Available Airdrop</string>
-    <string name="empty_ad_list">Your Airdrop List is empty</string>
-    <string name="no_partcpt">Your aren\'t participating in any Airdrop.</string>
-    <string name="search_ad">Search Airdrops</string>
-
-
     <!--Coin Info AD Activity-->
     <string name="participate">Participate</string>
     <string name="estimated">Estimated</string>
@@ -530,6 +515,25 @@
     <string name="time1">Time</string>
     <string name="price">Price</string>
     <string name="enter_mbl_num">Enter Mobile Number</string>
+
+
+    <!--Airdrop Fragment-->
+    <string name="airdrop_list">My Airdrop List</string>
+    <string name="am_holding">I am holding</string>
+    <string name="days_holding">Days holding</string>
+    <string name="days">Days</string>
+    <string name="balance">Balance</string>
+    <string name="featured_ad">Featured Airdrop</string>
+    <string name="view_all">View All</string>
+    <string name="rec_ad_his">Recent Airdrop History</string>
+    <string name="avail_ad">Available Airdrop</string>
+    <string name="empty_ad_list">Your Airdrop List is empty</string>
+    <string name="no_partcpt">Your aren\'t participating in any Airdrop.</string>
+    <string name="search_ad">Search Airdrops</string>
+    <string name="airdrop_camp">Airdrops Campaigns</string>
+    <string name="create_airdrop_camp">Create your first Airdrop Campaigns</string>
+    <string name="dividend_ad">Dividend or Airdrop</string>
+    <string name="claim">Claim</string>
 
 
 </resources>
