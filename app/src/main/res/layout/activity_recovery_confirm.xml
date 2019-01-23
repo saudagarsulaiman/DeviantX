@@ -95,7 +95,6 @@
                 android:layout_height="@dimen/def_edt_height"
                 android:layout_marginTop="@dimen/margin5"
                 android:background="@drawable/rec_lwhite_c8"
-                android:hint="@string/my_pass"
                 android:inputType="textPassword"
                 android:maxLength="25"
                 android:maxLines="1"

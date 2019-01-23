@@ -257,6 +257,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //                                String fee = "0.0001";
                                 Double ttl_rcv = Double.parseDouble(send_bal)/* - Double.parseDouble(fee)*/;
 
+
                                 String str_btcp_address = edt_btcp_address.getText().toString();
 
                                 if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
