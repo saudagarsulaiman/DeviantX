@@ -70,6 +70,9 @@ public class EditWalletActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
+
+
+  /*
     @Override
     protected void onResume() {
         super.onResume();
@@ -92,7 +95,7 @@ public class EditWalletActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(EditWalletActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override

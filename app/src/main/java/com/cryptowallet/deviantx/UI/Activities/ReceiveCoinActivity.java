@@ -61,10 +61,10 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(ReceiveCoinActivity.this);
+//        CommonUtilities.serviceStart(ReceiveCoinActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -80,7 +80,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(ReceiveCoinActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override

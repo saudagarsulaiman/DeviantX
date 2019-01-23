@@ -14,7 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.SetPinActivity;
+import com.cryptowallet.deviantx.UI.Activities.SetPinTradesActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,14 +131,14 @@ public class ExchangeSettingsFragment extends Fragment {
         lnr_pin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SetPinActivity.class);
+                Intent intent = new Intent(getActivity(), SetPinTradesActivity.class);
                 startActivity(intent);
             }
         });
         scompat_pin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Intent intent = new Intent(getActivity(), SetPinActivity.class);
+                Intent intent = new Intent(getActivity(), SetPinTradesActivity.class);
                 startActivity(intent);
                 if (isChecked) {
                     scompat_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));

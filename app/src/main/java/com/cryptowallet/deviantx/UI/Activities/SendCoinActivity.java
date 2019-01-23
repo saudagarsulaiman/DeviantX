@@ -621,10 +621,10 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(SendCoinActivity.this);
+//        CommonUtilities.serviceStart(SendCoinActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -641,7 +641,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         mScannerView.stopCamera();
         CommonUtilities.serviceStop(SendCoinActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override

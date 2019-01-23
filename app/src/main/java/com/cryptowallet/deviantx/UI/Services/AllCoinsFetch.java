@@ -2,12 +2,14 @@ package com.cryptowallet.deviantx.UI.Services;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.util.Log;
 
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
@@ -34,6 +36,26 @@ public class AllCoinsFetch extends IntentService {
 
     public AllCoinsFetch() {
         super("AllCoinsFetch");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void onCreate() {
+        super.onCreate();
+        Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
+        /*int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+        }*/
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Local_cache", "MyIntentService onDestroy() method is invoked.");
     }
 
     @Override

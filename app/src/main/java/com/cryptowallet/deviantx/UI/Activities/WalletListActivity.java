@@ -77,10 +77,10 @@ public class WalletListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
-        CommonUtilities.serviceStart(WalletListActivity.this);
+//        CommonUtilities.serviceStart(WalletListActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -96,7 +96,7 @@ public class WalletListActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(WalletListActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {

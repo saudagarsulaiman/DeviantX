@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
@@ -31,11 +32,31 @@ public class AirdropWalletFetch extends IntentService {
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-//     * @param name Used to name the worker thread, important only for debugging.
+     * <p>
+     * //     * @param name Used to name the worker thread, important only for debugging.
      */
     public AirdropWalletFetch() {
         super("AirdropWalletFetch");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void onCreate() {
+        super.onCreate();
+        Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
+        /*int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+        }*/
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Local_cache", "MyIntentService onDestroy() method is invoked.");
     }
 
     @Override
@@ -59,7 +80,7 @@ public class AirdropWalletFetch extends IntentService {
                             AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
                             AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
                             mDao.insertAirdropWallet(airdropWallet);
-                            airdropWalletUIListener= myApplication.getAirdropWalletUIListener();
+                            airdropWalletUIListener = myApplication.getAirdropWalletUIListener();
                             if (airdropWalletUIListener != null) {
                                 airdropWalletUIListener.onChangedAirdropWallet(responsevalue);
                             }

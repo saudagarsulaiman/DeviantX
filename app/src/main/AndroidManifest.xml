@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="Manifest.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".Utilities.MyApplication"
@@ -196,7 +197,7 @@
             android:name=".UI.Activities.ExchangeSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activities.SetPinActivity"
+            android:name=".UI.Activities.SetPinTradesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.ExchangeOrderHistoryActivity"

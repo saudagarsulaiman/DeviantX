@@ -2,43 +2,35 @@ package com.cryptowallet.deviantx.UI.Services;
 
 import android.app.Activity;
 import android.app.IntentService;
-import android.app.ProgressDialog;
+import android.app.Notification;
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
-import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB.INSTANCE;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
@@ -61,6 +53,10 @@ public class WalletDataFetch extends IntentService {
     public void onCreate() {
         super.onCreate();
         Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
+       /* int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+        }*/
     }
 
     @Override
@@ -77,12 +73,12 @@ public class WalletDataFetch extends IntentService {
             boolean coinDataIsRefresh = intent.getBooleanExtra("isRefresh", true);
             fetchWalletCoins(intent.getStringExtra("walletName"), intent.getIntExtra("walletId", 0), coinDataIsRefresh);
         } else
-            invokeWallet(intent.getBooleanExtra("walletList", false),intent.getBooleanExtra("walletIsDefault", false));
+            invokeWallet(intent.getBooleanExtra("walletList", false), intent.getBooleanExtra("walletIsDefault", false));
 
     }
 
 
-    private void invokeWallet(boolean isWalletOnly,boolean isDefault) {
+    private void invokeWallet(boolean isWalletOnly, boolean isDefault) {
         try {
             sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -96,7 +92,7 @@ public class WalletDataFetch extends IntentService {
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
-                            new WalletDbAsync(deviantXDB, isWalletOnly,isDefault).execute(responsevalue);
+                            new WalletDbAsync(deviantXDB, isWalletOnly, isDefault).execute(responsevalue);
 
                         } else {
 
@@ -170,12 +166,12 @@ public class WalletDataFetch extends IntentService {
 
         private final AccountWalletDao mDao;
         private boolean isWallet = false;
-        private boolean isDefaultWallet=false;
+        private boolean isDefaultWallet = false;
 
-        WalletDbAsync(DeviantXDB db, boolean isWalletOnly,boolean isDefault) {
+        WalletDbAsync(DeviantXDB db, boolean isWalletOnly, boolean isDefault) {
             mDao = db.accountWalletDao();
             isWallet = isWalletOnly;
-            isDefaultWallet=isDefault;
+            isDefaultWallet = isDefault;
         }
 
         @Override
@@ -193,7 +189,7 @@ public class WalletDataFetch extends IntentService {
             Log.d("Local_cache", "Service Completed");
             walletUIChangeListener = myApplication.getWalletUIChangeListener();
             if (walletUIChangeListener != null) {
-                walletUIChangeListener.onWalletUIChanged(response,isDefaultWallet);
+                walletUIChangeListener.onWalletUIChanged(response, isDefaultWallet);
             }
         }
     }

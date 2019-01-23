@@ -70,10 +70,10 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
+//        CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -89,7 +89,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(TwoFASendCoinActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override

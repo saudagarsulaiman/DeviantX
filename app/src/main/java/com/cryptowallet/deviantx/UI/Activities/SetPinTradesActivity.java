@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class SetPinActivity extends AppCompatActivity {
+public class SetPinTradesActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_pin)
     EditText edt_pin;
@@ -37,7 +37,7 @@ public class SetPinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_pin);
+        setContentView(R.layout.activity_set_pin_trades);
         ButterKnife.bind(this);
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class SetPinActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SetPinActivity.this, ExchangeDashBoardActivity.class);
+                Intent intent = new Intent(SetPinTradesActivity.this, ExchangeDashBoardActivity.class);
                 intent.putExtra(CONSTANTS.seletedTab, 4);
                 startActivity(intent);
             }

@@ -767,7 +767,7 @@ public class DashBoardActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -783,7 +783,7 @@ public class DashBoardActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(DashBoardActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

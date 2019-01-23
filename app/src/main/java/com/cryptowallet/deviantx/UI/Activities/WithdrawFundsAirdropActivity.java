@@ -130,10 +130,10 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
+//        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -149,7 +149,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         // write your code here to stop your service
         CommonUtilities.serviceStop(WithdrawFundsAirdropActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     public static int PERMISSION_ALL = 1;

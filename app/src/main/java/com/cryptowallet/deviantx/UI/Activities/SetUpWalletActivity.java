@@ -71,10 +71,10 @@ public class SetUpWalletActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        CommonUtilities.serviceStart(SetUpWalletActivity.this);
+//        CommonUtilities.serviceStart(SetUpWalletActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -90,7 +90,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(SetUpWalletActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     boolean firstTimeCreation = false, emptyWallet = false;

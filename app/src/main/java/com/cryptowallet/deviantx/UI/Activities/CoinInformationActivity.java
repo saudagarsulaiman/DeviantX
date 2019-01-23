@@ -139,10 +139,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(CoinInformationActivity.this);
+//        CommonUtilities.serviceStart(CoinInformationActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -158,7 +158,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         // write your code here to stop your service
         CommonUtilities.serviceStop(CoinInformationActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override
