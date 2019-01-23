@@ -111,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void CheckingInputs() {
-        s_email = edt_email.getText().toString();
-        s_pswd = edt_pswd.getText().toString();
+        s_email = edt_email.getText().toString().trim();
+        s_pswd = edt_pswd.getText().toString().trim();
 
         if (!s_email.isEmpty()) {
             if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$") && s_email.length() >= 8) {
@@ -465,7 +465,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (CommonUtilities.isConnectionAvailable(LoginActivity.this)) {
-                    String tkn = edt_token.getText().toString();
+                    String tkn = edt_token.getText().toString().trim();
                     if (tkn.isEmpty()) {
                         CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.empty_field));
                     } else {
@@ -503,7 +503,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (loginResponseStatus.equals("true")) {
 
-                                loggingInAccount(edt_email.getText().toString(), edt_pswd.getText().toString());
+                                loggingInAccount(edt_email.getText().toString().trim(), edt_pswd.getText().toString().trim());
                                 //                                Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
 //                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                startActivity(intent);

@@ -307,23 +307,27 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 //                    String walletName = spnr_wallets.getItemAtPosition(position).toString();
 //                            String walletName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
                     String walletName = selectedWalletName;
-                    String amount = edt_amount.getText().toString();
+                    String amount = edt_amount.getText().toString().trim();
                     if (!amount.isEmpty()) {
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
                             if (walletName.length() > 0) {
-                                if (myApplication.get2FA()) {
-                                    Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
-                                    Bundle bundle1 = new Bundle();
-                                    bundle1.putString(CONSTANTS.walletName, walletName);
-                                    bundle1.putString(CONSTANTS.address, "");
-                                    bundle1.putString(CONSTANTS.amount, amount);
-                                    bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                                    intent.putExtras(bundle1);
-                                    startActivity(intent);
-                                } else {
-                                    toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                if (amt + 0.01 < airdropWalletlist.get(0).getDbl_data_ad_balance()) {
+                                    if (myApplication.get2FA()) {
+                                        Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                        Bundle bundle1 = new Bundle();
+                                        bundle1.putString(CONSTANTS.walletName, walletName);
+                                        bundle1.putString(CONSTANTS.address, "");
+                                        bundle1.putString(CONSTANTS.amount, amount);
+                                        bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                        intent.putExtras(bundle1);
+                                        startActivity(intent);
+                                    } else {
+                                        toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                    }
+                                } else {
+                                    CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.maintain_bal));
                                 }
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.select_wallet));
@@ -336,8 +340,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     }
 
                 } else {
-                    String to_address = edt_wallet_address.getText().toString();
-                    String amount = edt_amount.getText().toString();
+                    String to_address = edt_wallet_address.getText().toString().trim();
+                    String amount = edt_amount.getText().toString().trim();
                     if (!to_address.isEmpty()) {
                         if (!amount.isEmpty()) {
                             float amt = Float.parseFloat(amount);

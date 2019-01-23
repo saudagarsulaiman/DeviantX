@@ -72,7 +72,7 @@ public class TwoFALoginActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String google_auth_code = edt_google_auth_code.getText().toString();
+                String google_auth_code = edt_google_auth_code.getText().toString().trim();
                 if (!google_auth_code.isEmpty()) {
                     login2FA(google_auth_code);
                 } else {

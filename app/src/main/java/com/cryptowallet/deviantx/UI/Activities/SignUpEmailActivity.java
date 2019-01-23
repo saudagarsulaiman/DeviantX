@@ -164,11 +164,11 @@ public class SignUpEmailActivity extends AppCompatActivity {
     }
 
     private void CheckingInputs() {
-        s_usrnm = edt_usrnm.getText().toString();
-        s_email = edt_email.getText().toString();
-//        s_conf_email = edt_confirm_email.getText().toString();
-        s_pswd = edt_pswd.getText().toString();
-        s_conf_pswd = edt_confirm_pswd.getText().toString();
+        s_usrnm = edt_usrnm.getText().toString().trim();
+        s_email = edt_email.getText().toString().trim();
+//        s_conf_email = edt_confirm_email.getText().toString().trim();
+        s_pswd = edt_pswd.getText().toString().trim();
+        s_conf_pswd = edt_confirm_pswd.getText().toString().trim();
 
         if (!s_usrnm.isEmpty()) {
             if (!s_email.isEmpty()) {

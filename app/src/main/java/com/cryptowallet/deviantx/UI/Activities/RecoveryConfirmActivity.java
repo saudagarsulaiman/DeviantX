@@ -86,9 +86,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tkn = edt_token.getText().toString();
-                String new_pswd = edt_new_pswd.getText().toString();
-                String conf_pswd = edt_confirm_pswd.getText().toString();
+                String tkn = edt_token.getText().toString().trim();
+                String new_pswd = edt_new_pswd.getText().toString().trim();
+                String conf_pswd = edt_confirm_pswd.getText().toString().trim();
                 CheckingInputs(tkn, new_pswd, conf_pswd/*,email*/);
             }
         });

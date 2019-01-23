@@ -117,8 +117,8 @@ public class TwoFAAbleActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String login_pswd = edt_login_pswd.getText().toString();
-                String google_auth_code = edt_google_auth_code.getText().toString();
+                String login_pswd = edt_login_pswd.getText().toString().trim();
+                String google_auth_code = edt_google_auth_code.getText().toString().trim();
 
                 if (!login_pswd.isEmpty()) {
                     if (!google_auth_code.isEmpty()) {

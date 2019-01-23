@@ -163,7 +163,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String entered_pswd= edt_pswd.getText().toString();
+                String entered_pswd= edt_pswd.getText().toString().trim();
                 if (!entered_pswd.isEmpty()) {
                     String main_pswd = sharedPreferences.getString(CONSTANTS.pswd, "");
                     if (main_pswd.equals(entered_pswd)){

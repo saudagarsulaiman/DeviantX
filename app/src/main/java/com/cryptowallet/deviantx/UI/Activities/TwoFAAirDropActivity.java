@@ -118,7 +118,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = edt_google_auth_code.getText().toString();
+                String code = edt_google_auth_code.getText().toString().trim();
                 if (code.length() == 6)
                     Verify2FA(code, walletName, to_address, amount, airdropWalletlist);
                 else

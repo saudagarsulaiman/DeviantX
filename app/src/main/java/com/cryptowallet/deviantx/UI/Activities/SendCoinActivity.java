@@ -246,20 +246,20 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edt_amount_bal.getText().toString().isEmpty()) {
+                if (!edt_amount_bal.getText().toString().trim().isEmpty()) {
                     if (CommonUtilities.isConnectionAvailable(SendCoinActivity.this)) {
                         try {
                             if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) > 0) {
-                                String send_bal = edt_amount_bal.getText().toString();
-                                String fiat_bal = edt_fiat_bal.getText().toString();
+                                String send_bal = edt_amount_bal.getText().toString().trim();
+                                String fiat_bal = edt_fiat_bal.getText().toString().trim();
 //                                String fee = "0.01";
                                 Double ttl_rcv = Double.parseDouble(send_bal)/* - Double.parseDouble(fee)*/;
 
 
-                                String str_btcp_address = edt_btcp_address.getText().toString();
+                                String str_btcp_address = edt_btcp_address.getText().toString().trim();
 
                                 if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
-                                    if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 > selectedAccountWallet.getStr_data_balance()) {
+                                    if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 < selectedAccountWallet.getStr_data_balance()) {
                                         if (myApplication.get2FA()) {
                                             Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
                                             Bundle bundle1 = new Bundle();

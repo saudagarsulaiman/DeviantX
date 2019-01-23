@@ -86,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/def_edt_height"
                 android:layout_marginTop="@dimen/margin5"
+                android:digits="@string/pswd"
                 android:background="@drawable/rec_white_c2"
                 android:inputType="textPassword"
                 android:maxLines="1"

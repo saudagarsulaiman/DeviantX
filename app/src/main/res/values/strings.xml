@@ -7,7 +7,7 @@
     <string name="lower_letters">abcdefghijklmnopqrstuvwxyz</string>
     <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digits">0123456789</string>
-    <string name="pswd">0123456789@#$%^&amp;+=!*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="pswd">0123456789@#$%^&amp;+=!*_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
 
     <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>

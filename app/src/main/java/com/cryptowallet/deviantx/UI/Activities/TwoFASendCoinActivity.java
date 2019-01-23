@@ -121,7 +121,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = edt_google_auth_code.getText().toString();
+                String code = edt_google_auth_code.getText().toString().trim();
                 if (code.length() == 6)
                     Verify2FA(code, selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
                 else

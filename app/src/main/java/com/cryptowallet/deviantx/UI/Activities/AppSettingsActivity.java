@@ -421,9 +421,9 @@ public class AppSettingsActivity extends AppCompatActivity {
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String old_pswd = edt_old_pswd.getText().toString();
-                String new_pswd = edt_new_pswd.getText().toString();
-                String conf_pswd = edt_confirm_pswd.getText().toString();
+                String old_pswd = edt_old_pswd.getText().toString().trim();
+                String new_pswd = edt_new_pswd.getText().toString().trim();
+                String conf_pswd = edt_confirm_pswd.getText().toString().trim();
                 CheckingInputs(tkn, old_pswd, new_pswd, conf_pswd);
 //                dialog.dismiss();
             }
