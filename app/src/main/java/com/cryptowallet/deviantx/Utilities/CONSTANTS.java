@@ -36,12 +36,14 @@ public class CONSTANTS {
     public static String seletedTab = "SELECTEDTAB";
     public static String amount = "AMOUNT";
     public static String address = "ADDRESS";
-    public static String coinCode="COINCODE";
-    public static String check="CHECK";
-    public static String login2FA="2FALOGIN";
-    public static String send_bal="SENDBAL";
-    public static String fiat_bal="FIATBAl";
-    public static String ttl_rcv="TOTALRECEIVE";
+    public static String coinCode = "COINCODE";
+    public static String check = "CHECK";
+    public static String login2FA = "2FALOGIN";
+    public static String send_bal = "SENDBAL";
+    public static String fiat_bal = "FIATBAl";
+    public static String ttl_rcv = "TOTALRECEIVE";
+    public static String app_pin = "APPPIN";
+    public static String is_app_pin = "ISAPPPIN";
 
 
 //    //    Selected Account Wallet Details

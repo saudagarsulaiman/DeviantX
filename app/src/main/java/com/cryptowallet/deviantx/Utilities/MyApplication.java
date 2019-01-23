@@ -3,7 +3,6 @@ package com.cryptowallet.deviantx.Utilities;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
@@ -12,9 +11,6 @@ import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
-
-import java.lang.reflect.Field;
-import java.util.Map;
 
 //import com.google.android.gms.plus.Plus;
 
@@ -68,9 +64,18 @@ public class MyApplication extends Application {
         defaultWallet = dDefaultWallet;
     }
 
+    public Boolean getAppPin() {
+        return isAppPin;
+    }
+
+    public void setAppPin(Boolean appPin) {
+        isAppPin = appPin;
+    }
+
     Boolean isHideBalance;
     Boolean is2FAactive;
     Boolean isScreenShot;
+    Boolean isAppPin;
     int defaultWallet;
 
     @Override
@@ -85,6 +90,7 @@ public class MyApplication extends Application {
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
+        isAppPin = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
 
         new Instabug.Builder(this, "c90aaf55987fd8140ea3ffb8470b98c9")
                 .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)

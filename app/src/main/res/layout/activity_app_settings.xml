@@ -371,65 +371,64 @@
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/lnr_pin"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/height75"-->
-                <!--android:layout_marginLeft="@dimen/def_margin"-->
-                <!--android:layout_marginTop="@dimen/margin10"-->
-                <!--android:layout_marginRight="@dimen/def_margin"-->
-                <!--android:background="@drawable/rec_lytblue_c1"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:padding="@dimen/padding10"-->
-                <!--android:weightSum="3">-->
+            <LinearLayout
+                android:id="@+id/lnr_app_pin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height75"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginTop="@dimen/margin10"
+                android:layout_marginRight="@dimen/def_margin"
+                android:background="@drawable/rec_lytblue_c1"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding10"
+                android:weightSum="3">
 
-                <!--<ImageView-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="@dimen/height20"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_weight="0.3"-->
-                    <!--android:src="@drawable/ic_2fa" />-->
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height20"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/screen_lock" />
 
-                <!--<LinearLayout-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginEnd="@dimen/margin5"-->
-                    <!--android:layout_marginRight="@dimen/margin5"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_marginLeft="@dimen/margin5"-->
-                    <!--android:layout_marginStart="@dimen/margin5"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_weight="2.2"-->
-                    <!--android:orientation="vertical">-->
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/margin5"
+                    android:layout_marginRight="@dimen/margin5"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/margin5"
+                    android:layout_marginStart="@dimen/margin5"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.2"
+                    android:orientation="vertical">
 
-                    <!--<TextView-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="@string/two_factor_auth"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:textSize="@dimen/def_text_size"-->
-                        <!--android:textStyle="bold" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/screen_lock"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
 
-                    <!--<TextView-->
-                        <!--android:id="@+id/txt_2FA_status"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="@dimen/margin2"-->
-                        <!--android:text="@string/inactive"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:textSize="@dimen/def_hint_size" />-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin2"
+                        android:text="@string/pin"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_hint_size" />
 
-                <!--</LinearLayout>-->
+                </LinearLayout>
 
-                <!--<android.support.v7.widget.SwitchCompat-->
-                    <!--android:id="@+id/scompat_2fa"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:background="@drawable/rec_white_trans_c16"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_weight="0.5"-->
-                    <!--android:theme="@style/SwitchStyle" />-->
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/scompat_app_pin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rec_white_trans_c16"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:theme="@style/SwitchStyle" />
 
-            <!--</LinearLayout>-->
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

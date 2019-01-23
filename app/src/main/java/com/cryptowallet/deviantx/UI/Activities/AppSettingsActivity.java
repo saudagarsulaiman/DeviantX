@@ -13,7 +13,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -73,6 +72,10 @@ public class AppSettingsActivity extends AppCompatActivity {
     SwitchCompat scompat_2fa;
     @BindView(R.id.txt_2FA_status)
     TextView txt_2FA_status;
+    @BindView(R.id.lnr_app_pin)
+    LinearLayout lnr_app_pin;
+    @BindView(R.id.scompat_app_pin)
+    SwitchCompat scompat_app_pin;
 
 
     String loginResponseMsg, loginResponseStatus, tkn, loginResponseData;
@@ -105,7 +108,6 @@ public class AppSettingsActivity extends AppCompatActivity {
             scompat_hide_bal.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
         }
 
-
         if (myApplication.getScreenShot()) {
             scompat_privacy.setChecked(true);
             scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
@@ -134,6 +136,16 @@ public class AppSettingsActivity extends AppCompatActivity {
             txt_2FA_status.setText(getResources().getString(R.string.inactive));
         }
 
+        if (myApplication.getAppPin()) {
+            scompat_app_pin.setChecked(true);
+            scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        } else {
+            scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+            scompat_app_pin.setChecked(false);
+            scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+        }
+
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,13 +153,13 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
 
-        lnr_language.setOnClickListener(new View.OnClickListener() {
+       /* lnr_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LanguageDialog();
             }
         });
-
+*/
         lnr_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,25 +246,41 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
 
-        scompat_light_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        lnr_app_pin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    editor.putBoolean(CONSTANTS.lightmode, true);
-                    editor.apply();
-                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_active));
-                } else {
-                    editor.putBoolean(CONSTANTS.lightmode, false);
-                    editor.apply();
-                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_inactive));
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
+                startActivity(intent);
             }
         });
 
+        scompat_app_pin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String my_pin = sharedPreferences.getString(CONSTANTS.app_pin, "DeviantX");
+                if (my_pin.equals("DeviantX")) {
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pls_set_pin));
+                } else {
+                    if (isChecked) {
+                        scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                        scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                        editor.putBoolean(CONSTANTS.is_app_pin, true);
+                        editor.apply();
+                        myApplication.setAppPin(true);
+                        scompat_app_pin.setChecked(true);
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pin_active));
+                    } else {
+                        scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                        scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                        editor.putBoolean(CONSTANTS.is_app_pin, false);
+                        editor.apply();
+                        myApplication.setAppPin(false);
+                        scompat_app_pin.setChecked(false);
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pin_inactive));
+                    }
+                }
+            }
+        });
 
     }
 
@@ -261,6 +289,7 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
         myApplication.get2FA();
+        myApplication.getAppPin();
 //        CommonUtilities.serviceStart(AppSettingsActivity.this);
     }
 
@@ -281,89 +310,6 @@ public class AppSettingsActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(AppSettingsActivity.this);
         super.onPause();
     }*/
-
-    private void LanguageDialog() {
-        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_languages);
-        final DialogPlus dialog = DialogPlus.newDialog(AppSettingsActivity.this)
-                .setContentHolder(viewHolder)
-                .setGravity(Gravity.BOTTOM)
-                .setCancelable(true)
-                .setInAnimation(R.anim.slide_in_bottom)
-                .setOutAnimation(R.anim.slide_out_bottom)
-                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
-                .create();
-
-//                Initializing Widgets
-        View view = dialog.getHolderView();
-        LinearLayout lnr_sys_lang = view.findViewById(R.id.lnr_sys_lang);
-        LinearLayout lnr_english = view.findViewById(R.id.lnr_english);
-        LinearLayout lnr_arabic = view.findViewById(R.id.lnr_arabic);
-        LinearLayout lnr_chinese_simp = view.findViewById(R.id.lnr_chinese_simp);
-        LinearLayout lnr_chinese_trad = view.findViewById(R.id.lnr_chinese_trad);
-        LinearLayout lnr_czesh = view.findViewById(R.id.lnr_czesh);
-        LinearLayout lnr_dutch = view.findViewById(R.id.lnr_dutch);
-
-        lnr_sys_lang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        lnr_english.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        lnr_arabic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        lnr_chinese_simp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        lnr_chinese_trad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        lnr_czesh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        lnr_dutch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-//                Displaying DialogPlus
-        dialog.show();
-
-    }
-
 
     private void PasswordDialog(final String tkn) {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_change_password);
@@ -584,7 +530,6 @@ public class AppSettingsActivity extends AppCompatActivity {
 
 
     }
-
 
     @Override
     public void onBackPressed() {

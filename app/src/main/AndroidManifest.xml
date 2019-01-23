@@ -170,7 +170,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.TwoFASendCoinActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".UI.Services.WalletDataFetch"
@@ -187,11 +187,13 @@
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
-            android:process=":remote"></receiver>
-        <!-- <meta-data
+            android:process=":remote" />
+        <!--
+             <meta-data
              android:name="io.fabric.ApiKey"
              android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
-             />-->
+             />
+        -->
 
         <activity
             android:name=".UI.Activities.ExchangeSettingsActivity"
@@ -206,6 +208,8 @@
         <activity
             android:name=".UI.Activities.ExchangeCoinInfoActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".UI.Activities.SetAppPinActivity" />
+        <activity android:name=".UI.Activities.AppPinActivity"></activity>
     </application>
 
 </manifest>
