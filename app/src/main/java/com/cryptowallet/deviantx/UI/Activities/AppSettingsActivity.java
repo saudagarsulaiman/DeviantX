@@ -225,23 +225,9 @@ public class AppSettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
                 startActivity(intent);
                 if (isChecked) {
-//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-//                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
-//                    editor.apply();
-//                    myApplication.set2FA(true);
                     scompat_2fa.setChecked(false);
-//                    txt_2FA_status.setText(getResources().getString(R.string.active));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_active));
                 } else {
-//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-//                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
-//                    editor.apply();
-//                    myApplication.set2FA(false);
                     scompat_2fa.setChecked(true);
-//                    txt_2FA_status.setText(getResources().getString(R.string.inactive));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_inactive));
                 }
             }
         });
@@ -260,6 +246,8 @@ public class AppSettingsActivity extends AppCompatActivity {
                 String my_pin = sharedPreferences.getString(CONSTANTS.app_pin, "DeviantX");
                 if (my_pin.equals("DeviantX")) {
                     CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pls_set_pin));
+                    Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
+                    startActivity(intent);
                 } else {
                     if (isChecked) {
                         scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
@@ -269,9 +257,11 @@ public class AppSettingsActivity extends AppCompatActivity {
                         myApplication.setAppPin(true);
                         scompat_app_pin.setChecked(true);
                         CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pin_active));
+//                        scompat_app_pin.setChecked(false);
                     } else {
-                        scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-                        scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+//                        scompat_app_pin.setChecked(true);
+                        scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                        scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
                         editor.putBoolean(CONSTANTS.is_app_pin, false);
                         editor.apply();
                         myApplication.setAppPin(false);

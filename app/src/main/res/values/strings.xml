@@ -517,7 +517,7 @@
     <string name="last_price">Last Price</string>
     <string name="asso_wal">Associated Wallet</string>
     <string name="set_pin">Set PIN</string>
-    <string name="pls_set_pin">Set PIN</string>
+    <string name="pls_set_pin">Please set PIN</string>
     <string name="enter_pin">Enter the new PIN</string>
     <string name="repeat_pin">Repeat your PIN</string>
     <string name="hint_pin">Only numbers, max 4 numbers.</string>
@@ -530,10 +530,16 @@
     <string name="time1">Time</string>
     <string name="price">Price</string>
     <string name="enter_mbl_num">Enter Mobile Number</string>
+
+
+    <!--SetAppPin Activity-->
     <string name="pin_active">PIN Activated</string>
     <string name="pin_inactive">PIN deactivated</string>
     <string name="enter_your_pin">Enter your PIN</string>
     <string name="invalid_pin">Invalid PIN</string>
+    <string name="empty_pin">Empty PIN</string>
+    <string name="empty_conf_pin">Empty confirm PIN</string>
+    <string name="unmatch_pin">PIN does not match</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -53,7 +54,10 @@ public class SetAppPinActivity extends AppCompatActivity {
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                Intent intent = new Intent(SetAppPinActivity.this, AppSettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -71,18 +75,21 @@ public class SetAppPinActivity extends AppCompatActivity {
                                 editor.apply();
                                 myApplication.setAppPin(true);
                                 CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.pin_active));
+                                Intent intent = new Intent(SetAppPinActivity.this, AppSettingsActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
                                 finish();
                             } else {
-                                CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_wallet));
+                                CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.unmatch_pin));
                             }
                         } else {
-                            CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_wallet));
+                            CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.invalid_pin));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_wallet));
+                        CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_conf_pin));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_wallet));
+                    CommonUtilities.ShowToastMessage(SetAppPinActivity.this, getResources().getString(R.string.empty_pin));
                 }
             }
         });
