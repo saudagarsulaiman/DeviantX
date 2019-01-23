@@ -146,7 +146,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                s_WalletName = edt_wallet.getText().toString();
+                s_WalletName = edt_wallet.getText().toString().trim();
                 if (s_WalletName.isEmpty()) {
                     edt_wallet.setText("");
                     CommonUtilities.ShowToastMessage(SetUpWalletActivity.this, getResources().getString(R.string.empty_wallet));
