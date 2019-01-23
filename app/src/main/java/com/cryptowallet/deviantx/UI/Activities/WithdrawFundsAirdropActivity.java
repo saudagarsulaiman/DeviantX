@@ -198,7 +198,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         airdropWalletlist = bundle.getParcelableArrayList(CONSTANTS.selectedAccountWallet);
         txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
 
-        avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
+        avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.01;
 
         if (cbox_wallet.isChecked()) {
             spnr_wallets.setVisibility(View.GONE);
@@ -388,7 +388,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     try {
                         if (Double.parseDouble(amountTextValue) != 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
-                            avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
+                            avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.01;
                             if (avail_bal < finalValue) {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
                                 edt_amount.setText("0");
@@ -545,7 +545,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_withdraw_amt.setText(amount);
         txt_withdraw_amt_code.setText(str_coin_code);
 //        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
+        txt_fee_amt.setText("0.01");
         txt_fee_amt_code.setText(str_coin_code);
         txt_address.setText(edt_address);
 /*
@@ -604,7 +604,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_withdraw_amt.setText(amount);
         txt_withdraw_amt_code.setText(str_coin_code);
 //        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
+        txt_fee_amt.setText("0.01");
         txt_fee_amt_code.setText(str_coin_code);
         txt_address.setText(walletName);
 

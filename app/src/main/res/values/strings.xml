@@ -197,6 +197,7 @@
     <string name="wallet_added">Wallet Created Successfully</string>
     <string name="select_one">Please Select Only One Coin</string>
     <string name="selected_none">You have not seleted any coin</string>
+    <string name="maintain_bal">Maintain minimum balance of 0.01</string>
 
 
     <!--App Settings Activity-->

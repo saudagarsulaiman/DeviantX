@@ -31,9 +31,7 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
-import com.cryptowallet.deviantx.ServiceAPIs.USDValues;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.USDValue;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -254,31 +252,31 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) > 0) {
                                 String send_bal = edt_amount_bal.getText().toString();
                                 String fiat_bal = edt_fiat_bal.getText().toString();
-//                                String fee = "0.0001";
+//                                String fee = "0.01";
                                 Double ttl_rcv = Double.parseDouble(send_bal)/* - Double.parseDouble(fee)*/;
 
 
                                 String str_btcp_address = edt_btcp_address.getText().toString();
 
                                 if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
-//                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
-                                    if (myApplication.get2FA()) {
-                                        Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
-                                        Bundle bundle1 = new Bundle();
-                                        bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
-                                        bundle1.putString(CONSTANTS.send_bal, send_bal);
-                                        bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
-                                        bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
-                                        bundle1.putString(CONSTANTS.address, str_btcp_address);
-                                        intent.putExtras(bundle1);
-                                        startActivity(intent);
+                                    if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 > selectedAccountWallet.getStr_data_balance()) {
+                                        if (myApplication.get2FA()) {
+                                            Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
+                                            Bundle bundle1 = new Bundle();
+                                            bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                                            bundle1.putString(CONSTANTS.send_bal, send_bal);
+                                            bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
+                                            bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
+                                            bundle1.putString(CONSTANTS.address, str_btcp_address);
+                                            intent.putExtras(bundle1);
+                                            startActivity(intent);
 //                                        finish();
+                                        } else {
+                                            customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                        }
                                     } else {
-                                        customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                        CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
                                     }
-//                            } else {
-//                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
-//                            }
                                 } else {
                                     CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_every_detail));
                                 }
@@ -385,11 +383,14 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         }
     }
 
+/*
     private void convertCoinValue(final String from_coin, final String to_coin) {
         try {
             progressDialog = ProgressDialog.show(SendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             USDValues apiService = DeviantXApiClient.getCoinValues().create(USDValues.class);
-            Call<USDValue> apiResponse = apiService.getUsdConversion(from_coin/*, to_coin*/);
+            Call<USDValue> apiResponse = apiService.getUsdConversion(from_coin*/
+    /*, to_coin*//*
+);
             Log.i("API:\t:", apiResponse.toString());
             apiResponse.enqueue(new Callback<USDValue>() {
                 @Override
@@ -441,6 +442,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
+*/
 
     private void customDialog(final AccountWallet selectedAccountWallet, String send_bal, String fiat_bal/*, String fee*/, final Double ttl_rcv, final String toAddress) {
         //                Creating A Custom Dialog Using DialogPlus
