@@ -54,10 +54,11 @@ public class SetAppPinActivity extends AppCompatActivity {
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SetAppPinActivity.this, AppSettingsActivity.class);
+                onBackPressed();
+               /* Intent intent = new Intent(SetAppPinActivity.this, AppSettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                finish();
+                finish();*/
             }
         });
 
@@ -95,4 +96,15 @@ public class SetAppPinActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(SetAppPinActivity.this, AppSettingsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 }
+
+

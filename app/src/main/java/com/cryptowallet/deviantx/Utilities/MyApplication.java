@@ -90,7 +90,7 @@ public class MyApplication extends Application {
         isScreenShot = sharedPreferences.getBoolean(CONSTANTS.screenshot, false);
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
-        isAppPin = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
+        isAppPin = sharedPreferences.getBoolean(CONSTANTS.is_app_pin, false);
 
         new Instabug.Builder(this, "c90aaf55987fd8140ea3ffb8470b98c9")
                 .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
