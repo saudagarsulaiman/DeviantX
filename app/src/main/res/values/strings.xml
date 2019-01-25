@@ -541,5 +541,12 @@
     <string name="empty_conf_pin">Empty confirm PIN</string>
     <string name="unmatch_pin">PIN does not match</string>
 
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="enter_old_pin">Enter your old PIN</string>
+    <string name="reset_pin">Reset PIN</string>
+    <string name="empty_new_pin">Empty new PIN</string>
+    <string name="empty_old_pin">Empty old PIN</string>
+    <string name="unmatch_new_pin">New PIN and Confirm PIN should match</string>
+    <string name="unmatch_old_pin">Old PIN is not matched</string>
 
 </resources>

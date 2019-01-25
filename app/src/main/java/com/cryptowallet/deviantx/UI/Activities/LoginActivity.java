@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -139,8 +139,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loggingInAccount(final String s_email, final String s_pswd) {
         try {
+            String device_id = sharedPreferences.getString(CONSTANTS.reg_ID, null);
             JSONObject params = new JSONObject();
             try {
+                params.put("deviceToken", device_id);
                 params.put("password", s_pswd);
                 params.put("email", s_email);
 

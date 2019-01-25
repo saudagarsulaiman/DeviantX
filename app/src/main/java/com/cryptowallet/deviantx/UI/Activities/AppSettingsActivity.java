@@ -246,8 +246,11 @@ public class AppSettingsActivity extends AppCompatActivity {
                 String my_pin = sharedPreferences.getString(CONSTANTS.app_pin, "DeviantX");
                 if (my_pin.equals("DeviantX")) {
                     CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pls_set_pin));
-                    Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
+//                    startActivity(intent);
+                    scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                    scompat_app_pin.setChecked(false);
                 } else {
                     if (isChecked) {
                         scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));

@@ -120,8 +120,10 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
+/*
 // Offline Work
     implementation "com.google.android.gms:play-services-vision-common:17.0.2"
+*/
 
     implementation 'io.reactivex:rxjava:1.1.0'
 
@@ -130,4 +132,11 @@ dependencies {
 
 //    Instabug
     implementation 'com.instabug.library:instabug:8.0.15'
+
+//    FCM
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
+
 }
+apply plugin: 'com.google.gms.google-services'

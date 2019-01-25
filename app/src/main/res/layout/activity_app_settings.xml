@@ -388,7 +388,7 @@
                     android:layout_height="@dimen/height20"
                     android:layout_gravity="center"
                     android:layout_weight="0.3"
-                    android:src="@drawable/screen_lock" />
+                    android:src="@drawable/pin" />
 
                 <LinearLayout
                     android:layout_gravity="center"
