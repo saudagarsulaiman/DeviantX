@@ -243,8 +243,8 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             String str_btcp_address = edt_btcp_address.getText().toString().trim();
 
                             if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
-//                            if (Double.parseDouble(fiat_bal) < selectedAccountWallet.getStr_data_balanceInUSD() && Double.parseDouble(send_bal) < selectedAccountWallet.getStr_data_balance()) {
-                                if (myApplication.get2FA()) {
+                                if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 < selectedAccountWallet.getStr_data_balance()) {
+                                    if (myApplication.get2FA()) {
                                     Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
                                     Bundle bundle1 = new Bundle();
                                     bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
@@ -258,9 +258,9 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                                 } else {
                                     customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
                                 }
-//                            } else {
-//                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.insufficient_fund));
-//                            }
+                            } else {
+                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
+                            }
                             } else {
                                 CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_every_detail));
                             }

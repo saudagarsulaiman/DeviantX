@@ -19,7 +19,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -124,7 +123,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     ArrayList<AirdropWallet> airdropWalletlist;
     int selectedCoinId = 0;
     String selectedWalletName = "";
-    Double avail_bal = 0.0;
+    Double avail_bal = 0.0, selectedWalletBal = 0.0;
 
     @Override
     protected void onResume() {
@@ -200,7 +199,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         airdropWalletlist = bundle.getParcelableArrayList(CONSTANTS.selectedAccountWallet);
         txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
 
-        avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
+        avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.01;
 
         if (cbox_wallet.isChecked()) {
             spnr_wallets.setVisibility(View.GONE);
@@ -293,6 +292,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                 if (selected_allWalletList.get(pos).getSelected()) {
                     selectedCoinId = selected_allWalletList.get(pos).getInt_data_id();
                     selectedWalletName = selected_allWalletList.get(pos).getStr_data_name();
+                    selectedWalletBal = selected_allWalletList.get(pos).getDbl_data_totalBal();
 //                    btn_withdraw.setVisibility(View.VISIBLE);
                 } /*else*/
 //                    btn_withdraw.setVisibility(View.GONE);
@@ -304,6 +304,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         btn_withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                double fee = 0.01;
                 if (cbox_wallet.isChecked()) {
                     int position = spnr_wallets.getSelectedItemPosition();
 //                    String walletName = spnr_wallets.getItemAtPosition(position).toString();
@@ -314,18 +315,22 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
                             if (walletName.length() > 0) {
-                                if (myApplication.get2FA()) {
-                                    Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
-                                    Bundle bundle1 = new Bundle();
-                                    bundle1.putString(CONSTANTS.walletName, walletName);
-                                    bundle1.putString(CONSTANTS.address, "");
-                                    bundle1.putString(CONSTANTS.amount, amount);
-                                    bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                                    intent.putExtras(bundle1);
-                                    startActivity(intent);
-                                } else {
-                                    toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                if (Double.parseDouble(amount) + fee < selectedWalletBal) {
+                                    if (myApplication.get2FA()) {
+                                        Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                        Bundle bundle1 = new Bundle();
+                                        bundle1.putString(CONSTANTS.walletName, walletName);
+                                        bundle1.putString(CONSTANTS.address, "");
+                                        bundle1.putString(CONSTANTS.amount, amount);
+                                        bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                        intent.putExtras(bundle1);
+                                        startActivity(intent);
+                                    } else {
+                                        toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                    }
+                                } else {
+                                    CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.maintain_bal));
                                 }
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.select_wallet));
@@ -344,18 +349,22 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                         if (!amount.isEmpty()) {
                             float amt = Float.parseFloat(amount);
                             if (amt > 0) {
-                                if (myApplication.get2FA()) {
-                                    Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
-                                    Bundle bundle1 = new Bundle();
-                                    bundle1.putString(CONSTANTS.walletName, "");
-                                    bundle1.putString(CONSTANTS.address, to_address);
-                                    bundle1.putString(CONSTANTS.amount, amount);
-                                    bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
-                                    intent.putExtras(bundle1);
-                                    startActivity(intent);
-                                } else {
-                                    toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                if (Double.parseDouble(amount) + fee < selectedWalletBal) {
+                                    if (myApplication.get2FA()) {
+                                        Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
+                                        Bundle bundle1 = new Bundle();
+                                        bundle1.putString(CONSTANTS.walletName, "");
+                                        bundle1.putString(CONSTANTS.address, to_address);
+                                        bundle1.putString(CONSTANTS.amount, amount);
+                                        bundle1.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                                        intent.putExtras(bundle1);
+                                        startActivity(intent);
+                                    } else {
+                                        toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
 //                            transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
+                                    }
+                                } else {
+                                    CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.maintain_bal));
                                 }
                             } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
@@ -390,7 +399,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     try {
                         if (Double.parseDouble(amountTextValue) != 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
-                            avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.001;
+                            avail_bal = airdropWalletlist.get(0).getDbl_data_ad_balance() - 0.01;
                             if (avail_bal < finalValue) {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.insufficient_fund));
                                 edt_amount.setText("0");
@@ -547,7 +556,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_withdraw_amt.setText(amount);
         txt_withdraw_amt_code.setText(str_coin_code);
 //        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
+        txt_fee_amt.setText("0.01");
         txt_fee_amt_code.setText(str_coin_code);
         txt_address.setText(edt_address);
 /*
@@ -606,7 +615,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_withdraw_amt.setText(amount);
         txt_withdraw_amt_code.setText(str_coin_code);
 //        txt_fee_amt.setText(String.format("%.4f",));
-        txt_fee_amt.setText("0.001");
+        txt_fee_amt.setText("0.01");
         txt_fee_amt_code.setText(str_coin_code);
         txt_address.setText(walletName);
 
