@@ -13,7 +13,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -73,7 +72,10 @@ public class AppSettingsActivity extends AppCompatActivity {
     SwitchCompat scompat_2fa;
     @BindView(R.id.txt_2FA_status)
     TextView txt_2FA_status;
-
+    @BindView(R.id.lnr_app_pin)
+    LinearLayout lnr_app_pin;
+    @BindView(R.id.scompat_app_pin)
+    SwitchCompat scompat_app_pin;
 
     String loginResponseMsg, loginResponseStatus, tkn, loginResponseData;
 
@@ -134,6 +136,16 @@ public class AppSettingsActivity extends AppCompatActivity {
             txt_2FA_status.setText(getResources().getString(R.string.inactive));
         }
 
+        if (myApplication.getAppPin()) {
+            scompat_app_pin.setChecked(true);
+            scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        } else {
+            scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+            scompat_app_pin.setChecked(false);
+            scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+        }
+
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,13 +153,13 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
 
-        lnr_language.setOnClickListener(new View.OnClickListener() {
+      /*  lnr_language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LanguageDialog();
             }
         });
-
+*/
         lnr_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,46 +225,55 @@ public class AppSettingsActivity extends AppCompatActivity {
                 Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
                 startActivity(intent);
                 if (isChecked) {
-//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-//                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
-//                    editor.apply();
-//                    myApplication.set2FA(true);
                     scompat_2fa.setChecked(false);
-//                    txt_2FA_status.setText(getResources().getString(R.string.active));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_active));
                 } else {
-//                    scompat_2fa.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-//                    scompat_2fa.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-//                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
-//                    editor.apply();
-//                    myApplication.set2FA(false);
                     scompat_2fa.setChecked(true);
-//                    txt_2FA_status.setText(getResources().getString(R.string.inactive));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.twoFA_inactive));
                 }
             }
         });
 
-        scompat_light_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        lnr_app_pin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        scompat_app_pin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    editor.putBoolean(CONSTANTS.lightmode, true);
-                    editor.apply();
-                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_active));
+                String my_pin = sharedPreferences.getString(CONSTANTS.app_pin, "DeviantX");
+                if (my_pin.equals("DeviantX")) {
+                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pls_set_pin));
+//                    Intent intent = new Intent(AppSettingsActivity.this, SetAppPinActivity.class);
+//                    startActivity(intent);
+                    scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                    scompat_app_pin.setChecked(false);
                 } else {
-                    editor.putBoolean(CONSTANTS.lightmode, false);
-                    editor.apply();
-                    scompat_light_mode.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-                    scompat_light_mode.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.nightmode_inactive));
+                    if (isChecked) {
+                        scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                        scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                        editor.putBoolean(CONSTANTS.is_app_pin, true);
+                        editor.apply();
+                        myApplication.setAppPin(true);
+                        scompat_app_pin.setChecked(true);
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pin_active));
+//                        scompat_app_pin.setChecked(false);
+                    } else {
+//                        scompat_app_pin.setChecked(true);
+                        scompat_app_pin.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                        scompat_app_pin.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                        editor.putBoolean(CONSTANTS.is_app_pin, false);
+                        editor.apply();
+                        myApplication.setAppPin(false);
+                        scompat_app_pin.setChecked(false);
+                        CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.pin_inactive));
+                    }
                 }
             }
         });
-
 
     }
 
@@ -261,9 +282,10 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
         myApplication.get2FA();
-        CommonUtilities.serviceStart(AppSettingsActivity.this);
+//        CommonUtilities.serviceStart(AppSettingsActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -281,6 +303,7 @@ public class AppSettingsActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(AppSettingsActivity.this);
         super.onPause();
     }
+*/
 
     private void LanguageDialog() {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_languages);
@@ -364,7 +387,6 @@ public class AppSettingsActivity extends AppCompatActivity {
 
     }
 
-
     private void PasswordDialog(final String tkn) {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_change_password);
         final DialogPlus dialog = DialogPlus.newDialog(AppSettingsActivity.this)
@@ -421,9 +443,9 @@ public class AppSettingsActivity extends AppCompatActivity {
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String old_pswd = edt_old_pswd.getText().toString();
-                String new_pswd = edt_new_pswd.getText().toString();
-                String conf_pswd = edt_confirm_pswd.getText().toString();
+                String old_pswd = edt_old_pswd.getText().toString().trim();
+                String new_pswd = edt_new_pswd.getText().toString().trim();
+                String conf_pswd = edt_confirm_pswd.getText().toString().trim();
                 CheckingInputs(tkn, old_pswd, new_pswd, conf_pswd);
 //                dialog.dismiss();
             }
@@ -443,14 +465,14 @@ public class AppSettingsActivity extends AppCompatActivity {
 
     private void matchingPasswordText(String text, TextView txt_lower_case, TextView txt_upper_case, TextView txt_number, TextView txt_chars) {
 //        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$")) {
-        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*]).*$")) {
+        if (text.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*_]).*$")) {
             txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_upper_case.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_number.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
             txt_chars.setBackground(getResources().getDrawable(R.drawable.rec_green_c2));
         } else {
 //            if (text.matches("(?![.\\n])(?=.*[a-z]).*$+")) {
-            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*]).*$+")) {
+            if (text.matches("(?![.\\n])(?=.*[@#$%^&+=!*_]).*$+")) {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_lgreen_c2));
             } else {
                 txt_lower_case.setBackground(getResources().getDrawable(R.drawable.rec_gred_c2));

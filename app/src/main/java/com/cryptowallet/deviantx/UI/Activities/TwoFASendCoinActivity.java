@@ -71,9 +71,10 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
+//        CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -91,6 +92,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(TwoFASendCoinActivity.this);
         super.onPause();
     }
+*/
 
 
     @Override
@@ -122,7 +124,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = edt_google_auth_code.getText().toString();
+                String code = edt_google_auth_code.getText().toString().trim();
                 if (code.length() == 6)
                     Verify2FA(code, selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
                 else

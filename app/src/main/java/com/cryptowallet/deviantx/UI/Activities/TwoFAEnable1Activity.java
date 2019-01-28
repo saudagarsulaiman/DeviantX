@@ -61,10 +61,10 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(TwoFAEnable1Activity.this);
+//        CommonUtilities.serviceStart(TwoFAEnable1Activity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -81,7 +81,7 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
         CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
         super.onPause();
     }
-
+*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

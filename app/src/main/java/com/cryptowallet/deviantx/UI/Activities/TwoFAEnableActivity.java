@@ -58,9 +58,10 @@ public class TwoFAEnableActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(TwoFAEnableActivity.this);
+//        CommonUtilities.serviceStart(TwoFAEnableActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -78,6 +79,7 @@ public class TwoFAEnableActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(TwoFAEnableActivity.this);
         super.onPause();
     }
+*/
 
 
     @Override
@@ -102,9 +104,9 @@ public class TwoFAEnableActivity extends AppCompatActivity {
         btn_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String login_pswd = edt_login_pswd.getText().toString();
-                String twoFA_key = edt_backup_key.getText().toString();
-                String google_auth_code = edt_google_auth_code.getText().toString();
+                String login_pswd = edt_login_pswd.getText().toString().trim();
+                String twoFA_key = edt_backup_key.getText().toString().trim();
+                String google_auth_code = edt_google_auth_code.getText().toString().trim();
                 if (!login_pswd.isEmpty()) {
                     if (!twoFA_key.isEmpty()) {
                         if (!google_auth_code.isEmpty()) {

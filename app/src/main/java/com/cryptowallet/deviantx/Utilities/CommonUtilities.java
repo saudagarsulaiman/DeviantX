@@ -16,6 +16,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.LocaleList;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
@@ -457,6 +458,11 @@ public final class CommonUtilities {
         context.stopService(intent);
     }
 
+    public static String getDeviceID(Context context) {
+        String android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+//        Toast.makeText(context, "android_id= " + android_id, Toast.LENGTH_LONG).show();
+        return android_id;
+    }
 }
 
 

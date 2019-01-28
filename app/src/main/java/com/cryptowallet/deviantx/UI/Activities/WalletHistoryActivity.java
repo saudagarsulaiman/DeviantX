@@ -92,9 +92,10 @@ public class WalletHistoryActivity extends AppCompatActivity {
             walletHistoryRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletHistoryRAdapter.notifyDataSetChanged();
         }
-        CommonUtilities.serviceStart(WalletHistoryActivity.this);
+//        CommonUtilities.serviceStart(WalletHistoryActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -112,6 +113,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(WalletHistoryActivity.this);
         super.onPause();
     }
+*/
 
 
     @Override

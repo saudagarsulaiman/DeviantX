@@ -5,8 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.SpannableString;
@@ -164,37 +164,37 @@ public class SignUpEmailActivity extends AppCompatActivity {
     }
 
     private void CheckingInputs() {
-        s_usrnm = edt_usrnm.getText().toString();
-        s_email = edt_email.getText().toString();
-//        s_conf_email = edt_confirm_email.getText().toString();
-        s_pswd = edt_pswd.getText().toString();
-        s_conf_pswd = edt_confirm_pswd.getText().toString();
+        s_usrnm = edt_usrnm.getText().toString().trim();
+        s_email = edt_email.getText().toString().trim();
+//        s_conf_email = edt_confirm_email.getText().toString().trim();
+        s_pswd = edt_pswd.getText().toString().trim();
+        s_conf_pswd = edt_confirm_pswd.getText().toString().trim();
 
         if (!s_usrnm.isEmpty()) {
             if (!s_email.isEmpty()) {
                 if (s_email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$") && s_email.length() >= 8) {
                   /*  if (!s_conf_email.isEmpty()) {
                         if (s_conf_email.equals(s_email)) {*/
-                            if (!s_pswd.isEmpty()) {
-                                if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=!*_])(?=\\S+$).{8,25}$")) {
-                                    if (!s_conf_pswd.isEmpty()) {
-                                        if (s_pswd.equals(s_conf_pswd)) {
-                                            CustomDialog(s_usrnm, s_email, s_pswd);
-                                            InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-                                            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    if (!s_pswd.isEmpty()) {
+                        if (s_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[@#$%^&+=!*_])(?=\\S+$).{8,25}$")) {
+                            if (!s_conf_pswd.isEmpty()) {
+                                if (s_pswd.equals(s_conf_pswd)) {
+                                    CustomDialog(s_usrnm, s_email, s_pswd);
+                                    InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+                                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
 
-                                        } else {
-                                            CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_pswd));
-                                        }
-                                    } else {
-                                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_conf_pswd));
-                                    }
                                 } else {
-                                    CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.invalid_pswd));
+                                    CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_pswd));
                                 }
                             } else {
-                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_pswd));
+                                CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_conf_pswd));
                             }
+                        } else {
+                            CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.invalid_pswd));
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.empty_pswd));
+                    }
                        /* } else {
                             CommonUtilities.ShowToastMessage(SignUpEmailActivity.this, getResources().getString(R.string.unmatch_email));
                         }
@@ -250,6 +250,7 @@ public class SignUpEmailActivity extends AppCompatActivity {
 //                dialog.dismiss();
 //                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com")));
             }
+
             @Override
             public void updateDrawState(final TextPaint textPaint) {
                 textPaint.setColor(getResources().getColor(R.color.sky_blue1));

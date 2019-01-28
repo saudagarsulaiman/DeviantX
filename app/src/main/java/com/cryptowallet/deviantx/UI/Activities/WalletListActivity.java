@@ -77,9 +77,10 @@ public class WalletListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
-        CommonUtilities.serviceStart(WalletListActivity.this);
+//        CommonUtilities.serviceStart(WalletListActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -97,6 +98,7 @@ public class WalletListActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(WalletListActivity.this);
         super.onPause();
     }
+*/
 
 
     WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {

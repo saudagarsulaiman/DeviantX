@@ -7,11 +7,12 @@
     <string name="lower_letters">abcdefghijklmnopqrstuvwxyz</string>
     <string name="upper_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="digits">0123456789</string>
-    <string name="pswd">0123456789@#$%^&amp;+=!*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="pswd">0123456789@#$%^&amp;+=!*_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 
 
+    <string name="pref_key_transition_time" translatable="false">pref_key_transition_time</string>
 
-    <!-- Activities-->
+    <!-- Activity-->
 
 
     <!--Used in Multiple Activities-->
@@ -43,7 +44,6 @@
     <string name="unmatch_conf_pswd">Confirm password does not match</string>
     <string name="center_address">\t\tAddress</string>
     <string name="center_search">\t\tSearch</string>
-
 
     <!--Welcome Activity-->
     <string name="get_started">Get Started</string>
@@ -111,7 +111,6 @@
     <string name="note_recovery_acc">Enter your Deviant X email that you used to sign-in. We will send you an email with instructions to recover your account.</string>
     <string name="hint_email">\t\ttest@deviantcoin.io</string>
 
-
     <!--DashBoard Activity-->
     <string name="mini_deviant">Mini Deviant</string>
     <string name="dashboard">Dashboard</string>
@@ -167,7 +166,6 @@
     <string name="volume">Volume</string>
     <string name="scanner_msg">Place a barcode inside the viewfinder rectangle to scan it.</string>
 
-
     <!--Receive Coin Activity-->
     <string name="receive">Receive</string>
     <string name="received">Received</string>
@@ -177,7 +175,6 @@
     <string name="attention_dev_address1">Attention: This address only supports receiving from</string>
     <string name="attention_dev_address2">Please do not use it for other coins.</string>
     <string name="share_qrcode">Share QR Code</string>
-
 
     <!--Send Coins Activity-->
     <string name="avail_bal">AVAILABLE TO SEND</string>
@@ -196,6 +193,7 @@
     <string name="wallet_added">Wallet Created Successfully</string>
     <string name="select_one">Please Select Only One Coin</string>
     <string name="selected_none">You have not seleted any coin</string>
+    <string name="maintain_bal">Maintain minimum balance of 0.01</string>
 
 
     <!--App Settings Activity-->
@@ -235,7 +233,6 @@
     <string name="nightmode_active">Night Mode Activated</string>
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
-
 
     <!--Wallet Options Activity-->
     <string name="wallet_options">Options for this wallet</string>
@@ -306,7 +303,6 @@
     <string name="backup_rec_phrase">Backup Recovery Phrase</string>
     <string name="shapeshift_slogan">Leading instant digital asset exchange</string>
 
-
     <!--AddPhrase Activity-->
     <string name="recovery_bottom_text">Make a copy of the selected 12 recovery phases in correct order</string>
     <string name="next">Next</string>
@@ -327,7 +323,6 @@
     <string name="enter_seed">Enter Recovery Phrase</string>
     <string name="note_seed_rec">Note: Please use two spaces between words</string>
     <string name="empty_conf_email">Confirm Email should not be empty!</string>
-
 
     <!--TC Dialog @ SignUp Activity-->
     <string name="ok">O K</string>
@@ -503,6 +498,7 @@
     <string name="last_price">Last Price</string>
     <string name="asso_wal">Associated Wallet</string>
     <string name="set_pin">Set PIN</string>
+    <string name="pls_set_pin">Please set PIN</string>
     <string name="enter_pin">Enter the new PIN</string>
     <string name="repeat_pin">Repeat your PIN</string>
     <string name="hint_pin">Only numbers, max 4 numbers.</string>
@@ -515,6 +511,24 @@
     <string name="time1">Time</string>
     <string name="price">Price</string>
     <string name="enter_mbl_num">Enter Mobile Number</string>
+
+
+    <!--SetAppPin Activity-->
+    <string name="pin_active">PIN Activated</string>
+    <string name="pin_inactive">PIN deactivated</string>
+    <string name="enter_your_pin">Enter your PIN</string>
+    <string name="invalid_pin">Invalid PIN</string>
+    <string name="empty_pin">Empty PIN</string>
+    <string name="empty_conf_pin">Empty confirm PIN</string>
+    <string name="unmatch_pin">PIN does not match</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="enter_old_pin">Enter your old PIN</string>
+    <string name="reset_pin">Reset PIN</string>
+    <string name="empty_new_pin">Empty new PIN</string>
+    <string name="empty_old_pin">Empty old PIN</string>
+    <string name="unmatch_new_pin">New PIN and Confirm PIN should match</string>
+    <string name="unmatch_old_pin">Old PIN is not matched</string>
 
 
     <!--Airdrop Fragment-->

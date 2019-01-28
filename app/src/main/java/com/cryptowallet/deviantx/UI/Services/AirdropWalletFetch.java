@@ -2,8 +2,15 @@ package com.cryptowallet.deviantx.UI.Services;
 
 import android.app.Activity;
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
@@ -31,11 +38,46 @@ public class AirdropWalletFetch extends IntentService {
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
-//     * @param name Used to name the worker thread, important only for debugging.
+     * <p>
+     * //     * @param name Used to name the worker thread, important only for debugging.
      */
     public AirdropWalletFetch() {
         super("AirdropWalletFetch");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void onCreate() {
+        super.onCreate();
+        Log.d("Local_cache", "MyIntentService onCreate() method is invoked.");
+       /* int NOTIFICATION_ID = (int) (System.currentTimeMillis() % 10000);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForeground(NOTIFICATION_ID, new Notification.Builder(this).build());
+            startForeground(1, new Notification());
+        }*/
+        if (Build.VERSION.SDK_INT >= 26) {
+            String CHANNEL_ID = "my_channel_01";
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+                    "Channel human readable title",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+
+            ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).createNotificationChannel(channel);
+
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setContentTitle("")
+                    .setContentText("").build();
+
+            startForeground(1, notification);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("Local_cache", "MyIntentService onDestroy() method is invoked.");
     }
 
     @Override
@@ -59,7 +101,7 @@ public class AirdropWalletFetch extends IntentService {
                             AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
                             AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
                             mDao.insertAirdropWallet(airdropWallet);
-                            airdropWalletUIListener= myApplication.getAirdropWalletUIListener();
+                            airdropWalletUIListener = myApplication.getAirdropWalletUIListener();
                             if (airdropWalletUIListener != null) {
                                 airdropWalletUIListener.onChangedAirdropWallet(responsevalue);
                             }

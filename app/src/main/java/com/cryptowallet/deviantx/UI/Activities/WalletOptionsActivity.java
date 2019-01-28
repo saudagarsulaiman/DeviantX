@@ -51,10 +51,10 @@ public class WalletOptionsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(WalletOptionsActivity.this);
+//        CommonUtilities.serviceStart(WalletOptionsActivity.this);
     }
 
-    @Override
+  /*  @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -70,7 +70,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(WalletOptionsActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override
@@ -163,7 +163,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String entered_pswd= edt_pswd.getText().toString();
+                String entered_pswd= edt_pswd.getText().toString().trim();
                 if (!entered_pswd.isEmpty()) {
                     String main_pswd = sharedPreferences.getString(CONSTANTS.pswd, "");
                     if (main_pswd.equals(entered_pswd)){

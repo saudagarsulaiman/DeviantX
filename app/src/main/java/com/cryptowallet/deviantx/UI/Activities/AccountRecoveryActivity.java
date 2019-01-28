@@ -74,7 +74,7 @@ public class AccountRecoveryActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = edt_email.getText().toString();
+                email = edt_email.getText().toString().trim();
                 if (!email.isEmpty()) {
                     if (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,3})$") && email.length() >= 8) {
                         if (CommonUtilities.isConnectionAvailable(AccountRecoveryActivity.this)) {

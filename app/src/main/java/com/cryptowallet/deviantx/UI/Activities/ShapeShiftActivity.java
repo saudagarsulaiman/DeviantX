@@ -106,8 +106,8 @@ public class ShapeShiftActivity extends AppCompatActivity {
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String exc_amt = edt_exc_amt.getText().toString();
-                String rec_amt = edt_rec_amt.getText().toString();
+                String exc_amt = edt_exc_amt.getText().toString().trim();
+                String rec_amt = edt_rec_amt.getText().toString().trim();
 //
 //                if (exc_amt.isEmpty()){
 //

@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "381930061867",
-    "firebase_url": "https://deviantx-99eb5.firebaseio.com",
-    "project_id": "deviantx-99eb5",
-    "storage_bucket": "deviantx-99eb5.appspot.com"
+    "project_number": "549746270761",
+    "firebase_url": "https://deviantx-76b43.firebaseio.com",
+    "project_id": "deviantx-76b43",
+    "storage_bucket": "deviantx-76b43.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:381930061867:android:66943f4caf3a5e85",
+        "mobilesdk_app_id": "1:549746270761:android:66943f4caf3a5e85",
         "android_client_info": {
           "package_name": "com.cryptowallet.deviantx"
         }
       },
       "oauth_client": [
         {
-          "client_id": "381930061867-p8snf6rf4575nm00h9kp6ls5n998mcj6.apps.googleusercontent.com",
+          "client_id": "549746270761-ingajh6kv8ucm3p62an34adatbfbim3v.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDLe5YzT05cz3FMgQgtWNYt_1DCRU-NMc0"
+          "current_key": "AIzaSyCibegYmE7A5NBW2-xiCZZ0vboG4rZWKLk"
         }
       ],
       "services": {

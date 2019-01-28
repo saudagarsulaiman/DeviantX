@@ -86,9 +86,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tkn = edt_token.getText().toString();
-                String new_pswd = edt_new_pswd.getText().toString();
-                String conf_pswd = edt_confirm_pswd.getText().toString();
+                String tkn = edt_token.getText().toString().trim();
+                String new_pswd = edt_new_pswd.getText().toString().trim();
+                String conf_pswd = edt_confirm_pswd.getText().toString().trim();
                 CheckingInputs(tkn, new_pswd, conf_pswd/*,email*/);
             }
         });
@@ -127,8 +127,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
     private void CheckingInputs(String tkn, String new_pswd, String conf_pswd/*, String email*/) {
         if (!tkn.isEmpty()) {
             if (!new_pswd.isEmpty()) {
-                if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
-                    if (!conf_pswd.isEmpty()) {
+//                if (new_pswd.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,25}$")) {
+                    if (new_pswd.matches("(?=^.{8,25}$)(?=.*\\d)(?![.\\n])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!*_]).*$")) {
+                        if (!conf_pswd.isEmpty()) {
                         if (new_pswd.equals(conf_pswd)) {
                             if (CommonUtilities.isConnectionAvailable(RecoveryConfirmActivity.this)) {
                                 invokeEmailRecovery(tkn, new_pswd/*, email*/);

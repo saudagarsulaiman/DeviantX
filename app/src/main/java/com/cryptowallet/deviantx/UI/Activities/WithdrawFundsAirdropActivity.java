@@ -130,9 +130,10 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
+//        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
     }
 
+/*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -150,6 +151,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         CommonUtilities.serviceStop(WithdrawFundsAirdropActivity.this);
         super.onPause();
     }
+*/
 
 
     public static int PERMISSION_ALL = 1;
@@ -307,7 +309,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 //                    String walletName = spnr_wallets.getItemAtPosition(position).toString();
 //                            String walletName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
                     String walletName = selectedWalletName;
-                    String amount = edt_amount.getText().toString();
+                    String amount = edt_amount.getText().toString().trim();
                     if (!amount.isEmpty()) {
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
@@ -336,8 +338,8 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     }
 
                 } else {
-                    String to_address = edt_wallet_address.getText().toString();
-                    String amount = edt_amount.getText().toString();
+                    String to_address = edt_wallet_address.getText().toString().trim();
+                    String amount = edt_amount.getText().toString().trim();
                     if (!to_address.isEmpty()) {
                         if (!amount.isEmpty()) {
                             float amt = Float.parseFloat(amount);
@@ -811,7 +813,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     @Override
     public void handleResult(Result result) {
-        edt_wallet_address.setText(result.getText());
+        edt_wallet_address.setText(result.getText().trim());
         mScannerLayout.setVisibility(View.GONE);
     }
 

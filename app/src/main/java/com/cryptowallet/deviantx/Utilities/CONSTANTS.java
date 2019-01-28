@@ -42,6 +42,9 @@ public class CONSTANTS {
     public static String send_bal="SENDBAL";
     public static String fiat_bal="FIATBAl";
     public static String ttl_rcv="TOTALRECEIVE";
+    public static String app_pin = "APPPIN";
+    public static String is_app_pin = "ISAPPPIN";
+    public static String reg_ID = "FCMREGID";
 
 
 //    //    Selected Account Wallet Details

@@ -68,7 +68,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
-    @Override
+   /* @Override
     protected void onResume() {
         super.onResume();
         CommonUtilities.serviceStart(SetUpWalletActivity.this);
@@ -90,7 +90,7 @@ public class SetUpWalletActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(SetUpWalletActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     boolean firstTimeCreation = false, emptyWallet = false;

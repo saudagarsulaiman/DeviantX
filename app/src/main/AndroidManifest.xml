@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".Utilities.MyApplication"
@@ -170,7 +170,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.TwoFASendCoinActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".UI.Services.WalletDataFetch"
@@ -187,17 +187,19 @@
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
-            android:process=":remote"></receiver>
-        <!-- <meta-data
+            android:process=":remote" />
+        <!--
+             <meta-data
              android:name="io.fabric.ApiKey"
              android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
-             />-->
+             />
+        -->
 
         <activity
             android:name=".UI.Activities.ExchangeSettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activities.SetPinActivity"
+            android:name=".UI.Activities.SetPinTradesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.ExchangeOrderHistoryActivity"
@@ -206,6 +208,45 @@
         <activity
             android:name=".UI.Activities.ExchangeCoinInfoActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.SetAppPinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.Activities.AppPinActivity"></activity>
+
+
+        <!-- Firebase Notifications -->
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/app_icon" />
+
+        <service android:name=".FCM.service.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+
+        <!--
+         <service android:name=".FCM.service.MyFirebaseInstanceIDService">
+             <intent-filter>
+                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+             </intent-filter>
+         </service>
+        -->
+        <service
+            android:name=".FCM.service.MyJobService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+        <!-- ./Firebase Notifications -->
+
     </application>
 
 </manifest>

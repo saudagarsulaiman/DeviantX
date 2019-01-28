@@ -68,10 +68,10 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(TwoFAAirDropActivity.this);
+//        CommonUtilities.serviceStart(TwoFAAirDropActivity.this);
     }
 
-    @Override
+   /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
@@ -87,7 +87,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         // write your code here to stop your service
         CommonUtilities.serviceStop(TwoFAAirDropActivity.this);
         super.onPause();
-    }
+    }*/
 
 
     @Override
@@ -118,7 +118,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = edt_google_auth_code.getText().toString();
+                String code = edt_google_auth_code.getText().toString().trim();
                 if (code.length() == 6)
                     Verify2FA(code, walletName, to_address, amount, airdropWalletlist);
                 else

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -79,9 +78,10 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-        CommonUtilities.serviceStart(ReceiveCoinActivity.this);
+//        CommonUtilities.serviceStart(ReceiveCoinActivity.this);
     }
 
+  /*
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_HOME) {
@@ -99,7 +99,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         CommonUtilities.serviceStop(ReceiveCoinActivity.this);
         super.onPause();
     }
-
+*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +157,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
                 CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, selectedAccountWallet.getStr_data_address(), selectedAccountWallet*//*.getAllCoins()*//*.getStr_coin_name());
                  */
-                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, txt_dev_address.getText().toString()/* selectedAccountWallet.getStr_coin_name()*/, selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
+                CommonUtilities.copyToClipboard(ReceiveCoinActivity.this, txt_dev_address.getText().toString().trim()/* selectedAccountWallet.getStr_coin_name()*/, selectedAccountWallet/*.getAllCoins()*/.getStr_coin_name());
             }
         });
 
@@ -173,7 +173,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 /*
                 CommonUtilities.shareAddress(selectedAccountWallet.getStr_data_address(), ReceiveCoinActivity.this);
 */
-                CommonUtilities.shareAddress(txt_dev_address.getText().toString()/*selectedAccountWallet.getStr_coin_name()*/, ReceiveCoinActivity.this);
+                CommonUtilities.shareAddress(txt_dev_address.getText().toString().trim()/*selectedAccountWallet.getStr_coin_name()*/, ReceiveCoinActivity.this);
             }
         });
 
