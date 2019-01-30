@@ -46,18 +46,18 @@ public class FeaturedADVerticalRAdapter extends RecyclerView.Adapter<FeaturedADV
         Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name_code.setText(allCoinsList.get(i).getStr_coin_name() + " (" + allCoinsList.get(i).getStr_coin_code() + ")");
         viewHolder.txt_coin_value.setText("Estimated $" + i + " ref");
- /*  viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
                 Bundle bundle = new Bundle();
-//                bundle.putParcelable(CONSTANTS.selectedCoin,"coin");
-                bundle.putString(CONSTANTS.selectedCoin, "coin");
+                bundle.putParcelable(CONSTANTS.selectedCoin, allCoinsList.get(i));
+//                bundle.putString(CONSTANTS.selectedCoin, allCoinsList.get(i).getStr_coin_name());
                 intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override

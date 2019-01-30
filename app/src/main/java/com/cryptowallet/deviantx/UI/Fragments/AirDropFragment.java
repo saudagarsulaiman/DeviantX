@@ -22,19 +22,28 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ConfigWalletAirdropActivity;
+import com.cryptowallet.deviantx.UI.Activities.DividendADListActivity;
+import com.cryptowallet.deviantx.UI.Activities.FeaturedADListAcivity;
+import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
+import com.cryptowallet.deviantx.UI.Activities.SelectADCampaignsActivity;
 import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
 import com.cryptowallet.deviantx.UI.Adapters.DividendADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.squareup.picasso.Picasso;
 import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
@@ -45,6 +54,7 @@ import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,8 +96,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     ImageView img_coin_icon;
     @BindView(R.id.seekbar_per)
     SeekBar seekbar_per;
-    @BindView(R.id.lnr_empty_coins)
-    LinearLayout lnr_empty_coins;
+    @BindView(R.id.lnr_empty_his_list)
+    LinearLayout lnr_empty_his_list;
     @BindView(R.id.txt_acc_status)
     TextView txt_acc_status;
     //    New Design
@@ -101,6 +111,10 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     TextView txt_div_ad_viewAll;
     @BindView(R.id.rview_div_ad_coins)
     RecyclerView rview_div_ad_coins;
+    @BindView(R.id.lnr_empty_feat_coins)
+    LinearLayout lnr_empty_feat_coins;
+    @BindView(R.id.lnr_empty_div_coins)
+    LinearLayout lnr_empty_div_coins;
 
 
     FeaturedADHorizantalRAdapter featuredADHorizantalRAdapter;
@@ -153,25 +167,32 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
 
 
-//        featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
-//        rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
-//        dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity().getApplicationContext(), allCoinsList);
-//        rview_div_ad_coins.setAdapter(dividendADHorizantalRAdapter);
-//        recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity().getApplicationContext());
-//        rview_radh_coins.setAdapter(recentADHistoryRAdapter);
+        rview_div_ad_coins.setVisibility(View.GONE);
+        txt_div_ad_viewAll.setVisibility(View.GONE);
+        lnr_empty_div_coins.setVisibility(View.VISIBLE);
+        rview_radh_coins.setVisibility(View.GONE);
+        txt_radh_viewAll.setVisibility(View.GONE);
+        lnr_empty_his_list.setVisibility(View.VISIBLE);
 
         txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), FeaturedADAcivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), FeaturedADListAcivity.class);
+                startActivity(intent);
+            }
+        });
+        txt_div_ad_viewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DividendADListActivity.class);
+                startActivity(intent);
             }
         });
         txt_radh_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), RecentADHistoryAcivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), RecentADHistoryAcivity.class);
+                startActivity(intent);
             }
         });
 
@@ -185,10 +206,26 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         });
 
 
+        lnr_create_ad_camp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SelectADCampaignsActivity.class);
+                startActivity(intent);
+            }
+        });
+        lnr_search_airdrops.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FeaturedADListAcivity.class);
+                startActivity(intent);
+            }
+        });
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadAirDropWallet();
+                onLoadAllCoins();
+//                onLoadAirDropWallet();
             }
         }, 200);
 
@@ -286,9 +323,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
+                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
                             updateUI(responsevalue);
                             AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
                             AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
@@ -374,12 +411,14 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     @Override
     public void onResume() {
         super.onResume();
+        myApplication.setAllCoinsUIListener(allCoinsUIListener);
         myApplication.setAirdropWalletUIListener(airdropWalletUIListener);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        myApplication.setAllCoinsUIListener(null);
         myApplication.setAirdropWalletUIListener(null);
     }
 
@@ -595,7 +634,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     }
 
-
     private void onLoadAirDropWallet() {
 
         getActivity().runOnUiThread(new Runnable() {
@@ -614,6 +652,135 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 }
             }
         });
+
+    }
+
+    private void onLoadAllCoins() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
+                if ((exploreCoinsDao.getExploreCoins()) != null) {
+                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
+                    updateUICoins(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchCoins();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    AllCoinsUIListener allCoinsUIListener = new AllCoinsUIListener() {
+        @Override
+        public void onChangedAllCoins(String allCoinsList) {
+            updateUICoins(allCoinsList);
+        }
+    };
+
+    private void updateUICoins(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
+                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<AllCoins> featuredCoinsList = new ArrayList<>();
+                        ArrayList<AllCoins> notFeaturedCoinsList = new ArrayList<>();
+                        for (AllCoins coinName : allCoinsList) {
+                            if (coinName.getStr_isFeatureCoin().equals("NO")) {
+                                notFeaturedCoinsList.add(coinName);
+                            } else {
+                                featuredCoinsList.add(coinName);
+                            }
+                        }
+                        if (featuredCoinsList.size() > 0) {
+                            txt_fad_viewAll.setVisibility(View.VISIBLE);
+                            lnr_empty_feat_coins.setVisibility(View.GONE);
+                            featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList);
+                            rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
+                        } else {
+                            txt_fad_viewAll.setVisibility(View.GONE);
+                            lnr_empty_feat_coins.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchCoins() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            updateUICoins(responsevalue);
+                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
+                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoins);
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

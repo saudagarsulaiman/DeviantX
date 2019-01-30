@@ -548,6 +548,19 @@
     <string name="create_airdrop_camp">Create your first Airdrop Campaigns</string>
     <string name="dividend_ad">Dividend or Airdrop</string>
     <string name="claim">Claim</string>
+    <string name="empty_ad_feat_coins">No featured coins are available</string>
+    <string name="empty_ad_div_coins">No dividend coins are available</string>
+    <string name="empty_ad_his_list">No Airdrop history is available</string>
+
+
+    <!--SelectADCampaignsActivity-->
+    <string name="note_airdrop_camp">To create an Airdrop campaigns your need to have a minimum of 500 DEV.</string>
+    <string name="select_ad_type">Select the type of Airdrop</string>
+    <string name="hint_sel_ad_type">Social is recommended to get followers on social networks.</string>
+    <string name="sel_wal">Select the Wallet</string>
+    <string name="avail_coins">Available Coins</string>
+    <string name="max_coins_distribute">Maximum coins to distribute</string>
+    <string name="hint_max_coins">When this limit is finished, the bell will automatically end.</string>
 
 
 </resources>

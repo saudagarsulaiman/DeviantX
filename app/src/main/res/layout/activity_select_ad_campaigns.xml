@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:gravity="center"
+        android:text="@string/airdrop_camp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_ttl_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin5"
+        android:layout_marginRight="@dimen/def_margin"
+        android:gravity="center"
+        android:text="@string/note_airdrop_camp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:text="@string/select_ad_type"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_text_size"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/spnr_ad_type"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin5"
+        android:layout_marginRight="@dimen/def_margin"
+        android:background="@color/white"
+       />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin5"
+        android:layout_marginRight="@dimen/def_margin"
+        android:text="@string/hint_sel_ad_type"
+        android:textColor="@color/white"
+        android:textSize="@dimen/def_hint_size" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/rec_brinjal1_gradient_c2"
+            android:text="@string/continu"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_text_size"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

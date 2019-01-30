@@ -16,11 +16,17 @@ public class AllCoins implements Parcelable {
     int int_coin_id;
 */
 
-    @SerializedName("rank")
-    int int_coin_rank;
+    @SerializedName("coinName")
+    String str_coin_name;
+
+    @SerializedName("logo")
+    String str_coin_logo;
 
     @SerializedName("usdValue")
     Double dbl_coin_usdValue;
+
+    @SerializedName("rank")
+    int int_coin_rank;
 
     @SerializedName("marketCap")
     Double dbl_coin_marketCap;
@@ -37,11 +43,8 @@ public class AllCoins implements Parcelable {
     @SerializedName("changeOneMonth")
     Double dbl_coin_1m;
 
-    @SerializedName("coinName")
-    String str_coin_name;
-
-    @SerializedName("logo")
-    String str_coin_logo;
+    @SerializedName("isFeatureCoin")
+    String str_isFeatureCoin;
 
     @SerializedName("chartData")
     String str_coin_chart_data;
@@ -51,16 +54,28 @@ public class AllCoins implements Parcelable {
 
     Boolean isSelected = false;
 
-    protected AllCoins(Parcel in) {
+
+
 /*
-        int_coin_id = in.readInt();
+    public int getInt_coin_id() {
+        return int_coin_id;
+    }
+
+    public void setInt_coin_id(int int_coin_id) {
+        this.int_coin_id = int_coin_id;
+    }
 */
-        int_coin_rank = in.readInt();
+
+    protected AllCoins(Parcel in) {
+        str_coin_code = in.readString();
+        str_coin_name = in.readString();
+        str_coin_logo = in.readString();
         if (in.readByte() == 0) {
             dbl_coin_usdValue = null;
         } else {
             dbl_coin_usdValue = in.readDouble();
         }
+        int_coin_rank = in.readInt();
         if (in.readByte() == 0) {
             dbl_coin_marketCap = null;
         } else {
@@ -86,9 +101,7 @@ public class AllCoins implements Parcelable {
         } else {
             dbl_coin_1m = in.readDouble();
         }
-        str_coin_name = in.readString();
-        str_coin_code = in.readString();
-        str_coin_logo = in.readString();
+        str_isFeatureCoin = in.readString();
         str_coin_chart_data = in.readString();
         str_coin_daily_chart_data = in.readString();
         byte tmpIsSelected = in.readByte();
@@ -106,17 +119,6 @@ public class AllCoins implements Parcelable {
             return new AllCoins[size];
         }
     };
-
-
-/*
-    public int getInt_coin_id() {
-        return int_coin_id;
-    }
-
-    public void setInt_coin_id(int int_coin_id) {
-        this.int_coin_id = int_coin_id;
-    }
-*/
 
     public int getInt_coin_rank() {
         return int_coin_rank;
@@ -216,6 +218,14 @@ public class AllCoins implements Parcelable {
     }
 */
 
+    public String getStr_isFeatureCoin() {
+        return str_isFeatureCoin;
+    }
+
+    public void setStr_isFeatureCoin(String str_isFeatureCoin) {
+        this.str_isFeatureCoin = str_isFeatureCoin;
+    }
+
     public String getStr_coin_chart_data() {
         return str_coin_chart_data;
     }
@@ -290,16 +300,16 @@ public class AllCoins implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-/*
-        dest.writeInt(int_coin_id);
-*/
-        dest.writeInt(int_coin_rank);
+        dest.writeString(str_coin_code);
+        dest.writeString(str_coin_name);
+        dest.writeString(str_coin_logo);
         if (dbl_coin_usdValue == null) {
             dest.writeByte((byte) 0);
         } else {
             dest.writeByte((byte) 1);
             dest.writeDouble(dbl_coin_usdValue);
         }
+        dest.writeInt(int_coin_rank);
         if (dbl_coin_marketCap == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -330,9 +340,7 @@ public class AllCoins implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeDouble(dbl_coin_1m);
         }
-        dest.writeString(str_coin_name);
-        dest.writeString(str_coin_code);
-        dest.writeString(str_coin_logo);
+        dest.writeString(str_isFeatureCoin);
         dest.writeString(str_coin_chart_data);
         dest.writeString(str_coin_daily_chart_data);
         dest.writeByte((byte) (isSelected == null ? 0 : isSelected ? 1 : 2));

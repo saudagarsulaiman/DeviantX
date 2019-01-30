@@ -79,6 +79,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/def_margin"
         android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginBottom="@dimen/margin10"
         android:layout_marginRight="@dimen/def_margin" />
 
 </LinearLayout>

@@ -131,7 +131,7 @@
             android:name=".UI.Activities.EditWalletActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activities.FeaturedADAcivity"
+            android:name=".UI.Activities.FeaturedADListAcivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -212,8 +212,7 @@
             android:name=".UI.Activities.SetAppPinActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.AppPinActivity"></activity>
-
+        <activity android:name=".UI.Activities.AppPinActivity" />
 
         <!-- Firebase Notifications -->
 
@@ -229,7 +228,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <!--
          <service android:name=".FCM.service.MyFirebaseInstanceIDService">
@@ -247,6 +245,9 @@
         </service>
         <!-- ./Firebase Notifications -->
 
+        <activity android:name=".UI.Activities.SelectADCampaignsActivity" />
+        <activity android:name=".UI.Activities.CreateADCampaignsActivity" />
+        <activity android:name=".UI.Activities.DividendADListActivity"></activity>
     </application>
 
 </manifest>

@@ -9,8 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
-import com.cryptowallet.deviantx.UI.Models.WalletList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +47,11 @@ public class SpinnerDaysAdapter extends ArrayAdapter<String> {
         }
         holder.name.setText(allCoins);
         return row;
+    }
+
+    public void setAllCoins(ArrayList<String> walletCoinsList) {
+        this.objects = walletCoinsList;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder {

@@ -54,6 +54,34 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/lnr_empty_feat_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rec_lytblue_c8"
+        android:gravity="center"
+        android:layout_margin="@dimen/def_margin"
+        android:orientation="vertical"
+        android:padding="@dimen/def_padding"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="@dimen/width80"
+            android:layout_height="@dimen/height80"
+            android:layout_gravity="center"
+            android:src="@drawable/empty_coins" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="@string/empty_ad_feat_coins"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rview_ad_coins_list"
         android:layout_width="match_parent"

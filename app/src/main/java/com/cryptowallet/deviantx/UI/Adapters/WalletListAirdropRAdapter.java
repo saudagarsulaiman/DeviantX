@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.WithdrawFundsAirdropActivity;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 
@@ -58,7 +57,7 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
             viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
         }
 
-        if (walletLists.get(i).getSelected()) {
+        if (walletLists.get(i).getSelected() != null) {
             if (myApplication.getDefaultWallet() == i) {
                 viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
             } else {
@@ -101,6 +100,11 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
     @Override
     public int getItemCount() {
         return walletLists.size();
+    }
+
+    public void setAllWallets(ArrayList<WalletList> walletList) {
+        this.walletLists = walletList;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

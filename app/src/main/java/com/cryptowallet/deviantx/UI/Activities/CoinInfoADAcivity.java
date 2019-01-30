@@ -1,7 +1,8 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -68,15 +69,16 @@ public class CoinInfoADAcivity extends AppCompatActivity {
         Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
         txt_coin_name.setText(selectedCoin.getStr_coin_name());
         txt_coin_code.setText(selectedCoin.getStr_coin_code());
-        txt_estimated.setText("$70" +" Ref");
+        txt_estimated.setText("$70" + " Ref");
         txt_tokens.setText("750 DEV");
-
 
 
         btn_participate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(CoinInfoADAcivity.this, DashBoardActivity.class);
+                intent.putExtra(CONSTANTS.seletedTab, 2);
+                startActivity(intent);
             }
         });
 

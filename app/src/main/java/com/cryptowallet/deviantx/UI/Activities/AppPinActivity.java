@@ -17,6 +17,8 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class AppPinActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_pin)
@@ -27,6 +29,13 @@ public class AppPinActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.disableScreenCapture(this);
+//        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
