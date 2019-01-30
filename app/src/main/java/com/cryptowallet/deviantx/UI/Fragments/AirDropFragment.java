@@ -575,11 +575,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         if (featuredCoinsList.size() > 0) {
                             txt_fad_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_feat_coins.setVisibility(View.GONE);
-                            lnr_search_airdrops.setVisibility(View.GONE);
+                            lnr_empty_prtcptn.setVisibility(View.GONE);
                             featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList, false);
                             rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
                         } else {
-                            lnr_search_airdrops.setVisibility(View.VISIBLE);
+                            lnr_empty_prtcptn.setVisibility(View.VISIBLE);
                             txt_fad_viewAll.setVisibility(View.GONE);
                             lnr_empty_feat_coins.setVisibility(View.VISIBLE);
                         }
