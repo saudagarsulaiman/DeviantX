@@ -20,11 +20,17 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
+import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADVerticalRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.FeaturedAirdropsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.FeaturedAirdropsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -73,7 +79,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
-    ArrayList<AllCoins> allCoinsList;
+    ArrayList<FeaturedAirdrops> allFeaturedAirdrops;
 
     @Override
     protected void onResume() {
@@ -89,7 +95,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
         ButterKnife.bind(this);
         deviantXDB = DeviantXDB.getDatabase(this);
 
-        allCoinsList = new ArrayList<>();
+        allFeaturedAirdrops = new ArrayList<>();
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +119,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadAllCoins();
+                onLoadUserAirdrops();
             }
         }, 100);
 
@@ -131,9 +137,9 @@ public class FeaturedADListAcivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
-                for (AllCoins coinName : allCoinsList) {
-                    if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
+                ArrayList<FeaturedAirdrops> searchCoinsList = new ArrayList<>();
+                for (FeaturedAirdrops coinName : allFeaturedAirdrops) {
+                    if (coinName.getStr_coinName().toLowerCase().contains(s.toString().toLowerCase())) {
                         searchCoinsList.add(coinName);
                     }
                 }
@@ -144,19 +150,20 @@ public class FeaturedADListAcivity extends AppCompatActivity {
 
     }
 
-    private void onLoadAllCoins() {
+    private void onLoadUserAirdrops() {
+
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
-                if ((exploreCoinsDao.getExploreCoins()) != null) {
-                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
-                    updateUI(walletResult);
+                FeaturedAirdropsDao featuredAirdropsDao = deviantXDB.featuredAirdropsDao();
+                if ((featuredAirdropsDao.getFeaturedAirdrops()) != null) {
+                    String walletResult = featuredAirdropsDao.getFeaturedAirdrops().featuredAirdrops;
+                    updateUIUserAirdrops(walletResult);
                 } else {
-                    if (CommonUtilities.isConnectionAvailable(getApplicationContext())) {
-                        fetchCoins();
+                    if (CommonUtilities.isConnectionAvailable(FeaturedADListAcivity.this)) {
+                        fetchCoinsUserAirdrops();
                     } else {
-                        CommonUtilities.ShowToastMessage(getApplicationContext(), getResources().getString(R.string.internetconnection));
+                        CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.internetconnection));
                     }
                 }
             }
@@ -164,34 +171,30 @@ public class FeaturedADListAcivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(String responsevalue) {
-        this.runOnUiThread(new Runnable() {
+    private void updateUIUserAirdrops(String responsevalue) {
+        FeaturedADListAcivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject jsonObject = new JSONObject(responsevalue);
-                    // loginResponseMsg = jsonObject.getString("msg");
-                    //  loginResponseStatus = jsonObject.getString("status");
-                    if (true) {
-                        loginResponseData = jsonObject.getString("data");
-                        //JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
-                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
 
-                        ArrayList<AllCoins> featuredCoinsList = new ArrayList<>();
-                        ArrayList<AllCoins> notFeaturedCoinsList = new ArrayList<>();
-                        for (AllCoins coinName : allCoinsList) {
-                            if (coinName.getStr_isFeatureCoin().equals("NO")) {
-                                notFeaturedCoinsList.add(coinName);
-                            } else {
-                                featuredCoinsList.add(coinName);
-                            }
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        FeaturedAirdrops[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, FeaturedAirdrops[].class);
+                        allFeaturedAirdrops = new ArrayList<FeaturedAirdrops>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<FeaturedAirdrops> featuredCoinsList = new ArrayList<>();
+                        for (FeaturedAirdrops coinName : allFeaturedAirdrops) {
+                            featuredCoinsList.add(coinName);
                         }
+
                         if (featuredCoinsList.size() > 0) {
                             lnr_empty_feat_coins.setVisibility(View.GONE);
                             lnr_search.setVisibility(View.VISIBLE);
                             rview_ad_coins_list.setVisibility(View.VISIBLE);
-                            featuredADVerticalRAdapter = new FeaturedADVerticalRAdapter(FeaturedADListAcivity.this, allCoinsList);
+                            featuredADVerticalRAdapter = new FeaturedADVerticalRAdapter(FeaturedADListAcivity.this, allFeaturedAirdrops);
                             rview_ad_coins_list.setAdapter(featuredADVerticalRAdapter);
                         } else {
                             lnr_search.setVisibility(View.GONE);
@@ -199,6 +202,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
                             lnr_empty_feat_coins.setVisibility(View.VISIBLE);
                         }
                         featuredADVerticalRAdapter.notifyDataSetChanged();
+
                     } else {
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, loginResponseMsg);
                     }
@@ -207,27 +211,26 @@ public class FeaturedADListAcivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    private void fetchCoins() {
+    private void fetchCoinsUserAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(FeaturedADListAcivity.this, "", getResources().getString(R.string.please_wait), true);
-            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
+            UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getUserAD(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
+                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-                            updateUI(responsevalue);
-                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoinsDB);
+                            updateUIUserAirdrops(responsevalue);
+                            FeaturedAirdropsDao mDao = deviantXDB.featuredAirdropsDao();
+                            FeaturedAirdropsDB featuredAirdropsDB = new FeaturedAirdropsDB(1, responsevalue);
+                            mDao.insertFeaturedAirdrops(featuredAirdropsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, loginResponseMsg);
@@ -252,7 +255,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FeaturedADListAcivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.errortxt));
@@ -268,6 +271,5 @@ public class FeaturedADListAcivity extends AppCompatActivity {
         }
 
     }
-
 
 }

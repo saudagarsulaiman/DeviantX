@@ -245,22 +245,22 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
                                 if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 < selectedAccountWallet.getStr_data_balance()) {
                                     if (myApplication.get2FA()) {
-                                    Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
-                                    Bundle bundle1 = new Bundle();
-                                    bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
-                                    bundle1.putString(CONSTANTS.send_bal, send_bal);
-                                    bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
-                                    bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
-                                    bundle1.putString(CONSTANTS.address, str_btcp_address);
-                                    intent.putExtras(bundle1);
-                                    startActivity(intent);
+                                        Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
+                                        Bundle bundle1 = new Bundle();
+                                        bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                                        bundle1.putString(CONSTANTS.send_bal, send_bal);
+                                        bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
+                                        bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
+                                        bundle1.putString(CONSTANTS.address, str_btcp_address);
+                                        intent.putExtras(bundle1);
+                                        startActivity(intent);
 //                                        finish();
+                                    } else {
+                                        customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                    }
                                 } else {
-                                    customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                    CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
                                 }
-                            } else {
-                                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
-                            }
                             } else {
                                 CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_every_detail));
                             }
@@ -478,7 +478,9 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 /*
                 SendingCoins(selectedAccountWallet.getStr_data_address(), toAddress, ttl_rcv);
 */
-                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
+//                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
+                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+                SendingCoins(wallet_name, ttl_rcv, toAddress, selectedAccountWallet.getStr_coin_code());
                 dialog.dismiss();
 
             }
@@ -488,17 +490,26 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
     }
 
-    private void SendingCoins(String fromAddress, String toAddress, Double amount) {
+    //    private void SendingCoins(String fromAddress, String toAddress, Double amount) {
+    private void SendingCoins(String wallet_name, Double amount, String toAddress, String coin_code) {
         try {
             JSONObject params = new JSONObject();
             try {
+                params.put("wallet_name", wallet_name);
+                params.put("amount", amount);
+                params.put("toAddress", toAddress);
+                params.put("coin_code", coin_code);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+           /* try {
                 params.put("fromAddress", fromAddress);
-                Log.e("fromAddress:", fromAddress);
+//                Log.e("fromAddress:", fromAddress);
                 params.put("toAddress", toAddress);
                 params.put("amount", amount);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(SendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);

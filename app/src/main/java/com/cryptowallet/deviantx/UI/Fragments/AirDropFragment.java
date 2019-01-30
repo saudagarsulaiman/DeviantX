@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.DepositWalletAirdropActivity;
 import com.cryptowallet.deviantx.UI.Activities.DividendADListActivity;
 import com.cryptowallet.deviantx.UI.Activities.FeaturedADListAcivity;
@@ -33,14 +34,14 @@ import com.cryptowallet.deviantx.UI.Adapters.DividendADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
-import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.FeaturedAirdropsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.FeaturedAirdropsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -128,7 +129,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     ProgressDialog progressDialog;
 
 
-    ArrayList<AllCoins> allCoinsList;
+    ArrayList<FeaturedAirdrops> allFeaturedAirdrops;
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
@@ -153,7 +154,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         deviantXDB = DeviantXDB.getDatabase(getActivity());
         seekbar_per.setEnabled(false);
 
-        allCoinsList = new ArrayList<>();
+        allFeaturedAirdrops = new ArrayList<>();
         airdropWalletlist = new ArrayList<>();
 
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
@@ -412,14 +413,14 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     @Override
     public void onResume() {
         super.onResume();
-        myApplication.setAllCoinsUIListener(allCoinsUIListener);
+        myApplication.setFeaturedAirdropsUIListener(featuredAirdropUIListener);
         myApplication.setAirdropWalletUIListener(airdropWalletUIListener);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        myApplication.setAllCoinsUIListener(null);
+        myApplication.setFeaturedAirdropsUIListener(null);
         myApplication.setAirdropWalletUIListener(null);
     }
 
@@ -529,9 +530,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
-                if ((exploreCoinsDao.getExploreCoins()) != null) {
-                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
+                FeaturedAirdropsDao featuredAirdropsDao = deviantXDB.featuredAirdropsDao();
+                if ((featuredAirdropsDao.getFeaturedAirdrops()) != null) {
+                    String walletResult = featuredAirdropsDao.getFeaturedAirdrops().featuredAirdrops;
                     updateUIUserAirdrops(walletResult);
                 } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
@@ -545,11 +546,12 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     }
 
-    AllCoinsUIListener allCoinsUIListener = new AllCoinsUIListener() {
+    FeaturedAirdropsUIListener featuredAirdropUIListener = new FeaturedAirdropsUIListener() {
         @Override
-        public void onChangedAllCoins(String allCoinsList) {
-            updateUIUserAirdrops(allCoinsList);
+        public void onChangedFeaturedAirdrops(String allFeaturedAirdrops) {
+            updateUIUserAirdrops(allFeaturedAirdrops);
         }
+
     };
 
     private void updateUIUserAirdrops(String responsevalue) {
@@ -563,24 +565,21 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
-                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
-                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+                        FeaturedAirdrops[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, FeaturedAirdrops[].class);
+                        allFeaturedAirdrops = new ArrayList<FeaturedAirdrops>(Arrays.asList(coinsStringArray));
 
-                        ArrayList<AllCoins> featuredCoinsList = new ArrayList<>();
-                        ArrayList<AllCoins> notFeaturedCoinsList = new ArrayList<>();
-                        for (AllCoins coinName : allCoinsList) {
-                            if (coinName.getStr_isFeatureCoin().equals("NO")) {
-                                notFeaturedCoinsList.add(coinName);
-                            } else {
-                                featuredCoinsList.add(coinName);
-                            }
+                        ArrayList<FeaturedAirdrops> featuredCoinsList = new ArrayList<>();
+                        for (FeaturedAirdrops coinName : allFeaturedAirdrops) {
+                            featuredCoinsList.add(coinName);
                         }
                         if (featuredCoinsList.size() > 0) {
                             txt_fad_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_feat_coins.setVisibility(View.GONE);
-                            featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList);
+                            lnr_search_airdrops.setVisibility(View.GONE);
+                            featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList, false);
                             rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
                         } else {
+                            lnr_search_airdrops.setVisibility(View.VISIBLE);
                             txt_fad_viewAll.setVisibility(View.GONE);
                             lnr_empty_feat_coins.setVisibility(View.VISIBLE);
                         }
@@ -598,8 +597,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
-            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
+            UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getUserAD(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -609,9 +608,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIUserAirdrops(responsevalue);
-                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoinsDB);
+                            FeaturedAirdropsDao mDao = deviantXDB.featuredAirdropsDao();
+                            FeaturedAirdropsDB featuredAirdropsDB = new FeaturedAirdropsDB(1, responsevalue);
+                            mDao.insertFeaturedAirdrops(featuredAirdropsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,11 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -34,7 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -257,7 +253,9 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
 /*
                 SendingCoins(selectedAccountWallet.getStr_data_address(), toAddress, ttl_rcv);
 */
-                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
+//                SendingCoins(selectedAccountWallet.getStr_coin_name(), toAddress, ttl_rcv);
+                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+                SendingCoins(wallet_name, ttl_rcv, toAddress, selectedAccountWallet.getStr_coin_code());
                 dialog.dismiss();
 
             }
@@ -267,9 +265,19 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
 
     }
 
-    private void SendingCoins(String fromAddress, String toAddress, Double amount) {
+    //    private void SendingCoins(String fromAddress, String toAddress, Double amount) {
+    private void SendingCoins(String wallet_name, Double amount, String toAddress, String coin_code) {
         try {
             JSONObject params = new JSONObject();
+            try {
+                params.put("wallet_name", wallet_name);
+                params.put("amount", amount);
+                params.put("toAddress", toAddress);
+                params.put("coin_code", coin_code);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+/*
             try {
                 params.put("fromAddress", fromAddress);
                 Log.e("fromAddress:", fromAddress);
@@ -278,6 +286,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+*/
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(TwoFASendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);

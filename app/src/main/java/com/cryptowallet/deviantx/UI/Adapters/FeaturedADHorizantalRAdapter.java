@@ -1,8 +1,6 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,9 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.CoinInfoADAcivity;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
-import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,11 +21,13 @@ import butterknife.ButterKnife;
 
 public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedADHorizantalRAdapter.ViewHolder> {
     Context context;
-    ArrayList<AllCoins> allCoinsList;
+    ArrayList<FeaturedAirdrops> featuredAirdrops;
+    boolean isFull = false;
 
-    public FeaturedADHorizantalRAdapter(Context context, ArrayList<AllCoins> allCoinsList) {
+    public FeaturedADHorizantalRAdapter(Context context, ArrayList<FeaturedAirdrops> featuredAirdrops, boolean isFull) {
         this.context = context;
-        this.allCoinsList = allCoinsList;
+        this.featuredAirdrops = featuredAirdrops;
+        this.isFull = isFull;
     }
 
     @NonNull
@@ -43,18 +41,18 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
-        viewHolder.txt_coin_name_code.setText(allCoinsList.get(i).getStr_coin_name() + " (" + allCoinsList.get(i).getStr_coin_code() + ")");
-        viewHolder.txt_coin_value.setText("Estimated $" + i + " ref");
+        Picasso.with(context).load(featuredAirdrops.get(i).getStr_coinlogo()).into(viewHolder.img_coin);
+        viewHolder.txt_coin_name_code.setText(featuredAirdrops.get(i).getStr_coinName() + " (" + featuredAirdrops.get(i).getStr_coinCode() + ")");
+        viewHolder.txt_coin_value.setText("Estimated $" + featuredAirdrops.get(i).getStr_estimated() + " ref");
 
 /*
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AllCoinsDB selected_coin = allCoinsList.get(i);
+//                AllCoinsDB selected_coin = featuredAirdrops.get(i);
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.selectedCoin, allCoinsList.get(i));
+                bundle.putParcelable(CONSTANTS.selectedCoin, featuredAirdrops.get(i));
                 intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -65,7 +63,13 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
 
     @Override
     public int getItemCount() {
-        return allCoinsList.size();
+ /*       if (isFull){
+            if (featuredAirdrops.size()>)
+        }else {
+
+        }
+ */
+        return featuredAirdrops.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
