@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +27,7 @@ import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -174,7 +173,7 @@ public class AddCoinsActivity extends AppCompatActivity {
             public void CoinSelected(ArrayList<AllCoins> selected_allCoinsList, int pos) {
                 // btn_ready.setVisibility(View.GONE);
                 // allCoinsList = selected_allCoinsList;
-//                                        for (final AllCoins coins : allCoinsList) {
+//                                        for (final AllCoinsDB coins : allCoinsList) {
 //                                            if (coins.getSelected()) {
 //                                                btn_ready.setVisibility(View.VISIBLE);
 //                                                btn_ready.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +197,7 @@ public class AddCoinsActivity extends AppCompatActivity {
 //                try {
 
                 int i = 0;
-                //  final AllCoins selectedCoin = new AllCoins();
+                //  final AllCoinsDB selectedCoin = new AllCoinsDB();
                 for (AllCoins coins : selected_allCoinsList) {
                     if (coins.getSelected() != null)
                         if (coins.getSelected()) {
@@ -359,7 +358,7 @@ public class AddCoinsActivity extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            allCoinsList.add(new AllCoins(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
+                            allCoinsList.add(new AllCoinsDB(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
                         }*/
 
 
@@ -393,8 +392,8 @@ public class AddCoinsActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoinsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);

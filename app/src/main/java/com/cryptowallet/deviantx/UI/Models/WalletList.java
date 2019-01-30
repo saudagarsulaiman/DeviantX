@@ -78,7 +78,7 @@ public class WalletList implements Parcelable {
     }
 /*
 
-    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal) {
+    public WalletListDB(int int_data_id, String str_data_name, double dbl_data_totalBal) {
         this.int_data_id = int_data_id;
         this.dbl_data_totalBal = dbl_data_totalBal;
         this.str_data_name = str_data_name;

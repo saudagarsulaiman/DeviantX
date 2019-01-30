@@ -122,7 +122,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     public static final float GRANULARITY = 100f;
 
     String chart_data, data;
-    /*AllCoins*/ AccountWallet selectedCoin;
+    /*AllCoinsDB*/ AccountWallet selectedCoin;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;

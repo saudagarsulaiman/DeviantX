@@ -146,7 +146,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         editor = sharedPreferences.edit();
 
 
-//        selectedAccountWallet = new AccountWallet();
+//        selectedAccountWallet = new AccountWalletDB();
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 

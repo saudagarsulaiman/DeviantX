@@ -11,14 +11,14 @@ import com.cryptowallet.trendchart.DateValue;
 import java.util.ArrayList;
 
 @Entity(tableName = "account_wallet_table")
-public class AccountWallet{
+public class AccountWalletDB {
 
     @PrimaryKey
     @NonNull
     public String walletDatas;
 
 
-    public AccountWallet(@NonNull String walletDatas) {
+    public AccountWalletDB(@NonNull String walletDatas) {
         this.walletDatas = walletDatas;
     }
 

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Repository.AccountWalletRepository;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class AccountWalletViewModel extends AndroidViewModel {
 
     private AccountWalletRepository mRepository;
-    private List<AccountWallet> mList;
+    private List<AccountWalletDB> mList;
 
     public AccountWalletViewModel(@NonNull Application application) {
         super(application);
@@ -20,11 +20,11 @@ public class AccountWalletViewModel extends AndroidViewModel {
         mList = mRepository.getAllAccountWallet();
     }
 
-    public List<AccountWallet> getAllAccountWallet() {
+    public List<AccountWalletDB> getAllAccountWallet() {
         return mList;
     }
 
-    public void insertAccountWallet(AccountWallet data) {
+    public void insertAccountWallet(AccountWalletDB data) {
         mRepository.insertAccountWallet(data);
     }
 

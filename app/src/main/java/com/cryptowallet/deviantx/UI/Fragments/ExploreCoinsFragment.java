@@ -24,13 +24,12 @@ import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -237,7 +236,7 @@ public class ExploreCoinsFragment extends Fragment {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, false, str_coin_chart_data));
+                            allCoinsList.add(new AllCoinsDB(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m, false, str_coin_chart_data));
                         }*/
                         if (!edt_search.getText().toString().isEmpty()) {
                             ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
@@ -279,8 +278,8 @@ public class ExploreCoinsFragment extends Fragment {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoinsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

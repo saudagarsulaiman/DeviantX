@@ -5,14 +5,14 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
 
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.Repository.AllCoinsRepository;
 
 public class AllCoinsViewModel extends AndroidViewModel {
 
     private AllCoinsRepository mRepository;
-    private AllCoins mList;
+    private AllCoinsDB mList;
 
     public AllCoinsViewModel(@NonNull Application application) {
         super(application);
@@ -20,11 +20,11 @@ public class AllCoinsViewModel extends AndroidViewModel {
         mList = mRepository.getAllAllCoins();
     }
 
-    public AllCoins getAllAllCoins() {
+    public AllCoinsDB getAllAllCoins() {
         return mList;
     }
 
-    public void insertAllCoins(AllCoins data) {
+    public void insertAllCoins(AllCoinsDB data) {
         mRepository.insertAllCoins(data);
     }
 

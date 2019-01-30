@@ -16,7 +16,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
@@ -97,8 +97,8 @@ public class AllCoinsFetch extends IntentService {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoinsDB);
                             allCoinsUIListener = myApplication.getAllCoinsUIListener();
                             if (allCoinsUIListener != null) {
                                 allCoinsUIListener.onChangedAllCoins(responsevalue);

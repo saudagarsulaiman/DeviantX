@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "all_coins_table")
-public class AllCoins {
+public class AllCoinsDB {
     public String walletName;
     public String coinsList;
 
@@ -16,7 +16,7 @@ public class AllCoins {
     @NonNull
     public int walletId;
 
-    public AllCoins(String walletName, String coinsList, int walletId) {
+    public AllCoinsDB(String walletName, String coinsList, int walletId) {
         this.walletName = walletName;
         this.coinsList = coinsList;
         this.walletId = walletId;

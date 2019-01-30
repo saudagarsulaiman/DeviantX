@@ -5,7 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletListDB;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import java.util.List;
 public interface WalletListDao {
 
     @Insert
-    void insertWalletList(WalletList walletList);
+    void insertWalletList(WalletListDB walletListDB);
 
     @Query("DELETE FROM wallet_list_table")
     void deleteAllWalletList();
 
     @Query("SELECT * from wallet_list_table ORDER BY str_data_name ASC")
-    LiveData<List<WalletList>> getAllWalletList();
+    LiveData<List<WalletListDB>> getAllWalletList();
 
 }

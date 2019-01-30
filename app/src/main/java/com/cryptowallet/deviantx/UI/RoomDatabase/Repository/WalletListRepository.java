@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletListDB;
 
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
@@ -16,7 +16,7 @@ import java.util.List;
 public class WalletListRepository {
 
     private WalletListDao walletListDao;
-    private LiveData<List<WalletList>> walletList;
+    private LiveData<List<WalletListDB>> walletList;
 
     public WalletListRepository(Application application) {
         DeviantXDB db = DeviantXDB.getDatabase(application);
@@ -25,15 +25,15 @@ public class WalletListRepository {
     }
 
 
-    public LiveData<List<WalletList>> getAllWalletList() {
+    public LiveData<List<WalletListDB>> getAllWalletList() {
         return walletList;
     }
 
-    public void insertWalletList(WalletList walletList) {
-        new insertAsyncTask(walletListDao).execute(walletList);
+    public void insertWalletList(WalletListDB walletListDB) {
+        new insertAsyncTask(walletListDao).execute(walletListDB);
     }
 
-    private static class insertAsyncTask extends AsyncTask<WalletList, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<WalletListDB, Void, Void> {
 
         private WalletListDao mAsyncTaskDao;
 
@@ -42,7 +42,7 @@ public class WalletListRepository {
         }
 
         @Override
-        protected Void doInBackground(final WalletList... params) {
+        protected Void doInBackground(final WalletListDB... params) {
             mAsyncTaskDao.insertWalletList(params[0]);
             return null;
         }

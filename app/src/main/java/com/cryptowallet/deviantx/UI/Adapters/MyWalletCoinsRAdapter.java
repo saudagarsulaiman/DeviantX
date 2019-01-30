@@ -68,7 +68,7 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     Context context;
     ArrayList<AccountWallet> accountWalletlist;
-    //    ArrayList<AccountWallet> selectedAccountWallet;
+    //    ArrayList<AccountWalletDB> selectedAccountWallet;
     AccountWallet accountWallet;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;

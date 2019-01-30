@@ -22,8 +22,8 @@ import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
@@ -145,8 +145,8 @@ public class WalletDataFetch extends IntentService {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
                             AllCoinsDao mDao = deviantXDB.allCoinsDao();
-                            AllCoins allCoins = new AllCoins(walletName, responsevalue, walletId);
-                            mDao.insertAllCoins(allCoins);
+                            AllCoinsDB allCoinsDB = new AllCoinsDB(walletName, responsevalue, walletId);
+                            mDao.insertAllCoins(allCoinsDB);
                             if (isRefresh) {
                                 walletUIChangeListener = myApplication.getWalletUIChangeListener();
                                 if (walletUIChangeListener != null) {
@@ -196,8 +196,8 @@ public class WalletDataFetch extends IntentService {
         @Override
         protected String doInBackground(final String... params) {
             mDao.deleteAllAccountWallet();
-            AccountWallet accountWallet = new AccountWallet(params[0]);
-            mDao.insertAccountWallet(accountWallet);
+            AccountWalletDB accountWalletDB = new AccountWalletDB(params[0]);
+            mDao.insertAccountWallet(accountWalletDB);
             if (!isWallet)
                 onLoadWalletCoins(params[0]);
             return params[0];

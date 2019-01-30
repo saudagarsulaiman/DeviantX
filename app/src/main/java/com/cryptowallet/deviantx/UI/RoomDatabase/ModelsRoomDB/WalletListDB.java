@@ -11,7 +11,7 @@ import com.cryptowallet.trendchart.DateValue;
 import java.util.ArrayList;
 
 @Entity(tableName = "wallet_list_table")
-public class WalletList {
+public class WalletListDB {
     int int_data_id;
     double dbl_data_totalBal;
 
@@ -30,7 +30,7 @@ public class WalletList {
 
     boolean defaultWallet = false;
 
-    public WalletList(@NonNull int int_data_id, @NonNull String str_data_name, @NonNull double dbl_data_totalBal, @NonNull boolean defaultWallet) {
+    public WalletListDB(@NonNull int int_data_id, @NonNull String str_data_name, @NonNull double dbl_data_totalBal, @NonNull boolean defaultWallet) {
         this.int_data_id = int_data_id;
         this.dbl_data_totalBal = dbl_data_totalBal;
         this.str_data_name = str_data_name;
@@ -38,7 +38,7 @@ public class WalletList {
     }
 /*
 
-    public WalletList(int int_data_id, String str_data_name, double dbl_data_totalBal) {
+    public WalletListDB(int int_data_id, String str_data_name, double dbl_data_totalBal) {
         this.int_data_id = int_data_id;
         this.dbl_data_totalBal = dbl_data_totalBal;
         this.str_data_name = str_data_name;

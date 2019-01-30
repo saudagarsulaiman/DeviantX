@@ -4,31 +4,31 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 
 public class AllCoinsRepository {
 
     private AllCoinsDao allCoinsDao;
-    private AllCoins allCoins;
+    private AllCoinsDB allCoinsDB;
 
     public AllCoinsRepository(Application application) {
         DeviantXDB db = DeviantXDB.getDatabase(application);
         allCoinsDao = db.allCoinsDao();
-        allCoins = allCoinsDao.getAllAllCoins("");
+        allCoinsDB = allCoinsDao.getAllAllCoins("");
     }
 
 
-    public AllCoins getAllAllCoins() {
-        return allCoins;
+    public AllCoinsDB getAllAllCoins() {
+        return allCoinsDB;
     }
 
-    public void insertAllCoins(AllCoins allCoins) {
-        new insertAsyncTask(allCoinsDao).execute(allCoins);
+    public void insertAllCoins(AllCoinsDB allCoinsDB) {
+        new insertAsyncTask(allCoinsDao).execute(allCoinsDB);
     }
 
-    private static class insertAsyncTask extends AsyncTask<AllCoins, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<AllCoinsDB, Void, Void> {
 
         private AllCoinsDao mAsyncTaskDao;
 
@@ -37,7 +37,7 @@ public class AllCoinsRepository {
         }
 
         @Override
-        protected Void doInBackground(final AllCoins... params) {
+        protected Void doInBackground(final AllCoinsDB... params) {
             mAsyncTaskDao.insertAllCoins(params[0]);
             return null;
         }

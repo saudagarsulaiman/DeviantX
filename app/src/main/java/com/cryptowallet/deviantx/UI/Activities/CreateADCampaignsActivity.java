@@ -32,6 +32,8 @@ import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -135,7 +137,7 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
             @Override
             public void WalletSelected(ArrayList<WalletList> selected_allWalletList, int pos) {
                 int i = 0;
-                //  final WalletList selectedWallet = new WalletList();
+                //  final WalletListDB selectedWallet = new WalletListDB();
                 for (WalletList wallets : selected_allWalletList) {
                     if (wallets.getSelected()) {
                         wallets.setSelected(false);
@@ -260,8 +262,8 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                         walletUpdate(responsevalue);
                         AccountWalletDao accountWalletDao = db.accountWalletDao();
                         accountWalletDao.deleteAllAccountWallet();
-                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
-                        accountWalletDao.insertAccountWallet(accountWallet);
+                        AccountWalletDB accountWalletDB = new AccountWalletDB(responsevalue);
+                        accountWalletDao.insertAccountWallet(accountWalletDB);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -374,8 +376,8 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                             public void run() {
                                 updateCoins(responsevalue);
                                 AllCoinsDao mDao = db.allCoinsDao();
-                                com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins allCoins = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins(walletName, responsevalue, walletId);
-                                mDao.insertAllCoins(allCoins);
+                                AllCoinsDB allCoinsDB = new AllCoinsDB(walletName, responsevalue, walletId);
+                                mDao.insertAllCoins(allCoinsDB);
                             }
                         });
                     } catch (Exception e) {

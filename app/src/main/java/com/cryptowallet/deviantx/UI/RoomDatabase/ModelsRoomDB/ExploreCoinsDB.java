@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "explore_coins_table")
-public class ExploreCoins {
+public class ExploreCoinsDB {
 
     @PrimaryKey
     @NonNull
@@ -13,7 +13,7 @@ public class ExploreCoins {
 
     public String exploreCoins;
 
-    public ExploreCoins(int id, String exploreCoins) {
+    public ExploreCoinsDB(int id, String exploreCoins) {
         this.id = id;
         this.exploreCoins = exploreCoins;
     }

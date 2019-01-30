@@ -159,9 +159,9 @@ public class AccountWallet implements Parcelable {
                 Double str_data_balanceInINR;
 
                 @SerializedName("coin")
-                AllCoins allCoins;
+                AllCoinsDB allCoins;
             */
- /*   protected AccountWallet(Parcel in) {
+ /*   protected AccountWalletDB(Parcel in) {
         str_data_walletName = in.readString();
         int_data_id = in.readInt();
         str_data_address = in.readString();
@@ -183,7 +183,7 @@ public class AccountWallet implements Parcelable {
         } else {
             str_data_balanceInINR = in.readDouble();
         }
-        allCoins = in.readParcelable(AllCoins.class.getClassLoader());
+        allCoins = in.readParcelable(AllCoinsDB.class.getClassLoader());
         byte tmpIsFav = in.readByte();
         isFav = tmpIsFav == 0 ? null : tmpIsFav == 1;
         if (in.readByte() == 0) {
@@ -193,15 +193,15 @@ public class AccountWallet implements Parcelable {
         }
     }
 
-    public static final Creator<AccountWallet> CREATOR = new Creator<AccountWallet>() {
+    public static final Creator<AccountWalletDB> CREATOR = new Creator<AccountWalletDB>() {
         @Override
-        public AccountWallet createFromParcel(Parcel in) {
-            return new AccountWallet(in);
+        public AccountWalletDB createFromParcel(Parcel in) {
+            return new AccountWalletDB(in);
         }
 
         @Override
-        public AccountWallet[] newArray(int size) {
-            return new AccountWallet[size];
+        public AccountWalletDB[] newArray(int size) {
+            return new AccountWalletDB[size];
         }
     };
 */
@@ -489,11 +489,11 @@ public class AccountWallet implements Parcelable {
         this.str_data_balanceInINR = str_data_balanceInINR;
     }
 
-    public AllCoins getAllCoins() {
+    public AllCoinsDB getAllCoins() {
         return allCoins;
     }
 
-    public void setAllCoins(AllCoins allCoins) {
+    public void setAllCoins(AllCoinsDB allCoins) {
         this.allCoins = allCoins;
     }
 

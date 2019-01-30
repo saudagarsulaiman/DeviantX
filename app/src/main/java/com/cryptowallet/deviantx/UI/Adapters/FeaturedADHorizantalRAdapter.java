@@ -51,7 +51,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AllCoins selected_coin = allCoinsList.get(i);
+//                AllCoinsDB selected_coin = allCoinsList.get(i);
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedCoin, allCoinsList.get(i));

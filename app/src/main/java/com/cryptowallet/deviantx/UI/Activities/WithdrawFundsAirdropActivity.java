@@ -278,7 +278,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             public void WalletSelected(ArrayList<WalletList> selected_allWalletList, int pos) {
 
                 int i = 0;
-                //  final WalletList selectedWallet = new WalletList();
+                //  final WalletListDB selectedWallet = new WalletListDB();
                 for (WalletList wallets : selected_allWalletList) {
                     if (wallets.getSelected()) {
                         wallets.setSelected(false);

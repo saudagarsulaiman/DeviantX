@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,12 +22,12 @@ import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -238,7 +237,7 @@ for (int i = 0; i < jsonArrayData.length(); i++) {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                        walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                     }*/
                     myWalletListRAdapter.setAllWallets(walletList);
                     rview_my_walletlist.setAdapter(myWalletListRAdapter);
@@ -273,8 +272,8 @@ for (int i = 0; i < jsonArrayData.length(); i++) {
                         walletUpdate(responsevalue);
                         AccountWalletDao accountWalletDao = db.accountWalletDao();
                         accountWalletDao.deleteAllAccountWallet();
-                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
-                        accountWalletDao.insertAccountWallet(accountWallet);
+                        AccountWalletDB accountWalletDB = new AccountWalletDB(responsevalue);
+                        accountWalletDao.insertAccountWallet(accountWalletDB);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -347,7 +346,7 @@ for (int i = 0; i < jsonArrayData.length(); i++) {
 //                                    } catch (Exception e) {
 //                                        e.printStackTrace();
 //                                    }
-//                                    walletList.add(new WalletList(int_data_id, str_data_name, dbl_data_totalBal, defaultWallet));
+//                                    walletList.add(new WalletListDB(int_data_id, str_data_name, dbl_data_totalBal, defaultWallet));
 //                                }
 //                                myWalletListRAdapter = new MyWalletListRAdapter(WalletListActivity.this, walletList);
 //                                rview_my_walletlist.setAdapter(myWalletListRAdapter);

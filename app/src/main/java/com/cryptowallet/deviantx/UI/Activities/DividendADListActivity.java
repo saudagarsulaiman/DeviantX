@@ -26,7 +26,7 @@ import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -150,7 +150,7 @@ public class DividendADListActivity extends AppCompatActivity {
             @Override
             public void CoinSelected(ArrayList<AllCoins> selected_allCoinsList, int pos) {
                 int i = 0;
-                //  final AllCoins selectedCoin = new AllCoins();
+                //  final AllCoinsDB selectedCoin = new AllCoinsDB();
                 for (AllCoins coins : selected_allCoinsList) {
                     if (coins.getSelected() != null)
                         if (coins.getSelected()) {
@@ -261,7 +261,7 @@ public class DividendADListActivity extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            allCoinsList.add(new AllCoins(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
+                            allCoinsList.add(new AllCoinsDB(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
                         }*/
 
 
@@ -295,8 +295,8 @@ public class DividendADListActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             updateUI(responsevalue);
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoins);
+                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoinsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(DividendADListActivity.this, loginResponseMsg);

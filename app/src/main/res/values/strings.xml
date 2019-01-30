@@ -373,7 +373,7 @@
     <string name="started_b1">Native Support for bitcoin and most major altcoins and tokens.</string>
 
 
-    <!--WalletList (AirDrop) Fragment-->
+    <!--WalletListDB (AirDrop) Fragment-->
     <string name="air_drop">Airdrop</string>
     <string name="reload">Reload</string>
 

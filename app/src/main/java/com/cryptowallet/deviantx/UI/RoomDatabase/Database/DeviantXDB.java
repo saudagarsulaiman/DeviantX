@@ -6,18 +6,18 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletListDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletListDao;
 
 
-@Database(entities = {WalletList.class, AccountWallet.class, AllCoins.class, AirdropWalletDB.class,ExploreCoins.class}, version = 1)
+@Database(entities = {WalletListDB.class, AccountWalletDB.class, AllCoinsDB.class, AirdropWalletDB.class,ExploreCoinsDB.class}, version = 1)
 public abstract class DeviantXDB extends RoomDatabase {
 
     public abstract WalletListDao walletListDao();

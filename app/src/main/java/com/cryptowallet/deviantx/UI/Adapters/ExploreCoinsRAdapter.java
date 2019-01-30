@@ -62,7 +62,7 @@ public class ExploreCoinsRAdapter extends RecyclerView.Adapter<ExploreCoinsRAdap
             @Override
             public void onClick(View v) {
                 AllCoins selectedcoin = allCoinsList.get(i);
-//                AllCoins selectedCoin = new AllCoins(
+//                AllCoinsDB selectedCoin = new AllCoinsDB(
 //                        allCoinsList.get(i).getInt_coin_id(),
 //                        allCoinsList.get(i).getStr_coin_name(),
 //                        allCoinsList.get(i).getStr_coin_code(),

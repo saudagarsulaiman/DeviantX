@@ -39,6 +39,8 @@ import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -279,7 +281,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                                walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                             }
 */
                             walletListRAdapter.setAllWallets(walletList);
@@ -488,8 +490,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                         walletUpdate(responsevalue);
                         AccountWalletDao accountWalletDao = db.accountWalletDao();
                         accountWalletDao.deleteAllAccountWallet();
-                        com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet accountWallet = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet(responsevalue);
-                        accountWalletDao.insertAccountWallet(accountWallet);
+                        AccountWalletDB accountWalletDB = new AccountWalletDB(responsevalue);
+                        accountWalletDao.insertAccountWallet(accountWalletDB);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -566,7 +568,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                        walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                     }
 */
                     walletListRAdapter.setAllWallets(walletList);
@@ -764,8 +766,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             public void run() {
                                 updateCoins(responsevalue);
                                 AllCoinsDao mDao = db.allCoinsDao();
-                                com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins allCoins = new com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins(walletName, responsevalue, walletId);
-                                mDao.insertAllCoins(allCoins);
+                                AllCoinsDB allCoinsDB = new AllCoinsDB(walletName, responsevalue, walletId);
+                                mDao.insertAllCoins(allCoinsDB);
                             }
                         });
                     } catch (Exception e) {

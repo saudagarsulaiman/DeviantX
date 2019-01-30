@@ -213,7 +213,7 @@ public class AllCoins implements Parcelable {
     }
 
 /*
-    public AllCoins() {
+    public AllCoinsDB() {
 
     }
 */
