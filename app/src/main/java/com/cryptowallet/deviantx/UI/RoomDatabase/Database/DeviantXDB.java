@@ -7,7 +7,7 @@ import android.content.Context;
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWallet;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletList;
@@ -17,7 +17,7 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletListDao;
 
 
-@Database(entities = {WalletList.class, AccountWallet.class, AllCoins.class, AirdropWallet.class,ExploreCoins.class}, version = 1)
+@Database(entities = {WalletList.class, AccountWallet.class, AllCoins.class, AirdropWalletDB.class,ExploreCoins.class}, version = 1)
 public abstract class DeviantXDB extends RoomDatabase {
 
     public abstract WalletListDao walletListDao();

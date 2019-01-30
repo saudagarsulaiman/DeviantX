@@ -150,6 +150,7 @@
 
     <!--DashBoard Fragment-->
     <string name="my_coins_list">My Coins List</string>
+    <string name="noti_text">Mana Trading Competetion: 1,875,000 MANA 2 week</string>
 
 
     <!--Dialog Coins Transactions-->
@@ -551,16 +552,21 @@
     <string name="empty_ad_feat_coins">No featured coins are available</string>
     <string name="empty_ad_div_coins">No dividend coins are available</string>
     <string name="empty_ad_his_list">No Airdrop history is available</string>
+    <string name="deposit_wallet">Deposit Wallet</string>
+    <string name="no_avail_ad">No Airdrops available</string>
 
 
     <!--SelectADCampaignsActivity-->
     <string name="note_airdrop_camp">To create an Airdrop campaigns your need to have a minimum of 500 DEV.</string>
     <string name="select_ad_type">Select the type of Airdrop</string>
     <string name="hint_sel_ad_type">Social is recommended to get followers on social networks.</string>
+
+    <!--CreateADCampaignActivity-->
     <string name="sel_wal">Select the Wallet</string>
     <string name="avail_coins">Available Coins</string>
     <string name="max_coins_distribute">Maximum coins to distribute</string>
     <string name="hint_max_coins">When this limit is finished, the bell will automatically end.</string>
+    <string name="sel_ad_coin">Select the Airdrop Coin</string>
 
 
 </resources>

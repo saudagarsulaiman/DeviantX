@@ -16,7 +16,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
@@ -99,7 +99,7 @@ public class AirdropWalletFetch extends IntentService {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
                             AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
-                            AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
+                            AirdropWalletDB airdropWallet = new AirdropWalletDB(1, responsevalue);
                             mDao.insertAirdropWallet(airdropWallet);
                             airdropWalletUIListener = myApplication.getAirdropWalletUIListener();
                             if (airdropWalletUIListener != null) {

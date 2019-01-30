@@ -5,18 +5,18 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
 
 @Dao
 public interface AirdropWalletDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAirdropWallet(AirdropWallet airdropWallet);
+    void insertAirdropWallet(AirdropWalletDB airdropWallet);
 
     @Query("DELETE FROM airdrop_wallet_coins_table")
     void deleteAllAirdropWallet();
 
     @Query("SELECT * from airdrop_wallet_coins_table")
-    AirdropWallet getAllAirdropWallet();
+    AirdropWalletDB getAllAirdropWallet();
 
 }

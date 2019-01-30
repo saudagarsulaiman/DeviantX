@@ -326,7 +326,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                         intent.putExtras(bundle1);
                                         startActivity(intent);
                                     } else {
+/*
                                         toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+*/
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
                                     }
                                 } else {
@@ -360,7 +362,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                         intent.putExtras(bundle1);
                                         startActivity(intent);
                                     } else {
+/*
                                         toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+*/
 //                            transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
                                     }
                                 } else {
@@ -578,7 +582,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+/*
                 transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
+*/
                 dialog.dismiss();
             }
         });
@@ -637,7 +643,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+/*
                 transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+*/
                 dialog.dismiss();
             }
         });

@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
-import com.cryptowallet.deviantx.UI.Activities.ConfigWalletAirdropActivity;
+import com.cryptowallet.deviantx.UI.Activities.DepositWalletAirdropActivity;
 import com.cryptowallet.deviantx.UI.Activities.DividendADListActivity;
 import com.cryptowallet.deviantx.UI.Activities.FeaturedADListAcivity;
 import com.cryptowallet.deviantx.UI.Activities.RecentADHistoryAcivity;
@@ -34,11 +34,12 @@ import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.RecentADHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoins;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -49,7 +50,6 @@ import com.zyyoona7.popup.EasyPopup;
 import com.zyyoona7.popup.XGravity;
 import com.zyyoona7.popup.YGravity;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -224,8 +224,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadAllCoins();
-//                onLoadAirDropWallet();
+                onLoadAirDropWallet();
+                onLoadUserAirdrops();
             }
         }, 200);
 
@@ -255,14 +255,15 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         TextView txt_ad_info = mRvPop.findViewById(R.id.txt_ad_info);
         TextView txt_delete = mRvPop.findViewById(R.id.txt_delete);
 
+/*
         txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                CommonUtilities.ShowToastMessage(getActivity(), /*getResources().getString(R.string.copy_wallet)*/airdropWalletlist.get(0).getStr_data_ad_address());
                 CommonUtilities.copyToClipboard(getActivity(), airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_name());
                 mRvPop.dismiss();
             }
         });
+*/
 
         txt_withdraw_funds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,7 +282,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         txt_config_wallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ConfigWalletAirdropActivity.class);
+                Intent intent = new Intent(getActivity(), DepositWalletAirdropActivity.class);
                 Bundle bundle = new Bundle();
 //                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
                 bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
@@ -326,9 +327,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            updateUI(responsevalue);
+                            updateUIADWallet(responsevalue);
                             AirdropWalletDao mDao = deviantXDB.airdropWalletDao();
-                            AirdropWallet airdropWallet = new AirdropWallet(1, responsevalue);
+                            AirdropWalletDB airdropWallet = new AirdropWalletDB(1, responsevalue);
                             mDao.insertAirdropWallet(airdropWallet);
 
                         } else {
@@ -425,11 +426,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     AirdropWalletUIListener airdropWalletUIListener = new AirdropWalletUIListener() {
         @Override
         public void onChangedAirdropWallet(String airdropWalletList) {
-            updateUI(airdropWalletList);
+            updateUIADWallet(airdropWalletList);
         }
     };
 
-    private void updateUI(String responsevalue) {
+    private void updateUIADWallet(String responsevalue) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -440,152 +441,16 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
-                        JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                        airdropWalletlist = new ArrayList<>();
-                        for (int i = 0; i < jsonArrayData.length(); i++) {
-                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                            try {
-                                int_ad_data_id = jsonObjectData.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-//                                    try {
-//                                        isFav = jsonObjectData.getBoolean("fav");
-//                                    } catch (Exception e) {
-//                                        e.printStackTrace();
-//                                    }
-                            try {
-                                str_data_ad_address = jsonObjectData.getString("address");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
 
-                            try {
-                                str_data_ad_privatekey = jsonObjectData.getString("airdropPrivatekey");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_ad_passcode = jsonObjectData.getString("airdropPasscode");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_ad_balance = jsonObjectData.getDouble("balance");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_data_ad_balanceInUSD = jsonObjectData.getDouble("balanceInUSD");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_airdropStatus = jsonObjectData.getString("airdropStatus");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                startDate = jsonObjectData.getString("airdropStartDate");
-                                       /* if (startDate.equals("null")) {
-                                            startDate = "0";
-                                        }*/
+                        AirdropWallet[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AirdropWallet[].class);
+                        airdropWalletlist = new ArrayList<AirdropWallet>(Arrays.asList(coinsStringArray));
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_ad_account = jsonObjectData.getString("account");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_data_ad_coin = jsonObjectData.getString("coin");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                int_ad_noOfDays = jsonObjectData.getInt("noOfDays");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
 
-                            JSONObject jsonObjectCoins = new JSONObject(str_data_ad_coin);
-
-                            try {
-                                int_ad_coin_id = jsonObjectCoins.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_ad_coin_name = jsonObjectCoins.getString("name");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_ad_coin_code = jsonObjectCoins.getString("code");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_ad_coin_logo = jsonObjectCoins.getString("logo");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                int_ad_coin_rank = jsonObjectCoins.getInt("rank");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_volume = jsonObjectCoins.getDouble("volume");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_24h = jsonObjectCoins.getDouble("change24H");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_7d = jsonObjectCoins.getDouble("change7D");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_ad_coin_1m = jsonObjectCoins.getDouble("change1M");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_ad_coin_chart_data = jsonObjectCoins.getString("chartData");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_ad_coin_daily_chart_data = jsonObjectCoins.getString("dailyChartData");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            AllCoins allCoins = new AllCoins(int_ad_coin_id, str_ad_coin_name, str_ad_coin_code, str_ad_coin_logo, dbl_ad_coin_usdValue,
-                                    int_ad_coin_rank, dbl_ad_coin_marketCap, dbl_ad_coin_volume, dbl_ad_coin_24h, dbl_ad_coin_7d, dbl_ad_coin_1m, str_ad_coin_chart_data, str_ad_coin_daily_chart_data);
-                            airdropWalletlist.add(new com.cryptowallet.deviantx.UI.Models.AirdropWallet(str_airdropStatus, startDate, int_ad_data_id, str_data_ad_address, str_data_ad_privatekey,
-                                    str_data_ad_passcode, dbl_data_ad_balance, dbl_data_ad_balanceInUSD,
-                                    str_data_ad_account, int_ad_noOfDays, allCoins));
-                        }
-                        Picasso.with(getActivity()).load(airdropWalletlist.get(0).getAllCoins().getStr_coin_logo()).into(img_coin_icon);
-                        txt_coin_name_code.setText(airdropWalletlist.get(0).getAllCoins().getStr_coin_name() + " (" + airdropWalletlist.get(0).getAllCoins().getStr_coin_code() + " )");
+                        Picasso.with(getActivity()).load(airdropWalletlist.get(0).getStr_ad_coin_logo()).into(img_coin_icon);
+                        txt_coin_name_code.setText(airdropWalletlist.get(0).getStr_ad_coin_name() + " (" + airdropWalletlist.get(0).getStr_ad_coin_code() + " )");
+/*
                         txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+*/
                         if (myApplication.getHideBalance()) {
                             txt_holding_bal.setText("***");
                         } else {
@@ -602,7 +467,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         }
 
 
-                        if (airdropWalletlist.get(0).getStartDate().equals("null")) {
+                        if (airdropWalletlist.get(0).getStartDate() == null) {
                             txt_holding_days.setText("0 Days");
                             seekbar_per.setProgress(0);
                             txt_seekbar_per.setText("0" + "%");
@@ -613,7 +478,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         }
 
 //                                if (airdropWalletlist.get(0).getStr_data_ad_address().length() < 15) {
+/*
                         txt_coin_address.setText(airdropWalletlist.get(0).getStr_data_ad_address());
+*/
 //                                } else {
 //                                    String address = airdropWalletlist.get(0).getStr_data_ad_address();
 //                                    String dummy = "{...}";
@@ -642,7 +509,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 AirdropWalletDao airdropWalletDao = deviantXDB.airdropWalletDao();
                 if ((airdropWalletDao.getAllAirdropWallet()) != null) {
                     String walletResult = airdropWalletDao.getAllAirdropWallet().airdropWallet;
-                    updateUI(walletResult);
+                    updateUIADWallet(walletResult);
                 } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
                         fetchAirdropWallet();
@@ -655,7 +522,9 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     }
 
-    private void onLoadAllCoins() {
+
+    //    **************GETTING USER AIRDROPS**************
+    private void onLoadUserAirdrops() {
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -663,10 +532,10 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
                 if ((exploreCoinsDao.getExploreCoins()) != null) {
                     String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
-                    updateUICoins(walletResult);
+                    updateUIUserAirdrops(walletResult);
                 } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
-                        fetchCoins();
+                        fetchCoinsUserAirdrops();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
@@ -679,11 +548,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     AllCoinsUIListener allCoinsUIListener = new AllCoinsUIListener() {
         @Override
         public void onChangedAllCoins(String allCoinsList) {
-            updateUICoins(allCoinsList);
+            updateUIUserAirdrops(allCoinsList);
         }
     };
 
-    private void updateUICoins(String responsevalue) {
+    private void updateUIUserAirdrops(String responsevalue) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -725,7 +594,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         });
     }
 
-    private void fetchCoins() {
+    private void fetchCoinsUserAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
@@ -739,7 +608,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            updateUICoins(responsevalue);
+                            updateUIUserAirdrops(responsevalue);
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
                             ExploreCoins exploreCoins = new ExploreCoins(1, responsevalue);
                             mDao.insertAllCoins(exploreCoins);

@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
@@ -103,6 +104,10 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     ImageView favFilter;
     @BindView(R.id.lnr_no_fav_avail)
     LinearLayout lnr_no_fav_avail;
+    @BindView(R.id.lnr_notification)
+    LinearLayout lnr_notification;
+    @BindView(R.id.txt_notification)
+    TextView txt_notification;
 
 
     WalletListRAdapter walletListRAdapter;

@@ -7,14 +7,14 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "airdrop_wallet_coins_table")
-public class AirdropWallet {
+public class AirdropWalletDB {
     @PrimaryKey
     @NonNull
     public int id;
 
     public String airdropWallet;
 
-    public AirdropWallet(int id, String airdropWallet) {
+    public AirdropWalletDB(int id, String airdropWallet) {
         this.id = id;
         this.airdropWallet= airdropWallet;
     }

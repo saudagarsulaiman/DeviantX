@@ -63,7 +63,7 @@
                         android:layout_marginStart="@dimen/margin5"
                         android:layout_marginLeft="@dimen/margin5"
                         android:layout_marginTop="@dimen/def_margin"
-                        android:text="@string/sel_wal"
+                        android:text="@string/sel_ad_coin"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text18"
                         android:textStyle="bold" />

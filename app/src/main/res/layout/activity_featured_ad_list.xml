@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin10"
-            android:text="@string/empty_ad_feat_coins"
+            android:text="@string/no_avail_ad"
             android:textColor="@color/white"
             android:textSize="@dimen/def_lbl_size" />
 

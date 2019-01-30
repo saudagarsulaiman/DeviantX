@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/txt_copy_wallet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginTop="@dimen/margin10"
+            android:layout_marginTop="@dimen/def_margin"
             android:paddingStart="@dimen/def_padding"
             android:paddingLeft="@dimen/def_padding"
             android:paddingEnd="@dimen/def_padding"
@@ -52,7 +53,7 @@
             android:paddingLeft="@dimen/def_padding"
             android:paddingEnd="@dimen/def_padding"
             android:paddingRight="@dimen/def_padding"
-            android:text="@string/config_wallet"
+            android:text="@string/deposit_wallet"
             android:textColor="@color/black"
             android:textSize="@dimen/def_text_size"
             android:textStyle="bold" />

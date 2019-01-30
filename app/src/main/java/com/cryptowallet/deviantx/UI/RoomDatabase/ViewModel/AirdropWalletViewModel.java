@@ -2,20 +2,17 @@ package com.cryptowallet.deviantx.UI.RoomDatabase.ViewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWallet;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
 
 import com.cryptowallet.deviantx.UI.RoomDatabase.Repository.AirdropWalletRepository;
-
-import java.util.List;
 
 public class AirdropWalletViewModel extends AndroidViewModel {
 
     private AirdropWalletRepository mRepository;
-    private AirdropWallet mList;
+    private AirdropWalletDB mList;
 
     public AirdropWalletViewModel(@NonNull Application application) {
         super(application);
@@ -23,11 +20,11 @@ public class AirdropWalletViewModel extends AndroidViewModel {
         mList = mRepository.getAllAirdropWallet();
     }
 
-    public AirdropWallet getAllAirdropWallet() {
+    public AirdropWalletDB getAllAirdropWallet() {
         return mList;
     }
 
-    public void insertAirdropWallet(AirdropWallet data) {
+    public void insertAirdropWallet(AirdropWalletDB data) {
         mRepository.insertAirdropWallet(data);
     }
 

@@ -117,9 +117,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
             }
         });
 
+        Bundle bundle = getIntent().getExtras();
+        selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
+
 
         if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
-//            Transaction History
+//            Fetch Address
             fetchAddress(selectedAccountWallet);
 
         } else {
@@ -127,8 +130,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         }
 
 
-        Bundle bundle = getIntent().getExtras();
-        selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
 /*
         txt_dev_address.setText(selectedAccountWallet.getStr_data_address());
@@ -183,9 +184,10 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     private void fetchAddress(final AccountWallet selectedAccountWallet) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             progressDialog = ProgressDialog.show(ReceiveCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.receiveCoins(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_code(), selectedAccountWallet.getStr_data_walletName());
+            Call<ResponseBody> apiResponse = apiService.receiveCoins(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_code(), wallet_name);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

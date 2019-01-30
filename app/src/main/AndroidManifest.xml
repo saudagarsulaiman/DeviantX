@@ -148,7 +148,7 @@
             android:name=".UI.Activities.TwoFAAirDropActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activities.ConfigWalletAirdropActivity"
+            android:name=".UI.Activities.DepositWalletAirdropActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.TwoFAEnable1Activity"

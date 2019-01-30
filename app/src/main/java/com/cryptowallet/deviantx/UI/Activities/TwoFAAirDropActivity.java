@@ -161,10 +161,12 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
+/*
                                 if (walletName.isEmpty())
                                     toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
                                 else
                                     toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+*/
 
 
                             } else {
