@@ -47,6 +47,7 @@ public class CONSTANTS {
     public static String reg_ID = "FCMREGID";
     public static String selectedCoinName = "SELECTEDCOINNAME";
     public static String selectedCoinCode = "SELECTEDCOINCODE";
+    public static String claimCoin = "CLAIMCOIN";
 
 
 //    //    Selected Account Wallet Details

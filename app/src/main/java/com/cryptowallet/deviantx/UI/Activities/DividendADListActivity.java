@@ -21,11 +21,17 @@ import android.widget.Toast;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.AddCoinsRAdapter;
+import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
+import com.cryptowallet.deviantx.UI.Adapters.DividendADHorizantalRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.DividendADVerticalRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
+import com.cryptowallet.deviantx.UI.Interfaces.DividendAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.DividendAirdrops;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.DividendAirdropsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.DividendAirdropsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -51,33 +57,29 @@ import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 public class DividendADListActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.tool)
-    Toolbar tool;
+    @BindView(R.id.toolbar_center_back)
+    Toolbar toolbar_center_back;
     @BindView(R.id.lnr_search)
     LinearLayout lnr_search;
-    @BindView(R.id.rview_coins_list)
-    RecyclerView rview_coins_list;
+    @BindView(R.id.rview_div_coins_list)
+    RecyclerView rview_div_coins_list;
     @BindView(R.id.edt_search)
     EditText edt_search;
+    @BindView(R.id.lnr_empty_div_coins)
+    LinearLayout lnr_empty_div_coins;
 
-    AddCoinsRAdapter addCoinsRAdapter;
+
+    DividendADVerticalRAdapter dividendADVerticalRAdapter;
     GridLayoutManager layoutManager;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
-
-    int int_data_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    ;
-
-    String loginResponseData, loginResponseStatus, loginResponseMsg,
-            str_coin_name, str_coin_code, str_coin_logo;
-
-    ArrayList<AllCoins> allCoinsList;
-    CoinSelectableListener coinSelectableListener;
-    int selectedCoinId = 0;
     DeviantXDB deviantXDB;
+
+
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
+    ArrayList<DividendAirdrops> allDividendAirdrops;
 
     @Override
     protected void onResume() {
@@ -96,20 +98,20 @@ public class DividendADListActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        allCoinsList = new ArrayList<>();
+        allDividendAirdrops = new ArrayList<>();
 
         layoutManager = new GridLayoutManager(DividendADListActivity.this, 2, GridLayoutManager.VERTICAL, false);
-        rview_coins_list.setLayoutManager(layoutManager);
+        rview_div_coins_list.setLayoutManager(layoutManager);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadAllCoins();
+                onLoadDividendAirdrops();
             }
         }, 100);
 
 
-        tool.setOnClickListener(new View.OnClickListener() {
+        toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -129,57 +131,34 @@ public class DividendADListActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
-                for (AllCoins coinName : allCoinsList) {
-                    if (coinName.getStr_coin_name().toLowerCase().contains(s.toString().toLowerCase())) {
-                        if (coinName./*getInt_coin_id() */getInt_coin_rank() == selectedCoinId)
-                            coinName.setSelected(true);
-                        else
-                            coinName.setSelected(false);
+                ArrayList<DividendAirdrops> searchCoinsList = new ArrayList<>();
+                for (DividendAirdrops coinName : allDividendAirdrops) {
+                    if (coinName.getStr_coinName().toLowerCase().contains(s.toString().toLowerCase())) {
                         searchCoinsList.add(coinName);
                     }
                 }
-                addCoinsRAdapter = new AddCoinsRAdapter(DividendADListActivity.this, searchCoinsList, coinSelectableListener);
-                rview_coins_list.setAdapter(addCoinsRAdapter);
-                addCoinsRAdapter.notifyDataSetChanged();
+                dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, searchCoinsList, true);
+                rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
             }
         });
-
-
-        coinSelectableListener = new CoinSelectableListener() {
-            @Override
-            public void CoinSelected(ArrayList<AllCoins> selected_allCoinsList, int pos) {
-                int i = 0;
-                //  final AllCoinsDB selectedCoin = new AllCoinsDB();
-                for (AllCoins coins : selected_allCoinsList) {
-                    if (coins.getSelected() != null)
-                        if (coins.getSelected()) {
-                            coins.setSelected(false);
-                            addCoinsRAdapter.notifyDataSetChanged();
-                        }
-                    i++;
-                }
-                addCoinsRAdapter.setCoinValue(!selected_allCoinsList.get(pos).getSelected(), pos);
-
-            }
-        };
-
+        
     }
 
-    private void onLoadAllCoins() {
 
-        this.runOnUiThread(new Runnable() {
+    //    **************GETTING DIVIDEND AIRDROPS**************
+    private void onLoadDividendAirdrops() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
-                if ((exploreCoinsDao.getExploreCoins()) != null) {
-                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
-                    updateUI(walletResult);
+                DividendAirdropsDao dividendAirdropsDao = deviantXDB.dividendAirdropsDao();
+                if ((dividendAirdropsDao.getDividendAirdrops()) != null) {
+                    String walletResult = dividendAirdropsDao.getDividendAirdrops().diviendAirdrops;
+                    updateUIDividendAirdrops(walletResult);
                 } else {
-                    if (CommonUtilities.isConnectionAvailable(getApplicationContext())) {
-                        fetchCoins();
+                    if (CommonUtilities.isConnectionAvailable(DividendADListActivity.this)) {
+                        fetchCoinsDividendAirdrops();
                     } else {
-                        CommonUtilities.ShowToastMessage(getApplicationContext(), getResources().getString(R.string.internetconnection));
+                        CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.internetconnection));
                     }
                 }
             }
@@ -187,87 +166,39 @@ public class DividendADListActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI(String responsevalue) {
-        this.runOnUiThread(new Runnable() {
+    DividendAirdropsUIListener dividendAirdropsUIListener = new DividendAirdropsUIListener() {
+        @Override
+        public void onChangedDividendAirdrops(String allDividendAirdrops) {
+            updateUIDividendAirdrops(allDividendAirdrops);
+        }
+
+    };
+
+    private void updateUIDividendAirdrops(String responsevalue) {
+        DividendADListActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject jsonObject = new JSONObject(responsevalue);
-                    // loginResponseMsg = jsonObject.getString("msg");
-                    //  loginResponseStatus = jsonObject.getString("status");
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
 
-                    if (true) {
+                    if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
-                        //JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
+                        DividendAirdrops[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, DividendAirdrops[].class);
+                        allDividendAirdrops = new ArrayList<DividendAirdrops>(Arrays.asList(coinsStringArray));
 
-                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
-                        /*for (int i = 0; i < jsonArrayData.length(); i++) {
-                            JSONObject jsonObjectCoins = jsonArrayData.getJSONObject(i);
-
-                            try {
-                                int_data_id = jsonObjectCoins.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_name = jsonObjectCoins.getString("name");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_code = jsonObjectCoins.getString("code");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_logo = jsonObjectCoins.getString("logo");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                int_coin_rank = jsonObjectCoins.getInt("rank");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            allCoinsList.add(new AllCoinsDB(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
-                        }*/
-
-
-                        addCoinsRAdapter = new AddCoinsRAdapter(DividendADListActivity.this, allCoinsList, coinSelectableListener);
-                        rview_coins_list.setAdapter(addCoinsRAdapter);
-                        addCoinsRAdapter.notifyDataSetChanged();
+                        ArrayList<DividendAirdrops> dividendCoinsList = new ArrayList<>();
+                        for (DividendAirdrops coinName : allDividendAirdrops) {
+                            dividendCoinsList.add(coinName);
+                        }
+                        if (dividendCoinsList.size() > 0) {
+                            lnr_empty_div_coins.setVisibility(View.GONE);
+                            dividendADVerticalRAdapter= new DividendADVerticalRAdapter(DividendADListActivity.this, dividendCoinsList, false);
+                            rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
+                        } else {
+                            lnr_empty_div_coins.setVisibility(View.VISIBLE);
+                        }
                     } else {
                         CommonUtilities.ShowToastMessage(DividendADListActivity.this, loginResponseMsg);
                     }
@@ -276,28 +207,27 @@ public class DividendADListActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
-    private void fetchCoins() {
+    private void fetchCoinsDividendAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(DividendADListActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
+//            progressDialog = ProgressDialog.show(DividendADListActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getClaimADAmount(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-                            updateUI(responsevalue);
-                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
-                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
-                            mDao.insertAllCoins(exploreCoinsDB);
-
+                            updateUIDividendAirdrops(responsevalue);
+//                            progressDialog.dismiss();
+                            DividendAirdropsDao mDao = deviantXDB.dividendAirdropsDao();
+                            DividendAirdropsDB dividendAirdropsDB = new DividendAirdropsDB(1, responsevalue);
+                            mDao.insertDividendAirdrops(dividendAirdropsDB);
                         } else {
                             CommonUtilities.ShowToastMessage(DividendADListActivity.this, loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
@@ -306,7 +236,7 @@ public class DividendADListActivity extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
@@ -315,95 +245,21 @@ public class DividendADListActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
-            ex.printStackTrace();
-            CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void CreateWallet(String coin_name, String str_coin_code, String wallet_name) {
-        try {
-            String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(DividendADListActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.createWalletCoin(CONSTANTS.DeviantMulti + token, str_coin_code, /*coin_name,*/ wallet_name);
-            apiResponse.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                loginResponseData = jsonObject.getString("data");
-                                CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.coin_added));
-                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
-                                int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
-                                serviceIntent.putExtra("walletName", wallet_name);
-                                serviceIntent.putExtra("walletId", wallet_id);
-                                startService(serviceIntent);
-                                onBackPressed();
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(DividendADListActivity.this, loginResponseMsg);
-                            }
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(DividendADListActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
-                    } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        } catch (Exception ex) {
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(DividendADListActivity.this, getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();

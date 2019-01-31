@@ -19,17 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.FeaturedADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedADVerticalRAdapter;
-import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.FeaturedAirdropsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.FeaturedAirdropsDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -76,9 +70,7 @@ public class FeaturedADListAcivity extends AppCompatActivity {
     DeviantXDB deviantXDB;
 
 
-    int int_coin_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
     ArrayList<FeaturedAirdrops> allFeaturedAirdrops;
 
     @Override
@@ -108,13 +100,6 @@ public class FeaturedADListAcivity extends AppCompatActivity {
 
         layoutManager = new GridLayoutManager(FeaturedADListAcivity.this, 2, GridLayoutManager.VERTICAL, false);
         rview_ad_coins_list.setLayoutManager(layoutManager);
-
-        /*if (CommonUtilities.isConnectionAvailable(FeaturedADListAcivity.this)) {
-            //GET ALL COINS
-            fetchCoins();
-        } else {
-            CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.internetconnection));
-        }*/
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

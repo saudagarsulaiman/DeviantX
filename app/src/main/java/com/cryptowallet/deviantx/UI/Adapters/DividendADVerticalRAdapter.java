@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendADHorizantalRAdapter.ViewHolder> {
-
+public class DividendADVerticalRAdapter extends RecyclerView.Adapter<DividendADVerticalRAdapter.ViewHolder> {
     Context context;
     ArrayList<DividendAirdrops> allDividendCoins;
     boolean isFull = false;
 
-    public DividendADHorizantalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull) {
+    public DividendADVerticalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull) {
         this.context = context;
         this.allDividendCoins = allDividendCoins;
         this.isFull = isFull;
@@ -51,6 +50,7 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
         viewHolder.txt_coin_name_code.setText(allDividendCoins.get(i).getStr_coinName() + " (" + allDividendCoins.get(i).getStr_coinCode() + ")");
         viewHolder.txt_coin_value.setText("Estimated $" + allDividendCoins.get(i).getDbl_airdropAmountInUSD() + " ref");
 
+
         viewHolder.btn_claim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,21 +62,19 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
             }
         });
 
-/*
-        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+
+       /* viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AllCoinsDB selected_coin = allDividendCoins.get(i);
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedCoin, allDividendCoins.get(i));
+//                bundle.putString(CONSTANTS.selectedCoin, allDividendCoins.get(i).getStr_coin_name());
                 intent.putExtras(bundle);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
-        });
-*/
-
+        });*/
     }
 
     @Override
@@ -108,7 +106,7 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
     }
 
 }
+

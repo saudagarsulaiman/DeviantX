@@ -188,6 +188,14 @@
             android:name=".UI.Services.FeaturedAirdropsFetch"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".UI.Services.DividendAirdropsFetch"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".UI.Services.AirdropsHistoryFetch"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
@@ -263,8 +271,8 @@
         <activity
             android:name=".UI.Activities.DividendADListActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
-
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".UI.Activities.WithdrawADClaimActivity"></activity>
     </application>
 
 </manifest>

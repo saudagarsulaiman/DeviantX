@@ -3,19 +3,17 @@ package com.cryptowallet.deviantx.Utilities;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.cryptowallet.deviantx.UI.Interfaces.AirdropWalletUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.AirdropsHistoryUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.DividendAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
-
-import java.lang.reflect.Field;
-import java.util.Map;
 
 //import com.google.android.gms.plus.Plus;
 
@@ -34,6 +32,8 @@ public class MyApplication extends Application {
     public AllCoinsUIListener allCoinsUIListener;
     public AirdropWalletUIListener airdropWalletUIListener;
     public FeaturedAirdropsUIListener featuredAirdropsUIListener;
+    public DividendAirdropsUIListener dividendAirdropsUIListener;
+    public AirdropsHistoryUIListener airdropsHistoryUIListener;
 
     public Boolean getHideBalance() {
         return isHideBalance;
@@ -136,5 +136,21 @@ public class MyApplication extends Application {
 
     public void setFeaturedAirdropsUIListener(FeaturedAirdropsUIListener featuredAirdropsUIListener) {
         this.featuredAirdropsUIListener = featuredAirdropsUIListener;
+    }
+
+    public DividendAirdropsUIListener getDividendAirdropsUIListener() {
+        return dividendAirdropsUIListener;
+    }
+
+    public void setDividendAirdropsUIListener(DividendAirdropsUIListener dividendAirdropsUIListener) {
+        this.dividendAirdropsUIListener = dividendAirdropsUIListener;
+    }
+
+    public AirdropsHistoryUIListener getAirdropsHistoryUIListener() {
+        return airdropsHistoryUIListener;
+    }
+
+    public void setAirdropsHistoryUIListener(AirdropsHistoryUIListener airdropsHistoryUIListener) {
+        this.airdropsHistoryUIListener = airdropsHistoryUIListener;
     }
 }

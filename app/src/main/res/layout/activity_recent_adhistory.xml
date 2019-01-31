@@ -17,6 +17,7 @@
         android:textSize="@dimen/def_ttl_size"
         android:textStyle="bold" />
 
+
     <LinearLayout
         android:id="@+id/lnr_search"
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
         android:layout_margin="@dimen/def_margin"
         android:background="@color/blue_search"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:paddingStart="@dimen/def_padding"
+        android:paddingLeft="@dimen/def_padding"
         android:weightSum="1">
 
         <EditText
@@ -38,8 +40,6 @@
             android:layout_weight="0.9"
             android:backgroundTint="@android:color/transparent"
             android:hint="@string/center_search"
-            android:paddingStart="@dimen/def_padding"
-            android:paddingLeft="@dimen/def_padding"
             android:textColor="@color/white"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/def_text_size"
@@ -55,24 +55,15 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rview_radh_coins"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/def_margin"
-        android:layout_marginTop="@dimen/margin10"
-        android:layout_marginRight="@dimen/def_margin"
-        android:layout_marginBottom="@dimen/margin10"
-        android:visibility="gone" />
-
     <LinearLayout
-        android:id="@+id/lnr_empty_coins"
+        android:id="@+id/lnr_empty_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/def_margin"
         android:background="@drawable/rec_lytblue_c8"
         android:gravity="center"
+        android:layout_margin="@dimen/def_margin"
         android:orientation="vertical"
+        android:padding="@dimen/def_padding"
         android:visibility="visible">
 
         <ImageView
@@ -86,39 +77,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin10"
-            android:text="@string/empty_ad_list"
+            android:text="@string/empty_ad_his_list"
             android:textColor="@color/white"
-            android:textSize="@dimen/def_text_size" />
-
-        <LinearLayout
-            android:id="@+id/lnr_add_coins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin5"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="@dimen/width16"
-                android:layout_height="@dimen/height16"
-                android:layout_gravity="center"
-                android:src="@drawable/plus" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/margin8"
-                android:layout_marginLeft="@dimen/margin8"
-                android:text="@string/add_coins"
-                android:textColor="@color/white"
-                android:textSize="@dimen/def_lbl_size" />
-
-        </LinearLayout>
-
+            android:textSize="@dimen/def_lbl_size" />
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rview_radh_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"/>
 
 
 </LinearLayout>

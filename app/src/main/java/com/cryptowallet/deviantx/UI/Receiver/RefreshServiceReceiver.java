@@ -7,7 +7,9 @@ import android.os.Build;
 import android.util.Log;
 
 import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
 import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
+import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 
@@ -24,11 +26,15 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startForegroundService(new Intent(context, AllCoinsFetch.class));
                 context.startForegroundService(new Intent(context, AirdropWalletFetch.class));
                 context.startForegroundService(new Intent(context, FeaturedAirdropsFetch.class));
+                context.startForegroundService(new Intent(context, DividendAirdropsFetch.class));
+                context.startForegroundService(new Intent(context, AirdropsHistoryFetch.class));
             } else {
                 context.startService(new Intent(context, WalletDataFetch.class));
                 context.startService(new Intent(context, AllCoinsFetch.class));
                 context.startService(new Intent(context, AirdropWalletFetch.class));
                 context.startService(new Intent(context, FeaturedAirdropsFetch.class));
+                context.startService(new Intent(context, DividendAirdropsFetch.class));
+                context.startService(new Intent(context, AirdropsHistoryFetch.class));
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,6 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.DeviantXActivity;
+import com.cryptowallet.deviantx.UI.Models.AirdropsHistory;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,9 +23,13 @@ import butterknife.ButterKnife;
 public class RecentADHistoryRAdapter extends RecyclerView.Adapter<RecentADHistoryRAdapter.ViewHolder> {
 
     Context context;
+    ArrayList<AirdropsHistory> airdropsHistoryList;
+    boolean isFull = false;
 
-    public RecentADHistoryRAdapter(Context context) {
+    public RecentADHistoryRAdapter(Context context, ArrayList<AirdropsHistory> airdropsHistoryList, boolean isFull) {
         this.context = context;
+        this.airdropsHistoryList = airdropsHistoryList;
+        this.isFull = isFull;
     }
 
     @NonNull
@@ -36,10 +43,10 @@ public class RecentADHistoryRAdapter extends RecyclerView.Adapter<RecentADHistor
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-//        Picasso.with(context).load(i).into(viewHolder.img_coin_logo);
-        viewHolder.txt_coin_name.setText("Coin Name" + " (" + "Code" + ")");
-        viewHolder.txt_coin_value.setText("Value " + "code");
-        viewHolder.txt_percentage.setText("hrs" + " ago");
+        Picasso.with(context).load(airdropsHistoryList.get(i).getStr_coinlogo()).into(viewHolder.img_coin_logo);
+        viewHolder.txt_coin_name.setText(airdropsHistoryList.get(i).getStr_coinName() + " (" + airdropsHistoryList.get(i).getStr_coinCode() + ")");
+        viewHolder.txt_coin_value.setText(airdropsHistoryList.get(i).getDbl_amount() + " " + airdropsHistoryList.get(i).getStr_coinCode());
+        viewHolder.txt_percentage.setText(getTime(airdropsHistoryList.get(i).getStr_txnDate()));
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,9 +58,28 @@ public class RecentADHistoryRAdapter extends RecyclerView.Adapter<RecentADHistor
         });
     }
 
+    private String getTime(String started) {
+        try {
+            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     @Override
     public int getItemCount() {
-        return 10;
+        if (isFull) {
+            return airdropsHistoryList.size();
+        } else {
+            if (airdropsHistoryList.size() == 0)
+                return 0;
+            else if (airdropsHistoryList.size() > 1)
+                return 2;
+            else
+                return 1;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
