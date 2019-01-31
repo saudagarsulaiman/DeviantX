@@ -188,7 +188,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
         itemPicker.addOnItemChangedListener(this);
-        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener,true);
+        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener, true);
         itemPicker.setAdapter(walletListAirdropRAdapter);
         itemPicker.setItemTransitionTimeMillis(150);
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
@@ -326,9 +326,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                         intent.putExtras(bundle1);
                                         startActivity(intent);
                                     } else {
-/*
-                                        toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
-*/
+                                        toWalletDialog(walletName, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/, airdropWalletlist.get(0).getStr_ad_coin_code());
 //                        transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
                                     }
                                 } else {
@@ -362,9 +360,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                         intent.putExtras(bundle1);
                                         startActivity(intent);
                                     } else {
-/*
-                                        toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
-*/
+                                        toAddressDialog(to_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/, airdropWalletlist.get(0).getStr_ad_coin_code());
 //                            transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
                                     }
                                 } else {
@@ -479,7 +475,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                     }
                                     walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                                 }
-                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener,true);
+                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener, true);
                                 itemPicker.setAdapter(walletListAirdropRAdapter);
 //                                itemPicker.scrollToPosition(defaultWalletPos);
                                 itemPicker.scrollToPosition(myApplication.getDefaultWallet());
@@ -533,7 +529,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     }
 
-    private void toAddressDialog(String edt_address, String amount, String str_data_ad_address, String str_coin_code) {
+    private void toAddressDialog(String edt_address, String amount/*, String str_data_ad_address*/, String str_coin_code) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
@@ -582,9 +578,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                transferAmountToAddress(edt_address, amount, airdropWalletlist.get(0).getStr_data_ad_address());
-*/
+                transferAmountToAddress(edt_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/);
                 dialog.dismiss();
             }
         });
@@ -593,7 +587,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         dialog.show();
     }
 
-    private void toWalletDialog(String walletName, String amount, String str_data_ad_address, String str_coin_code) {
+    private void toWalletDialog(String walletName, String amount/*, String str_data_ad_address*/, String str_coin_code) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(WithdrawFundsAirdropActivity.this)
@@ -643,9 +637,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                transferAmountToWallet(airdropWalletlist.get(0).getStr_data_ad_address(), walletName, amount, airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
-*/
+                transferAmountToWallet(/*airdropWalletlist.get(0).getStr_data_ad_address(),*/ walletName, amount, airdropWalletlist.get(0).getStr_ad_coin_code());
                 dialog.dismiss();
             }
         });
@@ -655,12 +647,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     }
 
-    private void transferAmountToAddress(String edt_address, String amount, String walletAddress) {
+    private void transferAmountToAddress(String edt_address, String amount/*, String walletAddress*/) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
-                params.put("fromAddress", walletAddress);
+//                params.put("fromAddress", walletAddress);
                 params.put("toAddress", edt_address);
                 params.put("amount", amount);
 
@@ -734,12 +726,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     }
 
-    private void transferAmountToWallet(String walletAddress, String walletName, String amount, String coinCode) {
+    private void transferAmountToWallet(/*String walletAddress,*/ String walletName, String amount, String coinCode) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
-                params.put("fromAddress", walletAddress);
+//                params.put("fromAddress", walletAddress);
                 params.put("wallet", walletName);
                 params.put("amount", amount);
                 params.put("coinCode", coinCode);

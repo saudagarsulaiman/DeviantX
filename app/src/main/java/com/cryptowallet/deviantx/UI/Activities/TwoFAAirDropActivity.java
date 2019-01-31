@@ -161,12 +161,10 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
-/*
                                 if (walletName.isEmpty())
-                                    toAddressDialog(to_address, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
+                                    toAddressDialog(to_address, amount, /*airdropWalletlist.get(0).getStr_data_ad_address(),*/ airdropWalletlist.get(0).getStr_ad_coin_code());
                                 else
-                                    toWalletDialog(walletName, amount, airdropWalletlist.get(0).getStr_data_ad_address(), airdropWalletlist.get(0).getAllCoins().getStr_coin_code());
-*/
+                                    toWalletDialog(walletName, amount, /*airdropWalletlist.get(0).getStr_data_ad_address(),*/ airdropWalletlist.get(0).getStr_ad_coin_code());
 
 
                             } else {
@@ -212,7 +210,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
     }
 
 
-    private void toAddressDialog(String to_address, String amount, String str_data_ad_address, String str_coin_code) {
+    private void toAddressDialog(String to_address, String amount,/* String str_data_ad_address,*/ String str_coin_code) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(TwoFAAirDropActivity.this)
@@ -260,7 +258,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transferAmountToAddress(to_address, amount, str_data_ad_address);
+                transferAmountToAddress(to_address, amount/*, str_data_ad_address*/);
                 dialog.dismiss();
             }
         });
@@ -269,12 +267,12 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void transferAmountToAddress(String to_address, String amount, String fromAddress) {
+    private void transferAmountToAddress(String to_address, String amount/*, String fromAddress*/) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
-                params.put("fromAddress", fromAddress);
+//                params.put("fromAddress", fromAddress);
                 params.put("toAddress", to_address);
                 params.put("amount", amount);
 
@@ -349,7 +347,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
     }
 
 
-    private void toWalletDialog(String walletName, String amount, String fromAddress, String str_coin_code) {
+    private void toWalletDialog(String walletName, String amount, /*String fromAddress, */String str_coin_code) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_withdraw_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(TwoFAAirDropActivity.this)
@@ -398,7 +396,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transferAmountToWallet(fromAddress, walletName, amount, str_coin_code);
+                transferAmountToWallet(/*fromAddress,*/ walletName, amount, str_coin_code);
                 dialog.dismiss();
             }
         });
@@ -407,12 +405,12 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void transferAmountToWallet(String fromAddress, String walletName, String amount, String str_coin_code) {
+    private void transferAmountToWallet(/*String fromAddress,*/ String walletName, String amount, String str_coin_code) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
-                params.put("fromAddress", fromAddress);
+//                params.put("fromAddress", fromAddress);
                 params.put("wallet", walletName);
                 params.put("amount", amount);
                 params.put("coinCode", str_coin_code);
