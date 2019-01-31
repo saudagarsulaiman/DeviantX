@@ -18,11 +18,11 @@ public interface UserAirdropControllerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/api/user_airdrop/claim_airdrop_amount")
-    Call<ResponseBody> postClaimADAmount(@Body String body, @Path("token") String token);
+    Call<ResponseBody> postClaimADAmount(@Body String body, @Header("Authorization") String AuthorizationDX);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user_airdrop/create_new_airdrop")
-    Call<ResponseBody> createNewAD(@Body String body, @Path("token") String token);
+    Call<ResponseBody> createNewAD(@Body String body,@Header("Authorization") String AuthorizationDX);
 
     @GET("/api/user_airdrop/get_airdrop_history")
     Call<ResponseBody> getADHistory(@Header("Authorization") String AuthorizationDX);
