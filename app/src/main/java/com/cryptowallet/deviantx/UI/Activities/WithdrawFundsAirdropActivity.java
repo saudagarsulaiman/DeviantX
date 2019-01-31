@@ -188,7 +188,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
         itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
         itemPicker.addOnItemChangedListener(this);
-        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener);
+        walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener,true);
         itemPicker.setAdapter(walletListAirdropRAdapter);
         itemPicker.setItemTransitionTimeMillis(150);
         itemPicker.setItemTransformer(new ScaleTransformer.Builder()
@@ -479,7 +479,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                     }
                                     walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
                                 }
-                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener);
+                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(WithdrawFundsAirdropActivity.this, walletList, walletSelectableListener,true);
                                 itemPicker.setAdapter(walletListAirdropRAdapter);
 //                                itemPicker.scrollToPosition(defaultWalletPos);
                                 itemPicker.scrollToPosition(myApplication.getDefaultWallet());

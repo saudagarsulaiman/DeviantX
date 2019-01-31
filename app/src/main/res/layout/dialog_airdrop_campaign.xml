@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_end_blue">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/def_margin"
+        android:background="@drawable/dlg_white_trtl_c15"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin60"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding50"
+            android:paddingRight="@dimen/padding50"
+            android:text="@string/create_airdrop"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:text="@string/wallet"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:id="@+id/txt_wallet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:gravity="end"
+                android:text="@string/wallet"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:text="@string/coin"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:id="@+id/txt_coin_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:gravity="end"
+                android:text="@string/coin"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:text="@string/amount"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:id="@+id/txt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:gravity="end"
+                android:text="@string/amount"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/def_margin"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginRight="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:text="@string/to"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginRight="@dimen/def_margin"
+                android:gravity="end"
+                android:text="@string/airdrop"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height1"
+            android:layout_marginTop="@dimen/def_margin"
+            android:background="@color/l_grey" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/txt_cancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textAllCaps="true"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_confirm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/width60"
+        android:layout_height="@dimen/height60"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:src="@drawable/ic_ok" />
+
+</RelativeLayout>

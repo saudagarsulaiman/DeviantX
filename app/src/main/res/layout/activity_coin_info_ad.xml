@@ -91,18 +91,6 @@
                         android:layout_gravity="center"
                         android:src="@drawable/share" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/margin10"
-                        android:layout_marginLeft="@dimen/margin10"
-                        android:text="@string/share"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/def_lbl_size"
-                        android:textStyle="bold" />
-
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -218,7 +206,8 @@
             android:text="@string/ways_enter"
             android:textColor="@color/white"
             android:textSize="@dimen/text18"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rview_enter_ways"
@@ -226,7 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/def_margin"
             android:layout_marginBottom="@dimen/margin10"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
 
     </LinearLayout>

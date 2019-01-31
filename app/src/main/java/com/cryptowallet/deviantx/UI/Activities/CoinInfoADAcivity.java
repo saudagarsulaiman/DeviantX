@@ -1,6 +1,7 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +50,7 @@ public class CoinInfoADAcivity extends AppCompatActivity {
     Button btn_participate;
 
 
-    AllCoins selectedCoin;
+    FeaturedAirdrops selectedCoin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +69,24 @@ public class CoinInfoADAcivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
 
-        Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
-        txt_coin_name.setText(selectedCoin.getStr_coin_name());
-        txt_coin_code.setText(selectedCoin.getStr_coin_code());
-        txt_estimated.setText("$70" + " Ref");
-        txt_tokens.setText("750 DEV");
+        Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coinlogo()).into(img_coin_logo);
+        txt_coin_name.setText(selectedCoin.getStr_coinName());
+        txt_coin_code.setText(selectedCoin.getStr_coinCode());
+        txt_estimated.setText("$" + selectedCoin.getStr_estimated() + " Ref");
+        txt_tokens.setText("750 " + selectedCoin.getStr_coinCode());
 
 
+        btn_participate.setVisibility(View.GONE);
         btn_participate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(new Intent(CoinInfoADAcivity.this, AirdropWalletFetch.class));
+                    startForegroundService(new Intent(CoinInfoADAcivity.this, FeaturedAirdropsFetch.class));
+                } else {
+                    startService(new Intent(CoinInfoADAcivity.this, AirdropWalletFetch.class));
+                    startService(new Intent(CoinInfoADAcivity.this, FeaturedAirdropsFetch.class));
+                }*/
                 Intent intent = new Intent(CoinInfoADAcivity.this, DashBoardActivity.class);
                 intent.putExtra(CONSTANTS.seletedTab, 2);
                 startActivity(intent);

@@ -126,7 +126,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
 
 
     ArrayList<FeaturedAirdrops> allFeaturedAirdrops;
@@ -317,7 +317,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchAirdropWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAirdropWallet(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -325,7 +325,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIADWallet(responsevalue);
@@ -341,7 +341,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
@@ -350,22 +350,21 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
@@ -596,7 +595,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchCoinsUserAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getUserAD(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -604,10 +603,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIUserAirdrops(responsevalue);
+//                            progressDialog.dismiss();
                             FeaturedAirdropsDao mDao = deviantXDB.featuredAirdropsDao();
                             FeaturedAirdropsDB featuredAirdropsDB = new FeaturedAirdropsDB(1, responsevalue);
                             mDao.insertFeaturedAirdrops(featuredAirdropsDB);
@@ -620,7 +620,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
@@ -629,22 +629,21 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
+//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();

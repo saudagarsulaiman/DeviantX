@@ -567,6 +567,8 @@
     <string name="max_coins_distribute">Maximum coins to distribute</string>
     <string name="hint_max_coins">When this limit is finished, the bell will automatically end.</string>
     <string name="sel_ad_coin">Select the Airdrop Coin</string>
+    <string name="create_airdrop">Creating Airdrop</string>
+    <string name="coin">Coin</string>
 
 
 </resources>

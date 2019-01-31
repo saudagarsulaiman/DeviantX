@@ -25,11 +25,13 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
     Context context;
     ArrayList<WalletList> walletLists;
     WalletSelectableListener walletSelectableListener;
+    boolean isSelectable = false;
 
-    public WalletListAirdropRAdapter(Context context, ArrayList<WalletList> walletList, WalletSelectableListener walletSelectableListener) {
+    public WalletListAirdropRAdapter(Context context, ArrayList<WalletList> walletList, WalletSelectableListener walletSelectableListener, boolean isSelectable) {
         this.context = context;
         this.walletLists = walletList;
         this.walletSelectableListener = walletSelectableListener;
+        this.isSelectable = isSelectable;
     }
 
     @NonNull
@@ -53,41 +55,38 @@ public class WalletListAirdropRAdapter extends RecyclerView.Adapter<WalletListAi
             viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_wh_gradient_c2));
         }*/
 
-        if (myApplication.getDefaultWallet() == i) {
-            viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
-        }
 
-        if (walletLists.get(i).getSelected() != null) {
+        if (isSelectable) {
             if (myApplication.getDefaultWallet() == i) {
                 viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
-            } else {
-                viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_wh_gradient_c2));
             }
+            if (walletLists.get(i).getSelected()) {
+                if (myApplication.getDefaultWallet() == i) {
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
+                } else {
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_wh_gradient_c2));
+                }
+            } else {
+                if (myApplication.getDefaultWallet() == i) {
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_brinjal1_gradient_c2));
+                } else {
+                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_wh_gradient_c2));
+                }
+            }
+            viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    walletSelectableListener.WalletSelected(walletLists, i);
+                }
+            });
         } else {
             if (myApplication.getDefaultWallet() == i) {
                 viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_brinjal1_gradient_c2));
-            } else {
+            }else {
                 viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_lytblue_wh_gradient_c2));
             }
+
         }
-
-        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                walletSelectableListener.WalletSelected(walletLists, i);
-
-/*
-                if (myApplication.getDefaultWallet() == i) {
-                    viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
-                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_brinjal1_gradient_c2));
-                } else {
-                    viewHolder.txt_wallet_name.setTextColor(context.getResources().getColor(R.color.white));
-                    viewHolder.lnr_item.setBackground(context.getResources().getDrawable(R.drawable.rec_orange_wh_gradient_c2));
-                }
-*/
-            }
-        });
 
     }
 
