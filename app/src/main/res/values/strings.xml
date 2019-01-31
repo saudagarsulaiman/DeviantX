@@ -546,7 +546,7 @@
     <string name="no_partcpt">Your aren\'t participating in any Airdrop.</string>
     <string name="search_ad">Search Airdrops</string>
     <string name="airdrop_camp">Airdrops Campaigns</string>
-    <string name="create_airdrop_camp">Create your first Airdrop Campaigns</string>
+    <string name="create_airdrop_camp">Create your Airdrop Campaigns</string>
     <string name="dividend_ad">Dividend or Airdrop</string>
     <string name="claim">Claim</string>
     <string name="empty_ad_feat_coins">No featured coins are available</string>
@@ -569,6 +569,7 @@
     <string name="sel_ad_coin">Select the Airdrop Coin</string>
     <string name="create_airdrop">Creating Airdrop</string>
     <string name="coin">Coin</string>
+    <string name="rewards">Rewards</string>
 
 
 </resources>

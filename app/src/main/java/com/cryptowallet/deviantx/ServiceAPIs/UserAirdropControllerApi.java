@@ -18,7 +18,7 @@ public interface UserAirdropControllerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/api/user_airdrop/claim_airdrop_amount")
-    Call<ResponseBody> postClaimADAmount(@Body String body);
+    Call<ResponseBody> postClaimADAmount(@Body String body, @Path("token") String token);
 
     @Headers("Content-Type: application/json")
     @POST("/api/user_airdrop/create_new_airdrop")

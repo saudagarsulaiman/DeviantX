@@ -201,6 +201,7 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
         spnr_sel_coin.setOnItemSelectedListener(this);
         txt_avail_coins.setText("0");
         txt_avail_coinCode.setText(" ");
+        txt_coin_code.setText(" ");
 
 
         lnr_plus.setOnClickListener(new View.OnClickListener() {
@@ -748,6 +749,8 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                         lnr_empty_coins.setVisibility(View.VISIBLE);
 //                                    lnr_add_new_coins.setVisibility(View.GONE);
                         txt_avail_coins.setText("0");
+                        txt_avail_coinCode.setText(" ");
+                        txt_coin_code.setText(" ");
                     } else {
                         lnr_empty_coins.setVisibility(View.GONE);
                         spnr_sel_coin.setVisibility(View.VISIBLE);
