@@ -1,31 +1,62 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.NewsPanelControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeDashboardSlideAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedCoinsExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.NewsExcDBRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.NewsDX;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.NewsDXDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.NewsDXDB;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class ExchangeDashboardFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> {
 
@@ -65,6 +96,10 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     RelativeLayout rltv_losers;
     @BindView(R.id.rltv_losers_view)
     RelativeLayout rltv_losers_view;
+    @BindView(R.id.lnr_empty_news)
+    LinearLayout lnr_empty_news;
+    @BindView(R.id.lnr_empty_feat_coins)
+    LinearLayout lnr_empty_feat_coins;
 
 //    @BindView(R.id.)
 //    ;
@@ -75,17 +110,42 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     GainerLoserExcDBRAdapter gainerLoserExcDBRAdapter;
 
 
-    ArrayList<String> featuredCoinsList;
-    ArrayList<String> newsList;
     ArrayList<String> gainersLoserList, gainersList, loosersList;
 
-//    int[] CHANNELSImage = new int[]{R.drawable.selector_gainers, R.drawable.selector_losers};
-//    int[] channelsName = new int[]{R.string.gainers, R.string.losers};
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    ArrayList<NewsDX> allNewsDX;
+    ArrayList<AllCoins> allCoinsList;
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
+
+    DeviantXDB deviantXDB;
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setNewsDXUIListener(newsDXUIListener);
+        myApplication.setAllCoinsUIListener(allCoinsUIListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myApplication.setNewsDXUIListener(null);
+        myApplication.setAllCoinsUIListener(null);
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.exchange_dashboard_fragment, container, false);
         ButterKnife.bind(this, view);
+        deviantXDB = DeviantXDB.getDatabase(getActivity());
+
+        sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
 
         linearLayoutHorizantal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutHorizantal1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -95,11 +155,12 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
         rview_devx_news.setLayoutManager(linearLayoutHorizantal1);
         rview_gain_loose.setLayoutManager(linearLayoutVertical);
 
-        featuredCoinsList = new ArrayList<>();
-        newsList = new ArrayList<>();
         gainersLoserList = new ArrayList<>();
         gainersList = new ArrayList<>();
         loosersList = new ArrayList<>();
+
+        allNewsDX = new ArrayList<>();
+        allCoinsList = new ArrayList<>();
 
 
         dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity());
@@ -113,10 +174,10 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
                 .build());
         itemPicker.scrollToPosition(1);
 
-        featuredCoinsExcDBRAdapter = new FeaturedCoinsExcDBRAdapter(getActivity(), featuredCoinsList);
-        rview_featured_coins.setAdapter(featuredCoinsExcDBRAdapter);
+//        featuredCoinsExcDBRAdapter = new FeaturedCoinsExcDBRAdapter(getActivity(), featuredCoinsList);
+//        rview_featured_coins.setAdapter(featuredCoinsExcDBRAdapter);
 
-        newsExcDBRAdapter = new NewsExcDBRAdapter(getActivity(), newsList);
+        newsExcDBRAdapter = new NewsExcDBRAdapter(getActivity(), allNewsDX);
         rview_devx_news.setAdapter(newsExcDBRAdapter);
 
         gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, " ", true, false);
@@ -155,10 +216,15 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
         });
 
 
-//        initMagicIndicator();
-//        int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
-//        setAllSelection(selectedTab);
-//        setAllSelection(0);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onLoadNewsDX();
+                onLoadAllCoins();
+            }
+        }, 200);
+
+
         return view;
     }
 
@@ -169,86 +235,258 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     }
 
 
-//    private void initMagicIndicator() {
-//        final CommonNavigator commonNavigator = new CommonNavigator(getActivity());
-//        commonNavigator.setAdjustMode(true);
-//        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
-//            @Override
-//            public int getCount() {
-//                return CHANNELSImage == null ? 0 : CHANNELSImage.length;
-//            }
-//
-//            /*  @Override
-//              public IPagerTitleView getTitleView(Context context, final int index) {
-//                  return new DummyPagerTitleView(context);
-//              }*/
-//            @Override
-//            public IPagerTitleView getTitleView(final Context context, final int index) {
-//                CommonPagerTitleView commonPagerTitleView = new CommonPagerTitleView(context);
-//
-//                // load custom layout
-//                View customLayout = LayoutInflater.from(context).inflate(R.layout.exc_gainer_loser_lyt, null);
-//                final ImageView titleImg = (ImageView) customLayout.findViewById(R.id.title_img);
-//                final TextView titleTxt = (TextView) customLayout.findViewById(R.id.title_text);
-//                titleImg.setImageResource(CHANNELSImage[index]);
-//                titleTxt.setText(channelsName[index]);
-//                commonPagerTitleView.setContentView(customLayout);
-//
-//                commonPagerTitleView.setOnPagerTitleChangeListener(new CommonPagerTitleView.OnPagerTitleChangeListener() {
-//
-//                    @Override
-//                    public void onSelected(int index, int totalCount) {
-//                        titleImg.setSelected(true);
-//                        titleTxt.setSelected(true);
-//                    }
-//
-//                    @Override
-//                    public void onDeselected(int index, int totalCount) {
-//                        titleImg.setSelected(false);
-//                        titleTxt.setSelected(false);
-//                    }
-//
-//                    @Override
-//                    public void onLeave(int index, int totalCount, float leavePercent, boolean leftToRight) {
-////                        titleImg.setScaleX(1.3f + (0.8f - 1.3f) * leavePercent);
-////                        titleImg.setScaleY(1.3f + (0.8f - 1.3f) * leavePercent);
-//                    }
-//
-//                    @Override
-//                    public void onEnter(int index, int totalCount, float enterPercent, boolean leftToRight) {
-////                        titleImg.setScaleX(0.8f + (1.3f - 0.8f) * enterPercent);
-////                        titleImg.setScaleY(0.8f + (1.3f - 0.8f) * enterPercent);
-//                    }
-//                });
-//
-//                commonPagerTitleView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        setAllSelection(index);
-//                    }
-//                });
-//
-//                return commonPagerTitleView;
-//            }
-//
-//            @Override
-//            public IPagerIndicator getIndicator(Context context) {
-//                TriangularPagerIndicator indicator = new TriangularPagerIndicator(context);
-//                indicator.setReverse(false);
-//                float smallNavigatorHeight = context.getResources().getDimension(R.dimen.small_navigator_height);
-//                indicator.setLineHeight(UIUtil.dip2px(context, 5));
-//                indicator.setTriangleHeight((int) smallNavigatorHeight);
-//                indicator.setLineColor(Color.parseColor("#FBB03B"));
-//                return indicator;
-//            }
-//        });
-//        magic_indicator.setNavigator(commonNavigator);
-//    }
+    //    **************GETTING NEWS**************
+    private void onLoadNewsDX() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                NewsDXDao newsDXDao = deviantXDB.newsDXDao();
+                if ((newsDXDao.getNewsDX()) != null) {
+                    String newsResult = newsDXDao.getNewsDX().newsDXDB;
+                    updateUINewsDX(newsResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchCoinsNewsDX();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
 
-//    private void setAllSelection(int index) {
-//        magic_indicator.onPageSelected(index);
-//        magic_indicator.onPageScrollStateChanged(index);
-//        magic_indicator.onPageScrolled(index, 0, 0);
-//    }
+    }
+
+    NewsDXUIListener newsDXUIListener = new NewsDXUIListener() {
+        @Override
+        public void onChangedNewsDX(String allNewsDX) {
+            updateUINewsDX(allNewsDX);
+        }
+
+    };
+
+    private void updateUINewsDX(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        NewsDX[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, NewsDX[].class);
+                        allNewsDX = new ArrayList<NewsDX>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<NewsDX> newsList = new ArrayList<>();
+                        for (NewsDX coinName : allNewsDX) {
+                            newsList.add(coinName);
+                        }
+                        if (newsList.size() > 0) {
+                            lnr_empty_news.setVisibility(View.GONE);
+                            newsExcDBRAdapter = new NewsExcDBRAdapter(getActivity(), newsList);
+                            rview_devx_news.setAdapter(newsExcDBRAdapter);
+                        } else {
+                            lnr_empty_news.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchCoinsNewsDX() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            NewsPanelControllerApi apiService = DeviantXApiClient.getClient().create(NewsPanelControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getNewsPanel(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            updateUINewsDX(responsevalue);
+//                            progressDialog.dismiss();
+                            NewsDXDao mDao = deviantXDB.newsDXDao();
+                            NewsDXDB newsDXDB = new NewsDXDB(1, responsevalue);
+                            mDao.insertNewsDX(newsDXDB);
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    //    **************GETTING FEATURED COINS**************
+    private void onLoadAllCoins() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ExploreCoinsDao exploreCoinsDao = deviantXDB.exploreCoinsDao();
+                if ((exploreCoinsDao.getExploreCoins()) != null) {
+                    String walletResult = exploreCoinsDao.getExploreCoins().exploreCoins;
+                    updateUI(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchCoins();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    AllCoinsUIListener allCoinsUIListener = new AllCoinsUIListener() {
+        @Override
+        public void onChangedAllCoins(String allCoinsList) {
+            updateUI(allCoinsList);
+        }
+    };
+
+    private void updateUI(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
+                        allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<AllCoins> allFeaturedCoins = new ArrayList<>();
+                        ArrayList<AllCoins> allUnFeaturedCoins = new ArrayList<>();
+                        for (int i = 0; i < allCoinsList.size(); i++) {
+                            if (allCoinsList.get(i).getStr_isFeatureCoin().trim().equals("NO")) {
+                                allUnFeaturedCoins.add(allCoinsList.get(i));
+                            } else {
+                                allFeaturedCoins.add(allCoinsList.get(i));
+                            }
+                        }
+
+                        if (allFeaturedCoins.size() > 0) {
+                            rview_featured_coins.setVisibility(View.VISIBLE);
+                            lnr_empty_feat_coins.setVisibility(View.GONE);
+                            featuredCoinsExcDBRAdapter = new FeaturedCoinsExcDBRAdapter(getActivity(), allFeaturedCoins);
+                            rview_featured_coins.setAdapter(featuredCoinsExcDBRAdapter);
+                        } else {
+                            rview_featured_coins.setVisibility(View.GONE);
+                            lnr_empty_feat_coins.setVisibility(View.VISIBLE);
+                        }
+
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchCoins() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+//                            progressDialog.dismiss();
+                            updateUI(responsevalue);
+                            ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
+                            ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
+                            mDao.insertAllCoins(exploreCoinsDB);
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }

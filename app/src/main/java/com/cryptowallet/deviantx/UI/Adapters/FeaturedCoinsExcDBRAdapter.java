@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -19,9 +21,9 @@ import butterknife.ButterKnife;
 public class FeaturedCoinsExcDBRAdapter extends RecyclerView.Adapter<FeaturedCoinsExcDBRAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> featuredCoinsList;
+    ArrayList<AllCoins> featuredCoinsList;
 
-    public FeaturedCoinsExcDBRAdapter(Context context, ArrayList<String> featuredCoinsList) {
+    public FeaturedCoinsExcDBRAdapter(Context context, ArrayList<AllCoins> featuredCoinsList) {
         this.context = context;
         this.featuredCoinsList = featuredCoinsList;
     }
@@ -36,13 +38,21 @@ public class FeaturedCoinsExcDBRAdapter extends RecyclerView.Adapter<FeaturedCoi
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-
+        if (featuredCoinsList.get(i).getDbl_coin_24h() > 0) {
+            viewHolder.txt_coin_per.setText("+" + String.format("%.4f", featuredCoinsList.get(i).getDbl_coin_24h()) + "%");
+            viewHolder.txt_coin_per.setTextColor(context.getResources().getColor(R.color.green_txt));
+        } else {
+            viewHolder.txt_coin_per.setText(String.format("%.4f", featuredCoinsList.get(i).getDbl_coin_24h()) + "%");
+            viewHolder.txt_coin_per.setTextColor(context.getResources().getColor(R.color.google_red));
+        }
+        Picasso.with(context).load(featuredCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
+        viewHolder.txt_coin_name_code.setText(featuredCoinsList.get(i).getStr_coin_code() + "/USDT");
+        viewHolder.txt_coin_value.setText("$" + String.format("%.4f", featuredCoinsList.get(i).getDbl_coin_usdValue()));
     }
 
     @Override
     public int getItemCount() {
-//        return featuredCoinsList.size();
-        return 10;
+        return featuredCoinsList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

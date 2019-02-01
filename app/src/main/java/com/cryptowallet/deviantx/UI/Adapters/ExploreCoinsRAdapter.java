@@ -47,7 +47,7 @@ public class ExploreCoinsRAdapter extends RecyclerView.Adapter<ExploreCoinsRAdap
         Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin_logo);
         viewHolder.txt_coin_name.setText(allCoinsList.get(i).getStr_coin_name());
         viewHolder.txt_coin_value.setText(allCoinsList.get(i).getStr_coin_code());
-        viewHolder.txt_coin_usd_value.setText("$ " +String.format("%.4f",  allCoinsList.get(i).getStr_coin_usdValue()) + " USD");
+        viewHolder.txt_coin_usd_value.setText("$ " +String.format("%.4f",  allCoinsList.get(i).getDbl_coin_usdValue()) + " USD");
 
         DecimalFormat rank = new DecimalFormat("0.00");
         if (allCoinsList.get(i).getDbl_coin_24h() < 0) {

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d392878b5232bd15d508b425d1b9e7a6",
+    "identityHash": "bfd7d0bb698fba0fda609bd632ef47f4",
     "entities": [
       {
         "tableName": "wallet_list_table",
@@ -235,11 +235,37 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "news_dx_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `newsDXDB` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "newsDXDB",
+            "columnName": "newsDXDB",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"d392878b5232bd15d508b425d1b9e7a6\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"bfd7d0bb698fba0fda609bd632ef47f4\")"
     ]
   }
 }

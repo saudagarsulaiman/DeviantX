@@ -2,17 +2,13 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 
 import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -22,12 +18,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,8 +35,6 @@ import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -151,7 +142,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.ic_exchange_unselected*/};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools, R.drawable.ic_exchange_unselected};
     int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools, R.string.exchange};
     int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
 

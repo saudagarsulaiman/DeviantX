@@ -98,8 +98,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         String coinName = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_name();
         String coinCode = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_code();
         String coinLogo = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_logo();
-        Double coinBal = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_usdValue();
-        Double coinBalUSD = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_usdValue();
+        Double coinBal = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getDbl_coin_usdValue();
+        Double coinBalUSD = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getDbl_coin_usdValue();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

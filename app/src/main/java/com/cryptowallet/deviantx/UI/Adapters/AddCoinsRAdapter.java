@@ -71,7 +71,7 @@ public class AddCoinsRAdapter extends RecyclerView.Adapter<AddCoinsRAdapter.View
 
         Picasso.with(context).load(allCoinsList.get(i).getStr_coin_logo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name.setText(allCoinsList.get(i).getStr_coin_name());
-        viewHolder.txt_coin_value.setText("$ " + String.format("%4f", allCoinsList.get(i).getStr_coin_usdValue()) + " USD");
+        viewHolder.txt_coin_value.setText("$ " + String.format("%4f", allCoinsList.get(i).getDbl_coin_usdValue()) + " USD");
     }
 
     public void setCoinValue(Boolean isSelected, int pos) {

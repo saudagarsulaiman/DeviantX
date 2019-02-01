@@ -9,6 +9,6 @@ public interface NewsPanelControllerApi {
 
     //    @Headers("Content-Type: application/json")
     @GET("/api/news_panel/get_all_news_panels")
-    Call<ResponseBody> getNewsPanel(@Header("Authorization") String tokenDX);
+    Call<ResponseBody> getNewsPanel(@Header("Authorization") String AuthorizationDX);
 
 }

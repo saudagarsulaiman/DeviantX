@@ -196,6 +196,10 @@
             android:name=".UI.Services.AirdropsHistoryFetch"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".UI.Services.NewsDXFetch"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"

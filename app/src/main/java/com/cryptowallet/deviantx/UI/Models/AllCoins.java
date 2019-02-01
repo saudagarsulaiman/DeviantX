@@ -284,13 +284,13 @@ public class AllCoins implements Parcelable {
         this.str_coin_logo = str_coin_logo;
     }
 
-    public Double getStr_coin_usdValue() {
+   /* public Double getStr_coin_usdValue() {
         return dbl_coin_usdValue;
     }
 
     public void setStr_coin_usdValue(Double dbl_coin_usdValue) {
         this.dbl_coin_usdValue = dbl_coin_usdValue;
-    }
+    }*/
 
 
     @Override

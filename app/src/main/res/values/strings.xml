@@ -570,6 +570,7 @@
     <string name="create_airdrop">Creating Airdrop</string>
     <string name="coin">Coin</string>
     <string name="rewards">Rewards</string>
+    <string name="no_news_avail">No News Available</string>
 
 
 </resources>
