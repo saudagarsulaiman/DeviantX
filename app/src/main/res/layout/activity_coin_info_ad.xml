@@ -194,7 +194,8 @@
             android:singleLine="true"
             android:text="@string/description"
             android:textColor="@color/white"
-            android:textSize="@dimen/def_text_size" />
+            android:textSize="@dimen/def_text_size"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -231,6 +232,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/def_text_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </RelativeLayout>

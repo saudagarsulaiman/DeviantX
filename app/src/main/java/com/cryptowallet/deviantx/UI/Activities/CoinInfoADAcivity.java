@@ -1,9 +1,9 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Adapters.ClaimWaysRAdapter;
 import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
-import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
-import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +53,12 @@ public class CoinInfoADAcivity extends AppCompatActivity {
 
     FeaturedAirdrops selectedCoin;
 
+    ClaimWaysRAdapter claimWaysRAdapter;
+    LinearLayoutManager linearLayoutManager;
+
+    ArrayList<String> claimsList;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +75,10 @@ public class CoinInfoADAcivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
+        claimsList= new ArrayList<>();
+
+        linearLayoutManager = new LinearLayoutManager(CoinInfoADAcivity.this, LinearLayoutManager.VERTICAL, false);
+        rview_enter_ways.setLayoutManager(linearLayoutManager);
 
         Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coinlogo()).into(img_coin_logo);
         txt_coin_name.setText(selectedCoin.getStr_coinName());
@@ -92,6 +103,10 @@ public class CoinInfoADAcivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        claimWaysRAdapter = new ClaimWaysRAdapter(CoinInfoADAcivity.this, claimsList);
+        rview_enter_ways.setAdapter(claimWaysRAdapter);
+
 
     }
 
