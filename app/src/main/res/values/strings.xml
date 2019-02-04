@@ -571,6 +571,7 @@
     <string name="coin">Coin</string>
     <string name="rewards">Rewards</string>
     <string name="no_news_avail">No News Available</string>
+    <string name="no_offers">No Offers Available</string>
 
 
 </resources>

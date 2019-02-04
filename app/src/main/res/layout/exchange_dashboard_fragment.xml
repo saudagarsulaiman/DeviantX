@@ -74,7 +74,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height120"
                     android:layout_marginTop="@dimen/margin10"
-                    android:layout_marginBottom="@dimen/margin10" />
+                    android:layout_marginBottom="@dimen/margin10"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/lnr_empty_headers"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height120"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c8"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/def_padding"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/width50"
+                        android:layout_height="@dimen/height50"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/margin10"
+                        android:src="@drawable/ic_dlg"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_offers"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

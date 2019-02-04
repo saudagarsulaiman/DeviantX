@@ -12,11 +12,11 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.cryptowallet.deviantx.ServiceAPIs.NewsPanelControllerApi;
-import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
+import com.cryptowallet.deviantx.ServiceAPIs.HeaderPanelControllerApi;
+import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.NewsDXDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.NewsDXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.HeaderBannerDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.HeaderBannerDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
@@ -28,18 +28,18 @@ import retrofit2.Response;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
-public class NewsDXFetch extends IntentService {
+public class HeaderBannerFetch extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
     SharedPreferences sharedPreferences;
-    NewsDXUIListener newsDXUIListener;
+    HeaderBannerUIListener headerBannerUIListener;
     DeviantXDB deviantXDB;
 
-    public NewsDXFetch() {
-        super("NewsDXFetch");
+    public HeaderBannerFetch() {
+        super("HeaderBannerFetch");
     }
 
     @Override
@@ -80,14 +80,14 @@ public class NewsDXFetch extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         sharedPreferences = getApplicationContext().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        fetchNewsDX();
+        fetchHeaderBanner();
     }
 
-    private void fetchNewsDX() {
+    private void fetchHeaderBanner() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            NewsPanelControllerApi apiService = DeviantXApiClient.getClient().create(NewsPanelControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getNewsPanel(CONSTANTS.DeviantMulti + token);
+            HeaderPanelControllerApi apiService = DeviantXApiClient.getClient().create(HeaderPanelControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getHeaderPanel(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -96,12 +96,12 @@ public class NewsDXFetch extends IntentService {
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             deviantXDB = DeviantXDB.getDatabase(getApplicationContext());
-                            NewsDXDao mDao = deviantXDB.newsDXDao();
-                            NewsDXDB newsDXDB = new NewsDXDB(1, responsevalue);
-                            mDao.insertNewsDX(newsDXDB);
-                            newsDXUIListener = myApplication.getNewsDXUIListener();
-                            if (newsDXUIListener != null) {
-                                newsDXUIListener.onChangedNewsDX(responsevalue);
+                            HeaderBannerDao mDao = deviantXDB.headerBannerDao();
+                            HeaderBannerDB headerBannerDB = new HeaderBannerDB(1, responsevalue);
+                            mDao.insertHeaderBanner(headerBannerDB);
+                            headerBannerUIListener = myApplication.getHeaderBannerUIListener();
+                            if (headerBannerUIListener != null) {
+                                headerBannerUIListener.onChangedHeaderBanner(responsevalue);
                             }
 
                         } else {

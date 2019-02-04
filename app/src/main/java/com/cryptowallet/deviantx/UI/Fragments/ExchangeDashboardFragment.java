@@ -21,19 +21,24 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.HeaderPanelControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.NewsPanelControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeDashboardSlideAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedCoinsExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.NewsExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.HeaderBanner;
 import com.cryptowallet.deviantx.UI.Models.NewsDX;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.HeaderBannerDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.NewsDXDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.HeaderBannerDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.NewsDXDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -58,7 +63,7 @@ import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class ExchangeDashboardFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> {
+public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> */ {
 
 
     View view;
@@ -100,6 +105,8 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     LinearLayout lnr_empty_news;
     @BindView(R.id.lnr_empty_feat_coins)
     LinearLayout lnr_empty_feat_coins;
+    @BindView(R.id.lnr_empty_headers)
+    LinearLayout lnr_empty_headers;
 
 //    @BindView(R.id.)
 //    ;
@@ -115,6 +122,7 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    ArrayList<HeaderBanner> allHeaderBanner;
     ArrayList<NewsDX> allNewsDX;
     ArrayList<AllCoins> allCoinsList;
     String loginResponseData, loginResponseStatus, loginResponseMsg;
@@ -125,6 +133,7 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     @Override
     public void onResume() {
         super.onResume();
+        myApplication.setHeaderBannerUIListener(headerBannerUIListener);
         myApplication.setNewsDXUIListener(newsDXUIListener);
         myApplication.setAllCoinsUIListener(allCoinsUIListener);
     }
@@ -132,6 +141,7 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     @Override
     public void onDestroy() {
         super.onDestroy();
+        myApplication.setHeaderBannerUIListener(null);
         myApplication.setNewsDXUIListener(null);
         myApplication.setAllCoinsUIListener(null);
     }
@@ -159,20 +169,21 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
         gainersList = new ArrayList<>();
         loosersList = new ArrayList<>();
 
+        allHeaderBanner = new ArrayList<>();
         allNewsDX = new ArrayList<>();
         allCoinsList = new ArrayList<>();
 
 
-        dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity());
-        itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+//        dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity());
+//        itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+////        itemPicker.addOnItemChangedListener(this);
 //        itemPicker.addOnItemChangedListener(this);
-        itemPicker.addOnItemChangedListener(this);
-        itemPicker.setAdapter(dashboardSlideAdapter);
-        itemPicker.setItemTransitionTimeMillis(150);
-        itemPicker.setItemTransformer(new ScaleTransformer.Builder()
-                .setMinScale(0.8f)
-                .build());
-        itemPicker.scrollToPosition(1);
+//        itemPicker.setAdapter(dashboardSlideAdapter);
+//        itemPicker.setItemTransitionTimeMillis(150);
+//        itemPicker.setItemTransformer(new ScaleTransformer.Builder()
+//                .setMinScale(0.8f)
+//                .build());
+//        itemPicker.scrollToPosition(1);
 
 //        featuredCoinsExcDBRAdapter = new FeaturedCoinsExcDBRAdapter(getActivity(), featuredCoinsList);
 //        rview_featured_coins.setAdapter(featuredCoinsExcDBRAdapter);
@@ -219,6 +230,7 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                onLoadHeaderBanner();
                 onLoadNewsDX();
                 onLoadAllCoins();
             }
@@ -229,8 +241,134 @@ public class ExchangeDashboardFragment extends Fragment implements DiscreteScrol
     }
 
 
-    @Override
-    public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+    //    **************GETTING HEADER BANNER**************
+    private void onLoadHeaderBanner() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                HeaderBannerDao headerBannerDao = deviantXDB.headerBannerDao();
+                if ((headerBannerDao.getHeaderBanner()) != null) {
+                    String newsResult = headerBannerDao.getHeaderBanner().headerBannerDB;
+                    updateUIHeaderBanner(newsResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchHeaderBanner();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    HeaderBannerUIListener headerBannerUIListener = new HeaderBannerUIListener() {
+        @Override
+        public void onChangedHeaderBanner(String allHeaderBanner) {
+            updateUIHeaderBanner(allHeaderBanner);
+        }
+
+    };
+
+    private void updateUIHeaderBanner(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        HeaderBanner[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, HeaderBanner[].class);
+                        allHeaderBanner = new ArrayList<HeaderBanner>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<HeaderBanner> headerList = new ArrayList<>();
+                        for (HeaderBanner coinName : allHeaderBanner) {
+                            headerList.add(coinName);
+                        }
+                        if (headerList.size() > 0) {
+                            lnr_empty_headers.setVisibility(View.GONE);
+                            itemPicker.setVisibility(View.VISIBLE);
+                            dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity(),headerList);
+                            itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+//        itemPicker.addOnItemChangedListener(this);
+                            itemPicker.setAdapter(dashboardSlideAdapter);
+                            itemPicker.setItemTransitionTimeMillis(150);
+                            itemPicker.setItemTransformer(new ScaleTransformer.Builder()
+                                    .setMinScale(0.8f)
+                                    .build());
+                            itemPicker.scrollToPosition(0);
+                        } else {
+                            lnr_empty_headers.setVisibility(View.VISIBLE);
+                            itemPicker.setVisibility(View.GONE);
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchHeaderBanner() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            HeaderPanelControllerApi apiService = DeviantXApiClient.getClient().create(HeaderPanelControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getHeaderPanel(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            updateUIHeaderBanner(responsevalue);
+//                            progressDialog.dismiss();
+                            HeaderBannerDao mDao = deviantXDB.headerBannerDao();
+                            HeaderBannerDB headerBannerDB = new HeaderBannerDB(1, responsevalue);
+                            mDao.insertHeaderBanner(headerBannerDB);
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

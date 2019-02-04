@@ -2,7 +2,6 @@ package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.HeaderBanner;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,9 +20,11 @@ import butterknife.ButterKnife;
 public class ExchangeDashboardSlideAdapter extends RecyclerView.Adapter<ExchangeDashboardSlideAdapter.ViewHolder> {
 
     Context context;
+    ArrayList<HeaderBanner> headerList;
 
-    public ExchangeDashboardSlideAdapter(Context context) {
+    public ExchangeDashboardSlideAdapter(Context context, ArrayList<HeaderBanner> headerList) {
         this.context = context;
+        this.headerList = headerList;
     }
 
     @NonNull
@@ -32,7 +37,9 @@ public class ExchangeDashboardSlideAdapter extends RecyclerView.Adapter<Exchange
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        switch (i) {
+
+        Picasso.with(context).load(headerList.get(i).getStr_image()).into(viewHolder.img_bg);
+       /* switch (i) {
             case 0:
                 viewHolder.img_left.setVisibility(View.GONE);
                 viewHolder.img_right.setVisibility(View.GONE);
@@ -60,13 +67,13 @@ public class ExchangeDashboardSlideAdapter extends RecyclerView.Adapter<Exchange
                 viewHolder.img_center.setVisibility(View.GONE);
                 viewHolder.img_bg.setBackground(context.getResources().getDrawable(R.drawable.exc_bg1));
                 break;
-        }
+        }*/
 
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return headerList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

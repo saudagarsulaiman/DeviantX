@@ -11,6 +11,7 @@ import com.cryptowallet.deviantx.UI.Interfaces.AirdropsHistoryUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.DividendAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.instabug.library.Instabug;
@@ -36,6 +37,7 @@ public class MyApplication extends Application {
     public DividendAirdropsUIListener dividendAirdropsUIListener;
     public AirdropsHistoryUIListener airdropsHistoryUIListener;
     public NewsDXUIListener newsDXUIListener;
+    public HeaderBannerUIListener headerBannerUIListener;
 
     public Boolean getHideBalance() {
         return isHideBalance;
@@ -162,5 +164,13 @@ public class MyApplication extends Application {
 
     public void setNewsDXUIListener(NewsDXUIListener newsDXUIListener) {
         this.newsDXUIListener = newsDXUIListener;
+    }
+
+    public HeaderBannerUIListener getHeaderBannerUIListener() {
+        return headerBannerUIListener;
+    }
+
+    public void setHeaderBannerUIListener(HeaderBannerUIListener headerBannerUIListener) {
+        this.headerBannerUIListener = headerBannerUIListener;
     }
 }
