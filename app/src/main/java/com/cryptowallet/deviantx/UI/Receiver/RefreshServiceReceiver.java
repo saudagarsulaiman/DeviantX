@@ -33,7 +33,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startForegroundService(new Intent(context, AirdropsHistoryFetch.class));
                 context.startForegroundService(new Intent(context, NewsDXFetch.class));
                 context.startForegroundService(new Intent(context, HeaderBannerFetch.class));
-//                context.startForegroundService(new Intent(context, WalletDetailsFetch.class));
+                context.startForegroundService(new Intent(context, WalletDetailsFetch.class));
 
             } else {
                 context.startService(new Intent(context, WalletDataFetch.class));
@@ -44,7 +44,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startService(new Intent(context, AirdropsHistoryFetch.class));
                 context.startService(new Intent(context, NewsDXFetch.class));
                 context.startService(new Intent(context, HeaderBannerFetch.class));
-//                context.startService(new Intent(context, WalletDetailsFetch.class));
+                context.startService(new Intent(context, WalletDetailsFetch.class));
             }
         } catch (Exception e) {
             e.printStackTrace();

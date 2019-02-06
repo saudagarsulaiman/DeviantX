@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_toolbar_back_height"
         android:orientation="horizontal"
+        android:visibility="visible"
         android:weightSum="2">
 
         <ImageView
@@ -45,7 +45,6 @@
     </LinearLayout>
 
     <TextView
-        android:visibility="visible"
         android:id="@+id/txt_total_bal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,10 +53,10 @@
         android:text="0.16357865 BTC"
         android:textColor="@color/white"
         android:textSize="@dimen/def_ttl_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <TextView
-        android:visibility="visible"
         android:id="@+id/txt_total_bal_usd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,30 +68,33 @@
         android:text="$654.12 USD"
         android:textColor="@color/grey"
         android:textSize="@dimen/def_text_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <TextView
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/def_margin"
         android:gravity="center"
         android:text="@string/asso_wal"
         android:textColor="@color/white"
-        android:textSize="@dimen/def_text_size" />
+        android:textSize="@dimen/def_text_size"
+        android:visibility="visible" />
 
     <ExpandableListView
-        android:visibility="visible"
         android:id="@+id/expandable_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/def_margin"
         android:layout_marginStart="@dimen/def_margin"
+        android:layout_marginLeft="@dimen/def_margin"
         android:layout_marginTop="@dimen/def_margin"
         android:layout_marginEnd="@dimen/def_margin"
         android:layout_marginRight="@dimen/def_margin"
         android:layout_marginBottom="@dimen/margin80"
-        android:groupIndicator="@null" />
+        android:groupIndicator="@null"
+        android:visibility="visible" />
+
+
 
 
 </LinearLayout>

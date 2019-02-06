@@ -16,11 +16,10 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExpandableListViewAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletDetailsUIListener;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.WalletDetails;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletDetailsDao;
@@ -57,9 +56,9 @@ public class ExchangeFundsFragment extends Fragment {
 
     View view;
 
-    private ArrayList<String> listDataHeader;
-    ArrayList<AllCoins> SubHeader, SubHeader1, SubHeader2, SubHeader3;
-    private HashMap<String, ArrayList<AllCoins>> listDataChild;
+    private ArrayList<String> listDataHeader, valuesList;
+    ArrayList<WalletDetails> SubHeader/*, SubHeader1, SubHeader2, SubHeader3*/;
+    private HashMap<String, ArrayList<WalletDetails>> listDataChild;
     String loginResponseData, loginResponseStatus, loginResponseMsg;
 
 
@@ -92,49 +91,51 @@ public class ExchangeFundsFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<String, ArrayList<AllCoins>>();
-        SubHeader = new ArrayList<AllCoins>();
-        SubHeader1 = new ArrayList<AllCoins>();
+        listDataChild = new HashMap<String, ArrayList<WalletDetails>>();
+        SubHeader = new ArrayList<>();
+        valuesList = new ArrayList<>();
+/*        SubHeader1 = new ArrayList<AllCoins>();
         SubHeader2 = new ArrayList<AllCoins>();
         SubHeader3 = new ArrayList<AllCoins>();
+     */
         allWalletDetailsList = new ArrayList<>();
 
-        listDataHeader.add("Trade Wallet");
-        listDataHeader.add("My Test Wallet");
-        listDataHeader.add("Holding Wallet");
-        listDataHeader.add("My Test1 Wallet");
+//        listDataHeader.add("Trade Wallet");
+//        listDataHeader.add("My Test Wallet");
+//        listDataHeader.add("Holding Wallet");
+//        listDataHeader.add("My Test1 Wallet");
 
-        SubHeader.add(new AllCoins(1, "Deviantcoin", "DEV",
-                /*getResources().getDrawable(R.drawable.ic_dlg)*/
+        /*SubHeader.add(new AllCoins(1, "Deviantcoin", "DEV",
+         *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
                 "logo", 349.52, 5, 6511321.565,
                 5461616.225, 64.56, 54.65, 45.54));
 
         SubHeader1.add(new AllCoins(2, "Bitcoin", "BTC",
-                /*getResources().getDrawable(R.drawable.ic_dlg)*/
+                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
                 "logo", 546.52, 8, 4453165.565,
                 553215.225, 88.56, 55.65, 54.54));
         SubHeader1.add(new AllCoins(3, "Bitcoin Diamond", "BTCD",
-                /*getResources().getDrawable(R.drawable.ic_dlg)*/
+                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
                 "logo", 465.57, 78, 4453165.565,
                 553215.225, 88.56, 55.65, 54.54));
 
         SubHeader2.add(new AllCoins(3, "Ethereum", "ETH",
-                /*getResources().getDrawable(R.drawable.ic_dlg)*/
+                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
                 "logo", 874.65, 8, 65431.565,
                 5461616.225, 64.56, 54.65, 45.54));
 
         SubHeader3.add(new AllCoins(4, "Litcoin", "LTC",
-                /*getResources().getDrawable(R.drawable.ic_dlg)*/
+                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
                 "logo", 5453.52, 18, 54.5,
                 457.56, 88.56, 55.65, 54.54));
-
-        listDataChild.put(listDataHeader.get(0), SubHeader);
+*/
+       /* listDataChild.put(listDataHeader.get(0), SubHeader);
         listDataChild.put(listDataHeader.get(1), SubHeader1);
         listDataChild.put(listDataHeader.get(2), SubHeader2);
         listDataChild.put(listDataHeader.get(3), SubHeader3);
-
-        expandableListViewAdapter = new ExpandableListViewAdapter(getActivity(), listDataHeader, listDataChild);
-        expandable_list_view.setAdapter(expandableListViewAdapter);
+*/
+//        expandableListViewAdapter = new ExpandableListViewAdapter(getActivity(), listDataHeader, listDataChild);
+//        expandable_list_view.setAdapter(expandableListViewAdapter);
 //        expandable_list_view.setBackgroundResource(R.drawable.rec_gray_white);
 
 
@@ -158,13 +159,12 @@ public class ExchangeFundsFragment extends Fragment {
             }
         });
 
-     /*   Handler handler = new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 onLoadWalletDetails();
             }
         }, 200);
-*/
 
         return view;
     }
@@ -215,9 +215,30 @@ public class ExchangeFundsFragment extends Fragment {
                         allWalletDetailsList = new ArrayList<WalletDetails>(Arrays.asList(coinsStringArray));
 
                         if (allWalletDetailsList.size() > 0) {
+                            expandable_list_view.setVisibility(View.VISIBLE);
+                           /* listDataHeader = new ArrayList<>();
+                            SubHeader = new ArrayList<>();
 
+
+                            for (int i = 0; i < allWalletDetailsList.size(); i++) {
+                                listDataHeader.add(allWalletDetailsList.get(i).getStr_data_walletName());
+
+                            }
+                            for (int j = 0; j < listDataHeader.size(); j++) {
+                                SubHeader = new ArrayList<>();
+                                valuesList = new ArrayList<>();
+//                                valuesList.add(allWalletDetailsList.get(j).getStr_data_values());
+                                for (int i = 0; i < valuesList.size(); i++) {
+                                    SubHeader.add(allWalletDetailsList.get(i));
+                                }
+                                listDataChild.put(listDataHeader.get(j), SubHeader);
+                            }*/
+
+
+                            expandableListViewAdapter = new ExpandableListViewAdapter(getActivity(), /*listDataHeader, listDataChild*/allWalletDetailsList);
+                            expandable_list_view.setAdapter(expandableListViewAdapter);
                         } else {
-
+                            expandable_list_view.setVisibility(View.GONE);
                         }
 
 
@@ -235,8 +256,8 @@ public class ExchangeFundsFragment extends Fragment {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
-            UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getUserAD(CONSTANTS.DeviantMulti + token);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWalletsDetails(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

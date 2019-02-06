@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.WalletDetails;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by SSS on 3/22/2018.
@@ -21,35 +22,34 @@ import java.util.HashMap;
 public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    private ArrayList<String> _listDataHeader;
-    private HashMap<String, ArrayList<AllCoins>> _listDataChild;
-    private ArrayList<AllCoins> SubHeader;
+    private ArrayList<WalletDetails> allWalletDetailsList;
 
-    public ExpandableListViewAdapter(Context _context, ArrayList<String> _listDataHeader, HashMap<String, ArrayList<AllCoins>> _listDataChild) {
+    public ExpandableListViewAdapter(Context _context, ArrayList<WalletDetails> allWalletDetailsList) {
         this._context = _context;
-        this._listDataHeader = _listDataHeader;
-        this._listDataChild = _listDataChild;
-        this.SubHeader = new ArrayList<>();
+        this.allWalletDetailsList = allWalletDetailsList;
     }
 
     @Override
     public int getGroupCount() {
-        return this._listDataHeader.size();
+        return this.allWalletDetailsList.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).size();
+        if (this.allWalletDetailsList.get(groupPosition).getStr_data_values().size() == 0)
+            return 1;
+        else
+            return this.allWalletDetailsList.get(groupPosition).getStr_data_values().size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this._listDataHeader.get(groupPosition);
+        return this.allWalletDetailsList.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this._listDataChild.get(this._listDataHeader.get(groupPosition)).get(childPosition);
+        return this.allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-        String headerText = (String) getGroup(groupPosition);
+        String headerText = allWalletDetailsList.get(groupPosition).getStr_data_walletName();
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -93,13 +93,6 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
-//        String childText = (String) getChild(groupPosition, childPosition);
-        SubHeader = _listDataChild.get(_listDataHeader.get(groupPosition));
-        String coinName = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_name();
-        String coinCode = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_code();
-        String coinLogo = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getStr_coin_logo();
-        Double coinBal = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getDbl_coin_usdValue();
-        Double coinBalUSD = /*(String) getChild(groupPosition, childPosition)*/SubHeader.get(childPosition).getDbl_coin_usdValue();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -111,13 +104,27 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         TextView txt_coin_code = convertView.findViewById(R.id.txt_coin_code);
         TextView txt_coin_bal = convertView.findViewById(R.id.txt_coin_bal);
         TextView txt_coin_usd_value = convertView.findViewById(R.id.txt_coin_usd_value);
+        LinearLayout lnr_sub_item = convertView.findViewById(R.id.lnr_sub_item);
+        LinearLayout lnr_empty_coins = convertView.findViewById(R.id.lnr_empty_coins);
 
-//        Picasso.with(_context).load().into(img_coin_logo);
-        txt_coin_name.setText(coinName);
-        txt_coin_code.setText(coinCode);
-        txt_coin_bal.setText(""+coinBal);
-        txt_coin_usd_value.setText(""+coinBalUSD);
 
+        if (allWalletDetailsList.get(groupPosition).getStr_data_values().size() > 0) {
+            String coinName = /*(String) getChild(groupPosition, childPosition)*/allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition).getStr_coin_name();
+            String coinCode = /*(String) getChild(groupPosition, childPosition)*/allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition).getStr_coin_code();
+            String coinLogo = /*(String) getChild(groupPosition, childPosition)*/allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition).getStr_coin_logo();
+            Double coinBal = /*(String) getChild(groupPosition, childPosition)*/allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition).getStr_data_balanceInUSD();
+            Double coinBalUSD = /*(String) getChild(groupPosition, childPosition)*/allWalletDetailsList.get(groupPosition).getStr_data_values().get(childPosition).getStr_data_balance();
+            lnr_empty_coins.setVisibility(View.GONE);
+            lnr_sub_item.setVisibility(View.VISIBLE);
+            Picasso.with(_context).load(coinLogo).into(img_coin_logo);
+            txt_coin_name.setText(coinName);
+            txt_coin_code.setText(coinCode);
+            txt_coin_bal.setText("" + String.format("%.4f", coinBal));
+            txt_coin_usd_value.setText("" + coinBalUSD);
+        } else {
+            lnr_sub_item.setVisibility(View.GONE);
+            lnr_empty_coins.setVisibility(View.VISIBLE);
+        }
 
 //        TvChildItems.setText(childText);
 
