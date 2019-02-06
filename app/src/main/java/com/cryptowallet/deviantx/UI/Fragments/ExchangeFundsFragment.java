@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
@@ -34,7 +35,6 @@ import org.json.JSONObject;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +51,11 @@ public class ExchangeFundsFragment extends Fragment {
     ExpandableListView expandable_list_view;
     @BindView(R.id.img_history)
     ImageView img_history;
+    @BindView(R.id.txt_total_bal)
+    TextView txt_total_bal;
+    @BindView(R.id.txt_total_bal_usd)
+    TextView txt_total_bal_usd;
+
 
     private ExpandableListViewAdapter expandableListViewAdapter;
 
@@ -58,7 +63,6 @@ public class ExchangeFundsFragment extends Fragment {
 
     private ArrayList<String> listDataHeader, valuesList;
     ArrayList<WalletDetails> SubHeader/*, SubHeader1, SubHeader2, SubHeader3*/;
-    private HashMap<String, ArrayList<WalletDetails>> listDataChild;
     String loginResponseData, loginResponseStatus, loginResponseMsg;
 
 
@@ -91,52 +95,10 @@ public class ExchangeFundsFragment extends Fragment {
         editor = sharedPreferences.edit();
 
         listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<String, ArrayList<WalletDetails>>();
         SubHeader = new ArrayList<>();
         valuesList = new ArrayList<>();
-/*        SubHeader1 = new ArrayList<AllCoins>();
-        SubHeader2 = new ArrayList<AllCoins>();
-        SubHeader3 = new ArrayList<AllCoins>();
-     */
+
         allWalletDetailsList = new ArrayList<>();
-
-//        listDataHeader.add("Trade Wallet");
-//        listDataHeader.add("My Test Wallet");
-//        listDataHeader.add("Holding Wallet");
-//        listDataHeader.add("My Test1 Wallet");
-
-        /*SubHeader.add(new AllCoins(1, "Deviantcoin", "DEV",
-         *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
-                "logo", 349.52, 5, 6511321.565,
-                5461616.225, 64.56, 54.65, 45.54));
-
-        SubHeader1.add(new AllCoins(2, "Bitcoin", "BTC",
-                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
-                "logo", 546.52, 8, 4453165.565,
-                553215.225, 88.56, 55.65, 54.54));
-        SubHeader1.add(new AllCoins(3, "Bitcoin Diamond", "BTCD",
-                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
-                "logo", 465.57, 78, 4453165.565,
-                553215.225, 88.56, 55.65, 54.54));
-
-        SubHeader2.add(new AllCoins(3, "Ethereum", "ETH",
-                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
-                "logo", 874.65, 8, 65431.565,
-                5461616.225, 64.56, 54.65, 45.54));
-
-        SubHeader3.add(new AllCoins(4, "Litcoin", "LTC",
-                *//*getResources().getDrawable(R.drawable.ic_dlg)*//*
-                "logo", 5453.52, 18, 54.5,
-                457.56, 88.56, 55.65, 54.54));
-*/
-       /* listDataChild.put(listDataHeader.get(0), SubHeader);
-        listDataChild.put(listDataHeader.get(1), SubHeader1);
-        listDataChild.put(listDataHeader.get(2), SubHeader2);
-        listDataChild.put(listDataHeader.get(3), SubHeader3);
-*/
-//        expandableListViewAdapter = new ExpandableListViewAdapter(getActivity(), listDataHeader, listDataChild);
-//        expandable_list_view.setAdapter(expandableListViewAdapter);
-//        expandable_list_view.setBackgroundResource(R.drawable.rec_gray_white);
 
 
 //        Closing/Collapsing Previously Opened ListView
@@ -147,6 +109,10 @@ public class ExchangeFundsFragment extends Fragment {
             public void onGroupExpand(int groupPosition) {
                 if (groupPosition != previousItem)
                     expandable_list_view.collapseGroup(previousItem);
+/*
+                txt_total_bal.setText(String.format("%.4f", allWalletDetailsList.get(groupPosition).getDbl_data_totalBTC()) + " BTC");
+                txt_total_bal_usd.setText(String.format("%.4f", allWalletDetailsList.get(groupPosition).getDbl_data_totalUsd()) + " USD");
+*/
                 previousItem = groupPosition;
             }
         });
@@ -216,24 +182,14 @@ public class ExchangeFundsFragment extends Fragment {
 
                         if (allWalletDetailsList.size() > 0) {
                             expandable_list_view.setVisibility(View.VISIBLE);
-                           /* listDataHeader = new ArrayList<>();
-                            SubHeader = new ArrayList<>();
 
-
+                            double totalUSD = 0.0, totalBTC = 0.0;
                             for (int i = 0; i < allWalletDetailsList.size(); i++) {
-                                listDataHeader.add(allWalletDetailsList.get(i).getStr_data_walletName());
-
+                                totalBTC = totalBTC + allWalletDetailsList.get(i).getDbl_data_totalBTC();
+                                totalUSD = totalUSD + allWalletDetailsList.get(i).getDbl_data_totalUsd();
                             }
-                            for (int j = 0; j < listDataHeader.size(); j++) {
-                                SubHeader = new ArrayList<>();
-                                valuesList = new ArrayList<>();
-//                                valuesList.add(allWalletDetailsList.get(j).getStr_data_values());
-                                for (int i = 0; i < valuesList.size(); i++) {
-                                    SubHeader.add(allWalletDetailsList.get(i));
-                                }
-                                listDataChild.put(listDataHeader.get(j), SubHeader);
-                            }*/
-
+                            txt_total_bal.setText(String.format("%.4f", totalBTC) + " BTC");
+                            txt_total_bal_usd.setText(String.format("%.4f", totalUSD) + " USD");
 
                             expandableListViewAdapter = new ExpandableListViewAdapter(getActivity(), /*listDataHeader, listDataChild*/allWalletDetailsList);
                             expandable_list_view.setAdapter(expandableListViewAdapter);
