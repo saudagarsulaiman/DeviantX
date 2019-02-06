@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.cryptowallet.deviantx.UI.Models.WalletDetails;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropsHistoryDao;
@@ -14,6 +15,7 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.FeaturedAirdropsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.HeaderBannerDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.NewsDXDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletDetailsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletListDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AirdropWalletDB;
@@ -24,10 +26,11 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.FeaturedAirdropsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.HeaderBannerDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.NewsDXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletDetailsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletListDB;
 
 
-@Database(entities = {WalletListDB.class, AccountWalletDB.class, AllCoinsDB.class, AirdropWalletDB.class, ExploreCoinsDB.class, FeaturedAirdropsDB.class, DividendAirdropsDB.class, AirdropsHistoryDB.class, NewsDXDB.class, HeaderBannerDB.class}, version = 1)
+@Database(entities = {WalletListDB.class, AccountWalletDB.class, AllCoinsDB.class, AirdropWalletDB.class, ExploreCoinsDB.class, FeaturedAirdropsDB.class, DividendAirdropsDB.class, AirdropsHistoryDB.class, NewsDXDB.class, HeaderBannerDB.class, WalletDetailsDB.class}, version = 1)
 public abstract class DeviantXDB extends RoomDatabase {
 
     public abstract WalletListDao walletListDao();
@@ -49,6 +52,8 @@ public abstract class DeviantXDB extends RoomDatabase {
     public abstract NewsDXDao newsDXDao();
 
     public abstract HeaderBannerDao headerBannerDao();
+
+    public abstract WalletDetailsDao walletDetailsDao();
 
 
     public static volatile DeviantXDB INSTANCE;

@@ -9,9 +9,13 @@ import retrofit2.http.Path;
 
 public interface WalletControllerApi {
 
-//    @Headers("Content-Type: application/json")
+    //    @Headers("Content-Type: application/json")
     @GET("/api/wallet/get_all_wallet")
     Call<ResponseBody> getAllWallet(@Header("Authorization") String tokenDX);
+
+    //    @Headers("Content-Type: application/json")
+    @GET("/api/wallet/get_all_wallet_with_coin")
+    Call<ResponseBody> getAllWalletsDetails(@Header("Authorization") String tokenDX);
 
     //    @Headers("Content-Type: application/json")
     @GET("/api/wallet/new_wallet/{name}/{defaultWallet}")

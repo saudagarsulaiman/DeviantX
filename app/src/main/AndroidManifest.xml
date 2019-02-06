@@ -204,6 +204,10 @@
             android:name=".UI.Services.HeaderBannerFetch"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".UI.Services.WalletDetailsFetch"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"
