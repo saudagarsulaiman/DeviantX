@@ -20,28 +20,17 @@ public interface UserControllerApi {
     @POST("/api/account/create")
     Call<ResponseBody> createAccount(@Body String body);
 
-    @GET("/api/account/verify/email/{token}")
-    Call<ResponseBody> verifyToken(@Path("token") String token);
+    @GET("/api/account/disable_2fa/{password}/{totp}")
+    Call<ResponseBody> disable2FA(@Path("password") String passwordX, @Path("totp") String totpX, @Header("Authorization") String AuthorizationDX);
 
-    @GET("/api/account/reset_password_link/{email}/")
-    Call<ResponseBody> resetEmail(@Path("email") String email);
+    @GET("/api/account/enable_2fa/{password}/{totp}")
+    Call<ResponseBody> enable2FA(@Path("password") String passwordX, @Path("totp") String totpX, @Header("Authorization") String AuthorizationDX);
 
-    @Headers("Content-Type: application/json")
-    @POST("/api/account/reset_password_link/validate/{token}")
-    Call<ResponseBody> recoverEmailPassword(@Body String body,@Path("token") String token);
-
-    @Headers("Content-Type: application/json")
-    @POST("/api/account/update_password")
-    Call<ResponseBody> updatePassword(@Body String body,@Header("Authorization") String AuthorizationDX);
-
+    @GET("/api/account/generate_2fa/{password}/{secret}/{totp}")
+    Call<ResponseBody> generate2FA(@Path("password") String passwordX, @Path("secret") String secretX, @Path("totp") String totpX, @Header("Authorization") String AuthorizationDX);
 
     @GET("/api/account/get_seed")
     Call<ResponseBody> getSeed();
-
-    @Headers("Content-Type: application/json")
-    @POST("/api/account/restore_seed")
-    Call<ResponseBody> restoreSeed(@Body String body);
-
 
     @GET("/api/account/get_two_factor")
     Call<ResponseBody> get2FACode(@Header("Authorization") String AuthorizationDX);
@@ -49,24 +38,25 @@ public interface UserControllerApi {
 //    @GET("/api/account/get_two_factor_status")
 //    Call<ResponseBody> get2FAStatus(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api/account/disable_2fa/{password}/{totp}")
-    Call<ResponseBody> disable2FA(@Path("password") String passwordX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
+    @Headers("Content-Type: application/json")
+    @POST("/api/account/reset_password_link/validate/{token}")
+    Call<ResponseBody> recoverEmailPassword(@Body String body, @Path("token") String token);
 
-    @GET("/api/account/enable_2fa/{password}/{totp}")
-    Call<ResponseBody> enable2FA(@Path("password") String passwordX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
+    @GET("/api/account/reset_password_link/{email}/")
+    Call<ResponseBody> resetEmail(@Path("email") String email);
 
-    @GET("/api/account/generate_2fa/{password}/{secret}/{totp}")
-    Call<ResponseBody> generate2FA(@Path("password") String passwordX,@Path("secret") String secretX,@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
+    @Headers("Content-Type: application/json")
+    @POST("/api/account/restore_seed")
+    Call<ResponseBody> restoreSeed(@Body String body);
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/account/update_password")
+    Call<ResponseBody> updatePassword(@Body String body, @Header("Authorization") String AuthorizationDX);
+
+    @GET("/api/account/verify/email/{token}")
+    Call<ResponseBody> verifyToken(@Path("token") String token);
 
     @GET("/api/account/verify_2fa/{totp}")
-    Call<ResponseBody> verify2FA(@Path("totp") String totpX,@Header("Authorization") String AuthorizationDX);
-
-
-    //    @POST("/api/account/create")
-//    @FormUrlEncoded
-
-//    Call<ResponseBody> createAccount(@Field("email") String emailDX, @Field("password") String passwordDX, @Field("userName") String userNameDX);
-//    @GET("/api/account/get_seed")
-//    Call<ResponseBody> getSeeds();
+    Call<ResponseBody> verify2FA(@Path("totp") String totpX, @Header("Authorization") String AuthorizationDX);
 
 }

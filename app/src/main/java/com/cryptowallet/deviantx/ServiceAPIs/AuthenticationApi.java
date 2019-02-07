@@ -12,25 +12,13 @@ import retrofit2.http.POST;
 
 public interface AuthenticationApi {
 
-//    @FormUrlEncoded
-//    @POST("/api/authenticate/add_seed")
-//    Call<ResponseBody> getBookDetailsResponse(@Field("maximumRows") int xMaxRows, @Field("startRowIndex") int xPageNum);
-
-//    @FormUrlEncoded
-//    @POST("/api/authenticate/admin/login")
-//    Call<ResponseBody> getBookDetailsResponse(@Field("maximumRows") int xMaxRows, @Field("startRowIndex") int xPageNum);
-
-//    @FormUrlEncoded  USING
-//    @POST("/api/authenticate/login")
-//    Call<ResponseBody> getBookDetailsResponse(@Field("maximumRows") int xMaxRows, @Field("startRowIndex") int xPageNum);
+    @Headers("Content-Type: application/json")
+    @POST("/api/authenticate/add_seed")
+    Call<ResponseBody> addSeed(@Body String body);
 
     @Headers("Content-Type: application/json")
     @POST("/api/authenticate/login")
     Call<ResponseBody> loginAccount(@Body String body);
-
-    @Headers("Content-Type: application/json")
-    @POST("/api/authenticate/add_seed")
-    Call<ResponseBody> addSeed(@Body String body);
 
     @Headers("Content-Type: application/json")
     @POST("/api/authenticate/login_2fa")

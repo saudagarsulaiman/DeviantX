@@ -2,6 +2,7 @@ package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
+import com.cryptowallet.deviantx.UI.Models.CoinPairs;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import java.util.ArrayList;
 
@@ -25,14 +28,14 @@ import butterknife.ButterKnife;
 
 public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserExcDBRAdapter.Viewholder> {
     Context context;
-    ArrayList<String> gainersLoserList;
+    ArrayList<CoinPairs> allCoinPairs;
     boolean isGainer;
     boolean isAll;
     String selectedCoinName;
 
-    public GainerLoserExcDBRAdapter(Context context, ArrayList<String> gainersLoserList, String selectedCoinName, boolean isGainer, boolean isAll) {
+    public GainerLoserExcDBRAdapter(Context context, ArrayList<CoinPairs> allCoinPairs, String selectedCoinName, boolean isGainer, boolean isAll) {
         this.context = context;
-        this.gainersLoserList = gainersLoserList;
+        this.allCoinPairs = allCoinPairs;
         this.isGainer = isGainer;
         this.isAll = isAll;
         this.selectedCoinName = selectedCoinName;
@@ -48,24 +51,26 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
 
     @Override
     public void onBindViewHolder(Viewholder viewholder, int i) {
-        if (i == /*gainersLoserList.size()-1*/9) {
+        /*if (i == allCoinPairs.size() - 1*//*9*//*) {
             viewholder.view.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
         if (isAll) {
             viewholder.txt_coin_vol.setVisibility(View.VISIBLE);
             viewholder.txt_coin_usd.setVisibility(View.VISIBLE);
-            viewholder.txt_coin_price_change.setText("0.13566");
-            viewholder.txt_coin_usd.setText("$0.44");
-            if (i % 2 == 0) {
+            viewholder.txt_coin_price_change.setText(String.format("%.4f", allCoinPairs.get(i).getDbl_previousValue()));
+
+//            viewholder.txt_coin_usd.setText(String.format("%.4f", allCoinPairs.get(i).getDbl_twentyFourChangeUsd()));
+
+            if (allCoinPairs.get(i).getDbl_twentyFourChangePercentage() >= 0) {
                 viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_green));
-                viewholder.txt_coin_per.setText("+42.90%");
+                viewholder.txt_coin_per.setText("+" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
             } else {
                 viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_red));
-                viewholder.txt_coin_per.setText("-18.35%");
+                viewholder.txt_coin_per.setText(String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
             }
 
-            SpannableString spannableString = new SpannableString("BTC/" + selectedCoinName);
+            SpannableString spannableString = new SpannableString(allCoinPairs.get(i).getStr_pairCoin() + "/" + allCoinPairs.get(i).getStr_exchangeCoin());
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View textView) {
@@ -78,8 +83,8 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
 //                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
                 }
             };
-            spannableString.setSpan(new RelativeSizeSpan(0.8f), spannableString.length() - (selectedCoinName.length() + 1), spannableString.length() - 0, 0); // set size
-            spannableString.setSpan(clickableSpan, spannableString.length() - (selectedCoinName.length() + 1), spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new RelativeSizeSpan(0.8f), spannableString.length() - (allCoinPairs.get(i).getStr_exchangeCoin().length() + 1), spannableString.length() - 0, 0); // set size
+            spannableString.setSpan(clickableSpan, spannableString.length() - (allCoinPairs.get(i).getStr_exchangeCoin().length() + 1), spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewholder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
             viewholder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -87,19 +92,27 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ExchangeCoinInfoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(CONSTANTS.selectedCoin, allCoinPairs.get(i));
+                    intent.putExtras(bundle);
                     context.startActivity(intent);
                 }
             });
 
         } else {
             if (isGainer) {
-                viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_green));
-                viewholder.txt_coin_per.setText("+42.90%");
+                if (!allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
+                    viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_green));
+                    viewholder.txt_coin_per.setText("+" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
+                }
             } else {
-                viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_red));
-                viewholder.txt_coin_per.setText("-18.35%");
+                if (allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
+                    viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_red));
+                    viewholder.txt_coin_per.setText(String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
+                }
             }
-
+            viewholder.txt_coin_name.setText(allCoinPairs.get(i).getStr_pairCoin() + "/" + allCoinPairs.get(i).getStr_exchangeCoin());
+            viewholder.txt_coin_price_change.setText(String.format("%.4f", allCoinPairs.get(i).getDbl_currentValue()) + "/" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangeUsd()));
 
         }
 
@@ -107,8 +120,8 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
 
     @Override
     public int getItemCount() {
-//        return gainersLoserList.size();
-        return 10;
+        return allCoinPairs.size();
+//        return 10;
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {

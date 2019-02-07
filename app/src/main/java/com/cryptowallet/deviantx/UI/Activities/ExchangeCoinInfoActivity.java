@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Adapters.MarketTradesRAdapter;
+import com.cryptowallet.deviantx.UI.Models.CoinPairs;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,6 +70,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManagerDeph, linearLayoutManagerTrades;
 
     ArrayList<String> tradesList;
+    CoinPairs coinPairsList;
 
     boolean isShort;
 
@@ -86,6 +89,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
         tradesList = new ArrayList<>();
         isShort = true;
+
+        Bundle bundle = getIntent().getExtras();
+        coinPairsList = bundle.getParcelable(CONSTANTS.selectedCoin);
 
 //        linearLayoutManagerDeph = new LinearLayoutManager(ExchangeCoinInfoActivity.this, LinearLayoutManager.VERTICAL, false);
 //        rview_mrkt_deph.setLayoutManager(linearLayoutManagerDeph);

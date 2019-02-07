@@ -131,7 +131,6 @@ public class WalletDetailsActivity extends AppCompatActivity {
 /*
             fetchPrivateKey(selectedAccountWallet.getStr_data_address(), s_pswd);
 */
-            fetchPrivateKey(selectedAccountWallet.getStr_coin_name(), s_pswd);
             if (hideBal) {
                 txt_mywallet_usd.setText("$ *** USD");
                 txt_mywallet_btc.setText("***" + " " + selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
@@ -185,82 +184,82 @@ public class WalletDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void fetchPrivateKey(String s_address, String s_pswd) {
-
-        try {
-            JSONObject params = new JSONObject();
-            try {
-                params.put("address", s_address);
-                params.put("password", s_pswd);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            String token = sharedPreferences.getString(CONSTANTS.token, null);
-            progressDialog = ProgressDialog.show(WalletDetailsActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getPrivateKey(params.toString(), CONSTANTS.DeviantMulti + token);
-            apiResponse.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                loginResponseData = jsonObject.getString("data");
-
-                                txt_dev_private_key.setText(loginResponseData);
-
-                            } else {
-                                CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, loginResponseMsg);
-                            }
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
-                    } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        } catch (Exception ex) {
-            progressDialog.dismiss();
-            ex.printStackTrace();
-            CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }
-
-    }
+//    private void fetchPrivateKey(String s_address, String s_pswd) {
+//
+//        try {
+//            JSONObject params = new JSONObject();
+//            try {
+//                params.put("address", s_address);
+//                params.put("password", s_pswd);
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(WalletDetailsActivity.this, "", getResources().getString(R.string.please_wait), true);
+//            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+//            Call<ResponseBody> apiResponse = apiService.getPrivateKey(params.toString(), CONSTANTS.DeviantMulti + token);
+//            apiResponse.enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                    try {
+//                        String responsevalue = response.body().string();
+//
+//                        if (!responsevalue.isEmpty() && responsevalue != null) {
+//                            progressDialog.dismiss();
+//
+//                            JSONObject jsonObject = new JSONObject(responsevalue);
+//                            loginResponseMsg = jsonObject.getString("msg");
+//                            loginResponseStatus = jsonObject.getString("status");
+//
+//                            if (loginResponseStatus.equals("true")) {
+//                                loginResponseData = jsonObject.getString("data");
+//
+//                                txt_dev_private_key.setText(loginResponseData);
+//
+//                            } else {
+//                                CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, loginResponseMsg);
+//                            }
+//
+//                        } else {
+//                            CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, loginResponseMsg);
+////                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+//                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.Timeout));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+//                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        progressDialog.dismiss();
+//                        CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
+////                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//        } catch (Exception ex) {
+//            progressDialog.dismiss();
+//            ex.printStackTrace();
+//            CommonUtilities.ShowToastMessage(WalletDetailsActivity.this, getResources().getString(R.string.errortxt));
+////            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+//        }
+//
+//    }
 
 
 }

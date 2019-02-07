@@ -15,23 +15,14 @@ import retrofit2.http.Path;
 
 public interface CryptoControllerApi {
 
+    @GET("/api/crypto/deposit_wallet/{coin_code}/{wallet_name}")
+    Call<ResponseBody> receiveCoins(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX, @Path("wallet_name") String walletNameX);
+
 /*
-    @GET("/api/crypto/get_all_transactions")
-    Call<ResponseBody> getAllTransactions(@Header("Authorization") String AuthorizationDX);
-
-    @GET("/api/crypto/get_transactions_by_address/{address}")
-    Call<ResponseBody> getTransactions(@Header("Authorization") String AuthorizationDX, @Path("address") String addressX);
-*/
-
     @Headers("Content-Type: application/json")
     @POST("/api/crypto/export_privatekey")
     Call<ResponseBody> getPrivateKey(@Body String body, @Header("Authorization") String AuthorizationDX);
-
-    /*
-        @Headers("Content-Type: application/json")
-        @POST("/api/crypto/transfer")
-        Call<ResponseBody> transferCoins(@Body String body, @Header("Authorization") String AuthorizationDX);
-    */
+*/
 
     @GET("/api/crypto/get_account_wallet/{wallet_name}")
     Call<ResponseBody> getAccountWallet(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX);
@@ -41,8 +32,5 @@ public interface CryptoControllerApi {
 
     @GET("/api/crypto/update_fav/{id}/{state}")
     Call<ResponseBody> favAddRemove(@Header("Authorization") String AuthorizationDX, @Path("id") int id, @Path("state") boolean state);
-
-    @GET("/api/crypto/deposit_wallet/{coin_code}/{wallet_name}")
-    Call<ResponseBody> receiveCoins(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX, @Path("wallet_name") String walletNameX);
 
 }

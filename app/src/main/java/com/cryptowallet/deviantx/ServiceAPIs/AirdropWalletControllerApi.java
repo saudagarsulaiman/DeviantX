@@ -18,12 +18,14 @@ public interface AirdropWalletControllerApi {
     Call<ResponseBody> getAirdropWalletAddress(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX);
 
 
+    //    ************************************  UNAVAILABLE IN BACKEND  ************************************
     @Headers("Content-Type: application/json")
     @POST("/api/airdrop_wallet/transfer_to_address")
-    Call<ResponseBody> transferToAddress(@Body String body,@Header("Authorization") String AuthorizationDX);
+    Call<ResponseBody> transferToAddress(@Body String body, @Header("Authorization") String AuthorizationDX);
 
+    //    ************************************  UNAVAILABLE IN BACKEND  ************************************
     @Headers("Content-Type: application/json")
     @POST("/api/airdrop_wallet/transfer_to_wallet")
-    Call<ResponseBody> transferToWallet(@Body String body,@Header("Authorization") String AuthorizationDX);
+    Call<ResponseBody> transferToWallet(@Body String body, @Header("Authorization") String AuthorizationDX);
 
 }

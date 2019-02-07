@@ -31,6 +31,7 @@ import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.HeaderBanner;
 import com.cryptowallet.deviantx.UI.Models.NewsDX;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
@@ -60,6 +61,10 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.functions.Action1;
+import ua.naiksoftware.stomp.Stomp;
+import ua.naiksoftware.stomp.client.StompClient;
+import ua.naiksoftware.stomp.client.StompMessage;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
@@ -117,7 +122,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
     GainerLoserExcDBRAdapter gainerLoserExcDBRAdapter;
 
 
-    ArrayList<String> gainersLoserList, gainersList, loosersList;
+    ArrayList<CoinPairs> gainersLoserList;
 
 
     SharedPreferences sharedPreferences;
@@ -146,6 +151,9 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         myApplication.setAllCoinsUIListener(null);
     }
 
+    private static final String TAG = "DEVIANTX";
+    private StompClient stompClient;
+    String selectedCoinName = "DEV";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -156,6 +164,8 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+        stompClient.connect();
 
         linearLayoutHorizantal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutHorizantal1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -166,34 +176,28 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         rview_gain_loose.setLayoutManager(linearLayoutVertical);
 
         gainersLoserList = new ArrayList<>();
-        gainersList = new ArrayList<>();
-        loosersList = new ArrayList<>();
 
         allHeaderBanner = new ArrayList<>();
         allNewsDX = new ArrayList<>();
         allCoinsList = new ArrayList<>();
 
 
-//        dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity());
-//        itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
-////        itemPicker.addOnItemChangedListener(this);
-//        itemPicker.addOnItemChangedListener(this);
-//        itemPicker.setAdapter(dashboardSlideAdapter);
-//        itemPicker.setItemTransitionTimeMillis(150);
-//        itemPicker.setItemTransformer(new ScaleTransformer.Builder()
-//                .setMinScale(0.8f)
-//                .build());
-//        itemPicker.scrollToPosition(1);
-
-//        featuredCoinsExcDBRAdapter = new FeaturedCoinsExcDBRAdapter(getActivity(), featuredCoinsList);
-//        rview_featured_coins.setAdapter(featuredCoinsExcDBRAdapter);
-
         newsExcDBRAdapter = new NewsExcDBRAdapter(getActivity(), allNewsDX);
         rview_devx_news.setAdapter(newsExcDBRAdapter);
 
-        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, " ", true, false);
-        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+//        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
+//        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+        stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+            @Override
+            public void call(StompMessage message) {
+                Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
+                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
+                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
+                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+            }
+        });
         rltv_gainers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,9 +208,25 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                 txt_losers.setTextColor(getResources().getColor(R.color.white));
                 rltv_losers_view.setVisibility(View.GONE);
 
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, " ", true, false);
+/*
+                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
                 rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
                 gainerLoserExcDBRAdapter.notifyDataSetChanged();
+*/
+
+                stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+                    @Override
+                    public void call(StompMessage message) {
+                        Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
+                        CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                        gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+
+                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
+                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                    }
+                });
+
             }
         });
 
@@ -220,9 +240,27 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                 txt_gainers.setTextColor(getResources().getColor(R.color.white));
                 rltv_gainers_view.setVisibility(View.GONE);
 
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, " ", false, false);
+/*
+                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, false, false);
                 rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
                 gainerLoserExcDBRAdapter.notifyDataSetChanged();
+*/
+
+
+                stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+                    @Override
+                    public void call(StompMessage message) {
+                        Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
+                        CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                        gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+
+                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, false, false);
+                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
             }
         });
 
@@ -291,7 +329,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                         if (headerList.size() > 0) {
                             lnr_empty_headers.setVisibility(View.GONE);
                             itemPicker.setVisibility(View.VISIBLE);
-                            dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity(),headerList);
+                            dashboardSlideAdapter = new ExchangeDashboardSlideAdapter(getActivity(), headerList);
                             itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
 //        itemPicker.addOnItemChangedListener(this);
                             itemPicker.setAdapter(dashboardSlideAdapter);
