@@ -138,5 +138,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
 
+
+//    WEBSOCEKET
+    implementation "org.java-websocket:Java-WebSocket:1.3.0"
+
 }
 apply plugin: 'com.google.gms.google-services'

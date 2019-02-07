@@ -12,14 +12,14 @@ import retrofit2.http.Path;
 public interface WithdrawControllerApi {
 
     @Headers("Content-Type: application/json")
-    @POST("/api/crypto/transfer")
+    @POST("/api/withdraw/balance_withdraw")
     Call<ResponseBody> transferCoins(@Body String body, @Header("Authorization") String AuthorizationDX);
 
     @GET("/api/withdraw/withdraw_details/{coin_code}")
     Call<ResponseBody> detail(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX);
 
     @GET("/api/withdraw/withdraw_details/{wallet_name}/{coin_code}")
-    Call<ResponseBody> detail(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX, @Path("wallet_name") String walletNameX);
+    Call<ResponseBody> getTransactionHistory(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX, @Path("coin_code") String coin_codeX);
 
 
 }

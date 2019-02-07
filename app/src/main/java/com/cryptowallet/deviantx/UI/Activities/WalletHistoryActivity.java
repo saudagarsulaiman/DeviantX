@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.WalletHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
@@ -179,9 +178,10 @@ public class WalletHistoryActivity extends AppCompatActivity {
     private void fetchTransactionHistory(final AccountWallet selectedAccountWallet) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
-            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name());
+            WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getTransactionHistory(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

@@ -15,11 +15,13 @@ import retrofit2.http.Path;
 
 public interface CryptoControllerApi {
 
+/*
     @GET("/api/crypto/get_all_transactions")
     Call<ResponseBody> getAllTransactions(@Header("Authorization") String AuthorizationDX);
 
     @GET("/api/crypto/get_transactions_by_address/{address}")
     Call<ResponseBody> getTransactions(@Header("Authorization") String AuthorizationDX, @Path("address") String addressX);
+*/
 
     @Headers("Content-Type: application/json")
     @POST("/api/crypto/export_privatekey")

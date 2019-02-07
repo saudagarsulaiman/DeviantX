@@ -496,9 +496,9 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             JSONObject params = new JSONObject();
             try {
                 params.put("wallet_name", wallet_name);
+                params.put("coin_code", coin_code);
                 params.put("amount", amount);
                 params.put("toAddress", toAddress);
-                params.put("coin_code", coin_code);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
