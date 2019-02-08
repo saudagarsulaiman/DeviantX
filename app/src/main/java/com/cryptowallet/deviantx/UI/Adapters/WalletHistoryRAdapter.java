@@ -1,7 +1,6 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.Transaction;
+import com.cryptowallet.deviantx.UI.Models.ReceivedHistory;
+import com.cryptowallet.deviantx.UI.Models.SentHistory;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -26,19 +24,25 @@ import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAdapter.ViewHolder> {
     Context context;
-    ArrayList<Transaction> transactionList;
-    Transaction transaction;
+    //    ArrayList<Transaction> transactionList;
+    ArrayList<SentHistory> sentHistoriesList;
+    ArrayList<ReceivedHistory> receivedHistoriesList;
+    //    Transaction transaction;
     boolean hideBal;
-    AccountWallet selectedAccountWallet;
+    //    AccountWallet selectedAccountWallet;
     boolean oneTime;
+    boolean isSent;
 
-    public WalletHistoryRAdapter(Context context, ArrayList<Transaction> transactions, AccountWallet selectedAccountWallet) {
+    public WalletHistoryRAdapter(Context context, ArrayList<SentHistory> sentHistoriesList, ArrayList<ReceivedHistory> receivedHistoriesList, boolean isSent) {
         this.context = context;
-        this.transactionList = transactions;
-        transaction = null;
+//        this.transactionList = transactions;
+//        transaction = null;
         this.hideBal = myApplication.getHideBalance();
-        this.selectedAccountWallet = selectedAccountWallet;
+//        this.selectedAccountWallet = selectedAccountWallet;
         this.oneTime = true;
+        this.sentHistoriesList = sentHistoriesList;
+        this.isSent = isSent;
+        this.receivedHistoriesList = receivedHistoriesList;
     }
 
     public void setIsHideBalance(Boolean isHideBalance) {
@@ -62,70 +66,62 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
         viewHolder.lnr_no_trans.setVisibility(View.GONE);
 //        Picasso.with(context).load(R.drawable.dot_inactive).into(viewHolder.img_send_type);
 //        viewHolder.txt_time.setText();
-        viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
+//        viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
 
 
-
-
-        if (transactionList.get(i).getStr_data_category().equals("sent")) {
+        if (/*transactionList.get(i).getStr_data_category().equals("sent")*/isSent) {
             if (!hideBal) {
-                if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
-                    viewHolder.txt_trans_address.setText("To " + transactionList.get(i).getStr_data_toAddress());
+                if (sentHistoriesList.get(i).getStr_toAddress().length() < 15) {
+                    viewHolder.txt_trans_address.setText("To " + sentHistoriesList.get(i).getStr_toAddress());
                 } else {
-                    String address = transactionList.get(i).getStr_data_toAddress();
+                    String address = sentHistoriesList.get(i).getStr_toAddress();
                     String dummy = ".....";
                     String first_half = String.format("%.7s", address);
                     String second_half = address.substring(address.length() - 7);
                     viewHolder.txt_trans_address.setText("To " + first_half + dummy + second_half);
                 }
-                viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+                viewHolder.txt_trans_amount.setText(String.format("%.4f", sentHistoriesList.get(i).getDbl_coinValue()) + " " + sentHistoriesList.get(i).getStr_coinCode());
             } else {
                 viewHolder.txt_trans_address.setText("To " + "***");
-                viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+                viewHolder.txt_trans_amount.setText("***" + " " + sentHistoriesList.get(i).getStr_coinCode());
             }
+            viewHolder.txt_time.setText(getTime(sentHistoriesList.get(i).getStr_date()));
             viewHolder.txt_trans_type.setText(context.getResources().getString(R.string.sent));
             viewHolder.img_send_type.setBackground(context.getResources().getDrawable(R.drawable.cir_brdr_red));
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.send));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.google_red));
         } else {
             if (!hideBal) {
-                if (transactionList.get(i).getStr_data_toAddress().length() < 15) {
-                    viewHolder.txt_trans_address.setText("From " + transactionList.get(i).getStr_data_toAddress());
+                if (receivedHistoriesList.get(i).getStr_fromAddress().length() < 15) {
+                    viewHolder.txt_trans_address.setText("From " + receivedHistoriesList.get(i).getStr_fromAddress());
                 } else {
-                    String address = transactionList.get(i).getStr_data_toAddress();
+                    String address = receivedHistoriesList.get(i).getStr_fromAddress();
                     String dummy = ".....";
                     String first_half = String.format("%.7s", address);
                     String second_half = address.substring(address.length() - 7);
                     viewHolder.txt_trans_address.setText("From " + first_half + dummy + second_half);
                 }
-                viewHolder.txt_trans_amount.setText(String.format("%.4f", transactionList.get(i).getdbl_data_coinValue()) + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+                viewHolder.txt_trans_amount.setText(String.format("%.4f", receivedHistoriesList.get(i).getDbl_coinValue()) + " " + receivedHistoriesList.get(i).getStr_coinCode());
             } else {
                 viewHolder.txt_trans_address.setText("From " + "***");
-                viewHolder.txt_trans_amount.setText("***" + " " + transactionList.get(i).getAllCoins().getStr_coin_code());
+                viewHolder.txt_trans_amount.setText("***" + " " + receivedHistoriesList.get(i).getStr_coinCode());
             }
+            viewHolder.txt_time.setText(getTime(receivedHistoriesList.get(i).getStr_date()));
             viewHolder.txt_trans_type.setText(context.getResources().getString(R.string.received));
             viewHolder.img_send_type.setBackground(context.getResources().getDrawable(R.drawable.cir_brdr_green));
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.receive));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.green));
         }
 
-       /* } else {
-//            viewHolder.lnr_trans_avail.setVisibility(View.GONE);
-            if (oneTime) {
-                viewHolder.lnr_no_trans.setVisibility(View.VISIBLE);
-                viewHolder.lnr_trans_avail.setVisibility(View.GONE);
-                oneTime = false;
-            } else {
-                viewHolder.lnr_no_trans.setVisibility(View.GONE);
-                oneTime = false;
-            }
-        }*/
-
     }
 
     @Override
     public int getItemCount() {
-        return transactionList.size();
+        if (isSent) {
+            return sentHistoriesList.size();
+        } else {
+            return receivedHistoriesList.size();
+        }
     }
 
 
