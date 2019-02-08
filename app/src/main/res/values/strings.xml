@@ -573,6 +573,8 @@
     <string name="no_news_avail">No News Available</string>
     <string name="no_offers">No Offers Available</string>
     <string name="empty_wallet_coin">Wallet has no coins</string>
+    <string name="sent_history">Sent History</string>
+    <string name="received_history">Received History</string>
 
 
 </resources>

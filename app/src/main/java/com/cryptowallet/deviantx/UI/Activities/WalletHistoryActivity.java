@@ -81,7 +81,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     LinearLayoutManager layoutManager;
 
     AccountWallet selectedAccountWallet;
-
+    String transType;
 
     @Override
     protected void onResume() {
@@ -124,6 +124,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
+        transType = bundle.getString(CONSTANTS.transType);
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -142,8 +143,14 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
 
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
+            if (transType.equals(CONSTANTS.sent)){
+
+            }else {
+
+            }
+
 //            Transaction History
-            fetchTransactionHistory(selectedAccountWallet);
+                fetchTransactionHistory(selectedAccountWallet);
 
         } else {
             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.internetconnection));
@@ -181,7 +188,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getTransactionHistory(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
+            Call<ResponseBody> apiResponse = apiService.getSentTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,6 +38,11 @@ public class WalletOptionsActivity extends AppCompatActivity {
     LinearLayout lnr_message;
     @BindView(R.id.lnr_wallet_history)
     LinearLayout lnr_wallet_history;
+    @BindView(R.id.lnr_received_history)
+    LinearLayout lnr_received_history;
+    @BindView(R.id.lnr_sent_history)
+    LinearLayout lnr_sent_history;
+
 
     AccountWallet selectedAccountWallet;
 
@@ -128,6 +132,28 @@ public class WalletOptionsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        lnr_sent_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletOptionsActivity.this, WalletHistoryActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                bundle1.putString(CONSTANTS.transType,CONSTANTS.sent);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+        lnr_received_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WalletOptionsActivity.this, WalletHistoryActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                bundle1.putString(CONSTANTS.transType,CONSTANTS.received);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -163,16 +189,16 @@ public class WalletOptionsActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String entered_pswd= edt_pswd.getText().toString().trim();
+                String entered_pswd = edt_pswd.getText().toString().trim();
                 if (!entered_pswd.isEmpty()) {
                     String main_pswd = sharedPreferences.getString(CONSTANTS.pswd, "");
-                    if (main_pswd.equals(entered_pswd)){
+                    if (main_pswd.equals(entered_pswd)) {
                         Intent intent = new Intent(WalletOptionsActivity.this, WalletDetailsActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                    }else{
+                    } else {
                         CommonUtilities.ShowToastMessage(WalletOptionsActivity.this, getResources().getString(R.string.unmatch_pswd));
                     }
                 } else {

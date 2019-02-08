@@ -48,6 +48,9 @@ public class CONSTANTS {
     public static String selectedCoinName = "SELECTEDCOINNAME";
     public static String selectedCoinCode = "SELECTEDCOINCODE";
     public static String claimCoin = "CLAIMCOIN";
+    public static String transType = "TRANSACTIONTYPE";
+    public static String sent = "SENT";
+    public static String received = "RECEIVED";
 
 
 //    //    Selected Account Wallet Details

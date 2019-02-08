@@ -19,7 +19,7 @@ public interface WithdrawControllerApi {
     Call<ResponseBody> detail(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX);
 
     @GET("/api/withdraw/withdraw_details/{wallet_name}/{coin_code}")
-    Call<ResponseBody> getTransactionHistory(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX, @Path("coin_code") String coin_codeX);
+    Call<ResponseBody> getSentTransactions(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX, @Path("coin_code") String coin_codeX);
 
 
 }

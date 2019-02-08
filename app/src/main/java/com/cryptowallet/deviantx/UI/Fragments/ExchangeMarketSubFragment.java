@@ -1,28 +1,27 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.CoinPairsUIListener;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
-import com.cryptowallet.deviantx.Utilities.GsonUtils;
+import com.cryptowallet.deviantx.UI.Services.CoinPairsFetch;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.functions.Action1;
-import ua.naiksoftware.stomp.Stomp;
-import ua.naiksoftware.stomp.client.StompClient;
-import ua.naiksoftware.stomp.client.StompMessage;
+
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class ExchangeMarketSubFragment extends Fragment {
 
@@ -34,8 +33,23 @@ public class ExchangeMarketSubFragment extends Fragment {
     ArrayList<String> gainersLoserList;
 
     private static final String TAG = "DEVIANTX";
-    private StompClient stompClient;
+    /*
+        private StompClient stompClient;
+    */
     ArrayList<CoinPairs> allCoinPairs;
+    String selectedCoinName;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setCoinPairsUIListener(coinPairsUIListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        myApplication.setCoinPairsUIListener(null);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,12 +62,16 @@ public class ExchangeMarketSubFragment extends Fragment {
         rview_coin.setLayoutManager(linearLayoutVertical);
 
         Bundle bundle = getArguments();
-        String selectedCoinName = bundle.getString("title");
+        selectedCoinName = bundle.getString("title");
 
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-        stompClient.connect();
+      /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+        serviceIntent.putExtra(CONSTANTS.selectedCoinName, selectedCoinName);
+        getActivity().startService(serviceIntent);*/
 
-        stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+       /* stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+        stompClient.connect();*/
+
+        /*stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
             @Override
             public void call(StompMessage message) {
                 Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
@@ -63,11 +81,20 @@ public class ExchangeMarketSubFragment extends Fragment {
                 gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
                 rview_coin.setAdapter(gainerLoserExcDBRAdapter);
             }
-        });
+        });*/
 
 
         return view;
     }
+
+
+    CoinPairsUIListener coinPairsUIListener = new CoinPairsUIListener() {
+        @Override
+        public void onChangedCoinPairs(String selectedCoinName, ArrayList<CoinPairs> coinPairs) {
+            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+            rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+        }
+    };
 
 
 }

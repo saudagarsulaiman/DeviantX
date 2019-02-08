@@ -1,5 +1,6 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeCoinsDataPagerAdapter;
+import com.cryptowallet.deviantx.UI.Services.CoinPairsFetch;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import java.util.ArrayList;
 
@@ -91,6 +94,11 @@ public class ExchangeMarketFragment extends Fragment {
             exchangeCoinsDataPagerAdapter.addFrag(fragment, coinsList.get(i));
         }
         viewPager.setAdapter(exchangeCoinsDataPagerAdapter);
+
+        Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+        serviceIntent.putExtra(CONSTANTS.selectedCoinName, "");
+        getActivity().startService(serviceIntent);
+
     }
 
 
