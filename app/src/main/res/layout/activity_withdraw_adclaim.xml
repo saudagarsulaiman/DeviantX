@@ -235,7 +235,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/def_text_size"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/pb"

@@ -840,7 +840,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                             txt_radh_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_his_list.setVisibility(View.GONE);
                             recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity(), airdropsHistoryList, false);
-                            rview_fad_coins.setAdapter(recentADHistoryRAdapter);
+                            rview_radh_coins.setAdapter(recentADHistoryRAdapter);
                         } else {
                             txt_radh_viewAll.setVisibility(View.GONE);
                             lnr_empty_his_list.setVisibility(View.VISIBLE);

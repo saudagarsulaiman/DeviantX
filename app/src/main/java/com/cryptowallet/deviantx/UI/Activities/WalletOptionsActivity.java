@@ -139,7 +139,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
                 Bundle bundle1 = new Bundle();
                 bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
                 bundle1.putString(CONSTANTS.transType,CONSTANTS.sent);
-                intent.putExtras(bundle);
+                intent.putExtras(bundle1);
                 startActivity(intent);
             }
         });
@@ -150,7 +150,7 @@ public class WalletOptionsActivity extends AppCompatActivity {
                 Bundle bundle1 = new Bundle();
                 bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
                 bundle1.putString(CONSTANTS.transType,CONSTANTS.received);
-                intent.putExtras(bundle);
+                intent.putExtras(bundle1);
                 startActivity(intent);
             }
         });

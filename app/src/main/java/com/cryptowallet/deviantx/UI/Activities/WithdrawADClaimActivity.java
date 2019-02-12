@@ -228,7 +228,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                 if (!amount.isEmpty()) {
                     float amt = Float.parseFloat(amount);
                     if (amt > 0) {
-                        if (Double.parseDouble(amount) + fee < selectedWalletBal) {
+                        if (Double.parseDouble(amount)/* + fee */ <= dividendAirdrops.getDbl_airdropAmount()) {
                             /* if (myApplication.get2FA()) {
                              *//*
                                         Intent intent = new Intent(WithdrawADClaimActivity.this, TwoFAAirDropActivity.class);
@@ -241,13 +241,13 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                                         startActivity(intent);
 *//*
                             } else {*/
-                            customDialog(selectedWalletName, dividendAirdrops.getStr_coinCode(), amount);
+                            customDialog(/*selectedWalletName*/walletName, dividendAirdrops.getStr_coinCode(), amount);
 //                            }
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.maintain_bal));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.insufficient_fund));
+                        CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.enter_amount));
                     }
                 } else {
                     CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.empty_amount));
@@ -256,6 +256,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
 
             }
         });
+
 
         edt_amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -275,7 +276,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                     try {
                         if (Double.parseDouble(amountTextValue) != 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
-                            avail_bal = dividendAirdrops.getDbl_airdropAmount() - 0.01;
+                            avail_bal = dividendAirdrops.getDbl_airdropAmount();
                             if (avail_bal < finalValue) {
                                 CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.insufficient_fund));
                                 edt_amount.setText("0");
@@ -362,6 +363,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
         TextView txt_withdraw_amt = view.findViewById(R.id.txt_withdraw_amt);
         TextView txt_withdraw_amt_code = view.findViewById(R.id.txt_withdraw_amt_code);
         TextView txt_fee_amt = view.findViewById(R.id.txt_fee_amt);
+        TextView txt_fee_lbl = view.findViewById(R.id.txt_fee_lbl);
         TextView txt_fee_amt_code = view.findViewById(R.id.txt_fee_amt_code);
         TextView txt_address = view.findViewById(R.id.txt_address);
         TextView txt_privacy_policy = view.findViewById(R.id.txt_privacy_policy);
@@ -372,6 +374,9 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
         txt_fee_amt.setText("0.01");
         txt_fee_amt_code.setText(coincode);
         txt_address.setText(walletname);
+        txt_fee_lbl.setVisibility(View.GONE);
+        txt_fee_amt.setVisibility(View.GONE);
+        txt_fee_amt_code.setVisibility(View.GONE);
 /*
         txt_privacy_policy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -396,7 +401,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
             }
         });
 
-        txt_avail_coins.setText(String.format("%.4f", avail_bal - Double.parseDouble(amt)));
+//        txt_avail_coins.setText(String.format("%.4f", avail_bal - Double.parseDouble(amt)));
         dialog.show();
 
     }
@@ -409,6 +414,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                 params.put("amount", amnt);
                 params.put("coinCode", ccode);
                 params.put("walletName", walName);
+                params.put("id", dividendAirdrops.getInt_id());
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -187,7 +187,7 @@ public class RecentADHistoryAcivity extends AppCompatActivity {
                         }
                         if (airdropsHistoryList.size() > 0) {
                             lnr_empty_history.setVisibility(View.GONE);
-                            recentADHistoryRAdapter = new RecentADHistoryRAdapter(RecentADHistoryAcivity.this, airdropsHistoryList, false);
+                            recentADHistoryRAdapter = new RecentADHistoryRAdapter(RecentADHistoryAcivity.this, airdropsHistoryList, true);
                             rview_radh_coins.setAdapter(recentADHistoryRAdapter);
                         } else {
                             lnr_empty_history.setVisibility(View.VISIBLE);

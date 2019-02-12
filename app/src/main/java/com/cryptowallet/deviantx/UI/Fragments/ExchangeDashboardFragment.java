@@ -247,6 +247,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
 */
 
 
+/*
                 stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
                     @Override
                     public void call(StompMessage message) {
@@ -259,9 +260,11 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                         gainerLoserExcDBRAdapter.notifyDataSetChanged();
                     }
                 });
-
+*/
 
             }
+
+
         });
 
 

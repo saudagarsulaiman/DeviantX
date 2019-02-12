@@ -92,12 +92,19 @@ public class ExchangeMarketFragment extends Fragment {
             ExchangeMarketSubFragment fragment = new ExchangeMarketSubFragment();
             fragment.setArguments(bundle);
             exchangeCoinsDataPagerAdapter.addFrag(fragment, coinsList.get(i));
+/*
+            Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+            serviceIntent.putExtra(CONSTANTS.selectedCoinName, coinsList.get(i));
+            getActivity().startService(serviceIntent);
+*/
         }
         viewPager.setAdapter(exchangeCoinsDataPagerAdapter);
 
+/*
         Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
         serviceIntent.putExtra(CONSTANTS.selectedCoinName, "");
         getActivity().startService(serviceIntent);
+*/
 
     }
 

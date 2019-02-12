@@ -26,7 +26,8 @@ public class FeaturedAirdrops implements Parcelable {
     String str_coinCode;
 
     @SerializedName("estimated")
-    String str_estimated;
+    double dbl_estimated;
+
 
     protected FeaturedAirdrops(Parcel in) {
         if (in.readByte() == 0) {
@@ -43,7 +44,33 @@ public class FeaturedAirdrops implements Parcelable {
         str_coinName = in.readString();
         str_coinlogo = in.readString();
         str_coinCode = in.readString();
-        str_estimated = in.readString();
+        dbl_estimated = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (dbl_airdropAmount == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_airdropAmount);
+        }
+        if (dbl_airdropAmountInUSD == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_airdropAmountInUSD);
+        }
+        dest.writeString(str_airdropCreatedDate);
+        dest.writeString(str_coinName);
+        dest.writeString(str_coinlogo);
+        dest.writeString(str_coinCode);
+        dest.writeDouble(dbl_estimated);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<FeaturedAirdrops> CREATOR = new Creator<FeaturedAirdrops>() {
@@ -106,37 +133,13 @@ public class FeaturedAirdrops implements Parcelable {
         this.str_coinCode = str_coinCode;
     }
 
-    public String getStr_estimated() {
-        return str_estimated;
+    public Double getdbl_estimated() {
+        return dbl_estimated;
     }
 
-    public void setStr_estimated(String str_estimated) {
-        this.str_estimated = str_estimated;
+    public void setdbl_estimated(Double dbl_estimated) {
+        this.dbl_estimated = dbl_estimated;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (dbl_airdropAmount == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_airdropAmount);
-        }
-        if (dbl_airdropAmountInUSD == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_airdropAmountInUSD);
-        }
-        dest.writeString(str_airdropCreatedDate);
-        dest.writeString(str_coinName);
-        dest.writeString(str_coinlogo);
-        dest.writeString(str_coinCode);
-        dest.writeString(str_estimated);
-    }
 }

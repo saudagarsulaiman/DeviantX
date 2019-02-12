@@ -47,7 +47,7 @@ public class FeaturedADHorizantalRAdapter extends RecyclerView.Adapter<FeaturedA
 
         Picasso.with(context).load(featuredAirdrops.get(i).getStr_coinlogo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name_code.setText(featuredAirdrops.get(i).getStr_coinName() + " (" + featuredAirdrops.get(i).getStr_coinCode() + ")");
-        viewHolder.txt_coin_value.setText("Estimated $" + featuredAirdrops.get(i).getStr_estimated() + " ref");
+        viewHolder.txt_coin_value.setText("Estimated $" + String.format("%.4f", featuredAirdrops.get(i).getdbl_estimated()) + " ref");
 
         viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override

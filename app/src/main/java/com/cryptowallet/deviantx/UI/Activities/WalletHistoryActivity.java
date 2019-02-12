@@ -128,6 +128,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet_history);
 
         ButterKnife.bind(this);
+        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         sentHistoriesList = new ArrayList<>();
         receivedHistoriesList = new ArrayList<>();
@@ -136,8 +138,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
         transType = bundle.getString(CONSTANTS.transType);
 
-        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         transactions = new ArrayList<>();
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +221,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getSentTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
+            Call<ResponseBody> apiResponse = apiService.getSentTransactions(CONSTANTS.DeviantMulti + token, wallet_name, selectedAccountWallet.getStr_coin_code());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -302,7 +302,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));

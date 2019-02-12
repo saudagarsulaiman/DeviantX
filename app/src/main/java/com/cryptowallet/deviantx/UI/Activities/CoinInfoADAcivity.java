@@ -75,7 +75,7 @@ public class CoinInfoADAcivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
-        claimsList= new ArrayList<>();
+        claimsList = new ArrayList<>();
 
         linearLayoutManager = new LinearLayoutManager(CoinInfoADAcivity.this, LinearLayoutManager.VERTICAL, false);
         rview_enter_ways.setLayoutManager(linearLayoutManager);
@@ -83,7 +83,7 @@ public class CoinInfoADAcivity extends AppCompatActivity {
         Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coinlogo()).into(img_coin_logo);
         txt_coin_name.setText(selectedCoin.getStr_coinName());
         txt_coin_code.setText(selectedCoin.getStr_coinCode());
-        txt_estimated.setText("$" + selectedCoin.getStr_estimated() + " Ref");
+        txt_estimated.setText("$" + String.format("%.4f", selectedCoin.getdbl_estimated()) + " Ref");
         txt_tokens.setText("750 " + selectedCoin.getStr_coinCode());
 
 
