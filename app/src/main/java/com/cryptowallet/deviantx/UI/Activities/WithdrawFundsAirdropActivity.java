@@ -315,7 +315,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                         float amt = Float.parseFloat(amount);
                         if (amt > 0) {
                             if (walletName.length() > 0) {
-                                if (Double.parseDouble(amount) + fee < selectedWalletBal) {
+                                if (Double.parseDouble(amount) + fee < airdropWalletlist.get(0).getDbl_data_ad_balance()) {
                                     if (myApplication.get2FA()) {
                                         Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
                                         Bundle bundle1 = new Bundle();
@@ -349,7 +349,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                         if (!amount.isEmpty()) {
                             float amt = Float.parseFloat(amount);
                             if (amt > 0) {
-                                if (Double.parseDouble(amount) + fee < selectedWalletBal) {
+                                if (Double.parseDouble(amount) + fee < airdropWalletlist.get(0).getDbl_data_ad_balance()) {
                                     if (myApplication.get2FA()) {
                                         Intent intent = new Intent(WithdrawFundsAirdropActivity.this, TwoFAAirDropActivity.class);
                                         Bundle bundle1 = new Bundle();
@@ -571,7 +571,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+//                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                 dialog.dismiss();
             }
         });
@@ -583,7 +583,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
+//        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
         dialog.show();
     }
 
@@ -630,7 +630,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
+//                txt_avail_bal.setText(String.format("%.4f", airdropWalletlist.get(0).getDbl_data_ad_balance()));
                 dialog.dismiss();
             }
         });
@@ -642,7 +642,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             }
         });
 
-        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
+//        txt_avail_bal.setText(String.format("%.4f", avail_bal - Double.parseDouble(amount)));
         dialog.show();
 
     }
@@ -709,7 +709,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
@@ -789,7 +789,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));

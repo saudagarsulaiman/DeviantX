@@ -124,7 +124,7 @@ public class RecentADHistoryAcivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 ArrayList<AirdropsHistory> searchCoinsList = new ArrayList<>();
                 for (AirdropsHistory coinName : allAirdropsHistory) {
-                    if (coinName.getStr_to().toLowerCase().contains(s.toString().toLowerCase())) {
+                    if (coinName.getStr_coinName().toLowerCase().contains(s.toString().toLowerCase())) {
                         searchCoinsList.add(coinName);
                     }
                 }
