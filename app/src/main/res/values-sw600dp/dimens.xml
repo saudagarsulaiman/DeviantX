@@ -367,6 +367,7 @@
     <dimen name="width280">300dp</dimen>
     <dimen name="width300">320dp</dimen>
     <dimen name="height135">135dp</dimen>
+    <dimen name="height170">170dp</dimen>
 
     <!--Newly Added-->
     <!--<dimen name="">dp</dimen>-->

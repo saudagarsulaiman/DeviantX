@@ -49,7 +49,7 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
 
         Picasso.with(context).load(allDividendCoins.get(i).getStr_coinlogo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name_code.setText(allDividendCoins.get(i).getStr_coinName() + " (" + allDividendCoins.get(i).getStr_coinCode() + ")");
-        viewHolder.txt_coin_value.setText("Estimated $" + String.format("%.4f", allDividendCoins.get(i).getDbl_airdropAmountInUSD()) + " ref");
+        viewHolder.txt_coin_value.setText("Estimated $" + String.format("%.2f", allDividendCoins.get(i).getDbl_airdropAmountInUSD()) + " ref");
 
         viewHolder.btn_claim.setOnClickListener(new View.OnClickListener() {
             @Override
