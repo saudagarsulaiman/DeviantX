@@ -212,6 +212,10 @@
             android:name=".UI.Services.CoinPairsFetch"
             android:enabled="true"
             android:exported="false" />
+        <service
+            android:name=".UI.Services.PairsListFetch"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver
             android:name=".UI.Receiver.RefreshServiceReceiver"

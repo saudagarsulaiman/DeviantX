@@ -13,6 +13,9 @@ import retrofit2.http.Query;
 
 public interface ExchangePairControllerApi {
 
+    @GET("/api/exchange_pair/exchange_pair_coins_details")
+    Call<ResponseBody> getPairsList(/*@Header("Authorization") String AuthorizationDX*/);
+
     @GET("/api/exchange_pair/get_pairs/{coin_code}")
     Call<ResponseBody> getPairs(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX);
 

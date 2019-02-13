@@ -10,11 +10,12 @@ import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
 import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
 import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
 import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
-import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.HeaderBannerFetch;
 import com.cryptowallet.deviantx.UI.Services.NewsDXFetch;
+import com.cryptowallet.deviantx.UI.Services.PairsListFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 
 public class RefreshServiceReceiver extends BroadcastReceiver {
     public static final int REQUEST_CODE = 12345;
@@ -34,6 +35,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startForegroundService(new Intent(context, NewsDXFetch.class));
                 context.startForegroundService(new Intent(context, HeaderBannerFetch.class));
                 context.startForegroundService(new Intent(context, WalletDetailsFetch.class));
+                context.startForegroundService(new Intent(context, PairsListFetch.class));
 
             } else {
                 context.startService(new Intent(context, WalletDataFetch.class));
@@ -45,6 +47,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startService(new Intent(context, NewsDXFetch.class));
                 context.startService(new Intent(context, HeaderBannerFetch.class));
                 context.startService(new Intent(context, WalletDetailsFetch.class));
+                context.startService(new Intent(context, PairsListFetch.class));
             }
         } catch (Exception e) {
             e.printStackTrace();
