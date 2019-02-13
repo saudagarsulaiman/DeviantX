@@ -576,5 +576,11 @@
     <string name="sent_history">Sent History</string>
     <string name="received_history">Received History</string>
 
+    <!--Exchange Coin Info Activity-->
+    <string name="buy">buy</string>
+    <string name="sell">sell</string>
+    <string name="bid">Bid</string>
+    <string name="ask">Ask</string>
+
 
 </resources>

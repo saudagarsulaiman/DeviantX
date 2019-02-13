@@ -117,8 +117,8 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
                 viewholder.txt_coin_price_change.setText(String.format("%.4f", allCoinPairs.get(i).getDbl_currentValue()) + "/" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangeUsd()));
 
             }
-       /* } else {
-            viewholder.view.setVisibility(View.GONE);
+        /*}*//* else {
+            viewholder.itemView.setVisibility(View.GONE);
         }*/
     }
 

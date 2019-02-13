@@ -1,5 +1,6 @@
 package com.cryptowallet.deviantx.UI.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketTradesRAdapter;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -65,14 +67,29 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     @BindView(R.id.img_dropdown)
     ImageView img_dropdown;
 
+    @BindView(R.id.txt_buy)
+    TextView txt_buy;
+    @BindView(R.id.txt_sell)
+    TextView txt_sell;
+
+    @BindView(R.id.lnr_mrkt_deph_data)
+    LinearLayout lnr_mrkt_deph_data;
+    @BindView(R.id.rview_bid)
+    RecyclerView rview_bid;
+    @BindView(R.id.rview_ask)
+    RecyclerView rview_ask;
+
 
     MarketTradesRAdapter marketTradesRAdapter;
-    LinearLayoutManager linearLayoutManagerDeph, linearLayoutManagerTrades;
+    MarketDephRAdapter marketDephRAdapter;
+    LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerTrades;
 
     ArrayList<String> tradesList;
+    ArrayList<String> bidList;
+    ArrayList<String> askList;
     CoinPairs coinPairsList;
 
-    boolean isShort;
+    boolean isShort, isBid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +105,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         });
 
         tradesList = new ArrayList<>();
+        bidList = new ArrayList<>();
+        askList = new ArrayList<>();
         isShort = true;
 
         Bundle bundle = getIntent().getExtras();
@@ -97,9 +116,21 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //        rview_mrkt_deph.setLayoutManager(linearLayoutManagerDeph);
         linearLayoutManagerTrades = new LinearLayoutManager(ExchangeCoinInfoActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_mrkt_trades.setLayoutManager(linearLayoutManagerTrades);
+        linearLayoutManagerDephBid = new LinearLayoutManager(ExchangeCoinInfoActivity.this, LinearLayoutManager.VERTICAL, false);
+        rview_bid.setLayoutManager(linearLayoutManagerDephBid);
+        linearLayoutManagerDephAsk = new LinearLayoutManager(ExchangeCoinInfoActivity.this, LinearLayoutManager.VERTICAL, false);
+        rview_ask.setLayoutManager(linearLayoutManagerDephAsk);
+
 
         marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
         rview_mrkt_trades.setAdapter(marketTradesRAdapter);
+
+        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, isShort);
+        rview_bid.setAdapter(marketTradesRAdapter);
+
+        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, askList, isShort);
+        rview_ask.setAdapter(marketTradesRAdapter);
+
 
         rltv_mrkt_deph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +141,17 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 rltv_mrkt_trades_view.setVisibility(View.GONE);
 
                 lnr_mrkt_trades_data.setVisibility(View.GONE);
+                lnr_mrkt_deph_data.setVisibility(View.VISIBLE);
 
                 isShort = true;
                 Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
+
+
+                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                rview_bid.setAdapter(marketTradesRAdapter);
+
+                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+                rview_ask.setAdapter(marketTradesRAdapter);
             }
         });
 
@@ -125,6 +164,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 rltv_mrkt_deph_view.setVisibility(View.GONE);
 
                 lnr_mrkt_trades_data.setVisibility(View.VISIBLE);
+                lnr_mrkt_deph_data.setVisibility(View.GONE);
 
                 isShort = true;
                 Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
@@ -143,16 +183,51 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                    rview_bid.setAdapter(marketTradesRAdapter);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+                    rview_ask.setAdapter(marketTradesRAdapter);
                 } else {
                     isShort = true;
                     Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
                     marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                    rview_bid.setAdapter(marketTradesRAdapter);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+                    rview_ask.setAdapter(marketTradesRAdapter);
                 }
             }
         });
 
+        txt_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txt_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
+                txt_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+
+                Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
+                intent.putExtra(CONSTANTS.seletedTab, 1);
+                startActivity(intent);
+
+            }
+        });
+
+        txt_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txt_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
+                txt_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
+
+                Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
+                intent.putExtra(CONSTANTS.seletedTab, 1);
+                startActivity(intent);
+
+            }
+        });
 
     }
+
+
 }
