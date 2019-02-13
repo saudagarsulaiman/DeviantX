@@ -45,9 +45,9 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/def_btn_height">
+        android:layout_height="@dimen/def_btn_height"
+        android:visibility="visible">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_lyt_coinsList"
@@ -70,12 +70,12 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/def_toolbar_back_height"
         android:layout_margin="@dimen/def_margin"
         android:background="@color/lyt_blue"
         android:orientation="horizontal"
+        android:visibility="visible"
         android:weightSum="3">
 
         <LinearLayout
@@ -134,20 +134,21 @@
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
-        android:visibility="visible"
         android:id="@+id/view_pager_Sup_product"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/def_margin"
-        android:layout_marginRight="@dimen/def_margin"/>
+        android:layout_marginRight="@dimen/def_margin"
+        android:layout_marginBottom="@dimen/margin10"
+        android:visibility="gone" />
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rview_coin"-->
-    <!--android:visibility="gone"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/def_margin"-->
-    <!--android:layout_marginRight="@dimen/def_margin"-->
-    <!--android:layout_marginBottom="@dimen/margin80" />-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rview_coin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/def_margin"
+        android:layout_marginRight="@dimen/def_margin"
+        android:layout_marginBottom="@dimen/margin10"
+        android:visibility="visible" />
 
 </LinearLayout>

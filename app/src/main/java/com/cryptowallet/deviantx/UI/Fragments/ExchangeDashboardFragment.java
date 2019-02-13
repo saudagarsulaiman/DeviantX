@@ -1,6 +1,7 @@
 package com.cryptowallet.deviantx.UI.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,34 +14,44 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.HeaderPanelControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.NewsPanelControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeDashboardSlideAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.FeaturedCoinsExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.NewsExcDBRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.SpinnerDaysAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.CoinPairsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.HeaderBanner;
 import com.cryptowallet.deviantx.UI.Models.NewsDX;
+import com.cryptowallet.deviantx.UI.Models.PairsList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.HeaderBannerDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.NewsDXDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.PairsListDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.HeaderBannerDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.NewsDXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.PairsListDB;
+import com.cryptowallet.deviantx.UI.Services.CoinPairsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -68,7 +79,7 @@ import ua.naiksoftware.stomp.client.StompMessage;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> */ {
+public class ExchangeDashboardFragment extends Fragment implements AdapterView.OnItemSelectedListener /*implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> */ {
 
 
     View view;
@@ -112,9 +123,13 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
     LinearLayout lnr_empty_feat_coins;
     @BindView(R.id.lnr_empty_headers)
     LinearLayout lnr_empty_headers;
+    @BindView(R.id.spnr_pairs_list)
+    Spinner spnr_pairs_list;
 
 //    @BindView(R.id.)
 //    ;
+
+    SpinnerDaysAdapter spinnerDaysAdapter;
 
     LinearLayoutManager linearLayoutHorizantal, linearLayoutHorizantal1, linearLayoutVertical;
     FeaturedCoinsExcDBRAdapter featuredCoinsExcDBRAdapter;
@@ -123,6 +138,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
 
 
     ArrayList<CoinPairs> gainersLoserList;
+    ArrayList<PairsList> allPairsList;
 
 
     SharedPreferences sharedPreferences;
@@ -133,6 +149,8 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
     String loginResponseData, loginResponseStatus, loginResponseMsg;
 
     DeviantXDB deviantXDB;
+    String code = "BTC";
+    boolean isGainer = true;
 
 
     @Override
@@ -141,6 +159,9 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         myApplication.setHeaderBannerUIListener(headerBannerUIListener);
         myApplication.setNewsDXUIListener(newsDXUIListener);
         myApplication.setAllCoinsUIListener(allCoinsUIListener);
+        myApplication.setPairsListUIListener(PairsListUIListener);
+//        myApplication.setCoinPairsUIListener(coinPairsUIListener);
+//        stompClient.connect();
     }
 
     @Override
@@ -149,6 +170,9 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         myApplication.setHeaderBannerUIListener(null);
         myApplication.setNewsDXUIListener(null);
         myApplication.setAllCoinsUIListener(null);
+        myApplication.setPairsListUIListener(null);
+//        myApplication.setCoinPairsUIListener(null);
+        stompClient.disconnect();
     }
 
     private static final String TAG = "DEVIANTX";
@@ -164,9 +188,6 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-        stompClient.connect();
-
         linearLayoutHorizantal = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutHorizantal1 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -176,6 +197,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         rview_gain_loose.setLayoutManager(linearLayoutVertical);
 
         gainersLoserList = new ArrayList<>();
+        allPairsList = new ArrayList<>();
 
         allHeaderBanner = new ArrayList<>();
         allNewsDX = new ArrayList<>();
@@ -187,17 +209,26 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
 
 //        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
 //        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-        stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+
+       /* stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+        stompClient.connect();
+        stompClient.topic("/topic/exchange_pair/" + code).subscribe(new Action1<StompMessage>() {
             @Override
             public void call(StompMessage message) {
-                Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
+                Log.e(TAG, "*****Received " + code + "*****: EDFonCreate" + message.getPayload());
                 CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                 gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
+                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
                 rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
             }
-        });
+        });*/
+
+        spnr_pairs_list.setOnItemSelectedListener(this);
+        Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+        serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
+        getActivity().startService(serviceIntent);
+
         rltv_gainers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,20 +244,29 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                 rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
                 gainerLoserExcDBRAdapter.notifyDataSetChanged();
 */
+                isGainer = true;
+               /* try {
+                    stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+                    stompClient.connect();
 
-                stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
-                    @Override
-                    public void call(StompMessage message) {
-                        Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
-                        CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                        gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+                    stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+                        @Override
+                        public void call(StompMessage message) {
+                            Log.e(TAG, "*****Received " + selectedCoinName + "*****: EDFgainers" + message.getPayload());
+                            CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                            gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, true, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                        gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                    }
-                });
-
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+              /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+                serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
+                getActivity().startService(serviceIntent);*/
             }
         });
 
@@ -246,20 +286,31 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                 gainerLoserExcDBRAdapter.notifyDataSetChanged();
 */
 
+                isGainer = false;
 
-/*
-                stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
-                    @Override
-                    public void call(StompMessage message) {
-                        Log.e(TAG, "*****Received " + selectedCoinName + "*****: " + message.getPayload());
-                        CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                        gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, false, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                        gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                    }
-                });
+              /*  try {
+                    stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+                    stompClient.connect();
+
+                    stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
+                        @Override
+                        public void call(StompMessage message) {
+                            Log.e(TAG, "*****Received " + selectedCoinName + "*****: EDFloosers" + message.getPayload());
+                            CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                            gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, false, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+               /* Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+                serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
+                getActivity().startService(serviceIntent);
 */
 
             }
@@ -274,6 +325,7 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
                 onLoadHeaderBanner();
                 onLoadNewsDX();
                 onLoadAllCoins();
+                onLoadPairsList();
             }
         }, 200);
 
@@ -667,5 +719,175 @@ public class ExchangeDashboardFragment extends Fragment /*implements DiscreteScr
         }
 
     }
+
+
+    //    **************GETTING AIRDROPS HISTORY**************
+    private void onLoadPairsList() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                PairsListDao PairsListDao = deviantXDB.pairsListDao();
+                if ((PairsListDao.getAllPairsList()) != null) {
+                    String walletResult = PairsListDao.getAllPairsList().pairsList;
+                    updateUIPairsList(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchCoinsPairsList();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener PairsListUIListener = new PairsListUIListener() {
+        @Override
+        public void onChangedPairsList(String allPairsList) {
+            updateUIPairsList(allPairsList);
+        }
+
+    };
+
+    private void updateUIPairsList(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        PairsList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, PairsList[].class);
+                        allPairsList = new ArrayList<PairsList>(Arrays.asList(coinsStringArray));
+
+                        ArrayList<String> PairsListList = new ArrayList<>();
+                        for (PairsList coinName : allPairsList) {
+                            PairsListList.add(coinName.getStr_Code());
+                        }
+                        if (PairsListList.size() > 0) {
+                            spnr_pairs_list.setVisibility(View.VISIBLE);
+                            spinnerDaysAdapter = new SpinnerDaysAdapter(getActivity(), R.layout.spinner_item_days_dropdown, PairsListList);
+                            spnr_pairs_list.setAdapter(spinnerDaysAdapter);
+                        } else {
+                            spnr_pairs_list.setVisibility(View.GONE);
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchCoinsPairsList() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            ExchangePairControllerApi apiService = DeviantXApiClient.getClient().create(ExchangePairControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getPairsList(/*CONSTANTS.DeviantMulti + token*/);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            updateUIPairsList(responsevalue);
+//                            progressDialog.dismiss();
+                            PairsListDao mDao = deviantXDB.pairsListDao();
+                            PairsListDB PairsListDB = new PairsListDB(1, responsevalue);
+                            mDao.insertPairsList(PairsListDB);
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        code = parent.getItemAtPosition(position).toString().trim();
+       /* try {
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+            stompClient.connect();
+
+            stompClient.topic("/topic/exchange_pair/" + code).subscribe(new Action1<StompMessage>() {
+                @Override
+                public void call(StompMessage message) {
+                    Log.e(TAG, "*****Received " + code + "*****: EDFitemSelected" + message.getPayload());
+                    CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                    gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+
+                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
+                    rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                    gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+      /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
+        serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
+        getActivity().startService(serviceIntent);
+*/
+    }
+
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+
+    CoinPairsUIListener coinPairsUIListener = new CoinPairsUIListener() {
+        @Override
+        public void onChangedCoinPairs(String selectedCoinName, ArrayList<CoinPairs> coinPairs) {
+            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
+            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+            gainerLoserExcDBRAdapter.notifyDataSetChanged();
+        }
+    };
 
 }

@@ -29,7 +29,6 @@
                 android:layout_gravity="left|start"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="DEV/BTC"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_hint_size"
                 android:textStyle="bold" />
@@ -41,7 +40,6 @@
                 android:layout_gravity="left|start"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Vol 18,546"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/def_hint_size"
                 android:textStyle="bold"
@@ -62,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="0.0001566/$0.44"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_hint_size"
                 android:textStyle="bold" />
@@ -74,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:text="Vol 18,546"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/def_hint_size"
                 android:textStyle="bold"
@@ -96,7 +92,6 @@
                 android:layout_gravity="center"
                 android:background="@color/graph_brdr_green"
                 android:padding="@dimen/padding5"
-                android:text="+42.90%"
                 android:textColor="@color/black"
                 android:textSize="@dimen/def_hint_size"
                 android:textStyle="bold" />

@@ -10,9 +10,6 @@ public class CoinPairs implements Parcelable {
     @SerializedName("id")
     int int_id;
 
-    @SerializedName("exchangeCoin")
-    String str_exchangeCoin;
-
     @SerializedName("pairCoin")
     String str_pairCoin;
 
@@ -25,17 +22,24 @@ public class CoinPairs implements Parcelable {
     @SerializedName("twentyFourChange")
     double dbl_twentyFourChange;
 
-    @SerializedName("twentyFourChangeUsd")
-    double dbl_twentyFourChangeUsd;
-
-    @SerializedName("twentyFourChangePercentage")
+   @SerializedName("twentyFourChangePercentage")
     double dbl_twentyFourChangePercentage;
 
     @SerializedName("status")
     String str_status;
 
+    @SerializedName("exCoin")
+    String str_exchangeCoin;
+
     @SerializedName("volume")
     double dbl_volume;
+
+
+ @SerializedName("changeUsd")
+    double dbl_twentyFourChangeUsd;
+
+
+
 
     protected CoinPairs(Parcel in) {
         int_id = in.readInt();

@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,9 @@ import android.widget.ImageView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeCoinsDataPagerAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener;
+import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.PairsList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.PairsListDao;
@@ -40,7 +44,12 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.functions.Action1;
+import ua.naiksoftware.stomp.Stomp;
+import ua.naiksoftware.stomp.client.StompClient;
+import ua.naiksoftware.stomp.client.StompMessage;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class ExchangeMarketFragment extends Fragment {
@@ -48,6 +57,8 @@ public class ExchangeMarketFragment extends Fragment {
 
     //    @BindView(R.id.)
 //            ;
+    @BindView(R.id.rview_coin)
+    RecyclerView rview_coin;
     @BindView(R.id.img_search)
     ImageView img_search;
     @BindView(R.id.tab_lyt_coinsList)
@@ -71,6 +82,14 @@ public class ExchangeMarketFragment extends Fragment {
     private StompClient stompClient;
 */
 
+    LinearLayoutManager linearLayoutVertical;
+    GainerLoserExcDBRAdapter gainerLoserExcDBRAdapter;
+    private StompClient stompClient;
+    ArrayList<CoinPairs> allCoinPairs;
+    String selectedCoinName = "BTC";
+    int selectedCoinPos = 0;
+    ArrayList<PairsList> PairsListList;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.exchange_market_fragment, container, false);
@@ -81,6 +100,11 @@ public class ExchangeMarketFragment extends Fragment {
         editor = sharedPreferences.edit();
 //        coinsList = new ArrayList<>();
         allPairsList = new ArrayList<>();
+        allCoinPairs = new ArrayList<>();
+        PairsListList = new ArrayList<>();
+
+        linearLayoutVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        rview_coin.setLayoutManager(linearLayoutVertical);
 
 /*
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
@@ -105,7 +129,8 @@ public class ExchangeMarketFragment extends Fragment {
                 onLoadPairsList();
             }
         }, 200);
-
+        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
 //        coinsList.add("Favorites");
 //        coinsList.add("DEV");
 //        coinsList.add("BTC");
@@ -118,6 +143,60 @@ public class ExchangeMarketFragment extends Fragment {
        /* setupViewPager(view_pager_Sup_product);
         tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
 */
+        tab_lyt_coinsList.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                selectedCoinPos = tab.getPosition();
+                selectedCoinName = PairsListList.get(selectedCoinPos).getStr_Code();
+                try {
+                    stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+                    stompClient.connect();
+                    allCoinPairs = new ArrayList<>();
+
+                    stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).subscribe(new Action1<StompMessage>() {
+                        @Override
+                        public void call(StompMessage message) {
+//                            rview_coin.setVisibility(View.GONE);
+                            Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
+                            CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                            allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+/*
+                            Handler handler1 = new Handler();
+                            handler1.postDelayed(new Runnable() {
+                                public void run() {
+//                            rview_coin.setVisibility(View.VISIBLE);
+                                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+                                    rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                                    gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                                }
+                            }, 400);
+*/
+
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+                            rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+//                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+//                stompClient.disconnect();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                allCoinPairs = new ArrayList<>();
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         return view;
     }
 
@@ -149,16 +228,18 @@ public class ExchangeMarketFragment extends Fragment {
     public void onResume() {
         super.onResume();
         myApplication.setPairsListUIListener(PairsListUIListener);
+//        stompClient.reconnect();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         myApplication.setPairsListUIListener(null);
+        stompClient.disconnect();
     }
 
 
-    //    **************GETTING AIRDROPS HISTORY**************
+    //    **************GETTING Pairs List**************
     private void onLoadPairsList() {
 
         getActivity().runOnUiThread(new Runnable() {
@@ -202,25 +283,47 @@ public class ExchangeMarketFragment extends Fragment {
                         PairsList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, PairsList[].class);
                         allPairsList = new ArrayList<PairsList>(Arrays.asList(coinsStringArray));
 
-                        ArrayList<PairsList> PairsListList = new ArrayList<>();
+                        PairsListList = new ArrayList<>();
                         for (PairsList coinName : allPairsList) {
                             PairsListList.add(coinName);
                         }
-                        if (PairsListList.size() > 0) {
-                          /*  txt_radh_viewAll.setVisibility(View.VISIBLE);
-                            lnr_empty_his_list.setVisibility(View.GONE);
-                            recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity(), PairsListList, false);
-                            rview_radh_coins.setAdapter(recentADHistoryRAdapter);*/
-                            setupViewPager(view_pager_Sup_product);
-                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
-                        } else {
-/*
-                            txt_radh_viewAll.setVisibility(View.GONE);
-                            lnr_empty_his_list.setVisibility(View.VISIBLE);
-*/
-                            setupViewPager(view_pager_Sup_product);
-                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
+
+                        for (int i = 0; i <= PairsListList.size(); i++) {
+                            tab_lyt_coinsList.addTab(tab_lyt_coinsList.newTab().setText(PairsListList.get(i).getStr_Code()));
                         }
+
+/*
+                        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+                        stompClient.connect();
+
+                        stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).subscribe(new Action1<StompMessage>() {
+                            @Override
+                            public void call(StompMessage message) {
+                                Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
+                                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                                allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+                                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+                                rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                            }
+                        });
+*/
+
+/*
+                        if (PairsListList.size() > 0) {
+*/
+/*
+                            setupViewPager(view_pager_Sup_product);
+                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
+*//*
+
+                        } else {
+*/
+/*
+                            setupViewPager(view_pager_Sup_product);
+                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
+*//*
+                        }
+*/
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
                     }
