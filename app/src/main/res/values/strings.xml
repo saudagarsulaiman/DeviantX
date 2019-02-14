@@ -582,5 +582,17 @@
     <string name="bid">Bid</string>
     <string name="ask">Ask</string>
 
+    <!--Exchange Trade Fragment-->
+    <string name="market">Market</string>
+    <string name="limit">Limit</string>
+    <string name="stop">Stop</string>
+    <string name="get_discount">Get 50% discount if you pay fees in DEV</string>
+    <string name="total">Total</string>
+    <string name="Buy">Buy</string>
+    <string name="Sell">Sell</string>
+    <string name="make_order">Make Order</string>
+    <string name="open_order">Open Order</string>
+    <string name="no_orders_avail">No Orders Available</string>
+
 
 </resources>

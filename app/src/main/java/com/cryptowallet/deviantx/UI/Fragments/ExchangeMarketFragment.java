@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
@@ -65,6 +66,8 @@ public class ExchangeMarketFragment extends Fragment {
     TabLayout tab_lyt_coinsList;
     @BindView(R.id.view_pager_Sup_product)
     ViewPager view_pager_Sup_product;
+    @BindView(R.id.pb)
+    ProgressBar pb;
 
     private ExchangeCoinsDataPagerAdapter exchangeCoinsDataPagerAdapter;
 
@@ -152,7 +155,7 @@ public class ExchangeMarketFragment extends Fragment {
                     stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
                     stompClient.connect();
                     allCoinPairs = new ArrayList<>();
-
+                    pb.setVisibility(View.VISIBLE);
                     stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).subscribe(new Action1<StompMessage>() {
                         @Override
                         public void call(StompMessage message) {
@@ -160,35 +163,25 @@ public class ExchangeMarketFragment extends Fragment {
                             Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
                             CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                             allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-/*
-                            Handler handler1 = new Handler();
-                            handler1.postDelayed(new Runnable() {
-                                public void run() {
-//                            rview_coin.setVisibility(View.VISIBLE);
-                                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
-                                    rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-                                    gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                                }
-                            }, 400);
-*/
+//                            stompClient.disconnect();
 
                             gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
                             rview_coin.setAdapter(gainerLoserExcDBRAdapter);
 //                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-
+                            pb.setVisibility(View.GONE);
+//                            stompClient.disconnect();
+//                            stompClient.lifecycle()
                         }
                     });
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-//                stompClient.disconnect();
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                allCoinPairs = new ArrayList<>();
+//                allCoinPairs = new ArrayList<>();
             }
 
             @Override
@@ -235,7 +228,7 @@ public class ExchangeMarketFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         myApplication.setPairsListUIListener(null);
-        stompClient.disconnect();
+//        stompClient.disconnect();
     }
 
 

@@ -172,7 +172,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
         myApplication.setAllCoinsUIListener(null);
         myApplication.setPairsListUIListener(null);
 //        myApplication.setCoinPairsUIListener(null);
-        stompClient.disconnect();
+//        stompClient.disconnect();
     }
 
     private static final String TAG = "DEVIANTX";

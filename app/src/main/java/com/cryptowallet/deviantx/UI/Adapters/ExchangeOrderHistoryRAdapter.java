@@ -23,9 +23,11 @@ import butterknife.ButterKnife;
 
 public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeOrderHistoryRAdapter.ViewHolder> {
     Context context;
+    boolean isShort;
 
-    public ExchangeOrderHistoryRAdapter(Context context) {
+    public ExchangeOrderHistoryRAdapter(Context context, boolean isShort) {
         this.context = context;
+        this.isShort = isShort;
     }
 
     @NonNull
@@ -39,7 +41,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        if (i % 2 == 0) {
+        if (isShort) {
             SpannableString spannableString = new SpannableString("LTC/USDT  OPEN ORDER ");
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
@@ -61,57 +63,85 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
             viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
             viewHolder.lnr_close.setVisibility(View.VISIBLE);
-        } else if (i % 3 == 0) {
-            SpannableString spannableString = new SpannableString("LTC/USDT  SELL ");
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(View textView) {
-                }
-
-                @Override
-                public void updateDrawState(final TextPaint textPaint) {
-                    textPaint.setColor(context.getResources().getColor(R.color.white));
-                    textPaint.setUnderlineText(false);
-//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
-                    textPaint.bgColor = context.getResources().getColor(R.color.google_red);
-                }
-            };
-            spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
-            spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
-            viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
-            viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
-
-            viewHolder.lnr_close.setVisibility(View.GONE);
         } else {
-            SpannableString spannableString = new SpannableString("LTC/USDT  BUY ");
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(View textView) {
-                }
+            if (i % 2 == 0) {
+                SpannableString spannableString = new SpannableString("LTC/USDT  OPEN ORDER ");
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
 
-                @Override
-                public void updateDrawState(final TextPaint textPaint) {
-                    textPaint.setColor(context.getResources().getColor(R.color.black));
-                    textPaint.setUnderlineText(false);
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
 //                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
-                    textPaint.bgColor = context.getResources().getColor(R.color.graph_brdr_green);
-                }
-            };
-            spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 11, spannableString.length() - 0, 0); // set size
-            spannableString.setSpan(clickableSpan, spannableString.length() - 5, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
-            viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
-            viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 18, spannableString.length() - 0, 0); // set size
+                spannableString.setSpan(clickableSpan, spannableString.length() - 12, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
-            viewHolder.lnr_close.setVisibility(View.GONE);
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+            } else if (i % 3 == 0) {
+                SpannableString spannableString = new SpannableString("LTC/USDT  SELL ");
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.white));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.google_red);
+                    }
+                };
+                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.lnr_close.setVisibility(View.GONE);
+            } else {
+                SpannableString spannableString = new SpannableString("LTC/USDT  BUY ");
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.graph_brdr_green);
+                    }
+                };
+                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 11, spannableString.length() - 0, 0); // set size
+                spannableString.setSpan(clickableSpan, spannableString.length() - 5, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.lnr_close.setVisibility(View.GONE);
+            }
+
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        if (isShort)
+            return 3;
+        else
+            return 10;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

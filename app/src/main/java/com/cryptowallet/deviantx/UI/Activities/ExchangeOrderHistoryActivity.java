@@ -66,7 +66,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(ExchangeOrderHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_order_history.setLayoutManager(linearLayoutManager);
 
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this);
+        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this,false);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 
 //        Bundle bundle = getIntent().getExtras();

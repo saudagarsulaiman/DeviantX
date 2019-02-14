@@ -169,6 +169,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
                 img_trade.setBackground(getResources().getDrawable(R.color.transparent));
                 replaceFragment(new ExchangeDashboardFragment());
+//                showFragment(new ExchangeDashboardFragment());
                 break;
             case 1:
                 img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
@@ -177,6 +178,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 replaceFragment(new ExchangeTradeFragment());
+//                showFragment(new ExchangeTradeFragment());
                 break;
             case 2:
                 img_funds.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
@@ -185,6 +187,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
                 img_trade.setBackground(getResources().getDrawable(R.color.transparent));
                 replaceFragment(new ExchangeFundsFragment());
+//                showFragment(new ExchangeFundsFragment());
                 break;
             case 3:
                 img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
@@ -193,6 +196,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
                 img_trade.setBackground(getResources().getDrawable(R.color.transparent));
                 replaceFragment(new ExchangeMarketFragment());
+//                showFragment(new ExchangeMarketFragment());
                 break;
             case 4:
                 img_settings.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
@@ -201,6 +205,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_trade.setBackground(getResources().getDrawable(R.color.transparent));
                 replaceFragment(new ExchangeSettingsFragment());
+//                showFragment(new ExchangeSettingsFragment());
                 break;
         }
     }
@@ -254,6 +259,16 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
 
     }
 
+/*
+    public void showFragment(Fragment fragment*/
+/*, int position*//*
+) {
+        FragmentTransaction mTransactiont = getSupportFragmentManager().beginTransaction();
+
+        mTransactiont.replace(R.id.frame_container, fragment, fragment.getClass().getName());
+        mTransactiont.commit();
+    }
+*/
 
     @Override
     public void onBackPressed() {

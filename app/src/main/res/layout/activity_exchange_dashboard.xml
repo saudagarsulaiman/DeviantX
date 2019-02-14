@@ -15,7 +15,7 @@
     <LinearLayout
         android:id="@+id/lnr_bnv"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/def_btn_height"
+        android:layout_height="@dimen/def_edt_height"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/def_margin"
         android:background="@color/transparent"
@@ -34,7 +34,7 @@
 
             <ImageView
                 android:layout_width="@dimen/width20"
-                android:layout_height="@dimen/height20"
+                android:layout_height="@dimen/height15"
                 android:layout_gravity="center"
                 android:src="@drawable/back" />
 
@@ -65,8 +65,8 @@
 
                 <ImageView
                     android:id="@+id/img_home"
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:background="@drawable/cir_menublue"
                     android:padding="@dimen/padding10"
@@ -85,8 +85,8 @@
 
                 <ImageView
                     android:id="@+id/img_trade"
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
                     android:src="@drawable/trade" />
@@ -104,8 +104,8 @@
 
                 <ImageView
                     android:id="@+id/img_funds"
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
                     android:src="@drawable/funds" />
@@ -123,8 +123,8 @@
 
                 <ImageView
                     android:id="@+id/img_market"
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
                     android:src="@drawable/market" />
@@ -142,8 +142,8 @@
 
                 <ImageView
                     android:id="@+id/img_settings"
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
                     android:src="@drawable/settings" />
