@@ -208,7 +208,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 txt_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
-                intent.putExtra(CONSTANTS.seletedTab, 1);
+                intent.putExtra(CONSTANTS.seletedTab, 3);
                 startActivity(intent);
 
             }
@@ -221,7 +221,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 txt_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
                 Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
-                intent.putExtra(CONSTANTS.seletedTab, 1);
+                intent.putExtra(CONSTANTS.seletedTab, 3);
                 startActivity(intent);
 
             }

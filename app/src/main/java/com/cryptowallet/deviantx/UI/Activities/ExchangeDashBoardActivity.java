@@ -172,12 +172,12 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
 //                showFragment(new ExchangeDashboardFragment());
                 break;
             case 1:
-                img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+                img_trade.setBackground(getResources().getDrawable(R.color.transparent));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
-                img_market.setBackground(getResources().getDrawable(R.color.transparent));
+                img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
-                replaceFragment(new ExchangeTradeFragment());
+                replaceFragment(new ExchangeMarketFragment());
 //                showFragment(new ExchangeTradeFragment());
                 break;
             case 2:
@@ -190,12 +190,12 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
 //                showFragment(new ExchangeFundsFragment());
                 break;
             case 3:
-                img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+                img_market.setBackground(getResources().getDrawable(R.color.transparent));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
-                img_trade.setBackground(getResources().getDrawable(R.color.transparent));
-                replaceFragment(new ExchangeMarketFragment());
+                img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+                replaceFragment(new ExchangeTradeFragment());
 //                showFragment(new ExchangeMarketFragment());
                 break;
             case 4:
@@ -261,7 +261,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
 
 /*
     public void showFragment(Fragment fragment*/
-/*, int position*//*
+    /*, int position*//*
 ) {
         FragmentTransaction mTransactiont = getSupportFragmentManager().beginTransaction();
 

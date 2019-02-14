@@ -258,7 +258,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transferAmountToAddress(to_address, amount/*, str_data_ad_address*/);
+                transferAmountToAddress(to_address, amount/*, str_data_ad_address*/,str_coin_code);
                 dialog.dismiss();
             }
         });
@@ -267,12 +267,13 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void transferAmountToAddress(String to_address, String amount/*, String fromAddress*/) {
+    private void transferAmountToAddress(String to_address, String amount,/* String walletAddress,*/String coinCode) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
 //                params.put("fromAddress", fromAddress);
+                params.put("coinCode", coinCode);
                 params.put("toAddress", to_address);
                 params.put("amount", amount);
 
@@ -411,7 +412,7 @@ public class TwoFAAirDropActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
 //                params.put("fromAddress", fromAddress);
-                params.put("wallet", walletName);
+                params.put("walletName", walletName);
                 params.put("amount", amount);
                 params.put("coinCode", str_coin_code);
 

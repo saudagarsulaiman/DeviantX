@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
+import com.cryptowallet.deviantx.UI.Activities.AirdropWalletHistoryActivity;
 import com.cryptowallet.deviantx.UI.Activities.DepositWalletAirdropActivity;
 import com.cryptowallet.deviantx.UI.Activities.DividendADListActivity;
 import com.cryptowallet.deviantx.UI.Activities.FeaturedADListAcivity;
@@ -262,6 +263,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         TextView txt_config_wallet = mRvPop.findViewById(R.id.txt_config_wallet);
         TextView txt_ad_info = mRvPop.findViewById(R.id.txt_ad_info);
         TextView txt_delete = mRvPop.findViewById(R.id.txt_delete);
+        TextView txt_ad_history= mRvPop.findViewById(R.id.txt_ad_history);
 
 /*
         txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
@@ -283,6 +285,21 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 intent.putExtras(bundle);
                 startActivity(intent);
 //                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.withdraw_funds));
+                mRvPop.dismiss();
+            }
+        });
+
+        txt_ad_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AirdropWalletHistoryActivity.class);
+/*
+                Bundle bundle = new Bundle();
+//                bundle.putParcelable(CONSTANTS.selectedCoin, airdropWalletlist.get(0));
+                bundle.putParcelableArrayList(CONSTANTS.selectedAccountWallet, airdropWalletlist);
+                intent.putExtras(bundle);
+*/
+                startActivity(intent);
                 mRvPop.dismiss();
             }
         });

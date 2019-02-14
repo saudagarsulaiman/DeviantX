@@ -2,7 +2,6 @@ package com.cryptowallet.deviantx.UI.Fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,10 +10,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,18 +22,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
-import com.cryptowallet.deviantx.UI.Activities.WithdrawADClaimActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ExchangeTradeFragment extends Fragment {
 
@@ -138,6 +147,8 @@ public class ExchangeTradeFragment extends Fragment {
     ProgressDialog progressDialog;
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
+
+    String loginResponseMsg, loginResponseStatus;
 
     View view;
 
@@ -287,8 +298,9 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 buttonsVisiblity();
+/*
                 btn_make_order_limit.setVisibility(View.VISIBLE);
-
+*/
             }
         });
 
@@ -299,7 +311,9 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
                 buttonsVisiblity();
+/*
                 btn_make_order_stop.setVisibility(View.VISIBLE);
+*/
 
             }
         });
@@ -324,8 +338,8 @@ public class ExchangeTradeFragment extends Fragment {
                 String edt_value = edt_price.getText().toString().trim();
                 Double edtVal = Double.parseDouble(edt_value);
                 edtVal--;
-                if (edtVal < 0) {
-                    edt_price.setText("0.0");
+                if (edtVal < 0.001) {
+                    edt_price.setText("0.001");
                 } else {
                     edt_price.setText("" + edtVal);
                 }
@@ -343,7 +357,7 @@ public class ExchangeTradeFragment extends Fragment {
 //                if (edtVal > txtVal) {
 //                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.insufficient_fund));
 //                } else {
-                    edt_amount.setText("" + edtVal);
+                edt_amount.setText("" + edtVal);
 //                }
             }
         });
@@ -353,8 +367,8 @@ public class ExchangeTradeFragment extends Fragment {
                 String edt_value = edt_amount.getText().toString().trim();
                 Double edtVal = Double.parseDouble(edt_value);
                 edtVal--;
-                if (edtVal < 0) {
-                    edt_amount.setText("0.0");
+                if (edtVal < 0.001) {
+                    edt_amount.setText("0.001");
                 } else {
                     edt_amount.setText("" + edtVal);
                 }
@@ -363,8 +377,122 @@ public class ExchangeTradeFragment extends Fragment {
         });
 
 
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                String coin_pair = txt_title.getText().toString().trim();
+                double total = /*Double.parseDouble(txt_total.getText().toString().trim())*/0.0;
+
+                String type = "buy";
+
+                if (price > 0/*.001*/) {
+                    if (amount > 0/*.001*/) {
+                        makeOrder(amount, price, total, type, coin_pair);
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                }
+            }
+        });
+
+        btn_sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                String coin_pair = txt_title.getText().toString().trim();
+                double total = Double.parseDouble(txt_total.getText().toString().trim());
+                String type = "sell";
+
+                if (price > 0/*.001*/) {
+                    if (amount > 0/*.001*/) {
+                        makeOrder(amount, price, total, type, coin_pair);
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                }
+            }
+        });
+
 
         return view;
+    }
+
+    private void makeOrder(double amount, double price, double total, String type, String coin_pair) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            JSONObject params = new JSONObject();
+            try {
+                params.put("amount", amount);
+                params.put("price", price);
+                params.put("total", total);
+                params.put("type", type);
+                params.put("coin_pair", coin_pair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getOrder(CONSTANTS.DeviantMulti + token, params.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+                        } else {
+                            progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        progressDialog.dismiss();
+                        e.printStackTrace();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void buttonsVisiblity() {

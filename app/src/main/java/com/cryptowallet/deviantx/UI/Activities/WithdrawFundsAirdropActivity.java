@@ -578,7 +578,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transferAmountToAddress(edt_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/);
+                transferAmountToAddress(edt_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/,airdropWalletlist.get(0).getStr_ad_coin_code());
                 dialog.dismiss();
             }
         });
@@ -647,12 +647,13 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
     }
 
-    private void transferAmountToAddress(String edt_address, String amount/*, String walletAddress*/) {
+    private void transferAmountToAddress(String edt_address, String amount,/* String walletAddress,*/String coinCode) {
         try {
             JSONObject params = new JSONObject();
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
-//                params.put("fromAddress", walletAddress);
+//                params.put("fromAddress", fromAddress);
+                params.put("coinCode", coinCode);
                 params.put("toAddress", edt_address);
                 params.put("amount", amount);
 
@@ -732,7 +733,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             String token = sharedPreferences.getString(CONSTANTS.token, "");
             try {
 //                params.put("fromAddress", walletAddress);
-                params.put("wallet", walletName);
+                params.put("walletName", walletName);
                 params.put("amount", amount);
                 params.put("coinCode", coinCode);
 

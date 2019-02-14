@@ -18,6 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".UI.Activities.AirdropWalletHistoryActivity"></activity>
         <activity
             android:name=".UI.Activities.SplashScreenActivity"
             android:screenOrientation="portrait">
@@ -226,7 +227,6 @@
              android:value="f78cd6c413d66026216e45f925c152c9fbd33912"
              />
         -->
-
         <activity
             android:name=".UI.Activities.ExchangeSettingsActivity"
             android:screenOrientation="portrait" />
@@ -247,10 +247,7 @@
         <activity
             android:name=".UI.Activities.AppPinActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
-
-        <!-- Firebase Notifications -->
-
+            android:windowSoftInputMode="stateHidden" /> <!-- Firebase Notifications -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
@@ -263,7 +260,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <!--
          <service android:name=".FCM.service.MyFirebaseInstanceIDService">
              <intent-filter>
@@ -277,9 +273,7 @@
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
-        </service>
-        <!-- ./Firebase Notifications -->
-
+        </service> <!-- ./Firebase Notifications -->
         <activity
             android:name=".UI.Activities.SelectADCampaignsActivity"
             android:screenOrientation="portrait"
@@ -292,7 +286,7 @@
             android:name=".UI.Activities.DividendADListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".UI.Activities.WithdrawADClaimActivity"></activity>
+        <activity android:name=".UI.Activities.WithdrawADClaimActivity" />
     </application>
 
 </manifest>

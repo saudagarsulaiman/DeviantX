@@ -25,7 +25,6 @@ import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.ReceivedHistory;
 import com.cryptowallet.deviantx.UI.Models.SentHistory;
-import com.cryptowallet.deviantx.UI.Models.Transaction;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -67,7 +66,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    ArrayList<Transaction> transactions;
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
@@ -138,7 +136,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
         transType = bundle.getString(CONSTANTS.transType);
 
-        transactions = new ArrayList<>();
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

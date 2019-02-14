@@ -77,7 +77,7 @@ public class CoinPairsFetch extends IntentService {
     public void onDestroy() {
         super.onDestroy();
         Log.d("Local_cache", "MyIntentService onDestroy() method is invoked.");
-        stompClient.disconnect();
+//        stompClient.disconnect();
     }
 
     @Override
@@ -93,6 +93,9 @@ public class CoinPairsFetch extends IntentService {
 
     private void fetchWebsocket(String selectedCoinName) {
         try {
+          /*  if (!stompClient.isConnected())
+                stompClient.disconnect();
+            stompClient.connect();*/
             stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
                 @Override
                 public void call(StompMessage message) {
@@ -101,7 +104,7 @@ public class CoinPairsFetch extends IntentService {
                     CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                     allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
-                    Log.e(TAG, "*****allCoinPairs " + allCoinPairs);
+//                    Log.e(TAG, "*****allCoinPairs " + allCoinPairs);
 
                     CoinPairsUIListener = myApplication.getCoinPairsUIListener();
                     if (CoinPairsUIListener != null) {
@@ -110,6 +113,7 @@ public class CoinPairsFetch extends IntentService {
 
                 }
             });
+            stompClient.disconnect();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
