@@ -163,7 +163,7 @@
                     android:layout_marginLeft="@dimen/margin10"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:text="@string/token_per_claim"
+                    android:text="@string/coins_per_claim"
                     android:textColor="@color/white"
                     android:textSize="@dimen/def_text_size" />
 

@@ -66,6 +66,8 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
 
     AirdropWalletHistoryRAdapter walletHistoryRAdapter;
 
+    LinearLayoutManager linearLayoutManager;
+
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
@@ -94,6 +96,9 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        linearLayoutManager = new LinearLayoutManager(AirdropWalletHistoryActivity.this,LinearLayoutManager.VERTICAL,false);
+        rview_trans_history.setLayoutManager(linearLayoutManager);
 
         transactions = new ArrayList<>();
 

@@ -75,7 +75,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lnr_trade"
+                android:id="@+id/lnr_market"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -84,12 +84,12 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
-                    android:id="@+id/img_trade"
+                    android:id="@+id/img_market"
                     android:layout_width="@dimen/width35"
                     android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
-                    android:src="@drawable/trade" />
+                    android:src="@drawable/market" />
 
             </LinearLayout>
 
@@ -113,7 +113,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lnr_market"
+                android:id="@+id/lnr_trade"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
@@ -122,12 +122,12 @@
                 android:paddingLeft="@dimen/padding15">
 
                 <ImageView
-                    android:id="@+id/img_market"
+                    android:id="@+id/img_trade"
                     android:layout_width="@dimen/width35"
                     android:layout_height="@dimen/height35"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding10"
-                    android:src="@drawable/market" />
+                    android:src="@drawable/trade" />
 
             </LinearLayout>
 

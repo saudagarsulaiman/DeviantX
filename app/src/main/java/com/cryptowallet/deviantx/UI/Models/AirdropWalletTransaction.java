@@ -19,8 +19,9 @@ public class AirdropWalletTransaction implements Parcelable {
     String str_coinName;
     @SerializedName("coinlogo")
     String str_coinlogo;
-    @SerializedName("refNo")
-    String str_refNo;
+    /* @SerializedName("refNo")
+     String str_refNo;
+     */
     @SerializedName("to")
     String str_to;
     @SerializedName("txnDate")
@@ -33,7 +34,7 @@ public class AirdropWalletTransaction implements Parcelable {
         str_coinCode = in.readString();
         str_coinName = in.readString();
         str_coinlogo = in.readString();
-        str_refNo = in.readString();
+//        str_refNo = in.readString();
         str_to = in.readString();
         str_txnDate = in.readString();
     }
@@ -98,14 +99,14 @@ public class AirdropWalletTransaction implements Parcelable {
         this.str_coinlogo = str_coinlogo;
     }
 
-    public String getStr_refNo() {
+    /*public String getStr_refNo() {
         return str_refNo;
     }
 
     public void setStr_refNo(String str_refNo) {
         this.str_refNo = str_refNo;
     }
-
+*/
     public String getStr_to() {
         return str_to;
     }
@@ -135,7 +136,7 @@ public class AirdropWalletTransaction implements Parcelable {
         dest.writeString(str_coinCode);
         dest.writeString(str_coinName);
         dest.writeString(str_coinlogo);
-        dest.writeString(str_refNo);
+//        dest.writeString(str_refNo);
         dest.writeString(str_to);
         dest.writeString(str_txnDate);
     }

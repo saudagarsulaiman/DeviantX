@@ -8,7 +8,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -123,6 +122,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
     String chart_data, data;
     /*AllCoinsDB*/ AccountWallet selectedCoin;
+    AllCoins selectedCoin1;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -179,8 +179,49 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         responseList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
-        selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
+        boolean isExpCoin = bundle.getBoolean(CONSTANTS.isExploreCoins);
+        if (isExpCoin) {
+            selectedCoin1 = bundle.getParcelable(CONSTANTS.selectedCoin);
+            Picasso.with(CoinInformationActivity.this).load(selectedCoin1.getStr_coin_logo()).into(img_coin_logo);
+            txt_coin_name.setText(selectedCoin1.getStr_coin_name());
+            txt_coin_usd.setText("$" + String.format("%.4f", selectedCoin1.getDbl_coin_usdValue()));
 
+            DecimalFormat rank = new DecimalFormat("00.00");
+            if (selectedCoin1.getDbl_coin_24h() < 0) {
+                txt_per_change.setText(rank.format(selectedCoin1.getDbl_coin_24h()) + "%");
+                txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
+            } /*else if (responseList.get(responseList.size() - 1).getChange() == 0) {
+                            }*/ else {
+                txt_per_change.setText("+" + rank.format(selectedCoin1.getDbl_coin_24h()) + "%");
+                txt_per_change.setTextColor(getResources().getColor(R.color.green));
+            }
+
+            if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                getCoinChartData1(selectedCoin1);
+            } else {
+                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+            }
+        } else {
+            selectedCoin = bundle.getParcelable(CONSTANTS.selectedCoin);
+            Picasso.with(CoinInformationActivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
+            txt_coin_name.setText(selectedCoin.getStr_coin_name());
+            txt_coin_usd.setText("$" + String.format("%.4f", selectedCoin.getDbl_coin_usdValue()));
+
+            DecimalFormat rank = new DecimalFormat("00.00");
+            if (selectedCoin.getDbl_coin_24h() < 0) {
+                txt_per_change.setText(rank.format(selectedCoin.getDbl_coin_24h()) + "%");
+                txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
+            } /*else if (responseList.get(responseList.size() - 1).getChange() == 0) {
+                            }*/ else {
+                txt_per_change.setText("+" + rank.format(selectedCoin.getDbl_coin_24h()) + "%");
+                txt_per_change.setTextColor(getResources().getColor(R.color.green));
+            }
+            if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+                getCoinChartData(selectedCoin);
+            } else {
+                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
+            }
+        }
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,7 +231,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         });
 
 
-        Picasso.with(CoinInformationActivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
+      /*  Picasso.with(CoinInformationActivity.this).load(selectedCoin.getStr_coin_logo()).into(img_coin_logo);
         txt_coin_name.setText(selectedCoin.getStr_coin_name());
         txt_coin_usd.setText("$" + String.format("%.4f", selectedCoin.getDbl_coin_usdValue()));
 
@@ -198,11 +239,11 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         if (selectedCoin.getDbl_coin_24h() < 0) {
             txt_per_change.setText(rank.format(selectedCoin.getDbl_coin_24h()) + "%");
             txt_per_change.setTextColor(getResources().getColor(R.color.google_red));
-        } /*else if (responseList.get(responseList.size() - 1).getChange() == 0) {
-                            }*/ else {
+        } *//*else if (responseList.get(responseList.size() - 1).getChange() == 0) {
+                            }*//* else {
             txt_per_change.setText("+" + rank.format(selectedCoin.getDbl_coin_24h()) + "%");
             txt_per_change.setTextColor(getResources().getColor(R.color.green));
-        }
+        }*/
 
         // Spinner click listener
         spnr_days.setOnItemSelectedListener(this);
@@ -253,11 +294,11 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
         txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
-        if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+      /*  if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
             getCoinChartData(selectedCoin);
         } else {
             CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
-        }
+        }*/
 
        /* try {
             chart_data = selectedCoin.getStr_coin_chart_data();
@@ -298,6 +339,84 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     }
 
     private void getCoinChartData(AccountWallet selectedCoin) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinChartData(CONSTANTS.DeviantMulti + token, selectedCoin.getStr_coin_code());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+
+                            progressDialog.dismiss();
+                            pb.setVisibility(View.GONE);
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            respStatus = jsonObject.getString("status");
+                            respMsg = jsonObject.getString("msg");
+
+                            if (respStatus.equals("true")) {
+                                try {
+                                    respData = jsonObject.getString("data");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                setCoinChartData(respData);
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.empty_data));
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.empty_data));
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                            pb.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        pb.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            pb.setVisibility(View.GONE);
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getCoinChartData1(AllCoins selectedCoin) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(CoinInformationActivity.this, "", getResources().getString(R.string.please_wait), true);

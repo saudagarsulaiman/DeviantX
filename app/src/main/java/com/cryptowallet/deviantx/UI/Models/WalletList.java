@@ -17,7 +17,7 @@ public class WalletList implements Parcelable {
 
     @SerializedName("id")
     int int_data_id;
-    @SerializedName("toatalBalance")
+    @SerializedName("totalUsdBalance")
     double dbl_data_totalBal;
     @SerializedName("name")
     String str_data_name;

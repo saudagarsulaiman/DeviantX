@@ -19,8 +19,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
-
 public class AirdropWalletHistoryRAdapter extends RecyclerView.Adapter<AirdropWalletHistoryRAdapter.ViewHolder> {
 
     Context context;
@@ -30,7 +28,8 @@ public class AirdropWalletHistoryRAdapter extends RecyclerView.Adapter<AirdropWa
     public AirdropWalletHistoryRAdapter(Context context, ArrayList<AirdropWalletTransaction> transactions) {
         this.context = context;
         this.transactions = transactions;
-        this.hideBal = myApplication.getHideBalance();
+//        this.hideBal = myApplication.getHideBalance();
+        this.hideBal = false;
 
     }
 
@@ -43,11 +42,17 @@ public class AirdropWalletHistoryRAdapter extends RecyclerView.Adapter<AirdropWa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, final int i) {
         viewHolder.lnr_trans_avail.setVisibility(View.VISIBLE);
         viewHolder.lnr_no_trans.setVisibility(View.GONE);
 
-        if (transactions.get(i).getStr_category().equals("sent")) {
+        if (transactions.get(i).getStr_to() == null)
+            transactions.get(i).setStr_to("0Dadjjdad455kdjbwk85154545dad85");
+
+        if (transactions.get(i).getStr_txnDate() == null)
+            transactions.get(i).setStr_txnDate("1550158633000");
+
+        if (transactions.get(i).getStr_category().equals("Sent")) {
             if (!hideBal) {
                 if (transactions.get(i).getStr_to().length() < 15) {
                     viewHolder.txt_trans_address.setText("To " + transactions.get(i).getStr_to());

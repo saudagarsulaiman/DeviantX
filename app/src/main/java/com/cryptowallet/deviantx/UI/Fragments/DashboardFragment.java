@@ -385,6 +385,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     Intent intent = new Intent(getActivity(), CoinInformationActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CONSTANTS.selectedCoin, accountWalletlist.get(fromPos)/*.getAllCoins()*/);
+                    bundle.putBoolean(CONSTANTS.isExploreCoins, false);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (direction == ItemTouchHelper.END) {

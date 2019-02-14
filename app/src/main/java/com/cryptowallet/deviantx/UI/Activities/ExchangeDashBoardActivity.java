@@ -107,18 +107,17 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         });
 
 
-        img_trade.setOnClickListener(new View.OnClickListener() {
+        img_market.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setCurrentTabFragment(1);
-               /* img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+                /*img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
-                img_market.setBackground(getResources().getDrawable(R.color.transparent));
+                img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
-                img_home.setBackground(getResources().getDrawable(R.color.transparent));*/
+                img_trade.setBackground(getResources().getDrawable(R.color.transparent));*/
             }
         });
-
 
         img_funds.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,16 +131,15 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
             }
         });
 
-
-        img_market.setOnClickListener(new View.OnClickListener() {
+        img_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setCurrentTabFragment(3);
-                /*img_market.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
+               /* img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
-                img_home.setBackground(getResources().getDrawable(R.color.transparent));
+                img_market.setBackground(getResources().getDrawable(R.color.transparent));
                 img_settings.setBackground(getResources().getDrawable(R.color.transparent));
-                img_trade.setBackground(getResources().getDrawable(R.color.transparent));*/
+                img_home.setBackground(getResources().getDrawable(R.color.transparent));*/
             }
         });
 
@@ -223,26 +221,26 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         } else {
             FragmentTransaction transaction = supportFragmentManager.beginTransaction();
             ExchangeDashboardFragment dashboardFragment = (ExchangeDashboardFragment) supportFragmentManager.findFragmentByTag(ExchangeDashboardFragment.class.getName());
-            ExchangeTradeFragment tradeFragment = (ExchangeTradeFragment) supportFragmentManager.findFragmentByTag(ExchangeTradeFragment.class.getName());
-            ExchangeFundsFragment fundsFragment = (ExchangeFundsFragment) supportFragmentManager.findFragmentByTag(ExchangeFundsFragment.class.getName());
             ExchangeMarketFragment marketFragment = (ExchangeMarketFragment) supportFragmentManager.findFragmentByTag(ExchangeMarketFragment.class.getName());
+            ExchangeFundsFragment fundsFragment = (ExchangeFundsFragment) supportFragmentManager.findFragmentByTag(ExchangeFundsFragment.class.getName());
+            ExchangeTradeFragment tradeFragment = (ExchangeTradeFragment) supportFragmentManager.findFragmentByTag(ExchangeTradeFragment.class.getName());
             ExchangeSettingsFragment settingsFragment = (ExchangeSettingsFragment) supportFragmentManager.findFragmentByTag(ExchangeSettingsFragment.class.getName());
 
             if (dashboardFragment != null)
                 if (dashboardFragment != f1)
                     transaction.hide(dashboardFragment);
 
-            if (tradeFragment != null)
-                if (tradeFragment != f1)
-                    transaction.hide(tradeFragment);
+            if (marketFragment != null)
+                if (marketFragment != f1)
+                    transaction.hide(marketFragment);
 
             if (fundsFragment != null)
                 if (fundsFragment != f1)
                     transaction.hide(fundsFragment);
 
-            if (marketFragment != null)
-                if (marketFragment != f1)
-                    transaction.hide(marketFragment);
+            if (tradeFragment != null)
+                if (tradeFragment != f1)
+                    transaction.hide(tradeFragment);
 
             if (settingsFragment != null)
                 if (settingsFragment != f1)

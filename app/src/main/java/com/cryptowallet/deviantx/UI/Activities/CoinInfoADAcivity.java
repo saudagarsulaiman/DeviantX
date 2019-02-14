@@ -83,8 +83,8 @@ public class CoinInfoADAcivity extends AppCompatActivity {
         Picasso.with(CoinInfoADAcivity.this).load(selectedCoin.getStr_coinlogo()).into(img_coin_logo);
         txt_coin_name.setText(selectedCoin.getStr_coinName());
         txt_coin_code.setText(selectedCoin.getStr_coinCode());
-        txt_estimated.setText("$" + String.format("%.4f", selectedCoin.getdbl_estimated()) + " Ref");
-        txt_tokens.setText("750 " + selectedCoin.getStr_coinCode());
+        txt_estimated.setText("$" + String.format("%.4f", selectedCoin.getDbl_airdropAmountInUSD()) + " Ref");
+        txt_tokens.setText(selectedCoin.getDbl_airdropAmount() + " " + selectedCoin.getStr_coinCode());
 
 
         btn_participate.setVisibility(View.GONE);

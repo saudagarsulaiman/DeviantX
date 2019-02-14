@@ -51,6 +51,7 @@ public class CONSTANTS {
     public static String transType = "TRANSACTIONTYPE";
     public static String sent = "SENT";
     public static String received = "RECEIVED";
+    public static String isExploreCoins = "isEcploreCoins";
 
 
 //    //    Selected Account Wallet Details
