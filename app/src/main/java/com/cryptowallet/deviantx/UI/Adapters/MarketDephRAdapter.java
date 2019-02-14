@@ -47,11 +47,11 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 
         if (isBid) {
             viewHolder.txt_price.setText("0.0005");
-            viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.green_txt));
+            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
             viewHolder.txt_amount.setText("2.30");
         } else {
             viewHolder.txt_price.setText("0.4321");
-            viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.blue));
+            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
             viewHolder.txt_amount.setText("414.44");
         }
 

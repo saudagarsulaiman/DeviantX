@@ -126,10 +126,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
         marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, isShort);
-        rview_bid.setAdapter(marketTradesRAdapter);
+        rview_bid.setAdapter(marketDephRAdapter);
 
         marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, askList, isShort);
-        rview_ask.setAdapter(marketTradesRAdapter);
+        rview_ask.setAdapter(marketDephRAdapter);
 
 
         rltv_mrkt_deph.setOnClickListener(new View.OnClickListener() {
@@ -148,10 +148,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
 
                 marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
-                rview_bid.setAdapter(marketTradesRAdapter);
+                rview_bid.setAdapter(marketDephRAdapter);
 
                 marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
-                rview_ask.setAdapter(marketTradesRAdapter);
+                rview_ask.setAdapter(marketDephRAdapter);
             }
         });
 
@@ -184,9 +184,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
                     marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
-                    rview_bid.setAdapter(marketTradesRAdapter);
+                    rview_bid.setAdapter(marketDephRAdapter);
                     marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
-                    rview_ask.setAdapter(marketTradesRAdapter);
+                    rview_ask.setAdapter(marketDephRAdapter);
                 } else {
                     isShort = true;
                     Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
@@ -194,9 +194,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
                     marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
-                    rview_bid.setAdapter(marketTradesRAdapter);
+                    rview_bid.setAdapter(marketDephRAdapter);
                     marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
-                    rview_ask.setAdapter(marketTradesRAdapter);
+                    rview_ask.setAdapter(marketDephRAdapter);
                 }
             }
         });

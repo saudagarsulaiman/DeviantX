@@ -417,6 +417,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin1"
+                    android:layout_marginRight="@dimen/margin1"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
 
@@ -465,9 +467,17 @@
 
                 </LinearLayout>
 
+                <!--  <View
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="0.003"
+                      android:background="@color/grey"/>
+  -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin1"
+                    android:layout_marginLeft="@dimen/margin1"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
 
