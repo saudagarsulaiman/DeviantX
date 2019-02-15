@@ -17,16 +17,13 @@ public interface AirdropWalletControllerApi {
     @GET("/api/airdrop_wallet/airdrop_deposit_wallet/{coin_code}")
     Call<ResponseBody> getAirdropWalletAddress(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX);
 
-
     @Headers("Content-Type: application/json")
     @POST("/api/airdrop_wallet/airdrop_balance_withdraw")
     Call<ResponseBody> transferToAddress(@Body String body, @Header("Authorization") String AuthorizationDX);
 
-    //    ************************************  UNAVAILABLE IN BACKEND  ************************************
     @Headers("Content-Type: application/json")
     @POST("/api/airdrop_wallet/airdrop_balance_withdraw_to_wallet")
     Call<ResponseBody> transferToWallet(@Body String body, @Header("Authorization") String AuthorizationDX);
-
 
     @GET("/api/airdrop_wallet/withdraw_details ")
     Call<ResponseBody> getAirdropWalletHistory(@Header("Authorization") String AuthorizationDX);
