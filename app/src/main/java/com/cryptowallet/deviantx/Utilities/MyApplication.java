@@ -11,13 +11,13 @@ import com.cryptowallet.deviantx.UI.Interfaces.AirdropsHistoryUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.AllCoinsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinPairsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.DividendAirdropsUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.FeaturedAirdropsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.HeaderBannerUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletDetailsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
-import com.cryptowallet.deviantx.UI.Models.PairsList;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
 
@@ -45,6 +45,7 @@ public class MyApplication extends Application {
     public WalletDetailsUIListener walletDetailsUIListener;
     public CoinPairsUIListener coinPairsUIListener;
     public PairsListUIListener pairsListUIListener;
+    public ExcOrdersUIListener excOrdersUIListener;
 
     public Boolean getHideBalance() {
         return isHideBalance;
@@ -203,5 +204,13 @@ public class MyApplication extends Application {
 
     public void setPairsListUIListener(PairsListUIListener pairsListUIListener) {
         this.pairsListUIListener = pairsListUIListener;
+    }
+
+    public ExcOrdersUIListener getExcOrdersUIListener() {
+        return excOrdersUIListener;
+    }
+
+    public void setExcOrdersUIListener(ExcOrdersUIListener excOrdersUIListener) {
+        this.excOrdersUIListener = excOrdersUIListener;
     }
 }

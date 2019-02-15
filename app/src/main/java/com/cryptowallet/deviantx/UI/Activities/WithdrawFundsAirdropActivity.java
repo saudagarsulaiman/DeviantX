@@ -683,6 +683,9 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
+/*
+                                CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
+*/
 //                                onBackPressed();
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {

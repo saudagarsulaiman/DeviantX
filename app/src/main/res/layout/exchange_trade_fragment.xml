@@ -450,6 +450,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="0.5"
                         android:background="@android:color/transparent"
+                        android:editable="false"
                         android:gravity="start"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
@@ -585,6 +586,7 @@
                 android:layout_marginTop="@dimen/def_margin"
                 android:layout_marginEnd="@dimen/def_margin"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="2">
 
                 <LinearLayout
@@ -731,12 +733,27 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/margin2"
                     android:layout_marginLeft="@dimen/margin2"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.35"
                     android:gravity="end"
                     android:text="- -"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/def_lbl_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_total_code"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin2"
+                    android:layout_marginLeft="@dimen/margin2"
+                    android:layout_weight="0.15"
+                    android:gravity="end"
+                    android:text="BTC"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_text_size"
                     android:textStyle="bold" />
 
 

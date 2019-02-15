@@ -10,6 +10,7 @@ import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
 import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
 import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
 import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.HeaderBannerFetch;
 import com.cryptowallet.deviantx.UI.Services.NewsDXFetch;
@@ -25,6 +26,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
         Log.d("Local_cache", "Receiver Load");
 
         try {
+            Log.e("*******DEVIANT*******", "Receiver Class Executed");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(new Intent(context, WalletDataFetch.class));
                 context.startForegroundService(new Intent(context, AllCoinsFetch.class));
@@ -36,6 +38,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startForegroundService(new Intent(context, HeaderBannerFetch.class));
                 context.startForegroundService(new Intent(context, WalletDetailsFetch.class));
                 context.startForegroundService(new Intent(context, PairsListFetch.class));
+                context.startForegroundService(new Intent(context, ExcOrdersFetch.class));
 
             } else {
                 context.startService(new Intent(context, WalletDataFetch.class));
@@ -48,6 +51,7 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
                 context.startService(new Intent(context, HeaderBannerFetch.class));
                 context.startService(new Intent(context, WalletDetailsFetch.class));
                 context.startService(new Intent(context, PairsListFetch.class));
+                context.startService(new Intent(context, ExcOrdersFetch.class));
             }
         } catch (Exception e) {
             e.printStackTrace();

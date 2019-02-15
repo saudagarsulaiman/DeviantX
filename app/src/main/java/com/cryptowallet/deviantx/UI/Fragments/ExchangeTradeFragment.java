@@ -5,11 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +30,16 @@ import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
+import com.cryptowallet.deviantx.UI.Models.CoinPairs;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExcOrdersDao;
+import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExcOrdersDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -37,6 +47,7 @@ import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +55,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class ExchangeTradeFragment extends Fragment {
 
@@ -119,6 +132,9 @@ public class ExchangeTradeFragment extends Fragment {
     EditText edt_fees;
     @BindView(R.id.txt_total)
     TextView txt_total;
+    @BindView(R.id.txt_total_code)
+    TextView txt_total_code;
+
 
     @BindView(R.id.btn_buy)
     Button btn_buy;
@@ -141,6 +157,7 @@ public class ExchangeTradeFragment extends Fragment {
     boolean isShort;
     ArrayList<String> bidList;
     ArrayList<String> askList;
+    ArrayList<ExcOrders> allExcOrder;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -148,7 +165,10 @@ public class ExchangeTradeFragment extends Fragment {
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
 
-    String loginResponseMsg, loginResponseStatus;
+    String loginResponseData, loginResponseMsg, loginResponseStatus;
+    /*ArrayList<CoinPairs> */ CoinPairs allCoinPairs;
+
+    DeviantXDB deviantXDB;
 
     View view;
 
@@ -159,9 +179,49 @@ public class ExchangeTradeFragment extends Fragment {
         ButterKnife.bind(this, view);
         sharedPreferences = getActivity().getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        deviantXDB = DeviantXDB.getDatabase(getActivity());
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                onLoadOpenOrders();
+            }
+        }, 200);
+        allExcOrder = new ArrayList<>();
+
+/*
+        allCoinPairs = new ArrayList<>();
+*/
 
         /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
+
+        Bundle bundle = getActivity().getIntent().getExtras();
+        try {
+//            allCoinPairs = bundle.getParcelableArrayList(CONSTANTS.selectedCoin);
+            allCoinPairs = bundle.getParcelable(CONSTANTS.selectedCoin);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        if (allCoinPairs/*.size() > 0*/ != null) {
+            edt_price.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue()));
+            txt_code_price.setText(allCoinPairs.getStr_exchangeCoin());
+            txt_code_amount.setText(allCoinPairs.getStr_pairCoin());
+            txt_title.setText(allCoinPairs.getStr_pairCoin() + "/" + allCoinPairs.getStr_exchangeCoin());
+            txt_total.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
+            txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
+            edt_price.setEnabled(false);
+        } else {
+            edt_price.setText("0.044");
+            txt_code_price.setText("BTC");
+            txt_code_amount.setText("ETH");
+            txt_title.setText("ETH/BTC");
+            txt_total.setText("0");
+            edt_price.setEnabled(false);
+            txt_total_code.setText("BTC");
+        }
 
         bidList = new ArrayList<>();
         askList = new ArrayList<>();
@@ -179,7 +239,7 @@ public class ExchangeTradeFragment extends Fragment {
         rview_bid.setAdapter(marketDephRAdapter);
         marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, askList, isShort);
         rview_ask.setAdapter(marketDephRAdapter);
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), true);
+        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOrder, true);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 
 
@@ -261,7 +321,7 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 buttonsVisiblity();
-                btn_make_order_limit.setVisibility(View.VISIBLE);
+//                btn_make_order_limit.setVisibility(View.VISIBLE);
 
             }
         });
@@ -318,7 +378,7 @@ public class ExchangeTradeFragment extends Fragment {
             }
         });
 
-        lnr_plus_price.setOnClickListener(new View.OnClickListener() {
+/*        lnr_plus_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edtValue = edt_price.getText().toString().trim();
@@ -331,8 +391,8 @@ public class ExchangeTradeFragment extends Fragment {
                 edt_price.setText("" + edtVal);
 //                }
             }
-        });
-        lnr_minus_price.setOnClickListener(new View.OnClickListener() {
+        });*/
+/*        lnr_minus_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edt_value = edt_price.getText().toString().trim();
@@ -345,9 +405,9 @@ public class ExchangeTradeFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
 
-        lnr_plus_amount.setOnClickListener(new View.OnClickListener() {
+/*        lnr_plus_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edtValue = edt_amount.getText().toString().trim();
@@ -360,8 +420,8 @@ public class ExchangeTradeFragment extends Fragment {
                 edt_amount.setText("" + edtVal);
 //                }
             }
-        });
-        lnr_minus_amount.setOnClickListener(new View.OnClickListener() {
+        });*/
+       /* lnr_minus_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edt_value = edt_amount.getText().toString().trim();
@@ -374,52 +434,144 @@ public class ExchangeTradeFragment extends Fragment {
                 }
 
             }
-        });
+        });*/
 
 
         btn_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double price = Double.parseDouble(edt_price.getText().toString().trim());
-                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 String coin_pair = txt_title.getText().toString().trim();
-                double total = /*Double.parseDouble(txt_total.getText().toString().trim())*/0.0;
-
+                double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                 String type = "buy";
 
-                if (price > 0/*.001*/) {
-                    if (amount > 0/*.001*/) {
-                        makeOrder(amount, price, total, type, coin_pair);
+                if (edt_price.getText().toString().trim() != null) {
+                    if (edt_amount.getText().toString().trim() != null) {
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        if (price > 0/*.001*/) {
+                            if (amount > 0/*.001*/) {
+                                makeOrder(amount, price, total, type, coin_pair);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                        }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                 }
+
             }
         });
 
         btn_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double price = Double.parseDouble(edt_price.getText().toString().trim());
-                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 String coin_pair = txt_title.getText().toString().trim();
                 double total = Double.parseDouble(txt_total.getText().toString().trim());
                 String type = "sell";
 
-                if (price > 0/*.001*/) {
-                    if (amount > 0/*.001*/) {
-                        makeOrder(amount, price, total, type, coin_pair);
+                if (edt_price.getText().toString().trim() != null) {
+                    if (edt_amount.getText().toString().trim() != null) {
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        if (price > 0/*.001*/) {
+                            if (amount > 0/*.001*/) {
+                                makeOrder(amount, price, total, type, coin_pair);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                        }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                 }
             }
         });
 
+        edt_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String amountTextValue = s.toString();
+                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                if (!amountTextValue.trim().isEmpty()) {
+                    try {
+                        double amount = Double.parseDouble(amountTextValue);
+                        txt_total.setText(String.format("%.4f", amount * price));
+/*
+                        if (amount > 0) {
+                            Double finalValue = Double.parseDouble(amountTextValue);
+                            avail_bal = dividendAirdrops.getDbl_airdropAmount();
+                            if (avail_bal < finalValue) {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.insufficient_fund));
+                                edt_amount.setText("0");
+                            }
+                        }
+*/
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
+                }
+            }
+        });
+
+      /*  edt_price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String priceTextValue = s.toString();
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                if (!priceTextValue.trim().isEmpty()) {
+                    try {
+                        double price = Double.parseDouble(priceTextValue);
+                        txt_total.setText(String.format("%.4f", amount * price));
+*//*
+                        if (amount > 0) {
+                            Double finalValue = Double.parseDouble(amountTextValue);
+                            avail_bal = dividendAirdrops.getDbl_airdropAmount();
+                            if (avail_bal < finalValue) {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.insufficient_fund));
+                                edt_amount.setText("0");
+                            }
+                        }
+*//*
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
+                }
+            }
+        });
+*/
 
         return view;
     }
@@ -454,7 +606,11 @@ public class ExchangeTradeFragment extends Fragment {
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
+
+                                CommonUtilities.serviceStart(getActivity());
+
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
                             }
@@ -500,6 +656,149 @@ public class ExchangeTradeFragment extends Fragment {
         btn_sell.setVisibility(View.GONE);
         btn_make_order_limit.setVisibility(View.GONE);
         btn_make_order_stop.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setExcOrdersUIListener(excOrdersUIListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myApplication.setExcOrdersUIListener(null);
+    }
+
+
+    //    **************GETTING USER AIRDROPS**************
+    private void onLoadOpenOrders() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ExcOrdersDao excOrdersDao = deviantXDB.excOrdersDao();
+                if ((excOrdersDao.getExcOrders()) != null) {
+                    String walletResult = excOrdersDao.getExcOrders().excOrders;
+                    updateUIOpenOrders(walletResult);
+                } else {
+                    if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                        fetchOpenOrders();
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                    }
+                }
+            }
+        });
+
+    }
+
+    ExcOrdersUIListener excOrdersUIListener = new ExcOrdersUIListener() {
+        @Override
+        public void onChangedExcOrders(String allExcOrders) {
+            updateUIOpenOrders(allExcOrders);
+        }
+
+    };
+
+    private void updateUIOpenOrders(String responsevalue) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject jsonObject = new JSONObject(responsevalue);
+                    loginResponseMsg = jsonObject.getString("msg");
+                    loginResponseStatus = jsonObject.getString("status");
+
+                    if (loginResponseStatus.equals("true")) {
+                        loginResponseData = jsonObject.getString("data");
+                        ExcOrders[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, ExcOrders[].class);
+                        allExcOrder = new ArrayList<ExcOrders>(Arrays.asList(coinsStringArray));
+
+/*
+                        ArrayList<ExcOrders> excOrdersDeleteList = new ArrayList<>();
+                        for (ExcOrders coinName : allExcOrder) {
+                            excOrdersDeleteList.add(coinName);
+                        }
+*/
+
+                        if (allExcOrder.size() > 0) {
+                            lnr_no_trans.setVisibility(View.GONE);
+                            rview_order_history.setVisibility(View.VISIBLE);
+                            exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOrder, true);
+                            rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                        } else {
+                            lnr_no_trans.setVisibility(View.VISIBLE);
+                            rview_order_history.setVisibility(View.GONE);
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void fetchOpenOrders() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            updateUIOpenOrders(responsevalue);
+//                            progressDialog.dismiss();
+                            ExcOrdersDao mDao = deviantXDB.excOrdersDao();
+                            ExcOrdersDB excOrdersDB = new ExcOrdersDB(1, responsevalue);
+                            mDao.insertExcOrders(excOrdersDB);
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

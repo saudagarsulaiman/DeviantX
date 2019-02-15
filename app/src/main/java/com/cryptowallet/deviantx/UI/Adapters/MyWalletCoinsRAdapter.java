@@ -26,7 +26,6 @@ import com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.SendCoinActivity;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
@@ -50,7 +49,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -119,41 +117,42 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 
     @Override
     public void onBindViewHolder(MyWalletCoinsRAdapter.ViewHolder viewHolder, final int i) {
-        Picasso.with(context).load(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
-        viewHolder.txt_coin_name.setText(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_name());
-        if (accountWalletlist.get(i).getResponseList() == null)
-            accountWalletlist.get(i).setResponseList(new ArrayList<>());
-        if (!hideBal) {
-            viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
-            viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
-        } else {
-            viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
-            viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
-        }
-        DecimalFormat rank = new DecimalFormat("0.00");
-        if (accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
-            viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
-            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
-        } else {
-            viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
-            viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
-        }
+        try {
+            Picasso.with(context).load(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_logo()).transform(new CircleTransform()).into(viewHolder.img_coin_logo);
+            viewHolder.txt_coin_name.setText(accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_name());
+            if (accountWalletlist.get(i).getResponseList() == null)
+                accountWalletlist.get(i).setResponseList(new ArrayList<>());
+            if (!hideBal) {
+                viewHolder.txt_coin_usd_value.setText("$ " + String.format("%.2f", accountWalletlist.get(i).getStr_data_balanceInUSD()) + " USD");
+                viewHolder.txt_coin_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
+            } else {
+                viewHolder.txt_coin_usd_value.setText("$ " + "***" + " USD");
+                viewHolder.txt_coin_value.setText("***" + " " + accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_code());
+            }
+            DecimalFormat rank = new DecimalFormat("0.00");
+            if (accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h() < 0) {
+                viewHolder.txt_percentage.setText("" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
+                viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.google_red));
+            } else {
+                viewHolder.txt_percentage.setText("+" + rank.format(accountWalletlist.get(i)/*.getAllCoins()*/.getDbl_coin_24h()) + "%");
+                viewHolder.txt_percentage.setTextColor(context.getResources().getColor(R.color.green));
+            }
 
-        //Fav
-        if (accountWalletlist.get(i).getFav())
-            viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
-        else
-            viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.un_favourite));
+            //Fav
+            if (accountWalletlist.get(i).getFav())
+                viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.favourite));
+            else
+                viewHolder.fav_icon.setImageDrawable(context.getResources().getDrawable(R.drawable.un_favourite));
 
 //        viewHolder.txt_coin_usd_value.setText("$ "+accountWalletlist.get(i)/*.getAllCoins()*/.getStr_coin_usdValue()+" USD");
 
-        if (accountWalletlist.get(i).getResponseList().size() == 0) {
-            coinCartData(i, accountWalletlist.get(i)/*.getAllCoins()*/, viewHolder.graph);
-            viewHolder.pb.setVisibility(View.GONE);
-        } else {
-            viewHolder.pb.setVisibility(View.GONE);
-            setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph, accountWalletlist.get(i).getHighValue());
-        }
+            if (accountWalletlist.get(i).getResponseList().size() == 0) {
+                coinCartData(i, accountWalletlist.get(i)/*.getAllCoins()*/, viewHolder.graph);
+                viewHolder.pb.setVisibility(View.GONE);
+            } else {
+                viewHolder.pb.setVisibility(View.GONE);
+                setChartData(accountWalletlist.get(i).getResponseList(), viewHolder.graph, accountWalletlist.get(i).getHighValue());
+            }
 
 /*
         if (CommonUtilities.isConnectionAvailable(context)) {
@@ -170,26 +169,28 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         }
 */
 
-        viewHolder.fav_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                favListener.addOrRemoveFav(accountWalletlist.get(i), i);
-            }
-        });
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (CommonUtilities.isConnectionAvailable(context)) {
-                    customDialog(accountWalletlist.get(i));
-                } else {
-                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
+            viewHolder.fav_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    favListener.addOrRemoveFav(accountWalletlist.get(i), i);
                 }
+            });
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (CommonUtilities.isConnectionAvailable(context)) {
+                        customDialog(accountWalletlist.get(i));
+                    } else {
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.internetconnection));
+                    }
 //                CommonUtilities.ShowToastMessage(context,"selected");
-            }
-        });
+                }
+            });
 
 
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

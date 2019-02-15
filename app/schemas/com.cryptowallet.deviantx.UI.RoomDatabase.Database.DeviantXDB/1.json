@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ef4704eab5bb60ec835b948b836be5ab",
+    "identityHash": "e885a182f635b47d503e538f44cf3144",
     "entities": [
       {
         "tableName": "wallet_list_table",
@@ -339,11 +339,37 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "exc_orders_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `excOrders` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "excOrders",
+            "columnName": "excOrders",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ef4704eab5bb60ec835b948b836be5ab\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e885a182f635b47d503e538f44cf3144\")"
     ]
   }
 }

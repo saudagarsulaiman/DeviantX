@@ -437,11 +437,16 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                             if (regResponseStatus.equals("true")) {
                                 CommonUtilities.serviceStart(WithdrawADClaimActivity.this);
                                 regResponsedata = jsonObject.getString("data");
+
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     startForegroundService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
                                 } else {
                                     startService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
                                 }
+/*
+                                CommonUtilities.serviceStart(WithdrawADClaimActivity.this);
+*/
+
                                 Intent intent = new Intent(WithdrawADClaimActivity.this, DashBoardActivity.class);
                                 intent.putExtra(CONSTANTS.seletedTab, 2);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

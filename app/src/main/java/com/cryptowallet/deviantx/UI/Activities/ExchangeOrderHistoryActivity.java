@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +46,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
     LinearLayoutManager linearLayoutManager;
-
+    ArrayList<ExcOrders> excOrders;
 
     @Override
     protected void onResume() {
@@ -62,11 +65,12 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        excOrders = new ArrayList<>();
 
         linearLayoutManager = new LinearLayoutManager(ExchangeOrderHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_order_history.setLayoutManager(linearLayoutManager);
 
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this,false);
+        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, excOrders, false);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 
 //        Bundle bundle = getIntent().getExtras();

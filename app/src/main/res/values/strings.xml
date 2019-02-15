@@ -597,6 +597,7 @@
     <string name="invalid_amount">Amount entered is Invalid</string>
     <string name="ad_history">Transaction History</string>
     <string name="coins_per_claim">Coins per claim</string>
+    <string name="empty_price">Price cannot be empty</string>
 
 
 </resources>

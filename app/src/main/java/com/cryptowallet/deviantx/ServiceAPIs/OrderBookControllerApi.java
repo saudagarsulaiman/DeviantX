@@ -11,6 +11,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface OrderBookControllerApi {
@@ -18,13 +19,19 @@ public interface OrderBookControllerApi {
     @GET("/order_book/get/all")
     Call<ResponseBody> getAll(@Header("Authorization") String AuthorizationDX);
 
+    @GET("/order_book/get/all/completed")
+    Call<ResponseBody> getAllCompleted(@Header("Authorization") String AuthorizationDX);
+
+    @GET("/order_book/get/all/open_pending")
+    Call<ResponseBody> getAllOpen(@Header("Authorization") String AuthorizationDX);
+
     @GET("/order_book/get/buy")
     Call<ResponseBody> getBuy(@Header("Authorization") String AuthorizationDX);
 
     @GET("/order_book/get/sell")
     Call<ResponseBody> getSell(@Header("Authorization") String AuthorizationDX);
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("/order_book/init/order")
     Call<ResponseBody> getOrder(@Header("Authorization") String AuthorizationDX, @Body String body);
 

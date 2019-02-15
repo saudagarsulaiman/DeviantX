@@ -17,17 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeOrderHistoryRAdapter.ViewHolder> {
     Context context;
-    boolean isShort;
+    boolean isOnlyOpen;
+    ArrayList<ExcOrders> allExcOrder;
 
-    public ExchangeOrderHistoryRAdapter(Context context, boolean isShort) {
+    public ExchangeOrderHistoryRAdapter(Context context, ArrayList<ExcOrders> allExcOrder, boolean isOnlyOpen) {
         this.context = context;
-        this.isShort = isShort;
+        this.isOnlyOpen = isOnlyOpen;
+        this.allExcOrder = allExcOrder;
     }
 
     @NonNull
@@ -41,8 +47,11 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        if (isShort) {
-            SpannableString spannableString = new SpannableString("LTC/USDT  OPEN ORDER ");
+        if (isOnlyOpen) {
+            String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+            String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+            String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+            SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View textView) {
@@ -56,11 +65,21 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     textPaint.bgColor = context.getResources().getColor(R.color.yellow);
                 }
             };
-            spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 18, spannableString.length() - 0, 0); // set size
-            spannableString.setSpan(clickableSpan, spannableString.length() - 12, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 10, spannableString.length() - 0, 0); // set size
+            } else {
+                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 9, spannableString.length() - 0, 0); // set size
+            }
+            spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
             viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
             viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+            viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+            viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+            viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+            viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+            viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
             viewHolder.lnr_close.setVisibility(View.VISIBLE);
         } else {
@@ -107,6 +126,10 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
                 viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
+            /*    viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+           */
                 viewHolder.lnr_close.setVisibility(View.GONE);
             } else {
                 SpannableString spannableString = new SpannableString("LTC/USDT  BUY ");
@@ -138,8 +161,8 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
     @Override
     public int getItemCount() {
-        if (isShort)
-            return 3;
+        if (isOnlyOpen)
+            return allExcOrder.size();
         else
             return 10;
     }
@@ -152,8 +175,12 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
         TextView txt_date;
         @BindView(R.id.txt_coin_bal)
         TextView txt_coin_bal;
+        @BindView(R.id.txt_coin_bal_code)
+        TextView txt_coin_bal_code;
         @BindView(R.id.txt_coin_bal_usd)
         TextView txt_coin_bal_usd;
+        @BindView(R.id.txt_coin_bal_usd_code)
+        TextView txt_coin_bal_usd_code;
         @BindView(R.id.lnr_close)
         LinearLayout lnr_close;
         @BindView(R.id.img_close)
@@ -163,6 +190,16 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private String getTime(String started) {
+        try {
+            return CommonUtilities.convertToHumanReadable(Long.parseLong(started));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

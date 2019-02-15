@@ -311,6 +311,9 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                                 Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 serviceIntent.putExtra("walletList", true);
                                 startService(serviceIntent);
+/*
+                                CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
+*/
 //                                finish();
                                 Intent intent = new Intent(TwoFASendCoinActivity.this, DashBoardActivity.class);
                                 startActivity(intent);
