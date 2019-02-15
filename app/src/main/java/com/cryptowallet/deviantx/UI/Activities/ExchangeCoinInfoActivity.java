@@ -16,6 +16,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketTradesRAdapter;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
 
@@ -85,8 +86,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerTrades;
 
     ArrayList<String> tradesList;
-    ArrayList<String> bidList;
-    ArrayList<String> askList;
+    ArrayList<ExcOrders> bidList;
+    ArrayList<ExcOrders> askList;
     CoinPairs coinPairsList;
 
     boolean isShort, isBid;
@@ -125,10 +126,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
         rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
-        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList,askList, isShort);
         rview_bid.setAdapter(marketDephRAdapter);
 
-        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, askList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,bidList, askList, isShort);
         rview_ask.setAdapter(marketDephRAdapter);
 
 
@@ -147,10 +148,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
 
 
-                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList,askList, isShort);
                 rview_bid.setAdapter(marketDephRAdapter);
 
-                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,bidList, askList, isShort);
                 rview_ask.setAdapter(marketDephRAdapter);
             }
         });
@@ -183,9 +184,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList,askList, isShort);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,bidList, askList, isShort);
                     rview_ask.setAdapter(marketDephRAdapter);
                 } else {
                     isShort = true;
@@ -193,9 +195,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
 
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true,bidList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList,askList, isShort);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,askList, isShort);
+
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false,bidList, askList, isShort);
                     rview_ask.setAdapter(marketDephRAdapter);
                 }
             }

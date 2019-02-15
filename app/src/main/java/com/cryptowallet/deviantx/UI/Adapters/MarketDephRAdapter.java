@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,13 @@ import butterknife.ButterKnife;
 public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> tradesList;
+    ArrayList<ExcOrders> bidList, askList;
     boolean isShort, isBid;
 
-    public MarketDephRAdapter(Context context, boolean isBid, ArrayList<String> tradesList, boolean isShort) {
+    public MarketDephRAdapter(Context context, boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort) {
         this.context = context;
-        this.tradesList = tradesList;
+        this.bidList = bidList;
+        this.askList = askList;
         this.isShort = isShort;
         this.isBid = isBid;
     }
@@ -44,27 +46,74 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        try {
 
-        if (isBid) {
-            viewHolder.txt_price.setText("0.0005");
-            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
-            viewHolder.txt_amount.setText("2.30");
-        } else {
-            viewHolder.txt_price.setText("0.4321");
-            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
-            viewHolder.txt_amount.setText("414.44");
+            if (isBid) {
+                viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+                viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
+            } else {
+                viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
+                viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
 
     @Override
     public int getItemCount() {
+/*
         if (isShort) {
             return 6;
         } else {
             return 16;
-//            return tradesList.size();
         }
+*/
+        if (isBid) {
+            if (isShort) {
+                return getCount(bidList.size());
+            } else {
+                return bidList.size();
+            }
+//            return bidList.size();
+        } else {
+            if (isShort) {
+                return getCount(askList.size());
+            } else {
+                return askList.size();
+            }
+//            return askList.size();
+        }
+//        return bidList.size();
+    }
+
+
+    private int getCount(int size) {
+        int count = 0;
+        switch (size) {
+            case 1:
+                count = 1;
+                break;
+            case 2:
+                count = 2;
+                break;
+            case 3:
+                count = 3;
+                break;
+            case 4:
+                count = 4;
+                break;
+            case 5:
+                count = 5;
+                break;
+            default:
+                count = 5;
+        }
+        return count;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

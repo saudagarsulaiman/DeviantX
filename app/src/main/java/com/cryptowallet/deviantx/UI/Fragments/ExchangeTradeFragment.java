@@ -21,21 +21,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
-import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.UI.Models.ExcOrdersDelete;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExcOrdersDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExcOrdersDB;
+import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -55,8 +58,14 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import rx.functions.Action1;
+import ua.naiksoftware.stomp.Stomp;
+import ua.naiksoftware.stomp.client.StompClient;
+import ua.naiksoftware.stomp.client.StompMessage;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+import static com.instabug.library.Instabug.getApplicationContext;
 
 public class ExchangeTradeFragment extends Fragment {
 
@@ -149,16 +158,23 @@ public class ExchangeTradeFragment extends Fragment {
     RecyclerView rview_order_history;
     @BindView(R.id.lnr_no_trans)
     LinearLayout lnr_no_trans;
+    @BindView(R.id.pb)
+    ProgressBar pb;
+    @BindView(R.id.lnr_no_trans_bid)
+    LinearLayout lnr_no_trans_bid;
+    @BindView(R.id.lnr_no_trans_ask)
+    LinearLayout lnr_no_trans_ask;
 
 
     MarketDephRAdapter marketDephRAdapter;
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerOrdersHistory;
 
     boolean isShort;
-    ArrayList<String> bidList;
-    ArrayList<String> askList;
-    ArrayList<ExcOrders> allExcOrder;
-
+    ArrayList<ExcOrders> bidList, bid;
+    ArrayList<ExcOrders> askList, ask;
+    ArrayList<ExcOrders> allExcOpenOrders, /*allExcOrders, */
+            totalExcOrders;
+    ArrayList<ExcOrdersDelete> allExcOrders;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
@@ -172,6 +188,9 @@ public class ExchangeTradeFragment extends Fragment {
 
     View view;
 
+    private StompClient stompClient;
+
+    String myEmail;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -184,14 +203,22 @@ public class ExchangeTradeFragment extends Fragment {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                onLoadOpenOrders();
+//                onLoadOpenOrders();
+                if (CommonUtilities.isConnectionAvailable(getActivity())) {
+                    fetchOpenOrders();
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+                }
+                fetchOrdersWS();
             }
         }, 200);
-        allExcOrder = new ArrayList<>();
-
+        allExcOpenOrders = new ArrayList<>();
+        allExcOrders = new ArrayList<>();
+        totalExcOrders = new ArrayList<>();
 /*
         allCoinPairs = new ArrayList<>();
 */
+        myEmail = sharedPreferences.getString(CONSTANTS.email, null);
 
         /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
@@ -226,6 +253,8 @@ public class ExchangeTradeFragment extends Fragment {
         bidList = new ArrayList<>();
         askList = new ArrayList<>();
         isShort = true;
+        bid = new ArrayList<>();
+        ask = new ArrayList<>();
 
         linearLayoutManagerDephBid = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_bid.setLayoutManager(linearLayoutManagerDephBid);
@@ -235,11 +264,11 @@ public class ExchangeTradeFragment extends Fragment {
         rview_order_history.setLayoutManager(linearLayoutManagerOrdersHistory);
 
 
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
         rview_bid.setAdapter(marketDephRAdapter);
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, askList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
         rview_ask.setAdapter(marketDephRAdapter);
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOrder, true);
+        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 
 
@@ -254,8 +283,10 @@ public class ExchangeTradeFragment extends Fragment {
         img_chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+/*
                 Intent intent = new Intent(getActivity(), ExchangeCoinInfoActivity.class);
                 startActivity(intent);
+*/
             }
         });
 
@@ -266,17 +297,17 @@ public class ExchangeTradeFragment extends Fragment {
                     isShort = false;
                     Picasso.with(getActivity()).load(R.drawable.up_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
                     rview_ask.setAdapter(marketDephRAdapter);
                 } else {
                     isShort = true;
                     Picasso.with(getActivity()).load(R.drawable.down_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
                     rview_ask.setAdapter(marketDephRAdapter);
                 }
             }
@@ -576,6 +607,92 @@ public class ExchangeTradeFragment extends Fragment {
         return view;
     }
 
+    private void fetchOrdersWS() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
+                stompClient.connect();
+                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
+
+                allExcOrders = new ArrayList<>();
+                rview_ask.setVisibility(View.GONE);
+                rview_bid.setVisibility(View.GONE);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+                            @Override
+                            public void call(StompMessage message) {
+                                try {
+                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
+                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+//                                            stompClient.disconnect();
+//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
+                                            pb.setVisibility(View.VISIBLE);
+
+                                            bid = new ArrayList<>();
+                                            ask = new ArrayList<>();
+                                            bidList = new ArrayList<>();
+                                            askList = new ArrayList<>();
+
+                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
+                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
+
+                                            for (int i = 0; i < bid.size(); i++) {
+                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+                                                    bidList.add(bid.get(i));
+                                                }
+                                            }
+                                            for (int i = 0; i < ask.size(); i++) {
+                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+                                                    askList.add(ask.get(i));
+                                                }
+                                            }
+
+                                            if (bidList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                                                rview_bid.setAdapter(marketDephRAdapter);
+                                                rview_bid.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_bid.setVisibility(View.GONE);
+                                            } else {
+                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
+                                            }
+
+                                            if (askList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                                                rview_ask.setAdapter(marketDephRAdapter);
+                                                rview_ask.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_ask.setVisibility(View.GONE);
+                                            } else {
+                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
+                                            }
+
+                                            pb.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+
+            }
+        });
+    }
+
     private void makeOrder(double amount, double price, double total, String type, String coin_pair) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -608,7 +725,11 @@ public class ExchangeTradeFragment extends Fragment {
                             if (loginResponseStatus.equals("true")) {
 
                                 CommonUtilities.serviceStart(getActivity());
-
+                                Intent serviceIntent = new Intent(getActivity(), ExcOrdersFetch.class);
+                                getActivity().startService(serviceIntent);
+                                Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent1.putExtra("walletName", "");
+                                getActivity().startService(serviceIntent1);
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
 
                             } else {
@@ -696,8 +817,8 @@ public class ExchangeTradeFragment extends Fragment {
 
     ExcOrdersUIListener excOrdersUIListener = new ExcOrdersUIListener() {
         @Override
-        public void onChangedExcOrders(String allExcOrders) {
-            updateUIOpenOrders(allExcOrders);
+        public void onChangedExcOrders(String allExcOpenOrderss) {
+            updateUIOpenOrders(allExcOpenOrderss);
         }
 
     };
@@ -714,19 +835,19 @@ public class ExchangeTradeFragment extends Fragment {
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
                         ExcOrders[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, ExcOrders[].class);
-                        allExcOrder = new ArrayList<ExcOrders>(Arrays.asList(coinsStringArray));
+                        allExcOpenOrders = new ArrayList<ExcOrders>(Arrays.asList(coinsStringArray));
 
 /*
                         ArrayList<ExcOrders> excOrdersDeleteList = new ArrayList<>();
-                        for (ExcOrders coinName : allExcOrder) {
+                        for (ExcOrders coinName : allExcOpenOrders) {
                             excOrdersDeleteList.add(coinName);
                         }
 */
 
-                        if (allExcOrder.size() > 0) {
+                        if (allExcOpenOrders.size() > 0) {
                             lnr_no_trans.setVisibility(View.GONE);
                             rview_order_history.setVisibility(View.VISIBLE);
-                            exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOrder, true);
+                            exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
                             rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
                         } else {
                             lnr_no_trans.setVisibility(View.VISIBLE);

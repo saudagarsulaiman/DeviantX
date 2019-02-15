@@ -9,21 +9,21 @@ import java.util.List;
 
 public class ExcOrdersDelete implements Parcelable {
 
-    @SerializedName("buy")
-    List<ExcOrders> list_buy;
+    @SerializedName("ask")
+    List<ExcOrders> list_ask;
 
-    @SerializedName("sell")
-    List<ExcOrders> list_sell;
+    @SerializedName("bid")
+    List<ExcOrders> list_bid;
 
     protected ExcOrdersDelete(Parcel in) {
-        list_buy = in.createTypedArrayList(ExcOrders.CREATOR);
-        list_sell = in.createTypedArrayList(ExcOrders.CREATOR);
+        list_ask = in.createTypedArrayList(ExcOrders.CREATOR);
+        list_bid = in.createTypedArrayList(ExcOrders.CREATOR);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(list_buy);
-        dest.writeTypedList(list_sell);
+        dest.writeTypedList(list_ask);
+        dest.writeTypedList(list_bid);
     }
 
     @Override
@@ -43,19 +43,19 @@ public class ExcOrdersDelete implements Parcelable {
         }
     };
 
-    public List<ExcOrders> getList_buy() {
-        return list_buy;
+    public List<ExcOrders> getList_ask() {
+        return list_ask;
     }
 
-    public void setList_buy(List<ExcOrders> list_buy) {
-        this.list_buy = list_buy;
+    public void setList_ask(List<ExcOrders> list_ask) {
+        this.list_ask = list_ask;
     }
 
-    public List<ExcOrders> getList_sell() {
-        return list_sell;
+    public List<ExcOrders> getList_bid() {
+        return list_bid;
     }
 
-    public void setList_sell(List<ExcOrders> list_sell) {
-        this.list_sell = list_sell;
+    public void setList_bid(List<ExcOrders> list_bid) {
+        this.list_bid = list_bid;
     }
 }
