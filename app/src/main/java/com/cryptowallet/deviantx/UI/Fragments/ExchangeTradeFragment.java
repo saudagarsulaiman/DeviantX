@@ -793,6 +793,9 @@ public class ExchangeTradeFragment extends Fragment {
         Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
         serviceIntent1.putExtra("walletName", "");
         getActivity().startService(serviceIntent1);
+        Intent serviceIntent2 = new Intent(getApplicationContext(), WalletDataFetch.class);
+        serviceIntent1.putExtra("walletName", " ");
+        getActivity().startService(serviceIntent2);
     }
 
     @Override
