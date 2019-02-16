@@ -73,48 +73,135 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
         if (isOnlyOpen) {
-            String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
-            String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
-            String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
-            SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(View textView) {
-                }
+            if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
+                String str = allExcOrder.get(i).getStr_coinPair() + " Partial ";
+                String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+                String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+                SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
 
-                @Override
-                public void updateDrawState(final TextPaint textPaint) {
-                    textPaint.setColor(context.getResources().getColor(R.color.black));
-                    textPaint.setUnderlineText(false);
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
 //                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
-                    textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                } else {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
                 }
-            };
-            if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 10, spannableString.length() - 0, 0); // set size
-            } else {
-                spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 9, spannableString.length() - 0, 0); // set size
+                spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
+
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+
+                viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelOrder(allExcOrder.get(i));
+                    }
+                });
+
+            } else if (allExcOrder.get(i).getStr_orderStatus().equals("pending")) {
+                String str = allExcOrder.get(i).getStr_coinPair() + " Pending ";
+                String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+                String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+                SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                } else {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                }
+                spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
+
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+
+                viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelOrder(allExcOrder.get(i));
+                    }
+                });
+
+            } else if (allExcOrder.get(i).getStr_orderStatus().equals("open")) {
+                String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+                String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+                String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+                SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 10, spannableString.length() - 0, 0); // set size
+                } else {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 9, spannableString.length() - 0, 0); // set size
+                }
+                spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
+
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+
+                viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelOrder(allExcOrder.get(i));
+                    }
+                });
             }
-            spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
-            viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
-            viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
-
-            viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
-            viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
-            viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
-            viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-            viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
-
-            viewHolder.lnr_close.setVisibility(View.VISIBLE);
-
-            viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cancelOrder(allExcOrder.get(i));
-                }
-            });
-
 
         } else {
             if (allExcOrder.get(i).getStr_orderStatus().equals("open")) {
@@ -146,9 +233,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
-                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
                 viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
-                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
                 viewHolder.lnr_close.setVisibility(View.VISIBLE);
@@ -190,9 +277,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
-                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
                 viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
-                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
                 viewHolder.lnr_close.setVisibility(View.GONE);
@@ -227,13 +314,98 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
-                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
                 viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
-                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
                 viewHolder.lnr_close.setVisibility(View.GONE);
-            }
+            } else if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
+                String str = allExcOrder.get(i).getStr_coinPair() + " Partial ";
+                String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+                String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+                SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
 
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                } else {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                }
+                spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
+
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+
+                viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelOrder(allExcOrder.get(i));
+                    }
+                });
+
+            } else if (allExcOrder.get(i).getStr_orderStatus().equals("pending")) {
+                String str = allExcOrder.get(i).getStr_coinPair() + " Pending ";
+                String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
+                String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
+                SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(View textView) {
+                    }
+
+                    @Override
+                    public void updateDrawState(final TextPaint textPaint) {
+                        textPaint.setColor(context.getResources().getColor(R.color.black));
+                        textPaint.setUnderlineText(false);
+//                    BackgroundColorSpan backgroundColorSpan= new BackgroundColorSpan(context.getResources().getColor(R.color.yellow));
+                        textPaint.bgColor = context.getResources().getColor(R.color.yellow);
+                    }
+                };
+                if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                } else {
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                }
+                spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
+                viewHolder.txt_coin_name.setHighlightColor(context.getResources().getColor(R.color.yellow));
+                viewHolder.txt_coin_name.setMovementMethod(LinkMovementMethod.getInstance());
+
+                viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
+                viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
+                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
+                viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
+
+                viewHolder.lnr_close.setVisibility(View.VISIBLE);
+
+                viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        cancelOrder(allExcOrder.get(i));
+                    }
+                });
+
+            }
         }
 
     }

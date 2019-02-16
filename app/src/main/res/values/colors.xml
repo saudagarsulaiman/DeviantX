@@ -93,6 +93,8 @@
     <color name="google_red1">#590C19</color>
     <color name="green1">#00D8C1</color>
     <color name="grey2">#343966</color>
+    <color name="green_ws">#093756</color>
+    <color name="blue_ws">#10165C</color>
 
 
 </resources>

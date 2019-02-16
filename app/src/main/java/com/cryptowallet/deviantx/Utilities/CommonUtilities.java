@@ -458,6 +458,19 @@ public final class CommonUtilities {
 //        Toast.makeText(context, "android_id= " + android_id, Toast.LENGTH_LONG).show();
         return android_id;
     }
+
+    public static double getUSDValue(Double str_data_balance, Double dbl_coin_usdValue) {
+        double result = 0.0;
+        result = str_data_balance * dbl_coin_usdValue;
+        return result;
+    }
+
+
+    public static double getTotalBal(Double reserved, Double avail) {
+        double result = 0.0;
+        result = reserved + avail;
+        return result;
+    }
 }
 
 

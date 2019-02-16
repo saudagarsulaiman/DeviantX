@@ -80,12 +80,28 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_coin_value"
+                    android:id="@+id/txt_coin_avail_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2135.218585 DEV"
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/def_text_size" />
+                    android:textSize="@dimen/def_hint_size" />
+
+                <TextView
+                    android:id="@+id/txt_coin_reserve_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2135.218585 DEV"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_hint_size" />
+
+                <TextView
+                    android:id="@+id/txt_coin_total_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2135.218585 DEV"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/def_hint_size" />
 
             </LinearLayout>
 
@@ -99,14 +115,6 @@
                 android:paddingRight="@dimen/def_padding">
 
                 <TextView
-                    android:id="@+id/txt_usd_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/dev_coin"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/def_text_size" />
-
-                <TextView
                     android:id="@+id/txt_percentage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -115,9 +123,41 @@
                     android:textSize="@dimen/def_text_size"
                     android:visibility="visible" />
 
+                <TextView
+                    android:id="@+id/txt_usd_avail_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="$ 0.04 USD"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/def_text_size" />
+
+                <TextView
+                    android:id="@+id/txt_usd_reserve_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="$ 0.04 USD"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/def_text_size" />
+
+                <TextView
+                    android:id="@+id/txt_usd_total_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="$ 0.04 USD"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/def_text_size" />
+
+
             </LinearLayout>
 
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/where_art"
+            android:textColor="@color/grey1"
+            android:textSize="@dimen/text8" />
 
         <com.cryptowallet.trendchart.TrendView
             android:id="@+id/graph_dlg"

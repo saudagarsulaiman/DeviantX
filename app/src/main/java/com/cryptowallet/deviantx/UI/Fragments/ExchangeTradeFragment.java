@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -200,21 +199,14 @@ public class ExchangeTradeFragment extends Fragment {
         editor = sharedPreferences.edit();
         deviantXDB = DeviantXDB.getDatabase(getActivity());
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-//                onLoadOpenOrders();
-                if (CommonUtilities.isConnectionAvailable(getActivity())) {
-                    fetchOpenOrders();
-                } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
-                }
-                fetchOrdersWS();
-            }
-        }, 200);
         allExcOpenOrders = new ArrayList<>();
         allExcOrders = new ArrayList<>();
         totalExcOrders = new ArrayList<>();
+        bidList = new ArrayList<>();
+        askList = new ArrayList<>();
+        isShort = true;
+        bid = new ArrayList<>();
+        ask = new ArrayList<>();
 /*
         allCoinPairs = new ArrayList<>();
 */
@@ -249,12 +241,19 @@ public class ExchangeTradeFragment extends Fragment {
             edt_price.setEnabled(false);
             txt_total_code.setText("BTC");
         }
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                onLoadOpenOrders();
+        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+            fetchOpenOrders();
+            fetchOrdersWS(txt_title.getText().toString().trim());
+        } else {
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+        }
+//            }
+//        }, 200);
 
-        bidList = new ArrayList<>();
-        askList = new ArrayList<>();
-        isShort = true;
-        bid = new ArrayList<>();
-        ask = new ArrayList<>();
 
         linearLayoutManagerDephBid = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_bid.setLayoutManager(linearLayoutManagerDephBid);
@@ -472,13 +471,13 @@ public class ExchangeTradeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String coin_pair = txt_title.getText().toString().trim();
-                double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                 String type = "buy";
 
                 if (edt_price.getText().toString().trim() != null) {
                     if (edt_amount.getText().toString().trim() != null) {
                         double price = Double.parseDouble(edt_price.getText().toString().trim());
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
                                 makeOrder(amount, price, total, type, coin_pair);
@@ -502,13 +501,13 @@ public class ExchangeTradeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String coin_pair = txt_title.getText().toString().trim();
-                double total = Double.parseDouble(txt_total.getText().toString().trim());
                 String type = "sell";
 
                 if (edt_price.getText().toString().trim() != null) {
                     if (edt_amount.getText().toString().trim() != null) {
                         double price = Double.parseDouble(edt_price.getText().toString().trim());
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double total = Double.parseDouble(txt_total.getText().toString().trim());
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
                                 makeOrder(amount, price, total, type, coin_pair);
@@ -541,8 +540,8 @@ public class ExchangeTradeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String amountTextValue = s.toString();
-                double price = Double.parseDouble(edt_price.getText().toString().trim());
                 if (!amountTextValue.trim().isEmpty()) {
+                    double price = Double.parseDouble(edt_price.getText().toString().trim());
                     try {
                         double amount = Double.parseDouble(amountTextValue);
                         txt_total.setText(String.format("%.4f", amount * price));
@@ -560,6 +559,7 @@ public class ExchangeTradeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
+                    edt_amount.setText("0");
                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
                 }
             }
@@ -607,92 +607,6 @@ public class ExchangeTradeFragment extends Fragment {
         return view;
     }
 
-    private void fetchOrdersWS() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
-                stompClient.connect();
-                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
-
-                allExcOrders = new ArrayList<>();
-                rview_ask.setVisibility(View.GONE);
-                rview_bid.setVisibility(View.GONE);
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
-                            @Override
-                            public void call(StompMessage message) {
-                                try {
-                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
-                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
-                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
-
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-//                                            stompClient.disconnect();
-//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
-                                            pb.setVisibility(View.VISIBLE);
-
-                                            bid = new ArrayList<>();
-                                            ask = new ArrayList<>();
-                                            bidList = new ArrayList<>();
-                                            askList = new ArrayList<>();
-
-                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
-                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
-
-                                            for (int i = 0; i < bid.size(); i++) {
-                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
-                                                    bidList.add(bid.get(i));
-                                                }
-                                            }
-                                            for (int i = 0; i < ask.size(); i++) {
-                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
-                                                    askList.add(ask.get(i));
-                                                }
-                                            }
-
-                                            if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
-                                                rview_bid.setAdapter(marketDephRAdapter);
-                                                rview_bid.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_bid.setVisibility(View.GONE);
-                                            } else {
-                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
-                                            }
-
-                                            if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
-                                                rview_ask.setAdapter(marketDephRAdapter);
-                                                rview_ask.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_ask.setVisibility(View.GONE);
-                                            } else {
-                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
-                                            }
-
-                                            pb.setVisibility(View.GONE);
-                                        }
-                                    });
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                    }
-                });
-
-
-            }
-        });
-    }
-
     private void makeOrder(double amount, double price, double total, String type, String coin_pair) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -724,7 +638,7 @@ public class ExchangeTradeFragment extends Fragment {
 
                             if (loginResponseStatus.equals("true")) {
 
-                                CommonUtilities.serviceStart(getActivity());
+//                                CommonUtilities.serviceStart(getActivity());
                                 Intent serviceIntent = new Intent(getActivity(), ExcOrdersFetch.class);
                                 getActivity().startService(serviceIntent);
                                 Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
@@ -772,6 +686,96 @@ public class ExchangeTradeFragment extends Fragment {
 
     }
 
+    private void fetchOrdersWS(String title_pair) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
+                stompClient.connect();
+                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
+
+                allExcOrders = new ArrayList<>();
+                rview_ask.setVisibility(View.GONE);
+                rview_bid.setVisibility(View.GONE);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+                            @Override
+                            public void call(StompMessage message) {
+                                try {
+                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
+                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+//                                            stompClient.disconnect();
+//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
+                                            pb.setVisibility(View.VISIBLE);
+
+                                            bid = new ArrayList<>();
+                                            ask = new ArrayList<>();
+                                            bidList = new ArrayList<>();
+                                            askList = new ArrayList<>();
+
+                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
+                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
+
+                                            for (int i = 0; i < bid.size(); i++) {
+                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+                                                    if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                    bidList.add(bid.get(i));
+                                                }
+                                            }
+                                            for (int i = 0; i < ask.size(); i++) {
+                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+                                                    if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                        askList.add(ask.get(i));
+                                                }
+                                            }
+
+                                            if (bidList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                                                rview_bid.setAdapter(marketDephRAdapter);
+                                                rview_bid.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_bid.setVisibility(View.GONE);
+                                            } else {
+                                                rview_bid.setVisibility(View.GONE);
+                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
+                                            }
+
+                                            if (askList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                                                rview_ask.setAdapter(marketDephRAdapter);
+                                                rview_ask.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_ask.setVisibility(View.GONE);
+                                            } else {
+                                                rview_ask.setVisibility(View.GONE);
+                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
+                                            }
+
+                                            pb.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+
+            }
+        });
+    }
+
     private void buttonsVisiblity() {
         btn_buy.setVisibility(View.GONE);
         btn_sell.setVisibility(View.GONE);
@@ -784,6 +788,11 @@ public class ExchangeTradeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         myApplication.setExcOrdersUIListener(excOrdersUIListener);
+        Intent serviceIntent = new Intent(getActivity(), ExcOrdersFetch.class);
+        getActivity().startService(serviceIntent);
+        Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
+        serviceIntent1.putExtra("walletName", "");
+        getActivity().startService(serviceIntent1);
     }
 
     @Override

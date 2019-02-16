@@ -618,7 +618,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
         if (keyCode == KeyEvent.KEYCODE_HOME) {
 //            Log.e("home key pressed", "****");
             // write your code here to stop the activity
-            CommonUtilities.serviceStop(SendCoinActivity.this);
+//            CommonUtilities.serviceStop(SendCoinActivity.this);
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -628,7 +628,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //        Log.e("home key pressed on pause", "****");
         // write your code here to stop your service
         mScannerView.stopCamera();
-        CommonUtilities.serviceStop(SendCoinActivity.this);
+//        CommonUtilities.serviceStop(SendCoinActivity.this);
         super.onPause();
     }
 

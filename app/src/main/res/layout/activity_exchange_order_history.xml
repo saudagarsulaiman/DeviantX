@@ -27,6 +27,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/def_btn_height"
             android:layout_marginTop="@dimen/margin15"
@@ -64,6 +65,7 @@
             android:id="@+id/rview_order_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/def_margin"
             android:layout_marginTop="@dimen/margin5" />
 
     </LinearLayout>

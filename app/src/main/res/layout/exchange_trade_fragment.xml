@@ -903,7 +903,7 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="@dimen/def_padding"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="@dimen/width45"

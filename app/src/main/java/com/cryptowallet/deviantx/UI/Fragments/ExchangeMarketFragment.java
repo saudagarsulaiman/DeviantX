@@ -46,7 +46,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import rx.Scheduler;
 import rx.functions.Action1;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.client.StompClient;
@@ -90,7 +89,7 @@ public class ExchangeMarketFragment extends Fragment {
     LinearLayoutManager linearLayoutVertical;
     GainerLoserExcDBRAdapter gainerLoserExcDBRAdapter;
     private StompClient stompClient;
-    ArrayList<CoinPairs> allCoinPairs;
+    ArrayList<CoinPairs> allCoinPairs, allCoinPairsList;
     String selectedCoinName = "BTC";
     int selectedCoinPos = 0;
     ArrayList<PairsList> PairsListList;
@@ -107,6 +106,7 @@ public class ExchangeMarketFragment extends Fragment {
         allPairsList = new ArrayList<>();
         allCoinPairs = new ArrayList<>();
         PairsListList = new ArrayList<>();
+        allCoinPairsList = new ArrayList<>();
 
         linearLayoutVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_coin.setLayoutManager(linearLayoutVertical);
@@ -153,6 +153,7 @@ public class ExchangeMarketFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 selectedCoinPos = tab.getPosition();
                 selectedCoinName = PairsListList.get(selectedCoinPos).getStr_Code();
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -163,33 +164,7 @@ public class ExchangeMarketFragment extends Fragment {
                             rview_coin.setVisibility(View.GONE);
                             pb.setVisibility(View.VISIBLE);
 
-                          /*  if (list.size() > 0) {
-                                for (int i = 0; i < list.size(); i++){
-                                    if (selectedCoinName.equals(list.get(i))){
-                                        stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).unsubscribeOn(new Scheduler() {
-                                            @Override
-                                            public Worker createWorker() {
-                                                return null;
-                                            }
-                                        });
-                                    }*//*else {
-
-                                    }*//*
-                                }
-                            } else {
-
-                            }*/
-
-
-                            /*stompClient.lifecycle().unsubscribeOn(new Scheduler() {
-                                @Override
-                                public Worker createWorker() {
-                                    return null;
-                                }
-                            });*/
-
-
-                            stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).subscribe(new Action1<StompMessage>() {
+                            stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code().trim()).subscribe(new Action1<StompMessage>() {
                                 @Override
                                 public void call(StompMessage message) {
 //                            rview_coin.setVisibility(View.GONE);
@@ -197,18 +172,34 @@ public class ExchangeMarketFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             try {
+                                                allCoinPairsList = new ArrayList<>();
+                                                pb.setVisibility(View.VISIBLE);
                                                 Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
                                                 CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 //                            stompClient.disconnect();
 
-                                                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
-                                                rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        for (int i = 0; i < allCoinPairs.size(); i++) {
+                                                            if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(selectedCoinName))
+                                                                if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
+                                                                    allCoinPairsList.add(allCoinPairs.get(i));
+                                                        }
+
+                                                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                                                        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
 //                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                                                pb.setVisibility(View.GONE);
-                                                rview_coin.setVisibility(View.VISIBLE);
+                                                        rview_coin.setVisibility(View.VISIBLE);
+                                                        pb.setVisibility(View.GONE);
 //                                    stompClient.disconnect();
 //                            stompClient.lifecycle()
+//                                                allCoinPairsList = new ArrayList<>();
+//                                                        allCoinPairsList.clear();
+                                                    }
+                                                });
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
