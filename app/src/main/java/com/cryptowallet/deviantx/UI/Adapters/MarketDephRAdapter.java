@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 
 import java.util.ArrayList;
@@ -22,11 +23,12 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
     Context context;
     ArrayList<ExcOrders> bidList, askList;
     boolean isShort, isBid;
-/*
-    String title_pair;
-*/
+    /*
+        String title_pair;
+    */
+    CoinPairSelectableListener coinPairSelectableListener;
 
-    public MarketDephRAdapter(Context context, /*String title_pair,*/ boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort) {
+    public MarketDephRAdapter(Context context, /*String title_pair,*/ boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort, CoinPairSelectableListener coinPairSelectableListener) {
         this.context = context;
         this.bidList = bidList;
         this.askList = askList;
@@ -35,11 +37,11 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 /*
         this.title_pair = title_pair;
 */
+        this.coinPairSelectableListener = coinPairSelectableListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
 
         if (isBid) {
             View view = LayoutInflater.from(context).inflate(R.layout.market_deph_bid_lyt, viewGroup, false);
@@ -63,13 +65,23 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
                 viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
                 viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
                 viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
-
             } else {
                 viewHolder.seekbar_per.setProgress(getPer(askList.get(i).getDbl_total(), askList.get(i).getDbl_executedVolume()));
                 viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
                 viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
                 viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
             }
+
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isBid)
+                        coinPairSelectableListener.PairSelected(bidList, i, true);
+                    else
+                        coinPairSelectableListener.PairSelected(askList, i, false);
+                }
+            });
+
 
         } catch (Exception e) {
             e.printStackTrace();

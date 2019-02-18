@@ -31,6 +31,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
+import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
 import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
@@ -224,6 +225,7 @@ public class ExchangeTradeFragment extends Fragment {
     private StompClient stompClient;
 
     String myEmail, wallet_name;
+    CoinPairSelectableListener coinPairSelectableListener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -291,6 +293,41 @@ public class ExchangeTradeFragment extends Fragment {
 //            }
 //        }, 200);
 
+        coinPairSelectableListener = new CoinPairSelectableListener() {
+            @Override
+            public void PairSelected(ArrayList<ExcOrders> excOrdersList, int pos, boolean isBid) {
+                String beforeSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[0];
+                String afterSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[1];
+                txt_code_price.setText(afterSlash);
+                txt_code_amount.setText(beforeSlash);
+                txt_total_code.setText(afterSlash);
+
+                edt_price.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_price()));
+                edt_amount.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_amount()));
+                txt_total.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_total()));
+
+                if (isBid) {
+//                    sell
+                    txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
+                    txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
+
+                    buttonsVisiblity();
+                    if (isPCoinAvail && isSCoinAvail)
+                        btn_sell.setVisibility(View.VISIBLE);
+
+                } else {
+//                   buy
+                    txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
+                    txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+
+                    buttonsVisiblity();
+                    if (isPCoinAvail && isSCoinAvail)
+                        btn_buy.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+        };
 
         linearLayoutManagerDephBid = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_bid.setLayoutManager(linearLayoutManagerDephBid);
@@ -300,9 +337,9 @@ public class ExchangeTradeFragment extends Fragment {
         rview_order_history.setLayoutManager(linearLayoutManagerOrdersHistory);
 
 
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
         rview_bid.setAdapter(marketDephRAdapter);
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
         rview_ask.setAdapter(marketDephRAdapter);
         exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
@@ -333,17 +370,17 @@ public class ExchangeTradeFragment extends Fragment {
                     isShort = false;
                     Picasso.with(getActivity()).load(R.drawable.up_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
                     rview_ask.setAdapter(marketDephRAdapter);
                 } else {
                     isShort = true;
                     Picasso.with(getActivity()).load(R.drawable.down_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
                     rview_ask.setAdapter(marketDephRAdapter);
                 }
             }
@@ -767,7 +804,7 @@ public class ExchangeTradeFragment extends Fragment {
                                             }
 
                                             if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
                                                 rview_bid.setAdapter(marketDephRAdapter);
                                                 rview_bid.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_bid.setVisibility(View.GONE);
@@ -777,7 +814,7 @@ public class ExchangeTradeFragment extends Fragment {
                                             }
 
                                             if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
                                                 rview_ask.setAdapter(marketDephRAdapter);
                                                 rview_ask.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_ask.setVisibility(View.GONE);
