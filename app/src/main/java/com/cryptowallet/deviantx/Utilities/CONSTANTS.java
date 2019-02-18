@@ -32,7 +32,9 @@ public class CONSTANTS {
     public static String first_wallet = "FIRSTWALLET";//First Time Wallet Creation
     public static String twoFactorAuth = "TWOFACTORAUTHENTICATION";    //Two Factor Authentication
     public static String twoFACode = "2FACODE";
-    public static String defaultWallet = "DEFAULTWALLET"; //Default Wallet
+    public static String defaultWallet = "DEFAULTWALLET"; //Default Wallet (Num)
+    public static String defaultAccountWallet = "DEFAULTACCOUNTWALLET"; //Default Account Wallet
+    public static String defaultWalletName = "DEFAULTWALLETNAME"; //Default Wallet Name
     public static String seletedTab = "SELECTEDTAB";
     public static String amount = "AMOUNT";
     public static String address = "ADDRESS";

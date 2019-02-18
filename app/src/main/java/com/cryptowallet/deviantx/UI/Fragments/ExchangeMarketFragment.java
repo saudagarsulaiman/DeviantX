@@ -22,7 +22,6 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeCoinsDataPagerAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.GainerLoserExcDBRAdapter;
-import com.cryptowallet.deviantx.UI.Interfaces.CoinPairsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.PairsList;
@@ -110,121 +109,90 @@ public class ExchangeMarketFragment extends Fragment {
 
         linearLayoutVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_coin.setLayoutManager(linearLayoutVertical);
+//        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
+//        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
 
-/*
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-        stompClient.connect();
 
-        stompClient.topic("/topic/exchange_pair/BTC").subscribe(new Action1<StompMessage>() {
-            @Override
-            public void call(StompMessage message) {
-                Log.e(TAG, "*****Received BTC*****: " + message.getPayload());
-            }
-        });
-        stompClient.topic("/topic/exchange_pair/DEV").subscribe(new Action1<StompMessage>() {
-            @Override
-            public void call(StompMessage message) {
-                Log.e(TAG, "*****Received DEV*****: " + message.getPayload());
-            }
-        });
-*/
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 onLoadPairsList();
             }
         }, 200);
-        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
-        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+
+        try {
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+//        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
+            stompClient.connect();
+            Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
+            allCoinPairs = new ArrayList<>();
+            rview_coin.setVisibility(View.GONE);
+            pb.setVisibility(View.VISIBLE);
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    stompClient.topic("/topic/exchange_pair/get_all" /*+ PairsListList.get(selectedCoinPos).getStr_Code().trim()*/).subscribe(new Action1<StompMessage>() {
+                        @Override
+                        public void call(StompMessage message) {
+                            try {
+
+                            allCoinPairsList = new ArrayList<>();
+                                pb.setVisibility(View.VISIBLE);
+                                Log.e(TAG, "*****Received " /*+ PairsListList.get(selectedCoinPos).getStr_Code() */ + "*****: EMSFselectedTab" + message.getPayload());
+                                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
+                                allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+
+//                            updateCoinPairs(selectedCoinName);
 
 
-      /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-        serviceIntent.putExtra(CONSTANTS.selectedCoinName, selectedCoinName);
-        getActivity().startService(serviceIntent);*/
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        for (int i = 0; i < allCoinPairs.size(); i++) {
+                                            if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
+                                                if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                                    allCoinPairsList.add(allCoinPairs.get(i));
+                                        }
 
+                                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                                        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                                        rview_coin.setVisibility(View.VISIBLE);
+                                        Handler handler = new Handler();
+                                        handler.postDelayed(new Runnable() {
+                                            public void run() {
+                                                pb.setVisibility(View.GONE);
+                                            }
+                                        }, 800);
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
-       /* setupViewPager(view_pager_Sup_product);
-        tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
-*/
-        ArrayList<String> list = new ArrayList<>();
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Errorrrrr:", e.toString());
+        }
 
         tab_lyt_coinsList.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 selectedCoinPos = tab.getPosition();
                 selectedCoinName = PairsListList.get(selectedCoinPos).getStr_Code();
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-                            stompClient.connect();
-                            allCoinPairs = new ArrayList<>();
-                            rview_coin.setVisibility(View.GONE);
-                            pb.setVisibility(View.VISIBLE);
-
-                            stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code().trim()).subscribe(new Action1<StompMessage>() {
-                                @Override
-                                public void call(StompMessage message) {
-//                            rview_coin.setVisibility(View.GONE);
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                allCoinPairsList = new ArrayList<>();
-                                                pb.setVisibility(View.VISIBLE);
-                                                Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
-                                                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                                                allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-//                            stompClient.disconnect();
-
-                                                getActivity().runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-
-                                                        for (int i = 0; i < allCoinPairs.size(); i++) {
-                                                            if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(selectedCoinName))
-                                                                if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                                                    allCoinPairsList.add(allCoinPairs.get(i));
-                                                        }
-
-                                                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
-                                                        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-//                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                                                        rview_coin.setVisibility(View.VISIBLE);
-                                                        pb.setVisibility(View.GONE);
-//                                    stompClient.disconnect();
-//                            stompClient.lifecycle()
-//                                                allCoinPairsList = new ArrayList<>();
-//                                                        allCoinPairsList.clear();
-                                                    }
-                                                });
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-
-                                }
-                            });
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-/*
-                Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-                serviceIntent.putExtra(CONSTANTS.selectedCoinName, selectedCoinName);
-                getActivity().startService(serviceIntent);
-*/
-
+                rview_coin.setVisibility(View.GONE);
+                pb.setVisibility(View.VISIBLE);
+//                            Updating List
+                updateCoinPairs(selectedCoinName);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-//                allCoinPairs = new ArrayList<>();
+
             }
 
             @Override
@@ -236,29 +204,32 @@ public class ExchangeMarketFragment extends Fragment {
         return view;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        exchangeCoinsDataPagerAdapter = new ExchangeCoinsDataPagerAdapter(getChildFragmentManager());
-        for (int i = 0; i < allPairsList.size(); i++) {
-            Bundle bundle = new Bundle();
-            bundle.putString("title", allPairsList.get(i).getStr_Code());
-            ExchangeMarketSubFragment fragment = new ExchangeMarketSubFragment();
-            fragment.setArguments(bundle);
-            exchangeCoinsDataPagerAdapter.addFrag(fragment, allPairsList.get(i).getStr_Code());
-/*
-            Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-            serviceIntent.putExtra(CONSTANTS.selectedCoinName, coinsList.get(i));
-            getActivity().startService(serviceIntent);
-*/
-        }
-        viewPager.setAdapter(exchangeCoinsDataPagerAdapter);
+    private void updateCoinPairs(String selectedCoinName) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                allCoinPairsList = new ArrayList<>();
+                for (int i = 0; i < allCoinPairs.size(); i++) {
+                    if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
+                        if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                            allCoinPairsList.add(allCoinPairs.get(i));
+                }
 
-/*
-        Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-        serviceIntent.putExtra(CONSTANTS.selectedCoinName, "");
-        getActivity().startService(serviceIntent);
-*/
+                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                gainerLoserExcDBRAdapter.notifyDataSetChanged();
+                rview_coin.setVisibility(View.VISIBLE);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                    }
+                }, 400);
+            }
+        });
 
     }
+
 
     @Override
     public void onResume() {
@@ -276,6 +247,11 @@ public class ExchangeMarketFragment extends Fragment {
 //        stompClient.disconnect();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+//        stompClient.disconnect();
+    }
 
     //    **************GETTING Pairs List**************
     private void onLoadPairsList() {
@@ -431,20 +407,6 @@ public class ExchangeMarketFragment extends Fragment {
         }
 
     }
-
-    //    **************GETTING DATA**************
-    CoinPairsUIListener coinPairsUIListener = new CoinPairsUIListener() {
-        @Override
-        public void onChangedCoinPairs(String selectedCoinName, ArrayList<CoinPairs> coinPairs) {
-//            setData(selectedCoinPos, selectedCoinName);
-            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), coinPairs, selectedCoinName, false, true);
-            rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-        }
-    };
-
-//    private void setData(int selectedCoinPos, String selectedCoinName) {
-//
-//    }
 
 
 }

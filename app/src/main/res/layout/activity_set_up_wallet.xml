@@ -50,6 +50,7 @@
                 android:background="@drawable/rec_white_c2"
                 android:inputType="text"
                 android:maxLines="1"
+                android:maxLength="20"
                 android:paddingStart="@dimen/padding10"
                 android:paddingLeft="@dimen/padding10"
                 android:paddingEnd="@dimen/padding10"

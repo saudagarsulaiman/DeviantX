@@ -7,6 +7,15 @@
 
     <include layout="@layout/toolbar_center_back" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/order_history"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text22"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:id="@+id/lnr_trans_avail"
         android:layout_width="match_parent"
@@ -15,24 +24,15 @@
         android:layout_marginTop="@dimen/def_margin"
         android:layout_marginEnd="@dimen/def_margin"
         android:orientation="vertical"
-        android:visibility="visible">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/order_history"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text22"
-            android:textStyle="bold" />
+        android:visibility="gone">
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/def_btn_height"
             android:layout_marginTop="@dimen/margin15"
             android:background="@drawable/rec_share_c3"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:weightSum="1">
 
             <EditText
@@ -64,9 +64,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rview_order_history"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/def_margin"
-            android:layout_marginTop="@dimen/margin5" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:layout_marginBottom="@dimen/def_margin" />
 
     </LinearLayout>
 
@@ -76,7 +76,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/width45"

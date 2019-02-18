@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -182,6 +181,11 @@ public class SetUpWalletActivity extends AppCompatActivity {
                             loginResponseStatus = jsonObject.getString("status");
 
                             if (loginResponseStatus.equals("true")) {
+                                if (scompat_defWallet.isChecked()) {
+                                    editor.putString(CONSTANTS.defaultWalletName, s_walletName);
+//                                    editor.putInt(CONSTANTS.defaultWallet, walletList.getInt_data_id());
+                                    editor.apply();
+                                }
                                 if (emptyWallet) {
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.putBoolean(CONSTANTS.first_wallet, false);

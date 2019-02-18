@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -174,6 +173,11 @@ public class EditWalletActivity extends AppCompatActivity {
                             loginResponseMsg = jsonObject.getString("msg");
                             loginResponseStatus = jsonObject.getString("status");
                             if (loginResponseStatus.equals("true")) {
+                                if (scompat_defWallet.isChecked()) {
+                                    editor.putString(CONSTANTS.defaultWalletName, s_walletName);
+//                                    editor.putInt(CONSTANTS.defaultWallet, walletList.getInt_data_id());
+                                    editor.apply();
+                                }
                                 Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 serviceIntent.putExtra("walletList", true);
                                 serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());

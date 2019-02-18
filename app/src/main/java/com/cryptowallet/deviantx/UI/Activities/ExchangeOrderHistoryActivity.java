@@ -148,12 +148,12 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
 
                                             if (allExcOpenOrders.size() > 0) {
                                                 lnr_no_trans.setVisibility(View.GONE);
-                                                rview_order_history.setVisibility(View.VISIBLE);
+                                                lnr_trans_avail.setVisibility(View.VISIBLE);
                                                 exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOpenOrders, false);
                                                 rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
                                             } else {
                                                 lnr_no_trans.setVisibility(View.VISIBLE);
-                                                rview_order_history.setVisibility(View.GONE);
+                                                lnr_trans_avail.setVisibility(View.GONE);
                                             }
                                         } else {
                                             CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, loginResponseMsg);

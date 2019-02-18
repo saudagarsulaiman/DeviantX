@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,11 +26,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
+import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 import com.cryptowallet.deviantx.UI.Models.ExcOrdersDelete;
@@ -165,6 +168,33 @@ public class ExchangeTradeFragment extends Fragment {
     LinearLayout lnr_no_trans_ask;
 
 
+    @BindView(R.id.lnr_primary_coin_avail)
+    LinearLayout lnr_primary_coin_avail;
+    @BindView(R.id.lnr_secondary_coin_avail)
+    LinearLayout lnr_secondary_coin_avail;
+    @BindView(R.id.txt_wallet_name)
+    TextView txt_wallet_name;
+    @BindView(R.id.txt_secondary_coin_unavail)
+    TextView txt_secondary_coin_unavail;
+    @BindView(R.id.txt_primary_coin_unavail)
+    TextView txt_primary_coin_unavail;
+    @BindView(R.id.img_coin_logo)
+    ImageView img_coin_logo;
+
+    @BindView(R.id.txt_pcoin_avail_value)
+    TextView txt_pcoin_avail_value;
+    @BindView(R.id.txt_pcoin_reserve_value)
+    TextView txt_pcoin_reserve_value;
+    @BindView(R.id.txt_pcoin_total_value)
+    TextView txt_pcoin_total_value;
+    @BindView(R.id.txt_scoin_avail_value)
+    TextView txt_scoin_avail_value;
+    @BindView(R.id.txt_scoin_reserve_value)
+    TextView txt_scoin_reserve_value;
+    @BindView(R.id.txt_scoin_total_value)
+    TextView txt_scoin_total_value;
+
+
     MarketDephRAdapter marketDephRAdapter;
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerOrdersHistory;
 
@@ -173,10 +203,14 @@ public class ExchangeTradeFragment extends Fragment {
     ArrayList<ExcOrders> askList, ask;
     ArrayList<ExcOrders> allExcOpenOrders, /*allExcOrders, */
             totalExcOrders;
+    ArrayList<AccountWallet> accountWalletlist;
     ArrayList<ExcOrdersDelete> allExcOrders;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
+
+    boolean isPCoinAvail = false;
+    boolean isSCoinAvail = false;
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
 
@@ -189,7 +223,7 @@ public class ExchangeTradeFragment extends Fragment {
 
     private StompClient stompClient;
 
-    String myEmail;
+    String myEmail, wallet_name;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -207,12 +241,15 @@ public class ExchangeTradeFragment extends Fragment {
         isShort = true;
         bid = new ArrayList<>();
         ask = new ArrayList<>();
+        accountWalletlist = new ArrayList<>();
 /*
         allCoinPairs = new ArrayList<>();
 */
         myEmail = sharedPreferences.getString(CONSTANTS.email, null);
-
-        /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        wallet_name = sharedPreferences.getString(CONSTANTS.defaultWalletName, null);
+        txt_wallet_name.setText(wallet_name);
+        edt_price.setEnabled(false);
+   /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
 
         Bundle bundle = getActivity().getIntent().getExtras();
@@ -231,9 +268,8 @@ public class ExchangeTradeFragment extends Fragment {
             txt_title.setText(allCoinPairs.getStr_pairCoin() + "/" + allCoinPairs.getStr_exchangeCoin());
             txt_total.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
             txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
-            edt_price.setEnabled(false);
         } else {
-            edt_price.setText("0.044");
+            edt_price.setText("0.0389");
             txt_code_price.setText("BTC");
             txt_code_amount.setText("ETH");
             txt_title.setText("ETH/BTC");
@@ -248,6 +284,7 @@ public class ExchangeTradeFragment extends Fragment {
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
             fetchOpenOrders();
             fetchOrdersWS(txt_title.getText().toString().trim());
+            fetchDefAccWal(wallet_name);
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
@@ -329,7 +366,10 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 buttonsVisiblity();
-                btn_buy.setVisibility(View.VISIBLE);
+                if (isPCoinAvail && isSCoinAvail) {
+                    btn_buy.setVisibility(View.VISIBLE);
+                }
+                edt_price.setEnabled(false);
 
             }
         });
@@ -350,9 +390,11 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
+//                edt_price.setEnabled(true);
                 buttonsVisiblity();
+//                                if (isPCoinAvail && isSCoinAvail) {
 //                btn_make_order_limit.setVisibility(View.VISIBLE);
-
+//            }
             }
         });
 
@@ -364,7 +406,8 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 buttonsVisiblity();
-                btn_buy.setVisibility(View.VISIBLE);
+                if (isPCoinAvail && isSCoinAvail)
+                    btn_buy.setVisibility(View.VISIBLE);
 
             }
         });
@@ -376,7 +419,8 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
                 buttonsVisiblity();
-                btn_sell.setVisibility(View.VISIBLE);
+                if (isPCoinAvail && isSCoinAvail)
+                    btn_sell.setVisibility(View.VISIBLE);
 
             }
         });
@@ -389,6 +433,7 @@ public class ExchangeTradeFragment extends Fragment {
 
                 buttonsVisiblity();
 /*
+                if (isPCoinAvail && isSCoinAvail)
                 btn_make_order_limit.setVisibility(View.VISIBLE);
 */
             }
@@ -402,6 +447,7 @@ public class ExchangeTradeFragment extends Fragment {
 
                 buttonsVisiblity();
 /*
+                if (isPCoinAvail && isSCoinAvail)
                 btn_make_order_stop.setVisibility(View.VISIBLE);
 */
 
@@ -437,7 +483,7 @@ public class ExchangeTradeFragment extends Fragment {
             }
         });*/
 
-/*        lnr_plus_amount.setOnClickListener(new View.OnClickListener() {
+        lnr_plus_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edtValue = edt_amount.getText().toString().trim();
@@ -450,21 +496,22 @@ public class ExchangeTradeFragment extends Fragment {
                 edt_amount.setText("" + edtVal);
 //                }
             }
-        });*/
-       /* lnr_minus_amount.setOnClickListener(new View.OnClickListener() {
+        });
+
+        lnr_minus_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edt_value = edt_amount.getText().toString().trim();
                 Double edtVal = Double.parseDouble(edt_value);
                 edtVal--;
-                if (edtVal < 0.001) {
-                    edt_amount.setText("0.001");
-                } else {
+                if (edtVal > 0) {
                     edt_amount.setText("" + edtVal);
+                } else {
+                    edt_amount.setText("0.0");
                 }
 
             }
-        });*/
+        });
 
 
         btn_buy.setOnClickListener(new View.OnClickListener() {
@@ -480,7 +527,7 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair);
+                                makeOrder(amount, price, total, type, coin_pair, wallet_name);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -510,7 +557,7 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim());
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair);
+                                makeOrder(amount, price, total, type, coin_pair, wallet_name);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -541,8 +588,8 @@ public class ExchangeTradeFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 String amountTextValue = s.toString();
                 if (!amountTextValue.trim().isEmpty()) {
-                    double price = Double.parseDouble(edt_price.getText().toString().trim());
                     try {
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
                         double amount = Double.parseDouble(amountTextValue);
                         txt_total.setText(String.format("%.4f", amount * price));
 /*
@@ -560,6 +607,7 @@ public class ExchangeTradeFragment extends Fragment {
                     }
                 } else {
                     edt_amount.setText("0");
+                    txt_total.setText("0");
                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
                 }
             }
@@ -579,9 +627,9 @@ public class ExchangeTradeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 String priceTextValue = s.toString();
-                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 if (!priceTextValue.trim().isEmpty()) {
                     try {
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                         double price = Double.parseDouble(priceTextValue);
                         txt_total.setText(String.format("%.4f", amount * price));
 *//*
@@ -598,16 +646,168 @@ public class ExchangeTradeFragment extends Fragment {
                         e.printStackTrace();
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
+                 edt_price.setText("0");
+                    txt_total.setText("0");
+                      CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
                 }
             }
         });
 */
 
+
         return view;
     }
 
-    private void makeOrder(double amount, double price, double total, String type, String coin_pair) {
+
+    private void buttonsVisiblity() {
+        btn_buy.setVisibility(View.GONE);
+        btn_sell.setVisibility(View.GONE);
+        btn_make_order_limit.setVisibility(View.GONE);
+        btn_make_order_stop.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myApplication.setExcOrdersUIListener(excOrdersUIListener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), AllCoinsFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), AirdropWalletFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), FeaturedAirdropsFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), DividendAirdropsFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), AirdropsHistoryFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), NewsDXFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), HeaderBannerFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), WalletDetailsFetch.class));
+//            getActivity().startForegroundService(new Intent(getActivity(), PairsListFetch.class));
+            getActivity().startForegroundService(new Intent(getActivity(), ExcOrdersFetch.class));
+
+        } else {
+            getActivity().startService(new Intent(getActivity(), WalletDataFetch.class));
+//            getActivity().startService(new Intent(getActivity(), AllCoinsFetch.class));
+//            getActivity().startService(new Intent(getActivity(), AirdropWalletFetch.class));
+//            getActivity().startService(new Intent(getActivity(), FeaturedAirdropsFetch.class));
+//            getActivity().startService(new Intent(getActivity(), DividendAirdropsFetch.class));
+//            getActivity().startService(new Intent(getActivity(), AirdropsHistoryFetch.class));
+//            getActivity().startService(new Intent(getActivity(), NewsDXFetch.class));
+//            getActivity().startService(new Intent(getActivity(), HeaderBannerFetch.class));
+//            getActivity().startService(new Intent(getActivity(), WalletDetailsFetch.class));
+//            getActivity().startService(new Intent(getActivity(), PairsListFetch.class));
+            getActivity().startService(new Intent(getActivity(), ExcOrdersFetch.class));
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        myApplication.setExcOrdersUIListener(null);
+//        stompClient.disconnect();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        stompClient.disconnect();
+    }
+
+    //    **************WEBSOCKET FOR ORDERS [ASK/BID]**************
+    private void fetchOrdersWS(String title_pair) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+                stompClient.connect();
+                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
+
+                allExcOrders = new ArrayList<>();
+                rview_ask.setVisibility(View.GONE);
+                rview_bid.setVisibility(View.GONE);
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+                            @Override
+                            public void call(StompMessage message) {
+                                try {
+                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
+                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
+
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+//                                            stompClient.disconnect();
+//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
+                                            pb.setVisibility(View.VISIBLE);
+
+                                            bid = new ArrayList<>();
+                                            ask = new ArrayList<>();
+                                            bidList = new ArrayList<>();
+                                            askList = new ArrayList<>();
+
+                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
+                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
+
+                                            for (int i = 0; i < bid.size(); i++) {
+                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+                                                    if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                        bidList.add(bid.get(i));
+                                                }
+                                            }
+                                            for (int i = 0; i < ask.size(); i++) {
+                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+                                                    if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                        askList.add(ask.get(i));
+                                                }
+                                            }
+
+                                            if (bidList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
+                                                rview_bid.setAdapter(marketDephRAdapter);
+                                                rview_bid.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_bid.setVisibility(View.GONE);
+                                            } else {
+                                                rview_bid.setVisibility(View.GONE);
+                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
+                                            }
+
+                                            if (askList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
+                                                rview_ask.setAdapter(marketDephRAdapter);
+                                                rview_ask.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_ask.setVisibility(View.GONE);
+                                            } else {
+                                                rview_ask.setVisibility(View.GONE);
+                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
+                                            }
+
+                                            pb.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+
+            }
+        });
+    }
+
+
+    //    **************MAKING ORDER**************
+    private void makeOrder(double amount, double price, double total, String type, String coin_pair, String wallet_name) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             JSONObject params = new JSONObject();
@@ -617,6 +817,7 @@ public class ExchangeTradeFragment extends Fragment {
                 params.put("total", total);
                 params.put("type", type);
                 params.put("coin_pair", coin_pair);
+                params.put("wallet", wallet_name);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -686,126 +887,8 @@ public class ExchangeTradeFragment extends Fragment {
 
     }
 
-    private void fetchOrdersWS(String title_pair) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
-                stompClient.connect();
-                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
 
-                allExcOrders = new ArrayList<>();
-                rview_ask.setVisibility(View.GONE);
-                rview_bid.setVisibility(View.GONE);
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
-                            @Override
-                            public void call(StompMessage message) {
-                                try {
-                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
-                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
-                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
-
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-//                                            stompClient.disconnect();
-//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
-                                            pb.setVisibility(View.VISIBLE);
-
-                                            bid = new ArrayList<>();
-                                            ask = new ArrayList<>();
-                                            bidList = new ArrayList<>();
-                                            askList = new ArrayList<>();
-
-                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
-                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
-
-                                            for (int i = 0; i < bid.size(); i++) {
-                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
-                                                    if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                    bidList.add(bid.get(i));
-                                                }
-                                            }
-                                            for (int i = 0; i < ask.size(); i++) {
-                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
-                                                    if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                        askList.add(ask.get(i));
-                                                }
-                                            }
-
-                                            if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort);
-                                                rview_bid.setAdapter(marketDephRAdapter);
-                                                rview_bid.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_bid.setVisibility(View.GONE);
-                                            } else {
-                                                rview_bid.setVisibility(View.GONE);
-                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
-                                            }
-
-                                            if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort);
-                                                rview_ask.setAdapter(marketDephRAdapter);
-                                                rview_ask.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_ask.setVisibility(View.GONE);
-                                            } else {
-                                                rview_ask.setVisibility(View.GONE);
-                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
-                                            }
-
-                                            pb.setVisibility(View.GONE);
-                                        }
-                                    });
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                    }
-                });
-
-
-            }
-        });
-    }
-
-    private void buttonsVisiblity() {
-        btn_buy.setVisibility(View.GONE);
-        btn_sell.setVisibility(View.GONE);
-        btn_make_order_limit.setVisibility(View.GONE);
-        btn_make_order_stop.setVisibility(View.GONE);
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        myApplication.setExcOrdersUIListener(excOrdersUIListener);
-        Intent serviceIntent = new Intent(getActivity(), ExcOrdersFetch.class);
-        getActivity().startService(serviceIntent);
-        Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
-        serviceIntent1.putExtra("walletName", "");
-        getActivity().startService(serviceIntent1);
-        Intent serviceIntent2 = new Intent(getApplicationContext(), WalletDataFetch.class);
-        serviceIntent1.putExtra("walletName", " ");
-        getActivity().startService(serviceIntent2);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        myApplication.setExcOrdersUIListener(null);
-    }
-
-
-    //    **************GETTING USER AIRDROPS**************
+    //    **************GETTING OPEN ORDERS**************
     private void onLoadOpenOrders() {
 
         getActivity().runOnUiThread(new Runnable() {
@@ -878,7 +961,6 @@ public class ExchangeTradeFragment extends Fragment {
     private void fetchOpenOrders() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -886,53 +968,125 @@ public class ExchangeTradeFragment extends Fragment {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIOpenOrders(responsevalue);
-//                            progressDialog.dismiss();
                             ExcOrdersDao mDao = deviantXDB.excOrdersDao();
                             ExcOrdersDB excOrdersDB = new ExcOrdersDB(1, responsevalue);
                             mDao.insertExcOrders(excOrdersDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
 
+
+    //    **************GETTING DEFAULT WALLET**************
+    private void fetchDefAccWal(String wallet_name) {
+        try {
+            pb.setVisibility(View.VISIBLE);
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAccountWallet(CONSTANTS.DeviantMulti + token, wallet_name);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            pb.setVisibility(View.GONE);
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                pb.setVisibility(View.GONE);
+                                loginResponseData = jsonObject.getString("data");
+                                accountWalletlist = new ArrayList<>();
+                                AccountWallet[] accountWallets = GsonUtils.getInstance().fromJson(loginResponseData, AccountWallet[].class);
+                                accountWalletlist = new ArrayList<AccountWallet>(Arrays.asList(accountWallets));
+                                if (accountWalletlist.size() == 0) {
+                                    buttonsVisiblity();
+                                    lnr_primary_coin_avail.setVisibility(View.GONE);
+                                    img_coin_logo.setVisibility(View.INVISIBLE);
+                                    txt_primary_coin_unavail.setVisibility(View.VISIBLE);
+                                } else {
+                                    for (int i = 0; i < accountWalletlist.size(); i++) {
+                                        if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_amount.getText().toString().trim())) {
+                                            isPCoinAvail = true;
+                                            txt_pcoin_avail_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getStr_coin_code());
+                                            Picasso.with(getActivity()).load(accountWalletlist.get(i).getStr_coin_logo()).into(img_coin_logo);
+                                        }
+                                        if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_price.getText().toString().trim())) {
+                                            isSCoinAvail = true;
+                                        }
+                                    }
+                                    if (isPCoinAvail && isSCoinAvail) {
+                                        lnr_primary_coin_avail.setVisibility(View.VISIBLE);
+                                        img_coin_logo.setVisibility(View.VISIBLE);
+                                        txt_primary_coin_unavail.setVisibility(View.GONE);
+                                    } else {
+                                        lnr_primary_coin_avail.setVisibility(View.GONE);
+                                        img_coin_logo.setVisibility(View.INVISIBLE);
+                                        txt_primary_coin_unavail.setVisibility(View.VISIBLE);
+                                        buttonsVisiblity();
+                                    }
+                                }
+                            } else if (loginResponseStatus.equals("401")) {
+                                CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+        }
+
+    }
 
 }

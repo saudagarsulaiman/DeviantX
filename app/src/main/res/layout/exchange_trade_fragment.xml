@@ -140,8 +140,6 @@
                     </LinearLayout>
 
 
-
-
                 </LinearLayout>
 
                 <!--  <View
@@ -229,7 +227,6 @@
 
                     </LinearLayout>
 
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -255,9 +252,164 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lyt_blue"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding10"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:id="@+id/img_coin_logo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height40"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.4"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_weight="2.6"
+                        android:gravity="start"
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/padding10"
+                        android:paddingLeft="@dimen/padding10">
+
+                        <TextView
+                            android:id="@+id/txt_wallet_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wallet"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_ttl_size"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/lnr_primary_coin_avail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txt_pcoin_avail_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2135.218585 DEV"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/def_hint_size" />
+
+                            <TextView
+                                android:id="@+id/txt_pcoin_reserve_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2135.218585 DEV"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/def_hint_size"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/txt_pcoin_total_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2135.218585 DEV"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/def_hint_size"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_primary_coin_unavail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pls_add_coin"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text18"
+                            android:visibility="gone" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.1"
+                        android:gravity="end"
+                        android:orientation="vertical"
+                        android:paddingEnd="@dimen/def_padding"
+                        android:paddingRight="@dimen/def_padding"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txt_percentage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="%"
+                            android:textColor="@color/mar_red"
+                            android:textSize="@dimen/def_text_size"
+                            android:visibility="invisible" />
+
+                        <LinearLayout
+                            android:id="@+id/lnr_secondary_coin_avail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txt_scoin_avail_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="$ 0.04 USD"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/def_text_size" />
+
+                            <TextView
+                                android:id="@+id/txt_scoin_reserve_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="$ 0.04 USD"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/def_text_size" />
+
+                            <TextView
+                                android:id="@+id/txt_scoin_total_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="$ 0.04 USD"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/def_text_size" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_secondary_coin_unavail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/pls_add_coin"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_lbl_size" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/large_navigator_height"
+                android:layout_marginTop="@dimen/def_margin"
                 android:background="@color/lyt_blue"
                 android:orientation="horizontal"
                 android:weightSum="2">
