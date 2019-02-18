@@ -537,6 +537,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     for (int i = 0; i < walletList.size(); i++) {
                         if (walletList.get(i).isDefaultWallet()) {
                             editor.putInt(CONSTANTS.defaultWallet, i);
+                            editor.putString(CONSTANTS.defaultWalletName, walletList.get(i).getStr_data_name());
                             editor.apply();
                             myApplication.setDefaultWallet(i);
                         }
