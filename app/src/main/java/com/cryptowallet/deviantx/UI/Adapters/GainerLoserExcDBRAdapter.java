@@ -112,15 +112,15 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
 
         } else {
             if (isGainer) {
-                if (!allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
-                    viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_green));
-                    viewholder.txt_coin_per.setText("+" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
-                }
+//                if (!allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
+                viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_green));
+                viewholder.txt_coin_per.setText("+" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
+//                }
             } else {
-                if (allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
-                    viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_red));
-                    viewholder.txt_coin_per.setText(String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
-                }
+//                if (allCoinPairs.get(i).getStr_status().equals("DECREASED")) {
+                viewholder.txt_coin_per.setBackground(context.getResources().getDrawable(R.color.graph_brdr_red));
+                viewholder.txt_coin_per.setText(String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangePercentage()) + "%");
+//                }
             }
             viewholder.txt_coin_name.setText(allCoinPairs.get(i).getStr_pairCoin() + "/" + allCoinPairs.get(i).getStr_exchangeCoin());
             viewholder.txt_coin_price_change.setText(String.format("%.4f", allCoinPairs.get(i).getDbl_currentValue()) + "/" + String.format("%.2f", allCoinPairs.get(i).getDbl_twentyFourChangeUsd()));
@@ -133,7 +133,10 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
 
     @Override
     public int getItemCount() {
-        return allCoinPairs.size();
+        if (allCoinPairs != null)
+            return allCoinPairs.size();
+        else
+            return 0;
 //        return 10;
     }
 

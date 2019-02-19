@@ -30,6 +30,8 @@ public class AppPinActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    String token;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -46,6 +48,7 @@ public class AppPinActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        token = sharedPreferences.getString(CONSTANTS.token, null);
 
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,9 +56,15 @@ public class AppPinActivity extends AppCompatActivity {
                 String pin = edt_pin.getText().toString().trim();
                 String my_pin = sharedPreferences.getString(CONSTANTS.app_pin, "DeviantX");
                 if (pin.equals(my_pin)) {
-                    Intent intent = new Intent(AppPinActivity.this, DashBoardActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (token != null) {
+                        Intent intent = new Intent(AppPinActivity.this, DashBoardActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Intent intent = new Intent(AppPinActivity.this, WelcomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     CommonUtilities.ShowToastMessage(AppPinActivity.this, getResources().getString(R.string.invalid_pin));
                 }

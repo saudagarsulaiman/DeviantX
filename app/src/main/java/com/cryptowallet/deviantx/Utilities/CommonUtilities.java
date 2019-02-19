@@ -44,10 +44,10 @@ public final class CommonUtilities {
     /******************** * Test Server Links  ****************************************************/
 
     //Main Link
-//    public static final String URL = "http://142.93.51.57:3322";
+    public static final String URL = "http://142.93.51.57:3322";
 
     //Local Link
-    public static final String URL = "http://192.168.0.179:3322";
+//    public static final String URL = "http://192.168.0.179:3322";
 
 
     private static Locale myLocale;

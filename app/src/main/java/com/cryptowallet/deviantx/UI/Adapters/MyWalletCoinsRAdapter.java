@@ -115,18 +115,22 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
             if (accountWalletlist.get(i).getResponseList() == null)
                 accountWalletlist.get(i).setResponseList(new ArrayList<>());
             if (!hideBal) {
+/*
                 viewHolder.txt_coin_avail_value.setText("A: " + String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_avail_usd_value.setText("$ " + String.format("%.2f", CommonUtilities.getUSDValue(accountWalletlist.get(i).getStr_data_balance(), accountWalletlist.get(i).getDbl_coin_usdValue())) + " USD");
                 viewHolder.txt_coin_reserve_value.setText("R: " + String.format("%.4f", accountWalletlist.get(i).getStr_data_reservedBalance()) + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_usd_reserve_value.setText("$ " + String.format("%.2f", CommonUtilities.getUSDValue(accountWalletlist.get(i).getStr_data_reservedBalance(), accountWalletlist.get(i).getDbl_coin_usdValue())) + " USD");
-                viewHolder.txt_coin_total_value.setText("T: " + String.format("%.4f", CommonUtilities.getTotalBal(accountWalletlist.get(i).getStr_data_reservedBalance(), accountWalletlist.get(i).getStr_data_balance())) + " " + accountWalletlist.get(i).getStr_coin_code());
+*/
+                viewHolder.txt_coin_total_value.setText(String.format("%.4f", CommonUtilities.getTotalBal(accountWalletlist.get(i).getStr_data_reservedBalance(), accountWalletlist.get(i).getStr_data_balance())) + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_usd_total_value.setText("$ " + String.format("%.2f", CommonUtilities.getTotalBal(CommonUtilities.getUSDValue(accountWalletlist.get(i).getStr_data_reservedBalance(), accountWalletlist.get(i).getDbl_coin_usdValue()), CommonUtilities.getUSDValue(accountWalletlist.get(i).getStr_data_balance(), accountWalletlist.get(i).getDbl_coin_usdValue()))) + " USD");
             } else {
+/*
                 viewHolder.txt_coin_avail_value.setText("A: " + "***" + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_avail_usd_value.setText("$ " + "***" + " USD");
                 viewHolder.txt_coin_reserve_value.setText("R: " + "***" + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_usd_reserve_value.setText("$ " + "***" + " USD");
-                viewHolder.txt_coin_total_value.setText("T: " + "***" + " " + accountWalletlist.get(i).getStr_coin_code());
+*/
+                viewHolder.txt_coin_total_value.setText("***" + " " + accountWalletlist.get(i).getStr_coin_code());
                 viewHolder.txt_coin_usd_total_value.setText("$ " + "***" + " USD");
             }
             DecimalFormat rank = new DecimalFormat("0.00");

@@ -122,9 +122,9 @@ public class ExchangeMarketFragment extends Fragment {
 
         try {
 //            Main Link
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
 //            Local Link
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
+//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
             stompClient.connect();
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();
@@ -139,14 +139,13 @@ public class ExchangeMarketFragment extends Fragment {
                         public void call(StompMessage message) {
                             try {
 
-                            allCoinPairsList = new ArrayList<>();
+                                allCoinPairsList = new ArrayList<>();
                                 pb.setVisibility(View.VISIBLE);
                                 Log.e(TAG, "*****Received " /*+ PairsListList.get(selectedCoinPos).getStr_Code() */ + "*****: EMSFselectedTab" + message.getPayload());
                                 CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
 
 //                            updateCoinPairs(selectedCoinName);
-
 
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
