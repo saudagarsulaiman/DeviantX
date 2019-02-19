@@ -270,7 +270,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/height40"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="0.4"/>
+                        android:layout_weight="0.4" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -412,7 +412,7 @@
                 android:layout_marginTop="@dimen/def_margin"
                 android:background="@color/lyt_blue"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:weightSum="3">
 
                 <RelativeLayout
                     android:id="@+id/rltv_market"
@@ -529,6 +529,64 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:id="@+id/rltv_stop_limit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_stop_limit"
+                            android:layout_width="@dimen/width20"
+                            android:layout_height="@dimen/height20"
+                            android:src="@drawable/unselected_limit" />
+
+                        <TextView
+                            android:id="@+id/txt_stop_limit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin5"
+                            android:layout_marginLeft="@dimen/margin5"
+                            android:text="@string/stop_limit"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text18"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rltv_stop_limit_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/width15"
+                            android:layout_height="@dimen/height10"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerInParent="true"
+                            android:layout_gravity="center"
+                            android:src="@drawable/up_yellow" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height2"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/yellow" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -567,8 +625,8 @@
 
             </LinearLayout>
 
+            <!--android:id="@+id/lnt_btn_limit"-->
             <LinearLayout
-                android:id="@+id/lnt_btn_limit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/def_edt_height"
                 android:layout_margin="@dimen/def_margin"
@@ -576,8 +634,8 @@
                 android:visibility="gone"
                 android:weightSum="1">
 
+                <!--android:id="@+id/txt_btn_limit"-->
                 <TextView
-                    android:id="@+id/txt_btn_limit"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
@@ -589,8 +647,8 @@
                     android:textSize="@dimen/def_text_size"
                     android:textStyle="bold" />
 
+                <!--android:id="@+id/txt_btn_stop"-->
                 <TextView
-                    android:id="@+id/txt_btn_stop"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
@@ -623,6 +681,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/def_margin"
                 android:layout_marginTop="@dimen/def_margin"
+                android:layout_marginEnd="@dimen/def_margin"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/def_padding"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingEnd="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:text="@string/price"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_lbl_size"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:paddingStart="@dimen/def_padding"
+                    android:paddingLeft="@dimen/def_padding"
+                    android:paddingEnd="@dimen/def_padding"
+                    android:paddingRight="@dimen/def_padding"
+                    android:text="@string/amount"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_lbl_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/def_margin"
+                android:layout_marginTop="@dimen/margin5"
                 android:layout_marginEnd="@dimen/def_margin"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -785,6 +882,228 @@
                             android:src="@drawable/plus" />
 
                     </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_stop_limit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginEnd="@dimen/def_margin"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/def_padding"
+                        android:paddingLeft="@dimen/def_padding"
+                        android:paddingEnd="@dimen/def_padding"
+                        android:paddingRight="@dimen/def_padding"
+                        android:text="@string/stop_price"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_lbl_size"
+                        android:textStyle="bold" />
+
+                    <!--    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="start"
+                            android:paddingStart="@dimen/def_padding"
+                            android:paddingLeft="@dimen/def_padding"
+                            android:paddingEnd="@dimen/def_padding"
+                            android:paddingRight="@dimen/def_padding"
+                            android:text="@string/amount"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_lbl_size"
+                            android:textStyle="bold" />-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin5"
+                    android:layout_marginEnd="@dimen/def_margin"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/def_btn_height"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:layout_marginEnd="@dimen/margin5"
+                        android:layout_marginRight="@dimen/margin5"
+                        android:layout_weight="1"
+                        android:background="@drawable/rec_lytblue_c5"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <LinearLayout
+                            android:id="@+id/lnr_minus_stop_price"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.1"
+                            android:background="@color/grey2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="@dimen/width10"
+                                android:layout_height="@dimen/height10"
+                                android:layout_gravity="center"
+                                android:src="@drawable/minus" />
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/edt_stop_price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.5"
+                            android:background="@android:color/transparent"
+                            android:editable="false"
+                            android:gravity="start"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/def_padding"
+                            android:paddingLeft="@dimen/def_padding"
+                            android:singleLine="true"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold"
+                            android:theme="@style/edt" />
+
+                        <TextView
+                            android:id="@+id/txt_code_stop_price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.3"
+                            android:gravity="end"
+                            android:paddingEnd="@dimen/def_padding"
+                            android:paddingRight="@dimen/def_padding"
+                            android:text="BTC"
+                            android:textAllCaps="true"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:id="@+id/lnr_plus_stop_price"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.1"
+                            android:background="@color/grey2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="@dimen/width10"
+                                android:layout_height="@dimen/height10"
+                                android:layout_gravity="center"
+                                android:src="@drawable/plus" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/def_btn_height"
+                                        android:layout_marginStart="@dimen/margin5"
+                                        android:layout_marginLeft="@dimen/margin5"
+                                        android:layout_marginTop="@dimen/margin5"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/rec_lytblue_c5"
+                                        android:orientation="horizontal"
+                                        android:weightSum="1">
+
+                                        <LinearLayout
+                                            android:id="@+id/lnr_minus_amount"
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="0.1"
+                                            android:background="@color/grey2"
+                                            android:gravity="center">
+
+                                            <ImageView
+                                                android:layout_width="@dimen/width10"
+                                                android:layout_height="@dimen/height10"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/minus" />
+
+                                        </LinearLayout>
+
+                                        <EditText
+                                            android:id="@+id/edt_amount"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="0.5"
+                                            android:background="@android:color/transparent"
+                                            android:gravity="start"
+                                            android:inputType="numberDecimal"
+                                            android:maxLines="1"
+                                            android:paddingStart="@dimen/def_padding"
+                                            android:paddingLeft="@dimen/def_padding"
+                                            android:singleLine="true"
+                                            android:text="0"
+                                            android:textColor="@color/white"
+                                            android:textColorHint="@color/white"
+                                            android:textSize="@dimen/def_text_size"
+                                            android:textStyle="bold"
+                                            android:theme="@style/edt" />
+
+                                        <TextView
+                                            android:id="@+id/txt_code_amount"
+                                            android:layout_width="0dp"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="0.3"
+                                            android:gravity="end"
+                                            android:paddingEnd="@dimen/def_padding"
+                                            android:paddingRight="@dimen/def_padding"
+                                            android:text="ETH"
+                                            android:textAllCaps="true"
+                                            android:textColor="@color/grey"
+                                            android:textSize="@dimen/def_text_size"
+                                            android:textStyle="bold" />
+
+                                        <LinearLayout
+                                            android:id="@+id/lnr_plus_amount"
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_weight="0.1"
+                                            android:background="@color/grey2"
+                                            android:gravity="center">
+
+                                            <ImageView
+                                                android:layout_width="@dimen/width10"
+                                                android:layout_height="@dimen/height10"
+                                                android:layout_gravity="center"
+                                                android:src="@drawable/plus" />
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+                    -->
 
                 </LinearLayout>
 
@@ -982,7 +1301,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_sell"

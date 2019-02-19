@@ -40,6 +40,7 @@ import com.cryptowallet.deviantx.UI.Models.ExcOrdersDelete;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExcOrdersDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExcOrdersDB;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
 import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -68,7 +69,6 @@ import ua.naiksoftware.stomp.client.StompMessage;
 
 import static android.support.constraint.Constraints.TAG;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
-import static com.instabug.library.Instabug.getApplicationContext;
 
 public class ExchangeTradeFragment extends Fragment {
 
@@ -102,20 +102,32 @@ public class ExchangeTradeFragment extends Fragment {
     RelativeLayout rltv_limit_view;
     @BindView(R.id.img_limit)
     ImageView img_limit;
+    @BindView(R.id.txt_stop_limit)
+    TextView txt_stop_limit;
+    @BindView(R.id.rltv_stop_limit)
+    RelativeLayout rltv_stop_limit;
+    @BindView(R.id.rltv_stop_limit_view)
+    RelativeLayout rltv_stop_limit_view;
+    @BindView(R.id.img_stop_limit)
+    ImageView img_stop_limit;
     @BindView(R.id.img_market)
     ImageView img_market;
-    @BindView(R.id.lnt_btn_market)
-    LinearLayout lnt_btn_market;
-    @BindView(R.id.lnt_btn_limit)
-    LinearLayout lnt_btn_limit;
+    /*    @BindView(R.id.lnt_btn_market)
+        LinearLayout lnt_btn_market;
+
+        @BindView(R.id.lnt_btn_limit)
+        LinearLayout lnt_btn_limit;
+    */
     @BindView(R.id.txt_btn_buy)
     TextView txt_btn_buy;
     @BindView(R.id.txt_btn_sell)
     TextView txt_btn_sell;
+/*
     @BindView(R.id.txt_btn_limit)
     TextView txt_btn_limit;
     @BindView(R.id.txt_btn_stop)
     TextView txt_btn_stop;
+*/
 
     @BindView(R.id.txt_discount)
     TextView txt_discount;
@@ -195,6 +207,17 @@ public class ExchangeTradeFragment extends Fragment {
     @BindView(R.id.txt_scoin_total_value)
     TextView txt_scoin_total_value;
 
+    @BindView(R.id.lnr_stop_limit)
+    LinearLayout lnr_stop_limit;
+    @BindView(R.id.lnr_minus_stop_price)
+    LinearLayout lnr_minus_stop_price;
+    @BindView(R.id.lnr_plus_stop_price)
+    LinearLayout lnr_plus_stop_price;
+    @BindView(R.id.edt_stop_price)
+    EditText edt_stop_price;
+    @BindView(R.id.txt_code_stop_price)
+    TextView txt_code_stop_price;
+
 
     MarketDephRAdapter marketDephRAdapter;
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerOrdersHistory;
@@ -212,6 +235,7 @@ public class ExchangeTradeFragment extends Fragment {
 
     boolean isPCoinAvail = false;
     boolean isSCoinAvail = false;
+    boolean isBuy = true, isStopLimit = false, isMarket = true;
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
 
@@ -250,9 +274,14 @@ public class ExchangeTradeFragment extends Fragment {
         myEmail = sharedPreferences.getString(CONSTANTS.email, null);
         wallet_name = sharedPreferences.getString(CONSTANTS.defaultWalletName, null);
         txt_wallet_name.setText(wallet_name);
-        edt_price.setEnabled(false);
+        disablePrice();
    /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
+        if (isStopLimit)
+            lnr_stop_limit.setVisibility(View.VISIBLE);
+        else
+            lnr_stop_limit.setVisibility(View.GONE);
+
 
         Bundle bundle = getActivity().getIntent().getExtras();
         try {
@@ -266,6 +295,7 @@ public class ExchangeTradeFragment extends Fragment {
         if (allCoinPairs/*.size() > 0*/ != null) {
             edt_price.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue()));
             txt_code_price.setText(allCoinPairs.getStr_exchangeCoin());
+            txt_code_stop_price.setText(allCoinPairs.getStr_exchangeCoin());
             txt_code_amount.setText(allCoinPairs.getStr_pairCoin());
             txt_title.setText(allCoinPairs.getStr_pairCoin() + "/" + allCoinPairs.getStr_exchangeCoin());
             txt_total.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
@@ -273,6 +303,7 @@ public class ExchangeTradeFragment extends Fragment {
         } else {
             edt_price.setText("0.0389");
             txt_code_price.setText("BTC");
+            txt_code_stop_price.setText("BTC");
             txt_code_amount.setText("ETH");
             txt_title.setText("ETH/BTC");
             txt_total.setText("0");
@@ -287,6 +318,7 @@ public class ExchangeTradeFragment extends Fragment {
             fetchOpenOrders();
             fetchOrdersWS(txt_title.getText().toString().trim());
             fetchDefAccWal(wallet_name);
+            btn_buy.setVisibility(View.VISIBLE);
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
@@ -299,6 +331,7 @@ public class ExchangeTradeFragment extends Fragment {
                 String beforeSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[0];
                 String afterSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[1];
                 txt_code_price.setText(afterSlash);
+                txt_code_stop_price.setText(afterSlash);
                 txt_code_amount.setText(beforeSlash);
                 txt_total_code.setText(afterSlash);
 
@@ -306,23 +339,59 @@ public class ExchangeTradeFragment extends Fragment {
                 edt_amount.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_amount()));
                 txt_total.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_total()));
 
+/*
+                txt_market.setTextColor(getResources().getColor(R.color.yellow));
+                rltv_market_view.setVisibility(View.VISIBLE);
+                img_market.setImageDrawable(getResources().getDrawable(R.drawable.selected_market));
+                txt_limit.setTextColor(getResources().getColor(R.color.white));
+                rltv_limit_view.setVisibility(View.GONE);
+                img_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
+                txt_stop_limit.setTextColor(getResources().getColor(R.color.white));
+                rltv_stop_limit_view.setVisibility(View.GONE);
+                img_stop_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
+*/
+
+                disablePrice();
                 if (isBid) {
-//                    sell
+                    //                    Sell
                     txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                     txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
                     buttonsVisiblity();
+                    isBuy = false;
                     if (isPCoinAvail && isSCoinAvail)
-                        btn_sell.setVisibility(View.VISIBLE);
+                        if (isMarket)
+                            btn_sell.setVisibility(View.VISIBLE);
+                        else if (isStopLimit)
+                            btn_make_order_stop.setVisibility(View.VISIBLE);
+                        else
+                            btn_make_order_limit.setVisibility(View.VISIBLE);
+
+                    if (isStopLimit)
+                        lnr_stop_limit.setVisibility(View.VISIBLE);
+                    else
+                        lnr_stop_limit.setVisibility(View.GONE);
 
                 } else {
-//                   buy
+                    //                   Buy
                     txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                     txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                     buttonsVisiblity();
+                    isBuy = true;
                     if (isPCoinAvail && isSCoinAvail)
-                        btn_buy.setVisibility(View.VISIBLE);
+                        if (isMarket)
+                            btn_buy.setVisibility(View.VISIBLE);
+                        else if (isStopLimit)
+                            btn_make_order_limit.setVisibility(View.VISIBLE);
+                        else
+                            btn_make_order_stop.setVisibility(View.VISIBLE);
+
+                    if (isStopLimit)
+                        lnr_stop_limit.setVisibility(View.VISIBLE);
+                    else
+                        lnr_stop_limit.setVisibility(View.GONE);
+
                 }
 
 
@@ -395,18 +464,31 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_limit.setTextColor(getResources().getColor(R.color.white));
                 rltv_limit_view.setVisibility(View.GONE);
                 img_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
+                txt_stop_limit.setTextColor(getResources().getColor(R.color.white));
+                rltv_stop_limit_view.setVisibility(View.GONE);
+                img_stop_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
 
+
+/*
                 lnt_btn_market.setVisibility(View.VISIBLE);
                 lnt_btn_limit.setVisibility(View.GONE);
+*/
 
+/*
                 txt_btn_limit.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.unselected));
+*/
+                txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
+                txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
                 buttonsVisiblity();
+                isMarket = true;
+                isStopLimit = false;
+                isBuy = true;
                 if (isPCoinAvail && isSCoinAvail) {
                     btn_buy.setVisibility(View.VISIBLE);
                 }
-                edt_price.setEnabled(false);
+                disablePrice();
 
             }
         });
@@ -416,22 +498,63 @@ public class ExchangeTradeFragment extends Fragment {
             public void onClick(View v) {
                 txt_limit.setTextColor(getResources().getColor(R.color.yellow));
                 rltv_limit_view.setVisibility(View.VISIBLE);
-                img_market.setImageDrawable(getResources().getDrawable(R.drawable.unselected_market));
+                img_limit.setImageDrawable(getResources().getDrawable(R.drawable.selected_limit));
                 txt_market.setTextColor(getResources().getColor(R.color.white));
                 rltv_market_view.setVisibility(View.GONE);
-                img_limit.setImageDrawable(getResources().getDrawable(R.drawable.selected_limit));
+                img_market.setImageDrawable(getResources().getDrawable(R.drawable.unselected_market));
+                txt_stop_limit.setTextColor(getResources().getColor(R.color.white));
+                rltv_stop_limit_view.setVisibility(View.GONE);
+                img_stop_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
 
+
+/*
                 lnt_btn_market.setVisibility(View.GONE);
                 lnt_btn_limit.setVisibility(View.VISIBLE);
+*/
+                txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
+                txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+
+                buttonsVisiblity();
+                isBuy = true;
+                isMarket = false;
+                isStopLimit = false;
+                if (isPCoinAvail && isSCoinAvail) {
+                    btn_make_order_limit.setVisibility(View.VISIBLE);
+                }
+                enablePrice();
+            }
+        });
+
+        rltv_stop_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txt_stop_limit.setTextColor(getResources().getColor(R.color.yellow));
+                rltv_stop_limit_view.setVisibility(View.VISIBLE);
+                img_stop_limit.setImageDrawable(getResources().getDrawable(R.drawable.selected_limit));
+                txt_market.setTextColor(getResources().getColor(R.color.white));
+                rltv_market_view.setVisibility(View.GONE);
+                img_market.setImageDrawable(getResources().getDrawable(R.drawable.unselected_market));
+                txt_limit.setTextColor(getResources().getColor(R.color.white));
+                rltv_limit_view.setVisibility(View.GONE);
+                img_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
+
+/*
+                lnt_btn_market.setVisibility(View.GONE);
+                lnt_btn_limit.setVisibility(View.VISIBLE);
+*/
 
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
-//                edt_price.setEnabled(true);
                 buttonsVisiblity();
-//                                if (isPCoinAvail && isSCoinAvail) {
-//                btn_make_order_limit.setVisibility(View.VISIBLE);
-//            }
+                isMarket = false;
+                isStopLimit = true;
+                isBuy = true;
+                if (isPCoinAvail && isSCoinAvail) {
+                    btn_make_order_stop.setVisibility(View.VISIBLE);
+                }
+                enablePrice();
+                lnr_stop_limit.setVisibility(View.VISIBLE);
             }
         });
 
@@ -442,9 +565,27 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
+                disablePrice();
+                isBuy = true;
+
                 buttonsVisiblity();
                 if (isPCoinAvail && isSCoinAvail)
-                    btn_buy.setVisibility(View.VISIBLE);
+                    if (isMarket) {
+                        edt_price.setEnabled(false);
+                        btn_buy.setVisibility(View.VISIBLE);
+                    } else if (isStopLimit) {
+                        edt_price.setEnabled(true);
+                        btn_make_order_stop.setVisibility(View.VISIBLE);
+                    } else {
+                        edt_price.setEnabled(true);
+                        btn_make_order_limit.setVisibility(View.VISIBLE);
+                    }
+
+                if (isStopLimit)
+                    lnr_stop_limit.setVisibility(View.VISIBLE);
+                else
+                    lnr_stop_limit.setVisibility(View.GONE);
+
 
             }
         });
@@ -454,25 +595,41 @@ public class ExchangeTradeFragment extends Fragment {
             public void onClick(View v) {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
+                isBuy = false;
 
+                disablePrice();
                 buttonsVisiblity();
                 if (isPCoinAvail && isSCoinAvail)
-                    btn_sell.setVisibility(View.VISIBLE);
+                    if (isMarket) {
+                        edt_price.setEnabled(false);
+                        btn_sell.setVisibility(View.VISIBLE);
+                    } else if (isStopLimit) {
+                        edt_price.setEnabled(true);
+                        btn_make_order_stop.setVisibility(View.VISIBLE);
+                    } else {
+                        edt_price.setEnabled(true);
+                        btn_make_order_limit.setVisibility(View.VISIBLE);
+                    }
+
+                if (isStopLimit)
+                    lnr_stop_limit.setVisibility(View.VISIBLE);
+                else
+                    lnr_stop_limit.setVisibility(View.GONE);
 
             }
         });
 
+/*
         txt_btn_limit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 txt_btn_limit.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.unselected));
 
+                enablePrice();
                 buttonsVisiblity();
-/*
                 if (isPCoinAvail && isSCoinAvail)
-                btn_make_order_limit.setVisibility(View.VISIBLE);
-*/
+                    btn_make_order_limit.setVisibility(View.VISIBLE);
             }
         });
 
@@ -482,16 +639,16 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_limit.setBackground(getResources().getDrawable(R.drawable.unselected));
                 txt_btn_stop.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
+                enablePrice();
                 buttonsVisiblity();
-/*
                 if (isPCoinAvail && isSCoinAvail)
-                btn_make_order_stop.setVisibility(View.VISIBLE);
-*/
+                    btn_make_order_stop.setVisibility(View.VISIBLE);
 
             }
         });
+*/
 
-/*        lnr_plus_price.setOnClickListener(new View.OnClickListener() {
+        lnr_plus_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edtValue = edt_price.getText().toString().trim();
@@ -504,21 +661,50 @@ public class ExchangeTradeFragment extends Fragment {
                 edt_price.setText("" + edtVal);
 //                }
             }
-        });*/
-/*        lnr_minus_price.setOnClickListener(new View.OnClickListener() {
+        });
+
+        lnr_minus_price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String edt_value = edt_price.getText().toString().trim();
                 Double edtVal = Double.parseDouble(edt_value);
                 edtVal--;
-                if (edtVal < 0.001) {
-                    edt_price.setText("0.001");
-                } else {
+                if (edtVal > 0) {
                     edt_price.setText("" + edtVal);
+                } else {
+                    edt_price.setText("0.0");
                 }
-
             }
-        });*/
+        });
+
+        lnr_plus_stop_price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String edtValue = edt_stop_price.getText().toString().trim();
+                Double edtVal = Double.parseDouble(edtValue);
+//                Double txtVal = Double.parseDouble(txt_avail_coins.getText().toString().trim());
+                edtVal++;
+//                if (edtVal > txtVal) {
+//                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.insufficient_fund));
+//                } else {
+                edt_stop_price.setText("" + edtVal);
+//                }
+            }
+        });
+
+        lnr_minus_stop_price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String edt_value = edt_stop_price.getText().toString().trim();
+                Double edtVal = Double.parseDouble(edt_value);
+                edtVal--;
+                if (edtVal > 0) {
+                    edt_stop_price.setText("" + edtVal);
+                } else {
+                    edt_stop_price.setText("0.0");
+                }
+            }
+        });
 
         lnr_plus_amount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -564,7 +750,7 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair, wallet_name);
+                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -594,12 +780,84 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim());
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair, wallet_name);
+                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                }
+            }
+        });
+
+        btn_make_order_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String coin_pair = txt_title.getText().toString().trim();
+                String type;
+                if (isBuy)
+                    type = "buy";
+                else
+                    type = "sell";
+
+                if (edt_price.getText().toString().trim() != null) {
+                    if (edt_amount.getText().toString().trim() != null) {
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
+                        if (price > 0/*.001*/) {
+                            if (amount > 0/*.001*/) {
+                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                        }
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                    }
+                } else {
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                }
+
+            }
+        });
+
+        btn_make_order_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String coin_pair = txt_title.getText().toString().trim();
+                String type;
+                if (isBuy)
+                    type = "buy";
+                else
+                    type = "sell";
+
+                if (edt_price.getText().toString().trim() != null) {
+                    if (edt_amount.getText().toString().trim() != null) {
+                        if (edt_stop_price.getText().toString().trim() != null) {
+                            double price = Double.parseDouble(edt_price.getText().toString().trim());
+                            double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                            double total = Double.parseDouble(txt_total.getText().toString().trim());
+                            double stop_price = Double.parseDouble(edt_stop_price.getText().toString().trim());
+                            if (price > 0/*.001*/) {
+                                if (amount > 0/*.001*/) {
+                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit",stop_price);
+                                } else {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                }
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_stop_price));
                         }
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
@@ -650,7 +908,7 @@ public class ExchangeTradeFragment extends Fragment {
             }
         });
 
-      /*  edt_price.addTextChangedListener(new TextWatcher() {
+        edt_price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -666,10 +924,10 @@ public class ExchangeTradeFragment extends Fragment {
                 String priceTextValue = s.toString();
                 if (!priceTextValue.trim().isEmpty()) {
                     try {
-                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                         double price = Double.parseDouble(priceTextValue);
                         txt_total.setText(String.format("%.4f", amount * price));
-*//*
+/*
                         if (amount > 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
                             avail_bal = dividendAirdrops.getDbl_airdropAmount();
@@ -678,21 +936,33 @@ public class ExchangeTradeFragment extends Fragment {
                                 edt_amount.setText("0");
                             }
                         }
-*//*
+*/
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
-                 edt_price.setText("0");
+                    edt_price.setText("0");
                     txt_total.setText("0");
-                      CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_amount));
+                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.enter_price));
                 }
             }
         });
-*/
-
 
         return view;
+    }
+
+    private void enablePrice() {
+        edt_price.setEnabled(true);
+        lnr_minus_price.setEnabled(true);
+        lnr_plus_price.setEnabled(true);
+        lnr_stop_limit.setVisibility(View.GONE);
+    }
+
+    private void disablePrice() {
+        edt_price.setEnabled(false);
+        lnr_minus_price.setEnabled(false);
+        lnr_plus_price.setEnabled(false);
+        lnr_stop_limit.setVisibility(View.GONE);
     }
 
 
@@ -701,6 +971,7 @@ public class ExchangeTradeFragment extends Fragment {
         btn_sell.setVisibility(View.GONE);
         btn_make_order_limit.setVisibility(View.GONE);
         btn_make_order_stop.setVisibility(View.GONE);
+        lnr_stop_limit.setVisibility(View.GONE);
     }
 
 
@@ -710,28 +981,12 @@ public class ExchangeTradeFragment extends Fragment {
         myApplication.setExcOrdersUIListener(excOrdersUIListener);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), AllCoinsFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), AirdropWalletFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), FeaturedAirdropsFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), DividendAirdropsFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), AirdropsHistoryFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), NewsDXFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), HeaderBannerFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), WalletDetailsFetch.class));
-//            getActivity().startForegroundService(new Intent(getActivity(), PairsListFetch.class));
+            getActivity().startForegroundService(new Intent(getActivity(), AirdropWalletFetch.class));
             getActivity().startForegroundService(new Intent(getActivity(), ExcOrdersFetch.class));
 
         } else {
             getActivity().startService(new Intent(getActivity(), WalletDataFetch.class));
-//            getActivity().startService(new Intent(getActivity(), AllCoinsFetch.class));
-//            getActivity().startService(new Intent(getActivity(), AirdropWalletFetch.class));
-//            getActivity().startService(new Intent(getActivity(), FeaturedAirdropsFetch.class));
-//            getActivity().startService(new Intent(getActivity(), DividendAirdropsFetch.class));
-//            getActivity().startService(new Intent(getActivity(), AirdropsHistoryFetch.class));
-//            getActivity().startService(new Intent(getActivity(), NewsDXFetch.class));
-//            getActivity().startService(new Intent(getActivity(), HeaderBannerFetch.class));
-//            getActivity().startService(new Intent(getActivity(), WalletDetailsFetch.class));
-//            getActivity().startService(new Intent(getActivity(), PairsListFetch.class));
+            getActivity().startService(new Intent(getActivity(), AirdropWalletFetch.class));
             getActivity().startService(new Intent(getActivity(), ExcOrdersFetch.class));
         }
     }
@@ -749,14 +1004,16 @@ public class ExchangeTradeFragment extends Fragment {
 //        stompClient.disconnect();
     }
 
+
     //    **************WEBSOCKET FOR ORDERS [ASK/BID]**************
     private void fetchOrdersWS(String title_pair) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
-                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+//              Main Link
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+//              Local Link
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
                 stompClient.connect();
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
 
@@ -844,7 +1101,7 @@ public class ExchangeTradeFragment extends Fragment {
 
 
     //    **************MAKING ORDER**************
-    private void makeOrder(double amount, double price, double total, String type, String coin_pair, String wallet_name) {
+    private void makeOrder(double amount, double price, double total, String type, String coin_pair, String wallet_name, String tx_type, double stop_price) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             JSONObject params = new JSONObject();
@@ -855,6 +1112,8 @@ public class ExchangeTradeFragment extends Fragment {
                 params.put("type", type);
                 params.put("coin_pair", coin_pair);
                 params.put("wallet", wallet_name);
+                params.put("tx_type", tx_type);
+                params.put("stop_price", stop_price);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -876,12 +1135,23 @@ public class ExchangeTradeFragment extends Fragment {
 
                             if (loginResponseStatus.equals("true")) {
 
-//                                CommonUtilities.serviceStart(getActivity());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
+                                    getActivity().startForegroundService(new Intent(getActivity(), AirdropWalletFetch.class));
+                                    getActivity().startForegroundService(new Intent(getActivity(), ExcOrdersFetch.class));
+
+                                } else {
+                                    getActivity().startService(new Intent(getActivity(), WalletDataFetch.class));
+                                    getActivity().startService(new Intent(getActivity(), AirdropWalletFetch.class));
+                                    getActivity().startService(new Intent(getActivity(), ExcOrdersFetch.class));
+                                }
+/*
                                 Intent serviceIntent = new Intent(getActivity(), ExcOrdersFetch.class);
                                 getActivity().startService(serviceIntent);
                                 Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 serviceIntent1.putExtra("walletName", "");
                                 getActivity().startService(serviceIntent1);
+*/
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
 
                             } else {
@@ -1125,5 +1395,6 @@ public class ExchangeTradeFragment extends Fragment {
         }
 
     }
+
 
 }

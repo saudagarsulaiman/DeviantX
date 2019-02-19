@@ -112,7 +112,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i),i);
                     }
                 });
 
@@ -155,7 +155,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i), i);
                     }
                 });
 
@@ -198,7 +198,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i), i);
                     }
                 });
             }
@@ -243,7 +243,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i), i);
                     }
                 });
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("cancelled")) {
@@ -358,7 +358,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i), i);
                     }
                 });
 
@@ -401,7 +401,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i));
+                        cancelOrder(allExcOrder.get(i), i);
                     }
                 });
 
@@ -410,7 +410,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
     }
 
-    private void cancelOrder(ExcOrders excOrders) {
+    private void cancelOrder(ExcOrders excOrders, int i) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
@@ -434,11 +434,84 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                                 Intent serviceIntent1 = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 serviceIntent1.putExtra("walletName", "");
                                 context.startService(serviceIntent1);
+                                fetchAllOrders(i);
                                 CommonUtilities.ShowToastMessage(context, loginResponseMsg);
 
                             } else {
                                 CommonUtilities.ShowToastMessage(context, loginResponseMsg);
                             }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(context, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), context.getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void fetchAllOrders(int i) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
+            OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAll(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+//                        progressDialog.dismiss();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+
+                            try {
+                                JSONObject jsonObject = new JSONObject(responsevalue);
+                                loginResponseMsg = jsonObject.getString("msg");
+                                loginResponseStatus = jsonObject.getString("status");
+
+                                if (loginResponseStatus.equals("true")) {
+
+                                    notifyItemRemoved(i);
+//                                    notifyDataSetChanged();
+
+                                } else {
+                                    CommonUtilities.ShowToastMessage(context, loginResponseMsg);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
 
                         } else {
                             CommonUtilities.ShowToastMessage(context, loginResponseMsg);

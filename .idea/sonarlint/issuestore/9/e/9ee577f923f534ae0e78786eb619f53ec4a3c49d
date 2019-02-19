@@ -1,0 +1,19 @@
+
+•"squid:ClassVariableVisibilityCheck%"bMake walletUIChangeListener a static final constant or non-public and provide accessors if needed.(…Ÿ¡şÿÿÿÿ
+’"squid:ClassVariableVisibilityCheck0"_Make excOrdersUIListener a static final constant or non-public and provide accessors if needed.(Óõ¯¬üÿÿÿÿ
+‡"squid:ClassVariableVisibilityCheck#"TMake activity a static final constant or non-public and provide accessors if needed.(òÆ­Èûÿÿÿÿ
+’"squid:ClassVariableVisibilityCheck/"_Make pairsListUIListener a static final constant or non-public and provide accessors if needed.(ı€ˆøÿÿÿÿ
+Rsquid:S2696d"6Make the enclosing method "static" or remove this set.(‹ŸÃÀùÿÿÿÿ
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(û…±—
+’"squid:ClassVariableVisibilityCheck*"eMake airdropsHistoryUIListener a static final constant or non-public and provide accessors if needed.(òıÒo
+Š"squid:ClassVariableVisibilityCheck+"\Make newsDXUIListener a static final constant or non-public and provide accessors if needed.(ÉÿéŞ
+”"squid:ClassVariableVisibilityCheck)"fMake dividendAirdropsUIListener a static final constant or non-public and provide accessors if needed.(¯ô¨»
+"squid:ClassVariableVisibilityCheck'"cMake airdropWalletUIListener a static final constant or non-public and provide accessors if needed.( „º[
+‡"squid:ClassVariableVisibilityCheck!"YMake myApplication a static final constant or non-public and provide accessors if needed.(á»ñÜ
+”"squid:ClassVariableVisibilityCheck("fMake featuredAirdropsUIListener a static final constant or non-public and provide accessors if needed.(ÆÃâ
+‘"squid:ClassVariableVisibilityCheck-"cMake walletDetailsUIListener a static final constant or non-public and provide accessors if needed.(Ë¬ìÛ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÂ¡°
+Jsquid:S1444!"3Make this "public static myApplication" field final(á»ñÜ
+‘"squid:ClassVariableVisibilityCheck&"^Make allCoinsUIListener a static final constant or non-public and provide accessors if needed.(ò¹˜«ıÿÿÿÿ
+•"squid:ClassVariableVisibilityCheck,"bMake headerBannerUIListener a static final constant or non-public and provide accessors if needed.(­ıÑÎıÿÿÿÿ
+"squid:ClassVariableVisibilityCheck."_Make coinPairsUIListener a static final constant or non-public and provide accessors if needed.(íøâ×

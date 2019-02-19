@@ -1,0 +1,7 @@
+
+Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ßœÁÿÿÿÿÿ
+ˆ"squid:ClassVariableVisibilityCheck"UMake coinsList a static final constant or non-public and provide accessors if needed.(¹ûŒıüÿÿÿÿ
+jsquid:UselessImportCheck"ARemove this unused import 'android.arch.persistence.room.Ignore'.(Üúâôüÿÿÿÿ
+‰"squid:ClassVariableVisibilityCheck"VMake walletName a static final constant or non-public and provide accessors if needed.(Úµã¼úÿÿÿÿ
+Wsquid:UselessImportCheck".Remove this unused import 'android.os.Parcel'.(˜ÂÍóûÿÿÿÿ

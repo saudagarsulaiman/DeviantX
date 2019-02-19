@@ -1,0 +1,29 @@
+
+msquid:S00116."URename this field "btn_create" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ý“Ó°
+?squid:S1659_")Declare "emptyWallet" on a separate line.(½ÃÓN
+bsquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(Ù«µ§
+hsquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Esquid:S1185þ"(Remove this method to simply inherit it.(œƒƒ©ùÿÿÿÿ
+osquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(“¯Æ¾üÿÿÿÿ8ÆÀÐ÷-
+hsquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+@squid:S1148Ø"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+nsquid:S001162"VRename this field "scompat_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úŒ–ö
+csquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(ÏŽÅÓ
+osquid:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ÚÜ¨úûÿÿÿÿ
+hsquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Dsquid:S10688"(Remove this unused "exit" private field.(ð¥ úÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+ysquid:S001160"\Rename this field "scompat_defWallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºàÖãýÿÿÿÿ
+Tsquid:S2589°"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+msquid:S00116*"URename this field "edt_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°³»³
+tsquid:S001167"WRename this field "s_WalletName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û‰ÜÁøÿÿÿÿ
+rsquid:S00116,"ZRename this field "txt_note_defWal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—Çåä
+osquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚÜ¨úûÿÿÿÿ
+hsquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(áíüÈùÿÿÿÿ
+vsquid:S001164"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+csquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(¡Õ±š
+Jsquid:S1659=".Declare "loginResponseMsg" on a separate line.(È¤öìýÿÿÿÿ
+csquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(„¬¡‚
+hsquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+;squid:S1148ò"#Use a logger to log this exception.(Ç’Çê
+Msquid:S1659="1Declare "loginResponseStatus" on a separate line.(È¤öìýÿÿÿÿ
