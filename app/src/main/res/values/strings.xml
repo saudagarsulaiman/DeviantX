@@ -606,6 +606,7 @@
     <string name="enter_price">Please enter price</string>
     <string name="stop_limit">Stop Limit</string>
     <string name="stop_price">Stop Price</string>
+    <string name="no_data">No Data Available</string>
 
 
 </resources>

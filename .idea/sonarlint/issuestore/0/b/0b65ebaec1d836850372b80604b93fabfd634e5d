@@ -1,49 +1,68 @@
 
-Msquid:S16594"1Declare "loginResponseStatus" on a separate line.(•”ÓÊşÿÿÿÿ
-/squid:S2176ë"Rename this class.(Â×Öúÿÿÿÿ
-gsquid:CommentedOutCodeLineZ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ
-hsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(á·úúÿÿÿÿ
-hsquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-csquid:CommentedOutCodeLine½"<This block of commented-out lines of code should be removed.(„¬¡‚
-hsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ
-hsquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(²ñĞùÿÿÿÿ
-hsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ
-hsquid:CommentedOutCodeLineÚ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ
-csquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(îõÂ
-squid:S13196"vThe type of the "allExcOrder" object should be an interface such as "List" rather than the implementation "ArrayList".(‡Ùøù
+osquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+jsquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(„¬¡‚8‰Úï§-
+osquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(á·úúÿÿÿÿ8Î©î§-
+osquid:CommentedOutCodeLineÏ"<This block of commented-out lines of code should be removed.(²ñĞùÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(²ñĞùÿÿÿÿ8Î©î§-
 xsquid:S1488D"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-Tsquid:S2589ª"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-Osquid:S1135ˆ"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
-isquid:S3776I"RRefactor this method to reduce its Cognitive Complexity from 44 to the 15 allowed.(­Û©™
+¤squid:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+¥squid:S1186©"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8‰Úï§-
+Gsquid:S1148€"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Î©î§-
+osquid:CommentedOutCodeLineŞ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8Î©î§-
+[squid:S2589ª"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+@squid:S1148Ò"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+osquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+qsquid:S3776ã"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ƒ¿¬ÿ8Î©î§-
+usquid:S00116»"WRename this field "txt_coin_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘÷ìÿÿÿÿÿ
+osquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8ş“ë§-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8Î©î§-
+osquid:CommentedOutCodeLineÑ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+/squid:S2176´"Rename this class.(Â×Öúÿÿÿÿ
+¥squid:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(á·úúÿÿÿÿ8‰Úï§-
+[squid:S2589ğ"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8Î©î§-
+osquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+¥squid:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+Gsquid:S1148‹"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8Î©î§-
+rsquid:S00116Ã"TRename this field "lnr_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß¥†şÿÿÿÿÿ
+osquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+Osquid:S1135Ñ"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
+squid:S13196"vThe type of the "allExcOrder" object should be an interface such as "List" rather than the implementation "ArrayList".(‡Ùøù
+osquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+csquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(îõÂ
+ysquid:S00116Á"`Rename this field "txt_coin_bal_usd_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µª›ì
+osquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+¥squid:S1186ô"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+osquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8‰Úï§-
+Msquid:S16594"1Declare "loginResponseStatus" on a separate line.(•”ÓÊşÿÿÿÿ
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8Î©î§-
+zsquid:S00116½"\Rename this field "txt_coin_bal_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä“ÁÖıÿÿÿÿ
+osquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+Bsquid:S1148Ü"#Use a logger to log this exception.(Ç’Çê8‰Úï§-
+osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+qsquid:S00116·"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
+Ysquid:S1141ò"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8Î©î§-
+jsquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(£²˜»8Ä¦®¨-
+osquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+osquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8Î©î§-
+nsquid:CommentedOutCodeLineZ"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+qsquid:S00116¹"SRename this field "txt_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬€ª˜øÿÿÿÿ
 squid:S1186S"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186©"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186É"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-squid:S1186ô"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ
-qsquid:S00116î"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
-qsquid:S00116ğ"SRename this field "txt_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬€ª˜øÿÿÿÿ
-usquid:S00116ò"WRename this field "txt_coin_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘÷ìÿÿÿÿÿ
-zsquid:S00116ô"\Rename this field "txt_coin_bal_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä“ÁÖıÿÿÿÿ
-tsquid:S00116ö"[Rename this field "txt_coin_bal_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬îÒ
-ysquid:S00116ø"`Rename this field "txt_coin_bal_usd_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µª›ì
-rsquid:S00116ú"TRename this field "lnr_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß¥†şÿÿÿÿÿ
-rsquid:S00116ü"TRename this field "img_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚¢œûüÿÿÿÿ
+isquid:S3776I"RRefactor this method to reduce its Cognitive Complexity from 44 to the 15 allowed.(­Û©™
+¥squid:S1186É"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+tsquid:S00116¿"[Rename this field "txt_coin_bal_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬îÒ
+osquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(¥«°ˆúÿÿÿÿ8‰Úï§-
+rsquid:S00116Å"TRename this field "img_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚¢œûüÿÿÿÿ
+jsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(„¬¡‚8Î©î§-
 qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-@squid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-;squid:S1148Û"#Use a logger to log this exception.(Ç’Çê
-@squid:S1148‰"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+osquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(ƒ¨ù®şÿÿÿÿ8‰Úï§-
+¥squid:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööıÿÿÿÿ8‰Úï§-
+Gsquid:S1148Ã"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8‰Úï§-
+Bsquid:S1148¤"#Use a logger to log this exception.(Ç’Çê8Î©î§-

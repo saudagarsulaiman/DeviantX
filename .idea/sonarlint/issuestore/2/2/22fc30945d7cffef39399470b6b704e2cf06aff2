@@ -1,65 +1,65 @@
 
-=squid:S2185»"&Remove this silly call to "Math.round"(¼£³
-gsquid:S00100ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã÷“‰
-jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê­òï
-hsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(îİ –ıÿÿÿÿ
-nsquid:CommentedOutCodeLine2"<This block of commented-out lines of code should be removed.(›—•¡ûÿÿÿÿ8Ş™ìÿ-
-hsquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(ŸËÔÖùÿÿÿÿ
-hsquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(Ÿí«Æıÿÿÿÿ
-Gsquid:S1481e"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
-Wsquid:S1854Ï":Remove this useless assignment to local variable "result".(×Û­®ùÿÿÿÿ
-Wsquid:S1854Ö":Remove this useless assignment to local variable "result".(×Û­®ùÿÿÿÿ
 >squid:S2129Š"!Remove this "Integer" constructor(ù·¼şÿÿÿÿ
-hsquid:CommentedOutCodeLineÏ"<This block of commented-out lines of code should be removed.(£Ó˜ùÿÿÿÿ
-Ksquid:S1172ü".Remove this unused method parameter "context".(²“Ôüÿÿÿÿ
-Ysquid:S2184¾"ACast one of the operands of this division operation to a "float".(É¼†Ø
-csquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(¾‹Ñô
-zsquid:S3923¹"]This conditional operation returns the same value whether the condition is "true" or "false".(‘Œüÿÿÿÿ
-7squid:S1640‰"Convert this Map to an EnumMap.(³‡–²
->squid:S2185¾"&Remove this silly call to "Math.round"(É¼†Ø
-jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
-^squid:S2184¸"ACast one of the operands of this division operation to a "float".(±—Ùçøÿÿÿÿ
-hsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(œÇêÊûÿÿÿÿ
-Vsquid:S1854]":Remove this useless assignment to local variable "editor".(«şõ÷ûÿÿÿÿ
->squid:S2185µ"&Remove this silly call to "Math.round"(Ì‘Å“
-osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û´¿àşÿÿÿÿ
-jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê­òï
 gsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(èÁ£ûÿÿÿÿ
-hsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(Ë•ÖÉıÿÿÿÿ
+hsquid:CommentedOutCodeLineÏ"<This block of commented-out lines of code should be removed.(£Ó˜ùÿÿÿÿ
+hsquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(ìê¨±ÿÿÿÿÿ
+jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
 Xsquid:S2184»"ACast one of the operands of this division operation to a "float".(¼£³
-hsquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(ûŠ”¾ûÿÿÿÿ
-^squid:S2184²"ACast one of the operands of this division operation to a "float".(ŠÜú¸ıÿÿÿÿ
+csquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(Ûÿö‡
+gsquid:S00100ã"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã÷“‰
+csquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(„§ñ£
+csquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(¾‹Ñô
+Vsquid:S1854e":Remove this useless assignment to local variable "editor".(«şõ÷ûÿÿÿÿ
+jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê­òï
+qsquid:S2293‰"YReplace the type specification in this constructor call with the diamond operator ("<>").(³‡–²
 csquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(°˜Ú•
+asquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(©¦Ï}
+hsquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ï¸ıˆûÿÿÿÿ
+hsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(îİ –ıÿÿÿÿ
+hsquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(±Øÿ©øÿÿÿÿ
 Vsquid:S1854U":Remove this useless assignment to local variable "editor".(«şõ÷ûÿÿÿÿ
 jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
-osquid:S00117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÉ˜øøÿÿÿÿ
-jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
-jsquid:S00117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ÍÂÿ
-@squid:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-hsquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ï¸ıˆûÿÿÿÿ
-csquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(İ˜„´
-csquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(æ²ÀÚ
-Qsquid:S1118+":Add a private constructor to hide the implicit public one.(­ÀÚŠ
-hsquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(±Øÿ©øÿÿÿÿ
-hsquid:S1192T"LDefine a constant instead of duplicating this literal "CommonPrefs" 7 times.(¸”ãûÿÿÿÿ
-hsquid:CommentedOutCodeLineö"<This block of commented-out lines of code should be removed.(³öÀ–øÿÿÿÿ
-Ysquid:S2184µ"ACast one of the operands of this division operation to a "float".(Ì‘Å“
-hsquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(ìê¨±ÿÿÿÿÿ
-asquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(©¦Ï}
-csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(àäÑ¼
-csquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(„§ñ£
-jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
-Vsquid:S1854e":Remove this useless assignment to local variable "editor".(«şõ÷ûÿÿÿÿ
-Gsquid:S1481]"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
-Gsquid:S1481U"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÂ¡°
-nsquid:S14505"WRemove the "myLocale" field and declare it as a local variable in the relevant methods.(ÇÕ‡
-nsquid:S00117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»²Ááøÿÿÿÿ
-csquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(Ûÿö‡
+7squid:S1640‰"Convert this Map to an EnumMap.(³‡–²
+hsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(œÇêÊûÿÿÿÿ
+hsquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(ûŠ”¾ûÿÿÿÿ
 squid:S1488É"bImmediately return this expression instead of assigning it to the temporary variable "android_id".(˜ñ¶ıÿÿÿÿ
-Csquid:S2185²"&Remove this silly call to "Math.round"(ŠÜú¸ıÿÿÿÿ
-Csquid:S2185¸"&Remove this silly call to "Math.round"(±—Ùçøÿÿÿÿ
-usquid:S3923¶"]This conditional operation returns the same value whether the condition is "true" or "false".(´³–
-gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(Ñ•³ûÿÿÿÿ
+Gsquid:S1481]"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
+^squid:S2184²"ACast one of the operands of this division operation to a "float".(ŠÜú¸ıÿÿÿÿ
+csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(àäÑ¼
+Qsquid:S1118+":Add a private constructor to hide the implicit public one.(­ÀÚŠ
+jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
+jsquid:S00117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷º±ß
+Ysquid:S2184¾"ACast one of the operands of this division operation to a "float".(É¼†Ø
+>squid:S2185¾"&Remove this silly call to "Math.round"(É¼†Ø
+nsquid:S00117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»²Ááøÿÿÿÿ
+Ysquid:S2184µ"ACast one of the operands of this division operation to a "float".(Ì‘Å“
+hsquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(ŸËÔÖùÿÿÿÿ
+=squid:S2185»"&Remove this silly call to "Math.round"(¼£³
+Wsquid:S1854Ï":Remove this useless assignment to local variable "result".(×Û­®ùÿÿÿÿ
+hsquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(Ÿí«Æıÿÿÿÿ
+csquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(İ˜„´
+Ksquid:S1172ü".Remove this unused method parameter "context".(²“Ôüÿÿÿÿ
 osquid:S00117É"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜ñ¶ıÿÿÿÿ
-qsquid:S2293‰"YReplace the type specification in this constructor call with the diamond operator ("<>").(³‡–²
+Gsquid:S1481e"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
+Csquid:S2185¸"&Remove this silly call to "Math.round"(±—Ùçøÿÿÿÿ
+Csquid:S2185²"&Remove this silly call to "Math.round"(ŠÜú¸ıÿÿÿÿ
+hsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(Ë•ÖÉıÿÿÿÿ
+osquid:S00117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÉ˜øøÿÿÿÿ
+>squid:S2185µ"&Remove this silly call to "Math.round"(Ì‘Å“
+jsquid:S00117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹ÍÂÿ
+csquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(æ²ÀÚ
+^squid:S2184¸"ACast one of the operands of this division operation to a "float".(±—Ùçøÿÿÿÿ
+nsquid:CommentedOutCodeLine2"<This block of commented-out lines of code should be removed.(›—•¡ûÿÿÿÿ8úÊ¿±-
+gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(Ñ•³ûÿÿÿÿ
+hsquid:CommentedOutCodeLineö"<This block of commented-out lines of code should be removed.(³öÀ–øÿÿÿÿ
+jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê­òï
+zsquid:S3923¹"]This conditional operation returns the same value whether the condition is "true" or "false".(‘Œüÿÿÿÿ
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û´¿àşÿÿÿÿ
+Gsquid:S1481U"+Remove this unused "editor" local variable.(«şõ÷ûÿÿÿÿ
+@squid:S1148‚"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+hsquid:S1192T"LDefine a constant instead of duplicating this literal "CommonPrefs" 7 times.(¸”ãûÿÿÿÿ
+Vsquid:S1854]":Remove this useless assignment to local variable "editor".(«şõ÷ûÿÿÿÿ
+nsquid:S14505"WRemove the "myLocale" field and declare it as a local variable in the relevant methods.(ÇÕ‡
+usquid:S3923¶"]This conditional operation returns the same value whether the condition is "true" or "false".(´³–
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÂ¡°
+Wsquid:S1854Ö":Remove this useless assignment to local variable "result".(×Û­®ùÿÿÿÿ

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -125,9 +124,10 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     LinearLayout lnr_empty_headers;
     @BindView(R.id.spnr_pairs_list)
     Spinner spnr_pairs_list;
-
-    @BindView(R.id.pb)
-    ProgressBar pb;
+    @BindView(R.id.lnr_empty_gain_loose)
+    LinearLayout lnr_empty_gain_loose;
+//    @BindView(R.id.pb)
+//    ProgressBar pb;
 
 //    @BindView(R.id.)
 //    ;
@@ -220,7 +220,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();
             rview_gain_loose.setVisibility(View.GONE);
-            pb.setVisibility(View.VISIBLE);
+            //pb.setVisibility(View.VISIBLE);
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -232,7 +232,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                                 allCoinPairsList = new ArrayList<>();
                                 gainersList = new ArrayList<>();
                                 loosersList = new ArrayList<>();
-                                pb.setVisibility(View.VISIBLE);
+                                //pb.setVisibility(View.VISIBLE);
                                 Log.e(TAG, "*****Received " /*+ PairsListList.get(selectedCoinPos).getStr_Code() */ + "*****: EMSFselectedTab" + message.getPayload());
                                 CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
@@ -247,7 +247,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                                         }
 
                                         for (int i = 0; i < allCoinPairsList.size(); i++) {
-                                            if (allCoinPairsList.get(i).getStr_status().trim().equals("INCREASED")) {
+                                            if (allCoinPairsList.get(i).getDbl_twentyFourChangePercentage() >= 0) {
                                                 gainersList.add(allCoinPairsList.get(i));
                                             } else {
                                                 loosersList.add(allCoinPairsList.get(i));
@@ -256,17 +256,30 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                                         }
 
                                         if (isGainer) {
-                                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
-                                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                                            if (gainersList.size() > 0) {
+                                                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
+                                                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                                                rview_gain_loose.setVisibility(View.VISIBLE);
+                                                lnr_empty_gain_loose.setVisibility(View.GONE);
+                                            } else {
+                                                rview_gain_loose.setVisibility(View.GONE);
+                                                lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                                            }
                                         } else {
-                                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
-                                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                                            if (loosersList.size() > 0) {
+                                                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
+                                                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                                                rview_gain_loose.setVisibility(View.VISIBLE);
+                                                lnr_empty_gain_loose.setVisibility(View.GONE);
+                                            } else {
+                                                rview_gain_loose.setVisibility(View.GONE);
+                                                lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                                            }
                                         }
-                                        rview_gain_loose.setVisibility(View.VISIBLE);
                                         Handler handler = new Handler();
                                         handler.postDelayed(new Runnable() {
                                             public void run() {
-                                                pb.setVisibility(View.GONE);
+                                                //pb.setVisibility(View.GONE);
                                             }
                                         }, 800);
                                     }
@@ -315,9 +328,10 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
 
                 isGainer = true;
                 try {
+                    allCoinPairsList = new ArrayList<>();
                     gainersList = new ArrayList<>();
                     loosersList = new ArrayList<>();
-                    pb.setVisibility(View.VISIBLE);
+                    //pb.setVisibility(View.VISIBLE);
                     for (int i = 0; i < allCoinPairs.size(); i++) {
                         if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
                             if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
@@ -325,7 +339,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     }
 
                     for (int i = 0; i < allCoinPairsList.size(); i++) {
-                        if (allCoinPairsList.get(i).getStr_status().trim().equals("INCREASED")) {
+                        if (allCoinPairsList.get(i).getDbl_twentyFourChangePercentage() >= 0) {
                             gainersList.add(allCoinPairsList.get(i));
                         } else {
                             loosersList.add(allCoinPairsList.get(i));
@@ -334,17 +348,30 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     }
 
                     if (isGainer) {
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        if (gainersList.size() > 0) {
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            rview_gain_loose.setVisibility(View.VISIBLE);
+                            lnr_empty_gain_loose.setVisibility(View.GONE);
+                        } else {
+                            rview_gain_loose.setVisibility(View.GONE);
+                            lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        if (loosersList.size() > 0) {
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            rview_gain_loose.setVisibility(View.VISIBLE);
+                            lnr_empty_gain_loose.setVisibility(View.GONE);
+                        } else {
+                            rview_gain_loose.setVisibility(View.GONE);
+                            lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                        }
                     }
-                    rview_gain_loose.setVisibility(View.VISIBLE);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            pb.setVisibility(View.GONE);
+                            //pb.setVisibility(View.GONE);
                         }
                     }, 800);
                 } catch (Exception e) {
@@ -395,17 +422,17 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                 isGainer = false;
 
                 try {
+                    allCoinPairsList = new ArrayList<>();
                     gainersList = new ArrayList<>();
                     loosersList = new ArrayList<>();
-                    pb.setVisibility(View.VISIBLE);
+                    //pb.setVisibility(View.VISIBLE);
                     for (int i = 0; i < allCoinPairs.size(); i++) {
                         if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
                             if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
                                 allCoinPairsList.add(allCoinPairs.get(i));
                     }
-
                     for (int i = 0; i < allCoinPairsList.size(); i++) {
-                        if (allCoinPairsList.get(i).getStr_status().trim().equals("INCREASED")) {
+                        if (allCoinPairsList.get(i).getDbl_twentyFourChangePercentage() >= 0) {
                             gainersList.add(allCoinPairsList.get(i));
                         } else {
                             loosersList.add(allCoinPairsList.get(i));
@@ -414,17 +441,30 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     }
 
                     if (isGainer) {
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        if (gainersList.size() > 0) {
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            rview_gain_loose.setVisibility(View.VISIBLE);
+                            lnr_empty_gain_loose.setVisibility(View.GONE);
+                        } else {
+                            rview_gain_loose.setVisibility(View.GONE);
+                            lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                        }
                     } else {
-                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
-                        rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                        if (loosersList.size() > 0) {
+                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
+                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                            rview_gain_loose.setVisibility(View.VISIBLE);
+                            lnr_empty_gain_loose.setVisibility(View.GONE);
+                        } else {
+                            rview_gain_loose.setVisibility(View.GONE);
+                            lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                        }
                     }
-                    rview_gain_loose.setVisibility(View.VISIBLE);
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            pb.setVisibility(View.GONE);
+                            //pb.setVisibility(View.GONE);
                         }
                     }, 800);
                 } catch (Exception e) {
@@ -1001,9 +1041,10 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
         selectedCoinName = parent.getItemAtPosition(position).toString().trim();
 
         try {
+            allCoinPairsList = new ArrayList<>();
             gainersList = new ArrayList<>();
             loosersList = new ArrayList<>();
-            pb.setVisibility(View.VISIBLE);
+            //pb.setVisibility(View.VISIBLE);
             for (int i = 0; i < allCoinPairs.size(); i++) {
                 if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
                     if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
@@ -1011,7 +1052,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
             }
 
             for (int i = 0; i < allCoinPairsList.size(); i++) {
-                if (allCoinPairsList.get(i).getStr_status().trim().equals("INCREASED")) {
+                if (allCoinPairsList.get(i).getDbl_twentyFourChangePercentage() >= 0) {
                     gainersList.add(allCoinPairsList.get(i));
                 } else {
                     loosersList.add(allCoinPairsList.get(i));
@@ -1020,17 +1061,30 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
             }
 
             if (isGainer) {
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
-                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                if (gainersList.size() > 0) {
+                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersList, selectedCoinName, isGainer, false);
+                    rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                    rview_gain_loose.setVisibility(View.VISIBLE);
+                    lnr_empty_gain_loose.setVisibility(View.GONE);
+                } else {
+                    rview_gain_loose.setVisibility(View.GONE);
+                    lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                }
             } else {
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
-                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                if (loosersList.size() > 0) {
+                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), loosersList, selectedCoinName, isGainer, false);
+                    rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
+                    rview_gain_loose.setVisibility(View.VISIBLE);
+                    lnr_empty_gain_loose.setVisibility(View.GONE);
+                } else {
+                    rview_gain_loose.setVisibility(View.GONE);
+                    lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                }
             }
-            rview_gain_loose.setVisibility(View.VISIBLE);
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
-                    pb.setVisibility(View.GONE);
+                    //pb.setVisibility(View.GONE);
                 }
             }, 800);
 
