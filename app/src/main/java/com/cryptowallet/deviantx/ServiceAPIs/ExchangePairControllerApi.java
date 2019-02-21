@@ -13,13 +13,13 @@ import retrofit2.http.Query;
 
 public interface ExchangePairControllerApi {
 
-    @GET("/api/exchange_pair/exchange_pair_coins_details")
+    @GET("/api_v2/exchange_pair/exchange_pair_coins_details")
     Call<ResponseBody> getPairsList(/*@Header("Authorization") String AuthorizationDX*/);
 
-    @GET("/api/exchange_pair/get_pairs/{coin_code}")
+    @GET("/api_v2/exchange_pair/get_pairs/{coin_code}")
     Call<ResponseBody> getPairs(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX);
 
-    @GET("/api/exchange_pair/get_pairs_status/{coin_code}/{status}")
+    @GET("/api_v2/exchange_pair/get_pairs_status/{coin_code}/{status}")
     Call<ResponseBody> getPairsStatus(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX, @Path("status") String statusX);
 
 }

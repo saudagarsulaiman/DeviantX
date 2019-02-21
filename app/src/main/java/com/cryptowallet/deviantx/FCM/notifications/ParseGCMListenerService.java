@@ -5,12 +5,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.DashBoardActivity;
@@ -29,7 +26,7 @@ public class ParseGCMListenerService extends GcmListenerService {
         String timestamp = bundle.getString("time");
         String dataString = bundle.getString("data");
         String channel = bundle.getString("channel");
-        Log.d("Notification_data--> ", pushId);
+//        Log.d("Notification_data--> ", pushId);
 
         JSONObject data = null;
         if (dataString != null) {
@@ -119,7 +116,7 @@ public class ParseGCMListenerService extends GcmListenerService {
 
     }
 */
-    private void sendNotification(String messageBody, String title) {
+    private void sendNotification(String title, String messageBody) {
         Intent intent = new Intent(this, DashBoardActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

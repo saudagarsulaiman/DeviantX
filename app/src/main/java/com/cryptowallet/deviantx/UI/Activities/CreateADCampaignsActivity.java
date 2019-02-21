@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.AirdropWalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
@@ -40,6 +39,8 @@ import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -364,10 +365,15 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                                 CommonUtilities.serviceStart(CreateADCampaignsActivity.this);
                                 regResponsedata = jsonObject.getString("data");
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    startForegroundService(new Intent(CreateADCampaignsActivity.this, AirdropWalletFetch.class));
                                     startForegroundService(new Intent(CreateADCampaignsActivity.this, FeaturedAirdropsFetch.class));
+                                    startForegroundService(new Intent(CreateADCampaignsActivity.this, AirdropsHistoryFetch.class));
                                 } else {
+                                    startService(new Intent(CreateADCampaignsActivity.this, AirdropWalletFetch.class));
                                     startService(new Intent(CreateADCampaignsActivity.this, FeaturedAirdropsFetch.class));
+                                    startService(new Intent(CreateADCampaignsActivity.this, AirdropsHistoryFetch.class));
                                 }
+
                                 Intent intent = new Intent(CreateADCampaignsActivity.this, DashBoardActivity.class);
                                 intent.putExtra(CONSTANTS.seletedTab, 2);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

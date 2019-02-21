@@ -34,7 +34,12 @@ import com.cryptowallet.deviantx.ServiceAPIs.USDValues;
 import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.USDValue;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
+import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -532,9 +537,32 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
                                 CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
 
+/*
                                 Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
                                 serviceIntent.putExtra("walletList", true);
                                 startService(serviceIntent);
+*/
+                                try {
+                                    Log.e("*******DEVIANT*******", "Receiver Class Executed");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        startForegroundService(new Intent(SendCoinActivity.this, WalletDataFetch.class));
+                                        startForegroundService(new Intent(SendCoinActivity.this, AirdropWalletFetch.class));
+                                        startForegroundService(new Intent(SendCoinActivity.this, FeaturedAirdropsFetch.class));
+                                        startForegroundService(new Intent(SendCoinActivity.this, DividendAirdropsFetch.class));
+                                        startForegroundService(new Intent(SendCoinActivity.this, AirdropsHistoryFetch.class));
+                                        startForegroundService(new Intent(SendCoinActivity.this, WalletDetailsFetch.class));
+
+                                    } else {
+                                        startService(new Intent(SendCoinActivity.this, WalletDataFetch.class));
+                                        startService(new Intent(SendCoinActivity.this, AirdropWalletFetch.class));
+                                        startService(new Intent(SendCoinActivity.this, FeaturedAirdropsFetch.class));
+                                        startService(new Intent(SendCoinActivity.this, DividendAirdropsFetch.class));
+                                        startService(new Intent(SendCoinActivity.this, AirdropsHistoryFetch.class));
+                                        startService(new Intent(SendCoinActivity.this, WalletDetailsFetch.class));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 finish();
 
 //                                Intent intent = new Intent(SendCoinActivity.this, DashBoardActivity.class);

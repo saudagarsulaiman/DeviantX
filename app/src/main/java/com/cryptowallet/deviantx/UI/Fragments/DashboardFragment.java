@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,7 +30,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
 import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
-import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
+import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
@@ -151,6 +152,17 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     @Override
     public void onResume() {
         super.onResume();
+//        invokeWallet();
+        try {
+            Log.e("*******DEVIANT*******", "Receiver Class Executed");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
+            } else {
+                getActivity().startService(new Intent(getActivity(), WalletDataFetch.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
         if (myWalletCoinsRAdapter != null) {
             myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
@@ -390,7 +402,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     startActivity(intent);
                 } else if (direction == ItemTouchHelper.END) {
                     // DO Action for Right
-                    Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
+//                    Intent intent = new Intent(getActivity(), WalletOptionsActivity.class);
+                    Intent intent = new Intent(getActivity(), WalletHistoryActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CONSTANTS.selectedAccountWallet, accountWalletlist.get(fromPos));
                     intent.putExtras(bundle);

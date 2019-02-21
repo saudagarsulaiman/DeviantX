@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +21,17 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
+import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
+import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
+import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.HeaderBannerFetch;
+import com.cryptowallet.deviantx.UI.Services.NewsDXFetch;
+import com.cryptowallet.deviantx.UI.Services.PairsListFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -308,9 +319,21 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                                 loginResponseData = jsonObject.getString("data");
 
                                 CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, loginResponseMsg);
-                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
-                                serviceIntent.putExtra("walletList", true);
-                                startService(serviceIntent);
+                                try {
+                                    Log.e("*******DEVIANT*******", "Receiver Class Executed");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        startForegroundService(new Intent(TwoFASendCoinActivity.this, WalletDataFetch.class));
+                                        startForegroundService(new Intent(TwoFASendCoinActivity.this, AirdropWalletFetch.class));
+                                        startForegroundService(new Intent(TwoFASendCoinActivity.this, AirdropsHistoryFetch.class));
+
+                                    } else {
+                                        startService(new Intent(TwoFASendCoinActivity.this, WalletDataFetch.class));
+                                        startService(new Intent(TwoFASendCoinActivity.this, AirdropWalletFetch.class));
+                                        startService(new Intent(TwoFASendCoinActivity.this, AirdropsHistoryFetch.class));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
 /*
                                 CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
 */

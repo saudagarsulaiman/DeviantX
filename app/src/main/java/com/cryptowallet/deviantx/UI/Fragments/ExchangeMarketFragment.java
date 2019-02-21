@@ -122,7 +122,8 @@ public class ExchangeMarketFragment extends Fragment {
 
         try {
 //            Main Link
-            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
+//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/ws_v2/deviant/websocket");
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
 //            Local Link
 //            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/deviant/websocket");
             stompClient.connect();
@@ -164,7 +165,7 @@ public class ExchangeMarketFragment extends Fragment {
                                             public void run() {
                                                 pb.setVisibility(View.GONE);
                                             }
-                                        }, 800);
+                                        }, 1200);
                                     }
                                 });
                             } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.cryptowallet.deviantx.UI.Fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.cryptowallet.deviantx.UI.Models.WalletDetails;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.WalletDetailsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletDetailsDB;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -76,6 +78,20 @@ public class ExchangeFundsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         myApplication.setWalletDetailsUIListener(walletDetailsUIListener);
+
+        try {
+            Log.e("*******DEVIANT*******", "Receiver Class Executed");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getActivity().startForegroundService(new Intent(getActivity(), WalletDetailsFetch.class));
+            } else {
+                getActivity().startService(new Intent(getActivity(), WalletDetailsFetch.class));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+/*
+        fetchCoinsWalletDetails();
+*/
     }
 
     @Override

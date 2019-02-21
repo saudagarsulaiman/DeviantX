@@ -44,7 +44,7 @@ public final class CommonUtilities {
     /******************** * Test Server Links  ****************************************************/
 
     //Main Link
-    public static final String URL = "http://142.93.51.57:3322";
+//    public static final String URL = "http://142.93.51.57:3322";
 
     //Local Link
 //    public static final String URL = "http://192.168.0.179:3322";
@@ -55,14 +55,10 @@ public final class CommonUtilities {
 
     /********************* Live Server Links ****************************************************/
 
-//    public static final String URL = "https://deviantx.app";
+    public static final String URL = "https://deviantx.app";
 
 
-
-
-
-
-//    ********************* Reusable Methods*******************************************************
+    //    ********************* Reusable Methods*******************************************************
     public static boolean isConnectionAvailable(Context ctx) {
         //boolean bConnection = false;
         ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);

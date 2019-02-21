@@ -41,6 +41,11 @@ import com.cryptowallet.deviantx.UI.Adapters.WalletListAirdropRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AirdropWallet;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
+import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -578,7 +583,7 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
         txt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transferAmountToAddress(edt_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/,airdropWalletlist.get(0).getStr_ad_coin_code());
+                transferAmountToAddress(edt_address, amount/*, airdropWalletlist.get(0).getStr_data_ad_address()*/, airdropWalletlist.get(0).getStr_ad_coin_code());
                 dialog.dismiss();
             }
         });
@@ -682,6 +687,25 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                 intent.putExtra(CONSTANTS.seletedTab, 2);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+                                try {
+                                    Log.e("*******DEVIANT*******", "WiTHDRAWFUNDSACTIVITY");
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        startForegroundService(new Intent(WithdrawFundsAirdropActivity.this, WalletDataFetch.class));
+                                        startForegroundService(new Intent(WithdrawFundsAirdropActivity.this, AirdropWalletFetch.class));
+                                        startForegroundService(new Intent(WithdrawFundsAirdropActivity.this, FeaturedAirdropsFetch.class));
+                                        startForegroundService(new Intent(WithdrawFundsAirdropActivity.this, DividendAirdropsFetch.class));
+                                        startForegroundService(new Intent(WithdrawFundsAirdropActivity.this, AirdropsHistoryFetch.class));
+
+                                    } else {
+                                        startService(new Intent(WithdrawFundsAirdropActivity.this, WalletDataFetch.class));
+                                        startService(new Intent(WithdrawFundsAirdropActivity.this, AirdropWalletFetch.class));
+                                        startService(new Intent(WithdrawFundsAirdropActivity.this, FeaturedAirdropsFetch.class));
+                                        startService(new Intent(WithdrawFundsAirdropActivity.this, DividendAirdropsFetch.class));
+                                        startService(new Intent(WithdrawFundsAirdropActivity.this, AirdropsHistoryFetch.class));
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
 /*
                                 CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);

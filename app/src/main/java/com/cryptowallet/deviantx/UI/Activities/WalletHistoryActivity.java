@@ -19,10 +19,12 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.WalletHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Models.AllTransactions;
 import com.cryptowallet.deviantx.UI.Models.ReceivedHistory;
 import com.cryptowallet.deviantx.UI.Models.SentHistory;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -85,8 +87,10 @@ public class WalletHistoryActivity extends AppCompatActivity {
     AccountWallet selectedAccountWallet;
     String transType;
 
-    ArrayList<SentHistory> sentHistoriesList;
-    ArrayList<ReceivedHistory> receivedHistoriesList;
+    ArrayList<AllTransactions> allTransactionsList;
+    ArrayList<SentHistory> sentHistoriesList, allList;
+    ArrayList<ReceivedHistory> /*sentHistoriesList1,*/ receivedHistoriesList;
+    ArrayList<ReceivedHistory> allHistoryList;
 
     @Override
     protected void onResume() {
@@ -129,6 +133,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        allTransactionsList = new ArrayList<>();
         sentHistoriesList = new ArrayList<>();
         receivedHistoriesList = new ArrayList<>();
 
@@ -150,11 +155,15 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
 
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
+            fetchAllHistory(selectedAccountWallet);
+/*
             if (transType.equals(CONSTANTS.sent)) {
                 fetchSentHistory(selectedAccountWallet);
             } else {
                 fetchReceivedHistory(selectedAccountWallet);
             }
+*/
+
 
 /*
 //            Transaction History
@@ -322,7 +331,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getReceivedTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
+            Call<ResponseBody> apiResponse = apiService.getReceivedTransactions(CONSTANTS.DeviantMulti + token, wallet_name, selectedAccountWallet.getStr_coin_code());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -361,7 +370,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                             }
                                         }
 */
-                                        if (sentHistoriesList.size() > 0) {
+                                        if (receivedHistoriesList.size() > 0) {
                                             walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, sentHistoriesList, receivedHistoriesList, false);
                                             rview_trans_history.setAdapter(walletHistoryRAdapter);
                                             lnr_trans_avail.setVisibility(View.VISIBLE);
@@ -372,6 +381,109 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         }
 
                                     }
+
+                                } else {
+                                    CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.empty_data));
+                                }
+                            } else {
+                                CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void fetchAllHistory(AccountWallet selectedAccountWallet) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+            progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllHistory(CONSTANTS.DeviantMulti + token, wallet_name, selectedAccountWallet.getStr_coin_code());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (!loginResponseData.isEmpty()) {
+
+                                    allList = new ArrayList<>();
+                                    sentHistoriesList = new ArrayList<>();
+//                                    receivedHistoriesList = new ArrayList<>();
+//                                    allHistoryList = new ArrayList<>();
+                                    AllTransactions coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllTransactions.class);
+                                    sentHistoriesList = (ArrayList<SentHistory>) coinsStringArray.getList_sent();
+                                    allList = (ArrayList<SentHistory>) coinsStringArray.getList_received();
+
+
+                                    if (sentHistoriesList.size() == 0 && allList.size() == 0) {
+                                        lnr_trans_avail.setVisibility(View.GONE);
+                                        lnr_no_trans.setVisibility(View.VISIBLE);
+
+                                    } else {
+/*
+                                        for (int i = 0; i < sentHistoriesList1.size(); i++) {
+                                            allHistoryList.add(sentHistoriesList1.get(i));
+                                        }
+                                        for (int i = 0; i < receivedHistoriesList.size(); i++) {
+                                            allHistoryList.add(receivedHistoriesList.get(i));
+                                        }
+*/
+                                        for (int i = 0; i < sentHistoriesList.size(); i++) {
+                                            allList.add(sentHistoriesList.get(i));
+                                        }
+                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, allList, receivedHistoriesList, false);
+                                        rview_trans_history.setAdapter(walletHistoryRAdapter);
+                                        lnr_trans_avail.setVisibility(View.VISIBLE);
+                                        lnr_no_trans.setVisibility(View.GONE);
+                                    }
+
 
                                 } else {
                                     CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.empty_data));

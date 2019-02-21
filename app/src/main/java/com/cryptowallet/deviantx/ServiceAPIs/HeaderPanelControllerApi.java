@@ -7,7 +7,7 @@ import retrofit2.http.Header;
 
 public interface HeaderPanelControllerApi {
 
-    @GET("/api/header_panel/get_all_panels")
+    @GET("/api_v2/header_panel/get_all_panels")
     Call<ResponseBody> getHeaderPanel(@Header("Authorization") String tokenDX);
 
 }

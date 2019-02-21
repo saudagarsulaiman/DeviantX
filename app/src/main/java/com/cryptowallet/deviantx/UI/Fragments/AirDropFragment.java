@@ -437,6 +437,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     @Override
     public void onResume() {
         super.onResume();
+        fetchAirdropWallet();
         myApplication.setAirdropWalletUIListener(airdropWalletUIListener);
         myApplication.setFeaturedAirdropsUIListener(featuredAirdropUIListener);
         myApplication.setDividendAirdropsUIListener(dividendAirdropsUIListener);

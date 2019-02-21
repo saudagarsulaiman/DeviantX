@@ -33,6 +33,8 @@ import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.DividendAirdrops;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
 import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -440,11 +442,15 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                                 regResponsedata = jsonObject.getString("data");
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    startForegroundService(new Intent(WithdrawADClaimActivity.this, AirdropWalletFetch.class));
                                     startForegroundService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
                                     startForegroundService(new Intent(WithdrawADClaimActivity.this, DividendAirdropsFetch.class));
+                                    startForegroundService(new Intent(WithdrawADClaimActivity.this, AirdropsHistoryFetch.class));
                                 } else {
+                                    startService(new Intent(WithdrawADClaimActivity.this, AirdropWalletFetch.class));
                                     startService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
                                     startService(new Intent(WithdrawADClaimActivity.this, DividendAirdropsFetch.class));
+                                    startService(new Intent(WithdrawADClaimActivity.this, AirdropsHistoryFetch.class));
                                 }
 
 
