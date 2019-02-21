@@ -20,6 +20,7 @@ import com.cryptowallet.deviantx.UI.Interfaces.WalletDetailsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
 import com.instabug.library.Instabug;
 import com.instabug.library.invocation.InstabugInvocationEvent;
+import com.parse.Parse;
 
 //import com.google.android.gms.plus.Plus;
 
@@ -108,6 +109,16 @@ public class MyApplication extends Application {
         new Instabug.Builder(this, "455ef4d57e58e0ad6b2d548fea185d0b")
                 .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
                 .build();
+
+
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId(CONSTANTS.AppId)                // if desired
+                .clientKey(CONSTANTS.MasterKey)
+                .server(CONSTANTS.ServerUrl)
+                .build()
+        );
+
+
     }
 
     public void disableScreenCapture(Activity context) {

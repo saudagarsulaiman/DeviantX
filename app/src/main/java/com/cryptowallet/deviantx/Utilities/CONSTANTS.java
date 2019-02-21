@@ -55,6 +55,11 @@ public class CONSTANTS {
     public static String received = "RECEIVED";
     public static String isExploreCoins = "isEcploreCoins";
 
+    //    PARSE SERVER
+    public static String ServerUrl = "https://deviantx-parse-server.herokuapp.com/parse";
+    public static String AppId= "DeviantX";
+    public static String MasterKey= "DeviantXMaster";
+
 
 //    //    Selected Account Wallet Details
 //    public static String data_id="data_id";
