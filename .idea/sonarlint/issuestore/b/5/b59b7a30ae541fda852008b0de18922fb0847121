@@ -1,146 +1,130 @@
 
-Qsquid:S1481…"4Remove this unused "txt_copy_wallet" local variable.(ı÷°úÿÿÿÿ
-[squid:S1155Ø">Use isEmpty() to check whether the collection is empty or not.(ú¼©¢øÿÿÿÿ
-Ksquid:S1659".Declare "loginResponseMsg" on a separate line.(È¤öìıÿÿÿÿ
-hsquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-hsquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-?squid:S1604Î"(Make this anonymous inner class a lambda(»¬ãS
-Jsquid:S1659ƒ"3Declare "layoutManagerVertical" on a separate line.(ÜĞÙ>
-csquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(Íâ
-vsquid:S00116r"^Rename this field "lnr_search_airdrops" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Éƒ·
-hsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-xsquid:S00116Y"[Rename this field "txt_holding_days" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–¬£øÿÿÿÿ
-`squid:S1854…"CRemove this useless assignment to local variable "txt_copy_wallet".(ı÷°úÿÿÿÿ
-wsquid:S00116a"ZRename this field "txt_airdrop_lbl" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âº×ıÿÿÿÿ
-wsquid:S00116z"_Rename this field "lnr_empty_feat_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İƒ£‚
-csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(°§Î‰
-vsquid:S2293Ô"YReplace the type specification in this constructor call with the diamond operator ("<>").(ùÿíıüÿÿÿÿ
-Usquid:S1854™"=Remove this useless assignment to local variable "totalDays".(æçØÿ
-hsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(òş¦áùÿÿÿÿ
-hsquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(¾ü±—úÿÿÿÿ
-csquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(‰Ï
-@squid:S1148‡"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
-[squid:S1155Ú">Use isEmpty() to check whether the collection is empty or not.(ÅÜåçûÿÿÿÿ
-@squid:S1604Æ"(Make this anonymous inner class a lambda(Û¦²
-hsquid:CommentedOutCodeLine‰"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-Tsquid:S2589ø"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-hsquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-usquid:S00116S"]Rename this field "txt_coin_name_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ìÏ¦
-@squid:S1148ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-psquid:S00116c"SRename this field "img_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ö†ğıÿÿÿÿ
-?squid:S1604É"(Make this anonymous inner class a lambda(»¬ãS
-hsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(¡û®üÿÿÿÿ
-csquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(„¬¡‚
-csquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(‰‚¡•
-usquid:S00116v"]Rename this field "txt_div_ad_viewAll" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒôêÒ
-hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-;squid:S1148ˆ"#Use a logger to log this exception.(Ç’Çê
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-rsquid:S00116["ZRename this field "txt_seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯éé¼
-@squid:S1148Œ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-hsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-jsquid:S00117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Á‘
-usquid:S00116t"]Rename this field "lnr_create_ad_camp" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãé½¨
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-xsquid:S00116_"[Rename this field "txt_radh_viewAll" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åÀÈÿÿÿÿÿ
-osquid:S00117Š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«œä©ùÿÿÿÿ
-hsquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-Nsquid:S1659"1Declare "loginResponseStatus" on a separate line.(È¤öìıÿÿÿÿ
-{squid:S00116|"^Rename this field "lnr_empty_div_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿÕ±·ùÿÿÿÿ
-@squid:S1148®"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-?squid:S1604«"(Make this anonymous inner class a lambda(»¬ãS
-hsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-csquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(‰‚¡•
-csquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(òâš
-usquid:S00116x"]Rename this field "rview_div_ad_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òó•
-hsquid:CommentedOutCodeLine«"<This block of commented-out lines of code should be removed.(ØïÍıÿÿÿÿ
-hsquid:CommentedOutCodeLine“"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-Tsquid:S2589â"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-hsquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(„¬¡‚
-hsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-csquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(íÊƒÆ
-csquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(„¬¡‚
-hsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-hsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-hsquid:CommentedOutCodeLineğ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-csquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(¼ôîí
-ksquid:S00116e"SRename this field "btn_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¦Ôˆ
-@squid:S1604À"(Make this anonymous inner class a lambda(—›ÛÚ
-tsquid:S00116p"\Rename this field "lnr_empty_prtcptn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿…“ 
-csquid:CommentedOutCodeLineğ"<This block of commented-out lines of code should be removed.(‰‚¡•
-;squid:S1148Ÿ"#Use a logger to log this exception.(Ç’Çê
-hsquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-qsquid:S2293Ú"YReplace the type specification in this constructor call with the diamond operator ("<>").(çÿª•
-hsquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-@squid:S1148†"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-hsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(Ÿµ¼©şÿÿÿÿ
-hsquid:CommentedOutCodeLineù"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(Èı¢ùÿÿÿÿ
-@squid:S1148ç"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-csquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(°¼ Á
-@squid:S1604è"(Make this anonymous inner class a lambda(†£°î
-rsquid:S00116W"ZRename this field "txt_holding_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å·ÖÁ
-_squid:S1192Ô"GDefine a constant instead of duplicating this literal "status" 4 times.(ÃÂø´
-csquid:CommentedOutCodeLine¸"<This block of commented-out lines of code should be removed.(¼ôîí
-nsquid:S00116i"VRename this field "seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿§èÑ
-jsquid:S00117ˆ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾îÇ
-?squid:S1604Ç"(Make this anonymous inner class a lambda(»¬ãS
-osquid:S00117‰"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éô×éÿÿÿÿÿ
+;squid:S1148’"#Use a logger to log this exception.(Ç’Çê
+hsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+csquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(„¬¡‚
+usquid:S00116o"]Rename this field "lnr_empty_his_list" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ«©‘
+hsquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+?squid:S1604»"(Make this anonymous inner class a lambda(»¬ãS
+@squid:S1148—"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+qsquid:S2293è"YReplace the type specification in this constructor call with the diamond operator ("<>").(çÿª•
+nsquid:S00116m"VRename this field "seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿§èÑ
+hsquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+isquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(”€Ú¢8¯–ÑØ-
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(òş¦áùÿÿÿÿ
+hsquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+@squid:S1604Ô"(Make this anonymous inner class a lambda(Û¦²
+@squid:S1148¸"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+hsquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+`squid:S1854"CRemove this useless assignment to local variable "txt_copy_wallet".(ı÷°úÿÿÿÿ
+csquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(‰‚¡•
+xsquid:S00116["[Rename this field "txt_holding_days" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–¬£øÿÿÿÿ
+vsquid:S2293â"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ñ€¶®ÿÿÿÿÿ
+[squid:S1155è">Use isEmpty() to check whether the collection is empty or not.(ú¼©¢øÿÿÿÿ
+usquid:S00116|"]Rename this field "rview_div_ad_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òó•
+_squid:S1192â"GDefine a constant instead of duplicating this literal "status" 3 times.(ÃÂø´
+osquid:S00117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«œä©ùÿÿÿÿ
+?squid:S1604Ù"(Make this anonymous inner class a lambda(»¬ãS
+osquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éô×éÿÿÿÿÿ
+rsquid:S00116]"ZRename this field "txt_seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯éé¼
+@squid:S1148š"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+@squid:S1148÷"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
 hsquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-?squid:S1604­"(Make this anonymous inner class a lambda(»¬ãS
-usquid:S00116k"]Rename this field "lnr_empty_his_list" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ«©‘
-jsquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¨­ş
-osquid:S3776Í"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ôßéûÿÿÿÿ
-hsquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(Ÿµ¼©şÿÿÿÿ
-qsquid:S00116m"YRename this field "txt_acc_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ê—Ä
-Osquid:S1135­"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
+osquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ğ…÷“ÿÿÿÿÿ8å˜ÓØ-
+csquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(òâš
+rsquid:S00116Y"ZRename this field "txt_holding_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å·ÖÁ
+@squid:S1604ğ"(Make this anonymous inner class a lambda(†£°î
+Osquid:S1135·"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
+psquid:S00116k"XRename this field "img_coin_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¾’Ø
+?squid:S1604½"(Make this anonymous inner class a lambda(»¬ãS
 hsquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-ssquid:S00116Q"[Rename this field "rview_radh_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûëƒ¢
-hsquid:CommentedOutCodeLineı"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-Esquid:S1604¾"(Make this anonymous inner class a lambda(±öîøÿÿÿÿ
-hsquid:CommentedOutCodeLine‘"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-?squid:S1604–"(Make this anonymous inner class a lambda(»¬ãS
-hsquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-vsquid:S2293Ò"YReplace the type specification in this constructor call with the diamond operator ("<>").(Ñ€¶®ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineö"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-Fsquid:S1481™".Remove this unused "totalDays" local variable.(æçØÿ
-ssquid:S00116U"[Rename this field "txt_coin_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âš·­
-osquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı÷°úÿÿÿÿ
-;squid:S1148 "#Use a logger to log this exception.(Ç’Çê
-ksquid:S1192ë"NDefine a constant instead of duplicating this literal "onResponse:\n" 4 times.(ïï™¼ÿÿÿÿÿ
+csquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(¼ôîí
+hsquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+osquid:S3776Û"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ôßéûÿÿÿÿ
+hsquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+Ksquid:S1659‘".Declare "loginResponseMsg" on a separate line.(È¤öìıÿÿÿÿ
+@squid:S1148õ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Esquid:S1604Î"(Make this anonymous inner class a lambda(±öîøÿÿÿÿ
+ksquid:S00116i"SRename this field "btn_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¦Ôˆ
+@squid:S1604Ğ"(Make this anonymous inner class a lambda(—›ÛÚ
+@squid:S1148ù"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ÎÃŞG8£¾ÑØ-
+hsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+osquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(¶‚‹Óøÿÿÿÿ8ˆ…ÒØ-
+ssquid:S00116W"[Rename this field "txt_coin_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âš·­
+qsquid:S00116q"YRename this field "txt_acc_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ê—Ä
+csquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(°§Î‰
+hsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+Fsquid:S1481£".Remove this unused "totalDays" local variable.(æçØÿ
+hsquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(¾ü±—úÿÿÿÿ
+hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+hsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(¡û®üÿÿÿÿ
+psquid:S00116g"SRename this field "img_menu" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ö†ğıÿÿÿÿ
+jsquid:S00117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™Á‘
+usquid:S00116U"]Rename this field "txt_coin_name_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ìÏ¦
+?squid:S1604¤"(Make this anonymous inner class a lambda(»¬ãS
 hsquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-@squid:S1148å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-psquid:S00116g"XRename this field "img_coin_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¾’Ø
-Tsquid:S2589ú"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-Xsquid:S1659ƒ":Declare "layoutManagerHorizontalDivAd" on a separate line.(ÜĞÙ>8ÉÚ¨²-
-xsquid:S2293Ô"YReplace the type specification in this constructor call with the diamond operator ("<>").(¤¥‡†8ÉÚ¨²-
-jsquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(‰‚¡•8ÉÚ¨²-
-osquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-jsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(„¬¡‚8ÉÚ¨²-
-osquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8ÉÚ¨²-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8ÉÚ¨²-
-[squid:S2589ü"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8ÉÚ¨²-
-Fsquid:S1604­"(Make this anonymous inner class a lambda(»¬ãS8ÉÚ¨²-
-Lsquid:S1604À"(Make this anonymous inner class a lambda(™è×ªùÿÿÿÿ8ÉÚ¨²-
-Fsquid:S1604É"(Make this anonymous inner class a lambda(»¬ãS8ÉÚ¨²-
-xsquid:S00116O"ZRename this field "rview_fad_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÃŞG8ÉÚ¨²-
-ysquid:S00116]"ZRename this field "txt_fad_viewAll" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”€Ú¢8ÉÚ¨²-
-Gsquid:S1148é"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÉÚ¨²-
-Gsquid:S1148Š"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÉÚ¨²-
-Bsquid:S1148£"#Use a logger to log this exception.(Ç’Çê8ÉÚ¨²-
-]squid:S1155Ú">Use isEmpty() to check whether the collection is empty or not.(œäô8ÉÚ¨²-
+?squid:S1604Ü"(Make this anonymous inner class a lambda(»¬ãS
+usquid:S00116z"]Rename this field "txt_div_ad_viewAll" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒôêÒ
+csquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(Íâ
+jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¨­ş
+hsquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.(ØïÍıÿÿÿÿ
+Tsquid:S2589ˆ"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+jsquid:S00117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾îÇ
+@squid:S1148–"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+hsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+vsquid:S00116v"^Rename this field "lnr_search_airdrops" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Éƒ·
+hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+vsquid:S2293ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(ùÿíıüÿÿÿÿ
+[squid:S1155ê">Use isEmpty() to check whether the collection is empty or not.(ÅÜåçûÿÿÿÿ
+?squid:S1604×"(Make this anonymous inner class a lambda(»¬ãS
+Nsquid:S1659‘"1Declare "loginResponseStatus" on a separate line.(È¤öìıÿÿÿÿ
+osquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(ò­°Üşÿÿÿÿ8áÑÔØ-
+ssquid:S00116S"[Rename this field "rview_radh_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûëƒ¢
+csquid:CommentedOutCodeLine¶"<This block of commented-out lines of code should be removed.(‰Ï
+csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(°¼ Á
+tsquid:S00116t"\Rename this field "lnr_empty_prtcptn" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿…“ 
+usquid:S00116x"]Rename this field "lnr_create_ad_camp" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ãé½¨
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı÷°úÿÿÿÿ
+hsquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+Qsquid:S1481"4Remove this unused "txt_copy_wallet" local variable.(ı÷°úÿÿÿÿ
+hsquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+ksquid:S1192õ"NDefine a constant instead of duplicating this literal "onResponse:\n" 3 times.(ïï™¼ÿÿÿÿÿ
+csquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(¼ôîí
+csquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(íÊƒÆ
+hsquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(Èı¢ùÿÿÿÿ
+;squid:S1148¯"#Use a logger to log this exception.(Ç’Çê
+Xsquid:S1659‡":Declare "layoutManagerHorizontalDivAd" on a separate line.(ÜĞÙ>8ÉÚ¨²-
+|squid:S00116€"^Rename this field "lnr_empty_div_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿÕ±·ùÿÿÿÿ
+hsquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(Ÿµ¼©şÿÿÿÿ
+hsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
+hsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+Tsquid:S2589ì"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+xsquid:S00116c"[Rename this field "txt_radh_viewAll" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åÀÈÿÿÿÿÿ
+wsquid:S00116~"_Rename this field "lnr_empty_feat_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İƒ£‚
+Usquid:S1854£"=Remove this useless assignment to local variable "totalDays".(æçØÿ
+osquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(¤Ã³àúÿÿÿÿ8ØÁÒØ-
+hsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine§"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+csquid:CommentedOutCodeLineâ"<This block of commented-out lines of code should be removed.(‰‚¡•
+jsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(–´‹İ8¦®ÔØ-
+hsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+hsquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+csquid:CommentedOutCodeLine‘"<This block of commented-out lines of code should be removed.(„¬¡‚
+csquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(„¬¡‚
+wsquid:S00116e"ZRename this field "txt_airdrop_lbl" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âº×ıÿÿÿÿ
+;squid:S1148°"#Use a logger to log this exception.(Ç’Çê
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
+hsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(Ÿµ¼©şÿÿÿÿ
+hsquid:CommentedOutCodeLine‘"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+csquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(‰‚¡•
+hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+Tsquid:S2589Š"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+Jsquid:S1659‡"3Declare "layoutManagerVertical" on a separate line.(ÜĞÙ>
+osquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(„ÑŠ·ùÿÿÿÿ8²»ÙØ-

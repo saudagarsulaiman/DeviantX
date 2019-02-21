@@ -91,3 +91,5 @@ d
 -app/src/main/res/layout/air_drop_fragment.xml,9\d\9d89018710ce8776ee3eeb75be5fac776394b410
 }
 Mapp/src/main/java/com/cryptowallet/deviantx/UI/Fragments/AirDropFragment.java,b\5\b59b7a30ae541fda852008b0de18922fb0847121
+ê
+`magicindicator/build/intermediates/incremental/packageDebugResources/compile-file-map.properties,2\c\2cf9e32cb49112d5d8f07080284c2b6039a83aba

@@ -55,7 +55,14 @@ public final class CommonUtilities {
 
     /********************* Live Server Links ****************************************************/
 
-//    public static final String URL = "http:// ";
+//    public static final String URL = "https://deviantx.app";
+
+
+
+
+
+
+//    ********************* Reusable Methods*******************************************************
     public static boolean isConnectionAvailable(Context ctx) {
         //boolean bConnection = false;
         ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);

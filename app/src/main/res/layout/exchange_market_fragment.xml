@@ -38,6 +38,7 @@
 
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/img_search"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height15"

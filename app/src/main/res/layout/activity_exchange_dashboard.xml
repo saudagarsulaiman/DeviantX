@@ -46,6 +46,113 @@
             android:layout_weight="0.05"
             android:background="@color/transparent" />
 
+        <!--
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_weight="0.8"
+                    android:background="@drawable/rec_blue_lc25"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/lnr_home"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/padding15"
+                        android:paddingLeft="@dimen/padding15">
+
+                        <ImageView
+                            android:id="@+id/img_home"
+                            android:layout_width="@dimen/width35"
+                            android:layout_height="@dimen/height35"
+                            android:layout_gravity="center"
+                            android:background="@drawable/cir_menublue"
+                            android:padding="@dimen/padding10"
+                            android:src="@drawable/home" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnr_market"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/padding15"
+                        android:paddingLeft="@dimen/padding15">
+
+                        <ImageView
+                            android:id="@+id/img_market"
+                            android:layout_width="@dimen/width35"
+                            android:layout_height="@dimen/height35"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/padding10"
+                            android:src="@drawable/market" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnr_funds"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/padding15"
+                        android:paddingLeft="@dimen/padding15">
+
+                        <ImageView
+                            android:id="@+id/img_funds"
+                            android:layout_width="@dimen/width35"
+                            android:layout_height="@dimen/height35"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/padding10"
+                            android:src="@drawable/funds" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnr_trade"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/padding15"
+                        android:paddingLeft="@dimen/padding15">
+
+                        <ImageView
+                            android:id="@+id/img_trade"
+                            android:layout_width="@dimen/width35"
+                            android:layout_height="@dimen/height35"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/padding10"
+                            android:src="@drawable/trade" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/lnr_settings"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/padding15"
+                        android:paddingLeft="@dimen/padding15">
+
+                        <ImageView
+                            android:id="@+id/img_settings"
+                            android:layout_width="@dimen/width35"
+                            android:layout_height="@dimen/height35"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/padding10"
+                            android:src="@drawable/settings" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+        -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -58,10 +165,10 @@
                 android:id="@+id/lnr_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:gravity="start"
-                android:paddingStart="@dimen/padding15"
-                android:paddingLeft="@dimen/padding15">
+                android:paddingStart="@dimen/padding25"
+                android:paddingLeft="@dimen/padding25">
 
                 <ImageView
                     android:id="@+id/img_home"
@@ -78,12 +185,12 @@
                 android:id="@+id/lnr_market"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:gravity="start"
-                android:paddingStart="@dimen/padding15"
-                android:paddingLeft="@dimen/padding15">
+                android:paddingStart="@dimen/padding25"
+                android:paddingLeft="@dimen/padding25">
 
-                <ImageView
+            <ImageView
                     android:id="@+id/img_market"
                     android:layout_width="@dimen/width35"
                     android:layout_height="@dimen/height35"
@@ -97,12 +204,12 @@
                 android:id="@+id/lnr_funds"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:gravity="start"
-                android:paddingStart="@dimen/padding15"
-                android:paddingLeft="@dimen/padding15">
+                android:paddingStart="@dimen/padding25"
+                android:paddingLeft="@dimen/padding25">
 
-                <ImageView
+            <ImageView
                     android:id="@+id/img_funds"
                     android:layout_width="@dimen/width35"
                     android:layout_height="@dimen/height35"
@@ -116,12 +223,12 @@
                 android:id="@+id/lnr_trade"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_weight="0.25"
                 android:gravity="start"
-                android:paddingStart="@dimen/padding15"
-                android:paddingLeft="@dimen/padding15">
+                android:paddingStart="@dimen/padding25"
+                android:paddingLeft="@dimen/padding25">
 
-                <ImageView
+            <ImageView
                     android:id="@+id/img_trade"
                     android:layout_width="@dimen/width35"
                     android:layout_height="@dimen/height35"
@@ -138,7 +245,8 @@
                 android:layout_weight="0.2"
                 android:gravity="start"
                 android:paddingStart="@dimen/padding15"
-                android:paddingLeft="@dimen/padding15">
+                android:paddingLeft="@dimen/padding15"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img_settings"

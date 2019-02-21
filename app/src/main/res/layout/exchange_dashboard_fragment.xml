@@ -27,7 +27,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/user" />
+                    android:src="@drawable/user"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/txt_title"
@@ -49,7 +50,7 @@
                     android:layout_weight="0.2"
                     android:scaleType="fitCenter"
                     android:src="@drawable/support"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
                 <ImageView
                     android:id="@+id/img_search"
@@ -59,7 +60,7 @@
                     android:layout_weight="0.2"
                     android:scaleType="fitCenter"
                     android:src="@drawable/search"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
             </LinearLayout>
 

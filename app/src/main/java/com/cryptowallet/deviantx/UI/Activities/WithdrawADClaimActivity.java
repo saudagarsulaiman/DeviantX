@@ -33,6 +33,7 @@ import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.DividendAirdrops;
 import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
 import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -440,12 +441,12 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     startForegroundService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
+                                    startForegroundService(new Intent(WithdrawADClaimActivity.this, DividendAirdropsFetch.class));
                                 } else {
                                     startService(new Intent(WithdrawADClaimActivity.this, FeaturedAirdropsFetch.class));
+                                    startService(new Intent(WithdrawADClaimActivity.this, DividendAirdropsFetch.class));
                                 }
-/*
-                                CommonUtilities.serviceStart(WithdrawADClaimActivity.this);
-*/
+
 
                                 Intent intent = new Intent(WithdrawADClaimActivity.this, DashBoardActivity.class);
                                 intent.putExtra(CONSTANTS.seletedTab, 2);

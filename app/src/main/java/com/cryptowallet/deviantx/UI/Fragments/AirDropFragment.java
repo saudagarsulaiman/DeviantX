@@ -172,14 +172,15 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
 
 
-/*
+        rview_fad_coins.setVisibility(View.GONE);
+        txt_fad_viewAll.setVisibility(View.GONE);
+        lnr_empty_feat_coins.setVisibility(View.VISIBLE);
         rview_div_ad_coins.setVisibility(View.GONE);
         txt_div_ad_viewAll.setVisibility(View.GONE);
         lnr_empty_div_coins.setVisibility(View.VISIBLE);
         rview_radh_coins.setVisibility(View.GONE);
         txt_radh_viewAll.setVisibility(View.GONE);
         lnr_empty_his_list.setVisibility(View.VISIBLE);
-*/
 
         txt_fad_viewAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,7 +233,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         handler.postDelayed(new Runnable() {
             public void run() {
                 onLoadAirDropWallet();
-                onLoadUserAirdrops();
+                onLoadFeaturedAirdrops();
                 onLoadDividendAirdrops();
                 onLoadAirdropsHistory();
             }
@@ -263,7 +264,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         TextView txt_config_wallet = mRvPop.findViewById(R.id.txt_config_wallet);
         TextView txt_ad_info = mRvPop.findViewById(R.id.txt_ad_info);
         TextView txt_delete = mRvPop.findViewById(R.id.txt_delete);
-        TextView txt_ad_history= mRvPop.findViewById(R.id.txt_ad_history);
+        TextView txt_ad_history = mRvPop.findViewById(R.id.txt_ad_history);
 
 /*
         txt_copy_wallet.setOnClickListener(new View.OnClickListener() {
@@ -552,7 +553,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
 
     //    **************GETTING USER AIRDROPS**************
-    private void onLoadUserAirdrops() {
+    private void onLoadFeaturedAirdrops() {
 
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -560,10 +561,10 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 FeaturedAirdropsDao featuredAirdropsDao = deviantXDB.featuredAirdropsDao();
                 if ((featuredAirdropsDao.getFeaturedAirdrops()) != null) {
                     String walletResult = featuredAirdropsDao.getFeaturedAirdrops().featuredAirdrops;
-                    updateUIUserAirdrops(walletResult);
+                    updateUIFeaturedAirdrops(walletResult);
                 } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
-                        fetchCoinsUserAirdrops();
+                        fetchCoinsFeaturedAirdrops();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
@@ -576,12 +577,12 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     FeaturedAirdropsUIListener featuredAirdropUIListener = new FeaturedAirdropsUIListener() {
         @Override
         public void onChangedFeaturedAirdrops(String allFeaturedAirdrops) {
-            updateUIUserAirdrops(allFeaturedAirdrops);
+            updateUIFeaturedAirdrops(allFeaturedAirdrops);
         }
 
     };
 
-    private void updateUIUserAirdrops(String responsevalue) {
+    private void updateUIFeaturedAirdrops(String responsevalue) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -605,10 +606,12 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                             lnr_empty_prtcptn.setVisibility(View.GONE);
                             featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList, false);
                             rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
+                            rview_fad_coins.setVisibility(View.VISIBLE);
                         } else {
                             lnr_empty_prtcptn.setVisibility(View.VISIBLE);
                             txt_fad_viewAll.setVisibility(View.GONE);
                             lnr_empty_feat_coins.setVisibility(View.VISIBLE);
+                            rview_fad_coins.setVisibility(View.GONE);
                         }
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
@@ -620,7 +623,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         });
     }
 
-    private void fetchCoinsUserAirdrops() {
+    private void fetchCoinsFeaturedAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
@@ -634,7 +637,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 //                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-                            updateUIUserAirdrops(responsevalue);
+                            updateUIFeaturedAirdrops(responsevalue);
 //                            progressDialog.dismiss();
                             FeaturedAirdropsDao mDao = deviantXDB.featuredAirdropsDao();
                             FeaturedAirdropsDB featuredAirdropsDB = new FeaturedAirdropsDB(1, responsevalue);

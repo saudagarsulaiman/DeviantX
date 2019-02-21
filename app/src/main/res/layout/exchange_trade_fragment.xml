@@ -26,7 +26,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="0.4"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/candle_chart" />
+                    android:src="@drawable/candle_chart"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/txt_title"
@@ -674,7 +675,8 @@
                 android:text="@string/get_discount"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_lbl_size"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
