@@ -92,7 +92,7 @@ public class MyApplication extends Application {
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
         isAppPin = sharedPreferences.getBoolean(CONSTANTS.is_app_pin, false);
 
-        new Instabug.Builder(this, "455ef4d57e58e0ad6b2d548fea185d0b")
+        new Instabug.Builder(this, "a3fffb4323814c6408c9b5eb7201b3e0")
                 .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
                 .build();
 
