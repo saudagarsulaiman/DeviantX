@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.cryptowallet.deviantx.R;
@@ -66,8 +67,12 @@ public class ExchangeMarketFragment extends Fragment {
     TabLayout tab_lyt_coinsList;
     @BindView(R.id.view_pager_Sup_product)
     ViewPager view_pager_Sup_product;
+/*
     @BindView(R.id.pb)
     ProgressBar pb;
+*/
+    @BindView(R.id.lnr_empty_gain_loose)
+    LinearLayout lnr_empty_gain_loose;
 
     private ExchangeCoinsDataPagerAdapter exchangeCoinsDataPagerAdapter;
 
@@ -130,7 +135,7 @@ public class ExchangeMarketFragment extends Fragment {
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();
             rview_coin.setVisibility(View.GONE);
-            pb.setVisibility(View.VISIBLE);
+//            pb.setVisibility(View.VISIBLE);
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -141,7 +146,7 @@ public class ExchangeMarketFragment extends Fragment {
                             try {
 
                                 allCoinPairsList = new ArrayList<>();
-                                pb.setVisibility(View.VISIBLE);
+//                                pb.setVisibility(View.VISIBLE);
                                 Log.e(TAG, "*****Received " /*+ PairsListList.get(selectedCoinPos).getStr_Code() */ + "*****: EMSFselectedTab" + message.getPayload());
                                 CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
@@ -157,15 +162,21 @@ public class ExchangeMarketFragment extends Fragment {
                                                     allCoinPairsList.add(allCoinPairs.get(i));
                                         }
 
-                                        gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
-                                        rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-                                        rview_coin.setVisibility(View.VISIBLE);
-                                        Handler handler = new Handler();
-                                        handler.postDelayed(new Runnable() {
-                                            public void run() {
-                                                pb.setVisibility(View.GONE);
-                                            }
-                                        }, 1200);
+                                        if (allCoinPairsList.size() > 0) {
+                                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                                            rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                                            lnr_empty_gain_loose.setVisibility(View.GONE);
+                                            rview_coin.setVisibility(View.VISIBLE);
+                                            /*Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    pb.setVisibility(View.GONE);
+                                                }
+                                            }, 1200);*/
+                                        } else {
+                                            lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                                            rview_coin.setVisibility(View.GONE);
+                                        }
                                     }
                                 });
                             } catch (Exception e) {
@@ -187,7 +198,7 @@ public class ExchangeMarketFragment extends Fragment {
                 selectedCoinPos = tab.getPosition();
                 selectedCoinName = PairsListList.get(selectedCoinPos).getStr_Code();
                 rview_coin.setVisibility(View.GONE);
-                pb.setVisibility(View.VISIBLE);
+//                pb.setVisibility(View.VISIBLE);
 //                            Updating List
                 updateCoinPairs(selectedCoinName);
             }
@@ -217,16 +228,22 @@ public class ExchangeMarketFragment extends Fragment {
                             allCoinPairsList.add(allCoinPairs.get(i));
                 }
 
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
-                rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-                gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                rview_coin.setVisibility(View.VISIBLE);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        pb.setVisibility(View.GONE);
-                    }
-                }, 400);
+                if (allCoinPairsList.size() > 0) {
+                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                    rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                    lnr_empty_gain_loose.setVisibility(View.GONE);
+                    rview_coin.setVisibility(View.VISIBLE);
+                   /* Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            pb.setVisibility(View.GONE);
+                        }
+                    }, 1200);*/
+                } else {
+                    lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                    rview_coin.setVisibility(View.GONE);
+                }
+
             }
         });
 
