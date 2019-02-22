@@ -1,118 +1,127 @@
 
-Osquid:S1444#"3Make this "public static defaultWallet" field final(•Á¤êøÿÿÿÿ
-Ksquid:S14448"4Make this "public static isExploreCoins" field final(àÑ­ã
-Csquid:S1444"-Make this "public static hideBal" field final(”°º
-Asquid:S1444	"*Make this "public static pswd" field final(Œíğã
-Jsquid:S1444,".Make this "public static send_bal" field final(¾Ûúøÿÿÿÿ
-‡"squid:ClassVariableVisibilityCheck"TMake walletId a static final constant or non-public and provide accessors if needed.(Áº§ğûÿÿÿÿ
 Gsquid:S1444"+Make this "public static token" field final(“é™ÿÿÿÿÿ
-Esquid:S1444")Make this "public static TAG" field final(»óéÎşÿÿÿÿ
-Gsquid:S1444"0Make this "public static screenshot" field final(‹á»ñ
-€"squid:ClassVariableVisibilityCheck"RMake sender a static final constant or non-public and provide accessors if needed.(¦šì
-†"squid:ClassVariableVisibilityCheck("SMake address a static final constant or non-public and provide accessors if needed.(¦ÄŒÖúÿÿÿÿ
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(á·á¤øÿÿÿÿ
-Tsquid:S1444"8Make this "public static selectedWalletCoin" field final(Ï¾È´ıÿÿÿÿ
-Fsquid:S1444"*Make this "public static seed" field final(ÛÏüÕùÿÿÿÿ
-Jsquid:S1444)".Make this "public static coinCode" field final(ƒèÕıÿÿÿÿ
-‰"squid:ClassVariableVisibilityCheck"VMake walletName a static final constant or non-public and provide accessors if needed.(Ë±°Ëüÿÿÿÿ
-…"squid:ClassVariableVisibilityCheck'"RMake amount a static final constant or non-public and provide accessors if needed.(òÄêäıÿÿÿÿ
-ssquid:S3008 "WRename this field "first_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È½Ê­ûÿÿÿÿ
-Jsquid:S1444".Make this "public static walletId" field final(Áº§ğûÿÿÿÿ
-—"squid:ClassVariableVisibilityCheck%"]Make defaultWalletName a static final constant or non-public and provide accessors if needed.(ÑÛí²úÿÿÿÿ8ûÙµ÷-
-jsquid:S3008"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»óéÎşÿÿÿÿ
-Rsquid:S14443"6Make this "public static selectedCoinCode" field final(Ã‚ÆÁùÿÿÿÿ
-‰"squid:ClassVariableVisibilityCheck&"VMake seletedTab a static final constant or non-public and provide accessors if needed.(«Ã±‹ûÿÿÿÿ
-"squid:ClassVariableVisibilityCheck"SMake allTags a static final constant or non-public and provide accessors if needed.(ú¤£Ç
-nsquid:S3008/"RRename this field "app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«‚Ğùıÿÿÿÿ
-Fsquid:S14444"/Make this "public static claimCoin" field final(±ò¬
-‡"squid:ClassVariableVisibilityCheck-"TMake fiat_bal a static final constant or non-public and provide accessors if needed.(²ñ«šùÿÿÿÿ
-Qsquid:S1444"5Make this "public static total_avail_bal" field final(‚¬ˆÑüÿÿÿÿ
-Œ"squid:ClassVariableVisibilityCheck#"YMake defaultWallet a static final constant or non-public and provide accessors if needed.(•Á¤êøÿÿÿÿ
-‘"squid:ClassVariableVisibilityCheck"^Make selectedWalletCoin a static final constant or non-public and provide accessors if needed.(Ï¾È´ıÿÿÿÿ
-Isquid:S1444"2Make this "public static DeviantMulti" field final(¨­ù
-Csquid:S1444
-",Make this "public static wallet" field final(é—ÛÎ
-Lsquid:S1444&"0Make this "public static seletedTab" field final(«Ã±‹ûÿÿÿÿ
-Fsquid:S14446"*Make this "public static sent" field final(°Éúùÿÿÿÿ
-Isquid:S1444."-Make this "public static ttl_rcv" field final(îğ§ëùÿÿÿÿ
-osquid:S3008,"SRename this field "send_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾Ûúøÿÿÿÿ
-Isquid:S1444/"-Make this "public static app_pin" field final(«‚Ğùıÿÿÿÿ
-ˆ"squid:ClassVariableVisibilityCheck8"ZMake isExploreCoins a static final constant or non-public and provide accessors if needed.(àÑ­ã
-Wsquid:S1444";Make this "public static selectedAccountWallet" field final(¬Ñ¸úÿÿÿÿ
-osquid:S3008-"SRename this field "fiat_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ñ«šùÿÿÿÿ
-Isquid:S1444"2Make this "public static empty_wallet" field final(ÛúÌ
-Nsquid:S1444 "2Make this "public static first_wallet" field final(È½Ê­ûÿÿÿÿ
-Nsquid:S1444"2Make this "public static selectedTags" field final(¿º¸÷ûÿÿÿÿ
+Jsquid:S1444,".Make this "public static send_bal" field final(¾Ûúøÿÿÿÿ
 „"squid:ClassVariableVisibilityCheck"VMake screenshot a static final constant or non-public and provide accessors if needed.(‹á»ñ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÂ¡°
-Osquid:S1444!"3Make this "public static twoFactorAuth" field final(øì‘ëşÿÿÿÿ
-Lsquid:S1444"0Make this "public static walletName" field final(Ë±°Ëüÿÿÿÿ
-Hsquid:S1444'",Make this "public static amount" field final(òÄêäıÿÿÿÿ
-~"squid:ClassVariableVisibilityCheck	"PMake pswd a static final constant or non-public and provide accessors if needed.(Œíğã
-‹"squid:ClassVariableVisibilityCheck"XMake selectedCoin a static final constant or non-public and provide accessors if needed.(ÀãÏøÿÿÿÿ
-”"squid:ClassVariableVisibilityCheck"aMake selectedAccountWallet a static final constant or non-public and provide accessors if needed.(¬Ñ¸úÿÿÿÿ
-bsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(£Ş¼Š
-„"squid:ClassVariableVisibilityCheck"QMake usrnm a static final constant or non-public and provide accessors if needed.(Ä›©Œøÿÿÿÿ
-†"squid:ClassVariableVisibilityCheck/"SMake app_pin a static final constant or non-public and provide accessors if needed.(«‚Ğùıÿÿÿÿ
-Œ"squid:ClassVariableVisibilityCheck!"YMake twoFactorAuth a static final constant or non-public and provide accessors if needed.(øì‘ëşÿÿÿÿ
-"squid:ClassVariableVisibilityCheck3"\Make selectedCoinCode a static final constant or non-public and provide accessors if needed.(Ã‚ÆÁùÿÿÿÿ
-"squid:ClassVariableVisibilityCheck"TMake receiver a static final constant or non-public and provide accessors if needed.(­ŠÛ5
-†"squid:ClassVariableVisibilityCheck"XMake DeviantMulti a static final constant or non-public and provide accessors if needed.(¨­ù
-Gsquid:S1444*"+Make this "public static check" field final(åÈÃÜøÿÿÿÿ
-lsquid:S30080"URename this field "is_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä¡Şš
-Dsquid:S1444".Make this "public static receiver" field final(­ŠÛ5
-ƒ"squid:ClassVariableVisibilityCheck5"UMake transType a static final constant or non-public and provide accessors if needed.(Õëı­
-Psquid:S1444"4Make this "public static selectedWallet" field final(¤á¹ğùÿÿÿÿ
-Esquid:S14447".Make this "public static received" field final(²Í¯’
-"squid:ClassVariableVisibilityCheck2"\Make selectedCoinName a static final constant or non-public and provide accessors if needed.(ŠÖ§›ùÿÿÿÿ
-Csquid:S1444",Make this "public static sender" field final(¦šì
-Jsquid:S1444+".Make this "public static login2FA" field final(ĞüÈãøÿÿÿÿ
-Fsquid:S14445"/Make this "public static transType" field final(Õëı­
-Gsquid:S1444"+Make this "public static email" field final(­ó¼‰ıÿÿÿÿ
-ƒ"squid:ClassVariableVisibilityCheck4"UMake claimCoin a static final constant or non-public and provide accessors if needed.(±ò¬
-Gsquid:S1444"0Make this "public static first_time" field final(ı©ìÆ
-Dsquid:S1444"-Make this "public static allTags" field final(ú¤£Ç
-š"squid:ClassVariableVisibilityCheck$"`Make defaultAccountWallet a static final constant or non-public and provide accessors if needed.(¡ÔÚîüÿÿÿÿ8Š‡°÷-
-vsquid:S3008"ZRename this field "total_avail_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚¬ˆÑüÿÿÿÿ
-hsquid:S30081"QRename this field "reg_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡²
-‡"squid:ClassVariableVisibilityCheck)"TMake coinCode a static final constant or non-public and provide accessors if needed.(ƒèÕıÿÿÿÿ
-Csquid:S14441",Make this "public static reg_ID" field final(¡²
-‚"squid:ClassVariableVisibilityCheck"TMake usdValue a static final constant or non-public and provide accessors if needed.(ËÔ€Ğ
-„"squid:ClassVariableVisibilityCheck"QMake token a static final constant or non-public and provide accessors if needed.(“é™ÿÿÿÿÿ
-Esquid:S1444".Make this "public static usdValue" field final(ËÔ€Ğ
-Isquid:S1444("-Make this "public static address" field final(¦ÄŒÖúÿÿÿÿ
-‹"squid:ClassVariableVisibilityCheck"XMake selectedTags a static final constant or non-public and provide accessors if needed.(¿º¸÷ûÿÿÿÿ
-"squid:ClassVariableVisibilityCheck"[Make total_avail_bal a static final constant or non-public and provide accessors if needed.(‚¬ˆÑüÿÿÿÿ
-‚"squid:ClassVariableVisibilityCheck"OMake TAG a static final constant or non-public and provide accessors if needed.(»óéÎşÿÿÿÿ
-Zsquid:S1444%"7Make this "public static defaultWalletName" field final(ÑÛí²úÿÿÿÿ8ûÙµ÷-
-„"squid:ClassVariableVisibilityCheck*"QMake check a static final constant or non-public and provide accessors if needed.(åÈÃÜøÿÿÿÿ
-Jsquid:S1444-".Make this "public static fiat_bal" field final(²ñ«šùÿÿÿÿ
-Ksquid:S1444"/Make this "public static lightmode" field final(­àÌÿÿÿÿÿ
-€"squid:ClassVariableVisibilityCheck1"RMake reg_ID a static final constant or non-public and provide accessors if needed.(¡²
-„"squid:ClassVariableVisibilityCheck0"VMake is_app_pin a static final constant or non-public and provide accessors if needed.(Ä¡Şš
-Gsquid:S14440"0Make this "public static is_app_pin" field final(Ä¡Şš
-€"squid:ClassVariableVisibilityCheck"SMake hideBal a static final constant or non-public and provide accessors if needed.(”°º
-‡"squid:ClassVariableVisibilityCheck,"TMake send_bal a static final constant or non-public and provide accessors if needed.(¾Ûúøÿÿÿÿ
-ƒ"squid:ClassVariableVisibilityCheck6"PMake sent a static final constant or non-public and provide accessors if needed.(°Éúùÿÿÿÿ
-‚"squid:ClassVariableVisibilityCheck7"TMake received a static final constant or non-public and provide accessors if needed.(²Í¯’
-„"squid:ClassVariableVisibilityCheck"VMake first_time a static final constant or non-public and provide accessors if needed.(ı©ìÆ
-nsquid:S3008"WRename this field "DeviantMulti" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨­ù
-ƒ"squid:ClassVariableVisibilityCheck"PMake seed a static final constant or non-public and provide accessors if needed.(ÛÏüÕùÿÿÿÿ
-Fsquid:S1444""/Make this "public static twoFACode" field final(ıŠÂ
-†"squid:ClassVariableVisibilityCheck."SMake ttl_rcv a static final constant or non-public and provide accessors if needed.(îğ§ëùÿÿÿÿ
-„"squid:ClassVariableVisibilityCheck"QMake email a static final constant or non-public and provide accessors if needed.(­ó¼‰ıÿÿÿÿ
-ˆ"squid:ClassVariableVisibilityCheck"UMake lightmode a static final constant or non-public and provide accessors if needed.(­àÌÿÿÿÿÿ
 ]squid:S1444$":Make this "public static defaultAccountWallet" field final(¡ÔÚîüÿÿÿÿ8Š‡°÷-
-nsquid:S3008."RRename this field "ttl_rcv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îğ§ëùÿÿÿÿ
-‹"squid:ClassVariableVisibilityCheck "XMake first_wallet a static final constant or non-public and provide accessors if needed.(È½Ê­ûÿÿÿÿ
-Nsquid:S1444"2Make this "public static selectedCoin" field final(ÀãÏøÿÿÿÿ
-Gsquid:S1444"+Make this "public static usrnm" field final(Ä›©Œøÿÿÿÿ
-nsquid:S3008"WRename this field "empty_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛúÌ
-‡"squid:ClassVariableVisibilityCheck+"TMake login2FA a static final constant or non-public and provide accessors if needed.(ĞüÈãøÿÿÿÿ
-lsquid:S3008"URename this field "first_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı©ìÆ
-Rsquid:S14442"6Make this "public static selectedCoinName" field final(ŠÖ§›ùÿÿÿÿ
-†"squid:ClassVariableVisibilityCheck"XMake empty_wallet a static final constant or non-public and provide accessors if needed.(ÛúÌ
+"squid:ClassVariableVisibilityCheck;"UMake ServerUrl a static final constant or non-public and provide accessors if needed.(³ñ®ôøÿÿÿÿ8ªæ“ú-
+jsquid:S3008"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»óéÎşÿÿÿÿ
+…"squid:ClassVariableVisibilityCheck'"RMake amount a static final constant or non-public and provide accessors if needed.(òÄêäıÿÿÿÿ
+„"squid:ClassVariableVisibilityCheck0"VMake is_app_pin a static final constant or non-public and provide accessors if needed.(Ä¡Şš
+ƒ"squid:ClassVariableVisibilityCheck4"UMake claimCoin a static final constant or non-public and provide accessors if needed.(±ò¬
+‹"squid:ClassVariableVisibilityCheck"XMake selectedTags a static final constant or non-public and provide accessors if needed.(¿º¸÷ûÿÿÿÿ
+‹"squid:ClassVariableVisibilityCheck"XMake selectedCoin a static final constant or non-public and provide accessors if needed.(ÀãÏøÿÿÿÿ
+nsquid:S3008"WRename this field "DeviantMulti" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨­ù
+Asquid:S1444	"*Make this "public static pswd" field final(Œíğã
+Wsquid:S1444";Make this "public static selectedAccountWallet" field final(¬Ñ¸úÿÿÿÿ
+Osquid:S1444#"3Make this "public static defaultWallet" field final(•Á¤êøÿÿÿÿ
+ssquid:S3008 "WRename this field "first_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È½Ê­ûÿÿÿÿ
+ˆ"squid:ClassVariableVisibilityCheck"UMake lightmode a static final constant or non-public and provide accessors if needed.(­àÌÿÿÿÿÿ
+Gsquid:S1444"0Make this "public static first_time" field final(ı©ìÆ
+Lsquid:S1444&"0Make this "public static seletedTab" field final(«Ã±‹ûÿÿÿÿ
+Isquid:S1444<"+Make this "public static AppId" field final(±şß¾8ªæ“ú-
+ƒ"squid:ClassVariableVisibilityCheck"PMake seed a static final constant or non-public and provide accessors if needed.(ÛÏüÕùÿÿÿÿ
+š"squid:ClassVariableVisibilityCheck$"`Make defaultAccountWallet a static final constant or non-public and provide accessors if needed.(¡ÔÚîüÿÿÿÿ8Š‡°÷-
+„"squid:ClassVariableVisibilityCheck"VMake first_time a static final constant or non-public and provide accessors if needed.(ı©ìÆ
+osquid:S3008,"SRename this field "send_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾Ûúøÿÿÿÿ
+Csquid:S1444"-Make this "public static hideBal" field final(”°º
+Gsquid:S1444"0Make this "public static screenshot" field final(‹á»ñ
 "squid:ClassVariableVisibilityCheck"ZMake selectedWallet a static final constant or non-public and provide accessors if needed.(¤á¹ğùÿÿÿÿ
+Fsquid:S14445"/Make this "public static transType" field final(Õëı­
+‡"squid:ClassVariableVisibilityCheck-"TMake fiat_bal a static final constant or non-public and provide accessors if needed.(²ñ«šùÿÿÿÿ
+‘"squid:ClassVariableVisibilityCheck"^Make selectedWalletCoin a static final constant or non-public and provide accessors if needed.(Ï¾È´ıÿÿÿÿ
+Jsquid:S1444)".Make this "public static coinCode" field final(ƒèÕıÿÿÿÿ
+ƒ"squid:ClassVariableVisibilityCheck6"PMake sent a static final constant or non-public and provide accessors if needed.(°Éúùÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ØÂ¡°
+Fsquid:S1444""/Make this "public static twoFACode" field final(ıŠÂ
 €"squid:ClassVariableVisibilityCheck
 "RMake wallet a static final constant or non-public and provide accessors if needed.(é—ÛÎ
+€"squid:ClassVariableVisibilityCheck"RMake sender a static final constant or non-public and provide accessors if needed.(¦šì
+Œ"squid:ClassVariableVisibilityCheck!"YMake twoFactorAuth a static final constant or non-public and provide accessors if needed.(øì‘ëşÿÿÿÿ
+Ksquid:S14448"4Make this "public static isExploreCoins" field final(àÑ­ã
+Nsquid:S1444"2Make this "public static selectedTags" field final(¿º¸÷ûÿÿÿÿ
+Rsquid:S14443"6Make this "public static selectedCoinCode" field final(Ã‚ÆÁùÿÿÿÿ
+Fsquid:S14446"*Make this "public static sent" field final(°Éúùÿÿÿÿ
+Gsquid:S1444*"+Make this "public static check" field final(åÈÃÜøÿÿÿÿ
+Ksquid:S1444"/Make this "public static lightmode" field final(­àÌÿÿÿÿÿ
+Jsquid:S1444+".Make this "public static login2FA" field final(ĞüÈãøÿÿÿÿ
+Lsquid:S1444"0Make this "public static walletName" field final(Ë±°Ëüÿÿÿÿ
+Csquid:S14441",Make this "public static reg_ID" field final(¡²
+Gsquid:S1444"+Make this "public static usrnm" field final(Ä›©Œøÿÿÿÿ
+"squid:ClassVariableVisibilityCheck"TMake receiver a static final constant or non-public and provide accessors if needed.(­ŠÛ5
+†"squid:ClassVariableVisibilityCheck."SMake ttl_rcv a static final constant or non-public and provide accessors if needed.(îğ§ëùÿÿÿÿ
+Psquid:S1444"4Make this "public static selectedWallet" field final(¤á¹ğùÿÿÿÿ
+bsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(£Ş¼Š
+Csquid:S1444
+",Make this "public static wallet" field final(é—ÛÎ
+Fsquid:S14444"/Make this "public static claimCoin" field final(±ò¬
+”"squid:ClassVariableVisibilityCheck"aMake selectedAccountWallet a static final constant or non-public and provide accessors if needed.(¬Ñ¸úÿÿÿÿ
+osquid:S3008-"SRename this field "fiat_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ñ«šùÿÿÿÿ
+Jsquid:S1444-".Make this "public static fiat_bal" field final(²ñ«šùÿÿÿÿ
+Isquid:S1444("-Make this "public static address" field final(¦ÄŒÖúÿÿÿÿ
+Tsquid:S1444"8Make this "public static selectedWalletCoin" field final(Ï¾È´ıÿÿÿÿ
+‰"squid:ClassVariableVisibilityCheck&"VMake seletedTab a static final constant or non-public and provide accessors if needed.(«Ã±‹ûÿÿÿÿ
+nsquid:S3008/"RRename this field "app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«‚Ğùıÿÿÿÿ
+†"squid:ClassVariableVisibilityCheck/"SMake app_pin a static final constant or non-public and provide accessors if needed.(«‚Ğùıÿÿÿÿ
+†"squid:ClassVariableVisibilityCheck<"QMake AppId a static final constant or non-public and provide accessors if needed.(±şß¾8ªæ“ú-
+"squid:ClassVariableVisibilityCheck3"\Make selectedCoinCode a static final constant or non-public and provide accessors if needed.(Ã‚ÆÁùÿÿÿÿ
+Š"squid:ClassVariableVisibilityCheck="UMake MasterKey a static final constant or non-public and provide accessors if needed.(ßãå¼8ªæ“ú-
+nsquid:S3008"WRename this field "empty_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛúÌ
+Dsquid:S1444"-Make this "public static allTags" field final(ú¤£Ç
+rsquid:S3008="TRename this field "MasterKey" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßãå¼8ªæ“ú-
+nsquid:S3008<"PRename this field "AppId" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±şß¾8ªæ“ú-
+lsquid:S30080"URename this field "is_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä¡Şš
+Rsquid:S14442"6Make this "public static selectedCoinName" field final(ŠÖ§›ùÿÿÿÿ
+„"squid:ClassVariableVisibilityCheck*"QMake check a static final constant or non-public and provide accessors if needed.(åÈÃÜøÿÿÿÿ
+Isquid:S1444"2Make this "public static DeviantMulti" field final(¨­ù
+Hsquid:S1444'",Make this "public static amount" field final(òÄêäıÿÿÿÿ
+Œ"squid:ClassVariableVisibilityCheck#"YMake defaultWallet a static final constant or non-public and provide accessors if needed.(•Á¤êøÿÿÿÿ
+Nsquid:S1444"2Make this "public static selectedCoin" field final(ÀãÏøÿÿÿÿ
 ƒ"squid:ClassVariableVisibilityCheck""UMake twoFACode a static final constant or non-public and provide accessors if needed.(ıŠÂ
+‰"squid:ClassVariableVisibilityCheck"VMake walletName a static final constant or non-public and provide accessors if needed.(Ë±°Ëüÿÿÿÿ
+Csquid:S1444",Make this "public static sender" field final(¦šì
+‡"squid:ClassVariableVisibilityCheck)"TMake coinCode a static final constant or non-public and provide accessors if needed.(ƒèÕıÿÿÿÿ
+Isquid:S1444"2Make this "public static empty_wallet" field final(ÛúÌ
+ˆ"squid:ClassVariableVisibilityCheck8"ZMake isExploreCoins a static final constant or non-public and provide accessors if needed.(àÑ­ã
+Zsquid:S1444%"7Make this "public static defaultWalletName" field final(ÑÛí²úÿÿÿÿ8ûÙµ÷-
+Fsquid:S1444"*Make this "public static seed" field final(ÛÏüÕùÿÿÿÿ
+„"squid:ClassVariableVisibilityCheck"QMake token a static final constant or non-public and provide accessors if needed.(“é™ÿÿÿÿÿ
+„"squid:ClassVariableVisibilityCheck"QMake email a static final constant or non-public and provide accessors if needed.(­ó¼‰ıÿÿÿÿ
+Isquid:S1444."-Make this "public static ttl_rcv" field final(îğ§ëùÿÿÿÿ
+Msquid:S1444="/Make this "public static MasterKey" field final(ßãå¼8ªæ“ú-
+Esquid:S1444".Make this "public static usdValue" field final(ËÔ€Ğ
+†"squid:ClassVariableVisibilityCheck"XMake empty_wallet a static final constant or non-public and provide accessors if needed.(ÛúÌ
+"squid:ClassVariableVisibilityCheck"SMake allTags a static final constant or non-public and provide accessors if needed.(ú¤£Ç
+‚"squid:ClassVariableVisibilityCheck7"TMake received a static final constant or non-public and provide accessors if needed.(²Í¯’
+Nsquid:S1444 "2Make this "public static first_wallet" field final(È½Ê­ûÿÿÿÿ
+lsquid:S3008"URename this field "first_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı©ìÆ
+wsquid:S3008;"TRename this field "ServerUrl" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ñ®ôøÿÿÿÿ8ªæ“ú-
+—"squid:ClassVariableVisibilityCheck%"]Make defaultWalletName a static final constant or non-public and provide accessors if needed.(ÑÛí²úÿÿÿÿ8ûÙµ÷-
+€"squid:ClassVariableVisibilityCheck1"RMake reg_ID a static final constant or non-public and provide accessors if needed.(¡²
+hsquid:S30081"QRename this field "reg_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡²
+ƒ"squid:ClassVariableVisibilityCheck5"UMake transType a static final constant or non-public and provide accessors if needed.(Õëı­
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(á·á¤øÿÿÿÿ
+‹"squid:ClassVariableVisibilityCheck "XMake first_wallet a static final constant or non-public and provide accessors if needed.(È½Ê­ûÿÿÿÿ
+‡"squid:ClassVariableVisibilityCheck+"TMake login2FA a static final constant or non-public and provide accessors if needed.(ĞüÈãøÿÿÿÿ
+‡"squid:ClassVariableVisibilityCheck,"TMake send_bal a static final constant or non-public and provide accessors if needed.(¾Ûúøÿÿÿÿ
+„"squid:ClassVariableVisibilityCheck"QMake usrnm a static final constant or non-public and provide accessors if needed.(Ä›©Œøÿÿÿÿ
+Jsquid:S1444".Make this "public static walletId" field final(Áº§ğûÿÿÿÿ
+‚"squid:ClassVariableVisibilityCheck"TMake usdValue a static final constant or non-public and provide accessors if needed.(ËÔ€Ğ
+~"squid:ClassVariableVisibilityCheck	"PMake pswd a static final constant or non-public and provide accessors if needed.(Œíğã
+‡"squid:ClassVariableVisibilityCheck"TMake walletId a static final constant or non-public and provide accessors if needed.(Áº§ğûÿÿÿÿ
+€"squid:ClassVariableVisibilityCheck"SMake hideBal a static final constant or non-public and provide accessors if needed.(”°º
+Gsquid:S1444"+Make this "public static email" field final(­ó¼‰ıÿÿÿÿ
+Osquid:S1444!"3Make this "public static twoFactorAuth" field final(øì‘ëşÿÿÿÿ
+Qsquid:S1444"5Make this "public static total_avail_bal" field final(‚¬ˆÑüÿÿÿÿ
+‚"squid:ClassVariableVisibilityCheck"OMake TAG a static final constant or non-public and provide accessors if needed.(»óéÎşÿÿÿÿ
+Dsquid:S1444".Make this "public static receiver" field final(­ŠÛ5
+vsquid:S3008"ZRename this field "total_avail_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚¬ˆÑüÿÿÿÿ
+nsquid:S3008."RRename this field "ttl_rcv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îğ§ëùÿÿÿÿ
+Esquid:S14447".Make this "public static received" field final(²Í¯’
+Isquid:S1444/"-Make this "public static app_pin" field final(«‚Ğùıÿÿÿÿ
+Gsquid:S14440"0Make this "public static is_app_pin" field final(Ä¡Şš
+"squid:ClassVariableVisibilityCheck2"\Make selectedCoinName a static final constant or non-public and provide accessors if needed.(ŠÖ§›ùÿÿÿÿ
+Esquid:S1444")Make this "public static TAG" field final(»óéÎşÿÿÿÿ
+Rsquid:S1444;"/Make this "public static ServerUrl" field final(³ñ®ôøÿÿÿÿ8ªæ“ú-
+"squid:ClassVariableVisibilityCheck"[Make total_avail_bal a static final constant or non-public and provide accessors if needed.(‚¬ˆÑüÿÿÿÿ
+†"squid:ClassVariableVisibilityCheck"XMake DeviantMulti a static final constant or non-public and provide accessors if needed.(¨­ù
+†"squid:ClassVariableVisibilityCheck("SMake address a static final constant or non-public and provide accessors if needed.(¦ÄŒÖúÿÿÿÿ

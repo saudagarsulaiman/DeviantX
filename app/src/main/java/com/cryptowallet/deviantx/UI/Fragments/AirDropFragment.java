@@ -734,9 +734,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         if (dividendCoinsList.size() > 0) {
                             txt_div_ad_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_div_coins.setVisibility(View.GONE);
+                            rview_div_ad_coins.setVisibility(View.VISIBLE);
                             dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity(), dividendCoinsList, false);
                             rview_div_ad_coins.setAdapter(dividendADHorizantalRAdapter);
                         } else {
+                            rview_div_ad_coins.setVisibility(View.GONE);
                             txt_div_ad_viewAll.setVisibility(View.GONE);
                             lnr_empty_div_coins.setVisibility(View.VISIBLE);
                         }
@@ -860,9 +862,11 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         if (airdropsHistoryList.size() > 0) {
                             txt_radh_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_his_list.setVisibility(View.GONE);
+                            rview_radh_coins.setVisibility(View.VISIBLE);
                             recentADHistoryRAdapter = new RecentADHistoryRAdapter(getActivity(), airdropsHistoryList, false);
                             rview_radh_coins.setAdapter(recentADHistoryRAdapter);
                         } else {
+                            rview_radh_coins.setVisibility(View.GONE);
                             txt_radh_viewAll.setVisibility(View.GONE);
                             lnr_empty_his_list.setVisibility(View.VISIBLE);
                         }

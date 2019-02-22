@@ -1,0 +1,11 @@
+
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÆÆÙ‘
+Fsquid:S14818"/Remove this unused "instanceID" local variable.(—™½
+Ssquid:S18549"<Remove this useless assignment to local variable "senderId".(ï³¶­
+Usquid:S18548">Remove this useless assignment to local variable "instanceID".(—™½
+Zsquid:CallToDeprecatedMethod8"2Remove this use of "InstanceID"; it is deprecated.(—™½
+Dsquid:S14819"-Remove this unused "senderId" local variable.(ï³¶­
+Xsquid:CallToDeprecatedMethod:"0Remove this use of "getToken"; it is deprecated.(äá
+Zsquid:CallToDeprecatedMethod8"2Remove this use of "InstanceID"; it is deprecated.(—™½
+usquid:UselessImportCheck"LRemove this unused import 'com.google.android.gms.gcm.GoogleCloudMessaging'.(ªøüúÿÿÿÿÿ
+?squid:S16044"(Make this anonymous inner class a lambda(âˆ®

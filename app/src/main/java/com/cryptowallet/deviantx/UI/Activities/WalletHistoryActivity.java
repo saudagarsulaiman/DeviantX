@@ -150,25 +150,18 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(WalletHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_trans_history.setLayoutManager(layoutManager);
-//        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, transactions, selectedAccountWallet);
-//        rview_trans_history.setAdapter(walletHistoryRAdapter);
 
 
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
-            fetchAllHistory(selectedAccountWallet);
 /*
+            fetchAllHistory(selectedAccountWallet);
+*/
             if (transType.equals(CONSTANTS.sent)) {
                 fetchSentHistory(selectedAccountWallet);
             } else {
                 fetchReceivedHistory(selectedAccountWallet);
             }
-*/
 
-
-/*
-//            Transaction History
-            fetchTransactionHistory(selectedAccountWallet);
-*/
 
         } else {
             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.internetconnection));
@@ -375,9 +368,11 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                             rview_trans_history.setAdapter(walletHistoryRAdapter);
                                             lnr_trans_avail.setVisibility(View.VISIBLE);
                                             lnr_no_trans.setVisibility(View.GONE);
+                                            rview_trans_history.setVisibility(View.VISIBLE);
                                         } else {
                                             lnr_no_trans.setVisibility(View.VISIBLE);
                                             lnr_trans_avail.setVisibility(View.GONE);
+                                            rview_trans_history.setVisibility(View.GONE);
                                         }
 
                                     }

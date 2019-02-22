@@ -1,6 +1,6 @@
 
-bsquid:CommentedOutCodeLine'"<This block of commented-out lines of code should be removed.(²ÎäÜ
-jsquid:S00116"RRename this field "edt_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðáê§
-tsquid:S00116"WRename this field "btn_continue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üø“ÿÿÿÿÿ
-isquid:S001179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘•’”
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(²ÎäÜ8‹ë¡ø-
+osquid:S00116"RRename this field "edt_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðáê§8‹ë¡ø-
+ysquid:S00116"WRename this field "btn_continue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üø“ÿÿÿÿÿ8‹ë¡ø-
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘•’”8‹ë¡ø-

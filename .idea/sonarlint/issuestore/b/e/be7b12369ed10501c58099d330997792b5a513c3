@@ -1,0 +1,18 @@
+
+nsquid:CommentedOutCodeLine3"<This block of commented-out lines of code should be removed.(ýßˆãüÿÿÿÿ8¦‡Úú-
+Hsquid:S1481",Remove this unused "channel" local variable.(¾·Ìáùÿÿÿÿ
+Isquid:S1481"+Remove this unused "pushId" local variable.(ö„ãå8Ôä›ƒ‘-
+?squid:S1148C"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+nsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(†È–Ïùÿÿÿÿ8Ôä›ƒ‘-
+osquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ˆóÞ¾øÿÿÿÿ8¤ðÝú-
+Wsquid:S1854";Remove this useless assignment to local variable "channel".(¾·Ìáùÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÆÆÙ‘
+Nsquid:S1172-"0Remove this unused method parameter "timestamp".(“ðÿ8¶…Ïú-
+2squid:S3626&"Remove this redundant jump.(ûÁÝ…
+asquid:CommentedOutCodeLine*"<This block of commented-out lines of code should be removed.(•ßòV
+Xsquid:S1854":Remove this useless assignment to local variable "pushId".(ö„ãå8Ôä›ƒ‘-
+isquid:CommentedOutCodeLine~"<This block of commented-out lines of code should be removed.( ß¦ö8ç‰„û-
+isquid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(â½ª‰8ù´Íú-
+bsquid:CallToDeprecatedMethod":Remove this use of "GcmListenerService"; it is deprecated.(ã–æ‘
+Usquid:S18544"9Remove this useless assignment to local variable "title".(ø÷¡õûÿÿÿÿ
+[squid:S2147B"DCombine this catch with the one at line 64, which has the same body.(”ý¾

@@ -69,10 +69,7 @@ public class WalletHistoryRAdapter extends RecyclerView.Adapter<WalletHistoryRAd
 //        viewHolder.txt_time.setText(getTime(transactionList.get(i).getStr_data_txnDate()));
 
 
-/*
-        if (*/
-        /*transactionList.get(i).getStr_data_category().equals("sent")*//*
-isSent) {
+        if (isSent) {
             if (!hideBal) {
                 if (sentHistoriesList.get(i).getStr_toAddress().length() < 15) {
                     viewHolder.txt_trans_address.setText("To " + sentHistoriesList.get(i).getStr_toAddress());
@@ -115,8 +112,8 @@ isSent) {
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.receive));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.green));
         }
-*/
 
+/*
         if (sentHistoriesList.get(i).getStr_toAddress() != null) {
             if (!hideBal) {
                 if (sentHistoriesList.get(i).getStr_toAddress().length() < 15) {
@@ -160,19 +157,18 @@ isSent) {
             viewHolder.img_send_type.setImageDrawable(context.getResources().getDrawable(R.drawable.receive));
             viewHolder.txt_trans_amount.setTextColor(context.getResources().getColor(R.color.green));
         }
+*/
 
     }
 
     @Override
     public int getItemCount() {
-/*
         if (isSent) {
             return sentHistoriesList.size();
         } else {
             return receivedHistoriesList.size();
         }
-*/
-        return sentHistoriesList.size();
+//        return sentHistoriesList.size();
     }
 
 
