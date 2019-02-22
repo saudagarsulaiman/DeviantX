@@ -13,15 +13,15 @@ import retrofit2.http.POST;
 public interface AuthenticationApi {
 
     @Headers("Content-Type: application/json")
-    @POST("/api/v2/authenticate/add_seed")
+    @POST("/api_v2/authenticate/add_seed")
     Call<ResponseBody> addSeed(@Body String body);
 
     @Headers("Content-Type: application/json")
-    @POST("/api/v2/authenticate/login")
+    @POST("/api_v2/authenticate/login")
     Call<ResponseBody> loginAccount(@Body String body);
 
     @Headers("Content-Type: application/json")
-    @POST("/api/v2/authenticate/login_2fa")
+    @POST("/api_v2/authenticate/login_2fa")
     Call<ResponseBody> Login2FA(@Body String body);
 
 
