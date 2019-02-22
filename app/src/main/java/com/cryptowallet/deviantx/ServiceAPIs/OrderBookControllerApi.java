@@ -15,26 +15,26 @@ import retrofit2.http.Path;
 
 public interface OrderBookControllerApi {
 
-    @GET("/api_v2/order_book/cancel/{order_id}")
+    @GET("/api/v2/order_book/cancel/{order_id}")
     Call<ResponseBody> cancelOrder(@Header("Authorization") String AuthorizationDX, @Path("order_id") String order_idX);
 
-    @GET("/api_v2/order_book/get/all")
+    @GET("/api/v2/order_book/get/all")
     Call<ResponseBody> getAll(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/order_book/get/all/completed")
+    @GET("/api/v2/order_book/get/all/completed")
     Call<ResponseBody> getAllCompleted(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/order_book/get/all/open_pending")
+    @GET("/api/v2/order_book/get/all/open_pending")
     Call<ResponseBody> getAllOpen(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/order_book/get/buy")
+    @GET("/api/v2/order_book/get/buy")
     Call<ResponseBody> getBuy(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/order_book/get/sell")
+    @GET("/api/v2/order_book/get/sell")
     Call<ResponseBody> getSell(@Header("Authorization") String AuthorizationDX);
 
     @Headers("Content-Type: application/json")
-    @POST("/api_v2/order_book/init/order")
+    @POST("/api/v2/order_book/init/order")
     Call<ResponseBody> getOrder(@Header("Authorization") String AuthorizationDX, @Body String body);
 
 }

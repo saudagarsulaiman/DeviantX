@@ -17,20 +17,20 @@ import retrofit2.http.Path;
 public interface UserAirdropControllerApi {
 
     @Headers("Content-Type: application/json")
-    @POST("/api_v2/user_airdrop/claim_airdrop_amount")
+    @POST("/api/v2/user_airdrop/claim_airdrop_amount")
     Call<ResponseBody> postClaimADAmount(@Body String body, @Header("Authorization") String AuthorizationDX);
 
     @Headers("Content-Type: application/json")
-    @POST("/api_v2/user_airdrop/create_new_airdrop")
+    @POST("/api/v2/user_airdrop/create_new_airdrop")
     Call<ResponseBody> createNewAD(@Body String body,@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/user_airdrop/get_airdrop_history")
+    @GET("/api/v2/user_airdrop/get_airdrop_history")
     Call<ResponseBody> getADHistory(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/user_airdrop/get_claim_airdrop")
+    @GET("/api/v2/user_airdrop/get_claim_airdrop")
     Call<ResponseBody> getClaimADAmount(@Header("Authorization") String AuthorizationDX);
 
-    @GET("/api_v2/user_airdrop/get_user_airdrop")
+    @GET("/api/v2/user_airdrop/get_user_airdrop")
     Call<ResponseBody> getUserAD(@Header("Authorization") String AuthorizationDX);
 
 }

@@ -153,14 +153,14 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
 
         if (CommonUtilities.isConnectionAvailable(WalletHistoryActivity.this)) {
-/*
             fetchAllHistory(selectedAccountWallet);
-*/
+/*
             if (transType.equals(CONSTANTS.sent)) {
                 fetchSentHistory(selectedAccountWallet);
             } else {
                 fetchReceivedHistory(selectedAccountWallet);
             }
+*/
 
 
         } else {
