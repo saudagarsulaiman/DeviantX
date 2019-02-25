@@ -9,12 +9,14 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface ExchangePairControllerApi {
 
     @GET("/api_v2/exchange_pair/exchange_pair_coins_details")
     Call<ResponseBody> getPairsList(/*@Header("Authorization") String AuthorizationDX*/);
+
+    @GET("/api_v2/exchange_pair/get_all_pairs")
+    Call<ResponseBody> getAllPairs(/*@Header("Authorization") String AuthorizationDX*/);
 
     @GET("/api_v2/exchange_pair/get_pairs/{coin_code}")
     Call<ResponseBody> getPairs(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX);

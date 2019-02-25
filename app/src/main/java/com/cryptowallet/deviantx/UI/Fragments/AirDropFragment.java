@@ -735,7 +735,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                             txt_div_ad_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_div_coins.setVisibility(View.GONE);
                             rview_div_ad_coins.setVisibility(View.VISIBLE);
-                            dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity(), dividendCoinsList, false);
+                            dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity(), dividendCoinsList, false, airdropWalletlist.get(0).getDbl_data_ad_balance());
                             rview_div_ad_coins.setAdapter(dividendADHorizantalRAdapter);
                         } else {
                             rview_div_ad_coins.setVisibility(View.GONE);

@@ -3,9 +3,11 @@ package com.cryptowallet.deviantx.UI.Adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -61,12 +63,14 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
             viewHolder.seekbar_per.setVisibility(View.GONE);
 
             if (isBid) {
-                viewHolder.seekbar_per.setProgress(getPer(bidList.get(i).getDbl_total(), bidList.get(i).getDbl_executedVolume()));
+//                viewHolder.seekbar_per.setProgress(getPer(bidList.get(i).getDbl_total(), bidList.get(i).getDbl_executedVolume()));
+                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.4f", bidList.get(i).getDbl_total())), Double.parseDouble(String.format("%.4f", bidList.get(i).getDbl_executedVolume()))));
                 viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
                 viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
                 viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
             } else {
-                viewHolder.seekbar_per.setProgress(getPer(askList.get(i).getDbl_total(), askList.get(i).getDbl_executedVolume()));
+//                viewHolder.seekbar_per.setProgress(getPer(askList.get(i).getDbl_total(), askList.get(i).getDbl_executedVolume()));
+                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.4f", askList.get(i).getDbl_total())), Double.parseDouble(String.format("%.4f", askList.get(i).getDbl_executedVolume()))));
                 viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
                 viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
                 viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
@@ -91,9 +95,10 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 
     private int getPer(double dbl_total, double dbl_executedVolume) {
         int result = 0;
-
-        result = (int) ((dbl_total / dbl_executedVolume) * 100);
-
+        double res = 0.0;
+        res = (dbl_executedVolume / dbl_total) * 100;
+        result = (int) res;
+        Log.e("RESULT PROGRESS:", "" + result);
         return result;
     }
 
@@ -159,6 +164,8 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
         SeekBar seekbar_per;
         @BindView(R.id.view_bg)
         View view_bg;
+        @BindView(R.id.pbh)
+        ProgressBar pbh;
 
         public ViewHolder(View itemView) {
             super(itemView);

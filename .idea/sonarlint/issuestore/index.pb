@@ -189,3 +189,7 @@ z
 Japp/src/main/java/com/cryptowallet/deviantx/UI/Models/AllTransactions.java,c\f\cf071d48c0afd0d3fcc3e150d52c4f107b81e4f2
 Ç
 Rapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/WalletHistoryRAdapter.java,4\8\48b46856920d2104b15bbfe48bed2bdc94aa165f
+~
+Napp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/NewsExcDBRAdapter.java,6\6\661f3fcf2dd0c9f5a7d68a80a06414aa7d786bf7
+Å
+Qapp/src/main/java/com/cryptowallet/deviantx/Utilities/AutoScrollableTextView.java,f\f\ff6c7e7fbc2035f183611d45d32b6c1b2d905594

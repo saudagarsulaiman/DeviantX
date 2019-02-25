@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
@@ -67,10 +66,10 @@ public class ExchangeMarketFragment extends Fragment {
     TabLayout tab_lyt_coinsList;
     @BindView(R.id.view_pager_Sup_product)
     ViewPager view_pager_Sup_product;
-/*
-    @BindView(R.id.pb)
-    ProgressBar pb;
-*/
+    /*
+        @BindView(R.id.pb)
+        ProgressBar pb;
+    */
     @BindView(R.id.lnr_empty_gain_loose)
     LinearLayout lnr_empty_gain_loose;
 
@@ -83,7 +82,7 @@ public class ExchangeMarketFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     DeviantXDB deviantXDB;
-    String loginResponseData, loginResponseStatus, loginResponseMsg;
+    String loginResponseData, loginResponseStatus, loginResponseMsg, responseMsg, responseStatus, responseData;
 
 /*
     private static final String TAG = "DEVIANTX";
@@ -122,6 +121,7 @@ public class ExchangeMarketFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             public void run() {
                 onLoadPairsList();
+                fetchCoinsAllPairs();
             }
         }, 200);
 
@@ -131,6 +131,7 @@ public class ExchangeMarketFragment extends Fragment {
             stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
 //            Local Link
 //            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
+//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
             stompClient.connect();
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();
@@ -325,39 +326,6 @@ public class ExchangeMarketFragment extends Fragment {
                         for (int i = 0; i <= PairsListList.size(); i++) {
                             tab_lyt_coinsList.addTab(tab_lyt_coinsList.newTab().setText(PairsListList.get(i).getStr_Code()));
                         }
-
-/*
-                        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-                        stompClient.connect();
-
-                        stompClient.topic("/topic/exchange_pair/" + PairsListList.get(selectedCoinPos).getStr_Code()).subscribe(new Action1<StompMessage>() {
-                            @Override
-                            public void call(StompMessage message) {
-                                Log.e(TAG, "*****Received " + PairsListList.get(selectedCoinPos).getStr_Code() + "*****: EMSFselectedTab" + message.getPayload());
-                                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                                allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-                                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairs, selectedCoinName, false, true);
-                                rview_coin.setAdapter(gainerLoserExcDBRAdapter);
-                            }
-                        });
-*/
-
-/*
-                        if (PairsListList.size() > 0) {
-*/
-/*
-                            setupViewPager(view_pager_Sup_product);
-                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
-*//*
-
-                        } else {
-*/
-/*
-                            setupViewPager(view_pager_Sup_product);
-                            tab_lyt_coinsList.setupWithViewPager(view_pager_Sup_product);
-*//*
-                        }
-*/
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
                     }
@@ -392,6 +360,89 @@ public class ExchangeMarketFragment extends Fragment {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
 //                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+//                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+//            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
+    //    **************GETTING ALL PAIRS**************
+    private void fetchCoinsAllPairs() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            ExchangePairControllerApi apiService = DeviantXApiClient.getClient().create(ExchangePairControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllPairs(/*CONSTANTS.DeviantMulti + token*/);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            responseMsg = jsonObject.getString("msg");
+                            responseStatus = jsonObject.getString("status");
+
+                            if (responseStatus.equals("true")) {
+                                responseData = jsonObject.getString("data");
+                                allCoinPairsList = new ArrayList<>();
+                                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(responseData, CoinPairs[].class);
+                                allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
+                                for (int i = 0; i < allCoinPairs.size(); i++) {
+                                    if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
+                                        if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                            allCoinPairsList.add(allCoinPairs.get(i));
+                                }
+                                if (allCoinPairsList.size() > 0) {
+                                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
+                                    rview_coin.setAdapter(gainerLoserExcDBRAdapter);
+                                    lnr_empty_gain_loose.setVisibility(View.GONE);
+                                    rview_coin.setVisibility(View.VISIBLE);
+                                } else {
+                                    lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                                    rview_coin.setVisibility(View.GONE);
+                                }
+                            } else {
+                                lnr_empty_gain_loose.setVisibility(View.VISIBLE);
+                                rview_coin.setVisibility(View.GONE);
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+//                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {

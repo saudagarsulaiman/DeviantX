@@ -1,31 +1,30 @@
 
-@squid:S1148Ó"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+nsquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(ûº®Øøÿÿÿÿ8÷½þž‘-
 bsquid:CommentedOutCodeLine&"<This block of commented-out lines of code should be removed.(ä„‘
-bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(»¤ÅÚ
-rsquid:S00116º"YRename this field "txt_trans_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±€øº
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(«×ú€ûÿÿÿÿ
-lsquid:S00116¸"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þ¦öÉ
-gsquid:CommentedOutCodeLine)"<This block of commented-out lines of code should be removed.(’ÁìÎþÿÿÿÿ
-isquid:S00117€"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðíž
-bsquid:CommentedOutCodeLine?"<This block of commented-out lines of code should be removed.(Äïƒü
-isquid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(Í½™µ8ƒ”†ˆ‘-
-usquid:S00116Á"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆýÿÿÿÿ
-ysquid:S14888"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(ýãÍ¿
-isquid:S00117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðíž
-˜squid:S1319$"|The type of the "sentHistoriesList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÀÉäëüÿÿÿÿ
-jsquid:S00117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
-isquid:S3776="RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(†áÒú
-qsquid:S00116¶"XRename this field "img_send_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³®íù
-tsquid:S00116¾"[Rename this field "txt_trans_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ™ûŒ
-]squid:S1192"FDefine a constant instead of duplicating this literal "From " 3 times.(Ç¾Ò
-squid:S1319$"€The type of the "receivedHistoriesList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÀÉäëüÿÿÿÿ
-usquid:S00116¼"\Rename this field "txt_trans_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÑË‰
-asquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(¾ó¶
-nsquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(˜ÓÕËÿÿÿÿÿ8ƒ”†ˆ‘-
-bsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(§‘žÒ
-osquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(ûº®Øøÿÿÿÿ8Ü˜·ˆ‘-
-ssquid:S00116Ã"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
-isquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
+osquid:CommentedOutCodeLine§"<This block of commented-out lines of code should be removed.(ûº®Øøÿÿÿÿ8í’ÿž‘-
+/squid:S2176±"Rename this class.(Â×žÖúÿÿÿÿ
 qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-Osquid:S1135Ò"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ
-/squid:S2176³"Rename this class.(Â×žÖúÿÿÿÿ
+tsquid:S00116¼"[Rename this field "txt_trans_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ™ûŒ
+asquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(¾ó¶
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(«×ú€ûÿÿÿÿ
+bsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(§‘žÒ
+Osquid:S1135Ð"2Complete the task associated to this TODO comment.(ÕÌ®þÿÿÿÿ
+usquid:S00116¿"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆýÿÿÿÿ
+osquid:S00117~"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðíž8âæþž‘-
+@squid:S1148Ñ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+qsquid:S00117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„8âæþž‘-
+ysquid:S14888"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(ýãÍ¿
+rsquid:S00116¸"YRename this field "txt_trans_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±€øº
+usquid:S00116º"\Rename this field "txt_trans_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÑË‰
+ssquid:S00116Á"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
+gsquid:CommentedOutCodeLine)"<This block of commented-out lines of code should be removed.(’ÁìÎþÿÿÿÿ
+qsquid:S00116´"XRename this field "img_send_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³®íù
+squid:S1319$"€The type of the "receivedHistoriesList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÀÉäëüÿÿÿÿ
+psquid:S3776="RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(†áÒú8âæþž‘-
+psquid:S00117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„8âæþž‘-
+dsquid:S1192Ž"FDefine a constant instead of duplicating this literal "From " 3 times.(Ç¾Ò8âæþž‘-
+psquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðíž8âæþž‘-
+bsquid:CommentedOutCodeLine?"<This block of commented-out lines of code should be removed.(Äïƒü
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(»¤ÅÚ
+˜squid:S1319$"|The type of the "sentHistoriesList" object should be an interface such as "List" rather than the implementation "ArrayList".(ÀÉäëüÿÿÿÿ
+lsquid:S00116¶"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þ¦öÉ

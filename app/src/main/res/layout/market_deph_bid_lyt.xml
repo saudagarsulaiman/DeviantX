@@ -3,13 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height30">
 
+    <ProgressBar
+        android:id="@+id/pbh"
+        style="@style/ProgressBarHorizontal_bid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/green_ws"
+        android:progress="50"
+        android:progressBackgroundTint="@color/transparent"
+        android:rotation="180"
+        android:visibility="visible" />
 
     <View
-        android:visibility="gone"
         android:id="@+id/view_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/green_ws"/>
+        android:background="@color/green_ws"
+        android:visibility="gone" />
 
     <SeekBar
         android:id="@+id/seekbar_per"

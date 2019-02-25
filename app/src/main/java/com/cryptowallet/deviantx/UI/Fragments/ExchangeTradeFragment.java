@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.cryptowallet.deviantx.Utilities.DecimalDigitsInputFilter;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.squareup.picasso.Picasso;
@@ -292,13 +294,18 @@ public class ExchangeTradeFragment extends Fragment {
         }
 
 
+        edt_price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(7)});
+        edt_stop_price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(7)});
+        edt_amount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3)});
+
+
         if (allCoinPairs/*.size() > 0*/ != null) {
-            edt_price.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue()));
+            edt_price.setText(String.format("%.6f", allCoinPairs.getDbl_previousValue()));
             txt_code_price.setText(allCoinPairs.getStr_exchangeCoin());
             txt_code_stop_price.setText(allCoinPairs.getStr_exchangeCoin());
             txt_code_amount.setText(allCoinPairs.getStr_pairCoin());
             txt_title.setText(allCoinPairs.getStr_pairCoin() + "/" + allCoinPairs.getStr_exchangeCoin());
-            txt_total.setText(String.format("%.4f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
+            txt_total.setText(String.format("%.6f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
             txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
         } else {
             edt_price.setText("0.0389");
@@ -335,9 +342,9 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_code_amount.setText(beforeSlash);
                 txt_total_code.setText(afterSlash);
 
-                edt_price.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_price()));
-                edt_amount.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_amount()));
-                txt_total.setText(String.format("%.4f", excOrdersList.get(pos).getDbl_total()));
+                edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
+                edt_amount.setText(String.format("%.3f", excOrdersList.get(pos).getDbl_amount()));
+                txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
 
 /*
                 txt_market.setTextColor(getResources().getColor(R.color.yellow));
@@ -849,7 +856,7 @@ public class ExchangeTradeFragment extends Fragment {
                             double stop_price = Double.parseDouble(edt_stop_price.getText().toString().trim());
                             if (price > 0/*.001*/) {
                                 if (amount > 0/*.001*/) {
-                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit",stop_price);
+                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
                                 } else {
                                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                                 }
@@ -886,7 +893,7 @@ public class ExchangeTradeFragment extends Fragment {
                     try {
                         double price = Double.parseDouble(edt_price.getText().toString().trim());
                         double amount = Double.parseDouble(amountTextValue);
-                        txt_total.setText(String.format("%.4f", amount * price));
+                        txt_total.setText(String.format("%.6f", amount * price));
 /*
                         if (amount > 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
@@ -926,7 +933,7 @@ public class ExchangeTradeFragment extends Fragment {
                     try {
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                         double price = Double.parseDouble(priceTextValue);
-                        txt_total.setText(String.format("%.4f", amount * price));
+                        txt_total.setText(String.format("%.6f", amount * price));
 /*
                         if (amount > 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
@@ -1015,6 +1022,7 @@ public class ExchangeTradeFragment extends Fragment {
                 stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
 //              Local Link
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
                 stompClient.connect();
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
 
@@ -1348,7 +1356,7 @@ public class ExchangeTradeFragment extends Fragment {
                                     for (int i = 0; i < accountWalletlist.size(); i++) {
                                         if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_amount.getText().toString().trim())) {
                                             isPCoinAvail = true;
-                                            txt_pcoin_avail_value.setText(String.format("%.4f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getStr_coin_code());
+                                            txt_pcoin_avail_value.setText(String.format("%.6f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getStr_coin_code());
                                             Picasso.with(getActivity()).load(accountWalletlist.get(i).getStr_coin_logo()).into(img_coin_logo);
                                         }
                                         if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_price.getText().toString().trim())) {
