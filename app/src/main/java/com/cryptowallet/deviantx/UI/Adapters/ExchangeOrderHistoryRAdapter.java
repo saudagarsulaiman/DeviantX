@@ -74,6 +74,14 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
+        if (allExcOrder.get(i).getStr_orderType().equals("buy")) {
+            viewHolder.txt_order_type.setText("BUY");
+            viewHolder.txt_order_type.setTextColor(context.getResources().getColor(R.color.graph_brdr_green));
+        } else {
+            viewHolder.txt_order_type.setText("SELL");
+            viewHolder.txt_order_type.setTextColor(context.getResources().getColor(R.color.google_red));
+        }
+
         if (isOnlyOpen) {
             if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
                 String str = allExcOrder.get(i).getStr_coinPair() + " Partial ";
@@ -627,6 +635,10 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.lnr_item)
+        LinearLayout lnr_item;
+        @BindView(R.id.txt_order_type)
+        TextView txt_order_type;
         @BindView(R.id.txt_coin_name)
         TextView txt_coin_name;
         @BindView(R.id.txt_date)
