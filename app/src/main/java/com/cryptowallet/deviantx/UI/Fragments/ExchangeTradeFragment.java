@@ -1001,12 +1001,21 @@ public class ExchangeTradeFragment extends Fragment {
             lnr_stop_price.setVisibility(View.GONE);
         }
 
+        if (allCoinPairs/*.size() > 0*/ != null) {
+            txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
+            txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+            txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
+        } else {
+            txt_amount_code.setText("ETH");
+            txt_price_code.setText("BTC");
+            txt_total_code.setText("BTC");
+
+        }
+
+
         txt_amount.setText(String.format("%.3f", amount));
-        txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
         txt_price.setText(String.format("%.6f", price));
-        txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
         txt_total.setText(String.format("%.6f", total));
-        txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
         txt_wallet_name.setText(wallet_name);
 
         txt_cancel.setOnClickListener(new View.OnClickListener() {
