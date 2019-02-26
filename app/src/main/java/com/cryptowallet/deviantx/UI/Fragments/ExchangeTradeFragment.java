@@ -996,7 +996,18 @@ public class ExchangeTradeFragment extends Fragment {
         if (isStopLimit) {
             lnr_stop_price.setVisibility(View.VISIBLE);
             txt_stop_price.setText(String.format("%.6f", stop_price));
-            txt_stop_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+            if (allCoinPairs/*.size() > 0*/ != null) {
+                txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
+                txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+                txt_stop_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+                txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
+            } else {
+                txt_amount_code.setText("ETH");
+                txt_price_code.setText("BTC");
+                txt_stop_price_code.setText("BTC");
+                txt_total_code.setText("BTC");
+
+            }
         } else {
             lnr_stop_price.setVisibility(View.GONE);
         }
@@ -1004,10 +1015,12 @@ public class ExchangeTradeFragment extends Fragment {
         if (allCoinPairs/*.size() > 0*/ != null) {
             txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
             txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+            txt_stop_price_code.setText(allCoinPairs.getStr_exchangeCoin());
             txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
         } else {
             txt_amount_code.setText("ETH");
             txt_price_code.setText("BTC");
+            txt_stop_price_code.setText("BTC");
             txt_total_code.setText("BTC");
 
         }
