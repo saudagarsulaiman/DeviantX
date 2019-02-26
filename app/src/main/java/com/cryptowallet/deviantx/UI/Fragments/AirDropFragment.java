@@ -193,6 +193,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DividendADListActivity.class);
+                intent.putExtra(CONSTANTS.amount, airdropWalletlist.get(0).getDbl_data_ad_balance());
                 startActivity(intent);
             }
         });

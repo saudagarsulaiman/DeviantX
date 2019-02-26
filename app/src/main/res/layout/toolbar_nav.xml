@@ -41,13 +41,23 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:visibility="gone"
+            android:id="@+id/img_tlbr_refresh"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height20"
+            android:padding="@dimen/padding3"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:src="@drawable/refresh"
+            android:visibility="visible" />
+
+        <ImageView
             android:id="@+id/img_tlbr_search"
             android:layout_width="0dp"
             android:layout_height="@dimen/height20"
             android:layout_gravity="center"
             android:layout_weight="0.4"
-            android:src="@drawable/navsearch" />
+            android:src="@drawable/navsearch"
+            android:visibility="gone" />
 
     </LinearLayout>
 

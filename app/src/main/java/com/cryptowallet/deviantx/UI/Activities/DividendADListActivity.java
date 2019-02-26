@@ -2,7 +2,6 @@ package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,24 +15,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
-import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.UserAirdropControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.DividendADHorizantalRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.DividendADVerticalRAdapter;
-import com.cryptowallet.deviantx.UI.Interfaces.CoinSelectableListener;
 import com.cryptowallet.deviantx.UI.Interfaces.DividendAirdropsUIListener;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.DividendAirdrops;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.DividendAirdropsDao;
-import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExploreCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.DividendAirdropsDB;
-import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExploreCoinsDB;
-import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -79,6 +69,7 @@ public class DividendADListActivity extends AppCompatActivity {
 
 
     String loginResponseData, loginResponseStatus, loginResponseMsg;
+    double ad_bal = 0.0;
     ArrayList<DividendAirdrops> allDividendAirdrops;
 
     @Override
@@ -102,6 +93,12 @@ public class DividendADListActivity extends AppCompatActivity {
 
         layoutManager = new GridLayoutManager(DividendADListActivity.this, 2, GridLayoutManager.VERTICAL, false);
         rview_div_coins_list.setLayoutManager(layoutManager);
+
+        try {
+            ad_bal = getIntent().getDoubleExtra(CONSTANTS.amount, 0.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -137,11 +134,11 @@ public class DividendADListActivity extends AppCompatActivity {
                         searchCoinsList.add(coinName);
                     }
                 }
-                dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, searchCoinsList, true);
+                dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, searchCoinsList, true, ad_bal);
                 rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
             }
         });
-        
+
     }
 
 
@@ -194,7 +191,7 @@ public class DividendADListActivity extends AppCompatActivity {
                         }
                         if (dividendCoinsList.size() > 0) {
                             lnr_empty_div_coins.setVisibility(View.GONE);
-                            dividendADVerticalRAdapter= new DividendADVerticalRAdapter(DividendADListActivity.this, dividendCoinsList, false);
+                            dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, dividendCoinsList, false, ad_bal);
                             rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
                         } else {
                             lnr_empty_div_coins.setVisibility(View.VISIBLE);

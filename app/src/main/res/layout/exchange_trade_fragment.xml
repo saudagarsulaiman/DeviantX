@@ -302,7 +302,6 @@
                                 android:id="@+id/txt_pcoin_avail_value"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2135.218585 DEV"
                                 android:textColor="@color/grey"
                                 android:textSize="@dimen/def_hint_size" />
 

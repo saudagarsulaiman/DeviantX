@@ -1,12 +1,14 @@
 
-.squid:S2176^"Rename this class.(Â×Öúÿÿÿÿ
-gsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(¨’ğ¸úÿÿÿÿ
-bsquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(æÄõä
-’squid:S1319!"{The type of the "allDividendCoins" object should be an interface such as "List" rather than the implementation "ArrayList".(•¢¶ì
-xsquid:S1488+"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-psquid:S00116a"SRename this field "img_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ù•˜ÿÿÿÿÿ
-usquid:S00116c"]Rename this field "txt_coin_name_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ìÏ¦
-vsquid:S00116e"YRename this field "txt_coin_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ùµ‡øÿÿÿÿ
-psquid:S00116g"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Şúÿÿÿÿ
-lsquid:S00116i"TRename this field "btn_claim" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ê“
+gsquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(¨’ğ¸úÿÿÿÿ
+psquid:S00116n"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Şúÿÿÿÿ
 qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+bsquid:CommentedOutCodeLine\"<This block of commented-out lines of code should be removed.(æÄõä
+xsquid:S1488."bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
+lsquid:S00116p"TRename this field "btn_claim" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ê“
+psquid:S00116h"SRename this field "img_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ù•˜ÿÿÿÿÿ
+.squid:S2176e"Rename this class.(Â×Öúÿÿÿÿ
+}squid:S00116!"^Rename this field "dbl_data_ad_balance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ìá8æ¡£’-
+psquid:S00117#"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤ØûĞ8¸† £’-
+usquid:S00116j"]Rename this field "txt_coin_name_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ìÏ¦
+’squid:S1319#"{The type of the "allDividendCoins" object should be an interface such as "List" rather than the implementation "ArrayList".(¤ØûĞ
+vsquid:S00116l"YRename this field "txt_coin_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ùµ‡øÿÿÿÿ

@@ -154,8 +154,9 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     public void onResume() {
         super.onResume();
 //        invokeWallet();
+/*
         try {
-            Log.e("*******DEVIANT*******", "Receiver Class Executed");
+            Log.e("*******DEVIANT*******", "Dashboard services Executing");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
             } else {
@@ -164,6 +165,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         } catch (Exception e) {
             e.printStackTrace();
         }
+*/
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
         if (myWalletCoinsRAdapter != null) {
             myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());

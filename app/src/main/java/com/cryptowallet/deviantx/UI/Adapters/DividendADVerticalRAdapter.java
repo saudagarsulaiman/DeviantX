@@ -17,6 +17,7 @@ import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.WithdrawADClaimActivity;
 import com.cryptowallet.deviantx.UI.Models.DividendAirdrops;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,11 +29,13 @@ public class DividendADVerticalRAdapter extends RecyclerView.Adapter<DividendADV
     Context context;
     ArrayList<DividendAirdrops> allDividendCoins;
     boolean isFull = false;
+    Double dbl_data_ad_balance;
 
-    public DividendADVerticalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull) {
+    public DividendADVerticalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull, Double dbl_data_ad_balance) {
         this.context = context;
         this.allDividendCoins = allDividendCoins;
         this.isFull = isFull;
+        this.dbl_data_ad_balance = dbl_data_ad_balance;
     }
 
     @NonNull
@@ -50,15 +53,18 @@ public class DividendADVerticalRAdapter extends RecyclerView.Adapter<DividendADV
         viewHolder.txt_coin_name_code.setText(allDividendCoins.get(i).getStr_coinName() + " (" + allDividendCoins.get(i).getStr_coinCode() + ")");
         viewHolder.txt_coin_value.setText("Estimated $" + String.format("%.2f", allDividendCoins.get(i).getDbl_airdropAmountInUSD()) + " ref");
 
-
         viewHolder.btn_claim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, WithdrawADClaimActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(CONSTANTS.claimCoin, allDividendCoins.get(i));
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                if (dbl_data_ad_balance < 500) {
+                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.maintain_bal_500));
+                } else {
+                    Intent intent = new Intent(context, WithdrawADClaimActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(CONSTANTS.claimCoin, allDividendCoins.get(i));
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
             }
         });
 

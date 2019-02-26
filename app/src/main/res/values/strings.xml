@@ -610,5 +610,11 @@
     <string name="my_ad_camp">My Airdrop Campaigns</string>
     <string name="maintain_bal_500">You should have 500 DEV to claim your airdrop</string>
 
+    <string name="sure_make_order">Are you sure you want to make an order?</string>
+    <string name="from">From</string>
+    <string name="from_wallet">From Wallet</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="sure_cancel_order">Are you sure you want to cancel an order?</string>
+    <string name="updating">Updating</string>
 
 </resources>

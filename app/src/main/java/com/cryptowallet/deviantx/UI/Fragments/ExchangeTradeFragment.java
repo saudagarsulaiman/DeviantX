@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DecimalDigitsInputFilter;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -757,7 +760,8 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+//                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -787,7 +791,8 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim());
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+//                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -820,7 +825,8 @@ public class ExchangeTradeFragment extends Fragment {
                         double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
                         if (price > 0/*.001*/) {
                             if (amount > 0/*.001*/) {
-                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
+                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
+//                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                             }
@@ -856,7 +862,8 @@ public class ExchangeTradeFragment extends Fragment {
                             double stop_price = Double.parseDouble(edt_stop_price.getText().toString().trim());
                             if (price > 0/*.001*/) {
                                 if (amount > 0/*.001*/) {
-                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
+                                    confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
+//                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
                                 } else {
                                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
                                 }
@@ -956,6 +963,66 @@ public class ExchangeTradeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void confirmOrderDialog(double amount, double price, double total, String type, String coin_pair, String wallet_name, String market, double stop_price) {
+        //                Creating A Custom Dialog Using DialogPlus
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_make_order);
+        final DialogPlus dialog = DialogPlus.newDialog(getActivity())
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
+        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
+        TextView txt_amount = view.findViewById(R.id.txt_amount);
+        TextView txt_amount_code = view.findViewById(R.id.txt_amount_code);
+        TextView txt_price = view.findViewById(R.id.txt_price);
+        TextView txt_price_code = view.findViewById(R.id.txt_price_code);
+        LinearLayout lnr_stop_price = view.findViewById(R.id.lnr_stop_price);
+        TextView txt_stop_price = view.findViewById(R.id.txt_stop_price);
+        TextView txt_stop_price_code = view.findViewById(R.id.txt_stop_price_code);
+        TextView txt_total = view.findViewById(R.id.txt_total);
+        TextView txt_total_code = view.findViewById(R.id.txt_total_code);
+        TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
+
+        if (isStopLimit) {
+            lnr_stop_price.setVisibility(View.VISIBLE);
+            txt_stop_price.setText(String.format("%.6f", stop_price));
+            txt_stop_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+        } else {
+            lnr_stop_price.setVisibility(View.GONE);
+        }
+
+        txt_amount.setText(String.format("%.3f", amount));
+        txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
+        txt_price.setText(String.format("%.6f", price));
+        txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+        txt_total.setText(String.format("%.6f", total));
+        txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
+        txt_wallet_name.setText(wallet_name);
+
+        txt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        txt_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeOrder(amount, price, total, type, coin_pair, wallet_name, market, stop_price);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void enablePrice() {

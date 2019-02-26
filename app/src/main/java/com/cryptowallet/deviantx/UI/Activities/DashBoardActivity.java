@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,11 @@ import com.cryptowallet.deviantx.UI.Fragments.ExploreCoinsFragment;
 import com.cryptowallet.deviantx.UI.Fragments.ToolsFragment;
 import com.cryptowallet.deviantx.UI.Receiver.RefreshServiceReceiver;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
+import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 
@@ -76,6 +83,10 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.img_tlbr_search)
     ImageView img_tlbr_search;
+    @Nullable
+    @BindView(R.id.img_tlbr_refresh)
+    ImageView img_tlbr_refresh;
+
 
     @Nullable
     @BindView(R.id.nav_drwr)
@@ -221,6 +232,42 @@ public class DashBoardActivity extends AppCompatActivity {
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
 
         img_tlbr_search.setVisibility(View.GONE);
+
+        img_tlbr_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.updating));
+//        Background Service
+//                CommonUtilities.serviceStart(DashBoardActivity.this);
+                try {
+                    progressDialog = ProgressDialog.show(DashBoardActivity.this, ""/*getResources().getString(R.string.updating)*/, getResources().getString(R.string./*please_wait*/updating), true);
+                    Log.e("*******DEVIANT*******", "Dashboard services Executing");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startForegroundService(new Intent(DashBoardActivity.this, WalletDataFetch.class));
+                        startForegroundService(new Intent(DashBoardActivity.this, AirdropWalletFetch.class));
+                        startForegroundService(new Intent(DashBoardActivity.this, AirdropsHistoryFetch.class));
+                        startForegroundService(new Intent(DashBoardActivity.this, WalletDetailsFetch.class));
+                        startForegroundService(new Intent(DashBoardActivity.this, ExcOrdersFetch.class));
+                    } else {
+                        startService(new Intent(DashBoardActivity.this, WalletDataFetch.class));
+                        startService(new Intent(DashBoardActivity.this, AirdropWalletFetch.class));
+                        startService(new Intent(DashBoardActivity.this, AirdropsHistoryFetch.class));
+                        startService(new Intent(DashBoardActivity.this, WalletDetailsFetch.class));
+                        startService(new Intent(DashBoardActivity.this, ExcOrdersFetch.class));
+                    }
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                        }
+                    }, 800);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         initMagicIndicator();
         int selectedTab = (getIntent().getIntExtra(CONSTANTS.seletedTab, 0));
         setAllSelection(selectedTab);

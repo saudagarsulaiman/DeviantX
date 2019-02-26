@@ -13,6 +13,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import org.json.JSONObject;
 
@@ -112,7 +114,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i),i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
 
@@ -155,7 +157,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i), i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
 
@@ -198,7 +200,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i), i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
             }
@@ -243,7 +245,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i), i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("cancelled")) {
@@ -358,7 +360,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i), i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
 
@@ -401,13 +403,75 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.img_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cancelOrder(allExcOrder.get(i), i);
+                        cancelOrderDialog(allExcOrder.get(i), i);
                     }
                 });
 
             }
         }
 
+    }
+
+    private void cancelOrderDialog(ExcOrders excOrders, int i) {
+        //                Creating A Custom Dialog Using DialogPlus
+        com.orhanobut.dialogplus.ViewHolder viewHolder = new com.orhanobut.dialogplus.ViewHolder(R.layout.dialog_cancel_order);
+        final DialogPlus dialog = DialogPlus.newDialog(context)
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+        TextView txt_cancel = view.findViewById(R.id.txt_cancel);
+        TextView txt_confirm = view.findViewById(R.id.txt_confirm);
+/*
+        TextView txt_amount = view.findViewById(R.id.txt_amount);
+        TextView txt_amount_code = view.findViewById(R.id.txt_amount_code);
+        TextView txt_price = view.findViewById(R.id.txt_price);
+        TextView txt_price_code = view.findViewById(R.id.txt_price_code);
+        LinearLayout lnr_stop_price = view.findViewById(R.id.lnr_stop_price);
+        TextView txt_stop_price = view.findViewById(R.id.txt_stop_price);
+        TextView txt_stop_price_code = view.findViewById(R.id.txt_stop_price_code);
+        TextView txt_total = view.findViewById(R.id.txt_total);
+        TextView txt_total_code = view.findViewById(R.id.txt_total_code);
+        TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
+
+        if (isStopLimit) {
+            lnr_stop_price.setVisibility(View.VISIBLE);
+            txt_stop_price.setText(String.format("%.6f", stop_price));
+            txt_stop_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+        } else {
+            lnr_stop_price.setVisibility(View.GONE);
+        }
+
+        txt_amount.setText(String.format("%.3f", amount));
+        txt_amount_code.setText(allCoinPairs.getStr_pairCoin());
+        txt_price.setText(String.format("%.6f", price));
+        txt_price_code.setText(allCoinPairs.getStr_exchangeCoin());
+        txt_total.setText(String.format("%.6f", total));
+        txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
+        txt_wallet_name.setText(wallet_name);
+*/
+
+        txt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        txt_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelOrder(excOrders, i);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void cancelOrder(ExcOrders excOrders, int i) {

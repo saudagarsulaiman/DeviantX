@@ -1,21 +1,21 @@
 
-gsquid:CommentedOutCodeLine,"<This block of commented-out lines of code should be removed.(ŸžÂãúÿÿÿÿ
-gsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(üàù²úÿÿÿÿ
-gsquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
-gsquid:CommentedOutCodeLineL"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
-bsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ÄÈ»…
-gsquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
 bsquid:CommentedOutCodeLineZ"<This block of commented-out lines of code should be removed.(ÄÈ»…
-gsquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
-bsquid:CommentedOutCodeLinee"<This block of commented-out lines of code should be removed.(ÄÈ»…
-isquid:S37761"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(ï ±ª
-qsquid:S00116"YRename this field "lnr_def_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯Ðî
-qsquid:S00116"YRename this field "scompat_asswal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ™»ç
-xsquid:S00116"[Rename this field "scompat_dev_fees" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ô—¨Áþÿÿÿÿ
 jsquid:S00116 "RRename this field "lnr_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î¼ú“
+bsquid:CommentedOutCodeLinee"<This block of commented-out lines of code should be removed.(ÄÈ»…
 nsquid:S00116""VRename this field "scompat_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úŒ–ö
-{squid:S00116$"^Rename this field "scompat_fingerprint" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹×Ôðÿÿÿÿÿ
-rsquid:S00116&"ZRename this field "lnr_fingerprint" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôµ’
-usquid:S00116("XRename this field "lnr_frequency" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Âéúÿÿÿÿ
+isquid:S37761"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(ï ±ª
 vsquid:S00116*"YRename this field "lnr_color_pref" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚŠîýÿÿÿÿ
+gsquid:CommentedOutCodeLine,"<This block of commented-out lines of code should be removed.(ŸžÂãúÿÿÿÿ
+bsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ÄÈ»…
+qsquid:S00116"YRename this field "lnr_def_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯Ðî
+gsquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
+rsquid:S00116&"ZRename this field "lnr_fingerprint" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ôµ’
 wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
+qsquid:S00116"YRename this field "scompat_asswal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ™»ç
+usquid:S00116("XRename this field "lnr_frequency" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Âéúÿÿÿÿ
+gsquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
+xsquid:S00116"[Rename this field "scompat_dev_fees" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ô—¨Áþÿÿÿÿ
+gsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(üàù²úÿÿÿÿ
+gsquid:CommentedOutCodeLineL"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
+gsquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(Ìü§Óùÿÿÿÿ
+{squid:S00116$"^Rename this field "scompat_fingerprint" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹×Ôðÿÿÿÿÿ
