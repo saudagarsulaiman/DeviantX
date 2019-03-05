@@ -215,8 +215,12 @@ public class LoginActivity extends AppCompatActivity {
 //                                        editor.putBoolean(CONSTANTS.first_time, false);
                                             editor.putBoolean(CONSTANTS.seed, true);
                                             editor.commit();
+/*
 //                                        GetWalletsList
                                             invokeWallet();
+*/
+//                                    Get 2FA Status
+                                            get2FAstatus();
 
 //                                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
 //                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -250,9 +254,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } catch (
-                            Exception e)
-
-                    {
+                            Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
@@ -278,9 +280,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         } catch (
-                Exception ex)
-
-        {
+                Exception ex) {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
@@ -323,7 +323,14 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putBoolean(CONSTANTS.first_wallet, false);
                                     editor.putBoolean(CONSTANTS.empty_wallet, false);
                                     editor.apply();
+/*
+//                                    Get 2FA Status
                                     get2FAstatus();
+*/
+                                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+
                                     /*if (loginResponseData.equals("true")) {
                                         myApplication.set2FA(true);
                                         editor.putBoolean(CONSTANTS.twoFactorAuth, true);
@@ -403,9 +410,13 @@ public class LoginActivity extends AppCompatActivity {
             myApplication.set2FA(false);
             editor.putBoolean(CONSTANTS.twoFactorAuth, false);
             editor.apply();
-            Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent intent = new Intent(LoginActivity.this, TwoFAEnable1Activity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+/*
+            //                                        GetWalletsList
+            invokeWallet();
+*/
         }
 
 /*        try {

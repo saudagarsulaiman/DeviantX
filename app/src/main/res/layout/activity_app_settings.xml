@@ -312,6 +312,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="visible"
                 android:id="@+id/lnr_2fa"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height75"

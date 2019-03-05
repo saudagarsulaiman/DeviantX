@@ -211,21 +211,25 @@ public class AppSettingsActivity extends AppCompatActivity {
             }
         });
 
-        lnr_2fa.setOnClickListener(new View.OnClickListener() {
+      /*  lnr_2fa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.cannot_disable_2fa));
+*//*
                 Intent intent = new Intent(AppSettingsActivity.this, TwoFAEnable1Activity.class);
                 startActivity(intent);
+*//*
             }
-        });
+        });*/
 
         scompat_2fa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(AppSettingsActivity.this, TwoFAAbleActivity.class);
+//                startActivity(intent);
+                CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.cannot_disable_2fa));
                 if (isChecked) {
-                    scompat_2fa.setChecked(false);
+                    scompat_2fa.setChecked(true);
                 } else {
                     scompat_2fa.setChecked(true);
                 }

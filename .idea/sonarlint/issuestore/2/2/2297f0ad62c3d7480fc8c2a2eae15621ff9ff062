@@ -1,0 +1,17 @@
+
+Msquid:S16590"1Declare "loginResponseStatus" on a separate line.(Ò³œ©þÿÿÿÿ
+Ksquid:S16590"/Declare "loginResponseData" on a separate line.(Ò³œ©þÿÿÿÿ
+Tsquid:S1197,"8Move the array designator from the variable to the type.(äËƒùøÿÿÿÿ
+bsquid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(Úµüû
+bsquid:CommentedOutCodeLinew"<This block of commented-out lines of code should be removed.(„¬¡‚
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Ssquid:S2589h"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+zsquid:S00116'"]Rename this field "hashtag_add_phrase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÛ¿Àøÿÿÿÿ
+psquid:S00116)"SRename this field "btn_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñþ¼ýÿÿÿÿ
+isquid:S00117ž"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶°å
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+?squid:S1148|"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+;squid:S1148–"#Use a logger to log this exception.(Ç’Çê

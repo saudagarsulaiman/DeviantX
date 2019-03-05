@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -64,24 +63,24 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
 //        CommonUtilities.serviceStart(TwoFAEnable1Activity.this);
     }
 
-   /* @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+    /* @Override
+     public boolean onKeyDown(int keyCode, KeyEvent event) {
+         if (keyCode == KeyEvent.KEYCODE_HOME) {
+ //            Log.e("home key pressed", "****");
+             // write your code here to stop the activity
+             CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
+         }
+         return super.onKeyDown(keyCode, event);
+     }
 
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
-        super.onPause();
-    }
-*/
+     @Override
+     protected void onPause() {
+ //        Log.e("home key pressed on pause", "****");
+         // write your code here to stop your service
+         CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
+         super.onPause();
+     }
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,8 +123,9 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
             public void onClick(View v) {
 //                twoFACode = sharedPreferences.getString(CONSTANTS.twoFACode, null);
                 Intent intent = new Intent(TwoFAEnable1Activity.this, TwoFAEnableActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-//                finish();
+                finish();
             }
         });
 

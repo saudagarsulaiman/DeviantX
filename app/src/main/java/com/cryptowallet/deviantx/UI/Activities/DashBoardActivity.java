@@ -311,7 +311,21 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DeviantXDB db = DeviantXDB.getDatabase(getApplicationContext());
+                db.accountWalletDao().deleteAllAccountWallet();
+                db.airdropsHistoryDao().deleteAllAirdropsHistory();
+                db.airdropWalletDao().deleteAllAirdropWallet();
+                db.allCoinsDao().deleteAllAllCoins();
+                db.dividendAirdropsDao().deleteAllDividendAirdrops();
+                db.excOrdersDao().deleteAllExcOrders();
+                db.exploreCoinsDao().deleteAllAllCoins();
+                db.featuredAirdropsDao().deleteAllFeaturedAirdrops();
+                db.headerBannerDao().deleteAllHeaderBanner();
+                db.newsDXDao().deleteAllNewsDX();
+                db.pairsListDao().getAllPairsList();
+                db.walletDetailsDao().deleteAllWalletDetails();
+                db.walletListDao().deleteAllWalletList();
                 db.clearAllTables();
+                editor.clear();
                 CommonUtilities.sessionExpired(DashBoardActivity.this, getResources().getString(R.string.logout_success));
                 Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
                 stopService(intent);

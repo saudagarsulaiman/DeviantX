@@ -49,7 +49,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    if (status2FA && !login2FA) {
+                                    if (!status2FA /*&& !login2FA*/) {
                                         Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
                                         startActivity(intent);
                                         finish();

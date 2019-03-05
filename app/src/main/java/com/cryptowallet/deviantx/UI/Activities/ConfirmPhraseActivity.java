@@ -39,6 +39,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
+
 public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagView.TagsSelectListener {
 
     @BindView(R.id.toolbar_center_back)
@@ -139,8 +141,12 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
                                 editor.apply();
                                 CommonUtilities.ShowToastMessage(ConfirmPhraseActivity.this, getResources().getString(R.string.prof_updated_success));
 
+/*
 //                                GetWalletsList
                                 invokeWallet();
+*/
+//                                    Get 2FA Status
+                                get2FAstatus();
 
 //                                Intent intent = new Intent(ConfirmPhraseActivity.this, DashBoardActivity.class);
 //                                startActivity(intent);
@@ -188,6 +194,7 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
     }
 
 
+/*
     private void invokeWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
@@ -273,7 +280,110 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
 
 
     }
+*/
 
+    private void get2FAstatus() {
+        boolean twoFactorAuthenStatus = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
+        if (twoFactorAuthenStatus) {
+            myApplication.set2FA(true);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+            editor.putBoolean(CONSTANTS.login2FA, false);
+            editor.apply();
+            Intent intent = new Intent(ConfirmPhraseActivity.this, TwoFALoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        } else {
+            myApplication.set2FA(false);
+            editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+            editor.apply();
+            Intent intent = new Intent(ConfirmPhraseActivity.this, TwoFAEnable1Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
+
+/*        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(LoginActivity.this, "", getResources().getString(R.string.please_wait), true);
+            UserControllerApi apiService = DeviantXApiClient.getClient().create(UserControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.get2FAStatus(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (loginResponseData.equals("true")) {
+                                    myApplication.set2FA(true);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                    editor.putBoolean(CONSTANTS.login2FA, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(LoginActivity.this, TwoFALoginActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                } else {
+                                    myApplication.set2FA(false);
+                                    editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                    editor.apply();
+                                    Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(LoginActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+ */
+    }
 
     public void displayTags(String allTags[]) {
         List<String> DATA = new ArrayList<>();

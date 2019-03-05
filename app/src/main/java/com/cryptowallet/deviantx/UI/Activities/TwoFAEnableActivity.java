@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +15,12 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -31,7 +32,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 public class TwoFAEnableActivity extends AppCompatActivity {
@@ -47,7 +47,7 @@ public class TwoFAEnableActivity extends AppCompatActivity {
     @BindView(R.id.btn_finish)
     Button btn_finish;
 
-    String loginResponseMsg, loginResponseStatus, tkn;
+    String loginResponseMsg, loginResponseStatus, tkn, loginResponseData;
 
     ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
@@ -152,13 +152,20 @@ public class TwoFAEnableActivity extends AppCompatActivity {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, true);
                                 myApplication.set2FA(true);
                                 editor.apply();
+/*
                                 Intent intent = new Intent(TwoFAEnableActivity.this, AppSettingsActivity.class);
                                 intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
                                 finish();
+*/
+//                                        GetWalletsList
+                                invokeWallet();
                                 CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
                             } else {
+                                editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                myApplication.set2FA(false);
+                                editor.apply();
                                 CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
                             }
                         } else {
@@ -201,4 +208,110 @@ public class TwoFAEnableActivity extends AppCompatActivity {
 
 
     }
+
+    private void invokeWallet() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(TwoFAEnableActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                                if (jsonArrayData.length() == 0) {
+                                    editor.putBoolean(CONSTANTS.empty_wallet, true);
+                                    editor.putBoolean(CONSTANTS.first_wallet, true);
+                                    editor.apply();
+                                    Intent intent = new Intent(TwoFAEnableActivity.this, SetUpWalletActivity.class);
+                                    startActivity(intent);
+//                                    CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.login_success));
+                                } else {
+                                    editor.putBoolean(CONSTANTS.first_wallet, false);
+                                    editor.putBoolean(CONSTANTS.empty_wallet, false);
+                                    editor.apply();
+/*
+//                                    Get 2FA Status
+                                    get2FAstatus();
+*/
+                                    Intent intent = new Intent(TwoFAEnableActivity.this, DashBoardActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+
+                                    /*if (loginResponseData.equals("true")) {
+                                        myApplication.set2FA(true);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                        editor.putBoolean(CONSTANTS.login2FA, false);
+                                        editor.apply();
+                                        Intent intent = new Intent(TwoFAEnableActivity.this, TwoFATwoFAEnableActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    } else {
+                                        myApplication.set2FA(false);
+                                        editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                        editor.apply();
+                                        Intent intent = new Intent(TwoFAEnableActivity.this, DashBoardActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                    }*/
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
 }

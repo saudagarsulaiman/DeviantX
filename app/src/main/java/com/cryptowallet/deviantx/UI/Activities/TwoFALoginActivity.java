@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.AuthenticationApi;
-import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +48,7 @@ public class TwoFALoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    String regResponseMsg, regResponseStatus, regResponsedata;
+    String regResponseMsg, regResponseStatus, regResponsedata, loginResponseMsg, loginResponseStatus, loginResponseData;
 
 
     @Override
@@ -116,10 +117,14 @@ public class TwoFALoginActivity extends AppCompatActivity {
                                 regResponsedata = jsonObject.getString("data");
                                 editor.putBoolean(CONSTANTS.login2FA, true);
                                 editor.apply();
-                                CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.login_success));
+//                                CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.login_success));
+//                                Fetch Wallets
+                                invokeWallet();
+/*
                                 Intent intent = new Intent(TwoFALoginActivity.this, DashBoardActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+*/
 //                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
                             } else {
                                 editor.putBoolean(CONSTANTS.login2FA, false);
@@ -164,5 +169,90 @@ public class TwoFALoginActivity extends AppCompatActivity {
         }
     }
 
+    private void invokeWallet() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(TwoFALoginActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                                if (jsonArrayData.length() == 0) {
+                                    Intent intent = new Intent(TwoFALoginActivity.this, SetUpWalletActivity.class);
+                                    editor.putBoolean(CONSTANTS.first_wallet, true);
+                                    editor.putBoolean(CONSTANTS.empty_wallet, true);
+                                    editor.apply();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.login_success));
+                                } else {
+                                    Intent intent = new Intent(TwoFALoginActivity.this, DashBoardActivity.class);
+                                    editor.putBoolean(CONSTANTS.first_wallet, false);
+                                    editor.putBoolean(CONSTANTS.empty_wallet, false);
+                                    editor.apply();
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.login_success));
+                                }
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, loginResponseMsg);
+                            }
+
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 
 }
