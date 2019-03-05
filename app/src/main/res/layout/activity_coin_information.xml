@@ -193,6 +193,24 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/lnr_candle_graph"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:background="@drawable/rec_grey_trans_c2"
+                            android:padding="@dimen/padding5"
+                            android:visibility="visible">
+
+                            <ImageView
+                                android:layout_width="@dimen/width24"
+                                android:layout_height="@dimen/height20"
+                                android:layout_gravity="center"
+                                android:src="@drawable/candlechart" />
+
+                        </LinearLayout>
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -203,24 +221,6 @@
                             android:text="24hrs"
                             android:textColor="@color/white"
                             android:textSize="@dimen/def_text_size" />
-
-                        <LinearLayout
-                            android:id="@+id/lnr_candle_graph"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="@dimen/margin10"
-                            android:layout_marginLeft="@dimen/margin10"
-                            android:background="@drawable/rec_grey_trans_c2"
-                            android:padding="@dimen/padding5"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:layout_width="@dimen/width24"
-                                android:layout_height="@dimen/height20"
-                                android:layout_gravity="center"
-                                android:src="@drawable/candlechart" />
-
-                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -377,8 +377,9 @@
             <com.github.mikephil.charting.charts.CandleStickChart
                 android:id="@+id/candle_chart"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height200"
+                android:layout_height="@dimen/height280"
                 android:layout_marginTop="@dimen/margin10"
+                android:layout_marginBottom="@dimen/def_margin"
                 android:visibility="gone" />
 
             <com.jjoe64.graphview.GraphView
