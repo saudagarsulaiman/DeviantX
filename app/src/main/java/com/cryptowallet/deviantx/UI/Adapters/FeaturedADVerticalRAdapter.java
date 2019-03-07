@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.UI.Activities.CoinInfoADAcivity;
 import com.cryptowallet.deviantx.UI.Models.FeaturedAirdrops;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.squareup.picasso.Picasso;
@@ -46,7 +45,7 @@ public class FeaturedADVerticalRAdapter extends RecyclerView.Adapter<FeaturedADV
         Picasso.with(context).load(allFeaturedAirdrops.get(i).getStr_coinlogo()).into(viewHolder.img_coin);
         viewHolder.txt_coin_name_code.setText(allFeaturedAirdrops.get(i).getStr_coinName() + " (" + allFeaturedAirdrops.get(i).getStr_coinCode() + ")");
         viewHolder.txt_coin_value.setText("Estimated $" + String.format("%.2f", allFeaturedAirdrops.get(i).getdbl_estimated()) + " ref");
-        viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
+       /* viewHolder.lnr_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CoinInfoADAcivity.class);
@@ -57,7 +56,7 @@ public class FeaturedADVerticalRAdapter extends RecyclerView.Adapter<FeaturedADV
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override

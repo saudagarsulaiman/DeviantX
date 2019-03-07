@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
-    android:orientation="vertical">
+    android:background="@drawable/bg_gradient">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -65,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/def_padding"
+                android:visibility="gone"
                 android:weightSum="1">
 
                 <LinearLayout
@@ -190,6 +190,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/large_navigator_height"
+                android:layout_marginTop="@dimen/def_margin"
                 android:background="@color/grey_exc"
                 android:orientation="horizontal"
                 android:weightSum="2">
@@ -403,6 +404,34 @@
                     android:isScrollContainer="false"
                     android:nestedScrollingEnabled="false" />
 
+                <LinearLayout
+                    android:id="@+id/lnr_no_trans_trades"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/def_margin"
+                    android:background="@color/lyt_blue"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/def_padding"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:layout_width="@dimen/width25"
+                        android:layout_height="@dimen/height25"
+                        android:src="@drawable/wallet_history" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/no_orders_avail"
+                        android:textColor="@color/google_red"
+                        android:textSize="@dimen/def_lbl_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -465,6 +494,35 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin10" />
 
+                    <LinearLayout
+                        android:id="@+id/lnr_no_trans_bid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/def_margin"
+                        android:background="@color/lyt_blue"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/def_padding"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="@dimen/width25"
+                            android:layout_height="@dimen/height25"
+                            android:src="@drawable/wallet_history" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no_orders_avail"
+                            android:textColor="@color/google_red"
+                            android:textSize="@dimen/def_lbl_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
                 <!--  <View
@@ -523,6 +581,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin10" />
+
+                    <LinearLayout
+                        android:id="@+id/lnr_no_trans_ask"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/def_margin"
+                        android:background="@color/lyt_blue"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/def_padding"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="@dimen/width25"
+                            android:layout_height="@dimen/height25"
+                            android:src="@drawable/wallet_history" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no_orders_avail"
+                            android:textColor="@color/google_red"
+                            android:textSize="@dimen/def_lbl_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -588,4 +674,14 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/white"
+        android:visibility="gone" />
+
+</RelativeLayout>

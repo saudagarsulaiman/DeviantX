@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,14 @@ import butterknife.ButterKnife;
 public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<String> tradesList;
+    ArrayList<ExcOrders> bidList, askList, allList;
     boolean isShort;
 
-    public MarketTradesRAdapter(Context context, ArrayList<String> tradesList, boolean isShort) {
+    public MarketTradesRAdapter(Context context, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, ArrayList<ExcOrders> allList, boolean isShort) {
         this.context = context;
-        this.tradesList = tradesList;
+        this.bidList = bidList;
+        this.askList = askList;
+        this.allList = allList;
         this.isShort = isShort;
     }
 
@@ -37,7 +40,21 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        if (i % 2 == 0) {
+//        if (allList != null) {
+            if (allList.get(i).getStr_orderType().equals("buy")) {
+                viewHolder.txt_time.setText("23:16:56");
+                viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+                viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
+            } else {
+                viewHolder.txt_time.setText("23:18:50");
+                viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
+                viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
+            }
+//        }
+
+       /* if (i % 2 == 0) {
             viewHolder.txt_time.setText("23:16:56");
             viewHolder.txt_price.setText("0.0005112");
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.red));
@@ -47,17 +64,17 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
             viewHolder.txt_price.setText("0.0062546");
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.green_txt));
             viewHolder.txt_amount.setText("315.05");
-        }
+        }*/
 
     }
 
     @Override
     public int getItemCount() {
         if (isShort) {
-            return 6;
+//            return getCount(bidList.size() + askList.size());
+            return getCount(allList.size());
         } else {
-            return 16;
-//            return tradesList.size();
+            return allList.size();
         }
     }
 
@@ -74,6 +91,30 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private int getCount(int size) {
+        int count = 0;
+        switch (size) {
+            case 1:
+                count = 1;
+                break;
+            case 2:
+                count = 2;
+                break;
+            case 3:
+                count = 3;
+                break;
+            case 4:
+                count = 4;
+                break;
+            case 5:
+                count = 5;
+                break;
+            default:
+                count = 5;
+        }
+        return count;
     }
 
 }

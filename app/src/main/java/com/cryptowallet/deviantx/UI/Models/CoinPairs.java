@@ -22,7 +22,7 @@ public class CoinPairs implements Parcelable {
     @SerializedName("twentyFourChange")
     double dbl_twentyFourChange;
 
-   @SerializedName("twentyFourChangePercentage")
+    @SerializedName("twentyFourChangePercentage")
     double dbl_twentyFourChangePercentage;
 
     @SerializedName("status")
@@ -34,11 +34,8 @@ public class CoinPairs implements Parcelable {
     @SerializedName("volume")
     double dbl_volume;
 
-
- @SerializedName("changeUsd")
+    @SerializedName("changeUsd")
     double dbl_twentyFourChangeUsd;
-
-
 
 
     protected CoinPairs(Parcel in) {
