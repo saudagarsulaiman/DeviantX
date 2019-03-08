@@ -23,7 +23,6 @@ import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.WalletHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
 import com.cryptowallet.deviantx.UI.Models.AllTransactions;
 import com.cryptowallet.deviantx.UI.Models.ReceivedHistory;
 import com.cryptowallet.deviantx.UI.Models.SentHistory;
@@ -71,15 +70,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
-    int int_data_id;
-    String str_data_txnHash, str_data_toAddress, str_data_category, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, str_data_cryptoWallet_address;
-    Double dbl_data_coinValue, dbl_data_cryptoWallet_bal;
-    AllCoins allCoins;
-    int int_coin_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    String str_coin_name, str_coin_code, str_coin_logo;
-    String str_data_coin;
-
 
     WalletHistoryRAdapter walletHistoryRAdapter;
     LinearLayoutManager layoutManager;
@@ -89,8 +79,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
     ArrayList<AllTransactions> allTransactionsList;
     ArrayList<SentHistory> sentHistoriesList, allList;
-    ArrayList<ReceivedHistory> /*sentHistoriesList1,*/ receivedHistoriesList;
-    ArrayList<ReceivedHistory> allHistoryList;
+    ArrayList<ReceivedHistory> receivedHistoriesList;
 
     @Override
     protected void onResume() {
@@ -100,29 +89,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
             walletHistoryRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletHistoryRAdapter.notifyDataSetChanged();
         }
-//        CommonUtilities.serviceStart(WalletHistoryActivity.this);
     }
-
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(WalletHistoryActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(WalletHistoryActivity.this);
-        super.onPause();
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

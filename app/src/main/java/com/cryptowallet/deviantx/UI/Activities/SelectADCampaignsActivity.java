@@ -53,8 +53,8 @@ public class SelectADCampaignsActivity extends AppCompatActivity implements Adap
 
         spnr_ad_type.setOnItemSelectedListener(this);
         List<String> categories = new ArrayList<String>();
-        categories.add("Social");
-//        categories.add("");
+//        categories.add("Social");
+        categories.add("Airdrop");
 //        categories.add("");
 //        categories.add("");
 //        categories.add("");

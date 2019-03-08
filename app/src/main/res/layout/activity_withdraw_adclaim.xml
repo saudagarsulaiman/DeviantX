@@ -165,6 +165,7 @@
                         android:textStyle="bold" />
 
                     <LinearLayout
+                        android:id="@+id/lnr_avail_bal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/def_btn_height"
                         android:layout_marginTop="@dimen/margin5"

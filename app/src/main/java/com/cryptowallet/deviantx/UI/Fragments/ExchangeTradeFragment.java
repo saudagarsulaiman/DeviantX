@@ -416,9 +416,9 @@ public class ExchangeTradeFragment extends Fragment {
         rview_order_history.setLayoutManager(linearLayoutManagerOrdersHistory);
 
 
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener, true);
         rview_bid.setAdapter(marketDephRAdapter);
-        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
+        marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener, true);
         rview_ask.setAdapter(marketDephRAdapter);
         exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
@@ -449,17 +449,17 @@ public class ExchangeTradeFragment extends Fragment {
                     isShort = false;
                     Picasso.with(getActivity()).load(R.drawable.up_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener, true);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener, true);
                     rview_ask.setAdapter(marketDephRAdapter);
                 } else {
                     isShort = true;
                     Picasso.with(getActivity()).load(R.drawable.down_yellow).into(img_dropdown);
 
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener, true);
                     rview_bid.setAdapter(marketDephRAdapter);
-                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener, true);
                     rview_ask.setAdapter(marketDephRAdapter);
                 }
             }
@@ -1159,7 +1159,7 @@ public class ExchangeTradeFragment extends Fragment {
                                             }
 
                                             if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener);
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener, true);
                                                 rview_bid.setAdapter(marketDephRAdapter);
                                                 rview_bid.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_bid.setVisibility(View.GONE);
@@ -1169,7 +1169,7 @@ public class ExchangeTradeFragment extends Fragment {
                                             }
 
                                             if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener);
+                                                marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener, true);
                                                 rview_ask.setAdapter(marketDephRAdapter);
                                                 rview_ask.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_ask.setVisibility(View.GONE);

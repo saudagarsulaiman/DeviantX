@@ -24,18 +24,19 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 
     Context context;
     ArrayList<ExcOrders> bidList, askList;
-    boolean isShort, isBid;
+    boolean isShort, isBid, isFrag;
     /*
         String title_pair;
     */
     CoinPairSelectableListener coinPairSelectableListener;
 
-    public MarketDephRAdapter(Context context, /*String title_pair,*/ boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort, CoinPairSelectableListener coinPairSelectableListener) {
+    public MarketDephRAdapter(Context context, /*String title_pair,*/ boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort, CoinPairSelectableListener coinPairSelectableListener, boolean isFrag) {
         this.context = context;
         this.bidList = bidList;
         this.askList = askList;
         this.isShort = isShort;
         this.isBid = isBid;
+        this.isFrag = isFrag;
 /*
         this.title_pair = title_pair;
 */
@@ -76,17 +77,18 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
                 viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
             }
 
+
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (isBid)
-                        coinPairSelectableListener.PairSelected(bidList, i, true);
-                    else
-                        coinPairSelectableListener.PairSelected(askList, i, false);
+                    if (isFrag) {
+                        if (isBid)
+                            coinPairSelectableListener.PairSelected(bidList, i, true);
+                        else
+                            coinPairSelectableListener.PairSelected(askList, i, false);
+                    }
                 }
             });
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }

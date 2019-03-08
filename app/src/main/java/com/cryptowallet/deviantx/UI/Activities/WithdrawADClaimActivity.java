@@ -85,6 +85,8 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
     LinearLayout lnr_plus;
     @BindView(R.id.pb)
     ProgressBar pb;
+    @BindView(R.id.lnr_avail_bal)
+    LinearLayout lnr_avail_bal;
 
 
     SharedPreferences sharedPreferences;
@@ -140,6 +142,19 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
         txt_avail_coinCode.setText(dividendAirdrops.getStr_coinCode());
         txt_coin_code.setText(dividendAirdrops.getStr_coinCode());
 
+        lnr_avail_bal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double availBal = Double.parseDouble(txt_avail_coins.getText().toString().trim());
+                String availBalance = txt_avail_coins.getText().toString().trim();
+                if (availBal > 0) {
+                    edt_amount.setText(availBalance);
+                } else {
+                    CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.not_enough_balance));
+                }
+
+            }
+        });
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override

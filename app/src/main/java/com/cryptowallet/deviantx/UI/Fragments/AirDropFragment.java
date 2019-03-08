@@ -608,11 +608,13 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                             lnr_empty_prtcptn.setVisibility(View.GONE);
                             featuredADHorizantalRAdapter = new FeaturedADHorizantalRAdapter(getActivity(), featuredCoinsList, false);
                             rview_fad_coins.setAdapter(featuredADHorizantalRAdapter);
-                            rview_fad_coins.setVisibility(View.VISIBLE);
+//                            rview_fad_coins.setVisibility(View.VISIBLE);
+                            rview_fad_coins.setVisibility(View.GONE);
                         } else {
                             lnr_empty_prtcptn.setVisibility(View.VISIBLE);
                             txt_fad_viewAll.setVisibility(View.GONE);
-                            lnr_empty_feat_coins.setVisibility(View.VISIBLE);
+//                            lnr_empty_feat_coins.setVisibility(View.VISIBLE);
+                            lnr_empty_feat_coins.setVisibility(View.GONE);
                             rview_fad_coins.setVisibility(View.GONE);
                         }
                     } else {

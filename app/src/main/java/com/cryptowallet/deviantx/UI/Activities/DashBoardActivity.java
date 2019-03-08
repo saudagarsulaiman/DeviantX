@@ -14,7 +14,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -51,9 +50,6 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.TriangularPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.CommonPagerTitleView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -175,7 +171,6 @@ public class DashBoardActivity extends AppCompatActivity {
     FragmentManager supportFragmentManager;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    ViewPagerAdapter adapter;
 
     String loginResponseMsg, loginResponseStatus, loginResponseData;
     ProgressDialog progressDialog;
@@ -187,24 +182,7 @@ public class DashBoardActivity extends AppCompatActivity {
         CommonUtilities.serviceStart(DashBoardActivity.this);
     }
 
-/*
-    private void serviceStart() {
-        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
-        //intent.putExtra(ONE_TIME, Boolean.TRUE);
-        PendingIntent pi = PendingIntent.getBroadcast(this, 0,
-                intent, 0);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), (1000 * 60 * 3), pi);
 
-       */
-/* AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(DashBoardActivity.this, RefreshServiceReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(DashBoardActivity.this, 0, intent, 0);
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,System.currentTimeMillis(),60000, pendingIntent);
-*//*
-
-    }
-*/
 
     private static final String TAG = "MainActivity";
 
@@ -633,53 +611,6 @@ public class DashBoardActivity extends AppCompatActivity {
         }
     }
 
-/*    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(DashBoardActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(DashBoardActivity.this);
-        super.onPause();
-    }*/
-
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
 
 }
 

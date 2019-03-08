@@ -1,25 +1,23 @@
 
-psquid:S00116¦"RRename this field "view_bg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥óäŠúÿÿÿÿ
-squid:S1319!"rThe type of the "bidList" object should be an interface such as "List" rather than the implementation "ArrayList".( Á‚øşÿÿÿÿ
-isquid:S00117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹
-xsquid:S14886"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-Usquid:S1854b"7Remove this useless assignment to local variable "res".(™ÑÒª8ÇŒ†’-
-osquid:S00116¤"VRename this field "seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿§èÑ
-bsquid:CommentedOutCodeLine("<This block of commented-out lines of code should be removed.(­Ğ ²
-squid:S1319!"rThe type of the "askList" object should be an interface such as "List" rather than the implementation "ArrayList".( Á‚øşÿÿÿÿ
-xsquid:S14882"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-gsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(¸üşúÿÿÿÿ
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(í‹Ööşÿÿÿÿ
-ssquid:S00116 "URename this field "txt_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó¼Êÿÿÿÿÿ
-/squid:S2176"Rename this class.(Â×Öúÿÿÿÿ
-isquid:S00117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹
-?squid:S1148["#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-isquid:CommentedOutCodeLineH"<This block of commented-out lines of code should be removed.(õÌÿ¾8»´„£’-
 isquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(ÿÃã8Â‘„£’-
+Usquid:S1854b"7Remove this useless assignment to local variable "res".(™ÑÒª8ÇŒ†’-
+xsquid:S14886"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
+gsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(¸üşúÿÿÿÿ
+/squid:S2176"Rename this class.(Â×Öúÿÿÿÿ
+psquid:S00116¦"RRename this field "view_bg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥óäŠúÿÿÿÿ
+isquid:S00117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹
 qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-?squid:S1659"#Declare "isBid" on a separate line.(¿ƒµÿÿÿÿÿ
-bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¾ÜÃê
+bsquid:CommentedOutCodeLine("<This block of commented-out lines of code should be removed.(­Ğ ²
+isquid:S00117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹
 rsquid:S00116¢"TRename this field "txt_price" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÛ¾¬ùÿÿÿÿ
-bsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(¼¯²À
-csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¼¯²À
 Asquid:S1659"%Declare "askList" on a separate line.(õ›«Ôüÿÿÿÿ
+ssquid:S00116 "URename this field "txt_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó¼Êÿÿÿÿÿ
+bsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(¼¯²À
+xsquid:S14882"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¾ÜÃê
+isquid:CommentedOutCodeLineH"<This block of commented-out lines of code should be removed.(õÌÿ¾8»´„£’-
+osquid:S00116¤"VRename this field "seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿§èÑ
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(í‹Ööşÿÿÿÿ
+?squid:S1659"#Declare "isBid" on a separate line.(¿ƒµÿÿÿÿÿ
+csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¼¯²À
+?squid:S1148["#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ

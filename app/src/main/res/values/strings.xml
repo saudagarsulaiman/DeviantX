@@ -617,5 +617,6 @@
     <string name="sure_cancel_order">Are you sure you want to cancel an order?</string>
     <string name="updating">Updating</string>
     <string name="cannot_disable_2fa">You cannnot disable 2FA.</string>
+    <string name="not_enough_balance">Not enough balance</string>
 
 </resources>

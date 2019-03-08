@@ -144,26 +144,6 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 //        CommonUtilities.serviceStart(CoinInformationActivity.this);
     }
 
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(CoinInformationActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(CoinInformationActivity.this);
-        super.onPause();
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

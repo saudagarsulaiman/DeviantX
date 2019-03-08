@@ -194,7 +194,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
 
                 if (bidList.size() > 0) {
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
                     rview_bid.setAdapter(marketDephRAdapter);
                     rview_bid.setVisibility(View.VISIBLE);
                     lnr_no_trans_bid.setVisibility(View.GONE);
@@ -204,7 +204,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 }
 
                 if (askList.size() > 0) {
-                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener);
+                    marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
                     rview_ask.setAdapter(marketDephRAdapter);
                     rview_ask.setVisibility(View.VISIBLE);
                     lnr_no_trans_ask.setVisibility(View.GONE);
@@ -261,7 +261,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     }
 
                     if (bidList.size() > 0) {
-                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener);
+                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
                         rview_bid.setAdapter(marketDephRAdapter);
                         rview_bid.setVisibility(View.VISIBLE);
                         lnr_no_trans_bid.setVisibility(View.GONE);
@@ -271,7 +271,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     }
 
                     if (askList.size() > 0) {
-                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener);
+                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
                         rview_ask.setAdapter(marketDephRAdapter);
                         rview_ask.setVisibility(View.VISIBLE);
                         lnr_no_trans_ask.setVisibility(View.GONE);
@@ -295,7 +295,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     }
 
                     if (bidList.size() > 0) {
-                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener);
+                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
                         rview_bid.setAdapter(marketDephRAdapter);
                         rview_bid.setVisibility(View.VISIBLE);
                         lnr_no_trans_bid.setVisibility(View.GONE);
@@ -305,7 +305,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                     }
 
                     if (askList.size() > 0) {
-                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener);
+                        marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
                         rview_ask.setAdapter(marketDephRAdapter);
                         rview_ask.setVisibility(View.VISIBLE);
                         lnr_no_trans_ask.setVisibility(View.GONE);
@@ -416,7 +416,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                                             }
 
                                             if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener);
+                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
                                                 rview_bid.setAdapter(marketDephRAdapter);
                                                 rview_bid.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_bid.setVisibility(View.GONE);
@@ -426,7 +426,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                                             }
 
                                             if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener);
+                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
                                                 rview_ask.setAdapter(marketDephRAdapter);
                                                 rview_ask.setVisibility(View.VISIBLE);
                                                 lnr_no_trans_ask.setVisibility(View.GONE);

@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,7 +30,6 @@ import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
 import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
-import com.cryptowallet.deviantx.UI.Activities.WalletOptionsActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
@@ -153,19 +151,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     @Override
     public void onResume() {
         super.onResume();
-//        invokeWallet();
-/*
-        try {
-            Log.e("*******DEVIANT*******", "Dashboard services Executing");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
-            } else {
-                getActivity().startService(new Intent(getActivity(), WalletDataFetch.class));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
+
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
         if (myWalletCoinsRAdapter != null) {
             myWalletCoinsRAdapter.setIsHideBalance(myApplication.getHideBalance());
@@ -268,37 +254,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                                     myApplication.setDefaultWallet(i);
                                 }
                             }
-                            /*JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                            for (int i = 0; i < jsonArrayData.length(); i++) {
-                                JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                try {
-                                    int_data_walletid = jsonObjectData.getInt("id");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    str_data_name = jsonObjectData.getString("name");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                try {
-                                    defaultWallet = jsonObjectData.getBoolean("defaultWallet");
-                                    if (defaultWallet) {
-                                        editor.putInt(CONSTANTS.defaultWallet, i);
-                                        editor.apply();
-                                        myApplication.setDefaultWallet(i);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                                walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
-                            }
-*/
+
                             walletListRAdapter.setAllWallets(walletList);
                             if (isDefaultWalle)
                                 itemPicker.scrollToPosition(myApplication.getDefaultWallet());
@@ -309,14 +265,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                         Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -557,38 +511,11 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                             editor.apply();
                             myApplication.setDefaultWallet(i);
                         }
+                        String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "");
+                        int wallet_id = sharedPreferences.getInt(CONSTANTS.walletId, 0);
+                        onLineFetchAccountWallet(wallet_name, wallet_id);
                     }
-                    /*   JSONArray jsonArrayData = new JSONArray(loginResponseData);
-                    for (int i = 0; i < jsonArrayData.length(); i++) {
-                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                        try {
-                            int_data_walletid = jsonObjectData.getInt("id");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            str_data_name = jsonObjectData.getString("name");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            defaultWallet = jsonObjectData.getBoolean("defaultWallet");
-                            if (defaultWallet) {
-                                editor.putInt(CONSTANTS.defaultWallet, i);
-                                editor.apply();
-                                myApplication.setDefaultWallet(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
-                    }
-*/
+
                     walletListRAdapter.setAllWallets(walletList);
                     itemPicker.scrollToPosition(myApplication.getDefaultWallet());
 

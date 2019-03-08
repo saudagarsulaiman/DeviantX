@@ -1,83 +1,80 @@
 
-Qsquid:S1481‹"4Remove this unused "lnr_information" local variable.(´Éšëûÿÿÿÿ
-isquid:S00117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚ÇÂ$
-bsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(È’®Ò
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óëÂì
 msquid:S00116E"URename this field "DATA_SET_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ßÃ†
-@squid:S1148Å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-Wsquid:S1854Ø":Remove this useless assignment to local variable "points".(šà”ãøÿÿÿÿ
-csquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(®ÙÒù
-hsquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(Óìş­ÿÿÿÿÿ
-csquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(©ãòµ
-csquid:CommentedOutCodeLine¸"<This block of commented-out lines of code should be removed.(‰Èëñ
-Vsquid:S1854´"9Remove this useless assignment to local variable "value".(¡‰¢Ÿÿÿÿÿÿ
-•squid:S1319ï"xThe type of the "accountWallet" object should be an interface such as "List" rather than the implementation "ArrayList".(ªö‹Ÿøÿÿÿÿ
-Wsquid:S1854"?Remove this useless assignment to local variable "lnr_history".(³©‚«
-jsquid:S00117Ì"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛÈäè
-qsquid:S00116â"SRename this field "fav_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¾ˆ•şÿÿÿÿ
-Hsquid:S1481"0Remove this unused "lnr_history" local variable.(³©‚«
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£§‰
-}squid:S00116î"eRename this field "txt_coin_usd_reserve_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®éc
-hsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùœÅÔ
-lsquid:S00116D"ORename this field "SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¡ƒâøÿÿÿÿ
-osquid:S00117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™¤‘‡ıÿÿÿÿ
-jsquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(ÇŒÖæ8¿ÔÜ¯-
-squid:S00116ì"cRename this field "txt_coin_avail_usd_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÎé÷ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(¬Î‚Ûúÿÿÿÿ
-jsquid:S00117Œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù¯‘
-isquid:S00117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÔĞ
-csquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(ßÅÄ²
-hsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ
-~squid:S1488j"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(‰òòØùÿÿÿÿ
-isquid:S00117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Êó&
-@squid:S1148ë"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷’Ø„
-:squid:S1659Ì""Declare "data" on a separate line.(ÛÈäè
-csquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(ç­ºÑ
-qsquid:S00116Ş"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Şúÿÿÿÿ
-xsquid:S00116ê"_Rename this field "txt_coin_total_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é–€³
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¼»ó
-jsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓÈá÷
-˜squid:S1319]"|The type of the "accountWalletlist" object should be an interface such as "List" rather than the implementation "ArrayList".(ÑîÖÁùÿÿÿÿ
-osquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã¨à’ÿÿÿÿÿ
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-Rsquid:UnusedPrivateMethod"-Remove this unused private "setChart" method.(¦Ê™R
-ssquid:S00116F"VRename this field "GRANULARITY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ³ÚÄıÿÿÿÿ
-`squid:S1854‹"CRemove this useless assignment to local variable "lnr_information".(´Éšëûÿÿÿÿ
-Hsquid:S1481"0Remove this unused "lnr_details" local variable.(ùœÅÔ
-Gsquid:S1481´"*Remove this unused "value" local variable.(¡‰¢Ÿÿÿÿÿÿ
-qsquid:S00116ä"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
-hsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(‘æä«şÿÿÿÿ
-zsquid:S00116è"aRename this field "txt_coin_reserve_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ë‚è
-squid:S00116ğ"cRename this field "txt_coin_usd_total_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ’ãşÿÿÿÿ
-osquid:S00117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Éšëûÿÿÿÿ
-jsquid:S00117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ›š·
-bsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(£²˜»
-jsquid:S00117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÏªÊ
-osquid:S00117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›šßïÿÿÿÿÿ
-osquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ•¹’üÿÿÿÿ
-vsquid:S00116à"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍğÿûÿÿÿÿ
-osquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹¥î×úÿÿÿÿ
-osquid:S00117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÙ±¬ıÿÿÿÿ
-[squid:S1155¦">Use isEmpty() to check whether the collection is empty or not.(•Ô‹şÿÿÿÿ
-Hsquid:S1481Ø"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ
-˜squid:S1319L"|The type of the "accountWalletlist" object should be an interface such as "List" rather than the implementation "ArrayList".(×Òÿäÿÿÿÿÿ
-Wsquid:S1854"?Remove this useless assignment to local variable "lnr_details".(ùœÅÔ
-xsquid:S00116æ"_Rename this field "txt_coin_avail_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ—ßÚ
-wsquid:S00116C"ZRename this field "DURATION_MILLIS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒª¡–øÿÿÿÿ
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³©‚«
-hsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(Ğ×ËĞıÿÿÿÿ
-osquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»®æÈüÿÿÿÿ
-csquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ª¼™Š
-/squid:S2176Û"Rename this class.(Â×Öúÿÿÿÿ
-gsquid:CommentedOutCodeLineW"<This block of commented-out lines of code should be removed.(ÿü©“úÿÿÿÿ
-hsquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(šŠÀ‚øÿÿÿÿ
-osquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¸–ùÿÿÿÿ
+@squid:S1148ï"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÙ±¬ıÿÿÿÿ
+csquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(ç­ºÑ
+qsquid:S00116è"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
+Rsquid:S1141Ó"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+jsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ÇŒÖæ8¿ÔÜ¯-
+jsquid:S00117˜"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ›š·
+csquid:CommentedOutCodeLineè"<This block of commented-out lines of code should be removed.(ßÅÄ²
 hsquid:CommentedOutCodeLinew"<This block of commented-out lines of code should be removed.(­’Ã#8Ò¦Û¯-
+hsquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(‘æä«şÿÿÿÿ
+vsquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ•¹’üÿÿÿÿ8âÄÖ¾•-
+@squid:S1148Ö"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+wsquid:S00116ö"YRename this field "txt_percentage" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò‚’şüÿÿÿÿ
+qsquid:S00116â"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Şúÿÿÿÿ
+osquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ÿ¸–ùÿÿÿÿ
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›šßïÿÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+Wsquid:S1854Ü":Remove this useless assignment to local variable "points".(šà”ãøÿÿÿÿ
+osquid:S00117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»®æÈüÿÿÿÿ
+Hsquid:S1481“"0Remove this unused "lnr_details" local variable.(ùœÅÔ
+ssquid:S00116F"VRename this field "GRANULARITY" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ³ÚÄıÿÿÿÿ
+csquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ª¼™Š
+xsquid:S00116î"_Rename this field "txt_coin_total_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é–€³
+jsquid:S00117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¼»ó
+squid:S00116ğ"cRename this field "txt_coin_avail_usd_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÎé÷ÿÿÿÿÿ
+csquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(©ãòµ
+hsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ
+:squid:S1659Ğ""Declare "data" on a separate line.(ÛÈäè
+wsquid:S00116C"ZRename this field "DURATION_MILLIS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒª¡–øÿÿÿÿ
+zsquid:S00116ì"aRename this field "txt_coin_reserve_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ë‚è
+csquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(‰Èëñ
+qsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓÈá÷8âÄÖ¾•-
+bsquid:CommentedOutCodeLine_"<This block of commented-out lines of code should be removed.(£²˜»
+vsquid:S00116ä"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍğÿûÿÿÿÿ
+hsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(Ğ×ËĞıÿÿÿÿ
+bsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(È’®Ò
+@squid:S1148É"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+hsquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(¬Î‚Ûúÿÿÿÿ
+Hsquid:S1481Ü"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ
+jsquid:S00117”"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³©‚«
+isquid:S00117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚ÇÂ$
 Nsquid:S1068G"2Remove this unused "progressDialog" private field.(·á…Çùÿÿÿÿ
-osquid:S00117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Şˆùÿÿÿÿ
-Vsquid:S1155™">Use isEmpty() to check whether the collection is empty or not.(ËÆùà
-Rsquid:S1141Ï"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
-wsquid:S00116ò"YRename this field "txt_percentage" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò‚’şüÿÿÿÿ
-@squid:S1148Ò"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù¯‘
+Hsquid:S1481”"0Remove this unused "lnr_history" local variable.(³©‚«
+isquid:S00117š"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Êó&
+jsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷’Ø„
+[squid:S1155ª">Use isEmpty() to check whether the collection is empty or not.(•Ô‹şÿÿÿÿ
+osquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8âÄÖ¾•-
+Vsquid:S1854¸"9Remove this useless assignment to local variable "value".(¡‰¢Ÿÿÿÿÿÿ
+lsquid:S00116D"ORename this field "SIZE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¡ƒâøÿÿÿÿ
+jsquid:S00117‘"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(óëÂì
+gsquid:CommentedOutCodeLineW"<This block of commented-out lines of code should be removed.(ÿü©“úÿÿÿÿ
+Vsquid:S1155">Use isEmpty() to check whether the collection is empty or not.(ËÆùà
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´Éšëûÿÿÿÿ
+qsquid:S00116æ"SRename this field "fav_icon" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¾ˆ•şÿÿÿÿ
+Qsquid:S1481"4Remove this unused "lnr_information" local variable.(´Éšëûÿÿÿÿ
+xsquid:S00116ê"_Rename this field "txt_coin_avail_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ—ßÚ
+hsquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(šŠÀ‚øÿÿÿÿ
+Wsquid:S1854“"?Remove this useless assignment to local variable "lnr_details".(ùœÅÔ
+jsquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùœÅÔ
+jsquid:S00117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÏªÊ
+}squid:S00116ò"eRename this field "txt_coin_usd_reserve_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®éc
+Rsquid:UnusedPrivateMethod¢"-Remove this unused private "setChart" method.(¦Ê™R
+hsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(Óìş­ÿÿÿÿÿ
+Gsquid:S1481¸"*Remove this unused "value" local variable.(¡‰¢Ÿÿÿÿÿÿ
+`squid:S1854"CRemove this useless assignment to local variable "lnr_information".(´Éšëûÿÿÿÿ
+jsquid:S00117Ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛÈäè
+vsquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹¥î×úÿÿÿÿ8âÄÖ¾•-
+osquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Şˆùÿÿÿÿ
+/squid:S2176ß"Rename this class.(Â×Öúÿÿÿÿ
+osquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã¨à’ÿÿÿÿÿ
+isquid:S00117™"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şÔĞ
+jsquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£§‰
+squid:S00116ô"cRename this field "txt_coin_usd_total_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ’ãşÿÿÿÿ
+csquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(®ÙÒù
+~squid:S1488j"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(‰òòØùÿÿÿÿ
+vsquid:S00117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™¤‘‡ıÿÿÿÿ8âÄÖ¾•-
+Wsquid:S1854”"?Remove this useless assignment to local variable "lnr_history".(³©‚«
