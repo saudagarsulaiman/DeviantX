@@ -79,9 +79,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.img_tlbr_search)
     ImageView img_tlbr_search;
-    @Nullable
-    @BindView(R.id.img_tlbr_refresh)
-    ImageView img_tlbr_refresh;
+    //    @Nullable
+//    @BindView(R.id.img_tlbr_refresh)
+    public static ImageView img_tlbr_refresh;
 
 
     @Nullable
@@ -149,7 +149,7 @@ public class DashBoardActivity extends AppCompatActivity {
     @BindView(R.id.lnr_nav_drwr_help)
     LinearLayout lnr_nav_drwr_help;
 
-    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools, R.drawable.ic_exchange_unselected};
+    int[] CHANNELSImage = new int[]{R.drawable.selector_btm_nav_dashboard, R.drawable.selector_btm_nav_exp_coins, R.drawable.selector_btm_nav_airdrop, R.drawable.selector_btm_nav_tools/*, R.drawable.ic_exchange_unselected*/};
     int[] channelsName = new int[]{R.string.dashboard, R.string.explore_coins, R.string.airdrop, R.string.tools, R.string.exchange};
     int[] channelTtlName = new int[]{R.string.app_name, R.string.devx_coin_list, R.string.devx_airdrop, R.string.devx_tools, R.string.devx_exchange};
 
@@ -183,7 +183,6 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
 
-
     private static final String TAG = "MainActivity";
 
     @Override
@@ -196,6 +195,8 @@ public class DashBoardActivity extends AppCompatActivity {
 
         txt_btm_nav_lbl.setText(channelsName[0]);
         txt_tlbr_title.setText(channelTtlName[0]);
+
+        img_tlbr_refresh = findViewById(R.id.img_tlbr_refresh);
 
         supportFragmentManager = getSupportFragmentManager();
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
@@ -214,9 +215,6 @@ public class DashBoardActivity extends AppCompatActivity {
         img_tlbr_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                CommonUtilities.ShowToastMessage(DashBoardActivity.this, getResources().getString(R.string.updating));
-//        Background Service
-//                CommonUtilities.serviceStart(DashBoardActivity.this);
                 try {
                     progressDialog = ProgressDialog.show(DashBoardActivity.this, ""/*getResources().getString(R.string.updating)*/, getResources().getString(R.string./*please_wait*/updating), true);
                     Log.e("*******DEVIANT*******", "Dashboard services Executing");

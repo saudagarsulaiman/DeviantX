@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,7 +42,11 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AllCoinsDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AccountWalletDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.AllCoinsDB;
+import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
+import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
+import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
+import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -64,6 +69,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.cryptowallet.deviantx.UI.Activities.DashBoardActivity.img_tlbr_refresh;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
 
@@ -332,7 +338,41 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
         //rview_wallet_coins.setAdapter(myWalletCoinsRAdapter);
         favFilter.setImageDrawable(getResources().getDrawable(R.drawable.z_grey));
         favFilter.setTag("unFav");
+        img_tlbr_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    String walName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
+                    Intent sintent = new Intent(getActivity(),WalletDataFetch.class);
+                    sintent.putExtra("walletName",walName);
 
+                    progressDialog = ProgressDialog.show(getActivity(), ""/*getResources().getString(R.string.updating)*/, getResources().getString(R.string./*please_wait*/updating), true);
+                    Log.e("*******DEVIANT*******", "Dashboard Fragment services Executing");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        getActivity().startForegroundService(sintent);
+                        getActivity().startForegroundService(new Intent(getActivity(), AirdropWalletFetch.class));
+                        getActivity().startForegroundService(new Intent(getActivity(), AirdropsHistoryFetch.class));
+                        getActivity().startForegroundService(new Intent(getActivity(), WalletDetailsFetch.class));
+                        getActivity().startForegroundService(new Intent(getActivity(), ExcOrdersFetch.class));
+                    } else {
+                        getActivity().startService(sintent);
+                        getActivity().startService(new Intent(getActivity(), AirdropWalletFetch.class));
+                        getActivity().startService(new Intent(getActivity(), AirdropsHistoryFetch.class));
+                        getActivity().startService(new Intent(getActivity(), WalletDetailsFetch.class));
+                        getActivity().startService(new Intent(getActivity(), ExcOrdersFetch.class));
+                    }
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                        }
+                    }, 800);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.START | ItemTouchHelper.END) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {

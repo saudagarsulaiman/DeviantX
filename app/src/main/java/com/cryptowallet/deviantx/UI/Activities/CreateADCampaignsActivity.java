@@ -637,6 +637,8 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
     @Override
     public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
         if (adapterPosition > -1) {
+            edt_amount.setText("0");
+            btn_continue.setVisibility(View.GONE);
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name())) {
                 onItemChanged(walletList.get(adapterPosition));

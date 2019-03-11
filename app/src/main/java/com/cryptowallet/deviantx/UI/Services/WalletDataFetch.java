@@ -91,7 +91,7 @@ public class WalletDataFetch extends IntentService {
         if (intent.getStringExtra("walletName") != null) {
             boolean coinDataIsRefresh = intent.getBooleanExtra("isRefresh", true);
             fetchWalletCoins(intent.getStringExtra("walletName"), intent.getIntExtra("walletId", 0), coinDataIsRefresh);
-        } else
+        }
             invokeWallet(intent.getBooleanExtra("walletList", false), intent.getBooleanExtra("walletIsDefault", false));
 
     }

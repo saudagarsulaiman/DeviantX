@@ -66,8 +66,8 @@ public class SelectADCampaignsActivity extends AppCompatActivity implements Adap
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selected_item.equals("Social")) {
-
+//                if (selected_item.equals("Social")) {
+                    if (selected_item.equals("Airdrop")) {
                     Intent intent = new Intent(SelectADCampaignsActivity.this, CreateADCampaignsActivity.class);
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("SelectType", selected_item);
