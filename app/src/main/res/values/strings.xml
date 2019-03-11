@@ -618,5 +618,6 @@
     <string name="updating">Updating</string>
     <string name="cannot_disable_2fa">You cannnot disable 2FA.</string>
     <string name="not_enough_balance">Not enough balance</string>
+    <string name="no_en_bal_claim">You don\'t have enough balance to claim.</string>
 
 </resources>

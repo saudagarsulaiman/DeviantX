@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CoinGraph implements Comparable<CoinGraph> {
+public class CandleGraph implements Comparable<CandleGraph> {
 
     public Date time;
     public float high;
-    public double open, low, close, change, amplitude;
+    public double open, low, close, volume;
 
-    public CoinGraph(long time, double open, double high, double low, double close, double change, double amplitude) {
+    public CandleGraph(long time, double open, double high, double low, double close, double volume) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         Date d1 = calendar.getTime();
@@ -20,8 +20,7 @@ public class CoinGraph implements Comparable<CoinGraph> {
         this.high = (float) high;
         this.low = low;
         this.close = close;
-        this.change = change;
-        this.amplitude = amplitude;
+        this.volume = volume;
     }
 
 
@@ -66,21 +65,12 @@ public class CoinGraph implements Comparable<CoinGraph> {
     }
 
     public double getChange() {
-        return change;
+        return volume;
     }
 
-    public void setChange(double change) {
-        this.change = change;
+    public void setChange(double volume) {
+        this.volume = volume;
     }
-
-    public double getAmplitude() {
-        return amplitude;
-    }
-
-    public void setAmplitude(double amplitude) {
-        this.amplitude = amplitude;
-    }
-
 
 
    /* public Date getDate() {
@@ -96,7 +86,7 @@ public class CoinGraph implements Comparable<CoinGraph> {
     }*/
 
     @Override
-    public int compareTo(@NonNull CoinGraph measure) {
+    public int compareTo(@NonNull CandleGraph measure) {
         if (time == null || measure.time == null)
             return 0;
         return time.compareTo(measure.time);

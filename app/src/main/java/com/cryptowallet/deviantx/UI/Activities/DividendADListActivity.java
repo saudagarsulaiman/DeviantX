@@ -70,6 +70,7 @@ public class DividendADListActivity extends AppCompatActivity {
 
     String loginResponseData, loginResponseStatus, loginResponseMsg;
     double ad_bal = 0.0;
+    String ad_status = "false";
     ArrayList<DividendAirdrops> allDividendAirdrops;
 
     @Override
@@ -96,6 +97,7 @@ public class DividendADListActivity extends AppCompatActivity {
 
         try {
             ad_bal = getIntent().getDoubleExtra(CONSTANTS.amount, 0.0);
+            ad_status = getIntent().getStringExtra(CONSTANTS.isADTrue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,7 +136,7 @@ public class DividendADListActivity extends AppCompatActivity {
                         searchCoinsList.add(coinName);
                     }
                 }
-                dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, searchCoinsList, true, ad_bal);
+                dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, searchCoinsList, true, ad_bal, ad_status);
                 rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
             }
         });
@@ -191,7 +193,7 @@ public class DividendADListActivity extends AppCompatActivity {
                         }
                         if (dividendCoinsList.size() > 0) {
                             lnr_empty_div_coins.setVisibility(View.GONE);
-                            dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, dividendCoinsList, false, ad_bal);
+                            dividendADVerticalRAdapter = new DividendADVerticalRAdapter(DividendADListActivity.this, dividendCoinsList, false, ad_bal, ad_status);
                             rview_div_coins_list.setAdapter(dividendADVerticalRAdapter);
                         } else {
                             lnr_empty_div_coins.setVisibility(View.VISIBLE);

@@ -194,6 +194,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DividendADListActivity.class);
                 intent.putExtra(CONSTANTS.amount, airdropWalletlist.get(0).getDbl_data_ad_balance());
+                intent.putExtra(CONSTANTS.isADTrue, airdropWalletlist.get(0).getStr_airdropStatus());
                 startActivity(intent);
             }
         });
@@ -738,7 +739,7 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                             txt_div_ad_viewAll.setVisibility(View.VISIBLE);
                             lnr_empty_div_coins.setVisibility(View.GONE);
                             rview_div_ad_coins.setVisibility(View.VISIBLE);
-                            dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity(), dividendCoinsList, false, airdropWalletlist.get(0).getDbl_data_ad_balance());
+                            dividendADHorizantalRAdapter = new DividendADHorizantalRAdapter(getActivity(), dividendCoinsList, false, airdropWalletlist.get(0).getDbl_data_ad_balance(), airdropWalletlist.get(0).getStr_airdropStatus());
                             rview_div_ad_coins.setAdapter(dividendADHorizantalRAdapter);
                         } else {
                             rview_div_ad_coins.setVisibility(View.GONE);

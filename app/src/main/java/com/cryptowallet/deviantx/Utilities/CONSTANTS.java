@@ -57,8 +57,9 @@ public class CONSTANTS {
 
     //    PARSE SERVER
     public static String ServerUrl = "https://deviantx-parse-server.herokuapp.com/parse";
-    public static String AppId= "DeviantX";
-    public static String MasterKey= "DeviantXMaster";
+    public static String AppId = "DeviantX";
+    public static String MasterKey = "DeviantXMaster";
+    public static String isADTrue = "isADTrue";
 
 
 //    //    Selected Account Wallet Details

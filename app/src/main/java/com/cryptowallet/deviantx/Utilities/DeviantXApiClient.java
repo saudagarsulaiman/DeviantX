@@ -62,4 +62,16 @@ public class DeviantXApiClient {
 
         return retrofit;
     }
+
+
+    public static Retrofit getCandleChartData() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl("https://deviant-trade-chart.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        return retrofit;
+    }
+
 }

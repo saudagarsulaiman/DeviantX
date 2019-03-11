@@ -24,7 +24,6 @@ import com.cryptowallet.deviantx.UI.Activities.ReceiveCoinActivity;
 import com.cryptowallet.deviantx.UI.Activities.SendCoinActivity;
 import com.cryptowallet.deviantx.UI.Interfaces.FavListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
-import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CircleTransform;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
@@ -69,7 +68,6 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
     String DATA_SET_1;
     float GRANULARITY;
     private ProgressDialog progressDialog;
-    CoinGraph coinGraph;
     long startTime;
     long endTime;
 

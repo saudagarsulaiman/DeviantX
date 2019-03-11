@@ -31,12 +31,14 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
     ArrayList<DividendAirdrops> allDividendCoins;
     boolean isFull = false;
     Double dbl_data_ad_balance;
+    String str_ad_status;
 
-    public DividendADHorizantalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull, Double dbl_data_ad_balance) {
+    public DividendADHorizantalRAdapter(Context context, ArrayList<DividendAirdrops> allDividendCoins, boolean isFull, Double dbl_data_ad_balance, String str_ad_status) {
         this.context = context;
         this.allDividendCoins = allDividendCoins;
         this.isFull = isFull;
         this.dbl_data_ad_balance = dbl_data_ad_balance;
+        this.str_ad_status = str_ad_status;
     }
 
     @NonNull
@@ -57,8 +59,9 @@ public class DividendADHorizantalRAdapter extends RecyclerView.Adapter<DividendA
         viewHolder.btn_claim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (dbl_data_ad_balance < 500) {
-                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.maintain_bal_500));
+//                if (dbl_data_ad_balance < 500) {
+                if (!str_ad_status.equals("true")) {
+                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.no_en_bal_claim));
                 } else {
                     Intent intent = new Intent(context, WithdrawADClaimActivity.class);
                     Bundle bundle = new Bundle();

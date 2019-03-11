@@ -246,7 +246,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                 if (!amount.isEmpty()) {
                     float amt = Float.parseFloat(amount);
                     if (amt > 0) {
-                        if (Double.parseDouble(amount)/* + fee */ <= dividendAirdrops.getDbl_airdropAmount()) {
+//                        if (Double.parseDouble(amount)/* + fee */ <= dividendAirdrops.getDbl_airdropAmount()) {
                             /* if (myApplication.get2FA()) {
                              *//*
                                         Intent intent = new Intent(WithdrawADClaimActivity.this, TwoFAAirDropActivity.class);
@@ -261,9 +261,9 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                             } else {*/
                             customDialog(/*selectedWalletName*/walletName, dividendAirdrops.getStr_coinCode(), amount);
 //                            }
-                        } else {
-                            CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.maintain_bal));
-                        }
+//                        } else {
+//                            CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.maintain_bal));
+//                        }
                     } else {
                         CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.enter_amount));
                     }
@@ -295,7 +295,7 @@ public class WithdrawADClaimActivity extends AppCompatActivity implements Discre
                         if (Double.parseDouble(amountTextValue) != 0) {
                             Double finalValue = Double.parseDouble(amountTextValue);
                             avail_bal = dividendAirdrops.getDbl_airdropAmount();
-                            if (avail_bal < finalValue) {
+                            if (Double.parseDouble(String.format("%.4f", avail_bal)) < finalValue) {
                                 CommonUtilities.ShowToastMessage(WithdrawADClaimActivity.this, getResources().getString(R.string.insufficient_fund));
                                 edt_amount.setText("0");
                             }

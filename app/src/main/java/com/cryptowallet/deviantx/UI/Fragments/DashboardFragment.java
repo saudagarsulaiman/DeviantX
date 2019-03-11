@@ -515,7 +515,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
 //                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
