@@ -32,7 +32,9 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -475,6 +477,16 @@ public final class CommonUtilities {
         result = reserved + avail;
         return result;
     }
+
+    public static String covertMsToTime(long timestampInMilliSeconds) {
+        timestampInMilliSeconds = timestampInMilliSeconds * 1000;
+        Date date = new Date();
+        date.setTime(timestampInMilliSeconds);
+        String formattedDate = new SimpleDateFormat("HH:mm:ss").format(date);
+        return formattedDate;
+
+    }
+
 }
 
 

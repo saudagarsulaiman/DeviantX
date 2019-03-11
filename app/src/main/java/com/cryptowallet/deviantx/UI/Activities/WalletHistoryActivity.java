@@ -15,12 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
-import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.WalletHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.AllTransactions;
@@ -31,12 +28,10 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +72,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     AccountWallet selectedAccountWallet;
     String transType;
 
-    ArrayList<AllTransactions> allTransactionsList;
+    //    ArrayList<AllTransactions> allTransactionsList;
     ArrayList<SentHistory> sentHistoriesList, allList;
     ArrayList<ReceivedHistory> receivedHistoriesList;
 
@@ -100,7 +95,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        allTransactionsList = new ArrayList<>();
+//        allTransactionsList = new ArrayList<>();
         sentHistoriesList = new ArrayList<>();
         receivedHistoriesList = new ArrayList<>();
 
@@ -180,6 +175,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         });
 
     }
+/*
 
     private void fetchSentHistory(AccountWallet selectedAccountWallet) {
         try {
@@ -218,6 +214,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         sentHistoriesList = new ArrayList<SentHistory>(Arrays.asList(coinsStringArray));
 
 
+*/
 /*
                                         ArrayList<Transaction> selectedCoinTransaction = new ArrayList<>();
                                         for (int i = 0; i < sentHistoriesList.size(); i++) {
@@ -225,7 +222,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                                 selectedCoinTransaction.add(transactions.get(i));
                                             }
                                         }
-*/
+*//*
+
                                         if (sentHistoriesList.size() > 0) {
                                             walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, sentHistoriesList, receivedHistoriesList, true);
                                             rview_trans_history.setAdapter(walletHistoryRAdapter);
@@ -322,6 +320,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         receivedHistoriesList = new ArrayList<ReceivedHistory>(Arrays.asList(coinsStringArray));
 
 
+*/
 /*
                                         ArrayList<Transaction> selectedCoinTransaction = new ArrayList<>();
                                         for (int i = 0; i < sentHistoriesList.size(); i++) {
@@ -329,7 +328,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                                 selectedCoinTransaction.add(transactions.get(i));
                                             }
                                         }
-*/
+*//*
+
                                         if (receivedHistoriesList.size() > 0) {
                                             walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, sentHistoriesList, receivedHistoriesList, false);
                                             rview_trans_history.setAdapter(walletHistoryRAdapter);
@@ -390,6 +390,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
         }
 
     }
+*/
 
     private void fetchAllHistory(AccountWallet selectedAccountWallet) {
         try {
@@ -418,7 +419,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                     allList = new ArrayList<>();
                                     sentHistoriesList = new ArrayList<>();
 //                                    receivedHistoriesList = new ArrayList<>();
-//                                    allHistoryList = new ArrayList<>();
                                     AllTransactions coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllTransactions.class);
                                     sentHistoriesList = (ArrayList<SentHistory>) coinsStringArray.getList_sent();
                                     allList = (ArrayList<SentHistory>) coinsStringArray.getList_received();
@@ -440,7 +440,14 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         for (int i = 0; i < sentHistoriesList.size(); i++) {
                                             allList.add(sentHistoriesList.get(i));
                                         }
-                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, allList, receivedHistoriesList, false);
+                                        ArrayList<SentHistory> allHistoryList = new ArrayList<>();
+                                        for (int i = 0; i < allList.size(); i++) {
+                                            if (allList.get(i).getDbl_coinValue() >= 0.0001) {
+                                                allHistoryList.add(allList.get(i));
+                                            }
+                                        }
+
+                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, allHistoryList, receivedHistoriesList, false);
                                         rview_trans_history.setAdapter(walletHistoryRAdapter);
                                         lnr_trans_avail.setVisibility(View.VISIBLE);
                                         lnr_no_trans.setVisibility(View.GONE);
@@ -456,7 +463,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -464,7 +470,6 @@ public class WalletHistoryActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -473,15 +478,12 @@ public class WalletHistoryActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -489,241 +491,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
-
-/*
-    private void fetchTransactionHistory(final AccountWallet selectedAccountWallet) {
-        try {
-            String token = sharedPreferences.getString(CONSTANTS.token, null);
-            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
-            progressDialog = ProgressDialog.show(WalletHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
-            WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getSentTransactions(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_name(), wallet_name);
-            apiResponse.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    try {
-                        String responsevalue = response.body().string();
-
-                        if (!responsevalue.isEmpty() && responsevalue != null) {
-                            progressDialog.dismiss();
-
-                            JSONObject jsonObject = new JSONObject(responsevalue);
-                            loginResponseMsg = jsonObject.getString("msg");
-                            loginResponseStatus = jsonObject.getString("status");
-
-                            if (loginResponseStatus.equals("true")) {
-                                loginResponseData = jsonObject.getString("data");
-                                if (!loginResponseData.isEmpty()) {
-                                    JSONArray jsonArrayData = new JSONArray(loginResponseData);
-
-                                    if (jsonArrayData.length() == 0) {
-                                        lnr_trans_avail.setVisibility(View.GONE);
-                                        lnr_no_trans.setVisibility(View.VISIBLE);
-//                                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.no_trans_avail));
-                                    } else {
-                                        lnr_trans_avail.setVisibility(View.VISIBLE);
-                                        lnr_no_trans.setVisibility(View.GONE);
-                                        for (int i = 0; i < jsonArrayData.length(); i++) {
-                                            JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                                            try {
-                                                int_data_id = jsonObjectData.getInt("id");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_txnHash = jsonObjectData.getString("txnHash");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_category = jsonObjectData.getString("category");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_toAddress = jsonObjectData.getString("toAddress");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_txnDate = jsonObjectData.getString("txnDate");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_data_coinValue = jsonObjectData.getDouble("coinValue");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-                                            try {
-                                                str_data_icoTokenwallet = jsonObjectData.getString("icoTokenwallet");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_data_account = jsonObjectData.getString("account");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-
-                                            try {
-                                                str_data_coin = jsonObjectData.getString("coin");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            JSONObject jsonObjectCoins = new JSONObject(str_data_coin);
-                                            try {
-                                                int_coin_id = jsonObjectCoins.getInt("id");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_coin_name = jsonObjectCoins.getString("name");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_coin_code = jsonObjectCoins.getString("code");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                str_coin_logo = jsonObjectCoins.getString("logo");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-
-                                            try {
-                                                int_coin_rank = jsonObjectCoins.getInt("rank");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-
-                                            try {
-                                                str_data_cryptoWallet = jsonObjectData.getString("cryptoWallet");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            if (!str_data_cryptoWallet.isEmpty()) {
-                                                JSONObject jsonObjectcrypto = new JSONObject(str_data_cryptoWallet);
-                                                try {
-                                                    str_data_cryptoWallet_address = jsonObjectcrypto.getString("address");
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
-                                                try {
-                                                    dbl_data_cryptoWallet_bal = jsonObjectcrypto.getDouble("balance");
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-
-                                            CryptoWallet cryptoWallet = new CryptoWallet(str_data_cryptoWallet_address, dbl_data_cryptoWallet_bal);
-                                            AllCoins allCoins = new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m);
-                                            transactions.add(new Transaction(int_data_id, str_data_txnHash, str_data_toAddress, str_data_txnDate, str_data_cryptoWallet, str_data_icoTokenwallet, str_data_account, dbl_data_coinValue, str_data_category, allCoins, cryptoWallet));
-                                        }
-                                        ArrayList<Transaction> selectedCoinTransaction = new ArrayList<>();
-                                        for (int i = 0; i < transactions.size(); i++) {
-                                            if (selectedAccountWallet.getStr_coin_name().equals(transactions.get(i).getCryptoWallet().getStr_data_cryptoWallet_address())) {
-                                                selectedCoinTransaction.add(transactions.get(i));
-                                            }
-                                        }
-                                        if (selectedCoinTransaction.size() > 0) {
-//                                            walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, selectedCoinTransaction, selectedAccountWallet);
-                                            rview_trans_history.setAdapter(walletHistoryRAdapter);
-                                            lnr_trans_avail.setVisibility(View.VISIBLE);
-                                            lnr_no_trans.setVisibility(View.GONE);
-                                        } else {
-                                            lnr_no_trans.setVisibility(View.VISIBLE);
-                                            lnr_trans_avail.setVisibility(View.GONE);
-                                        }
-
-                                    }
-
-                                } else {
-                                    CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.empty_data));
-                                }
-                            } else {
-                                CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, loginResponseMsg);
-                            }
-
-                        } else {
-                            CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
-                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    if (t instanceof SocketTimeoutException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
-                    } else if (t instanceof java.net.ConnectException) {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
-                    } else {
-                        progressDialog.dismiss();
-                        CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        } catch (Exception ex) {
-            progressDialog.dismiss();
-            ex.printStackTrace();
-            CommonUtilities.ShowToastMessage(WalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-*/
-
 
 }

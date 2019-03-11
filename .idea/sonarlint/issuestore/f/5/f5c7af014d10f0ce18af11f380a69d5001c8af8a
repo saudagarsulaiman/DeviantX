@@ -1,0 +1,14 @@
+
+bsquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(Ï »ê
+bsquid:CommentedOutCodeLine&"<This block of commented-out lines of code should be removed.(²ÎäÜ
+nsquid:CommentedOutCodeLine8"<This block of commented-out lines of code should be removed.(¦÷¤ûÿÿÿÿ8½Å‘ë•-
+osquid:S00116"WRename this field "spnr_ad_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉéÂã
+squid:S1186^"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Æº×þÿÿÿÿ
+tsquid:S00116"WRename this field "btn_continue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Üø“ÿÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+psquid:S2293>"YReplace the type specification in this constructor call with the diamond operator ("<>").(šÁû¡
+gsquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(àŸ˜ýÿÿÿÿ
+osquid:S00116 "XRename this field "selected_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ž÷ÅH
+vsquid:S00116"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+gsquid:CommentedOutCodeLineH"<This block of commented-out lines of code should be removed.(÷µÇþÿÿÿÿ
+usquid:S22937"YReplace the type specification in this constructor call with the diamond operator ("<>").(–‡óÏýÿÿÿÿ

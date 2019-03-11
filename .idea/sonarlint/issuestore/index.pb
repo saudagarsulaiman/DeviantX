@@ -257,3 +257,9 @@ Xapp/src/main/java/com/cryptowallet/deviantx/UI/Interfaces/AirdropsHistoryUIList
 Wapp/src/main/java/com/cryptowallet/deviantx/UI/Interfaces/WalletSelectableListener.java,9\e\9e738d70bf5d075f01fd7e84b72dee254b1a6200
 {
 Kapp/src/main/java/com/cryptowallet/deviantx/UI/Services/CoinPairsFetch.java,6\8\687403f935645ba5a2f9ee944a057015d914bd42
+ˆ
+Xapp/src/main/java/com/cryptowallet/deviantx/UI/Activities/SelectADCampaignsActivity.java,f\5\f5c7af014d10f0ce18af11f380a69d5001c8af8a
+e
+5app/src/main/res/layout/activity_withdraw_adclaim.xml,4\f\4f1641f1a6288e4d771c0b7fdf7ba41923b91356
+^
+.app/src/main/res/layout/dashboard_fragment.xml,d\1\d11065386251d5d0c5edc27d5669102ca65a1366

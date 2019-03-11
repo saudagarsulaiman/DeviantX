@@ -1,0 +1,39 @@
+
+Jsquid:S1659-".Declare "loginResponseMsg" on a separate line.(‹•ç¸øÿÿÿÿ
+Msquid:S1659-"1Declare "loginResponseStatus" on a separate line.(‹•ç¸øÿÿÿÿ
+bsquid:CommentedOutCodeLine["<This block of commented-out lines of code should be removed.(ÁÉþ²
+gsquid:CommentedOutCodeLiner"<This block of commented-out lines of code should be removed.(î˜¦ýÿÿÿÿÿ
+asquid:CommentedOutCodeLine{"<This block of commented-out lines of code should be removed.(è·–3
+csquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(„¬¡‚
+hsquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLine•"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(ÀÌ»Ïýÿÿÿÿ
+hsquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(‘š”›ùÿÿÿÿ
+csquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(ÈÄúÝ
+hsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(°±–¦ûÿÿÿÿ
+hsquid:CommentedOutCodeLine½"<This block of commented-out lines of code should be removed.(³ì¢¯úÿÿÿÿ
+csquid:CommentedOutCodeLineÀ"<This block of commented-out lines of code should be removed.(‰Ç¹†
+csquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(Ž®ƒ÷
+csquid:CommentedOutCodeLineÐ"<This block of commented-out lines of code should be removed.(íâö·
+hsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+csquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(œïÑ
+hsquid:CommentedOutCodeLineí"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+csquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(»éý
+hsquid:CommentedOutCodeLineñ"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ
+bsquid:CommentedOutCodeLine÷"<This block of commented-out lines of code should be removed.(ËÍ5
+hsquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(¾Çà´úÿÿÿÿ
+csquid:CommentedOutCodeLineþ"<This block of commented-out lines of code should be removed.(œ™ä”
+csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¡Õ±š
+csquid:CommentedOutCodeLine“"<This block of commented-out lines of code should be removed.(ñ±™Œ
+hsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(ÎçŽ©ùÿÿÿÿ
+hsquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+isquid:HiddenFieldChecko"GRename "loginResponseStatus" which hides the field declared at line 45.(Ä¼À¬
+Ssquid:S2589k"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+vsquid:S00116'"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+lsquid:S00116)"TRename this field "edt_email" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶‚ÊÝ
+psquid:S00116+"SRename this field "btn_send" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÎÃüÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+@squid:S1148‰"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+;squid:S1148£"#Use a logger to log this exception.(Ç’Çê

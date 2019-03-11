@@ -1,0 +1,11 @@
+
+gsquid:CommentedOutCodeLinek"<This block of commented-out lines of code should be removed.(£µðîûÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(çñÝ·
+>squid:S1604c"(Make this anonymous inner class a lambda(÷Å¨-
+isquid:S001179"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
+:squid:S1148v"#Use a logger to log this exception.(Ç’Çê
+psquid:S2293i"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º
+?squid:S11850"(Remove this method to simply inherit it.(ªÐªÄ
+bsquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(¿Á†“
+vsquid:S00116)"^Rename this field "CoinPairsUIListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÂÃÃ
+gsquid:CommentedOutCodeLineP"<This block of commented-out lines of code should be removed.(ŽÚ×™ûÿÿÿÿ

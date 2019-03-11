@@ -1,21 +1,21 @@
 
-squid:S1186§"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
-Gsquid:S00108‚")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ
-isquid:S00117B"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
-?squid:S1148y"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-@squid:S1185³"(Remove this method to simply inherit it.(´ÌüŠ
-Qsquid:S1068°"9Remove this unused "sRoomDatabaseCallback" private field.(õ¥Øá
-@squid:S1148¢"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-Bsquid:S00108")Either remove or fill this block of code.(å¥‡
-;squid:S1148¬"#Use a logger to log this exception.(Ç’Çê
-Ssquid:S2589p"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-squid:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(çñİ·
->squid:S3398Ø"&Move this method into "WalletDbAsync".(’Øú÷
-hsquid:S1192;"LDefine a constant instead of duplicating this literal "Local_cache" 4 times.(¬Ê€Áûÿÿÿÿ
-•"squid:ClassVariableVisibilityCheck-"bMake walletUIChangeListener a static final constant or non-public and provide accessors if needed.(…Ÿ¡şÿÿÿÿ
+Gsquid:S00108‚")Either remove or fill this block of code.(±Ÿ—±ÿÿÿÿÿ
+@squid:S1148¢"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
 Tsquid:S2589‘"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
 Asquid:S00108t")Either remove or fill this block of code.(å¥‡
-@squid:S1148å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(âÊ©…ûÿÿÿÿ
+Ssquid:S2589p"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+>squid:S3398Ø"&Move this method into "WalletDbAsync".(’Øú÷
+hsquid:S1192;"LDefine a constant instead of duplicating this literal "Local_cache" 4 times.(¬Ê€Áûÿÿÿÿ
 ?squid:S11855"(Remove this method to simply inherit it.(ªĞªÄ
+@squid:S1185³"(Remove this method to simply inherit it.(´ÌüŠ
+;squid:S1148¬"#Use a logger to log this exception.(Ç’Çê
+@squid:S1148å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Qsquid:S1068°"9Remove this unused "sRoomDatabaseCallback" private field.(õ¥Øá
+•"squid:ClassVariableVisibilityCheck-"bMake walletUIChangeListener a static final constant or non-public and provide accessors if needed.(…Ÿ¡şÿÿÿÿ
+squid:S1186§"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
+squid:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
+?squid:S1148y"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(âÊ©…ûÿÿÿÿ
+Bsquid:S00108")Either remove or fill this block of code.(å¥‡
+isquid:S00117B"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®

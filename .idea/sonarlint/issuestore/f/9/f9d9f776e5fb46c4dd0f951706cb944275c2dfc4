@@ -1,0 +1,17 @@
+
+Msquid:S1659-"1Declare "loginResponseStatus" on a separate line.(•”ÓÊþÿÿÿÿ
+gsquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(§× ‘ýÿÿÿÿ
+bsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(„¬¡‚
+gsquid:CommentedOutCodeLine~"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Qsquid:S1141V"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Ssquid:S2589d"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+isquid:S3776S"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(™þÊÐ
+vsquid:S00116%"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+psquid:S00116'"SRename this field "edt_seed" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ±ÌŸøÿÿÿÿ
+rsquid:S00116)"URename this field "btn_submit" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¥ˆýÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+?squid:S1148{"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+;squid:S1148•"#Use a logger to log this exception.(Ç’Çê

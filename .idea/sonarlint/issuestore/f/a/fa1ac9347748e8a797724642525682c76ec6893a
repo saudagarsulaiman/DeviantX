@@ -1,0 +1,9 @@
+
+.squid:S2176C"Rename this class.(Â×žÖúÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+usquid:S00116G"]Rename this field "txt_coin_name_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷ìÏ¦
+vsquid:S00116I"YRename this field "txt_coin_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ùµ‡øÿÿÿÿ
+psquid:S00116K"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Þúÿÿÿÿ
+xsquid:S1488&"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóþx
+psquid:S00116E"SRename this field "img_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ù•˜ÿÿÿÿÿ
+nsquid:CommentedOutCodeLine0"<This block of commented-out lines of code should be removed.(‘˜ûÆûÿÿÿÿ8€»ÚÃ•-

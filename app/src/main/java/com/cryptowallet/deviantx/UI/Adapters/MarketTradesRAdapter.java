@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 
 import java.util.ArrayList;
 
@@ -39,39 +40,25 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-
-//        if (allList != null) {
-            if (allList.get(i).getStr_orderType().equals("buy")) {
-                viewHolder.txt_time.setText("23:16:56");
-                viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
-                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
-                viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
-            } else {
-                viewHolder.txt_time.setText("23:18:50");
-                viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
-                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
-                viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
-            }
-//        }
-
-       /* if (i % 2 == 0) {
-            viewHolder.txt_time.setText("23:16:56");
-            viewHolder.txt_price.setText("0.0005112");
-            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.red));
-            viewHolder.txt_amount.setText("2.30");
+        if (allList.get(i).getStr_orderType().equals("buy")) {
+            long ms = Long.parseLong(bidList.get(i).getStr_createdAt());
+            viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
+            viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
+            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+            viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
         } else {
-            viewHolder.txt_time.setText("23:18:50");
-            viewHolder.txt_price.setText("0.0062546");
-            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.green_txt));
-            viewHolder.txt_amount.setText("315.05");
-        }*/
+            long ms = Long.parseLong(askList.get(i).getStr_createdAt());
+            viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
+            viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
+            viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
+            viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
+        }
 
     }
 
     @Override
     public int getItemCount() {
         if (isShort) {
-//            return getCount(bidList.size() + askList.size());
             return getCount(allList.size());
         } else {
             return allList.size();

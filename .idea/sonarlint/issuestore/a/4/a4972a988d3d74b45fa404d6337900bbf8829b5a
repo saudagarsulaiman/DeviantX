@@ -1,0 +1,41 @@
+
+Msquid:S1659O"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
+Ksquid:S1659O"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
+gsquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(ï—Ì¾ûÿÿÿÿ
+gsquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(¿£ú½ùÿÿÿÿ
+csquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(³§˜ê
+bsquid:CommentedOutCodeLineŽ"<This block of commented-out lines of code should be removed.(ô¿†?
+csquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(ö®Óì
+hsquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(Ñ›Ãýÿÿÿÿ
+hsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(Øòýçúÿÿÿÿ
+bsquid:CommentedOutCodeLine»"<This block of commented-out lines of code should be removed.(¶À
+hsquid:CommentedOutCodeLine½"<This block of commented-out lines of code should be removed.(ñ¥ùšøÿÿÿÿ
+bsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(ö¾™
+bsquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(ËÍ5
+hsquid:CommentedOutCodeLineÐ"<This block of commented-out lines of code should be removed.(¾Çà´úÿÿÿÿ
+csquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(œ™ä”
+csquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(†Öãî
+hsquid:CommentedOutCodeLineÚ"<This block of commented-out lines of code should be removed.(™ðå•üÿÿÿÿ
+csquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(¡Õ±š
+csquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(¡Õ±š
+csquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(ñ±™Œ
+hsquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(ÎçŽ©ùÿÿÿÿ
+hsquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
+Bsquid:S1481"+Remove this unused "s_pswd" local variable.(ðªÍÅ
+Qsquid:S1854":Remove this useless assignment to local variable "s_pswd".(ðªÍÅ
+vsquid:S00116*"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+ssquid:S00116,"[Rename this field "txt_mywallet_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿óè¢
+ssquid:S00116."[Rename this field "txt_mywallet_btc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ý³ÖÂ
+qsquid:S001160"YRename this field "img_dev_qrcode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…®
+lsquid:S001162"TRename this field "lnr_share" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡®¡ä
+ksquid:S001164"SRename this field "lnr_copy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼·ßã
+rsquid:S001166"ZRename this field "txt_dev_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÚÁïž
+{squid:S001168"^Rename this field "txt_dev_private_key" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þú›ýùÿÿÿÿ
+vsquid:S00116:"^Rename this field "txt_derivation_path" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²Ø¡
+psquid:S00116<"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
+usquid:S00116?"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍðÿûÿÿÿÿ
+ysquid:S00116A"\Rename this field "txt_coin_name_add" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷¯†¶øÿÿÿÿ
+ssquid:S00116C"[Rename this field "txt_coin_name_pk" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ý¯×è
+tsquid:S00116E"WRename this field "txt_add_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©”Îéýÿÿÿÿ
+isquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ðªÍÅ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
