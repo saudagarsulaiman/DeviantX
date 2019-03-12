@@ -58,9 +58,10 @@ public class DividendADVerticalRAdapter extends RecyclerView.Adapter<DividendADV
         viewHolder.btn_claim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (dbl_data_ad_balance < 500) {
-                if (!str_ad_status.equals("true")) {
-                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.no_en_bal_claim));
+                if (dbl_data_ad_balance < 500) {
+//                if (!str_ad_status.equals("true")) {
+//                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.no_en_bal_claim));
+                    CommonUtilities.ShowToastMessage(context, context.getResources().getString(R.string.maintain_bal_500));
                 } else {
                     Intent intent = new Intent(context, WithdrawADClaimActivity.class);
                     Bundle bundle = new Bundle();
