@@ -18,6 +18,9 @@ public interface ExchangePairControllerApi {
     @GET("/api_v2/exchange_pair/get_all_pairs")
     Call<ResponseBody> getAllPairs(/*@Header("Authorization") String AuthorizationDX*/);
 
+    @GET("/api_v2/exchange_pair/get_depth_chart/{coin_pair}/{coin_ex}")
+    Call<ResponseBody> getDepthChart(@Header("Authorization") String AuthorizationDX, @Path("coin_pair") String coin_pair, @Path("coin_ex") String coin_ex);
+
     @GET("/api_v2/exchange_pair/get_pairs/{coin_code}")
     Call<ResponseBody> getPairs(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coinCodeX);
 

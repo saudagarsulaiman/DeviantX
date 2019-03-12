@@ -329,6 +329,18 @@
             </intent-filter>
         </receiver>
 
+
+        <!--DEPTH CHART-->
+        <provider android:authorities="com.cryptowallet.FileProvider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+
     </application>
 
 </manifest>
