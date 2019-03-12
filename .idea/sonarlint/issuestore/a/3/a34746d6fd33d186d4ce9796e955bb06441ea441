@@ -1,0 +1,14 @@
+
+`squid:UnusedPrivateMethodŽ"5Remove this unused private "drawVerticalLine" method.(îŽÞ„üÿÿÿÿ
+bsquid:UnusedPrivateMethod–"7Remove this unused private "drawVerticalCircle" method.(ëôÉœÿÿÿÿÿ
+Xsquid:UnusedPrivateMethodØ"-Remove this unused private "getIndex" method.(ÜÉ«Ðùÿÿÿÿ
+U"squid:SwitchLastCaseIsDefaultCheckL""Add a default case to this switch.(ãÁð™øÿÿÿÿ
+tsquid:S1450$"]Remove the "mVerticalPaint" field and declare it as a local variable in the relevant methods.(©²ôå
+gsquid:CommentedOutCodeLineF"<This block of commented-out lines of code should be removed.(ÿ½Äüÿÿÿÿ
+gsquid:CommentedOutCodeLinec"<This block of commented-out lines of code should be removed.(¸ÔÂøÿÿÿÿ
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(èÞ•Ýÿÿÿÿÿ
+hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(´€Ü˜üÿÿÿÿ
+bsquid:CommentedOutCodeLine÷"<This block of commented-out lines of code should be removed.(ÙÉÇ
+Jsquid:S1172Ž"-Remove this unused method parameter "canvas".(îŽÞ„üÿÿÿÿ
+Jsquid:S1172–"-Remove this unused method parameter "canvas".(ëôÉœÿÿÿÿÿ
+?squid:S1185C"(Remove this method to simply inherit it.(Ÿ½Ÿ»

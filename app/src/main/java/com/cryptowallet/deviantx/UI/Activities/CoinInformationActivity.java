@@ -264,6 +264,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         lnr_candle_graph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+                txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+                txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
+
                 lnr_result.setVisibility(View.INVISIBLE);
                 lnr_candle_graph.setBackground(getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
                 lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
@@ -276,6 +283,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         lnr_line_graph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+                txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+                txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
+
                 lnr_result.setVisibility(View.VISIBLE);
 //                CommonUtilities.ShowToastMessage(CoinInformationActivity.this, spnr_days.getSelectedItem().toString());
                 lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
@@ -514,9 +528,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         line_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-//                Long add = Long.parseLong"1000000000000");
-                Long date = (long) e.getX() * 1000/* + Long.parseLong("1000000000000")*/;
-//                date = date + add;
+                Long date = (long) e.getX() * 1000;
 
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
@@ -579,15 +591,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         l.setEnabled(false);
 
 
-        candle_chart.setTouchEnabled(true);
+       /* candle_chart.setTouchEnabled(true);
         candle_chart.setDragEnabled(true);
         candle_chart.setScaleEnabled(true);
         candle_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-//                Long add = Long.parseLong"1000000000000");
-                Long date = (long) e.getX() * 1000/* + Long.parseLong("1000000000000")*/;
-//                date = date + add;
+                Long date = (long) e.getX() * 1000;
 
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
@@ -600,13 +610,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 String timeStr = timeFormater.format(d2);
                 txt_date.setText(getResources().getString(R.string.date) + " " + dateStr);
                 txt_time.setText(getResources().getString(R.string.time) + " " + timeStr);
-                lnr_result.setVisibility(View.INVISIBLE);
+                lnr_result.setVisibility(View.VISIBLE);
                 for (int i = 0; i < responseList.size(); i++) {
-                    if (responseList.get(i).getHigh() == e.getY()) {
+                    if (responseList.get(i).getHigh()==e.getY()){
                         txt_open.setText(getResources().getString(R.string.open) + " $" + String.format("%.4f", responseList.get(i).getOpen()));
                         txt_high.setText(getResources().getString(R.string.high) + " $" + String.format("%.4f", responseList.get(i).getHigh()));
                         txt_low.setText(getResources().getString(R.string.low) + " $" + String.format("%.4f", responseList.get(i).getLow()));
-                        txt_close.setText(getResources().getString(R.string.closee) + " $" + String.format("%.4f", responseList.get(i).getClose()));
+                        txt_close.setText(getResources().getString(R.string.closee) + " $" + String.format("%.4f", responseList.get(i).getChange()));
                         break;
                     }
                 }
@@ -614,10 +624,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
             @Override
             public void onNothingSelected() {
-                lnr_result.setVisibility(View.INVISIBLE);
+//                lnr_result.setVisibility(View.INVISIBLE);
             }
         });
-
+*/
     }
 
     public void setLineChartData(ArrayList<CoinGraph> histories) {
@@ -672,20 +682,15 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
 
         ArrayList<CandleEntry> yValsCandleStick = new ArrayList<CandleEntry>();
-        for (int i = -0; i < 50; i++) {
-            yValsCandleStick.add(new CandleEntry(histories.get(i).time.getTime(), histories.get(i).high, (float) histories.get(i).low, (float) histories.get(i).open, (float) histories.get(i).close));
+        for (int i = 0; i < histories.size(); i++) {
+            yValsCandleStick.add(new CandleEntry(i, histories.get(i).high, (float) histories.get(i).low, (float) histories.get(i).open, (float) histories.get(i).close));
         }
+
         CandleDataSet set1;
         if (candle_chart.getData() != null && candle_chart.getData().getDataSetCount() > 0) {
             set1 = (CandleDataSet) candle_chart.getData().getDataSetByIndex(0);
             set1.setValues(yValsCandleStick);
-//            XAxis xAxis = binding.chart.getXAxis();
-//            xAxis.setValueFormatter(new IAxisValueFormatter() {
-//                @Override
-//                public String getFormattedValue(float value, AxisBase axis) {
-//                    return "sjd";
-//                }
-//            });
+
             line_chart.getData().notifyDataChanged();
             line_chart.notifyDataSetChanged();
         } else {
@@ -695,7 +700,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             set1.setShadowWidth(0.8f);
             set1.setDecreasingColor(getResources().getColor(R.color.google_red));
             set1.setDecreasingPaintStyle(Paint.Style.FILL);
-            set1.setIncreasingColor(getResources().getColor(R.color.bg_end_orange));
+            set1.setIncreasingColor(getResources().getColor(R.color.graph_brdr_green));
             set1.setIncreasingPaintStyle(Paint.Style.FILL);
             set1.setNeutralColor(Color.LTGRAY);
             set1.setDrawValues(false);

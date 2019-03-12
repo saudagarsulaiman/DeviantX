@@ -1,134 +1,127 @@
 
-qsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(Ä®ŞÔ8õøôŠ•-
-osquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(ïÎ»şÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(»÷µûÿÿÿÿ8õøôŠ•-
-{squid:S00116e"WRename this field "candle_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­™Šµıÿÿÿÿ8Î¢Îç”-
-jsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(İíÑÜ8õøôŠ•-
-osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8Â°Îğ”-
-osquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(¬Î‚Ûúÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(‰‡ÒÁşÿÿÿÿ8Â°Îğ”-
-Isquid:S1659‰"%Declare "respMsg" on a separate line.(ãÖ½ªûÿÿÿÿ8Î¢Îç”-
-osquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(•ÿÿÿÿÿ8õøôŠ•-
-vsquid:S3776ë"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¶ªÉ’úÿÿÿÿ8õøôŠ•-
-ssquid:S00116o"TRename this field "txt_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úŸş8Î¢Îç”-
-jsquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(òºÙî8õøôŠ•-
-jsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(¬ı—³8õøôŠ•-
-Ysquid:S1141½"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8õøôŠ•-
-Bsquid:S1148å"#Use a logger to log this exception.(Ç’Çê8õøôŠ•-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(„¬¡‚8õøôŠ•-
-wsquid:S00116_"SRename this field "lnr_spnr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äûÂıÿÿÿÿÿ8Î¢Îç”-
-rsquid:S00116q"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ş¦öÉ8Î¢Îç”-
-osquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8©ŠÉŒ•-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Šøíß8©ŠÉŒ•-
-jsquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(±¯€¤8–ÉúŠ•-
-jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(¬™ª¾8õøôŠ•-
-jsquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(±¯€¤8–ÉúŠ•-
-osquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8õøôŠ•-
-isquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(ùÀ´	8–ÉúŠ•-
-jsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(ˆÃÍà8õøôŠ•-
-[squid:S2589ğ"7Remove this expression which always evaluates to "true"(‰­Âëûÿÿÿÿ8©ŠÉŒ•-
-wsquid:S00116k"SRename this field "txt_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã»‚ùúÿÿÿÿ8Î¢Îç”-
-tsquid:S00116Y"URename this field "line_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªöãç8Î¢Îç”-
-osquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-isquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(¶üå-8õøôŠ•-
-usquid:S00116U"VRename this field "txt_per_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÙŒµ8Î¢Îç”-
-osquid:CommentedOutCodeLineı"<This block of commented-out lines of code should be removed.(ÅÔß–ùÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
+Jsquid:S1172¯"&Remove these unused method parameters.( «ôüÿÿÿÿ8¦ßğí–-
+Gsquid:S1148Ô"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(‡Ü¾ñıÿÿÿÿ8¦ßğí–-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ëâà8®ï¯é–-
+ysquid:S00116j"URename this field "lnr_result" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥’¯‚ùÿÿÿÿ8®ï¯é–-
+vsquid:S3776¯"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.( «ôüÿÿÿÿ8¦ßğí–-
+vsquid:S00116p"RRename this field "txt_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾œÓïüÿÿÿÿ8®ï¯é–-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ëâà8®ï¯é–-
+¥squid:S1186‚"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Æº×şÿÿÿÿ8¦ßğí–-
+ssquid:S00116r"TRename this field "txt_close" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úŸş8®ï¯é–-
+hsquid:HiddenFieldCheck¿"9Rename "data" which hides the field declared at line 128.(øò”øÿÿÿÿ8¦ßğí–-
+ksquid:S1192 "GDefine a constant instead of duplicating this literal "$00.00" 7 times.(äú‘–ùÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Å“È½úÿÿÿÿ8¦ßğí–-
+osquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8®ï¯é–-
+Bsquid:S1148ò"#Use a logger to log this exception.(Ç’Çê8®ï¯é–-
+jsquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(¤°ì8®ï¯é–-
+Ysquid:S1141¿"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8®ï¯é–-
+isquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(ª¯°q8¦ßğí–-
+osquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8®ï¯é–-
+Gsquid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+Gsquid:S1148¡"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+Osquid:S1481¿"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ8¦ßğí–-
+[squid:S2589„"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8®ï¯é–-
+jsquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(¨¯À®8¦ßğí–-
+esquid:S1192ñ"FDefine a constant instead of duplicating this literal "HH:mm" 4 times.(æç°8¾±í–-
+wsquid:S00116v"SRename this field "txt_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬€ª˜øÿÿÿÿ8®ï¯é–-
+jsquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(¬ı—³8…Ëùí–-
+[squid:S2589¶"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(»÷µûÿÿÿÿ8…Ëùí–-
+jsquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(¬ı—³8¦ßğí–-
+osquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(»÷µûÿÿÿÿ8¦ßğí–-
+[squid:S2589Ğ"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8¦ßğí–-
+csquid:HiddenFieldCheckï"9Rename "data" which hides the field declared at line 128.(Ó¬Éæ8¦ßğí–-
+xsquid:S00116T"YRename this field "txt_per_change" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ò¯8®ï¯é–-
+jsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(öìÍ¦8¦ßğí–-
+jsquid:CommentedOutCodeLineË"<This block of commented-out lines of code should be removed.(şĞĞÃ8®ï¯é–-
+hsquid:UnusedPrivateMethod°";Remove this unused private "setCoinCandleChartData" method.(Œ´ß¾8¦ßğí–-
+osquid:CommentedOutCodeLine‡"<This block of commented-out lines of code should be removed.(‰‡ÒÁşÿÿÿÿ8®ï¯é–-
+jsquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(¬™ª¾8¦ßğí–-
+osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(•ÿÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineÕ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8®ï¯é–-
+Ysquid:S1141"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8®ï¯é–-
+tsquid:S00116\"URename this field "line_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªöãç8®ï¯é–-
+vsquid:S00117Ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–±¢´şÿÿÿÿ8¦ßğí–-
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-Gsquid:S1148µ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-rsquid:S1192Á"NDefine a constant instead of duplicating this literal "onResponse:\n" 3 times.(¿Õ«şÿÿÿÿ8©ŠÉŒ•-
-¥squid:S1186·"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Æº×şÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(Ãô²úÿÿÿÿ8©ŠÉŒ•-
-jsquid:CommentedOutCodeLineõ"<This block of commented-out lines of code should be removed.(¤°ì8õøôŠ•-
-usquid:S00116O"WRename this field "txt_coin_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û¨ï@8Î¢Îç”-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-Lsquid:S1659‰"(Declare "respStatus" on a separate line.(ãÖ½ªûÿÿÿÿ8Î¢Îç”-
-xsquid:S00116Q"YRename this field "txt_per_change" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ò¯8Î¢Îç”-
-ysquid:S00116g"URename this field "lnr_result" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥’¯‚ùÿÿÿÿ8Î¢Îç”-
-\squid:S1854·">Remove this useless assignment to local variable "newDateStr".(¡ÊÒ|8õøôŠ•-
-osquid:CommentedOutCodeLineÑ"<This block of commented-out lines of code should be removed.(Ú±úƒşÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8Â°Îğ”-
-jsquid:CommentedOutCodeLineÙ"<This block of commented-out lines of code should be removed.(±¯€¤8–ÉúŠ•-
-Bsquid:S1148À"#Use a logger to log this exception.(Ç’Çê8©ŠÉŒ•-
-jsquid:CommentedOutCodeLineÓ"<This block of commented-out lines of code should be removed.(±¯€¤8–ÉúŠ•-
-ksquid:S1192“"GDefine a constant instead of duplicating this literal "$00.00" 7 times.(äú‘–ùÿÿÿÿ8õøôŠ•-
-jsquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(È¾¾Ë8õøôŠ•-
-osquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(ƒ¡ÓÓúÿÿÿÿ8õøôŠ•-
-Gsquid:S1148Ç"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-Gsquid:S1148•"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-ssquid:S00116a"TRename this field "spnr_days" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öâ”ø8Î¢Îç”-
-jsquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(„¬¡‚8©ŠÉŒ•-
-csquid:HiddenFieldCheckò"9Rename "data" which hides the field declared at line 124.(Ó¬Éæ8õøôŠ•-
-^squid:S1854÷":Remove this useless assignment to local variable "points".(šà”ãøÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8©ŠÉŒ•-
-?squid:S1659|""Declare "data" on a separate line.(Çá™8Î¢Îç”-
-jsquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(á¼¥²8©ŠÉŒ•-
-vsquid:S3776ã"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.( «ôüÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineŞ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8Â°Îğ”-
-[squid:S2589©"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-jsquid:CommentedOutCodeLineÚ"<This block of commented-out lines of code should be removed.(¨¯À®8õøôŠ•-
-csquid:HiddenFieldCheck¡"9Rename "data" which hides the field declared at line 124.(Ê¯…Ğ8õøôŠ•-
-osquid:CommentedOutCodeLineñ"<This block of commented-out lines of code should be removed.(³ìõ¤ÿÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
-wsquid:S00116M"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚8Î¢Îç”-
-jsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ĞÚ¼8©ŠÉŒ•-
-jsquid:CommentedOutCodeLineÀ"<This block of commented-out lines of code should be removed.(„¬¡‚8õøôŠ•-
-jsquid:CommentedOutCodeLineÃ"<This block of commented-out lines of code should be removed.(şĞĞÃ8õøôŠ•-
-osquid:CommentedOutCodeLineª"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-Gsquid:S1148İ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineÊ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8Â°Îğ”-
-[squid:S2589÷"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8õøôŠ•-
-Gsquid:S1148¢"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8©ŠÉŒ•-
-wsquid:S00116i"SRename this field "txt_open" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“€£õÿÿÿÿÿ8Î¢Îç”-
-jsquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(şĞĞÃ8õøôŠ•-
-nsquid:S00100»"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶†¶ı8õøôŠ•-
-Msquid:S1481·"/Remove this unused "newDateStr" local variable.(¡ÊÒ|8õøôŠ•-
-osquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(ÄÍÛ‚şÿÿÿÿ8õøôŠ•-
-isquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(ª¯°q8Â°Îğ”-
-osquid:S1192—"KDefine a constant instead of duplicating this literal "dd/MM/yyyy" 3 times.(š†Ò•ıÿÿÿÿ8ò—‹•-
-Jsquid:S1172ã"&Remove these unused method parameters.( «ôüÿÿÿÿ8©ŠÉŒ•-
-Gsquid:S1148ƒ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineó"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-ssquid:S00116|"URename this field "chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Çá™8Î¢Îç”-
-osquid:CommentedOutCodeLineí"<This block of commented-out lines of code should be removed.(‹«é ùÿÿÿÿ8õøôŠ•-
-zsquid:S00116]"[Rename this field "lnr_candle_graph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çû÷µ8Î¢Îç”-
-qsquid:S00117ü"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’¸ 8õøôŠ•-
-vsquid:S00117û"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”‰œ”ùÿÿÿÿ8õøôŠ•-
-jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(¬ı—³8õøôŠ•-
-{squid:S00116S"WRename this field "txt_per_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¾‰±üÿÿÿÿ8Î¢Îç”-
-Gsquid:S1148À"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(»÷µûÿÿÿÿ8õøôŠ•-
-Ysquid:S1141€"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8õøôŠ•-
-isquid:CommentedOutCodeLineŠ"<This block of commented-out lines of code should be removed.(‰©÷V8Î¢Îç”-
- squid:S1186Ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(÷”Öš8õøôŠ•-
-|squid:S00116K"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍğÿûÿÿÿÿ8Î¢Îç”-
-vsquid:S00116m"RRename this field "txt_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾œÓïüÿÿÿÿ8Î¢Îç”-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ëâà8õøôŠ•-
-osquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8Â°Îğ”-
-osquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8Â°Îğ”-
-Ysquid:S1141²"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8õøôŠ•-
-vsquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–±¢´şÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(Å“È½úÿÿÿÿ8Â°Îğ”-
-Bsquid:S1148³"#Use a logger to log this exception.(Ç’Çê8õøôŠ•-
-osquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
-wsquid:S00116s"SRename this field "txt_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬€ª˜øÿÿÿÿ8Î¢Îç”-
-jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(ëâà8õøôŠ•-
-Osquid:S1481÷"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ8©ŠÉŒ•-
-wsquid:S00116["YRename this field "lnr_line_graph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¦8Î¢Îç”-
-osquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(‡Ü¾ñıÿÿÿÿ8õøôŠ•-
-}squid:S2293ì"YReplace the type specification in this constructor call with the diamond operator ("<>").(–‡óÏıÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÅÔß–ùÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(¨¾êøÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineÈ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8©ŠÉŒ•-
-osquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8õøôŠ•-
-osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8õøôŠ•-
-}squid:S00116W"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î8Î¢Îç”-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Ú±úƒşÿÿÿÿ8¦ßğí–-
+jsquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(şĞĞÃ8®ï¯é–-
+jsquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(ÌöçÎ8¦ßğí–-
+isquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(ùÀ´	8¦ßğí–-
+osquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(ó…ÖÎûÿÿÿÿ8¦ßğí–-
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(ˆÃÍà8®ï¯é–-
+Msquid:S1481Ö"/Remove this unused "newDateStr" local variable.(¡ÊÒ|8¦ßğí–-
+osquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(‡Ü¾ñıÿÿÿÿ8®ï¯é–-
+Gsquid:S1148Ü"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¦ßğí–-
+Gsquid:S1148Â"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+usquid:S00116X"VRename this field "txt_per_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÙŒµ8®ï¯é–-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(±¯€¤8¦ßğí–-
+jsquid:CommentedOutCodeLineÚ"<This block of commented-out lines of code should be removed.(¬ı—³8¦ßğí–-
+jsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(±¯€¤8¦ßğí–-
+jsquid:CommentedOutCodeLine¤"<This block of commented-out lines of code should be removed.(±¯€¤8¦ßğí–-
+}squid:S00116Z"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î8®ï¯é–-
+qsquid:S00117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’¸ 8ÜÚìí–-
+Gsquid:S1148Ü"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+Bsquid:S1148ñ"#Use a logger to log this exception.(Ç’Çê8¦ßğí–-
+vsquid:S3776ø"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¶ªÉ’úÿÿÿÿ8®ï¯é–-
+Bsquid:S1148¶"#Use a logger to log this exception.(Ç’Çê8®ï¯é–-
+osquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(‹«é ùÿÿÿÿ8¦ßğí–-
+}squid:S2293¢"YReplace the type specification in this constructor call with the diamond operator ("<>").(çÔ¬—üÿÿÿÿ8¦ßğí–-
+jsquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(±¯€¤8¦ßğí–-
+osquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ïÎ»şÿÿÿÿ8®ï¯é–-
+|squid:S00116€"\Rename this field "candle_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÈ¼8®ï¯é–-
+jsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(İíÑÜ8¦ßğí–-
+osquid:CommentedOutCodeLineá"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8®ï¯é–-
+Lsquid:S1659"(Declare "respStatus" on a separate line.(ãÖ½ªûÿÿÿÿ8®ï¯é–-
+[squid:S2589º"7Remove this expression which always evaluates to "true"(‰­Âëûÿÿÿÿ8¦ßğí–-
+ssquid:S00116d"TRename this field "spnr_days" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öâ”ø8®ï¯é–-
+usquid:S00116€"URename this field "chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÈ¼8®ï¯é–-
+zsquid:S00116`"[Rename this field "lnr_candle_graph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çû÷µ8®ï¯é–-
+csquid:HiddenFieldCheck–"9Rename "data" which hides the field declared at line 128.(Ê¯…Ğ8¦ßğí–-
+osquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.(‰‡ÒÁşÿÿÿÿ8¦ßğí–-
+osquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(¬Î‚Ûúÿÿÿÿ8¦ßğí–-
+usquid:S00116R"WRename this field "txt_coin_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û¨ï@8®ï¯é–-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(È¾¾Ë8¦ßğí–-
+qsquid:S3776ª"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(Ä®ŞÔ8®ï¯é–-
+osquid:CommentedOutCodeLine½"<This block of commented-out lines of code should be removed.(û»íâüÿÿÿÿ8¦ßğí–-
+wsquid:S00116b"SRename this field "lnr_spnr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äûÂıÿÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineñ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8®ï¯é–-
+ squid:S1186¢"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(÷”Öš8®ï¯é–-
+jsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(ØÊ½Ì8¦ßğí–-
+osquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(”šãîùÿÿÿÿ8ÎÇãí–-
+Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8®ï¯é–-
+rsquid:S1192Î"NDefine a constant instead of duplicating this literal "onResponse:\n" 4 times.(¿Õ«şÿÿÿÿ8®ï¯é–-
+|squid:S00116N"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍğÿûÿÿÿÿ8®ï¯é–-
+{squid:S00116h"WRename this field "candle_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­™Šµıÿÿÿÿ8®ï¯é–-
+wsquid:S00116n"SRename this field "txt_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã»‚ùúÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8®ï¯é–-
+rsquid:S00116t"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ş¦öÉ8®ï¯é–-
+tsquid:S1192´"PUse already-defined constant 'DATA_SET_1' instead of duplicating its value here.(›¿ääùÿÿÿÿ8¦ßğí–-
+osquid:CommentedOutCodeLineë"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8®ï¯é–-
+jsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(„¬¡‚8®ï¯é–-
+osquid:S1192¤"KDefine a constant instead of duplicating this literal "dd/MM/yyyy" 4 times.(š†Ò•ıÿÿÿÿ8®ï¯é–-
+wsquid:S00116P"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚8®ï¯é–-
+jsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(á¼¥²8®ï¯é–-
+Nsquid:S1659€"/Declare "candle_chart_data" on a separate line.(ÎÈ¼8®ï¯é–-
+osquid:CommentedOutCodeLineú"<This block of commented-out lines of code should be removed.(ÄÍÛ‚şÿÿÿÿ8®ï¯é–-
+}squid:S2293÷"YReplace the type specification in this constructor call with the diamond operator ("<>").(–‡óÏıÿÿÿÿ8®ï¯é–-
+osquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(»÷µûÿÿÿÿ8¦ßğí–-
+nsquid:S00100†"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶†¶ı8¦ßğí–-
+jsquid:CommentedOutCodeLineß"<This block of commented-out lines of code should be removed.(ğ½³¶8¦ßğí–-
+osquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(¬Î‚Ûúÿÿÿÿ8®ï¯é–-
+wsquid:S00116^"YRename this field "lnr_line_graph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ¦8®ï¯é–-
+vsquid:S00117ğ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”‰œ”ùÿÿÿÿ8¦ßğí–-
+Gsquid:S1148ö"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¦ßğí–-
+osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(¨¾êøÿÿÿÿ8¦ßğí–-
+Asquid:S1659€""Declare "data" on a separate line.(ÎÈ¼8®ï¯é–-
+Ysquid:S1141¿"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8®ï¯é–-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‰©÷V8®ï¯é–-
+Bsquid:S1148«"#Use a logger to log this exception.(Ç’Çê8¦ßğí–-
+Isquid:S1659"%Declare "respMsg" on a separate line.(ãÖ½ªûÿÿÿÿ8®ï¯é–-
+{squid:S00116V"WRename this field "txt_per_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¾‰±üÿÿÿÿ8®ï¯é–-
+Msquid:S1481"/Remove this unused "newDateStr" local variable.(¡ÊÒ|8®ï¯é–-
+osquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(·Æ¯ûùÿÿÿÿ8¦ßğí–-
+osquid:CommentedOutCodeLineß"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8®ï¯é–-
+wsquid:S00116l"SRename this field "txt_open" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“€£õÿÿÿÿÿ8®ï¯é–-
+Gsquid:S1148–"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¦ßğí–-

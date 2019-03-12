@@ -46,7 +46,7 @@ public final class CommonUtilities {
     /******************** * Test Server Links  ****************************************************/
 
     //Main Link
-    public static final String URL = "http://142.93.51.57:3322";
+//    public static final String URL = "http://142.93.51.57:3322";
 
     //Local Link
 //    public static final String URL = "http://192.168.0.179:3322";
@@ -58,7 +58,7 @@ public final class CommonUtilities {
 
     /********************* Live Server Links ****************************************************/
 
-//    public static final String URL = "https://deviantx.app";
+    public static final String URL = "https://deviantx.app";
 
 
     //    ********************* Reusable Methods*******************************************************
@@ -68,22 +68,6 @@ public final class CommonUtilities {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-
-//    private boolean haveNetworkConnection(Context ctx) {
-//        boolean haveConnectedWifi = false;
-//        boolean haveConnectedMobile = false;
-//        ConnectivityManager cm = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-//        for (NetworkInfo ni : netInfo) {
-//            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-//                if (ni.isConnected())
-//                    haveConnectedWifi = true;
-//            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-//                if (ni.isConnected())
-//                    haveConnectedMobile = true;
-//        }
-//        return haveConnectedWifi || haveConnectedMobile;
-//    }
 
     public static boolean hideBalance(Context ctx) {
         boolean hide_bal = false;
@@ -487,6 +471,14 @@ public final class CommonUtilities {
 
     }
 
+    public static Date getTimeFromMS(long time) {
+        Date date;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        Date d1 = calendar.getTime();
+        date = d1;
+        return date;
+    }
 }
 
 

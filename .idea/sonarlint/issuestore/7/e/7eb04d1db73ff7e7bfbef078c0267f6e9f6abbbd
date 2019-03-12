@@ -1,0 +1,7 @@
+
+U"squid:SwitchLastCaseIsDefaultCheckb""Add a default case to this switch.(¸öÃÙøÿÿÿÿ
+{squid:S4165m"dRemove this useless assignment; "result" already holds the assigned value along all execution paths.(¥¥‡Ò
+=squid:S1170"!Make this final field static too.(øóþËýÿÿÿÿ
+7squid:S1170"!Make this final field static too.(ÞÛÌY
+tsquid:S00116"WRename this field "LATITUDE_NUM" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øóþËýÿÿÿÿ
+osquid:S00116"XRename this field "LONGITUDE_NUM" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÞÛÌY

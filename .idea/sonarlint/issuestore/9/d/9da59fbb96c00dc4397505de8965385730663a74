@@ -1,8 +1,8 @@
 
-psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áüè8ëÁšŸ‘-
+usquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒç‡Êüÿÿÿÿ8ëÁšŸ‘-
 psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±’8ëÁšŸ‘-
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(“·¡Ù
+psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áüè8ëÁšŸ‘-
 psquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ«Ğ´8ëÁšŸ‘-
-nsquid:S00117""QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÏ­’ùÿÿÿÿ
 Tsquid:UselessImportCheck"0Remove this unused import 'retrofit2.http.Path'.(íøŠ¡
-usquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒç‡Êüÿÿÿÿ8ëÁšŸ‘-
+nsquid:S00117""QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÏ­’ùÿÿÿÿ
