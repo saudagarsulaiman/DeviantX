@@ -41,6 +41,8 @@ import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
+import com.instabug.chat.Chats;
+import com.instabug.library.Instabug;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.buildins.UIUtil;
@@ -79,6 +81,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.img_tlbr_search)
     ImageView img_tlbr_search;
+    @Nullable
+    @BindView(R.id.img_tlbr_support)
+    ImageView img_tlbr_support;
     //    @Nullable
 //    @BindView(R.id.img_tlbr_refresh)
     public static ImageView img_tlbr_refresh;
@@ -211,6 +216,16 @@ public class DashBoardActivity extends AppCompatActivity {
         txt_nav_email.setText(sharedPreferences.getString(CONSTANTS.email, "test@deviantcoin.io"));
 
         img_tlbr_search.setVisibility(View.GONE);
+
+        String email = sharedPreferences.getString(CONSTANTS.email, "DEVIANTX");
+        Instabug.setUserAttribute("User Email", email);
+
+        img_tlbr_support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Chats.show();
+            }
+        });
 
         img_tlbr_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
