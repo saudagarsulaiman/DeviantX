@@ -309,3 +309,5 @@ e
 5app/src/main/res/layout/activity_coin_information.xml,4\8\487a90f7404e61bbdaf2b9b28628ebfbc8116dcc
 b
 2app/src/main/res/layout/dialog_change_password.xml,7\d\7d2794a47dc249014babccfe03015878e93e328b
+G
+app/release/output.json,7\c\7cb8114e4eccc7221955a60c256fe2f6fd79480c
