@@ -61,6 +61,8 @@ public class TwoFALoginActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        editor.putBoolean(CONSTANTS.login2FA, false);
+        editor.apply();
 
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +142,6 @@ public class TwoFALoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -149,7 +150,6 @@ public class TwoFALoginActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.networkerror));
@@ -157,7 +157,6 @@ public class TwoFALoginActivity extends AppCompatActivity {
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -165,7 +164,6 @@ public class TwoFALoginActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(TwoFALoginActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 

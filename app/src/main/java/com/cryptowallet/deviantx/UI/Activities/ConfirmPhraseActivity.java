@@ -296,6 +296,7 @@ public class ConfirmPhraseActivity extends AppCompatActivity implements HashtagV
         } else {
             myApplication.set2FA(false);
             editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+            editor.putBoolean(CONSTANTS.login2FA, false);
             editor.apply();
             Intent intent = new Intent(ConfirmPhraseActivity.this, TwoFAEnable1Activity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

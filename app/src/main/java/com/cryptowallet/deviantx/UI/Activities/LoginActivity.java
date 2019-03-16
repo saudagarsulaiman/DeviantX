@@ -198,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         myApplication.set2FA(false);
                                         editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                        editor.putBoolean(CONSTANTS.login2FA, false);
                                         editor.apply();
                                     }
 
@@ -409,6 +410,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             myApplication.set2FA(false);
             editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+            editor.putBoolean(CONSTANTS.login2FA, false);
             editor.apply();
             Intent intent = new Intent(LoginActivity.this, TwoFAEnable1Activity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

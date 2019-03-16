@@ -286,28 +286,8 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
         myApplication.get2FA();
-//        CommonUtilities.serviceStart(AppSettingsActivity.this);
     }
 
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(AppSettingsActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(AppSettingsActivity.this);
-        super.onPause();
-    }
-*/
 
     private void LanguageDialog() {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_languages);
