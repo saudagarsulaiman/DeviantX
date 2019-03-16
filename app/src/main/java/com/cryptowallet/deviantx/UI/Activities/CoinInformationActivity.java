@@ -184,9 +184,11 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
             if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
                 getCoinChartData1(selectedCoin1);
+/*
                 long from = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
                 long to = System.currentTimeMillis();
                 invokeCandleChartData(selectedCoin1.getStr_coin_code(), "D", from, to);
+*/
             } else {
                 CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
             }
@@ -207,9 +209,11 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             }
             if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
                 getCoinChartData(selectedCoin);
+/*
                 long from = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
                 long to = System.currentTimeMillis();
                 invokeCandleChartData(selectedCoin.getStr_coin_code(), "D", from, to);
+*/
             } else {
                 CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
             }
