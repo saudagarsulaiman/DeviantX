@@ -18,8 +18,9 @@ import com.cryptowallet.deviantx.UI.Interfaces.NewsDXUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.PairsListUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletDetailsUIListener;
 import com.cryptowallet.deviantx.UI.Interfaces.WalletUIChangeListener;
+import com.instabug.bug.BugReporting;
 import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
+import com.instabug.library.ui.onboarding.WelcomeMessage;
 import com.parse.Parse;
 
 //import com.google.android.gms.plus.Plus;
@@ -106,10 +107,11 @@ public class MyApplication extends Application {
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
         isAppPin = sharedPreferences.getBoolean(CONSTANTS.is_app_pin, false);
 
-        new Instabug.Builder(this, "a3fffb4323814c6408c9b5eb7201b3e0")
-                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
+        new Instabug.Builder(this, "fbf783414b9ff4ada4fe1621045965d2")
+//                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
                 .build();
-
+        Instabug.setWelcomeMessageState(WelcomeMessage.State.DISABLED);
+        BugReporting.setShakingThreshold(1000);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId(CONSTANTS.AppId)                // if desired

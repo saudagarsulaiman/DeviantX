@@ -5,8 +5,6 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.cryptowallet.deviantx.UI.Models.PairsList;
-import com.cryptowallet.deviantx.UI.Models.WalletDetails;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AccountWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropWalletDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.AirdropsHistoryDao;
@@ -35,7 +33,7 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletDetailsDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.WalletListDB;
 
 
-@Database(entities = {WalletListDB.class, AccountWalletDB.class, AllCoinsDB.class, AirdropWalletDB.class, ExploreCoinsDB.class, FeaturedAirdropsDB.class, DividendAirdropsDB.class, AirdropsHistoryDB.class, NewsDXDB.class, HeaderBannerDB.class, WalletDetailsDB.class, PairsListDB.class, ExcOrdersDB.class}, version = 1)
+@Database(entities = {WalletListDB.class, AccountWalletDB.class, AllCoinsDB.class, AirdropWalletDB.class, ExploreCoinsDB.class, FeaturedAirdropsDB.class, DividendAirdropsDB.class, AirdropsHistoryDB.class, NewsDXDB.class, HeaderBannerDB.class, WalletDetailsDB.class, PairsListDB.class, ExcOrdersDB.class}, version = 2)
 public abstract class DeviantXDB extends RoomDatabase {
 
     public abstract WalletListDao walletListDao();
@@ -74,11 +72,22 @@ public abstract class DeviantXDB extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             DeviantXDB.class, "deviantx_database")
                             .allowMainThreadQueries()
+//                            .addMigrations(MIGRATION_1_2)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
+
+/*
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
+*/
 
 }

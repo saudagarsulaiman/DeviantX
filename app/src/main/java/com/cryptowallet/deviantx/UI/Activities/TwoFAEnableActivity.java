@@ -150,6 +150,7 @@ public class TwoFAEnableActivity extends AppCompatActivity {
                             loginResponseStatus = jsonObject.getString("status");
                             if (loginResponseStatus.equals("true")) {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, true);
+                                editor.putBoolean(CONSTANTS.login2FA, true);
                                 myApplication.set2FA(true);
                                 editor.apply();
 /*
@@ -164,6 +165,7 @@ public class TwoFAEnableActivity extends AppCompatActivity {
                                 CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
                             } else {
                                 editor.putBoolean(CONSTANTS.twoFactorAuth, false);
+                                editor.putBoolean(CONSTANTS.login2FA, false);
                                 myApplication.set2FA(false);
                                 editor.apply();
                                 CommonUtilities.ShowToastMessage(TwoFAEnableActivity.this, loginResponseMsg);
