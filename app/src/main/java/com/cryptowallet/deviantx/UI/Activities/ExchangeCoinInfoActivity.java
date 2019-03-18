@@ -22,7 +22,10 @@ import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketTradesRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
+import com.cryptowallet.deviantx.UI.Models.AsksDC;
+import com.cryptowallet.deviantx.UI.Models.BidsDC;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
+import com.cryptowallet.deviantx.UI.Models.DepthChartData;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 import com.cryptowallet.deviantx.UI.Models.ExcOrdersDelete;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
@@ -127,6 +130,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.hc)
     HIChartView chartView;
+
+    @BindView(R.id.txt_no_dc_avail)
+    TextView txt_no_dc_avail;
+
     HIOptions options;
 
     MarketTradesRAdapter marketTradesRAdapter;
@@ -150,6 +157,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
+
+    ArrayList<AsksDC> asksDCList;
+    ArrayList<BidsDC> bidsDCList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +188,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         askList = new ArrayList<>();
         allList = new ArrayList<>();
         isShort = true;
+        asksDCList = new ArrayList<>();
+        bidsDCList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         coinPairs = bundle.getParcelable(CONSTANTS.selectedCoin);
@@ -374,7 +386,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
     }
 
-    private void setDepthChart() {
+    private void setDepthChart(ArrayList<AsksDC> asksDCList, ArrayList<BidsDC> bidsDCList) {
 //        SETTING CHART TYPE
         HIChart chart = new HIChart();
         chart.setType("area");
@@ -484,7 +496,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HISeries hiSeries = new HISeries();
         hiSeries.setName("Bid");
         ArrayList bidData = new ArrayList();
-        ArrayList biddataList0 = new ArrayList();
+        for (BidsDC bidsDC : bidsDCList) {
+            bidData.add(bidsDC/*.getDbl_price()*/);
+        }
+        /*   ArrayList biddataList0 = new ArrayList();
         biddataList0.add(0, 0.1524);
         biddataList0.add(1, 0.948665);
         bidData.add(0, biddataList0);
@@ -564,6 +579,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         biddataList19.add(0, 0.1628);
         biddataList19.add(1, 0.948665);
         bidData.add(19, biddataList19);
+       */
         hiSeries.setData(bidData);
 /*
         HIColor hiColor = new HIColor("#03a7a8");
@@ -573,19 +589,26 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HISeries hiSeriesA = new HISeries();
         hiSeriesA.setName("ask");
         ArrayList askData = new ArrayList();
-        ArrayList askdataList0 = new ArrayList();
-        askdataList0.add(0, 0.1435);
-        askdataList0.add(1, 242.521842);
+        for (int i = 0; i < asksDCList.size(); i++) {
+            ArrayList ask = new ArrayList();
+            ask.add(0, asksDCList.get(i).getDbl_price());
+            ask.add(1, asksDCList.get(i).getDbl_volume());
+            askData.add(i, ask);
+        }
+
+       /*   ArrayList askdataList0 = new ArrayList();
+        askdataList0.add(0, 0.000018);
+        askdataList0.add(1, 0);
         askData.add(0, askdataList0);
         ArrayList askdataList1 = new ArrayList();
-        askdataList1.add(0, 0.1436);
-        askdataList1.add(1, 206.49862099999999);
+        askdataList1.add(0, 0.000018);
+        askdataList1.add(1, 0);
         askData.add(1, askdataList1);
         ArrayList askdataList2 = new ArrayList();
-        askdataList2.add(0, 0.1437);
-        askdataList2.add(1, 205.823735);
+        askdataList2.add(0, 0.000018);
+        askdataList2.add(1, 0);
         askData.add(2, askdataList2);
-        ArrayList askdataList3 = new ArrayList();
+       ArrayList askdataList3 = new ArrayList();
         askdataList3.add(0, 0.1438);
         askdataList3.add(1, 197.33275);
         askData.add(3, askdataList3);
@@ -652,7 +675,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         ArrayList askdataList19 = new ArrayList();
         askdataList19.add(0, 0.1522);
         askdataList19.add(1, 3.76317);
-        askData.add(19, askdataList19);
+        askData.add(19, askdataList19);*/
         hiSeriesA.setData(askData);
 //        HIColor hiColor = new HIColor("#03a7a8");
 //        hiSeriesA.setColor(hiColor);
@@ -665,6 +688,14 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
         chartView.setOptions(options);
 
+
+        if (askData.size() == 0 && bidData.size() == 0) {
+            txt_no_dc_avail.setVisibility(View.VISIBLE);
+            chartView.setVisibility(View.GONE);
+        } else {
+            txt_no_dc_avail.setVisibility(View.GONE);
+            chartView.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -797,9 +828,15 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                             responseStatus = jsonObject.getString("status");
 
                             if (responseStatus.equals("true")) {
+
                                 responseData = jsonObject.getString("data");
-                                setDepthChart();
-                                chartView.setVisibility(View.VISIBLE);
+                                DepthChartData coinsStringArray = GsonUtils.getInstance().fromJson(responseData, DepthChartData.class);
+                                asksDCList = new ArrayList<>();
+                                bidsDCList = new ArrayList<>();
+                                asksDCList = (ArrayList<AsksDC>) coinsStringArray.getList_Asks();
+                                bidsDCList = (ArrayList<BidsDC>) coinsStringArray.getList_Bids();
+                                setDepthChart(asksDCList, bidsDCList);
+//                                chartView.setVisibility(View.VISIBLE);
 
                             } else {
                                 CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, responseMsg);

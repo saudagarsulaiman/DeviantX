@@ -442,11 +442,20 @@
 
                 <com.highsoft.highcharts.core.HIChartView
                     android:id="@+id/hc"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height200"
                     android:layout_marginTop="@dimen/def_margin"
-                    android:background="@color/transparent" />
+                    android:background="@color/transparent"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txt_no_dc_avail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height200"
+                    android:gravity="center"
+                    android:text="@string/no_chart_data"
+                    android:textColor="@color/google_red"
+                    android:textSize="@dimen/def_lbl_size" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
