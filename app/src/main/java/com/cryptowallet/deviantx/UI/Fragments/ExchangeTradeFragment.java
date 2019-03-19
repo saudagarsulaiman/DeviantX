@@ -251,7 +251,7 @@ public class ExchangeTradeFragment extends Fragment {
 
     View view;
 
-    private StompClient stompClient;
+    public static StompClient stompClient;
 
     String myEmail, wallet_name;
     CoinPairSelectableListener coinPairSelectableListener;

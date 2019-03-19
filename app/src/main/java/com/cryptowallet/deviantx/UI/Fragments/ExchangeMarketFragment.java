@@ -91,7 +91,7 @@ public class ExchangeMarketFragment extends Fragment {
 
     LinearLayoutManager linearLayoutVertical;
     GainerLoserExcDBRAdapter gainerLoserExcDBRAdapter;
-    private StompClient stompClient;
+    public static StompClient stompClient;
     ArrayList<CoinPairs> allCoinPairs, allCoinPairsList;
     String selectedCoinName = "BTC";
     int selectedCoinPos = 0;

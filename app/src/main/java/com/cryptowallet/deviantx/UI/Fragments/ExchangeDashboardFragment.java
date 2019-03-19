@@ -180,7 +180,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     }
 
     private static final String TAG = "DEVIANTX";
-    private StompClient stompClient;
+    public static StompClient stompClient;
     String selectedCoinName = "BTC";
 
     @Override

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -270,6 +271,19 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (ExchangeDashboardFragment.stompClient != null)
+            if (ExchangeDashboardFragment.stompClient.isConnected())
+                ExchangeDashboardFragment.stompClient.disconnect();
+
+        if (ExchangeMarketFragment.stompClient != null)
+            if (ExchangeMarketFragment.stompClient.isConnected())
+                ExchangeMarketFragment.stompClient.disconnect();
+
+        if (ExchangeTradeFragment.stompClient != null)
+            if (ExchangeTradeFragment.stompClient.isConnected())
+                ExchangeTradeFragment.stompClient.disconnect();
+
+        Log.e("STOMPCLIENT", "DISCONNECTED ON BACKPRESSED");
         Intent intent = new Intent(ExchangeDashBoardActivity.this, DashBoardActivity.class);
         startActivity(intent);
     }
