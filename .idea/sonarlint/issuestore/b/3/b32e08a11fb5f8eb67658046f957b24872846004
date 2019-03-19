@@ -1,32 +1,31 @@
 
-usquid:S3776Z"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¨Œşÿÿÿÿ8ÏÄ·ì•-
-vsquid:S001160"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
-Gsquid:S1148Ö"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÙ„Ø–-
-jsquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(Š•â8ÏÄ·ì•-
-vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ÅÊçùÿÿÿÿ8ÏÄ·ì•-
-¥squid:S1186‹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ8ÏÄ·ì•-
-Msquid:S1659B"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
-jsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(èÏ»ã8«åö×–-
 bsquid:S1155«">Use isEmpty() to check whether the collection is empty or not.(Ê»Ùøşÿÿÿÿ8ÏÄ·ì•-
-qsquid:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(ÃÑô8ÏÄ·ì•-
-rsquid:S00116:"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
-Ksquid:S1659B"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
-nsquid:CommentedOutCodeLineb"<This block of commented-out lines of code should be removed.(˜îèßüÿÿÿÿ8 ´ù×–-
-Hsquid:S1659L"%Declare "allList" on a separate line.(¤‰Åšıÿÿÿÿ8ø…®ˆ‘-
-tsquid:S001168"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
 osquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(Ñê‡«ùÿÿÿÿ8«åö×–-
-bsquid:S1155«">Use isEmpty() to check whether the collection is empty or not.(Ê»Ùøşÿÿÿÿ8ÏÄ·ì•-
+usquid:S3776Z"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¨Œşÿÿÿÿ8ÏÄ·ì•-
+nsquid:CommentedOutCodeLineb"<This block of commented-out lines of code should be removed.(˜îèßüÿÿÿÿ8 ´ù×–-
+jsquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(Š•â8ÏÄ·ì•-
+rsquid:S001164"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öş„©øÿÿÿÿ
+vsquid:S001166"^Rename this field "rview_trans_history" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÂò¯
+wsquid:S001162"ZRename this field "img_search_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ññÛ–ûÿÿÿÿ
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾ÅÊçùÿÿÿÿ8ÏÄ·ì•-
+osquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(‘¯¯˜ÿÿÿÿÿ8ÏÄ·ì•-
+osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ÛÓµøÿÿÿÿ8ÏÄ·ì•-
 nsquid:CommentedOutCodeLineK"<This block of commented-out lines of code should be removed.(Å±†æÿÿÿÿÿ8¡ ù×–-
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+¥squid:S1186‹"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ8ÏÄ·ì•-
+nsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(ö Åâùÿÿÿÿ8ÏÄ·ì•-
+qsquid:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(ÃÑô8ÏÄ·ì•-
+Bsquid:S1148ì"#Use a logger to log this exception.(Ç’Çê8âÙ„Ø–-
+bsquid:S1155«">Use isEmpty() to check whether the collection is empty or not.(Ê»Ùøşÿÿÿÿ8ÏÄ·ì•-
+Gsquid:S1148Ö"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÙ„Ø–-
+vsquid:S001160"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+Ksquid:S1659B"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
+jsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(èÏ»ã8«åö×–-
+Msquid:S1659B"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
+osquid:CommentedOutCodeLineã"<This block of commented-out lines of code should be removed.(ë¢òüùÿÿÿÿ8«åö×–-
+tsquid:S001168"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
+ squid:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±8ÏÄ·ì•-
+rsquid:S00116:"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
 osquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(­•€áúÿÿÿÿ8ÏÄ·ì•-
 osquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(‘¯¯˜ÿÿÿÿÿ8ÏÄ·ì•-
-osquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(‘¯¯˜ÿÿÿÿÿ8ÏÄ·ì•-
-wsquid:S001162"ZRename this field "img_search_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ññÛ–ûÿÿÿÿ
-vsquid:S001166"^Rename this field "rview_trans_history" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÂò¯
-Bsquid:S1148ì"#Use a logger to log this exception.(Ç’Çê8âÙ„Ø–-
- squid:S1186†"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±8ÏÄ·ì•-
-osquid:CommentedOutCodeLineã"<This block of commented-out lines of code should be removed.(ë¢òüùÿÿÿÿ8«åö×–-
-[squid:S2589˜"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8ÏÄ·ì•-
-nsquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(ö Åâùÿÿÿÿ8ÏÄ·ì•-
-osquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(ÛÓµøÿÿÿÿ8ÏÄ·ì•-
-rsquid:S001164"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öş„©øÿÿÿÿ
+Hsquid:S1659L"%Declare "allList" on a separate line.(¤‰Åšıÿÿÿÿ8ø…®ˆ‘-

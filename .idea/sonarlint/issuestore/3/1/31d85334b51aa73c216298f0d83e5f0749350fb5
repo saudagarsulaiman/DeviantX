@@ -1,10 +1,10 @@
 
 vsquid:S00116"^Rename this field "str_data_walletName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÿÿÒ
-tsquid:S00116"\Rename this field "dbl_data_totalUsd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ²†¡
 ysquid:S00116"\Rename this field "dbl_data_totalBTC" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç°–Ÿüÿÿÿÿ
+isquid:S00117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çüò¬
+isquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑøéÉ
+nsquid:S00117L"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ºÌ¥ûÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
 wsquid:S00116"ZRename this field "str_data_values" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾™ï•üÿÿÿÿ
 isquid:S00117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š˜ãë
-isquid:S00117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çüò¬
-nsquid:S00117L"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®ºÌ¥ûÿÿÿÿ
-isquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑøéÉ
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
+tsquid:S00116"\Rename this field "dbl_data_totalUsd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ²†¡

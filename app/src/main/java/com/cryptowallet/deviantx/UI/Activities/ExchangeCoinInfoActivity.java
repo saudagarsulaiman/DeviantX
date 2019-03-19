@@ -496,8 +496,11 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HISeries hiSeries = new HISeries();
         hiSeries.setName("Bid");
         ArrayList bidData = new ArrayList();
-        for (BidsDC bidsDC : bidsDCList) {
-            bidData.add(bidsDC/*.getDbl_price()*/);
+        for (int i = 0; i < bidsDCList.size(); i++) {
+            ArrayList bid = new ArrayList();
+            bid.add(0, bidsDCList.get(i).getDbl_price());
+            bid.add(1, bidsDCList.get(i).getDbl_volume());
+            bidData.add(i, bid);
         }
         /*   ArrayList biddataList0 = new ArrayList();
         biddataList0.add(0, 0.1524);

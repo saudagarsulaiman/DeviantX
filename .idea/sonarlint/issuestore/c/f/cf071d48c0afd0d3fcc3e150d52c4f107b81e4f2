@@ -1,6 +1,6 @@
 
 xsquid:S00116"TRename this field "list_sent" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ÌéÈüÿÿÿÿ8žÕ¬ˆ‘-
-usquid:S00117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò¿¯¦þÿÿÿÿ8ÍžÒ‡‘-
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
 psquid:S001173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÄŒð8žÕ¬ˆ‘-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
+usquid:S00117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ò¿¯¦þÿÿÿÿ8ÍžÒ‡‘-
 wsquid:S00116"XRename this field "list_received" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„úÅà8žÕ¬ˆ‘-

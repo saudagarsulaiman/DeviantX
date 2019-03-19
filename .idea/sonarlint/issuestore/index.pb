@@ -311,3 +311,15 @@ b
 2app/src/main/res/layout/dialog_change_password.xml,7\d\7d2794a47dc249014babccfe03015878e93e328b
 G
 app/release/output.json,7\c\7cb8114e4eccc7221955a60c256fe2f6fd79480c
+„
+Tapp/src/main/java/com/cryptowallet/deviantx/UI/Activities/ConfirmPhraseActivity.java,6\9\6905b3916f93c4ccfd08d43a281e9de57e55540f
+x
+Happ/src/main/java/com/cryptowallet/deviantx/UI/Models/WalletDetails.java,3\1\31d85334b51aa73c216298f0d83e5f0749350fb5
+z
+Japp/src/main/java/com/cryptowallet/deviantx/UI/Models/AirdropsHistory.java,7\e\7e529a89dee0e11f06d0369fbb4b2cf4fa0acfa8
+q
+Aapp/src/main/java/com/cryptowallet/deviantx/UI/Models/AsksDC.java,9\6\96d2743d7a130f4276948e1af25ede4307f08e09
+q
+Aapp/src/main/java/com/cryptowallet/deviantx/UI/Models/BidsDC.java,7\5\75a0544a8832700cdd8e51fe4c3792fdc8403bba
+y
+Iapp/src/main/java/com/cryptowallet/deviantx/UI/Models/DepthChartData.java,0\4\048a4dc1d328e19501ae959c7103f008d7be06a6

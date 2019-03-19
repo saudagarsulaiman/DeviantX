@@ -74,6 +74,8 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
+//        viewHolder.txt_coin_bal_code.setText();
+//        viewHolder.txt_coin_bal_usd_code.setText();
         if (allExcOrder.get(i).getStr_orderType().equals("buy")) {
             viewHolder.txt_order_type.setText("BUY");
             viewHolder.txt_order_type.setTextColor(context.getResources().getColor(R.color.graph_brdr_green));
@@ -113,7 +115,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -156,7 +158,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -199,7 +201,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -244,7 +246,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -288,7 +290,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -325,7 +327,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
                 viewHolder.lnr_close.setVisibility(View.GONE);
@@ -359,7 +361,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 
@@ -402,7 +404,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.txt_date.setText(getTime(allExcOrder.get(i).getStr_createdAt()));
                 viewHolder.txt_coin_bal.setText(String.format("%.4f", allExcOrder.get(i).getDbl_amount()));
-                viewHolder.txt_coin_bal_usd_code.setText(beforeSlash);
+                viewHolder.txt_coin_bal_code.setText(beforeSlash);
                 viewHolder.txt_coin_bal_usd.setText(String.format("%.4f", allExcOrder.get(i).getDbl_total()));
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
 

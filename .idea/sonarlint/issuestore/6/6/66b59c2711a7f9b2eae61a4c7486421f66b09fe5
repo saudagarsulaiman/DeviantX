@@ -1,7 +1,6 @@
 
-zsquid:UselessImportCheck"JRemove this unused import 'com.cryptowallet.deviantx.UI.Models.PairsList'.(À‡÷äşÿÿÿÿ8šÀ¢ø-
-jsquid:S3008D"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ËÕ÷
-ysquid:UselessImportCheck	"NRemove this unused import 'com.cryptowallet.deviantx.UI.Models.WalletDetails'.(™ÅùÌ8şˆâù-
-‚"squid:ClassVariableVisibilityCheckD"TMake INSTANCE a static final constant or non-public and provide accessors if needed.(´ËÕ÷
-Esquid:S1444D".Make this "public static INSTANCE" field final(´ËÕ÷
+qsquid:S3008B"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ËÕ÷8³‰şü˜-
+‰"squid:ClassVariableVisibilityCheckB"TMake INSTANCE a static final constant or non-public and provide accessors if needed.(´ËÕ÷8³‰şü˜-
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¾ÀÎŠ
+isquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(ÍÀå 8³‰şü˜-
+Lsquid:S1444B".Make this "public static INSTANCE" field final(´ËÕ÷8³‰şü˜-
