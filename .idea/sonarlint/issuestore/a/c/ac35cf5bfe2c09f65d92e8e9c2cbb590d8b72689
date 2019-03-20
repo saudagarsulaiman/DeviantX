@@ -1,0 +1,16 @@
+
+psquid:S2293Q"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º
+qsquid:S1450'"ZRemove the "stompClient" field and declare it as a local variable in the relevant methods.(Ê©œ…
+bsquid:CommentedOutCodeLine/"<This block of commented-out lines of code should be removed.(´ÃÔº
+gsquid:CommentedOutCodeLine5"<This block of commented-out lines of code should be removed.(¨´Êýÿÿÿÿ
+bsquid:CommentedOutCodeLineE"<This block of commented-out lines of code should be removed.(¨Ðˆƒ
+gsquid:CommentedOutCodeLineR"<This block of commented-out lines of code should be removed.(ŽÚ×™ûÿÿÿÿ
+asquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(þÍ©]
+bsquid:CommentedOutCodeLineW"<This block of commented-out lines of code should be removed.(“ÙÄî
+>squid:S1604L"(Make this anonymous inner class a lambda(÷Å¨-
+?squid:S1604d"(Make this anonymous inner class a lambda(­ÃØø
+?squid:S1185-"(Remove this method to simply inherit it.(öÿÕÅ
+?squid:S11853"(Remove this method to simply inherit it.(ßû¢½
+rsquid:S00116 "URename this field "rview_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËøÚ´þÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
+[squid:UselessImportCheck"7Remove this unused import 'android.app.ProgressDialog'.(¶ÍÔÓ

@@ -446,11 +446,15 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                                 allHistoryList.add(allList.get(i));
                                             }
                                         }
-
-                                        walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, allHistoryList, receivedHistoriesList, false);
-                                        rview_trans_history.setAdapter(walletHistoryRAdapter);
-                                        lnr_trans_avail.setVisibility(View.VISIBLE);
-                                        lnr_no_trans.setVisibility(View.GONE);
+                                        if (allHistoryList.size() == 0) {
+                                            lnr_trans_avail.setVisibility(View.GONE);
+                                            lnr_no_trans.setVisibility(View.VISIBLE);
+                                        } else {
+                                            walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, allHistoryList, receivedHistoriesList, false);
+                                            rview_trans_history.setAdapter(walletHistoryRAdapter);
+                                            lnr_trans_avail.setVisibility(View.VISIBLE);
+                                            lnr_no_trans.setVisibility(View.GONE);
+                                        }
                                     }
 
 
