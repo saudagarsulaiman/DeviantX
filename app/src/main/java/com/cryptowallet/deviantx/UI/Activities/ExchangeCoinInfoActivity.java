@@ -35,6 +35,7 @@ import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.highsoft.highcharts.common.hichartsclasses.HIArea;
 import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
+import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
 import com.highsoft.highcharts.common.hichartsclasses.HILabels;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
 import com.highsoft.highcharts.common.hichartsclasses.HIOptions;
@@ -689,6 +690,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
         options.setSeries(series);
 
+        HIExporting hiExporting = new HIExporting();
+        hiExporting.setEnabled(false);
+        options.setExporting(hiExporting);
         chartView.setOptions(options);
 
 
