@@ -32,9 +32,11 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
+import com.highsoft.highcharts.common.HIColor;
 import com.highsoft.highcharts.common.hichartsclasses.HIArea;
 import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
+import com.highsoft.highcharts.common.hichartsclasses.HICredits;
 import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
 import com.highsoft.highcharts.common.hichartsclasses.HILabels;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
@@ -585,10 +587,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         bidData.add(19, biddataList19);
        */
         hiSeries.setData(bidData);
-/*
-        HIColor hiColor = new HIColor("#03a7a8");
-        hiSeries.setColor(hiColor);
-*/
+//        HIColor hiColor = new HIColor("#03a7a8");
+//        HIColor hiColor = HIColor.initWithHexValue("#03a7a8");
+//        hiSeries.setColor(hiColor);
 
         HISeries hiSeriesA = new HISeries();
         hiSeriesA.setName("ask");
@@ -682,7 +683,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         askData.add(19, askdataList19);*/
         hiSeriesA.setData(askData);
 //        HIColor hiColor = new HIColor("#03a7a8");
-//        hiSeriesA.setColor(hiColor);
+//        HIColor hiColorA = HIColor.initWithHexValue("#fc5857");
+//        hiSeriesA.setColor(hiColorA);
+
 
         ArrayList series = new ArrayList();
         series.add(hiSeries);
@@ -693,6 +696,11 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HIExporting hiExporting = new HIExporting();
         hiExporting.setEnabled(false);
         options.setExporting(hiExporting);
+
+        HICredits hiCredits = new HICredits();
+        hiCredits.setEnabled(false);
+        options.setCredits(hiCredits);
+
         chartView.setOptions(options);
 
 

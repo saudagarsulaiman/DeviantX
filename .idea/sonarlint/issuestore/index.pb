@@ -415,3 +415,5 @@ t
 Dmagicindicator/build/outputs/logs/manifest-merger-release-report.txt,2\7\272a7694d53e1f226080eeb836e5cf01949e3486
 ‡
 Wapp/src/main/java/com/cryptowallet/deviantx/UI/Fragments/ExchangeMarketSubFragment.java,a\c\ac35cf5bfe2c09f65d92e8e9c2cbb590d8b72689
+‹
+[app/src/main/java/com/cryptowallet/deviantx/UI/Activities/DepositWalletAirdropActivity.java,4\d\4d444b8b5e5e85d610ffdc9e88d4bbe93b57cc72
