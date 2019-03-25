@@ -588,8 +588,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
        */
         hiSeries.setData(bidData);
 //        HIColor hiColor = new HIColor("#03a7a8");
-//        HIColor hiColor = HIColor.initWithHexValue("#03a7a8");
-//        hiSeries.setColor(hiColor);
+        HIColor hiColor = HIColor.initWithHexValue("03A7A8");
+        hiSeries.setColor(hiColor);
 
         HISeries hiSeriesA = new HISeries();
         hiSeriesA.setName("ask");
@@ -683,8 +683,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         askData.add(19, askdataList19);*/
         hiSeriesA.setData(askData);
 //        HIColor hiColor = new HIColor("#03a7a8");
-//        HIColor hiColorA = HIColor.initWithHexValue("#fc5857");
-//        hiSeriesA.setColor(hiColorA);
+        HIColor hiColorA = HIColor.initWithHexValue("FC5857");
+        hiSeriesA.setColor(hiColorA);
 
 
         ArrayList series = new ArrayList();
