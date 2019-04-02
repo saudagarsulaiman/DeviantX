@@ -34,6 +34,7 @@ import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.highsoft.highcharts.common.HIColor;
 import com.highsoft.highcharts.common.hichartsclasses.HIArea;
+import com.highsoft.highcharts.common.hichartsclasses.HIBackground;
 import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
 import com.highsoft.highcharts.common.hichartsclasses.HICredits;
@@ -700,6 +701,11 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HICredits hiCredits = new HICredits();
         hiCredits.setEnabled(false);
         options.setCredits(hiCredits);
+
+
+        HIBackground hiBackground = new HIBackground();
+        HIColor hiBGColor = HIColor.initWithHexValue("161B4F");
+        hiBackground.setBackgroundColor(hiBGColor);
 
         chartView.setOptions(options);
 

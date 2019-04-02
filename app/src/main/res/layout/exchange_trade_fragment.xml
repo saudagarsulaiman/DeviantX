@@ -27,7 +27,7 @@
                     android:layout_weight="0.4"
                     android:scaleType="fitCenter"
                     android:src="@drawable/candle_chart"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/txt_title"
@@ -330,8 +330,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/pls_add_coin"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/text18"
+                            android:textColor="@color/google_red"
+                            android:padding="@dimen/padding3"
+                            android:background="@drawable/rec_dash_grey_trans_c5"
+                            android:textSize="@dimen/def_lbl_size"
                             android:visibility="gone" />
 
 

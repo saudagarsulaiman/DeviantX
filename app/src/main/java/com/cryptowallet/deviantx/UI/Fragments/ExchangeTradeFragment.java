@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
+import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
@@ -367,15 +368,19 @@ public class ExchangeTradeFragment extends Fragment {
                     txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                     txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
-                    buttonsVisiblity();
                     isBuy = false;
-                    if (isPCoinAvail && isSCoinAvail)
+                    if (isPCoinAvail && isSCoinAvail) {
+                        buttonsVisiblity();
+                        buttonsEnable();
                         if (isMarket)
                             btn_sell.setVisibility(View.VISIBLE);
                         else if (isStopLimit)
                             btn_make_order_stop.setVisibility(View.VISIBLE);
                         else
                             btn_make_order_limit.setVisibility(View.VISIBLE);
+                    } else {
+                        buttonsDisable();
+                    }
 
                     if (isStopLimit)
                         lnr_stop_limit.setVisibility(View.VISIBLE);
@@ -387,15 +392,20 @@ public class ExchangeTradeFragment extends Fragment {
                     txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                     txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
-                    buttonsVisiblity();
                     isBuy = true;
-                    if (isPCoinAvail && isSCoinAvail)
+                    buttonsVisiblity();
+                    if (isPCoinAvail && isSCoinAvail) {
+                        buttonsVisiblity();
+                        buttonsEnable();
                         if (isMarket)
                             btn_buy.setVisibility(View.VISIBLE);
                         else if (isStopLimit)
                             btn_make_order_limit.setVisibility(View.VISIBLE);
                         else
                             btn_make_order_stop.setVisibility(View.VISIBLE);
+                    } else {
+                        buttonsDisable();
+                    }
 
                     if (isStopLimit)
                         lnr_stop_limit.setVisibility(View.VISIBLE);
@@ -435,10 +445,25 @@ public class ExchangeTradeFragment extends Fragment {
         img_chart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
+
                 Intent intent = new Intent(getActivity(), ExchangeCoinInfoActivity.class);
+                Bundle bundle = new Bundle();
+                if (allCoinPairs == null) {
+                    allCoinPairs = new CoinPairs();
+                    allCoinPairs.setStr_pairCoin("ETH");
+                    allCoinPairs.setDbl_currentValue(0.0389);
+                    allCoinPairs.setDbl_previousValue(0.0389);
+                    allCoinPairs.setDbl_twentyFourChange(0.0);
+                    allCoinPairs.setDbl_twentyFourChangePercentage(0.0);
+                    allCoinPairs.setStr_exchangeCoin("BTC");
+                    allCoinPairs.setDbl_volume(151069.0);
+                    allCoinPairs.setDbl_twentyFourChangeUsd(0.0);
+                    bundle.putParcelable(CONSTANTS.selectedCoin, allCoinPairs);
+                } else {
+                    bundle.putParcelable(CONSTANTS.selectedCoin, allCoinPairs);
+                }
+                intent.putExtras(bundle);
                 startActivity(intent);
-*/
             }
         });
 
@@ -491,12 +516,17 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
-                buttonsVisiblity();
                 isMarket = true;
                 isStopLimit = false;
                 isBuy = true;
                 if (isPCoinAvail && isSCoinAvail) {
+                    buttonsEnable();
+                    buttonsVisiblity();
                     btn_buy.setVisibility(View.VISIBLE);
+                } else {
+                    buttonsVisiblity();
+                    btn_buy.setVisibility(View.VISIBLE);
+                    buttonsDisable();
                 }
                 disablePrice();
 
@@ -524,12 +554,17 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
-                buttonsVisiblity();
                 isBuy = true;
                 isMarket = false;
                 isStopLimit = false;
                 if (isPCoinAvail && isSCoinAvail) {
+                    buttonsEnable();
+                    buttonsVisiblity();
                     btn_make_order_limit.setVisibility(View.VISIBLE);
+                } else {
+                    buttonsVisiblity();
+                    btn_make_order_limit.setVisibility(View.VISIBLE);
+                    buttonsDisable();
                 }
                 enablePrice();
             }
@@ -556,12 +591,17 @@ public class ExchangeTradeFragment extends Fragment {
                 txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
 
-                buttonsVisiblity();
                 isMarket = false;
                 isStopLimit = true;
                 isBuy = true;
                 if (isPCoinAvail && isSCoinAvail) {
+                    buttonsEnable();
+                    buttonsVisiblity();
                     btn_make_order_stop.setVisibility(View.VISIBLE);
+                } else {
+                    buttonsVisiblity();
+                    btn_make_order_stop.setVisibility(View.VISIBLE);
+                    buttonsDisable();
                 }
                 enablePrice();
                 lnr_stop_limit.setVisibility(View.VISIBLE);
@@ -578,8 +618,9 @@ public class ExchangeTradeFragment extends Fragment {
                 disablePrice();
                 isBuy = true;
 
-                buttonsVisiblity();
-                if (isPCoinAvail && isSCoinAvail)
+                if (isPCoinAvail && isSCoinAvail) {
+                    buttonsVisiblity();
+                    buttonsEnable();
                     if (isMarket) {
                         edt_price.setEnabled(false);
                         btn_buy.setVisibility(View.VISIBLE);
@@ -590,6 +631,20 @@ public class ExchangeTradeFragment extends Fragment {
                         edt_price.setEnabled(true);
                         btn_make_order_limit.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    buttonsVisiblity();
+                    buttonsDisable();
+                    if (isMarket) {
+                        edt_price.setEnabled(false);
+                        btn_buy.setVisibility(View.VISIBLE);
+                    } else if (isStopLimit) {
+                        edt_price.setEnabled(true);
+                        btn_make_order_stop.setVisibility(View.VISIBLE);
+                    } else {
+                        edt_price.setEnabled(true);
+                        btn_make_order_limit.setVisibility(View.VISIBLE);
+                    }
+                }
 
                 if (isStopLimit)
                     lnr_stop_limit.setVisibility(View.VISIBLE);
@@ -608,8 +663,9 @@ public class ExchangeTradeFragment extends Fragment {
                 isBuy = false;
 
                 disablePrice();
-                buttonsVisiblity();
-                if (isPCoinAvail && isSCoinAvail)
+                if (isPCoinAvail && isSCoinAvail) {
+                    buttonsEnable();
+                    buttonsVisiblity();
                     if (isMarket) {
                         edt_price.setEnabled(false);
                         btn_sell.setVisibility(View.VISIBLE);
@@ -620,6 +676,20 @@ public class ExchangeTradeFragment extends Fragment {
                         edt_price.setEnabled(true);
                         btn_make_order_limit.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    buttonsDisable();
+                    buttonsVisiblity();
+                    if (isMarket) {
+                        edt_price.setEnabled(false);
+                        btn_sell.setVisibility(View.VISIBLE);
+                    } else if (isStopLimit) {
+                        edt_price.setEnabled(true);
+                        btn_make_order_stop.setVisibility(View.VISIBLE);
+                    } else {
+                        edt_price.setEnabled(true);
+                        btn_make_order_limit.setVisibility(View.VISIBLE);
+                    }
+                }
 
                 if (isStopLimit)
                     lnr_stop_limit.setVisibility(View.VISIBLE);
@@ -750,60 +820,65 @@ public class ExchangeTradeFragment extends Fragment {
         btn_buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coin_pair = txt_title.getText().toString().trim();
-                String type = "buy";
-
-                if (edt_price.getText().toString().trim() != null) {
-                    if (edt_amount.getText().toString().trim() != null) {
-                        double price = Double.parseDouble(edt_price.getText().toString().trim());
-                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
-                        double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
-                        if (price > 0/*.001*/) {
-                            if (amount > 0/*.001*/) {
-                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                if (isPCoinAvail && isSCoinAvail) {
+                    String coin_pair = txt_title.getText().toString().trim();
+                    String type = "buy";
+                    if (edt_price.getText().toString().trim() != null) {
+                        if (edt_amount.getText().toString().trim() != null) {
+                            double price = Double.parseDouble(edt_price.getText().toString().trim());
+                            double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                            double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
+                            if (price > 0/*.001*/) {
+                                if (amount > 0/*.001*/) {
+                                    confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
 //                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                                } else {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                }
                             } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
                             }
                         } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getActivity().getResources().getString(R.string.pls_add_coin) + "\nTo " + getActivity().getResources().getString(R.string.def_wallet));
                 }
-
             }
         });
 
         btn_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coin_pair = txt_title.getText().toString().trim();
-                String type = "sell";
-
-                if (edt_price.getText().toString().trim() != null) {
-                    if (edt_amount.getText().toString().trim() != null) {
-                        double price = Double.parseDouble(edt_price.getText().toString().trim());
-                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
-                        double total = Double.parseDouble(txt_total.getText().toString().trim());
-                        if (price > 0/*.001*/) {
-                            if (amount > 0/*.001*/) {
-                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                if (isPCoinAvail && isSCoinAvail) {
+                    String coin_pair = txt_title.getText().toString().trim();
+                    String type = "sell";
+                    if (edt_price.getText().toString().trim() != null) {
+                        if (edt_amount.getText().toString().trim() != null) {
+                            double price = Double.parseDouble(edt_price.getText().toString().trim());
+                            double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                            double total = Double.parseDouble(txt_total.getText().toString().trim());
+                            if (price > 0/*.001*/) {
+                                if (amount > 0/*.001*/) {
+                                    confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
 //                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "market", 0.0);
+                                } else {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                }
                             } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
                             }
                         } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getActivity().getResources().getString(R.string.pls_add_coin) + "\nTo " + getActivity().getResources().getString(R.string.def_wallet));
                 }
             }
         });
@@ -811,33 +886,37 @@ public class ExchangeTradeFragment extends Fragment {
         btn_make_order_limit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coin_pair = txt_title.getText().toString().trim();
-                String type;
-                if (isBuy)
-                    type = "buy";
-                else
-                    type = "sell";
+                if (isPCoinAvail && isSCoinAvail) {
+                    String coin_pair = txt_title.getText().toString().trim();
+                    String type;
+                    if (isBuy)
+                        type = "buy";
+                    else
+                        type = "sell";
 
-                if (edt_price.getText().toString().trim() != null) {
-                    if (edt_amount.getText().toString().trim() != null) {
-                        double price = Double.parseDouble(edt_price.getText().toString().trim());
-                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
-                        double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
-                        if (price > 0/*.001*/) {
-                            if (amount > 0/*.001*/) {
-                                confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
+                    if (edt_price.getText().toString().trim() != null) {
+                        if (edt_amount.getText().toString().trim() != null) {
+                            double price = Double.parseDouble(edt_price.getText().toString().trim());
+                            double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                            double total = Double.parseDouble(txt_total.getText().toString().trim())/*0.0*//*price * amount*/;
+                            if (price > 0/*.001*/) {
+                                if (amount > 0/*.001*/) {
+                                    confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
 //                                makeOrder(amount, price, total, type, coin_pair, wallet_name, "limit", 0.0);
+                                } else {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                }
                             } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
                             }
                         } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getActivity().getResources().getString(R.string.pls_add_coin) + "\nTo " + getActivity().getResources().getString(R.string.def_wallet));
                 }
 
             }
@@ -846,38 +925,42 @@ public class ExchangeTradeFragment extends Fragment {
         btn_make_order_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coin_pair = txt_title.getText().toString().trim();
-                String type;
-                if (isBuy)
-                    type = "buy";
-                else
-                    type = "sell";
+                if (isPCoinAvail && isSCoinAvail) {
+                    String coin_pair = txt_title.getText().toString().trim();
+                    String type;
+                    if (isBuy)
+                        type = "buy";
+                    else
+                        type = "sell";
 
-                if (edt_price.getText().toString().trim() != null) {
-                    if (edt_amount.getText().toString().trim() != null) {
-                        if (edt_stop_price.getText().toString().trim() != null) {
-                            double price = Double.parseDouble(edt_price.getText().toString().trim());
-                            double amount = Double.parseDouble(edt_amount.getText().toString().trim());
-                            double total = Double.parseDouble(txt_total.getText().toString().trim());
-                            double stop_price = Double.parseDouble(edt_stop_price.getText().toString().trim());
-                            if (price > 0/*.001*/) {
-                                if (amount > 0/*.001*/) {
-                                    confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
+                    if (edt_price.getText().toString().trim() != null) {
+                        if (edt_amount.getText().toString().trim() != null) {
+                            if (edt_stop_price.getText().toString().trim() != null) {
+                                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                                double total = Double.parseDouble(txt_total.getText().toString().trim());
+                                double stop_price = Double.parseDouble(edt_stop_price.getText().toString().trim());
+                                if (price > 0/*.001*/) {
+                                    if (amount > 0/*.001*/) {
+                                        confirmOrderDialog(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
 //                                    makeOrder(amount, price, total, type, coin_pair, wallet_name, "stop_limit", stop_price);
+                                    } else {
+                                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                    }
                                 } else {
-                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_amount));
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
                                 }
                             } else {
-                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.invalid_price));
+                                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_stop_price));
                             }
                         } else {
-                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_stop_price));
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
                         }
                     } else {
-                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_amount));
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
                     }
                 } else {
-                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.empty_price));
+                    CommonUtilities.ShowToastMessage(getActivity(), getActivity().getResources().getString(R.string.pls_add_coin) + "\nTo " + getActivity().getResources().getString(R.string.def_wallet));
                 }
             }
         });
@@ -1070,6 +1153,30 @@ public class ExchangeTradeFragment extends Fragment {
         lnr_stop_limit.setVisibility(View.GONE);
     }
 
+    private void buttonsDisable() {
+/*
+        btn_buy.setEnabled(false);
+        btn_sell.setEnabled(false);
+        btn_make_order_limit.setEnabled(false);
+        btn_make_order_stop.setEnabled(false);
+        lnr_stop_limit.setEnabled(false);
+*/
+        btn_buy.setBackground(getActivity().getResources().getDrawable(R.drawable.rec_orange_gradient_lyt));
+        btn_sell.setBackground(getActivity().getResources().getDrawable(R.drawable.rec_orange_gradient_lyt));
+        btn_make_order_limit.setBackground(getActivity().getResources().getDrawable(R.drawable.rec_orange_gradient_lyt));
+        btn_make_order_stop.setBackground(getActivity().getResources().getDrawable(R.drawable.rec_orange_gradient_lyt));
+//        lnr_stop_limit.setBackground(getActivity().getResources().getDrawable(R.drawable.rec_orange_gradient_lyt));
+
+//        CommonUtilities.ShowToastMessage(getActivity(),getActivity().getResources().getString(R.string.pls_add_coin)+"\nTo "+getActivity().getResources().getString(R.string.def_wallet));
+    }
+
+    private void buttonsEnable() {
+        btn_buy.setEnabled(true);
+        btn_sell.setEnabled(true);
+        btn_make_order_limit.setEnabled(true);
+        btn_make_order_stop.setEnabled(true);
+        lnr_stop_limit.setEnabled(true);
+    }
 
     @Override
     public void onResume() {
@@ -1437,7 +1544,8 @@ public class ExchangeTradeFragment extends Fragment {
                                 AccountWallet[] accountWallets = GsonUtils.getInstance().fromJson(loginResponseData, AccountWallet[].class);
                                 accountWalletlist = new ArrayList<AccountWallet>(Arrays.asList(accountWallets));
                                 if (accountWalletlist.size() == 0) {
-                                    buttonsVisiblity();
+//                                    buttonsVisiblity();
+                                    buttonsDisable();
                                     lnr_primary_coin_avail.setVisibility(View.GONE);
                                     img_coin_logo.setVisibility(View.INVISIBLE);
                                     txt_primary_coin_unavail.setVisibility(View.VISIBLE);
@@ -1453,14 +1561,16 @@ public class ExchangeTradeFragment extends Fragment {
                                         }
                                     }
                                     if (isPCoinAvail && isSCoinAvail) {
+                                        buttonsEnable();
                                         lnr_primary_coin_avail.setVisibility(View.VISIBLE);
                                         img_coin_logo.setVisibility(View.VISIBLE);
                                         txt_primary_coin_unavail.setVisibility(View.GONE);
                                     } else {
+                                        buttonsDisable();
                                         lnr_primary_coin_avail.setVisibility(View.GONE);
                                         img_coin_logo.setVisibility(View.INVISIBLE);
                                         txt_primary_coin_unavail.setVisibility(View.VISIBLE);
-                                        buttonsVisiblity();
+//                                        buttonsVisiblity();
                                     }
                                 }
                             } else if (loginResponseStatus.equals("401")) {

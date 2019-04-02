@@ -1,43 +1,43 @@
 
-=squid:S1659<"&Declare "new_pswd" on a separate line.(º…¤×
->squid:S1659<"'Declare "conf_pswd" on a separate line.(º…¤×
-Msquid:S1659>"1Declare "loginResponseStatus" on a separate line.(•”ÓÊþÿÿÿÿ
-gsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(­Ðª¶úÿÿÿÿ
-gsquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(Í™Õúÿÿÿÿ
-asquid:CommentedOutCodeLineO"<This block of commented-out lines of code should be removed.(•Þéj
-gsquid:CommentedOutCodeLineR"<This block of commented-out lines of code should be removed.(ùæ¯Áüÿÿÿÿ
+squid:S1186o"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ
 hsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(Á÷ÝÅùÿÿÿÿ
 csquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(£¼‰Œ
-csquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(„¬¡‚
 hsquid:CommentedOutCodeLineÍ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-hsquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-hsquid:CommentedOutCodeLineÞ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-hsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-^squid:HiddenFieldCheckY"7Rename "tkn" which hides the field declared at line 60.(õŒ°úÿÿÿÿ
-^squid:HiddenFieldCheckZ"<Rename "new_pswd" which hides the field declared at line 60.(ù¡‡Ë
-_squid:HiddenFieldCheck["=Rename "conf_pswd" which hides the field declared at line 60.(žÔÔŸ
-Rsquid:S1141¢"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
-Tsquid:S2589°"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
-nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ù±¬Æøÿÿÿÿ
-jsquid:S3776Ÿ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ûËþŒ
-ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ
-˜squid:S1186j"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
-squid:S1186o"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ
-wsquid:S00116("ZRename this field "img_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÊúëúÿÿÿÿ
-nsquid:S00116*"WRename this field "edt_new_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŽÔà2
 ssquid:S00116,"[Rename this field "edt_confirm_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•ÛÐÌ
-qsquid:S00116."ZRename this field "btn_change_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒíÕm
-qsquid:S001160"TRename this field "edt_token" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ÛÜÿÿÿÿÿ
-qsquid:S001163"YRename this field "txt_lower_case" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠÚÑª
-qsquid:S001165"YRename this field "txt_upper_case" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚Ì§Š
-rsquid:S001167"URename this field "txt_number" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¶Œ¥ûÿÿÿÿ
 qsquid:S001169"TRename this field "txt_chars" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÐù¾þÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+>squid:S1659<"'Declare "conf_pswd" on a separate line.(º…¤×
+isquid:S00117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žÔÔŸ
+@squid:S1148Ê"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+qsquid:S001160"TRename this field "edt_token" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´ÛÜÿÿÿÿÿ
+gsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(­Ðª¶úÿÿÿÿ
+Tsquid:S2589°"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+asquid:CommentedOutCodeLineO"<This block of commented-out lines of code should be removed.(•Þéj
+^squid:HiddenFieldCheckZ"<Rename "new_pswd" which hides the field declared at line 60.(ù¡‡Ë
+Rsquid:S1141¢"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+nsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ù±¬Æøÿÿÿÿ
+gsquid:CommentedOutCodeLineR"<This block of commented-out lines of code should be removed.(ùæ¯Áüÿÿÿÿ
+;squid:S1148ä"#Use a logger to log this exception.(Ç’Çê
+isquid:S00117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù¡‡Ë
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ
+Msquid:S1659>"1Declare "loginResponseStatus" on a separate line.(•”ÓÊþÿÿÿÿ
+hsquid:CommentedOutCodeLineæ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+qsquid:S001165"YRename this field "txt_upper_case" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚Ì§Š
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ
+hsquid:CommentedOutCodeLineÞ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+qsquid:S00116."ZRename this field "btn_change_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒíÕm
+wsquid:S00116("ZRename this field "img_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÊúëúÿÿÿÿ
 ksquid:S00116<"SRename this field "new_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(º…¤×
 lsquid:S00116<"TRename this field "conf_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(º…¤×
-isquid:S00117Z"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù¡‡Ë
-isquid:S00117["QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žÔÔŸ
-nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ
-nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-@squid:S1148Ê"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-;squid:S1148ä"#Use a logger to log this exception.(Ç’Çê
+rsquid:S001167"URename this field "txt_number" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”¶Œ¥ûÿÿÿÿ
+^squid:HiddenFieldCheckY"7Rename "tkn" which hides the field declared at line 60.(õŒ°úÿÿÿÿ
+=squid:S1659<"&Declare "new_pswd" on a separate line.(º…¤×
+nsquid:S00116*"WRename this field "edt_new_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŽÔà2
+˜squid:S1186j"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
+qsquid:S001163"YRename this field "txt_lower_case" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠÚÑª
+hsquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+_squid:HiddenFieldCheck["=Rename "conf_pswd" which hides the field declared at line 60.(žÔÔŸ
+gsquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(Í™Õúÿÿÿÿ
+csquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(„¬¡‚
+jsquid:S3776Ÿ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ûËþŒ
+ksquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù±¬Æøÿÿÿÿ

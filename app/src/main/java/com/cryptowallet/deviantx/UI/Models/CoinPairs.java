@@ -37,6 +37,8 @@ public class CoinPairs implements Parcelable {
     @SerializedName("changeUsd")
     double dbl_twentyFourChangeUsd;
 
+    public CoinPairs() {
+    }
 
     protected CoinPairs(Parcel in) {
         int_id = in.readInt();

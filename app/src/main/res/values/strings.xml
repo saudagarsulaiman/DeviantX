@@ -602,7 +602,7 @@
     <string name="empty_price">Price cannot be empty</string>
     <string name="empty_stop_price">Stop price cannot be empty</string>
     <string name="where_art">*A=Available Balance, R=Reserved Balance, T=Total Balance.</string>
-    <string name="pls_add_coin">Please Add Coins (selected Pair).</string>
+    <string name="pls_add_coin">Please Add Coins (selected Pair)</string>
     <string name="enter_price">Please enter price</string>
     <string name="stop_limit">Stop Limit</string>
     <string name="stop_price">Stop Price</string>

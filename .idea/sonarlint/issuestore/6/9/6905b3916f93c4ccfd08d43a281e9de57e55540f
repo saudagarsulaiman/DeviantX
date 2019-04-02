@@ -1,27 +1,27 @@
 
-jsquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(½‘Ñ³8Ö‹üü˜-
-csquid:CommentedOutCodeLinež"<This block of commented-out lines of code should be removed.(„¬¡‚
-isquid:S3776p"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Òøú
-~squid:S001161"aRename this field "hashtag_confirm_phrase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íÔþœýÿÿÿÿ
-@squid:S1148£"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-Xsquid:S1068;"5Remove this unused "loginResponseData" private field.(Ò³œ©þÿÿÿÿ8—óûü˜-
-Tsquid:S2589…"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
-hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ñ¼²²ýÿÿÿÿ
-hsquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-Msquid:S1659;"1Declare "loginResponseStatus" on a separate line.(Ò³œ©þÿÿÿÿ
-;squid:S1643œ"Use a StringBuilder instead.(œ‘Æ„8Ö‹üü˜-
-ssquid:S001165"VRename this field "btn_confirm" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©ø‚­ýÿÿÿÿ
-hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-jsquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(Ú•¸Ü8—óûü˜-
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-ysquid:S001163"\Rename this field "txt_selected_text" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òÿ¬ýÿÿÿÿ
-Wsquid:S1197…"8Move the array designator from the variable to the type.(Œ›¯»8Ö‹üü˜-
-hsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-hsquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-Ksquid:S1659;"/Declare "loginResponseData" on a separate line.(Ò³œ©þÿÿÿÿ
-osquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(°ÝÂïøÿÿÿÿ8—óûü˜-
-Tsquid:S1197U"8Move the array designator from the variable to the type.(¹ñ¶ñüÿÿÿÿ
-qsquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( üµ8Ö‹üü˜-
 Qsquid:S1141u"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
-;squid:S1148½"#Use a logger to log this exception.(Ç’Çê
+jsquid:CommentedOutCodeLine’"<This block of commented-out lines of code should be removed.(Ú•¸Ü8¹†¢¡œ-
+Xsquid:S1068;"5Remove this unused "loginResponseData" private field.(Ò³œ©þÿÿÿÿ8¹†¢¡œ-
+hsquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+ssquid:S001165"VRename this field "btn_confirm" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©ø‚­ýÿÿÿÿ
+Msquid:S1659;"1Declare "loginResponseStatus" on a separate line.(Ò³œ©þÿÿÿÿ
+@squid:S1148£"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Tsquid:S1197U"8Move the array designator from the variable to the type.(¹ñ¶ñüÿÿÿÿ
+hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+jsquid:CommentedOutCodeLine³"<This block of commented-out lines of code should be removed.(½‘Ñ³8¹†¢¡œ-
+ysquid:S001163"\Rename this field "txt_selected_text" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òÿ¬ýÿÿÿÿ
+Ksquid:S1659;"/Declare "loginResponseData" on a separate line.(Ò³œ©þÿÿÿÿ
+~squid:S001161"aRename this field "hashtag_confirm_phrase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íÔþœýÿÿÿÿ
 vsquid:S00116/"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+isquid:S3776p"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(Òøú
+jsquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( üµ
+hsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+osquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(°ÝÂïøÿÿÿÿ8¹†¢¡œ-
+hsquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(ñ¼²²ýÿÿÿÿ
+4squid:S1643œ"Use a StringBuilder instead.(œ‘Æ„
+csquid:CommentedOutCodeLinež"<This block of commented-out lines of code should be removed.(„¬¡‚
+Tsquid:S2589…"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+;squid:S1148½"#Use a logger to log this exception.(Ç’Çê
+Psquid:S1197…"8Move the array designator from the variable to the type.(Œ›¯»
