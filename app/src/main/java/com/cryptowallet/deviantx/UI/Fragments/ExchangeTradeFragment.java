@@ -30,16 +30,20 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ExchangeOrderHistoryRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
+import com.cryptowallet.deviantx.UI.Adapters.WalletListAirdropRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
 import com.cryptowallet.deviantx.UI.Interfaces.ExcOrdersUIListener;
+import com.cryptowallet.deviantx.UI.Interfaces.WalletSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
 import com.cryptowallet.deviantx.UI.Models.ExcOrdersDelete;
+import com.cryptowallet.deviantx.UI.Models.WalletList;
 import com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB;
 import com.cryptowallet.deviantx.UI.RoomDatabase.InterfacesDB.ExcOrdersDao;
 import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExcOrdersDB;
@@ -54,7 +58,11 @@ import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.discretescrollview.DSVOrientation;
+import com.yarolegovich.discretescrollview.DiscreteScrollView;
+import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -76,7 +84,7 @@ import ua.naiksoftware.stomp.client.StompMessage;
 import static android.support.constraint.Constraints.TAG;
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class ExchangeTradeFragment extends Fragment {
+public class ExchangeTradeFragment extends Fragment implements DiscreteScrollView.OnItemChangedListener<RecyclerView.ViewHolder> {
 
     @BindView(R.id.img_chart)
     ImageView img_chart;
@@ -224,6 +232,26 @@ public class ExchangeTradeFragment extends Fragment {
     @BindView(R.id.txt_code_stop_price)
     TextView txt_code_stop_price;
 
+    //    Modifications for Multiple Wallets
+    @BindView(R.id.lnr_arrow)
+    LinearLayout lnr_arrow;
+    @BindView(R.id.img_arrow)
+    ImageView img_arrow;
+    @BindView(R.id.lnr_selected_wallet)
+    LinearLayout lnr_selected_wallet;
+    @BindView(R.id.item_picker)
+    DiscreteScrollView itemPicker;
+    WalletListAirdropRAdapter walletListAirdropRAdapter;
+    ArrayList<WalletList> walletList;
+    private int int_data_walletid;
+    private double dbl_data_totalBal;
+    private boolean defaultWallet = false;
+    String str_data_name;
+    WalletSelectableListener walletSelectableListener;
+    int selectedCoinId = 0;
+    String selectedWalletName = "";
+    Double selectedWalletBal = 0.0;
+
 
     MarketDephRAdapter marketDephRAdapter;
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerOrdersHistory;
@@ -277,10 +305,68 @@ public class ExchangeTradeFragment extends Fragment {
 /*
         allCoinPairs = new ArrayList<>();
 */
+        walletList = new ArrayList<>();
+
         myEmail = sharedPreferences.getString(CONSTANTS.email, null);
         wallet_name = sharedPreferences.getString(CONSTANTS.defaultWalletName, null);
         txt_wallet_name.setText(wallet_name);
+
+        itemPicker.setOrientation(DSVOrientation.HORIZONTAL);
+        itemPicker.addOnItemChangedListener(this);
+        walletListAirdropRAdapter = new WalletListAirdropRAdapter(getActivity(), walletList, walletSelectableListener, true);
+        itemPicker.setAdapter(walletListAirdropRAdapter);
+        itemPicker.setItemTransitionTimeMillis(150);
+        itemPicker.setItemTransformer(new ScaleTransformer.Builder()
+                .setMinScale(0.8f)
+                .build());
+
+        if (CommonUtilities.isConnectionAvailable(getActivity())) {
+            getAllWallets();
+        } else {
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
+        }
+        walletSelectableListener = new WalletSelectableListener() {
+            @Override
+            public void WalletSelected(ArrayList<WalletList> selected_allWalletList, int pos) {
+
+                int i = 0;
+                //  final WalletListDB selectedWallet = new WalletListDB();
+                for (WalletList wallets : selected_allWalletList) {
+                    if (wallets.getSelected()) {
+                        wallets.setSelected(false);
+                        walletListAirdropRAdapter.notifyItemChanged(i);
+                    }
+                    i++;
+                }
+
+                walletListAirdropRAdapter.setWalletValue(!selected_allWalletList.get(pos).getSelected(), pos);
+
+                if (selected_allWalletList.get(pos).getSelected()) {
+                    selectedCoinId = selected_allWalletList.get(pos).getInt_data_id();
+                    selectedWalletName = selected_allWalletList.get(pos).getStr_data_name();
+                    selectedWalletBal = selected_allWalletList.get(pos).getDbl_data_totalBal();
+
+                    txt_wallet_name.setText(selectedWalletName);
+                    fetchDefAccWal(selectedWalletName);
+                    lnr_selected_wallet.setVisibility(View.GONE);
+                } else
+                    itemPicker.setVisibility(View.VISIBLE);
+
+
+            }
+        };
+
         disablePrice();
+
+        lnr_arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lnr_selected_wallet.setVisibility(View.GONE);
+                itemPicker.setVisibility(View.VISIBLE);
+            }
+        });
+
+
    /*final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);*/
         if (isStopLimit)
@@ -1543,6 +1629,8 @@ public class ExchangeTradeFragment extends Fragment {
                                 accountWalletlist = new ArrayList<>();
                                 AccountWallet[] accountWallets = GsonUtils.getInstance().fromJson(loginResponseData, AccountWallet[].class);
                                 accountWalletlist = new ArrayList<AccountWallet>(Arrays.asList(accountWallets));
+                                isSCoinAvail = false;
+                                isPCoinAvail = false;
                                 if (accountWalletlist.size() == 0) {
 //                                    buttonsVisiblity();
                                     buttonsDisable();
@@ -1550,17 +1638,24 @@ public class ExchangeTradeFragment extends Fragment {
                                     img_coin_logo.setVisibility(View.INVISIBLE);
                                     txt_primary_coin_unavail.setVisibility(View.VISIBLE);
                                 } else {
+                                    int selected_i = 0;
                                     for (int i = 0; i < accountWalletlist.size(); i++) {
                                         if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_amount.getText().toString().trim())) {
                                             isPCoinAvail = true;
+                                            selected_i = i;
+/*
                                             txt_pcoin_avail_value.setText(String.format("%.6f", accountWalletlist.get(i).getStr_data_balance()) + " " + accountWalletlist.get(i).getStr_coin_code());
                                             Picasso.with(getActivity()).load(accountWalletlist.get(i).getStr_coin_logo()).into(img_coin_logo);
+*/
                                         }
                                         if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_code_price.getText().toString().trim())) {
                                             isSCoinAvail = true;
                                         }
                                     }
+
                                     if (isPCoinAvail && isSCoinAvail) {
+                                        txt_pcoin_avail_value.setText(String.format("%.6f", accountWalletlist.get(selected_i).getStr_data_balance()) + " " + accountWalletlist.get(selected_i).getStr_coin_code());
+                                        Picasso.with(getActivity()).load(accountWalletlist.get(selected_i).getStr_coin_logo()).into(img_coin_logo);
                                         buttonsEnable();
                                         lnr_primary_coin_avail.setVisibility(View.VISIBLE);
                                         img_coin_logo.setVisibility(View.VISIBLE);
@@ -1572,6 +1667,9 @@ public class ExchangeTradeFragment extends Fragment {
                                         txt_primary_coin_unavail.setVisibility(View.VISIBLE);
 //                                        buttonsVisiblity();
                                     }
+
+                                    lnr_selected_wallet.setVisibility(View.VISIBLE);
+                                    itemPicker.setVisibility(View.GONE);
                                 }
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
@@ -1606,5 +1704,114 @@ public class ExchangeTradeFragment extends Fragment {
 
     }
 
+
+    @Override
+    public void onCurrentItemChanged(@Nullable RecyclerView.ViewHolder viewHolder, int adapterPosition) {
+        if (adapterPosition > -1) {
+            wallet_name = walletList.get(adapterPosition).getStr_data_name();
+        }
+    }
+
+    //    **************GETTING OPEN ORDERS**************
+    private void getAllWallets() {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getAllWallet(CONSTANTS.DeviantMulti + token);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+//                                int defaultWalletPos = 0;
+                                loginResponseData = jsonObject.getString("data");
+                                JSONArray jsonArrayData = new JSONArray(loginResponseData);
+                                for (int i = 0; i < jsonArrayData.length(); i++) {
+                                    JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
+                                    try {
+                                        int_data_walletid = jsonObjectData.getInt("id");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        str_data_name = jsonObjectData.getString("name");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        defaultWallet = jsonObjectData.getBoolean("defaultWallet");
+                                        if (defaultWallet) {
+//                                            defaultWalletPos = i;
+                                            editor.putInt(CONSTANTS.defaultWallet, i);
+                                            editor.apply();
+                                            myApplication.setDefaultWallet(i);
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    walletList.add(new WalletList(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
+                                }
+                                walletListAirdropRAdapter = new WalletListAirdropRAdapter(getActivity(), walletList, walletSelectableListener, true);
+                                itemPicker.setAdapter(walletListAirdropRAdapter);
+//                                itemPicker.scrollToPosition(defaultWalletPos);
+                                itemPicker.scrollToPosition(myApplication.getDefaultWallet());
+                                ArrayList<String> walletNamesList = new ArrayList<>();
+                                for (int i = 0; i < walletList.size(); i++) {
+                                    walletNamesList.add(walletList.get(i).getStr_data_name());
+                                }
+//                                spnr_wallets.setAdapter(new SpinnerDaysAdapter(getActivity(), R.layout.spinner_item_days_dropdown, walletNamesList));
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+        }
+
+    }
 
 }
