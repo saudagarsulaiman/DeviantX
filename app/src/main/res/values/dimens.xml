@@ -369,6 +369,7 @@
     <dimen name="height135">135dp</dimen>
     <dimen name="height170">170dp</dimen>
     <dimen name="height90">90dp</dimen>
+    <dimen name="width70">70dp</dimen>
 
 
     <!--Newly Added-->
