@@ -159,7 +159,7 @@ public class ExchangeMarketFragment extends Fragment {
                                     public void run() {
                                         for (int i = 0; i < allCoinPairs.size(); i++) {
                                             if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                                if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+//                                                if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
                                                     if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
                                                     allCoinPairsList.add(allCoinPairs.get(i));
                                         }
@@ -226,7 +226,7 @@ public class ExchangeMarketFragment extends Fragment {
                 allCoinPairsList = new ArrayList<>();
                 for (int i = 0; i < allCoinPairs.size(); i++) {
                     if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+//                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
                             if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
                                 allCoinPairsList.add(allCoinPairs.get(i));
                 }
@@ -321,7 +321,7 @@ public class ExchangeMarketFragment extends Fragment {
 
                         PairsListList = new ArrayList<>();
                         for (PairsList coinName : allPairsList) {
-                            if (coinName.getStr_Code().equals("DEV") || coinName.getStr_Code().equals("ETH") || coinName.getStr_Code().equals("BTC"))
+//                            if (coinName.getStr_Code().equals("DEV") || coinName.getStr_Code().equals("ETH") || coinName.getStr_Code().equals("BTC"))
                                 PairsListList.add(coinName);
                         }
 
@@ -424,7 +424,7 @@ public class ExchangeMarketFragment extends Fragment {
                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
                                 for (int i = 0; i < allCoinPairs.size(); i++) {
                                     if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+//                                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
                                             if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
                                                 allCoinPairsList.add(allCoinPairs.get(i));
                                 }
