@@ -159,7 +159,8 @@ public class ExchangeMarketFragment extends Fragment {
                                     public void run() {
                                         for (int i = 0; i < allCoinPairs.size(); i++) {
                                             if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                                if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                                if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+                                                    if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
                                                     allCoinPairsList.add(allCoinPairs.get(i));
                                         }
 
@@ -225,8 +226,9 @@ public class ExchangeMarketFragment extends Fragment {
                 allCoinPairsList = new ArrayList<>();
                 for (int i = 0; i < allCoinPairs.size(); i++) {
                     if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                        if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
-                            allCoinPairsList.add(allCoinPairs.get(i));
+                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+                            if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                allCoinPairsList.add(allCoinPairs.get(i));
                 }
 
                 if (allCoinPairsList.size() > 0) {
@@ -319,7 +321,8 @@ public class ExchangeMarketFragment extends Fragment {
 
                         PairsListList = new ArrayList<>();
                         for (PairsList coinName : allPairsList) {
-                            PairsListList.add(coinName);
+                            if (coinName.getStr_Code().equals("DEV") || coinName.getStr_Code().equals("ETH") || coinName.getStr_Code().equals("BTC"))
+                                PairsListList.add(coinName);
                         }
 
                         tab_lyt_coinsList.removeAllTabs();
@@ -421,8 +424,9 @@ public class ExchangeMarketFragment extends Fragment {
                                 allCoinPairs = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
                                 for (int i = 0; i < allCoinPairs.size(); i++) {
                                     if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                        if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
-                                            allCoinPairsList.add(allCoinPairs.get(i));
+                                        if ((allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("DEV") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("BTC")) || (allCoinPairs.get(i).getStr_pairCoin().equals("ETH") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("ETH")) || (allCoinPairs.get(i).getStr_pairCoin().equals("BTC") && allCoinPairs.get(i).getStr_exchangeCoin().equals("DEV")))
+                                            if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                                allCoinPairsList.add(allCoinPairs.get(i));
                                 }
                                 if (allCoinPairsList.size() > 0) {
                                     gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, true);
@@ -441,7 +445,6 @@ public class ExchangeMarketFragment extends Fragment {
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
 //                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -449,23 +452,18 @@ public class ExchangeMarketFragment extends Fragment {
                         e.printStackTrace();
 //                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    //                        progressDialog.dismiss();
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -473,7 +471,6 @@ public class ExchangeMarketFragment extends Fragment {
 //            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

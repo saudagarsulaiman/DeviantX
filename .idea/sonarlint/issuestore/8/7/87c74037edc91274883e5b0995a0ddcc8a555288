@@ -1,0 +1,12 @@
+
+Ssquid:S2589]"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+Fsquid:S1481T"*Remove this unused "token" local variable.(ûŠßİüÿÿÿÿ
+Asquid:S00108g")Either remove or fill this block of code.(å¥‡
+squid:S1186q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
+?squid:S1185."(Remove this method to simply inherit it.(ªĞªÄ
+{squid:S00116'"^Rename this field "PairsListUIListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿­à·úÿÿÿÿ
+isquid:S001176"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
+nsquid:S00117`"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î‘™üÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(çñİ·
+?squid:S1148l"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+:squid:S1148v"#Use a logger to log this exception.(Ç’Çê

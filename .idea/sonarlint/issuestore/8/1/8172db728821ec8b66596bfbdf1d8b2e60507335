@@ -1,78 +1,81 @@
 
-@squid:S1659“"!Declare "bid" on a separate line.(…³×Ø8¤ıËà–-
-Gsquid:S1604ã"(Make this anonymous inner class a lambda(Ç††…8ÍÒœ‚™-
-xsquid:S00116|"TRename this field "rview_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ÌÚ×ıÿÿÿÿ8¥ıËà–-
-~squid:S00116„"^Rename this field "lnr_no_trans_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É‡„¥8¥ıËà–-
-vsquid:S00116s"RRename this field "txt_buy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ÿú€øÿÿÿÿ8¥ıËà–-
-]squid:S1155¡">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8ÍÒœ‚™-
-\squid:S1659"8Declare "linearLayoutManagerDephAsk" on a separate line.(­ûşÈùÿÿÿÿ8¤ıËà–-
-qsquid:S3776Ï"RRefactor this method to reduce its Cognitive Complexity from 58 to the 15 allowed.(¿Şã²8ÍÒœ‚™-
-]squid:S1155">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8¥ıËà–-
+jsquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.( †ˆ´8Ş¿Ş¡œ-
+osquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(ÒÌâ–øÿÿÿÿ8Çı†Ø—-
+jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
+Lsquid:S1604æ"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8œ¤¾‹-
+usquid:S00116O"VRename this field "img_exc_fav" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©™éŒ8¤ıËà–-
+jsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(×¿°Û8±×Í‹-
+jsquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(şÛç8äŸÎ‹-
+„squid:S00116i"`Rename this field "rltv_mrkt_trades_view" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß–´±ûÿÿÿÿ8¤ıËà–-
+rsquid:S00116w"SRename this field "txt_sell" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îï¸8¥ıËà–-
+|squid:S00116z"]Rename this field "lnr_mrkt_deph_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëú¨ä8¥ıËà–-
+squid:S00116Œ"ZRename this field "txt_no_dc_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«´¶şÿÿÿÿ8åãë™-
+xsquid:S00116a"YRename this field "rltv_mrkt_deph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ¦‘€8¤ıËà–-
+bsquid:S1155õ">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8ÍÒœ‚™-
+{squid:S00116S"WRename this field "txt_coin_vol" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ŸÕœúÿÿÿÿ8¤ıËà–-
+{squid:S00116]"WRename this field "txt_coin_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êš›ôşÿÿÿÿ8¤ıËà–-
+usquid:S00116p"WRename this field "lnr_dropdown" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘‚úr8¥ıËà–-
+}squid:S00116c"^Rename this field "rltv_mrkt_deph_view" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ĞË8¤ıËà–-
+Gsquid:S1604ù"(Make this anonymous inner class a lambda(Ç††…8œ¤¾‹-
+[squid:S2589İ"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8œ¤¾‹-
+Ssquid:S1066“"/Merge this if statement with the enclosing one.(Å½°Õøÿÿÿÿ8œ¤¾‹-
+]squid:S1155‘">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8¥ıËà–-
+bsquid:S1155Ú">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8¥ıËà–-
+vsquid:S3776ª"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¨Œşÿÿÿÿ8¤ıËà–-
+}squid:S00116M"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î8¤ıËà–-
+~squid:S00116l"_Rename this field "lnr_mrkt_trades_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍúÅã8¤ıËà–-
+Nsquid:S1066›"/Merge this if statement with the enclosing one.(öµØî8œ¤¾‹-
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-{squid:S00116U"WRename this field "txt_coin_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘÷ìÿÿÿÿÿ8¤ıËà–-
-[squid:S1659"7Declare "linearLayoutManagerTrades" on a separate line.(­ûşÈùÿÿÿÿ8¤ıËà–-
-squid:S00116e"[Rename this field "rltv_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÁ‹şÿÿÿÿ8¤ıËà–-
-{squid:S00116["WRename this field "txt_coin_low" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êš›ôşÿÿÿÿ8¤ıËà–-
-|squid:S00116Y"XRename this field "txt_coin_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜€Û¾ıÿÿÿÿ8¤ıËà–-
-bsquid:HiddenFieldCheck÷"8Rename "bid" which hides the field declared at line 147.(€‘¿†8å¼Ü¤™-
-{squid:S00116Q"WRename this field "txt_coin_vol" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ŸÕœúÿÿÿÿ8¤ıËà–-
-osquid:CommentedOutCodeLineî"<This block of commented-out lines of code should be removed.(Ú×™ûÿÿÿÿ8ÍÒœ‚™-
-]squid:S1155Æ">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8¥ıËà–-
-osquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(üµÛŠùÿÿÿÿ8ÍÒœ‚™-
-\squid:S1155é">Use isEmpty() to check whether the collection is empty or not.(¬”–x8¥ıËà–-
-jsquid:CommentedOutCodeLine£"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
-]squid:S1155¤">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8ô¢çÚ–-
-\squid:S1155Î">Use isEmpty() to check whether the collection is empty or not.(¬”–x8ÍÒœ‚™-
-xsquid:S00116_"YRename this field "rltv_mrkt_deph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æ¦‘€8¤ıËà–-
-{squid:S00116p"WRename this field "img_dropdown" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïß²Şüÿÿÿÿ8¥ıËà–-
-]squid:S1155Ã">Use isEmpty() to check whether the collection is empty or not.(ÔÈù¥8ÜŞï™-
-jsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
-ysquid:S00116c"ZRename this field "txt_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åªå²8¤ıËà–-
-jsquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(Ã‹ıÌ8ÍÒœ‚™-
-Psquid:S1659Ÿ",Declare "responseStatus" on a separate line.(×ì‘€ûÿÿÿÿ8Çı†Ø—-
-zsquid:S00116€"[Rename this field "lnr_no_trans_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êÀ8¥ıËà–-
-\squid:S1155Œ">Use isEmpty() to check whether the collection is empty or not.(¬”–x8ô¢çÚ–-
-jsquid:CommentedOutCodeLineü"<This block of commented-out lines of code should be removed.(Áœù8Òî‚ÿ˜-
-|squid:S00116O"XRename this field "txt_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÂËäıÿÿÿÿ8¤ıËà–-
-squid:S00116Š"ZRename this field "txt_no_dc_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«´¶şÿÿÿÿ8åãë™-
-jsquid:CommentedOutCodeLineÎ"<This block of commented-out lines of code should be removed.( †ˆ´8ü‚¥€š-
-isquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(Óò¶8ÍÒœ‚™-
-[squid:S2589Ç"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8ÍÒœ‚™-
-xsquid:S00116z"TRename this field "rview_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡ÜõÑıÿÿÿÿ8¥ıËà–-
-osquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(öç€¯şÿÿÿÿ8ÍÒœ‚™-
-Nsquid:S1659Ÿ"*Declare "responseData" on a separate line.(×ì‘€ûÿÿÿÿ8Çı†Ø—-
-|squid:S00116]"XRename this field "txt_mrkt_deph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎòáÂüÿÿÿÿ8¤ıËà–-
-\squid:S1155¬">Use isEmpty() to check whether the collection is empty or not.(¬”–x8¥ıËà–-
-{squid:S00116W"WRename this field "txt_coin_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÏ•ÿÿÿÿÿ8¤ıËà–-
-bsquid:S1155–">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8¥ıËà–-
-rsquid:S00116u"SRename this field "txt_sell" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îï¸8¥ıËà–-
-bsquid:S1155ó">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8ÍÒœ‚™-
-zsquid:S00116S"[Rename this field "txt_coin_bal_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬îÒ8¤ıËà–-
-~squid:S00116j"_Rename this field "lnr_mrkt_trades_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍúÅã8¤ıËà–-
-€squid:S00116‚"[Rename this field "lnr_no_trans_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·êú”úÿÿÿÿ8¥ıËà–-
-usquid:S00116n"WRename this field "lnr_dropdown" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘‚úr8¥ıËà–-
-bsquid:S1155Ø">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8¥ıËà–-
-]squid:S1155Ã">Use isEmpty() to check whether the collection is empty or not.(ÔÈù¥8ÜŞï™-
-Gsquid:S1659˜"#Declare "isBid" on a separate line.(¿ƒµÿÿÿÿÿ8¤ıËà–-
-bsquid:HiddenFieldCheckÖ"8Rename "ask" which hides the field declared at line 148.(‚Ê ¼8Â¤«™-
-„squid:S00116g"`Rename this field "rltv_mrkt_trades_view" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß–´±ûÿÿÿÿ8¤ıËà–-
-{squid:S00116l"\Rename this field "rview_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òéªô8¤ıËà–-
-osquid:CommentedOutCodeLine«"<This block of commented-out lines of code should be removed.(“¢ÏÇøÿÿÿÿ8Çı†Ø—-
-Esquid:S1659”"!Declare "ask" on a separate line.(µ¥Ò×ÿÿÿÿÿ8¤ıËà–-
-bsquid:S1155¶">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8ô¢çÚ–-
-qsquid:S00117Ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Şã²8ÍÒœ‚™-
-Lsquid:S1604à"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8ÍÒœ‚™-
-vsquid:S3776¨"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¨Œşÿÿÿÿ8¤ıËà–-
-osquid:CommentedOutCodeLineÜ"<This block of commented-out lines of code should be removed.(ÁúÀ—üÿÿÿÿ8—•Î™-
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÒÌâ–øÿÿÿÿ8Çı†Ø—-
-}squid:S00116a"^Rename this field "rltv_mrkt_deph_view" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§ĞË8¤ıËà–-
-|squid:S00116x"]Rename this field "lnr_mrkt_deph_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëú¨ä8¥ıËà–-
-Gsquid:S1148®"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ÍÒœ‚™-
-Lsquid:S1604ë"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8ÍÒœ‚™-
-usquid:S00116M"VRename this field "img_exc_fav" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©™éŒ8¤ıËà–-
-jsquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
-}squid:S00116K"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î8¤ıËà–-
-Ssquid:S1066ı"/Merge this if statement with the enclosing one.(Å½°Õøÿÿÿÿ8ÍÒœ‚™-
-Nsquid:S1066…"/Merge this if statement with the enclosing one.(öµØî8Ş¿Ş¡œ-
-jsquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.( †ˆ´8Ş¿Ş¡œ-
-Lsquid:S1604Ğ"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8Ş¿Ş¡œ-
+\squid:S1155ë">Use isEmpty() to check whether the collection is empty or not.(¬”–x8¥ıËà–-
+squid:S00116g"[Rename this field "rltv_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÁ‹şÿÿÿÿ8¤ıËà–-
+bsquid:S1155¸">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8ô¢çÚ–-
+{squid:S00116Y"WRename this field "txt_coin_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÏ•ÿÿÿÿÿ8¤ıËà–-
+vsquid:S00116u"RRename this field "txt_buy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ÿú€øÿÿÿÿ8¥ıËà–-
+osquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(“¢ÏÇøÿÿÿÿ8Çı†Ø—-
+xsquid:S00116|"TRename this field "rview_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡ÜõÑıÿÿÿÿ8¥ıËà–-
+Esquid:S1659–"!Declare "ask" on a separate line.(µ¥Ò×ÿÿÿÿÿ8¤ıËà–-
+osquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(Ú×™ûÿÿÿÿ8œ¤¾‹-
+\squid:S1155®">Use isEmpty() to check whether the collection is empty or not.(¬”–x8¥ıËà–-
+jsquid:CommentedOutCodeLine¥"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
+~squid:S00116†"^Rename this field "lnr_no_trans_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(É‡„¥8¥ıËà–-
+]squid:S1155·">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8œ¤¾‹-
+jsquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(Ã‹ıÌ8œ¤¾‹-
+]squid:S1155Ù">Use isEmpty() to check whether the collection is empty or not.(ÔÈù¥8œ¤¾‹-
+zsquid:S00116‚"[Rename this field "lnr_no_trans_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êÀ8¥ıËà–-
+\squid:S1155¢">Use isEmpty() to check whether the collection is empty or not.(¬”–x8œ¤¾‹-
+ysquid:S00116e"ZRename this field "txt_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åªå²8¤ıËà–-
+Nsquid:S1659¡"*Declare "responseData" on a separate line.(×ì‘€ûÿÿÿÿ8Çı†Ø—-
+]squid:S1155È">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8¥ıËà–-
+€squid:S00116„"[Rename this field "lnr_no_trans_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·êú”úÿÿÿÿ8¥ıËà–-
+qsquid:S3776å"RRefactor this method to reduce its Cognitive Complexity from 58 to the 15 allowed.(¿Şã²8œ¤¾‹-
+Lsquid:S1604"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8œ¤¾‹-
+|squid:S00116_"XRename this field "txt_mrkt_deph" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎòáÂüÿÿÿÿ8¤ıËà–-
+bsquid:S1155¬">Use isEmpty() to check whether the collection is empty or not.(ÌôÅÀüÿÿÿÿ8œ¤¾‹-
+isquid:CommentedOutCodeLineí"<This block of commented-out lines of code should be removed.(Óò¶8œ¤¾‹-
+Psquid:S1659¡",Declare "responseStatus" on a separate line.(×ì‘€ûÿÿÿÿ8Çı†Ø—-
+bsquid:HiddenFieldCheckŞ"8Rename "ask" which hides the field declared at line 150.(‚Ê ¼8Â¤«™-
+jsquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.( †ˆ´8ü‚¥€š-
+]squid:S1155Ù">Use isEmpty() to check whether the collection is empty or not.(ÔÈù¥8œ¤¾‹-
+\squid:S1155Ğ">Use isEmpty() to check whether the collection is empty or not.(¬”–x8ÍÒœ‚™-
+xsquid:S00116~"TRename this field "rview_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ÌÚ×ıÿÿÿÿ8¥ıËà–-
+\squid:S1659’"8Declare "linearLayoutManagerDephAsk" on a separate line.(­ûşÈùÿÿÿÿ8¤ıËà–-
+jsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(™®‡‘8¤ıËà–-
+jsquid:CommentedOutCodeLineş"<This block of commented-out lines of code should be removed.(Áœù8Òî‚ÿ˜-
+osquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(ÁúÀ—üÿÿÿÿ8ÚºÒä-
+bsquid:HiddenFieldCheckù"8Rename "bid" which hides the field declared at line 149.(€‘¿†8å¼Ü¤™-
+[squid:S1659’"7Declare "linearLayoutManagerTrades" on a separate line.(­ûşÈùÿÿÿÿ8¤ıËà–-
+Gsquid:S1659š"#Declare "isBid" on a separate line.(¿ƒµÿÿÿÿÿ8¤ıËà–-
+osquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(öç€¯şÿÿÿÿ8œ¤¾‹-
+osquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(üµÛŠùÿÿÿÿ8œ¤¾‹-
+zsquid:S00116U"[Rename this field "txt_coin_bal_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬îÒ8¤ıËà–-
+{squid:S00116W"WRename this field "txt_coin_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘÷ìÿÿÿÿÿ8¤ıËà–-
+|squid:S00116["XRename this field "txt_coin_high" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜€Û¾ıÿÿÿÿ8¤ıËà–-
+{squid:S00116n"\Rename this field "rview_mrkt_trades" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òéªô8¤ıËà–-
+Gsquid:S1148Ä"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8œ¤¾‹-
+qsquid:S00117å"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Şã²8œ¤¾‹-
+]squid:S1155¦">Use isEmpty() to check whether the collection is empty or not.(•áÎ”8ô¢çÚ–-
+|squid:S00116Q"XRename this field "txt_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÂËäıÿÿÿÿ8¤ıËà–-
+{squid:S00116r"WRename this field "img_dropdown" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïß²Şüÿÿÿÿ8¥ıËà–-
+Lsquid:S1604ö"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ8œ¤¾‹-
+@squid:S1659•"!Declare "bid" on a separate line.(…³×Ø8¤ıËà–-
+osquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(–å’Úÿÿÿÿÿ8¯ŞÎ‹-

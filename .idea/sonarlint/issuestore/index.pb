@@ -347,3 +347,15 @@ Qmagicindicator/build/intermediates/incremental/mergeDebugJniLibFolders/merger.x
 Kmagicindicator/build/intermediates/incremental/mergeDebugShaders/merger.xml,d\7\d7ceb987c7a85590692ecf4adfa4243a9f8ad070
 |
 Lmagicindicator/build/intermediates/incremental/packageDebugAssets/merger.xml,b\3\b37121fb768b8ec092e8834bf01e3885c0042264
+‰
+Yapp/src/main/java/com/cryptowallet/deviantx/UI/RoomDatabase/ModelsRoomDB/PairsListDB.java,8\6\86119acc755729fd6cf8578f791100f3d14b35de
+{
+Kapp/src/main/java/com/cryptowallet/deviantx/UI/Services/PairsListFetch.java,8\7\87c74037edc91274883e5b0995a0ddcc8a555288
+e
+5app/src/main/res/drawable/rec_orange_gradient_lyt.xml,e\2\e2f4ad86f39c222a5fc5bde883ef48d5e657e999
+R
+"app/src/main/res/values/colors.xml,9\6\969faa2a5d9f5e8390e958d2c07f2cfd54676e6b
+e
+5app/src/main/res/layout/dialog_coins_transactions.xml,3\7\372fb77c64f15d0e7d254bc06a5955459dc0c1ca
+R
+"app/src/main/res/values/dimens.xml,c\3\c3c1811dec2dbad2deeafb9aad505ca9631da740

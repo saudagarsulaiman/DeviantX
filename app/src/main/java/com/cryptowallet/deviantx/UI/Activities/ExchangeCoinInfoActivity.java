@@ -38,6 +38,7 @@ import com.highsoft.highcharts.common.hichartsclasses.HIBackground;
 import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
 import com.highsoft.highcharts.common.hichartsclasses.HICredits;
+import com.highsoft.highcharts.common.hichartsclasses.HIDataLabels;
 import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
 import com.highsoft.highcharts.common.hichartsclasses.HILabels;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
@@ -361,6 +362,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 txt_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                 txt_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+                stompClient.disconnect();
 
                 Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
                 Bundle bundle = new Bundle();
@@ -368,7 +370,6 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 intent.putExtra(CONSTANTS.seletedTab, 3);
                 startActivity(intent);
-                stompClient.disconnect();
             }
         });
 
@@ -377,6 +378,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 txt_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                 txt_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
+                stompClient.disconnect();
 
                 Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
                 Bundle bundle = new Bundle();
@@ -384,7 +386,6 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 intent.putExtra(CONSTANTS.seletedTab, 3);
                 startActivity(intent);
-                stompClient.disconnect();
             }
         });
 
@@ -589,6 +590,12 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
        */
         hiSeries.setData(bidData);
 //        HIColor hiColor = new HIColor("#03a7a8");
+/*
+        HIDataLabels hiDataLabels1 = new HIDataLabels();
+        HIColor hiLblColor1 = HIColor.initWithHexValue("FFFFFF");
+        hiDataLabels1.setColor(hiLblColor1);
+        hiSeries.setDataLabels(hiDataLabels1);
+*/
         HIColor hiColor = HIColor.initWithHexValue("03A7A8");
         hiSeries.setColor(hiColor);
 
@@ -684,6 +691,12 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         askData.add(19, askdataList19);*/
         hiSeriesA.setData(askData);
 //        HIColor hiColor = new HIColor("#03a7a8");
+/*
+        HIDataLabels hiDataLabels = new HIDataLabels();
+        HIColor hiLblColor = HIColor.initWithHexValue("FFFFFF");
+        hiDataLabels.setColor(hiLblColor);
+        hiSeriesA.setDataLabels(hiDataLabels);
+*/
         HIColor hiColorA = HIColor.initWithHexValue("FC5857");
         hiSeriesA.setColor(hiColorA);
 
@@ -703,9 +716,12 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         options.setCredits(hiCredits);
 
 
+/*
         HIBackground hiBackground = new HIBackground();
-        HIColor hiBGColor = HIColor.initWithHexValue("161B4F");
+//        HIColor hiBGColor = HIColor.initWithHexValue("161B4F");
+        HIColor hiBGColor = HIColor.initWithName("transparent");
         hiBackground.setBackgroundColor(hiBGColor);
+*/
 
         chartView.setOptions(options);
 
@@ -889,5 +905,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        stompClient.disconnect();
+//        Log.e("DISCONNECTED","EXCHANGECOININFOACTIVITY");
+    }
 }
