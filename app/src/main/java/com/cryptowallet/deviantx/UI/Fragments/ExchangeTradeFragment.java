@@ -1667,10 +1667,10 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                                         txt_primary_coin_unavail.setVisibility(View.VISIBLE);
 //                                        buttonsVisiblity();
                                     }
-
-                                    lnr_selected_wallet.setVisibility(View.VISIBLE);
-                                    itemPicker.setVisibility(View.GONE);
                                 }
+                                lnr_selected_wallet.setVisibility(View.VISIBLE);
+                                itemPicker.setVisibility(View.GONE);
+
                             } else if (loginResponseStatus.equals("401")) {
                                 CommonUtilities.sessionExpired(getActivity(), loginResponseMsg);
                             } else {
