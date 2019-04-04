@@ -620,5 +620,6 @@
     <string name="not_enough_balance">Not enough balance</string>
     <string name="no_en_bal_claim">You don\'t have enough balance to claim.</string>
     <string name="no_chart_data">No Chart Data Available</string>
+    <string name="buysell">BUY/SELL</string>
 
 </resources>

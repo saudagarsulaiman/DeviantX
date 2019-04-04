@@ -190,7 +190,7 @@
             android:weightSum="2">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/my_coins_list"
@@ -202,7 +202,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:gravity="end">
+                android:gravity="end"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img_add_coin"
@@ -211,18 +212,46 @@
                     android:src="@drawable/add_coin"
                     android:visibility="gone" />
 
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
+                android:layout_weight="1"
                 android:gravity="end">
+
+                <LinearLayout
+                    android:id="@+id/lnr_buysell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/width20"
+                        android:layout_height="@dimen/height20"
+                        android:layout_gravity="center"
+                        android:src="@drawable/buysell" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin5"
+                        android:text="@string/buysell"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/fav_filter"
                     android:layout_width="@dimen/width25"
                     android:layout_height="@dimen/height25"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin10"
                     android:scaleType="fitXY"
                     android:src="@drawable/z" />
 

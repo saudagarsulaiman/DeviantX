@@ -22,13 +22,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.AddCoinsActivity;
 import com.cryptowallet.deviantx.UI.Activities.CoinInformationActivity;
+import com.cryptowallet.deviantx.UI.Activities.ExchangeDashBoardActivity;
 import com.cryptowallet.deviantx.UI.Activities.SetUpWalletActivity;
 import com.cryptowallet.deviantx.UI.Activities.WalletHistoryActivity;
 import com.cryptowallet.deviantx.UI.Adapters.MyWalletCoinsRAdapter;
@@ -116,6 +116,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
     LinearLayout lnr_notification;
     @BindView(R.id.txt_notification)
     TextView txt_notification;
+    @BindView(R.id.lnr_buysell)
+    LinearLayout lnr_buysell;
 
 
     WalletListRAdapter walletListRAdapter;
@@ -343,8 +345,8 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             public void onClick(View v) {
                 try {
                     String walName = walletList.get(itemPicker.getCurrentItem()).getStr_data_name();
-                    Intent sintent = new Intent(getActivity(),WalletDataFetch.class);
-                    sintent.putExtra("walletName",walName);
+                    Intent sintent = new Intent(getActivity(), WalletDataFetch.class);
+                    sintent.putExtra("walletName", walName);
 
                     progressDialog = ProgressDialog.show(getActivity(), ""/*getResources().getString(R.string.updating)*/, getResources().getString(R.string./*please_wait*/updating), true);
                     Log.e("*******DEVIANT*******", "Dashboard Fragment services Executing");
@@ -451,6 +453,14 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             @Override
             public void onClick(View v) {
                 filterLoad((filterCoinlist.size() == 0) && favFilter.getTag().equals("unFav"));
+            }
+        });
+        lnr_buysell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ExchangeDashBoardActivity.class);
+                intent.putExtra(CONSTANTS.seletedTab, 1);
+                startActivity(intent);
             }
         });
 
