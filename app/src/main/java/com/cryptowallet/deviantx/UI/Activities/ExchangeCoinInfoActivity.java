@@ -700,7 +700,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         hiSeriesA.setDataLabels(hiDataLabels);
 */
 //        HIColor hiColorA = HIColor.initWithHexValue("FC5857");
-        HIColor hiColorA = HIColor.initWithHexValue("2D37CD");
+        HIColor hiColorA = HIColor.initWithHexValue("EF5851");
         hiSeriesA.setColor(hiColorA);
 
 

@@ -200,6 +200,27 @@
 
             </LinearLayout>
 
+
+            <LinearLayout
+                android:id="@+id/lnr_trade"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="start"
+                android:paddingStart="@dimen/padding25"
+                android:paddingLeft="@dimen/padding25">
+
+                <ImageView
+                    android:id="@+id/img_trade"
+                    android:layout_width="@dimen/width35"
+                    android:layout_height="@dimen/height35"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padding10"
+                    android:src="@drawable/trade" />
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:id="@+id/lnr_funds"
                 android:layout_width="0dp"
@@ -219,24 +240,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/lnr_trade"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:gravity="start"
-                android:paddingStart="@dimen/padding25"
-                android:paddingLeft="@dimen/padding25">
-
-            <ImageView
-                    android:id="@+id/img_trade"
-                    android:layout_width="@dimen/width35"
-                    android:layout_height="@dimen/height35"
-                    android:layout_gravity="center"
-                    android:padding="@dimen/padding10"
-                    android:src="@drawable/trade" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/lnr_settings"

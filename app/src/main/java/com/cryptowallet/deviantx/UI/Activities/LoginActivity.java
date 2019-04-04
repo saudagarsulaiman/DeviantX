@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,12 +61,16 @@ public class LoginActivity extends AppCompatActivity {
     TextView txt_seed_recovery;
     @BindView(R.id.btn_login)
     Button btn_login;
+    @BindView(R.id.img_pswd)
+    ImageView img_pswd;
+
 
     String s_email, s_pswd, loginResponseData, loginResponseStatus, loginResponseMsg, loginResponseDataUser, loginResponseDataToken, loginUserId, loginUserEmail, loginUserName, loginUserSeedWord, loginUserPassword, loginUserDate, loginUserSeed, loginUserAdmin;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
+    boolean show_pswd = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +104,21 @@ public class LoginActivity extends AppCompatActivity {
                     CheckingInputs();
                 } else {
                     CommonUtilities.ShowToastMessage(LoginActivity.this, getResources().getString(R.string.internetconnection));
+                }
+            }
+        });
+
+        img_pswd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (show_pswd) {
+                    Picasso.with(LoginActivity.this).load(R.drawable.pswd_show).into(img_pswd);
+                    show_pswd = false;
+                    edt_pswd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    Picasso.with(LoginActivity.this).load(R.drawable.pswd_hide).into(img_pswd);
+                    show_pswd = true;
+                    edt_pswd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
             }
         });

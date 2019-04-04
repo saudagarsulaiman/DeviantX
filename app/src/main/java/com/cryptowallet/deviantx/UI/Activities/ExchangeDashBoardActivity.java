@@ -123,7 +123,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         img_funds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCurrentTabFragment(2);
+                setCurrentTabFragment(3);
                 /*img_funds.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -135,7 +135,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
         img_trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCurrentTabFragment(3);
+                setCurrentTabFragment(2);
                /* img_trade.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -179,7 +179,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 replaceFragment(new ExchangeMarketFragment());
 //                showFragment(new ExchangeTradeFragment());
                 break;
-            case 2:
+            case 3:
                 img_funds.setBackground(getResources().getDrawable(R.drawable.cir_menublue));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
@@ -188,7 +188,7 @@ public class ExchangeDashBoardActivity extends AppCompatActivity {
                 replaceFragment(new ExchangeFundsFragment());
 //                showFragment(new ExchangeFundsFragment());
                 break;
-            case 3:
+            case 2:
                 img_market.setBackground(getResources().getDrawable(R.color.transparent));
                 img_funds.setBackground(getResources().getDrawable(R.color.transparent));
                 img_home.setBackground(getResources().getDrawable(R.color.transparent));

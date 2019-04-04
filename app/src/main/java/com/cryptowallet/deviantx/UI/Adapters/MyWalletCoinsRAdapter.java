@@ -289,8 +289,15 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
         TextView txt_vol_usd = view.findViewById(R.id.txt_vol_usd);
         ImageView img_coin_logo = view.findViewById(R.id.img_coin_logo);
         ImageView img_center_back = view.findViewById(R.id.img_center_back);
+        ImageView img_fun = view.findViewById(R.id.img_fun);
         TrendView graph_dlg = view.findViewById(R.id.graph_dlg);
 
+        img_fun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         if (CommonUtilities.isConnectionAvailable(context)) {
             if (accountWallet.getResponseList().size() == 0)
