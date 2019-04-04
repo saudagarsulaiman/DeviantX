@@ -396,6 +396,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HIChart chart = new HIChart();
         chart.setType("area");
         chart.setZoomType("xy");
+        chart.setBackgroundColor(HIColor.initWithName("transparent"));
         options.setChart(chart);
 
 
@@ -722,6 +723,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         HIColor hiBGColor = HIColor.initWithName("transparent");
         hiBackground.setBackgroundColor(hiBGColor);
 */
+
 
         chartView.setOptions(options);
 

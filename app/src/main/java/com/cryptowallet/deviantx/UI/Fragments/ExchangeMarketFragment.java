@@ -321,7 +321,7 @@ public class ExchangeMarketFragment extends Fragment {
 
                         PairsListList = new ArrayList<>();
                         for (PairsList coinName : allPairsList) {
-//                            if (coinName.getStr_Code().equals("DEV") || coinName.getStr_Code().equals("ETH") || coinName.getStr_Code().equals("BTC"))
+                            if (coinName.getStr_Code().equals("DEV") || coinName.getStr_Code().equals("ETH") || coinName.getStr_Code().equals("BTC"))
                                 PairsListList.add(coinName);
                         }
 
