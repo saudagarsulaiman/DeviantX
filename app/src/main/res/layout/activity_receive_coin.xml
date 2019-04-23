@@ -5,9 +5,9 @@
     android:background="@drawable/bg_gradient">
 
     <ScrollView
-        android:layout_above="@id/btn_share_qrcode"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_share_qrcode">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,11 +15,11 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:paddingBottom="@dimen/def_padding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/lyt_blue"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/def_padding">
 
                 <include layout="@layout/toolbar_center_back" />
 
@@ -55,9 +55,9 @@
                         <TextView
                             android:id="@+id/txt_coin_value"
                             android:layout_width="wrap_content"
-                            android:singleLine="true"
-                            android:maxLines="1"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/dev"
                             android:textColor="@color/white"
                             android:textSize="@dimen/text18" />
@@ -66,8 +66,8 @@
                             android:id="@+id/txt_wallet_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/dev_coin"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
@@ -84,29 +84,29 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:visibility="gone"
                             android:layout_width="@dimen/width15"
                             android:layout_height="@dimen/height15"
                             android:layout_gravity="center"
-                            android:src="@drawable/down" />
+                            android:src="@drawable/down"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/txt_coin_usd_value"
                             android:layout_width="wrap_content"
-                            android:singleLine="true"
-                            android:maxLines="1"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="usd"
-                            android:textStyle="bold"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txt_percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
                             android:maxLines="1"
+                            android:singleLine="true"
                             android:text="%"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
@@ -136,10 +136,10 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/padding5"
-                    android:layout_marginTop="@dimen/margin10"
                     android:layout_gravity="center"
-                    android:background="@drawable/rec_grey5_white">
+                    android:layout_marginTop="@dimen/margin10"
+                    android:background="@drawable/rec_grey5_white"
+                    android:padding="@dimen/padding5">
 
                     <ImageView
                         android:id="@+id/img_qrcode"
@@ -170,24 +170,24 @@
                         <TextView
                             android:id="@+id/txt_lbl_coin_add"
                             android:layout_width="0dp"
-                            android:singleLine="true"
-                            android:maxLines="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
                             android:layout_weight="0.9"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:text="@string/dev_address"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/def_text_size" />
 
                         <ImageView
                             android:id="@+id/img_copy_address"
-                            android:singleLine="true"
-                            android:maxLines="1"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/height18"
                             android:layout_weight="0.1"
                             android:clickable="true"
                             android:focusable="true"
+                            android:maxLines="1"
+                            android:singleLine="true"
                             android:src="@drawable/copy" />
 
                     </LinearLayout>
@@ -204,6 +204,21 @@
                         android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_gen_new_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height40"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_trans"
+                    android:gravity="center"
+                    android:text="@string/gen_new_add"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size" />
 
                 <TextView
                     android:id="@+id/txt_note_dev_add"

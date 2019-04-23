@@ -359,3 +359,11 @@ e
 5app/src/main/res/layout/dialog_coins_transactions.xml,3\7\372fb77c64f15d0e7d254bc06a5955459dc0c1ca
 R
 "app/src/main/res/values/dimens.xml,c\3\c3c1811dec2dbad2deeafb9aad505ca9631da740
+Å
+Qapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/ExploreCoinsRAdapter.java,3\c\3c9ce4284fd0bd55ce4f32951e93a9f97a8380ac
+o
+?app/src/main/java/com/cryptowallet/deviantx/FCM/app/Config.java,c\8\c84743fe8690be39012104e99477cd6288e601ff
+Ü
+Vapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/ExpandableListViewAdapter.java,5\6\56e8acf9a17e3d0d29aa4e557e0a950ba5b0ef31
+s
+Capp/src/main/java/com/cryptowallet/deviantx/UI/Models/AllCoins.java,f\f\ff700435fef5285c0d073287b5902b3f7fe02911

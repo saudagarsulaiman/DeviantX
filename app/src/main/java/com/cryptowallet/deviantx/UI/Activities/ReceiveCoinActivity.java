@@ -64,6 +64,8 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     TextView txt_coin_usd_value;
     @BindView(R.id.txt_percentage)
     TextView txt_percentage;
+    @BindView(R.id.txt_gen_new_add)
+    TextView txt_gen_new_add;
 
 
     AccountWallet selectedAccountWallet;
@@ -73,6 +75,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String loginResponseMsg, loginResponseStatus, loginResponseData;
 
+    String address;
 
     @Override
     protected void onResume() {
@@ -120,13 +123,32 @@ public class ReceiveCoinActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
 
+        address = sharedPreferences.getString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), null);
 
-        if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
+        txt_gen_new_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
 //            Fetch Address
-            fetchAddress(selectedAccountWallet);
+                    fetchAddress(selectedAccountWallet);
 
+                } else {
+                    CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.internetconnection));
+                }
+            }
+        });
+
+        if (address == null) {
+            if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
+//            Fetch Address
+                fetchAddress(selectedAccountWallet);
+
+            } else {
+                CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.internetconnection));
+            }
         } else {
-            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.internetconnection));
+            txt_dev_address.setText(address);
+            CommonUtilities.qrCodeGenerate(address, img_qrcode, ReceiveCoinActivity.this);
         }
 
 
@@ -201,6 +223,8 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
+                                editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
+                                editor.apply();
                                 txt_dev_address.setText(loginResponseData);
                                 CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
                             } else {

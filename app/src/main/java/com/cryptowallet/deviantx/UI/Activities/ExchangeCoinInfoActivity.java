@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,12 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.ServiceAPIs.ChartControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.ExchangePairControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.MarketDephRAdapter;
 import com.cryptowallet.deviantx.UI.Adapters.MarketTradesRAdapter;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.AsksDC;
 import com.cryptowallet.deviantx.UI.Models.BidsDC;
+import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.UI.Models.DepthChartData;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
@@ -32,13 +36,22 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
+import com.cryptowallet.trendchart.DateValue;
+import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.CandleData;
+import com.github.mikephil.charting.data.CandleDataSet;
+import com.github.mikephil.charting.data.CandleEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.highsoft.highcharts.common.HIColor;
 import com.highsoft.highcharts.common.hichartsclasses.HIArea;
-import com.highsoft.highcharts.common.hichartsclasses.HIBackground;
 import com.highsoft.highcharts.common.hichartsclasses.HIButtonOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
 import com.highsoft.highcharts.common.hichartsclasses.HICredits;
-import com.highsoft.highcharts.common.hichartsclasses.HIDataLabels;
 import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
 import com.highsoft.highcharts.common.hichartsclasses.HILabels;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
@@ -50,12 +63,20 @@ import com.highsoft.highcharts.common.hichartsclasses.HITooltip;
 import com.highsoft.highcharts.common.hichartsclasses.HIXAxis;
 import com.highsoft.highcharts.common.hichartsclasses.HIYAxis;
 import com.highsoft.highcharts.core.HIChartView;
+import com.jjoe64.graphview.series.DataPoint;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,12 +153,29 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     LinearLayout lnr_no_trans_ask;
     @BindView(R.id.lnr_no_trans_trades)
     LinearLayout lnr_no_trans_trades;
+    @BindView(R.id.candle_chart)
+    CandleStickChart candle_chart;
 
     @BindView(R.id.hc)
     HIChartView chartView;
 
     @BindView(R.id.txt_no_dc_avail)
     TextView txt_no_dc_avail;
+
+    @BindView(R.id.txt_open)
+    TextView txt_open;
+    @BindView(R.id.txt_high)
+    TextView txt_high;
+    @BindView(R.id.txt_low)
+    TextView txt_low;
+    @BindView(R.id.txt_close)
+    TextView txt_close;
+    @BindView(R.id.txt_time)
+    TextView txt_time;
+    @BindView(R.id.txt_date)
+    TextView txt_date;
+    @BindView(R.id.lnr_result)
+    LinearLayout lnr_result;
 
     HIOptions options;
 
@@ -156,15 +194,18 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
     private StompClient stompClient;
     ArrayList<ExcOrdersDelete> allExcOrders;
-    String myEmail;
+    String myEmail, chart_data, data;
 
     String responseMsg, responseStatus, responseData;
+    String chresponseMsg, chresponseStatus, chresponseData;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
     ArrayList<AsksDC> asksDCList;
     ArrayList<BidsDC> bidsDCList;
+    CoinGraph coinGraph;
+    ArrayList<CoinGraph> responseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +218,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         myEmail = sharedPreferences.getString(CONSTANTS.email, null);
 
         options = new HIOptions();
-
+        candle_chart.setVisibility(View.VISIBLE);
 
         img_exc_fav.setVisibility(View.VISIBLE);
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +236,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         isShort = true;
         asksDCList = new ArrayList<>();
         bidsDCList = new ArrayList<>();
+        responseList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         coinPairs = bundle.getParcelable(CONSTANTS.selectedCoin);
@@ -212,10 +254,17 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         if (CommonUtilities.isConnectionAvailable(ExchangeCoinInfoActivity.this)) {
             fetchDepthChartData(coinPairs.getStr_pairCoin(), coinPairs.getStr_exchangeCoin());
             fetchOrdersWS(txt_coin_code.getText().toString().trim());
+            fetchcandleChart(txt_coin_code.getText().toString().trim());
         } else {
             CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.internetconnection));
         }
 
+        txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+        txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+        txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+        txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+        txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+        txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
         rltv_mrkt_deph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +279,13 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
                 isShort = true;
                 Picasso.with(ExchangeCoinInfoActivity.this).load(R.drawable.down_yellow).into(img_dropdown);
+
+                txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+                txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+                txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
 
                 if (bidList.size() > 0) {
@@ -368,7 +424,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedCoin, coinPairs);
                 intent.putExtras(bundle);
-                intent.putExtra(CONSTANTS.seletedTab, 3);
+                intent.putExtra(CONSTANTS.seletedTab, 2);
                 startActivity(intent);
             }
         });
@@ -384,10 +440,179 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(CONSTANTS.selectedCoin, coinPairs);
                 intent.putExtras(bundle);
-                intent.putExtra(CONSTANTS.seletedTab, 3);
+                intent.putExtra(CONSTANTS.seletedTab, 2);
                 startActivity(intent);
             }
         });
+
+    }
+
+
+    //    **************WEBSOCKET FOR ORDERS [ASK/BID]**************
+    private void fetchOrdersWS(String title_pair) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//              Main Link
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/ws_v2/deviant/websocket");
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
+//              Local Link
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
+                stompClient.connect();
+                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
+
+                allExcOrders = new ArrayList<>();
+                rview_ask.setVisibility(View.GONE);
+                rview_bid.setVisibility(View.GONE);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+                            @Override
+                            public void call(StompMessage message) {
+                                try {
+                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
+                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
+
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+//                                            stompClient.disconnect();
+//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
+                                            pb.setVisibility(View.VISIBLE);
+
+                                            bid = new ArrayList<>();
+                                            ask = new ArrayList<>();
+                                            bidList = new ArrayList<>();
+                                            askList = new ArrayList<>();
+                                            allList = new ArrayList<>();
+
+                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
+                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
+
+                                            for (int i = 0; i < bid.size(); i++) {
+//                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+                                                if (bid.get(i).getStr_coinPair().trim().equals(title_pair)) {
+                                                    bidList.add(bid.get(i));
+                                                    allList.add(bid.get(i));
+                                                }
+//                                                }
+                                            }
+                                            for (int i = 0; i < ask.size(); i++) {
+//                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+                                                if (ask.get(i).getStr_coinPair().trim().equals(title_pair)) {
+                                                    askList.add(ask.get(i));
+                                                    allList.add(ask.get(i));
+                                                }
+//                                                }
+                                            }
+
+                                            if (bidList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
+                                                rview_bid.setAdapter(marketDephRAdapter);
+                                                rview_bid.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_bid.setVisibility(View.GONE);
+                                            } else {
+                                                rview_bid.setVisibility(View.GONE);
+                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
+                                            }
+
+                                            if (askList.size() > 0) {
+                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
+                                                rview_ask.setAdapter(marketDephRAdapter);
+                                                rview_ask.setVisibility(View.VISIBLE);
+                                                lnr_no_trans_ask.setVisibility(View.GONE);
+                                            } else {
+                                                rview_ask.setVisibility(View.GONE);
+                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
+                                            }
+
+
+                                            if (allList.size() > 0) {
+                                                lnr_no_trans_trades.setVisibility(View.GONE);
+                                                marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
+                                                rview_mrkt_trades.setAdapter(marketTradesRAdapter);
+                                            } else {
+                                                lnr_no_trans_trades.setVisibility(View.VISIBLE);
+                                            }
+
+                                            pb.setVisibility(View.GONE);
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
+                    }
+                });
+
+            }
+        });
+    }
+
+
+    //    **************DEPTHCHART FOR ORDERS [ASK/BID]**************
+    private void fetchDepthChartData(String pairCoin, String exchangeCoin) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            ExchangePairControllerApi apiService = DeviantXApiClient.getClient().create(ExchangePairControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getDepthChart(CONSTANTS.DeviantMulti + token, pairCoin, exchangeCoin);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            responseMsg = jsonObject.getString("msg");
+                            responseStatus = jsonObject.getString("status");
+
+                            if (responseStatus.equals("true")) {
+
+                                responseData = jsonObject.getString("data");
+                                DepthChartData coinsStringArray = GsonUtils.getInstance().fromJson(responseData, DepthChartData.class);
+                                asksDCList = new ArrayList<>();
+                                bidsDCList = new ArrayList<>();
+                                asksDCList = (ArrayList<AsksDC>) coinsStringArray.getList_Asks();
+                                bidsDCList = (ArrayList<BidsDC>) coinsStringArray.getList_Bids();
+                                setDepthChart(asksDCList, bidsDCList);
+//                                chartView.setVisibility(View.VISIBLE);
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, responseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, responseMsg);
+                        }
+
+                    } catch (Exception e) {
+                        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.networkerror));
+                    } else {
+                        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.errortxt));
+        }
 
     }
 
@@ -741,122 +966,18 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     }
 
 
-    //    **************WEBSOCKET FOR ORDERS [ASK/BID]**************
-    private void fetchOrdersWS(String title_pair) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-//              Main Link
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/ws_v2/deviant/websocket");
-                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
-//              Local Link
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
-                stompClient.connect();
-                Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
-
-                allExcOrders = new ArrayList<>();
-                rview_ask.setVisibility(View.GONE);
-                rview_bid.setVisibility(View.GONE);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
-                            @Override
-                            public void call(StompMessage message) {
-                                try {
-                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
-                                    ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
-                                    //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-//                                            stompClient.disconnect();
-//                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
-                                            pb.setVisibility(View.VISIBLE);
-
-                                            bid = new ArrayList<>();
-                                            ask = new ArrayList<>();
-                                            bidList = new ArrayList<>();
-                                            askList = new ArrayList<>();
-                                            allList = new ArrayList<>();
-
-                                            bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
-                                            ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
-
-                                            for (int i = 0; i < bid.size(); i++) {
-                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
-                                                    if (bid.get(i).getStr_coinPair().trim().equals(title_pair)) {
-                                                        bidList.add(bid.get(i));
-                                                        allList.add(bid.get(i));
-                                                    }
-                                                }
-                                            }
-                                            for (int i = 0; i < ask.size(); i++) {
-                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
-                                                    if (ask.get(i).getStr_coinPair().trim().equals(title_pair)) {
-                                                        askList.add(ask.get(i));
-                                                        allList.add(ask.get(i));
-                                                    }
-                                                }
-                                            }
-
-                                            if (bidList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, true, bidList, askList, isShort, coinPairSelectableListener, false);
-                                                rview_bid.setAdapter(marketDephRAdapter);
-                                                rview_bid.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_bid.setVisibility(View.GONE);
-                                            } else {
-                                                rview_bid.setVisibility(View.GONE);
-                                                lnr_no_trans_bid.setVisibility(View.VISIBLE);
-                                            }
-
-                                            if (askList.size() > 0) {
-                                                marketDephRAdapter = new MarketDephRAdapter(ExchangeCoinInfoActivity.this, false, bidList, askList, isShort, coinPairSelectableListener, false);
-                                                rview_ask.setAdapter(marketDephRAdapter);
-                                                rview_ask.setVisibility(View.VISIBLE);
-                                                lnr_no_trans_ask.setVisibility(View.GONE);
-                                            } else {
-                                                rview_ask.setVisibility(View.GONE);
-                                                lnr_no_trans_ask.setVisibility(View.VISIBLE);
-                                            }
-
-
-                                            if (allList.size() > 0) {
-                                                lnr_no_trans_trades.setVisibility(View.GONE);
-                                                marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
-                                                rview_mrkt_trades.setAdapter(marketTradesRAdapter);
-                                            } else {
-                                                lnr_no_trans_trades.setVisibility(View.VISIBLE);
-                                            }
-
-                                            pb.setVisibility(View.GONE);
-                                        }
-                                    });
-
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        });
-
-                    }
-                });
-
-            }
-        });
-    }
-
-
-    //    **************DEPTHCHART FOR ORDERS [ASK/BID]**************
-    private void fetchDepthChartData(String pairCoin, String exchangeCoin) {
+    //    **************CANDLECHART FOR ORDERS [ASK/BID]**************
+    private void fetchcandleChart(String coin_pair) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-            ExchangePairControllerApi apiService = DeviantXApiClient.getClient().create(ExchangePairControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getDepthChart(CONSTANTS.DeviantMulti + token, pairCoin, exchangeCoin);
+            JSONObject params = new JSONObject();
+            try {
+                params.put("coin_pair", coin_pair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ChartControllerApi apiService = DeviantXApiClient.getClient().create(ChartControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCandleChartData(params.toString(), CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -865,19 +986,28 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                         if (!responsevalue.isEmpty() && responsevalue != null) {
 
                             JSONObject jsonObject = new JSONObject(responsevalue);
-                            responseMsg = jsonObject.getString("msg");
-                            responseStatus = jsonObject.getString("status");
+                            chresponseMsg = jsonObject.getString("msg");
+                            chresponseStatus = jsonObject.getString("status");
 
-                            if (responseStatus.equals("true")) {
+                            if (chresponseStatus.equals("true")) {
+                                try {
+                                    chresponseData = jsonObject.getString("data");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                                txt_high.setText(getResources().getString(R.string.high) + "$00.00");
+                                txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                                txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+                                txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                                txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
-                                responseData = jsonObject.getString("data");
-                                DepthChartData coinsStringArray = GsonUtils.getInstance().fromJson(responseData, DepthChartData.class);
-                                asksDCList = new ArrayList<>();
-                                bidsDCList = new ArrayList<>();
-                                asksDCList = (ArrayList<AsksDC>) coinsStringArray.getList_Asks();
-                                bidsDCList = (ArrayList<BidsDC>) coinsStringArray.getList_Bids();
-                                setDepthChart(asksDCList, bidsDCList);
-//                                chartView.setVisibility(View.VISIBLE);
+                                if (chresponseData.length() > 2) {
+                                    setCandleChartData(chresponseData);
+                                    lnr_result.setVisibility(View.VISIBLE);
+                                } else {
+                                    lnr_result.setVisibility(View.GONE);
+                                }
 
                             } else {
                                 CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, responseMsg);
@@ -906,8 +1036,146 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         } catch (Exception ex) {
             CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, getResources().getString(R.string.errortxt));
         }
+    }
+
+    private void setCandleChartData(String respData) {
+        try {
+            chart_data = respData;
+
+            JSONArray jsonArray = new JSONArray(chart_data);
+            List<DateValue> responseList2 = new ArrayList<>();
+            Double hisghValue = 0.0;
+            DataPoint[] points = new DataPoint[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject childobject = jsonArray.getJSONObject(i);
+                coinGraph = new CoinGraph(childobject.getLong("time"), childobject.getDouble("close"), childobject.getDouble("high"), childobject.getDouble("low"), childobject.getDouble("open")/*, childobject.getDouble("volumefrom"), childobject.getDouble("volumeto")*/);
+                if (hisghValue < childobject.getDouble("high"))
+                    hisghValue = childobject.getDouble("high");
+                responseList.add(coinGraph);
+                responseList2.add(new DateValue(childobject.getDouble("high"), childobject.getLong("time")));
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(childobject.getLong("time"));
+                Date d1 = calendar.getTime();
+                points[i] = new DataPoint(d1, childobject.getLong("high"));
+            }
+            setCandleChart();
+//            candle_chart.setData(null);
+            setCandleChartData(responseList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setCandleChart() {
+//        CANDLE CHART OLD DATA
+        candle_chart.setHighlightPerDragEnabled(true);
+        candle_chart.setDrawBorders(true);
+        candle_chart.setBorderColor(getResources().getColor(R.color.green));
+
+        YAxis yAxis = candle_chart.getAxisLeft();
+        YAxis rightAxis = candle_chart.getAxisRight();
+        yAxis.setDrawGridLines(false);
+        rightAxis.setDrawGridLines(false);
+        candle_chart.requestDisallowInterceptTouchEvent(true);
+
+        XAxis xAxiss = candle_chart.getXAxis();
+
+        xAxiss.setDrawGridLines(false);// disable x axis grid lines
+        xAxiss.setDrawLabels(true);
+        xAxiss.setTextColor(Color.WHITE);
+        rightAxis.setTextColor(Color.WHITE);
+        yAxis.setDrawLabels(false);
+        xAxiss.setGranularityEnabled(true);
+        xAxiss.setAvoidFirstLastClipping(true);
+        DateFormat formatter = new SimpleDateFormat("HH:mm");
+        xAxiss.setValueFormatter((value, axis) -> {
+            Date date = new Date((long) value /** 1000*/);
+            return formatter.format(date);
+        }); // hide text
+        xAxiss.setTextSize(11f);
+        Legend l = candle_chart.getLegend();
+        l.setEnabled(false);
+
+
+        candle_chart.setTouchEnabled(true);
+        candle_chart.setDragEnabled(true);
+        candle_chart.setScaleEnabled(true);
+
+
+        candle_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Long date = (long) e.getX() /** 1000*/;
+/*
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTimeInMillis(date);
+                Date d2 = calendar1.getTime();
+                SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat timeFormater = new SimpleDateFormat("HH:mm");
+                String newDateStr = curFormater.format(d2);
+                String dateStr = dateFormater.format(d2);
+                String timeStr = timeFormater.format(d2);
+                txt_date.setText(getResources().getString(R.string.date) + " " + dateStr);
+                txt_time.setText(getResources().getString(R.string.time) + " " + timeStr);
+                lnr_result.setVisibility(View.VISIBLE);
+*/
+                for (int i = 0; i < responseList.size(); i++) {
+                    if (responseList.get(i).getHigh() == e.getY() || responseList.get(i).getOpen() == e.getY() || responseList.get(i).getLow() == e.getY() || responseList.get(i).getClose() == e.getY()) {
+                        txt_open.setText(getResources().getString(R.string.open) + " $" + String.format("%.6f", responseList.get(i).getOpen()));
+                        txt_high.setText(getResources().getString(R.string.high) + " $" + String.format("%.6f", responseList.get(i).getHigh()));
+                        txt_low.setText(getResources().getString(R.string.low) + " $" + String.format("%.6f", responseList.get(i).getLow()));
+                        txt_close.setText(getResources().getString(R.string.closee) + " $" + String.format("%.6f", responseList.get(i).getClose()));
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
     }
+
+    public void setCandleChartData(ArrayList<CoinGraph> histories) {
+        ArrayList<CandleEntry> yValsCandleStick = new ArrayList<CandleEntry>();
+        for (int i = 0; i < histories.size(); i++) {
+
+            yValsCandleStick.add(new CandleEntry((float) i/*histories.get(i).getTime().getTime()*/, histories.get(i).high, (float) histories.get(i).low, (float) histories.get(i).open, (float) histories.get(i).close));
+        }
+
+//        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, histories.get(0).time + "\n" + histories.get(1).time + "\n" + histories.get(2).time + "\n" + histories.get(3).time + "\n" + histories.get(4).time);
+
+        CandleDataSet set1;
+        if (candle_chart.getData() != null && candle_chart.getData().getDataSetCount() > 0) {
+            set1 = (CandleDataSet) candle_chart.getData().getDataSetByIndex(0);
+            set1.setValues(yValsCandleStick);
+
+            candle_chart.getData().notifyDataChanged();
+            candle_chart.notifyDataSetChanged();
+        } else {
+            set1 = new CandleDataSet(yValsCandleStick, "DataSet 1");
+            set1.setColor(Color.rgb(80, 80, 80));
+            set1.setShadowColor(getResources().getColor(R.color.yellow));
+            set1.setShadowWidth(0.8f);
+            set1.setDecreasingColor(getResources().getColor(R.color.google_red));
+            set1.setDecreasingPaintStyle(Paint.Style.FILL);
+            set1.setIncreasingColor(getResources().getColor(R.color.graph_brdr_green));
+            set1.setIncreasingPaintStyle(Paint.Style.FILL);
+            set1.setNeutralColor(Color.LTGRAY);
+            set1.setDrawValues(false);
+// create a data object with the datasets
+            CandleData data = new CandleData(set1);
+// set data
+            candle_chart.setData(data);
+            candle_chart.invalidate();
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

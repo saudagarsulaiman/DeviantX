@@ -1,24 +1,23 @@
 
+xsquid:S14887"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
 psquid:S00117b"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹8¬¦ãì•-
-bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¾ÜÃê
-wsquid:S00116¨"RRename this field "view_bg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥óäŠúÿÿÿÿ8¬¦ãì•-
-bsquid:CommentedOutCodeLine)"<This block of commented-out lines of code should be removed.(­Ğ ²
-Usquid:S1854d"7Remove this useless assignment to local variable "res".(™ÑÒª8¬¦ãì•-
+Fsquid:S1148]"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¬¦ãì•-
 isquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(ÿÃã8Â‘„£’-
-psquid:S00117b"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹8¬¦ãì•-
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
 zsquid:S00116¢"URename this field "txt_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ó¼Êÿÿÿÿÿ8¬¦ãì•-
-Asquid:S1659"%Declare "askList" on a separate line.(õ›«Ôüÿÿÿÿ
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(í‹Ööşÿÿÿÿ8¬¦ãì•-
-isquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(õÌÿ¾8»´„£’-
-jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(¼¯²À8¬¦ãì•-
-:squid:S1659"#Declare "isBid" on a separate line.(¿‹ÂŒ
-6squid:S2176Ÿ"Rename this class.(Â×Öúÿÿÿÿ8¬¦ãì•-
+ysquid:S00116¤"TRename this field "txt_price" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÛ¾¬ùÿÿÿÿ8¬¦ãì•-
 xsquid:S14883"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
 nsquid:CommentedOutCodeLinen"<This block of commented-out lines of code should be removed.(¸üşúÿÿÿÿ8¬¦ãì•-
-ysquid:S00116¤"TRename this field "txt_price" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍÛ¾¬ùÿÿÿÿ8¬¦ãì•-
-isquid:CommentedOutCodeLinez"<This block of commented-out lines of code should be removed.(¼¯²À8¬¦ãì•-
-xsquid:S14887"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-Bsquid:S1659"$Declare "isFrag" on a separate line.(¿‹ÂŒ8Ş…àì•-
+:squid:S1659"#Declare "isBid" on a separate line.(¿‹ÂŒ
+jsquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(¼¯²À8¬¦ãì•-
+bsquid:CommentedOutCodeLine)"<This block of commented-out lines of code should be removed.(­Ğ ²
+psquid:S00117b"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈËí¹8¬¦ãì•-
+Asquid:S1659"%Declare "askList" on a separate line.(õ›«Ôüÿÿÿÿ
 vsquid:S00116¦"VRename this field "seekbar_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿§èÑ8¬¦ãì•-
-Fsquid:S1148]"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8¬¦ãì•-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(í‹Ööşÿÿÿÿ8¬¦ãì•-
+Bsquid:S1659"$Declare "isFrag" on a separate line.(¿‹ÂŒ8Ş…àì•-
+isquid:CommentedOutCodeLineI"<This block of commented-out lines of code should be removed.(õÌÿ¾8»´„£’-
+wsquid:S00116¨"RRename this field "view_bg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥óäŠúÿÿÿÿ8¬¦ãì•-
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¾ÜÃê
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+isquid:CommentedOutCodeLinez"<This block of commented-out lines of code should be removed.(¼¯²À8¬¦ãì•-
+6squid:S2176Ÿ"Rename this class.(Â×Öúÿÿÿÿ8¬¦ãì•-

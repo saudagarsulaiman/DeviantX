@@ -23,6 +23,16 @@ public class CoinGraph implements Comparable<CoinGraph> {
         this.change = change;
         this.amplitude = amplitude;
     }
+    public CoinGraph(long time, double open, double high, double low, double close) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        Date d1 = calendar.getTime();
+        this.time = d1;
+        this.open = open;
+        this.high = (float) high;
+        this.low = low;
+        this.close = close;
+    }
 
 
     public Date getTime() {

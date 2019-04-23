@@ -621,5 +621,6 @@
     <string name="no_en_bal_claim">You don\'t have enough balance to claim.</string>
     <string name="no_chart_data">No Chart Data Available</string>
     <string name="buysell">BUY/SELL</string>
+    <string name="gen_new_add">Generate New Address</string>
 
 </resources>

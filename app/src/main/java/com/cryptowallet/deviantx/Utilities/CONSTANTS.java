@@ -61,6 +61,7 @@ public class CONSTANTS {
     public static String MasterKey = "DeviantXMaster";
     public static String isADTrue = "isADTrue";
     public static String ft = "FT";
+    public static String rec_add = "rec_add";
 
 
 //    //    Selected Account Wallet Details

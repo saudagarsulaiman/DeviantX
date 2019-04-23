@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
-import com.cryptowallet.deviantx.ServiceAPIs.CandleChartDataApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
 import com.cryptowallet.deviantx.UI.Adapters.SpinnerDaysAdapter;
@@ -31,7 +30,6 @@ import com.cryptowallet.deviantx.UI.Models.CoinGraph;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
-import com.cryptowallet.deviantx.Utilities.GsonUtils;
 import com.cryptowallet.trendchart.DateValue;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -265,7 +263,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
                 txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
 
-                lnr_result.setVisibility(View.INVISIBLE);
+                lnr_result.setVisibility(View.VISIBLE);
                 lnr_candle_graph.setBackground(getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
                 lnr_line_graph.setBackground(getResources().getDrawable(R.drawable.rec_grey_trans_c2));
                 line_chart.setVisibility(View.GONE);
@@ -585,13 +583,13 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         l.setEnabled(false);
 
 
-       /* candle_chart.setTouchEnabled(true);
+        candle_chart.setTouchEnabled(true);
         candle_chart.setDragEnabled(true);
         candle_chart.setScaleEnabled(true);
         candle_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Long date = (long) e.getX() * 1000;
+               /* Long date = (long) e.getX() * 1000;
 
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
@@ -620,8 +618,40 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             public void onNothingSelected() {
 //                lnr_result.setVisibility(View.INVISIBLE);
             }
+        });*/
+                Long date = (long) e.getX() * 1000;
+
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTimeInMillis(date);
+                Date d2 = calendar1.getTime();
+                SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                SimpleDateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat timeFormater = new SimpleDateFormat("HH:mm");
+                String newDateStr = curFormater.format(d2);
+                String dateStr = dateFormater.format(d2);
+                String timeStr = timeFormater.format(d2);
+                txt_date.setText(getResources().getString(R.string.date) + " " + dateStr);
+                txt_time.setText(getResources().getString(R.string.time) + " " + timeStr);
+                lnr_result.setVisibility(View.VISIBLE);
+                for (int i = 0; i < responseList.size(); i++) {
+                    if (responseList.get(i).getHigh() == e.getY() || responseList.get(i).getOpen() == e.getY() || responseList.get(i).getLow() == e.getY() || responseList.get(i).getClose() == e.getY()) {
+                        txt_open.setText(getResources().getString(R.string.open) + " $" + String.format("%.4f", responseList.get(i).getOpen()));
+                        txt_high.setText(getResources().getString(R.string.high) + " $" + String.format("%.4f", responseList.get(i).getHigh()));
+                        txt_low.setText(getResources().getString(R.string.low) + " $" + String.format("%.4f", responseList.get(i).getLow()));
+                        txt_close.setText(getResources().getString(R.string.closee) + " $" + String.format("%.4f", responseList.get(i).getClose()));
+//                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, e.getY()+ " " + responseList.get(i).getHigh() );
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
         });
-*/
+
+
     }
 
     public void setLineChartData(ArrayList<CoinGraph> histories) {
@@ -685,8 +715,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             set1 = (CandleDataSet) candle_chart.getData().getDataSetByIndex(0);
             set1.setValues(yValsCandleStick);
 
-            line_chart.getData().notifyDataChanged();
-            line_chart.notifyDataSetChanged();
+            candle_chart.getData().notifyDataChanged();
+            candle_chart.notifyDataSetChanged();
         } else {
             set1 = new CandleDataSet(yValsCandleStick, "DataSet 1");
             set1.setColor(Color.rgb(80, 80, 80));

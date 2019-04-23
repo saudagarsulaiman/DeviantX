@@ -1,12 +1,12 @@
 
-vsquid:S00116_"YRename this field "txt_coin_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ùµ‡øÿÿÿÿ
-~squid:S1488("bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(å±À‘þÿÿÿÿ
-gsquid:CommentedOutCodeLine>"<This block of commented-out lines of code should be removed.(Ã­Û«üÿÿÿÿ
-lsquid:S00116a"TRename this field "img_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áô
-gsquid:CommentedOutCodeLine3"<This block of commented-out lines of code should be removed.(£¯É‰ýÿÿÿÿ
-psquid:S00116Y"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Þúÿÿÿÿ
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-.squid:S2176W"Rename this class.(Â×žÖúÿÿÿÿ
 gsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(øº‰¢ùÿÿÿÿ
+gsquid:CommentedOutCodeLine>"<This block of commented-out lines of code should be removed.(Ã­Û«üÿÿÿÿ
+~squid:S1488("bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(å±À‘þÿÿÿÿ
+lsquid:S00116a"TRename this field "img_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áô
+vsquid:S00116_"YRename this field "txt_coin_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Ùµ‡øÿÿÿÿ
 psquid:S00116]"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
+.squid:S2176W"Rename this class.(Â×žÖúÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+psquid:S00116Y"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Þúÿÿÿÿ
 psquid:S00116["SRename this field "img_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ù•˜ÿÿÿÿÿ
+gsquid:CommentedOutCodeLine3"<This block of commented-out lines of code should be removed.(£¯É‰ýÿÿÿÿ

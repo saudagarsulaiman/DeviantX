@@ -1339,16 +1339,16 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                                             ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
 
                                             for (int i = 0; i < bid.size(); i++) {
-                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+//                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
                                                     if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
                                                         bidList.add(bid.get(i));
-                                                }
+//                                                }
                                             }
                                             for (int i = 0; i < ask.size(); i++) {
-                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+//                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
                                                     if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
                                                         askList.add(ask.get(i));
-                                                }
+//                                                }
                                             }
 
                                             if (bidList.size() > 0) {
