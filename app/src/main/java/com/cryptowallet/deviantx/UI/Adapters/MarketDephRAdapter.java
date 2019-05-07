@@ -1,6 +1,8 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Interfaces.CoinPairSelectableListener;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,9 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
     */
     CoinPairSelectableListener coinPairSelectableListener;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     public MarketDephRAdapter(Context context, /*String title_pair,*/ boolean isBid, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, boolean isShort, CoinPairSelectableListener coinPairSelectableListener, boolean isFrag) {
         this.context = context;
         this.bidList = bidList;
@@ -41,6 +47,9 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
         this.title_pair = title_pair;
 */
         this.coinPairSelectableListener = coinPairSelectableListener;
+
+        sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     @Override
@@ -62,19 +71,32 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
         try {
             viewHolder.seekbar_per.setEnabled(false);
             viewHolder.seekbar_per.setVisibility(View.GONE);
+            String myEmail = sharedPreferences.getString(CONSTANTS.email, null);
 
             if (isBid) {
+                if (bidList.get(i).getStr_user().trim().equals(myEmail)) {
+                    viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                    viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                } else {
+                    viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+                    viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.white));
+                }
 //                viewHolder.seekbar_per.setProgress(getPer(bidList.get(i).getDbl_total(), bidList.get(i).getDbl_executedVolume()));
-                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.4f", bidList.get(i).getDbl_total())), Double.parseDouble(String.format("%.4f", bidList.get(i).getDbl_executedVolume()))));
-                viewHolder.txt_price.setText(String.format("%.4f", bidList.get(i).getDbl_price()));
-                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
-                viewHolder.txt_amount.setText(String.format("%.4f", bidList.get(i).getDbl_amount()));
+                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.6f", bidList.get(i).getDbl_total())), Double.parseDouble(String.format("%.6f", bidList.get(i).getDbl_executedVolume()))));
+                viewHolder.txt_price.setText(String.format("%.6f", bidList.get(i).getDbl_price()));
+                viewHolder.txt_amount.setText(String.format("%.6f", bidList.get(i).getDbl_amount()));
             } else {
+                if (askList.get(i).getStr_user().trim().equals(myEmail)) {
+                    viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                    viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                } else {
+                    viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
+                    viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.white));
+                }
 //                viewHolder.seekbar_per.setProgress(getPer(askList.get(i).getDbl_total(), askList.get(i).getDbl_executedVolume()));
-                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.4f", askList.get(i).getDbl_total())), Double.parseDouble(String.format("%.4f", askList.get(i).getDbl_executedVolume()))));
-                viewHolder.txt_price.setText(String.format("%.4f", askList.get(i).getDbl_price()));
-                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.blue));
-                viewHolder.txt_amount.setText(String.format("%.4f", askList.get(i).getDbl_amount()));
+                viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.6f", askList.get(i).getDbl_total())), Double.parseDouble(String.format("%.6f", askList.get(i).getDbl_executedVolume()))));
+                viewHolder.txt_price.setText(String.format("%.6f", askList.get(i).getDbl_price()));
+                viewHolder.txt_amount.setText(String.format("%.6f", askList.get(i).getDbl_amount()));
             }
 
 

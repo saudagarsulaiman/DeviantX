@@ -367,3 +367,13 @@ o
 Vapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/ExpandableListViewAdapter.java,5\6\56e8acf9a17e3d0d29aa4e557e0a950ba5b0ef31
 s
 Capp/src/main/java/com/cryptowallet/deviantx/UI/Models/AllCoins.java,f\f\ff700435fef5285c0d073287b5902b3f7fe02911
+_
+/app/src/main/res/drawable/rec_lytblue_trans.xml,8\3\83a20a7a9918c8eb8712a52f526339a268bb3397
+a
+1app/src/main/res/layout/activity_receive_coin.xml,8\1\81a8319098d2b4682777639e7115ac93be8dda62
+\
+,app/src/main/res/layout/coins_div_ad_lyt.xml,c\4\c4e9666787cb0df92992c05eae277ffc9e1e3d17
+
+Oapp/src/main/java/com/cryptowallet/deviantx/ServiceAPIs/ChartControllerApi.java,3\a\3a592302855237947e8bb93fa88163b80e48b612
+t
+Dapp/src/main/java/com/cryptowallet/deviantx/Utilities/GsonUtils.java,8\b\8bc0ef174e99090bcdbc4d0729b40e47c40be2da

@@ -1060,7 +1060,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 points[i] = new DataPoint(d1, childobject.getLong("high"));
             }
             setCandleChart();
-//            candle_chart.setData(null);
+            candle_chart.setData(null);
             setCandleChartData(responseList);
 
         } catch (Exception e) {
@@ -1091,7 +1091,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         xAxiss.setAvoidFirstLastClipping(true);
         DateFormat formatter = new SimpleDateFormat("HH:mm");
         xAxiss.setValueFormatter((value, axis) -> {
-            Date date = new Date((long) value /** 1000*/);
+            Date date = new Date((long) value * 1000);
             return formatter.format(date);
         }); // hide text
         xAxiss.setTextSize(11f);
@@ -1107,7 +1107,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         candle_chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Long date = (long) e.getX() /** 1000*/;
+//                Long date = (long) e.getX() * 1000 ;
 /*
                 Calendar calendar1 = Calendar.getInstance();
                 calendar1.setTimeInMillis(date);
@@ -1144,11 +1144,8 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     public void setCandleChartData(ArrayList<CoinGraph> histories) {
         ArrayList<CandleEntry> yValsCandleStick = new ArrayList<CandleEntry>();
         for (int i = 0; i < histories.size(); i++) {
-
-            yValsCandleStick.add(new CandleEntry((float) i/*histories.get(i).getTime().getTime()*/, histories.get(i).high, (float) histories.get(i).low, (float) histories.get(i).open, (float) histories.get(i).close));
+            yValsCandleStick.add(new CandleEntry(i, histories.get(i).high, (float) histories.get(i).low, (float) histories.get(i).open, (float) histories.get(i).close));
         }
-
-//        CommonUtilities.ShowToastMessage(ExchangeCoinInfoActivity.this, histories.get(0).time + "\n" + histories.get(1).time + "\n" + histories.get(2).time + "\n" + histories.get(3).time + "\n" + histories.get(4).time);
 
         CandleDataSet set1;
         if (candle_chart.getData() != null && candle_chart.getData().getDataSetCount() > 0) {

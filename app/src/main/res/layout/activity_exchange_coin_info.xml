@@ -188,6 +188,119 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:layout_marginTop="@dimen/margin15"
+                android:layout_marginRight="@dimen/def_margin"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding2"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/txt_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="start"
+                        android:text="@string/date"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:text="@string/time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding2"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/txt_open"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="start"
+                        android:text="@string/open"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_high"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:text="@string/high"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding2"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/txt_low"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="start"
+                        android:text="@string/low"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_close"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="0.5"
+                        android:gravity="end"
+                        android:text="@string/closee"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.CandleStickChart
+                android:id="@+id/candle_chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height200"
+                android:layout_marginTop="@dimen/def_margin"
+                android:visibility="visible" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/large_navigator_height"
                 android:layout_marginTop="@dimen/def_margin"
@@ -439,120 +552,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/lnr_result"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/def_margin"
-                    android:layout_marginTop="@dimen/margin15"
-                    android:layout_marginRight="@dimen/def_margin"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-                    <LinearLayout
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding2"
-                        android:weightSum="1">
-
-                        <TextView
-                            android:id="@+id/txt_date"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="start"
-                            android:text="@string/date"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                        <TextView
-                            android:id="@+id/txt_time"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="@string/time"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding2"
-                        android:weightSum="1">
-
-                        <TextView
-                            android:id="@+id/txt_open"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="start"
-                            android:text="@string/open"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                        <TextView
-                            android:id="@+id/txt_high"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="@string/high"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/padding2"
-                        android:weightSum="1">
-
-                        <TextView
-                            android:id="@+id/txt_low"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="start"
-                            android:text="@string/low"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                        <TextView
-                            android:id="@+id/txt_close"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_weight="0.5"
-                            android:gravity="end"
-                            android:text="@string/closee"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/def_text_size" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <com.github.mikephil.charting.charts.CandleStickChart
-                    android:id="@+id/candle_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height200"
-                    android:layout_marginTop="@dimen/def_margin"
-                    android:visibility="visible" />
-
 
                 <com.highsoft.highcharts.core.HIChartView
                     android:id="@+id/hc"

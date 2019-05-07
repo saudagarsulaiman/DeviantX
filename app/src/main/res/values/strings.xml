@@ -577,8 +577,8 @@
     <string name="received_history">Received History</string>
 
     <!--Exchange Coin Info Activity-->
-    <string name="buy">buy</string>
-    <string name="sell">sell</string>
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
     <string name="bid">Bid</string>
     <string name="ask">Ask</string>
 
@@ -622,5 +622,7 @@
     <string name="no_chart_data">No Chart Data Available</string>
     <string name="buysell">BUY/SELL</string>
     <string name="gen_new_add">Generate New Address</string>
+    <string name="cant_order">Can\'t make order</string>
+    <string name="user_cant_order">User cannot sell or buy his own order !!!</string>
 
 </resources>

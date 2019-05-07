@@ -425,16 +425,21 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
         coinPairSelectableListener = new CoinPairSelectableListener() {
             @Override
             public void PairSelected(ArrayList<ExcOrders> excOrdersList, int pos, boolean isBid) {
-                String beforeSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[0];
-                String afterSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[1];
-                txt_code_price.setText(afterSlash);
-                txt_code_stop_price.setText(afterSlash);
-                txt_code_amount.setText(beforeSlash);
-                txt_total_code.setText(afterSlash);
 
-                edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
-                edt_amount.setText(String.format("%.3f", excOrdersList.get(pos).getDbl_amount()));
-                txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
+                if (excOrdersList.get(pos).getStr_user().trim().equals(myEmail)) {
+                    showDialog();
+                } else {
+
+                    String beforeSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[0];
+                    String afterSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[1];
+                    txt_code_price.setText(afterSlash);
+                    txt_code_stop_price.setText(afterSlash);
+                    txt_code_amount.setText(beforeSlash);
+                    txt_total_code.setText(afterSlash);
+
+                    edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
+                    edt_amount.setText(String.format("%.3f", excOrdersList.get(pos).getDbl_amount()));
+                    txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
 
 /*
                 txt_market.setTextColor(getResources().getColor(R.color.yellow));
@@ -448,58 +453,60 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 img_stop_limit.setImageDrawable(getResources().getDrawable(R.drawable.unselected_limit));
 */
 
-                disablePrice();
-                if (isBid) {
-                    //                    Sell
-                    txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
-                    txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
+                    disablePrice();
+                    if (isBid) {
+                        //                    Sell
+                        txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
+                        txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
 
-                    isBuy = false;
-                    if (isPCoinAvail && isSCoinAvail) {
-                        buttonsVisiblity();
-                        buttonsEnable();
-                        if (isMarket)
-                            btn_sell.setVisibility(View.VISIBLE);
-                        else if (isStopLimit)
-                            btn_make_order_stop.setVisibility(View.VISIBLE);
+                        isBuy = false;
+                        if (isPCoinAvail && isSCoinAvail) {
+                            buttonsVisiblity();
+                            buttonsEnable();
+                            if (isMarket)
+                                btn_sell.setVisibility(View.VISIBLE);
+                            else if (isStopLimit)
+                                btn_make_order_stop.setVisibility(View.VISIBLE);
+                            else
+                                btn_make_order_limit.setVisibility(View.VISIBLE);
+                        } else {
+                            buttonsDisable();
+                        }
+
+                        if (isStopLimit)
+                            lnr_stop_limit.setVisibility(View.VISIBLE);
                         else
-                            btn_make_order_limit.setVisibility(View.VISIBLE);
+                            lnr_stop_limit.setVisibility(View.GONE);
+
                     } else {
-                        buttonsDisable();
+                        //                   Buy
+                        txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
+                        txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+
+                        isBuy = true;
+                        buttonsVisiblity();
+                        if (isPCoinAvail && isSCoinAvail) {
+                            buttonsVisiblity();
+                            buttonsEnable();
+                            if (isMarket)
+                                btn_buy.setVisibility(View.VISIBLE);
+                            else if (isStopLimit)
+                                btn_make_order_limit.setVisibility(View.VISIBLE);
+                            else
+                                btn_make_order_stop.setVisibility(View.VISIBLE);
+                        } else {
+                            buttonsDisable();
+                        }
+
+                        if (isStopLimit)
+                            lnr_stop_limit.setVisibility(View.VISIBLE);
+                        else
+                            lnr_stop_limit.setVisibility(View.GONE);
+
                     }
 
-                    if (isStopLimit)
-                        lnr_stop_limit.setVisibility(View.VISIBLE);
-                    else
-                        lnr_stop_limit.setVisibility(View.GONE);
-
-                } else {
-                    //                   Buy
-                    txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
-                    txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
-
-                    isBuy = true;
-                    buttonsVisiblity();
-                    if (isPCoinAvail && isSCoinAvail) {
-                        buttonsVisiblity();
-                        buttonsEnable();
-                        if (isMarket)
-                            btn_buy.setVisibility(View.VISIBLE);
-                        else if (isStopLimit)
-                            btn_make_order_limit.setVisibility(View.VISIBLE);
-                        else
-                            btn_make_order_stop.setVisibility(View.VISIBLE);
-                    } else {
-                        buttonsDisable();
-                    }
-
-                    if (isStopLimit)
-                        lnr_stop_limit.setVisibility(View.VISIBLE);
-                    else
-                        lnr_stop_limit.setVisibility(View.GONE);
 
                 }
-
 
             }
         };
@@ -1134,6 +1141,33 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
         return view;
     }
 
+    private void showDialog() {
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_user_cant_order);
+        final DialogPlus dialog = DialogPlus.newDialog(getActivity())
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(true)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+
+        TextView txt_ok = view.findViewById(R.id.txt_ok);
+
+        txt_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+//                Displaying DialogPlus
+        dialog.show();
+    }
+
     private void confirmOrderDialog(double amount, double price, double total, String type, String coin_pair, String wallet_name, String market, double stop_price) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_make_order);
@@ -1340,14 +1374,14 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                                             for (int i = 0; i < bid.size(); i++) {
 //                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
-                                                    if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                        bidList.add(bid.get(i));
+                                                if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                    bidList.add(bid.get(i));
 //                                                }
                                             }
                                             for (int i = 0; i < ask.size(); i++) {
 //                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
-                                                    if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                        askList.add(ask.get(i));
+                                                if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
+                                                    askList.add(ask.get(i));
 //                                                }
                                             }
 

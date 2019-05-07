@@ -43,15 +43,15 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
         if (allList.get(i).getStr_orderType().equals("buy")) {
             long ms = Long.parseLong(allList.get(i).getStr_createdAt());
             viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
-            viewHolder.txt_price.setText(String.format("%.4f", allList.get(i).getDbl_price()));
+            viewHolder.txt_price.setText(String.format("%.6f", allList.get(i).getDbl_price()));
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
-            viewHolder.txt_amount.setText(String.format("%.4f", allList.get(i).getDbl_amount()));
+            viewHolder.txt_amount.setText(String.format("%.6f", allList.get(i).getDbl_amount()));
         } else {
             long ms = Long.parseLong(allList.get(i).getStr_createdAt());
             viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
-            viewHolder.txt_price.setText(String.format("%.4f", allList.get(i).getDbl_price()));
+            viewHolder.txt_price.setText(String.format("%.6f", allList.get(i).getDbl_price()));
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
-            viewHolder.txt_amount.setText(String.format("%.4f", allList.get(i).getDbl_amount()));
+            viewHolder.txt_amount.setText(String.format("%.6f", allList.get(i).getDbl_amount()));
         }
 
     }
