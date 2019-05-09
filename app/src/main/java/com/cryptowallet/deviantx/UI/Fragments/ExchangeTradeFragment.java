@@ -251,6 +251,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     int selectedCoinId = 0;
     String selectedWalletName = "";
     Double selectedWalletBal = 0.0;
+    Boolean order_available = false;
 
 
     MarketDephRAdapter marketDephRAdapter;
@@ -429,7 +430,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 if (excOrdersList.get(pos).getStr_user().trim().equals(myEmail)) {
                     showDialog();
                 } else {
-
+                    order_available = true;
                     String beforeSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[0];
                     String afterSlash = excOrdersList.get(pos).getStr_coinPair().split("/")[1];
                     txt_code_price.setText(afterSlash);
@@ -1479,7 +1480,15 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                                 serviceIntent1.putExtra("walletName", "");
                                 getActivity().startService(serviceIntent1);
 */
+                                if (order_available) {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.order_filled));
+                                    order_available = false;
+                                } else {
+                                    CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.order_placed));
+                                }
+/*
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
+*/
 
                             } else {
                                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);

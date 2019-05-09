@@ -624,5 +624,7 @@
     <string name="gen_new_add">Generate New Address</string>
     <string name="cant_order">Can\'t make order</string>
     <string name="user_cant_order">User cannot sell or buy his own order !!!</string>
+    <string name="order_filled">Your order is filled.</string>
+    <string name="order_placed">Your order has been placed.</string>
 
 </resources>
