@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
+import com.cryptowallet.deviantx.UI.Activities.ExchangeDashBoardActivity;
 import com.cryptowallet.deviantx.UI.Models.CoinPairs;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 
@@ -93,19 +94,19 @@ public class GainerLoserExcDBRAdapter extends RecyclerView.Adapter<GainerLoserEx
             viewholder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-/*
                     Intent intent = new Intent(context, ExchangeDashBoardActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CONSTANTS.selectedCoin, allCoinPairs.get(i));
                     intent.putExtras(bundle);
-                    intent.putExtra(CONSTANTS.seletedTab, 3);
+                    intent.putExtra(CONSTANTS.seletedTab, 2);
                     context.startActivity(intent);
-*/
+/*
                     Intent intent = new Intent(context, ExchangeCoinInfoActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(CONSTANTS.selectedCoin, allCoinPairs.get(i));
                     intent.putExtras(bundle);
                     context.startActivity(intent);
+*/
                 }
             });
 

@@ -183,9 +183,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
     MarketDephRAdapter marketDephRAdapter;
     LinearLayoutManager linearLayoutManagerDephBid, linearLayoutManagerDephAsk, linearLayoutManagerTrades;
 
-    ArrayList<String> tradesList;
     ArrayList<ExcOrders> bidList, bid;
     ArrayList<ExcOrders> askList, ask;
+    ArrayList<ExcOrders> tradesList, trades;
     ArrayList<ExcOrders> allList;
     CoinPairs coinPairs;
 
@@ -230,6 +230,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 
         allExcOrders = new ArrayList<>();
         tradesList = new ArrayList<>();
+        trades = new ArrayList<>();
         bidList = new ArrayList<>();
         askList = new ArrayList<>();
         allList = new ArrayList<>();
@@ -328,7 +329,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //                marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                 if (allList.size() > 0) {
                     lnr_no_trans_trades.setVisibility(View.GONE);
-                    marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
+                    marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, tradesList, isShort);
                     rview_mrkt_trades.setAdapter(marketTradesRAdapter);
                 } else {
                     lnr_no_trans_trades.setVisibility(View.VISIBLE);
@@ -349,7 +350,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //                    marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     if (allList.size() > 0) {
                         lnr_no_trans_trades.setVisibility(View.GONE);
-                        marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
+                        marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, tradesList, isShort);
                         rview_mrkt_trades.setAdapter(marketTradesRAdapter);
                     } else {
                         lnr_no_trans_trades.setVisibility(View.VISIBLE);
@@ -383,7 +384,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //                    marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, tradesList, isShort);
                     if (allList.size() > 0) {
                         lnr_no_trans_trades.setVisibility(View.GONE);
-                        marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
+                        marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, tradesList, isShort);
                         rview_mrkt_trades.setAdapter(marketTradesRAdapter);
                     } else {
                         lnr_no_trans_trades.setVisibility(View.VISIBLE);
@@ -417,7 +418,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 txt_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
-                txt_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
+//                txt_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
                 stompClient.disconnect();
 
                 Intent intent = new Intent(ExchangeCoinInfoActivity.this, ExchangeDashBoardActivity.class);
@@ -432,7 +433,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         txt_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txt_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
+//                txt_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                 txt_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
                 stompClient.disconnect();
 
@@ -469,11 +470,17 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+/*
                         stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+*/
+                        stompClient.topic("/topic/market_depth").subscribe(new Action1<StompMessage>() {
                             @Override
                             public void call(StompMessage message) {
                                 try {
+/*
                                     Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+*/
+                                    Log.e(TAG, "*****Received " + "*****: /topic/market_depth" + message.getPayload());
                                     ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
                                     //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
 
@@ -484,14 +491,17 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //                                            Log.e(TAG, "*****DisConnected " + "*****: /topic/orderbook");
                                             pb.setVisibility(View.VISIBLE);
 
+                                            trades = new ArrayList<>();
                                             bid = new ArrayList<>();
                                             ask = new ArrayList<>();
+                                            tradesList = new ArrayList<>();
                                             bidList = new ArrayList<>();
                                             askList = new ArrayList<>();
                                             allList = new ArrayList<>();
 
                                             bid = (ArrayList<ExcOrders>) coinsStringArray.getList_bid();
                                             ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
+                                            trades = (ArrayList<ExcOrders>) coinsStringArray.getList_trade();
 
                                             for (int i = 0; i < bid.size(); i++) {
 //                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
@@ -506,6 +516,14 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                                                 if (ask.get(i).getStr_coinPair().trim().equals(title_pair)) {
                                                     askList.add(ask.get(i));
                                                     allList.add(ask.get(i));
+                                                }
+//                                                }
+                                            }
+                                            for (int i = 0; i < trades.size(); i++) {
+//                                                if (!trades.get(i).getStr_user().equals(myEmail)) {
+                                                if (trades.get(i).getStr_coinPair().trim().equals(title_pair)) {
+                                                    tradesList.add(trades.get(i));
+                                                    allList.add(trades.get(i));
                                                 }
 //                                                }
                                             }
@@ -531,9 +549,9 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                                             }
 
 
-                                            if (allList.size() > 0) {
+                                            if (tradesList.size() > 0) {
                                                 lnr_no_trans_trades.setVisibility(View.GONE);
-                                                marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, allList, isShort);
+                                                marketTradesRAdapter = new MarketTradesRAdapter(ExchangeCoinInfoActivity.this, bidList, askList, tradesList, isShort);
                                                 rview_mrkt_trades.setAdapter(marketTradesRAdapter);
                                             } else {
                                                 lnr_no_trans_trades.setVisibility(View.VISIBLE);

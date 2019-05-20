@@ -15,44 +15,87 @@
 
             <include layout="@layout/toolbar_center_back" />
 
-            <TextView
-                android:id="@+id/txt_coin_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin10"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="BTC/USDT"
-                android:textColor="@color/white"
-                android:textSize="@dimen/def_ttl_size"
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="@dimen/def_margin"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_buy"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:background="@drawable/selected_buy"
                     android:gravity="center"
-                    android:text="Vol"
-                    android:textColor="@color/grey"
+                    android:text="@string/buy"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/def_text_size"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txt_coin_vol"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin10"
-                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_weight="1.1"
                     android:gravity="center"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="187.557.245 USDT"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_coin_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="BTC/USDT"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_ttl_size"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Vol"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_coin_vol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin10"
+                            android:layout_marginLeft="@dimen/margin10"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="187.557.245 USDT"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_sell"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:background="@drawable/selected_sell"
+                    android:gravity="center"
+                    android:text="@string/sell"
+                    android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/def_text_size"
                     android:textStyle="bold" />
@@ -192,17 +235,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/def_margin"
-                android:layout_marginTop="@dimen/margin15"
                 android:layout_marginRight="@dimen/def_margin"
                 android:orientation="vertical"
                 android:visibility="visible">
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="@dimen/padding2"
+                    android:visibility="gone"
                     android:weightSum="1">
 
                     <TextView
@@ -771,40 +813,40 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/def_edt_height"
-                android:layout_margin="@dimen/def_margin"
-                android:orientation="horizontal"
-                android:weightSum="1">
+            <!--  <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="@dimen/def_edt_height"
+                  android:layout_margin="@dimen/def_margin"
+                  android:orientation="horizontal"
+                  android:weightSum="1">
 
-                <TextView
-                    android:id="@+id/txt_buy"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/selected_buy"
-                    android:gravity="center"
-                    android:text="@string/buy"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/def_text_size"
-                    android:textStyle="bold" />
+                  <TextView
+                      android:id="@+id/txt_buy"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="0.5"
+                      android:background="@drawable/selected_buy"
+                      android:gravity="center"
+                      android:text="@string/buy"
+                      android:textAllCaps="true"
+                      android:textColor="@color/white"
+                      android:textSize="@dimen/def_text_size"
+                      android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txt_sell"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/unselected"
-                    android:gravity="center"
-                    android:text="@string/sell"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/def_text_size"
-                    android:textStyle="bold" />
+                  <TextView
+                      android:id="@+id/txt_sell"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="0.5"
+                      android:background="@drawable/unselected"
+                      android:gravity="center"
+                      android:text="@string/sell"
+                      android:textAllCaps="true"
+                      android:textColor="@color/white"
+                      android:textSize="@dimen/def_text_size"
+                      android:textStyle="bold" />
 
-            </LinearLayout>
+              </LinearLayout>-->
 
         </LinearLayout>
 

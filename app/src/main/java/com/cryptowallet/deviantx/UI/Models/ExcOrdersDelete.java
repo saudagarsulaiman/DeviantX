@@ -15,20 +15,13 @@ public class ExcOrdersDelete implements Parcelable {
     @SerializedName("bid")
     List<ExcOrders> list_bid;
 
+    @SerializedName("trade")
+    List<ExcOrders> list_trade;
+
     protected ExcOrdersDelete(Parcel in) {
         list_ask = in.createTypedArrayList(ExcOrders.CREATOR);
         list_bid = in.createTypedArrayList(ExcOrders.CREATOR);
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeTypedList(list_ask);
-        dest.writeTypedList(list_bid);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        list_trade = in.createTypedArrayList(ExcOrders.CREATOR);
     }
 
     public static final Creator<ExcOrdersDelete> CREATOR = new Creator<ExcOrdersDelete>() {
@@ -57,5 +50,25 @@ public class ExcOrdersDelete implements Parcelable {
 
     public void setList_bid(List<ExcOrders> list_bid) {
         this.list_bid = list_bid;
+    }
+
+    public List<ExcOrders> getList_trade() {
+        return list_trade;
+    }
+
+    public void setList_trade(List<ExcOrders> list_trade) {
+        this.list_trade = list_trade;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(list_ask);
+        dest.writeTypedList(list_bid);
+        dest.writeTypedList(list_trade);
     }
 }

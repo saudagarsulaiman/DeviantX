@@ -413,7 +413,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 //            public void run() {
 //                onLoadOpenOrders();
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
-            fetchOpenOrders();
+            fetchOpenOrders(txt_title.getText().toString().trim());
             fetchOrdersWS(txt_title.getText().toString().trim());
             fetchDefAccWal(wallet_name);
             btn_buy.setVisibility(View.VISIBLE);
@@ -1341,7 +1341,10 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
                 stompClient.connect();
+/*
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
+*/
+                Log.e(TAG, "*****Connected " + "*****: /topic/market_depth");
 
                 allExcOrders = new ArrayList<>();
                 rview_ask.setVisibility(View.GONE);
@@ -1350,11 +1353,17 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+/*
                         stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
+*/
+                        stompClient.topic("/topic/market_depth").subscribe(new Action1<StompMessage>() {
                             @Override
                             public void call(StompMessage message) {
                                 try {
+/*
                                     Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
+*/
+                                    Log.e(TAG, "*****Received " + "*****: /topic/market_depth" + message.getPayload());
                                     ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
                                     //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));
 
@@ -1543,7 +1552,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                     updateUIOpenOrders(walletResult);
                 } else {
                     if (CommonUtilities.isConnectionAvailable(getActivity())) {
-                        fetchOpenOrders();
+                        fetchOpenOrders(txt_title.getText().toString().trim());
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
                     }
@@ -1601,11 +1610,19 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
         });
     }
 
-    private void fetchOpenOrders() {
+    private void fetchOpenOrders(String coinPair) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
+            editor.putString(CONSTANTS.selCP, coinPair);
+            editor.apply();
+            JSONObject params = new JSONObject();
+            try {
+                params.put("coin_pair", coinPair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token, params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

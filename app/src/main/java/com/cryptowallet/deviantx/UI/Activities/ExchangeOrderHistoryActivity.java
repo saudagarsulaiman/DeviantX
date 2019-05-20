@@ -24,6 +24,7 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -122,8 +123,15 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(ExchangeOrderHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
+            String coin_pair = sharedPreferences.getString(CONSTANTS.selCP, "ETH/BTC");
+            JSONObject params = new JSONObject();
+            try {
+                params.put("coin_pair", coin_pair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAll(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getAll(CONSTANTS.DeviantMulti + token, params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

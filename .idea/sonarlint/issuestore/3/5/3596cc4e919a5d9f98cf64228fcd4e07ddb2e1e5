@@ -1,21 +1,21 @@
 
-nsquid:CommentedOutCodeLinea"<This block of commented-out lines of code should be removed.(˜ŠÑ÷ýÿÿÿÿ8É¥ÈÀ•-
-bsquid:CommentedOutCodeLine€"<This block of commented-out lines of code should be removed.(¸üæ
-~squid:S14880"bImmediately return this expression instead of assigning it to the temporary variable "viewholder".(Šˆ‹™úÿÿÿÿ
-qsquid:S00116’"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
-gsquid:CommentedOutCodeLine6"<This block of commented-out lines of code should be removed.(çê†³øÿÿÿÿ
-isquid:CommentedOutCodeLinew"<This block of commented-out lines of code should be removed.(ÎôÆ¢8ß§þ±-
-squid:S1186N"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööýÿÿÿÿ
-bsquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(ºþÕß
-csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(åÅË’
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ŸžÂãúÿÿÿÿ
-usquid:S00116–"WRename this field "txt_coin_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÏ•ÿÿÿÿÿ
-osquid:S00116˜"WRename this field "txt_coin_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û¨ï@
+squid:S1186O"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(í«ööýÿÿÿÿ
+nsquid:CommentedOutCodeLine{"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ß§þ±-
+hsquid:CommentedOutCodeLine‘"<This block of commented-out lines of code should be removed.(ŸžÂãúÿÿÿÿ
+usquid:S00116—"WRename this field "txt_coin_per" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÏ•ÿÿÿÿÿ
+bsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(Ô¢ýñ
+isquid:CommentedOutCodeLinex"<This block of commented-out lines of code should be removed.(ÎôÆ¢8ß§þ±-
+~squid:S14881"bImmediately return this expression instead of assigning it to the temporary variable "viewholder".(Šˆ‹™úÿÿÿÿ
+gsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(çê†³øÿÿÿÿ
+bsquid:CommentedOutCodeLineV"<This block of commented-out lines of code should be removed.(ºþÕß
+nsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ß§þ±-
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¸üæ
+~squid:S00116•"`Rename this field "txt_coin_price_change" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¸•‰øÿÿÿÿ
+usquid:S00116›"WRename this field "txt_coin_vol" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ŸÕœúÿÿÿÿ
+nsquid:CommentedOutCodeLines"<This block of commented-out lines of code should be removed.(±—•¡úÿÿÿÿ8ß§þ±-
+bsquid:CommentedOutCodeLine;"<This block of commented-out lines of code should be removed.(†‰˜®
+osquid:S00116™"WRename this field "txt_coin_usd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û¨ï@
+csquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(åÅË’
 qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-nsquid:CommentedOutCodeLineu"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ß§þ±-
-bsquid:CommentedOutCodeLine:"<This block of commented-out lines of code should be removed.(†‰˜®
-~squid:S00116”"`Rename this field "txt_coin_price_change" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ¸•‰øÿÿÿÿ
-usquid:S00116š"WRename this field "txt_coin_vol" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›ŸÕœúÿÿÿÿ
-bsquid:CommentedOutCodeLineA"<This block of commented-out lines of code should be removed.(Ô¢ýñ
-nsquid:CommentedOutCodeLiner"<This block of commented-out lines of code should be removed.(±—•¡úÿÿÿÿ8ß§þ±-
-nsquid:CommentedOutCodeLinez"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8ß§þ±-
+nsquid:CommentedOutCodeLineh"<This block of commented-out lines of code should be removed.(–Í§Üþÿÿÿÿ8„£‡ª-
+qsquid:S00116“"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚

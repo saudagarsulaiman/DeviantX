@@ -34,14 +34,14 @@
 
 
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/img_history"
             android:layout_width="0dp"
             android:layout_height="@dimen/height15"
             android:layout_gravity="center"
             android:layout_weight="0.4"
             android:scaleType="fitCenter"
-            android:src="@drawable/history" />
+            android:src="@drawable/history"
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -94,8 +94,6 @@
         android:layout_marginBottom="@dimen/margin10"
         android:groupIndicator="@null"
         android:visibility="visible" />
-
-
 
 
 </LinearLayout>

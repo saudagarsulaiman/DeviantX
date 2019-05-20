@@ -1,92 +1,92 @@
 
-nsquid:S00116L"VRename this field "lnr_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âú¢Ž
-osquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(õåÛýÿÿÿÿ8ŒºÙî”-
-vsquid:S00117Ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ€­ýÿÿÿÿ8˜¹Òê”-
-jsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÚÜ´
-hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(¿£ú½ùÿÿÿÿ
-osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
-jsquid:S00116F"RRename this field "lnr_2fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ±Þê
-wsquid:S00116B"ZRename this field "scompat_privacy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ÷¹´ùÿÿÿÿ
-vsquid:S00117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûï¡öûÿÿÿÿ8˜¹Òê”-
-;squid:S1148Þ"#Use a logger to log this exception.(Ç’Çê
-jsquid:S00117ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘•’”
-csquid:CommentedOutCodeLineÑ"<This block of commented-out lines of code should be removed.(À”Ÿ¬
-hsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(ÄÒÒùÿÿÿÿ
-jsquid:S3776œ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ø¢‹Ý
-lsquid:S00100ø"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
-vsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡öÓâüÿÿÿÿ8˜¹Òê”-
-jsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(å¥ž‡8˜¹Òê”-
-jsquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ÷ø¼
-osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
-jsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªª‰¯
-jsquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Íù–
-@squid:S1148Ä"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-jsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(©ãòµ8˜¹Òê”-
-hsquid:CommentedOutCodeLiney"<This block of commented-out lines of code should be removed.(Ôé•S8˜¹Òê”-
-isquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÇ›
-hsquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ
-Fsquid:S1659P"/Declare "loginResponseData" on a separate line.(®‡õÐ
-hsquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(€À×óþÿÿÿÿ
-tsquid:S001166"WRename this field "lnr_language" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‡ƒØøÿÿÿÿ
-osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
-jsquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(“Øåã8Ø†³î”-
-Rsquid:S1141Ÿ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
-hsquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(Ë•ÖÉýÿÿÿÿ
-8squid:S1659P"!Declare "tkn" on a separate line.(®‡õÐ
-osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
-zsquid:S3923ç"[Remove this conditional structure or edit its code blocks so that they're not all the same.(üœ¹Â8òÁØî”-
-csquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(÷•Ú„
-nsquid:S00100¸"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û‘Þø8˜¹Òê”-
-jsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(½‘Ñ³8˜¹Òê”-
-csquid:CommentedOutCodeLineÞ"<This block of commented-out lines of code should be removed.(àäÑ¼
+hsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(À¡­îýÿÿÿÿ
 isquid:CommentedOutCodeLine{"<This block of commented-out lines of code should be removed.(¡Õ±š8ÙÂÍë”-
-hsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-vsquid:S00117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ëŒäùÿÿÿÿ8˜¹Òê”-
-jsquid:S00117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Ê½ç
-wsquid:S00116N"ZRename this field "scompat_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û¨Õ þÿÿÿÿ
-jsquid:S00117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žÔÔŸ
-wsquid:S00116<"ZRename this field "lnr_change_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÙÀëûÿÿÿÿ
-Tsquid:S2589­"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
-osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
-™squid:S1186®"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
-csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(–Ú›Å
-osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
-hsquid:CommentedOutCodeLineÐ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-nsquid:S3776Y"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ž¨Œþÿÿÿÿ
-vsquid:S00117Ð"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦íŒÅÿÿÿÿÿ8˜¹Òê”-
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ8˜¹Òê”-
-osquid:S3776ø"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(ÐÝûÿÿÿÿ
-qsquid:S00117Í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âîÑÖ8˜¹Òê”-
-rsquid:S001168"ZRename this field "lnr_screen_lock" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®§é½
+jsquid:CommentedOutCodeLineä"<This block of commented-out lines of code should be removed.(“Øåã8Ø†³î”-
+jsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(©ãòµ8˜¹Òê”-
+osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8˜¹Òê”-
+wsquid:S00116B"ZRename this field "scompat_privacy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ÷¹´ùÿÿÿÿ
+osquid:CommentedOutCodeLineÖ"<This block of commented-out lines of code should be removed.(õåÛýÿÿÿÿ8ŒºÙî”-
 `squid:UnusedPrivateMethod¸"3Remove this unused private "LanguageDialog" method.(û‘Þø8˜¹Òê”-
+vsquid:S00117Ï"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ€­ýÿÿÿÿ8˜¹Òê”-
+jsquid:S00117ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘•’”
+vsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡öÓâüÿÿÿÿ8˜¹Òê”-
+;squid:S1148Þ"#Use a logger to log this exception.(Ç’Çê
+jsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕÚÜ´
+hsquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(Ë•ÖÉýÿÿÿÿ
+tsquid:S001166"WRename this field "lnr_language" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‡ƒØøÿÿÿÿ
+zsquid:S3923ç"[Remove this conditional structure or edit its code blocks so that they're not all the same.(üœ¹Â8òÁØî”-
+osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
+csquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(„¬¡‚
+™squid:S1186®"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
+jsquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€Íù–
+hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(Å´èåüÿÿÿÿ
+hsquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ
+hsquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+csquid:CommentedOutCodeLineÑ"<This block of commented-out lines of code should be removed.(À”Ÿ¬
+osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
+8squid:S1659P"!Declare "tkn" on a separate line.(®‡õÐ
+lsquid:S00100ø"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
+nsquid:S00100¸"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(û‘Þø8˜¹Òê”-
+jsquid:S3776œ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(ø¢‹Ý
+zsquid:S00116@"]Rename this field "scompat_light_mode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š¯“úýÿÿÿÿ
+vsquid:S00116J"YRename this field "txt_2FA_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÂ‰þÿÿÿÿ
+Hsquid:S1659P"1Declare "loginResponseStatus" on a separate line.(®‡õÐ
+hsquid:CommentedOutCodeLineê"<This block of commented-out lines of code should be removed.(€À×óþÿÿÿÿ
+jsquid:S00116F"RRename this field "lnr_2fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( ±Þê
+nsquid:S00116L"VRename this field "lnr_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âú¢Ž
+hsquid:CommentedOutCodeLineœ"<This block of commented-out lines of code should be removed.(ÄÒÒùÿÿÿÿ
+csquid:CommentedOutCodeLineÞ"<This block of commented-out lines of code should be removed.(àäÑ¼
+hsquid:CommentedOutCodeLineý"<This block of commented-out lines of code should be removed.(ŠÙ™Áÿÿÿÿÿ
+rsquid:S001168"ZRename this field "lnr_screen_lock" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(®§é½
+jsquid:S00117Â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýÃ—’
+osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ8˜¹Òê”-
+gsquid:S00100Š"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÒäŽ
+nsquid:S3776Y"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ž¨Œþÿÿÿÿ
+jsquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ÷ø¼
+vsquid:S001164"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+jsquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£êÚÖ
+Rsquid:S1141Ÿ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148Ä"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+ssquid:S00116D"[Rename this field "scompat_hide_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÒæè
+osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
+isquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(æÇ›
+hsquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(¿£ú½ùÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+osquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯Üï©ÿÿÿÿÿ
+wsquid:S00116<"ZRename this field "lnr_change_pswd" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÙÀëûÿÿÿÿ
+vsquid:S00117Ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ëŒäùÿÿÿÿ8˜¹Òê”-
+hsquid:CommentedOutCodeLineÇ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+hsquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(‘ûžŒþÿÿÿÿ
+jsquid:S00117Ä"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žÔÔŸ
+osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
+osquid:S00117©"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þÛñÕûÿÿÿÿ
+osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
+nsquid:S00116H"VRename this field "scompat_2fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êñ Ì
+jsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(å¥ž‡8˜¹Òê”-
+jsquid:S00117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù¡‡Ë
+wsquid:S00116N"ZRename this field "scompat_app_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Û¨Õ þÿÿÿÿ
+vsquid:S00117Ð"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦íŒÅÿÿÿÿÿ8˜¹Òê”-
+csquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(÷•Ú„
+osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
+Esquid:S1185è"(Remove this method to simply inherit it.(œƒƒ©ùÿÿÿÿ
+osquid:S00117ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÐÝûÿÿÿÿ
+hsquid:CommentedOutCodeLiney"<This block of commented-out lines of code should be removed.(Ôé•S8˜¹Òê”-
+qsquid:S00117Í"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(âîÑÖ8˜¹Òê”-
+jsquid:S00117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘Ê½ç
+hsquid:CommentedOutCodeLineÐ"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(–Ú›Å
+osquid:S3776ø"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(ÐÝûÿÿÿÿ
+usquid:S00116>"]Rename this field "lnr_restore_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÂ’Ñ
 hsquid:CommentedOutCodeLineà"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
 asquid:S1126ç"BReplace this if-then-else statement by a single method invocation.(üœ¹Â8ÔŠ¬î”-
-hsquid:CommentedOutCodeLineº"<This block of commented-out lines of code should be removed.(À¡­îýÿÿÿÿ
-usquid:S00116>"]Rename this field "lnr_restore_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÂ’Ñ
-osquid:S00117©"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þÛñÕûÿÿÿÿ
-csquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(©ãòµ
-nsquid:S00116H"VRename this field "scompat_2fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êñ Ì
-ssquid:S00116D"[Rename this field "scompat_hide_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëÒæè
-hsquid:CommentedOutCodeLineý"<This block of commented-out lines of code should be removed.(ŠÙ™Áÿÿÿÿÿ
-vsquid:S00116J"YRename this field "txt_2FA_status" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÂ‰þÿÿÿÿ
-qsquid:S00116:"YRename this field "lnr_rec_phrase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†ÃÐé
-jsquid:S00117Â"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ýÃ—’
-gsquid:S00100Š"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÒäŽ
-vsquid:S001164"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
-qsquid:S00117Ò"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¥ùÌ8˜¹Òê”-
 hsquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ
-hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(Å´èåüÿÿÿÿ
-Hsquid:S1659P"1Declare "loginResponseStatus" on a separate line.(®‡õÐ
-csquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(„¬¡‚
-osquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯Üï©ÿÿÿÿÿ
-zsquid:S00116@"]Rename this field "scompat_light_mode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š¯“úýÿÿÿÿ
-Esquid:S1185è"(Remove this method to simply inherit it.(œƒƒ©ùÿÿÿÿ
+jsquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(½‘Ñ³8˜¹Òê”-
 žsquid:S1186³"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ
-jsquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£êÚÖ
-osquid:CommentedOutCodeLine˜"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8˜¹Òê”-
-jsquid:S00117Ã"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ù¡‡Ë
-hsquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
 csquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Øš¾¦
-osquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î½›îýÿÿÿÿ
-hsquid:CommentedOutCodeLineÆ"<This block of commented-out lines of code should be removed.(‘ûžŒþÿÿÿÿ
+Tsquid:S2589­"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+qsquid:S00116:"YRename this field "lnr_rec_phrase" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†ÃÐé
+jsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªª‰¯
+qsquid:S00117Ò"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸¥ùÌ8˜¹Òê”-
+Fsquid:S1659P"/Declare "loginResponseData" on a separate line.(®‡õÐ
+vsquid:S00117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûï¡öûÿÿÿÿ8˜¹Òê”-
+csquid:CommentedOutCodeLineÂ"<This block of commented-out lines of code should be removed.(©ãòµ

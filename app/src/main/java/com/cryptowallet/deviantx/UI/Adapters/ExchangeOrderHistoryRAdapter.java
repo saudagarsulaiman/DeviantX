@@ -31,6 +31,7 @@ import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.orhanobut.dialogplus.DialogPlus;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.SocketTimeoutException;
@@ -86,7 +87,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
         if (isOnlyOpen) {
             if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " Partial ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   Partial ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -104,9 +105,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -129,7 +130,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 });
 
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("pending")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " Pending ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   Pending ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -147,9 +148,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -172,7 +173,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 });
 
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("open")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   " + allExcOrder.get(i).getStr_orderStatus() + " ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -190,9 +191,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 10, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 9, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 11, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -217,7 +218,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
         } else {
             if (allExcOrder.get(i).getStr_orderStatus().equals("open")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   " + allExcOrder.get(i).getStr_orderStatus() + " ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -235,9 +236,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 10, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 9, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 11, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 6, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -259,7 +260,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 });
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("cancelled")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   " + allExcOrder.get(i).getStr_orderStatus() + " ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -278,9 +279,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 };
 
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 17, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 16, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 11, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -296,7 +297,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
                 viewHolder.lnr_close.setVisibility(View.GONE);
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("executed")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " " + allExcOrder.get(i).getStr_orderStatus() + " ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   " + allExcOrder.get(i).getStr_orderStatus() + " ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -315,9 +316,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 };
 
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 16, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 10, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
@@ -332,7 +333,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 viewHolder.txt_coin_bal_usd_code.setText(afterSlash);
                 viewHolder.lnr_close.setVisibility(View.GONE);
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " Partial ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   Partial ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -350,9 +351,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -375,7 +376,7 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                 });
 
             } else if (allExcOrder.get(i).getStr_orderStatus().equals("pending")) {
-                String str = allExcOrder.get(i).getStr_coinPair() + " Pending ";
+                String str = allExcOrder.get(i).getStr_coinPair() + "   Pending ";
                 String beforeSlash = allExcOrder.get(i).getStr_coinPair().split("/")[0];
                 String afterSlash = allExcOrder.get(i).getStr_coinPair().split("/")[1];
                 SpannableString spannableString = new SpannableString(/*"LTC/USDT  OPEN ORDER "*/str);
@@ -393,9 +394,9 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
                     }
                 };
                 if (allExcOrder.get(i).getStr_coinPair().length() > 7) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 13, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 15, spannableString.length() - 0, 0); // set size
                 } else {
-                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 12, spannableString.length() - 0, 0); // set size
+                    spannableString.setSpan(new RelativeSizeSpan(0.6f), spannableString.length() - 14, spannableString.length() - 0, 0); // set size
                 }
                 spannableString.setSpan(clickableSpan, spannableString.length() - 9, spannableString.length() - 0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.txt_coin_name.setText(spannableString, TextView.BufferType.SPANNABLE);
@@ -558,8 +559,15 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
 //            progressDialog = ProgressDialog.show(context, "", context.getResources().getString(R.string.please_wait), true);
+            String coin_pair = sharedPreferences.getString(CONSTANTS.selCP, "ETH/BTC");
+            JSONObject params = new JSONObject();
+            try {
+                params.put("coin_pair", coin_pair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAll(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getAll(CONSTANTS.DeviantMulti + token, params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

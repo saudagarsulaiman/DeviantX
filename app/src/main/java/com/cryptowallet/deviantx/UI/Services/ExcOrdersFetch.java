@@ -20,6 +20,9 @@ import com.cryptowallet.deviantx.UI.RoomDatabase.ModelsRoomDB.ExcOrdersDB;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,8 +89,15 @@ public class ExcOrdersFetch extends IntentService {
     private void fetchExcOrders() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
+            String coin_pair = sharedPreferences.getString(CONSTANTS.selCP, "ETH/BTC");
+            JSONObject params = new JSONObject();
+            try {
+                params.put("coin_pair", coin_pair);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token);
+            Call<ResponseBody> apiResponse = apiService.getAllOpen(CONSTANTS.DeviantMulti + token, params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
