@@ -1,6 +1,8 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Models.ExcOrders;
+import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
     Context context;
     ArrayList<ExcOrders> bidList, askList, allList;
     boolean isShort;
+    SharedPreferences sharedPreferences;
 
     public MarketTradesRAdapter(Context context, ArrayList<ExcOrders> bidList, ArrayList<ExcOrders> askList, ArrayList<ExcOrders> allList, boolean isShort) {
         this.context = context;
@@ -29,6 +33,7 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
         this.askList = askList;
         this.allList = allList;
         this.isShort = isShort;
+        sharedPreferences = context.getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
     }
 
     @Override
@@ -40,17 +45,36 @@ public class MarketTradesRAdapter extends RecyclerView.Adapter<MarketTradesRAdap
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        String myEmail = sharedPreferences.getString(CONSTANTS.email, null);
         if (allList.get(i).getStr_orderType().equals("buy")) {
+            if (allList.get(i).getStr_user().trim().equals(myEmail)) {
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+            } else {
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+                viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.white));
+            }
             long ms = Long.parseLong(allList.get(i).getStr_createdAt());
             viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
             viewHolder.txt_price.setText(String.format("%.6f", allList.get(i).getDbl_price()));
+/*
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.graph_wallet_brdr_green));
+*/
             viewHolder.txt_amount.setText(String.format("%.6f", allList.get(i).getDbl_amount()));
         } else {
+            if (allList.get(i).getStr_user().trim().equals(myEmail)) {
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+                viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.sky_blue1));
+            } else {
+                viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
+                viewHolder.txt_amount.setTextColor(context.getResources().getColor(R.color.white));
+            }
             long ms = Long.parseLong(allList.get(i).getStr_createdAt());
             viewHolder.txt_time.setText(CommonUtilities.covertMsToTime(ms));
             viewHolder.txt_price.setText(String.format("%.6f", allList.get(i).getDbl_price()));
+/*
             viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.google_red));
+*/
             viewHolder.txt_amount.setText(String.format("%.6f", allList.get(i).getDbl_amount()));
         }
 

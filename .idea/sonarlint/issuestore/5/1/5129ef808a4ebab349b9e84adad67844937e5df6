@@ -1,10 +1,12 @@
 
-gsquid:CommentedOutCodeLine5"<This block of commented-out lines of code should be removed.(âÊ©…ûÿÿÿÿ
-Ssquid:S2589a"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
-Asquid:S00108k")Either remove or fill this block of code.(å¥ž‡
-squid:S1186u"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
-?squid:S1185."(Remove this method to simply inherit it.(ªÐªÄ
-isquid:S00117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
+usquid:S00117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ü¹¦ýÿÿÿÿ8ºÄé¤­-
+gsquid:CommentedOutCodeLine8"<This block of commented-out lines of code should be removed.(âÊ©…ûÿÿÿÿ
+Xsquid:S1141^"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ŒÃè¤­-
+Asquid:S00108u")Either remove or fill this block of code.(å¥ž‡
+;squid:S1148„"#Use a logger to log this exception.(Ç’Çê
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(çñÝ·
-?squid:S1148p"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-:squid:S1148z"#Use a logger to log this exception.(Ç’Çê
+?squid:S11851"(Remove this method to simply inherit it.(ªÐªÄ
+squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
+Ssquid:S2589k"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+isquid:S00117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
+?squid:S1148z"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ

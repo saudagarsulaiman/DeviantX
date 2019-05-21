@@ -439,7 +439,7 @@
                 android:layout_marginTop="@dimen/def_margin"
                 android:background="@color/lyt_blue"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="1">
 
                 <RelativeLayout
                     android:id="@+id/rltv_market"

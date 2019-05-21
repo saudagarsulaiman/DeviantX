@@ -286,6 +286,11 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     String myEmail, wallet_name;
     CoinPairSelectableListener coinPairSelectableListener;
 
+    boolean isHighPriceAvail = false, isLowPriceAvail = false;
+    double highPrice = 0.0, highAmount = 0.0, lowPrice = 0.0, lowAmount = 0.0;
+    boolean oneTime = true;
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.exchange_trade_fragment, container, false);
@@ -405,7 +410,8 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
             txt_code_amount.setText("ETH");
             txt_title.setText("ETH/BTC");
             txt_total.setText("0");
-            edt_price.setEnabled(false);
+            /*edt_price.setEnabled(false);*/
+            edt_price.setEnabled(true);
             txt_total_code.setText("BTC");
         }
 //        Handler handler = new Handler();
@@ -438,9 +444,15 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                     txt_code_amount.setText(beforeSlash);
                     txt_total_code.setText(afterSlash);
 
+/*
                     edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
+*/
+/*
                     edt_amount.setText(String.format("%.3f", excOrdersList.get(pos).getDbl_amount()));
+*/
+/*
                     txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
+*/
 
 /*
                 txt_market.setTextColor(getResources().getColor(R.color.yellow));
@@ -456,6 +468,11 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                     disablePrice();
                     if (isBid) {
+                        edt_price.setText(String.format("%.6f",/*"" + */lowPrice));
+                        edt_amount.setText(String.format("%.3f", highAmount));
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
+                        txt_total.setText(String.format("%.6f", amount * price));
                         //                    Sell
                         txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                         txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
@@ -480,6 +497,12 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                             lnr_stop_limit.setVisibility(View.GONE);
 
                     } else {
+                        edt_price.setText(String.format("%.6f", /*"" + */highPrice));
+                        edt_amount.setText(String.format("%.3f", lowAmount));
+                        double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                        double price = Double.parseDouble(edt_price.getText().toString().trim());
+                        txt_total.setText(String.format("%.6f", amount * price));
+
                         //                   Buy
                         txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
                         txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.unselected));
@@ -712,11 +735,18 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 disablePrice();
                 isBuy = true;
 
+                edt_price.setText(String.format("%.6f", /*"" + */highPrice));
+                edt_amount.setText(String.format("%.3f", /*"" + */lowAmount));
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                txt_total.setText(String.format("%.6f", amount * price));
+
                 if (isPCoinAvail && isSCoinAvail) {
                     buttonsVisiblity();
                     buttonsEnable();
                     if (isMarket) {
-                        edt_price.setEnabled(false);
+                        /*edt_price.setEnabled(false);*/
+                        edt_price.setEnabled(true);
                         btn_buy.setVisibility(View.VISIBLE);
                     } else if (isStopLimit) {
                         edt_price.setEnabled(true);
@@ -729,7 +759,8 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                     buttonsVisiblity();
                     buttonsDisable();
                     if (isMarket) {
-                        edt_price.setEnabled(false);
+                        /*edt_price.setEnabled(false);*/
+                        edt_price.setEnabled(true);
                         btn_buy.setVisibility(View.VISIBLE);
                     } else if (isStopLimit) {
                         edt_price.setEnabled(true);
@@ -756,12 +787,19 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
                 isBuy = false;
 
+                edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
+                edt_amount.setText(String.format("%.3f", /*"" + */highAmount));
+                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                txt_total.setText(String.format("%.6f", amount * price));
+
                 disablePrice();
                 if (isPCoinAvail && isSCoinAvail) {
                     buttonsEnable();
                     buttonsVisiblity();
                     if (isMarket) {
-                        edt_price.setEnabled(false);
+                        /*edt_price.setEnabled(false);*/
+                        edt_price.setEnabled(true);
                         btn_sell.setVisibility(View.VISIBLE);
                     } else if (isStopLimit) {
                         edt_price.setEnabled(true);
@@ -774,7 +812,8 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                     buttonsDisable();
                     buttonsVisiblity();
                     if (isMarket) {
-                        edt_price.setEnabled(false);
+                        /*edt_price.setEnabled(false);*/
+                        edt_price.setEnabled(true);
                         btn_sell.setVisibility(View.VISIBLE);
                     } else if (isStopLimit) {
                         edt_price.setEnabled(true);
@@ -1259,7 +1298,8 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     }
 
     private void disablePrice() {
-        edt_price.setEnabled(false);
+        /*edt_price.setEnabled(false);*/
+        edt_price.setEnabled(true);
         lnr_minus_price.setEnabled(false);
         lnr_plus_price.setEnabled(false);
         lnr_stop_limit.setVisibility(View.GONE);
@@ -1394,6 +1434,85 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                                                     askList.add(ask.get(i));
 //                                                }
                                             }
+
+/*
+                                            if (bid.size() > 0) {
+                                                if (allCoinPairs*/
+                                            /*.size() > 0*//*
+ != null) {
+                                                    edt_price.setText(String.format("%.6f", bid.get(0).getDbl_price()));
+                                                    txt_total.setText(String.format("%.6f", bid.get(0).getDbl_price() * 0));
+                                                } else {
+                                                    edt_price.setText("0.0389");
+                                                    txt_total.setText("0");
+                                                }
+                                            } else {
+                                                if (allCoinPairs*/
+                                            /*.size() > 0*//*
+ != null) {
+                                                    edt_price.setText(String.format("%.6f", bid.get(0).getDbl_price()));
+                                                    txt_total.setText(String.format("%.6f", bid.get(0).getDbl_price() * 0));
+                                                } else {
+                                                    edt_price.setText("0.0389");
+                                                    txt_total.setText("0");
+                                                }
+                                            }
+                                            if (ask.size() > 0) {
+                                                if (allCoinPairs*/
+                                            /*.size() > 0*//*
+ != null) {
+                                                    edt_price.setText(String.format("%.6f", ask.get(0).getDbl_price()));
+                                                    txt_total.setText(String.format("%.6f", ask.get(0).getDbl_price() * 0));
+                                                } else {
+                                                    edt_price.setText("0.0389");
+                                                    txt_total.setText("0");
+                                                }
+                                            } else {
+                                                if (allCoinPairs*/
+                                            /*.size() > 0*//*
+ != null) {
+                                                    edt_price.setText(String.format("%.6f", ask.get(0).getDbl_price()));
+                                                    txt_total.setText(String.format("%.6f", ask.get(0).getDbl_price() * 0));
+                                                } else {
+                                                    edt_price.setText("0.0389");
+                                                    txt_total.setText("0");
+                                                }
+                                            }
+*/
+                                            if (bidList.size() > 0) {
+                                                isHighPriceAvail = true;
+                                                highPrice = bidList.get(0).getDbl_price();
+                                                highAmount = bidList.get(0).getDbl_amount();
+                                            } else {
+                                                isHighPriceAvail = false;
+                                                if (allCoinPairs/*.size() > 0*/ != null) {
+                                                    highPrice = allCoinPairs.getDbl_previousValue();
+                                                } else {
+                                                    highPrice = 0.0389;
+                                                }
+                                            }
+                                            if (askList.size() > 0) {
+                                                isLowPriceAvail = true;
+                                                lowPrice = askList.get(0).getDbl_price();
+                                                lowAmount = askList.get(0).getDbl_amount();
+                                            } else {
+                                                isLowPriceAvail = false;
+                                                if (allCoinPairs/*.size() > 0*/ != null) {
+                                                    lowPrice = allCoinPairs.getDbl_previousValue();
+                                                } else {
+                                                    lowPrice = 0.0389;
+                                                }
+                                            }
+
+                                            if (oneTime) {
+                                                oneTime = false;
+                                                edt_price.setText(String.format("%.6f", /*"" + */highPrice));
+                                                edt_amount.setText(String.format("%.3f", lowAmount));
+                                                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                                                double price = Double.parseDouble(edt_price.getText().toString().trim());
+                                                txt_total.setText(String.format("%.6f", amount * price));
+                                            }
+
 
                                             if (bidList.size() > 0) {
                                                 marketDephRAdapter = new MarketDephRAdapter(getActivity(), true, bidList, askList, isShort, coinPairSelectableListener, true);

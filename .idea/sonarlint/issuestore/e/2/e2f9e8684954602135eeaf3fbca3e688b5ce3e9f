@@ -1,6 +1,8 @@
 
-psquid:S00116"SRename this field "list_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åàŸáşÿÿÿÿ
-psquid:S00116"SRename this field "list_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ·çüşÿÿÿÿ
-nsquid:S001172"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ ÷±üÿÿÿÿ
 wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
-nsquid:S00117:"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è”ÿÿÿÿÿ
+ysquid:S00116"URename this field "list_trade" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒÕîºùÿÿÿÿ8®˜¥©­-
+usquid:S001173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(è”ÿÿÿÿÿ8ÖŞ¥©­-
+usquid:S00117+"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ ÷±üÿÿÿÿ8ÖŞ¥©­-
+usquid:S00117;"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹™­èøÿÿÿÿ8ÖŞ¥©­-
+psquid:S00116"SRename this field "list_ask" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İ·çüşÿÿÿÿ
+psquid:S00116"SRename this field "list_bid" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åàŸáşÿÿÿÿ
