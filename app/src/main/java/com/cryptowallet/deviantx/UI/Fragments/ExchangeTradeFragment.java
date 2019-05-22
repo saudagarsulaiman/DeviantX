@@ -392,7 +392,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
         edt_price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(7)});
         edt_stop_price.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(7)});
-        edt_amount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(3)});
+        edt_amount.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(7)});
 
 
         if (allCoinPairs/*.size() > 0*/ != null) {
@@ -455,7 +455,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                         }
                     }
                     edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
-                    edt_amount.setText(String.format("%.3f", orderAmount));
+                    edt_amount.setText(String.format("%.6f", orderAmount));
 /*
                     txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
 */
@@ -483,7 +483,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 highPrice));
 */
 /*
-                        edt_amount.setText(String.format("%.3f", highAmount));
+                        edt_amount.setText(String.format("%.6f", highAmount));
 *//*
 
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
@@ -520,7 +520,7 @@ highPrice));
 lowPrice));
 */
 /*
-                        edt_amount.setText(String.format("%.3f", lowAmount));
+                        edt_amount.setText(String.format("%.6f", lowAmount));
 *//*
 
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
@@ -572,8 +572,8 @@ lowPrice));
         rview_bid.setAdapter(marketDephRAdapter);
         marketDephRAdapter = new MarketDephRAdapter(getActivity(), false, bidList, askList, isShort, coinPairSelectableListener, true);
         rview_ask.setAdapter(marketDephRAdapter);
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
-        rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+//        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(getActivity(), allExcOpenOrders, true);
+//        rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 
 
         img_history.setOnClickListener(new View.OnClickListener() {
@@ -761,7 +761,7 @@ lowPrice));
                 isBuy = true;
 
                 edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
-                edt_amount.setText(String.format("%.3f", /*"" + */lowAmount));
+                edt_amount.setText(String.format("%.6f", /*"" + */lowAmount));
                 double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 double price = Double.parseDouble(edt_price.getText().toString().trim());
                 txt_total.setText(String.format("%.6f", amount * price));
@@ -813,7 +813,7 @@ lowPrice));
                 isBuy = false;
 
                 edt_price.setText(String.format("%.6f", /*"" + */highPrice));
-                edt_amount.setText(String.format("%.3f", /*"" + */highAmount));
+                edt_amount.setText(String.format("%.6f", /*"" + */highAmount));
                 double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 double price = Double.parseDouble(edt_price.getText().toString().trim());
                 txt_total.setText(String.format("%.6f", amount * price));
@@ -1294,7 +1294,7 @@ lowPrice));
         }
 
 
-        txt_amount.setText(String.format("%.3f", amount));
+        txt_amount.setText(String.format("%.6f", amount));
         txt_price.setText(String.format("%.6f", price));
         txt_total.setText(String.format("%.6f", total));
         txt_wallet_name.setText(wallet_name);
@@ -1329,7 +1329,6 @@ lowPrice));
         lnr_plus_price.setEnabled(false);
         lnr_stop_limit.setVisibility(View.GONE);
     }
-
 
     private void buttonsVisiblity() {
         btn_buy.setVisibility(View.GONE);
@@ -1405,6 +1404,7 @@ lowPrice));
 //              Local Link
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
+//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
                 stompClient.connect();
 /*
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
@@ -1533,13 +1533,13 @@ lowPrice));
                                                 if (lowPrice > 0) {
                                                     oneTime = false;
                                                     edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
-                                                    edt_amount.setText(String.format("%.3f", lowAmount));
+                                                    edt_amount.setText(String.format("%.6f", lowAmount));
                                                     double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                                                     double price = Double.parseDouble(edt_price.getText().toString().trim());
                                                     txt_total.setText(String.format("%.6f", amount * price));
                                                 } else {
                                                     edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
-                                                    edt_amount.setText(String.format("%.3f", lowAmount));
+                                                    edt_amount.setText(String.format("%.6f", lowAmount));
                                                     double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                                                     double price = Double.parseDouble(edt_price.getText().toString().trim());
                                                     txt_total.setText(String.format("%.6f", amount * price));

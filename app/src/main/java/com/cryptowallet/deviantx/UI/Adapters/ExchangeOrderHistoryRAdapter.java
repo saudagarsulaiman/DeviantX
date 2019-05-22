@@ -636,11 +636,37 @@ public class ExchangeOrderHistoryRAdapter extends RecyclerView.Adapter<ExchangeO
 
     @Override
     public int getItemCount() {
-/*        if (isOnlyOpen)
-            return allExcOrder.size();
+        if (isOnlyOpen)
+            return getCount(allExcOrder.size());
         else
-            return 10;*/
+            return allExcOrder.size();
+/*
         return allExcOrder.size();
+*/
+    }
+
+    private int getCount(int size) {
+        int count = 0;
+        switch (size) {
+            case 1:
+                count = 1;
+                break;
+            case 2:
+                count = 2;
+                break;
+            case 3:
+                count = 3;
+                break;
+            case 4:
+                count = 4;
+                break;
+            case 5:
+                count = 5;
+                break;
+            default:
+                count = 5;
+        }
+        return count;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
