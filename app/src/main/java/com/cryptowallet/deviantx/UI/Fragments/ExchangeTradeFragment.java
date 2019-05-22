@@ -444,15 +444,24 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                     txt_code_amount.setText(beforeSlash);
                     txt_total_code.setText(afterSlash);
 
-/*
+                    double orderAmount = 0.0;
+                    if (pos == 0) {
+                        double amt = excOrdersList.get(pos).getDbl_amount() - excOrdersList.get(pos).getDbl_executedVolume();
+                        orderAmount = orderAmount + amt;
+                    } else {
+                        for (int i = 0; i < pos; i++) {
+                            double amt = excOrdersList.get(i).getDbl_amount() - excOrdersList.get(i).getDbl_executedVolume();
+                            orderAmount = orderAmount + amt;
+                        }
+                    }
                     edt_price.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_price()));
-*/
-/*
-                    edt_amount.setText(String.format("%.3f", excOrdersList.get(pos).getDbl_amount()));
-*/
+                    edt_amount.setText(String.format("%.3f", orderAmount));
 /*
                     txt_total.setText(String.format("%.6f", excOrdersList.get(pos).getDbl_total()));
 */
+                    double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                    double price = Double.parseDouble(edt_price.getText().toString().trim());
+                    txt_total.setText(String.format("%.6f", amount * price));
 
 /*
                 txt_market.setTextColor(getResources().getColor(R.color.yellow));
@@ -468,11 +477,19 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                     disablePrice();
                     if (isBid) {
-                        edt_price.setText(String.format("%.6f",/*"" + */lowPrice));
+/*
+                        edt_price.setText(String.format("%.6f",*/
+                        /*"" + *//*
+highPrice));
+*/
+/*
                         edt_amount.setText(String.format("%.3f", highAmount));
+*//*
+
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                         double price = Double.parseDouble(edt_price.getText().toString().trim());
                         txt_total.setText(String.format("%.6f", amount * price));
+*/
                         //                    Sell
                         txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.unselected));
                         txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
@@ -497,11 +514,19 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                             lnr_stop_limit.setVisibility(View.GONE);
 
                     } else {
-                        edt_price.setText(String.format("%.6f", /*"" + */highPrice));
+/*
+                        edt_price.setText(String.format("%.6f", */
+                        /*"" + *//*
+lowPrice));
+*/
+/*
                         edt_amount.setText(String.format("%.3f", lowAmount));
+*//*
+
                         double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                         double price = Double.parseDouble(edt_price.getText().toString().trim());
                         txt_total.setText(String.format("%.6f", amount * price));
+*/
 
                         //                   Buy
                         txt_btn_buy.setBackground(getResources().getDrawable(R.drawable.selected_buy));
@@ -735,7 +760,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 disablePrice();
                 isBuy = true;
 
-                edt_price.setText(String.format("%.6f", /*"" + */highPrice));
+                edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
                 edt_amount.setText(String.format("%.3f", /*"" + */lowAmount));
                 double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 double price = Double.parseDouble(edt_price.getText().toString().trim());
@@ -787,7 +812,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                 txt_btn_sell.setBackground(getResources().getDrawable(R.drawable.selected_sell));
                 isBuy = false;
 
-                edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
+                edt_price.setText(String.format("%.6f", /*"" + */highPrice));
                 edt_amount.setText(String.format("%.3f", /*"" + */highAmount));
                 double amount = Double.parseDouble(edt_amount.getText().toString().trim());
                 double price = Double.parseDouble(edt_price.getText().toString().trim());
@@ -1505,12 +1530,20 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
                                             }
 
                                             if (oneTime) {
-                                                oneTime = false;
-                                                edt_price.setText(String.format("%.6f", /*"" + */highPrice));
-                                                edt_amount.setText(String.format("%.3f", lowAmount));
-                                                double amount = Double.parseDouble(edt_amount.getText().toString().trim());
-                                                double price = Double.parseDouble(edt_price.getText().toString().trim());
-                                                txt_total.setText(String.format("%.6f", amount * price));
+                                                if (lowPrice > 0) {
+                                                    oneTime = false;
+                                                    edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
+                                                    edt_amount.setText(String.format("%.3f", lowAmount));
+                                                    double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                                                    double price = Double.parseDouble(edt_price.getText().toString().trim());
+                                                    txt_total.setText(String.format("%.6f", amount * price));
+                                                } else {
+                                                    edt_price.setText(String.format("%.6f", /*"" + */lowPrice));
+                                                    edt_amount.setText(String.format("%.3f", lowAmount));
+                                                    double amount = Double.parseDouble(edt_amount.getText().toString().trim());
+                                                    double price = Double.parseDouble(edt_price.getText().toString().trim());
+                                                    txt_total.setText(String.format("%.6f", amount * price));
+                                                }
                                             }
 
 
