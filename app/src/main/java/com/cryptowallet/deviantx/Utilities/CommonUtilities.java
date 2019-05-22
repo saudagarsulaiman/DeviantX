@@ -54,6 +54,9 @@ public final class CommonUtilities {
 /*
     public static final String URL = "http://10.0.0.35:3322";
 */
+/*
+    public static final String WS = "http://10.0.0.35:3322/ws_v2/deviant/websocket";
+*/
 
 
     private static Locale myLocale;
@@ -63,6 +66,7 @@ public final class CommonUtilities {
 
     public static final String URL = "https://deviantx.app";
 
+    public static final String WS = "wss://deviantx.app/ws_v2/deviant/websocket";
 
     //    ********************* Reusable Methods*******************************************************
     public static boolean isConnectionAvailable(Context ctx) {
