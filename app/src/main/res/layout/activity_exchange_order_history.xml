@@ -17,6 +17,39 @@
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/lnr_filter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/def_btn_height"
+        android:layout_margin="@dimen/margin10"
+        android:background="@drawable/rec_dash_white_trans_c5"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:text="@string/filter"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_filterName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:gravity="center"
+            android:text="@string/open_partial_orders"
+            android:textColor="@color/white"
+            android:textSize="@dimen/def_lbl_size"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/lnr_trans_avail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

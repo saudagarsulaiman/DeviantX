@@ -63,6 +63,7 @@ public class CONSTANTS {
     public static String isADTrue = "isADTrue";
     public static String ft = "FT";
     public static String rec_add = "rec_add";
+    public static String selFilter = "SelectedFilter";
 
 
 //    //    Selected Account Wallet Details

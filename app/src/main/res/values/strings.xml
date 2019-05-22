@@ -626,5 +626,12 @@
     <string name="user_cant_order">User cannot sell or buy his own order !!!</string>
     <string name="order_filled">Your order is filled.</string>
     <string name="order_placed">Your order has been placed.</string>
+    <string name="filter">Filter by :</string>
+    <string name="sel_filter">Select Filter</string>
+    <string name="open_partial_orders">Open / Partially Executed Orders</string>
+    <string name="executed_orders">Executed Orders</string>
+    <string name="pending_orders">Pending Orders</string>
+    <string name="cancelled_orders">Cancelled Orders</string>
+    <string name="all_orders">All Orders</string>
 
 </resources>

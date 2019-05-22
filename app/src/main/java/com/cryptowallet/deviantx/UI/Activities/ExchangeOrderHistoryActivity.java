@@ -10,10 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
@@ -23,6 +26,9 @@ import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
 import com.cryptowallet.deviantx.Utilities.GsonUtils;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +60,11 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
     LinearLayout lnr_no_trans;
     @BindView(R.id.lnr_trans_avail)
     LinearLayout lnr_trans_avail;
+    @BindView(R.id.lnr_filter)
+    LinearLayout lnr_filter;
+    @BindView(R.id.txt_filterName)
+    TextView txt_filterName;
+
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -64,7 +75,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
 
     ExchangeOrderHistoryRAdapter exchangeOrderHistoryRAdapter;
     LinearLayoutManager linearLayoutManager;
-    ArrayList<ExcOrders> allExcOpenOrders;
+    ArrayList<ExcOrders> allExcOrder, allOpenOrders, allCancelledOrders, allExecuted̥Orders, allPendingOrders;
 
     @Override
     protected void onResume() {
@@ -83,7 +94,11 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        allExcOpenOrders = new ArrayList<>();
+        allExcOrder = new ArrayList<>();
+        allOpenOrders = new ArrayList<>();
+        allCancelledOrders = new ArrayList<>();
+        allExecuted̥Orders = new ArrayList<>();
+        allPendingOrders = new ArrayList<>();
 
         linearLayoutManager = new LinearLayoutManager(ExchangeOrderHistoryActivity.this, LinearLayoutManager.VERTICAL, false);
         rview_order_history.setLayoutManager(linearLayoutManager);
@@ -101,7 +116,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
         }, 200);
 
 /*
-        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOpenOrders, false);
+        exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOrder, false);
         rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
 */
 
@@ -115,6 +130,212 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
+        lnr_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilterDialog();
+            }
+        });
+
+    }
+
+    private void showFilterDialog() {
+        ViewHolder viewHolder = new ViewHolder(R.layout.dialog_filter_exe);
+        final DialogPlus dialog = DialogPlus.newDialog(ExchangeOrderHistoryActivity.this)
+                .setContentHolder(viewHolder)
+                .setGravity(Gravity.BOTTOM)
+                .setCancelable(false)
+                .setInAnimation(R.anim.slide_in_bottom)
+                .setOutAnimation(R.anim.slide_out_bottom)
+                .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+                .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+//                        .setOnDismissListener(new OnDismissListener() {
+//                            @Override
+//                            public void onDismiss(DialogPlus dialog) {
+//
+//                            }
+//                        })
+//                        .setExpanded(true) // default is false, only works for grid and list
+                .create();
+
+//                Initializing Widgets
+        View view = dialog.getHolderView();
+        LinearLayout lnr_open_partial = view.findViewById(R.id.lnr_open_partial);
+        LinearLayout lnr_executed = view.findViewById(R.id.lnr_executed);
+        LinearLayout lnr_all_orders = view.findViewById(R.id.lnr_all_orders);
+        LinearLayout lnr_pending = view.findViewById(R.id.lnr_pending);
+        LinearLayout lnr_cancelled = view.findViewById(R.id.lnr_cancelled);
+        ImageView img_open_pending_orders = view.findViewById(R.id.img_open_pending_orders);
+        ImageView img_executed_orders = view.findViewById(R.id.img_executed_orders);
+        ImageView img_pending_orders = view.findViewById(R.id.img_pending_orders);
+        ImageView img_cancelled_orders = view.findViewById(R.id.img_cancelled_orders);
+        ImageView img_all_orders = view.findViewById(R.id.img_all_orders);
+        ImageView img_center_back = view.findViewById(R.id.img_center_back);
+
+        String selectedFilter = sharedPreferences.getString(CONSTANTS.selFilter, getResources().getText(R.string.all_orders).toString());
+
+        if (selectedFilter.equals(getResources().getText(R.string.open_partial_orders).toString())) {
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_open_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+        } else if (selectedFilter.equals(getResources().getText(R.string.executed_orders).toString())) {
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_executed_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+        } else if (selectedFilter.equals(getResources().getText(R.string.pending_orders).toString())) {
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+        } else if (selectedFilter.equals(getResources().getText(R.string.cancelled_orders).toString())) {
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_cancelled_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+        } else if (selectedFilter.equals(getResources().getText(R.string.all_orders).toString())) {
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+            Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_all_orders);
+        }
+
+        img_center_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        lnr_open_partial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(CONSTANTS.selFilter, getResources().getText(R.string.open_partial_orders).toString());
+                editor.apply();
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_open_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+                txt_filterName.setText(getResources().getText(R.string.open_partial_orders));
+                if (allOpenOrders.size() > 0) {
+                    lnr_no_trans.setVisibility(View.GONE);
+                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allOpenOrders, false);
+                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                } else {
+                    lnr_no_trans.setVisibility(View.VISIBLE);
+                    lnr_trans_avail.setVisibility(View.GONE);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        lnr_executed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(CONSTANTS.selFilter, getResources().getText(R.string.executed_orders).toString());
+                editor.apply();
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_executed_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+                txt_filterName.setText(getResources().getText(R.string.executed_orders));
+                if (allExecuted̥Orders.size() > 0) {
+                    lnr_no_trans.setVisibility(View.GONE);
+                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExecuted̥Orders, false);
+                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                } else {
+                    lnr_no_trans.setVisibility(View.VISIBLE);
+                    lnr_trans_avail.setVisibility(View.GONE);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        lnr_pending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(CONSTANTS.selFilter, getResources().getText(R.string.pending_orders).toString());
+                editor.apply();
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+                txt_filterName.setText(getResources().getText(R.string.pending_orders));
+                if (allPendingOrders.size() > 0) {
+                    lnr_no_trans.setVisibility(View.GONE);
+                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allPendingOrders, false);
+                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                } else {
+                    lnr_no_trans.setVisibility(View.VISIBLE);
+                    lnr_trans_avail.setVisibility(View.GONE);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        lnr_cancelled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(CONSTANTS.selFilter, getResources().getText(R.string.cancelled_orders).toString());
+                editor.apply();
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_cancelled_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_all_orders);
+                txt_filterName.setText(getResources().getText(R.string.cancelled_orders));
+                if (allCancelledOrders.size() > 0) {
+                    lnr_no_trans.setVisibility(View.GONE);
+                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allCancelledOrders, false);
+                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                } else {
+                    lnr_no_trans.setVisibility(View.VISIBLE);
+                    lnr_trans_avail.setVisibility(View.GONE);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        lnr_all_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(CONSTANTS.selFilter, getResources().getText(R.string.all_orders).toString());
+                editor.apply();
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_open_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_executed_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_pending_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.unselected_circle).into(img_cancelled_orders);
+                Picasso.with(ExchangeOrderHistoryActivity.this).load(R.drawable.selected_circle).into(img_all_orders);
+                txt_filterName.setText(getResources().getText(R.string.all_orders));
+                if (allExcOrder.size() > 0) {
+                    lnr_no_trans.setVisibility(View.GONE);
+                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOrder, false);
+                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                } else {
+                    lnr_no_trans.setVisibility(View.VISIBLE);
+                    lnr_trans_avail.setVisibility(View.GONE);
+                }
+                dialog.dismiss();
+            }
+        });
+
+//                Displaying DialogPlus
+        dialog.show();
 
     }
 
@@ -152,13 +373,39 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
                                         if (loginResponseStatus.equals("true")) {
                                             loginResponseData = jsonObject.getString("data");
                                             ExcOrders[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, ExcOrders[].class);
-                                            allExcOpenOrders = new ArrayList<ExcOrders>(Arrays.asList(coinsStringArray));
+                                            allExcOrder = new ArrayList<ExcOrders>(Arrays.asList(coinsStringArray));
 
-                                            if (allExcOpenOrders.size() > 0) {
-                                                lnr_no_trans.setVisibility(View.GONE);
-                                                lnr_trans_avail.setVisibility(View.VISIBLE);
-                                                exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOpenOrders, false);
-                                                rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                                            if (allExcOrder.size() > 0) {
+                                                allOpenOrders = new ArrayList<>();
+                                                allCancelledOrders = new ArrayList<>();
+                                                allExecuted̥Orders = new ArrayList<>();
+                                                allPendingOrders = new ArrayList<>();
+
+                                                for (int i = 0; i < allExcOrder.size(); i++) {
+                                                    if (allExcOrder.get(i).getStr_orderStatus().equals("partially_executed")) {
+                                                        allOpenOrders.add(allExcOrder.get(i));
+                                                    } else if (allExcOrder.get(i).getStr_orderStatus().equals("pending")) {
+                                                        allPendingOrders.add(allExcOrder.get(i));
+                                                    } else if (allExcOrder.get(i).getStr_orderStatus().equals("open")) {
+                                                        allOpenOrders.add(allExcOrder.get(i));
+                                                    } else if (allExcOrder.get(i).getStr_orderStatus().equals("cancelled")) {
+                                                        allCancelledOrders.add(allExcOrder.get(i));
+                                                    } else if (allExcOrder.get(i).getStr_orderStatus().equals("executed")) {
+                                                        allExecuted̥Orders.add(allExcOrder.get(i));
+                                                    }
+                                                }
+
+
+                                                if (allExcOrder.size() > 0) {
+                                                    txt_filterName.setText(getResources().getText(R.string.all_orders));
+                                                    lnr_no_trans.setVisibility(View.GONE);
+                                                    lnr_trans_avail.setVisibility(View.VISIBLE);
+                                                    exchangeOrderHistoryRAdapter = new ExchangeOrderHistoryRAdapter(ExchangeOrderHistoryActivity.this, allExcOrder, false);
+                                                    rview_order_history.setAdapter(exchangeOrderHistoryRAdapter);
+                                                } else {
+                                                    lnr_no_trans.setVisibility(View.VISIBLE);
+                                                    lnr_trans_avail.setVisibility(View.GONE);
+                                                }
                                             } else {
                                                 lnr_no_trans.setVisibility(View.VISIBLE);
                                                 lnr_trans_avail.setVisibility(View.GONE);

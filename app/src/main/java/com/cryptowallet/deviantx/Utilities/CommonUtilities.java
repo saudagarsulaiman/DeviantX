@@ -51,10 +51,9 @@ public final class CommonUtilities {
     //Local Link
 //    public static final String URL = "http://192.168.0.179:3322";
 //    public static final String URL = "http://192.168.0.111:3322";
+
 /*
     public static final String URL = "http://10.0.0.35:3322";
-*/
-/*
     public static final String WS = "http://10.0.0.35:3322/ws_v2/deviant/websocket";
 */
 
@@ -65,7 +64,6 @@ public final class CommonUtilities {
     /********************* Live Server Links ****************************************************/
 
     public static final String URL = "https://deviantx.app";
-
     public static final String WS = "wss://deviantx.app/ws_v2/deviant/websocket";
 
     //    ********************* Reusable Methods*******************************************************

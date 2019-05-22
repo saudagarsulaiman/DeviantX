@@ -596,6 +596,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                             if (responseStatus.equals("true")) {
 
                                 responseData = jsonObject.getString("data");
+                                Log.e("DEPTHCHART", responseData);
                                 DepthChartData coinsStringArray = GsonUtils.getInstance().fromJson(responseData, DepthChartData.class);
                                 asksDCList = new ArrayList<>();
                                 bidsDCList = new ArrayList<>();
