@@ -446,11 +446,11 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                     double orderAmount = 0.0;
                     if (pos == 0) {
-                        double amt = excOrdersList.get(pos).getDbl_amount() - excOrdersList.get(pos).getDbl_executedVolume();
+                        double amt = excOrdersList.get(pos).getDbl_amount() - excOrdersList.get(pos).getDbl_executedAmount();
                         orderAmount = orderAmount + amt;
                     } else {
-                        for (int i = 0; i < pos; i++) {
-                            double amt = excOrdersList.get(i).getDbl_amount() - excOrdersList.get(i).getDbl_executedVolume();
+                        for (int i = 0; i <= pos; i++) {
+                            double amt = excOrdersList.get(i).getDbl_amount() - excOrdersList.get(i).getDbl_executedAmount();
                             orderAmount = orderAmount + amt;
                         }
                     }
@@ -1404,7 +1404,9 @@ lowPrice));
 //              Local Link
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
 //                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
+/*
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
+*/
                 stompClient.connect();
 /*
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");

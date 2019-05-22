@@ -15,6 +15,8 @@ public class ExcOrders implements Parcelable {
     double dbl_amount;
     @SerializedName("total")
     double dbl_total;
+    @SerializedName("executedAmount")
+    double dbl_executedAmount;
     @SerializedName("executedVolume")
     double dbl_executedVolume;
     @SerializedName("orderType")
@@ -27,12 +29,16 @@ public class ExcOrders implements Parcelable {
     String str_coinPair;
     @SerializedName("createdAt")
     String str_createdAt;
+    @SerializedName("endedAt")
+    String str_endedAt;
+
 
     protected ExcOrders(Parcel in) {
         str_orderId = in.readString();
         dbl_price = in.readDouble();
         dbl_amount = in.readDouble();
         dbl_total = in.readDouble();
+        dbl_executedAmount = in.readDouble();
         dbl_executedVolume = in.readDouble();
         str_orderType = in.readString();
         str_orderStatus = in.readString();
@@ -48,6 +54,7 @@ public class ExcOrders implements Parcelable {
         dest.writeDouble(dbl_price);
         dest.writeDouble(dbl_amount);
         dest.writeDouble(dbl_total);
+        dest.writeDouble(dbl_executedAmount);
         dest.writeDouble(dbl_executedVolume);
         dest.writeString(str_orderType);
         dest.writeString(str_orderStatus);
@@ -106,6 +113,14 @@ public class ExcOrders implements Parcelable {
         this.dbl_total = dbl_total;
     }
 
+    public double getDbl_executedAmount() {
+        return dbl_executedAmount;
+    }
+
+    public void setDbl_executedAmount(double dbl_executedAmount) {
+        this.dbl_executedAmount = dbl_executedAmount;
+    }
+
     public double getDbl_executedVolume() {
         return dbl_executedVolume;
     }
@@ -161,9 +176,4 @@ public class ExcOrders implements Parcelable {
     public void setStr_endedAt(String str_endedAt) {
         this.str_endedAt = str_endedAt;
     }
-
-    @SerializedName("endedAt")
-    String str_endedAt;
-
-
 }

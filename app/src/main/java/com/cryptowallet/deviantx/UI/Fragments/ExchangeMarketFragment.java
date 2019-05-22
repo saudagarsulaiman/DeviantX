@@ -132,7 +132,9 @@ public class ExchangeMarketFragment extends Fragment {
 //            Local Link
 //            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
 //            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
+/*
+            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
+*/
             stompClient.connect();
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();

@@ -51,7 +51,9 @@ public final class CommonUtilities {
     //Local Link
 //    public static final String URL = "http://192.168.0.179:3322";
 //    public static final String URL = "http://192.168.0.111:3322";
-//    public static final String URL = "http://10.0.0.35:3322";
+/*
+    public static final String URL = "http://10.0.0.35:3322";
+*/
 
 
     private static Locale myLocale;

@@ -84,7 +84,7 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 //                viewHolder.seekbar_per.setProgress(getPer(bidList.get(i).getDbl_total(), bidList.get(i).getDbl_executedVolume()));
                 viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.6f", bidList.get(i).getDbl_total())), Double.parseDouble(String.format("%.6f", bidList.get(i).getDbl_executedVolume()))));
                 viewHolder.txt_price.setText(String.format("%.6f", bidList.get(i).getDbl_price()));
-                viewHolder.txt_amount.setText(String.format("%.6f", bidList.get(i).getDbl_amount() - bidList.get(i).getDbl_executedVolume()));
+                viewHolder.txt_amount.setText(String.format("%.6f", bidList.get(i).getDbl_amount() - bidList.get(i).getDbl_executedAmount()));
             } else {
                 if (askList.get(i).getStr_user().trim().equals(myEmail)) {
                     viewHolder.txt_price.setTextColor(context.getResources().getColor(R.color.sky_blue1));
@@ -96,7 +96,7 @@ public class MarketDephRAdapter extends RecyclerView.Adapter<MarketDephRAdapter.
 //                viewHolder.seekbar_per.setProgress(getPer(askList.get(i).getDbl_total(), askList.get(i).getDbl_executedVolume()));
                 viewHolder.pbh.setProgress(getPer(Double.parseDouble(String.format("%.6f", askList.get(i).getDbl_total())), Double.parseDouble(String.format("%.6f", askList.get(i).getDbl_executedVolume()))));
                 viewHolder.txt_price.setText(String.format("%.6f", askList.get(i).getDbl_price()));
-                viewHolder.txt_amount.setText(String.format("%.6f", askList.get(i).getDbl_amount() - askList.get(i).getDbl_executedVolume()));
+                viewHolder.txt_amount.setText(String.format("%.6f", askList.get(i).getDbl_amount() - askList.get(i).getDbl_executedAmount()));
             }
 
 
