@@ -223,10 +223,26 @@ public class ReceiveCoinActivity extends AppCompatActivity {
 
                             if (loginResponseStatus.equals("true")) {
                                 loginResponseData = jsonObject.getString("data");
-                                editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
-                                editor.apply();
-                                txt_dev_address.setText(loginResponseData);
-                                CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                                if (address != null) {
+                                    if (!address.isEmpty()) {
+                                        if (address.equals(loginResponseData)) {
+                                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.pls_make_trans));
+                                        } else {
+                                            editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
+                                            editor.apply();
+                                            address = loginResponseData;
+                                            txt_dev_address.setText(loginResponseData);
+                                            CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.new_add_gen));
+                                        }
+                                    }
+                                } else {
+                                    editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
+                                    editor.apply();
+                                    address = loginResponseData;
+                                    txt_dev_address.setText(loginResponseData);
+                                    CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                                }
                             } else {
                                 CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
                             }

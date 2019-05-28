@@ -633,5 +633,7 @@
     <string name="pending_orders">Pending Orders</string>
     <string name="cancelled_orders">Cancelled Orders</string>
     <string name="all_orders">All Orders</string>
+    <string name="pls_make_trans">Please make one successfull transaction to generate new address.</string>
+    <string name="new_add_gen">New address generated successfully.</string>
 
 </resources>
