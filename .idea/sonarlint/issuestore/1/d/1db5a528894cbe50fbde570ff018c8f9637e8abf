@@ -1,94 +1,95 @@
 
-Fsquid:S1604y"(Make this anonymous inner class a lambda(†£°î8âÀ¢û-
-osquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
-[squid:S2589ã"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8âÀ¢û-
- squid:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›Í8âÀ¢û-
-jsquid:CommentedOutCodeLineì"<This block of commented-out lines of code should be removed.(„¬¡‚8âÀ¢û-
-osquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(£‘¾şøÿÿÿÿ8´ß ‘-
-Gsquid:S1148¹"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
-Nsquid:S1066æ"/Merge this if statement with the enclosing one.(Ùé¬Ã8âÀ¢û-
-}squid:S2293À"YReplace the type specification in this constructor call with the diamond operator ("<>").(àèá…ùÿÿÿÿ8âÀ¢û-
-nsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(é¡Á“úÿÿÿÿ8âÀ¢û-
-osquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8öÄ“–-
-‹"squid:ClassVariableVisibilityCheck^"WMake stompClient a static final constant or non-public and provide accessors if needed.(æÖºY8ª©§™-
-{squid:S00116B"\Rename this field "tab_lyt_coinsList" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·¾¥œ8âÀ¢û-
-xsquid:S2293¨"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º8öòÎš’-
-osquid:CommentedOutCodeLine¬"<This block of commented-out lines of code should be removed.(£‘¾şøÿÿÿÿ8ûŞ ‘-
-isquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(Èº»ù8’œ¸š’-
-osquid:CommentedOutCodeLineı"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8âÀ¢û-
-}squid:S00116¬"^Rename this field "PairsListUIListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åå›t8âÀ¢û-
-osquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8ãÅİ ‘-
-Fsquid:S1604"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
-isquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(§ÁÜ8âÀ¢û-
-jsquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(´ÃÔº8âÀ¢û-
-jsquid:CommentedOutCodeLineÙ"<This block of commented-out lines of code should be removed.(‰‚¡•8âÀ¢û-
-vsquid:S3973£"WUse curly braces or indentation to denote the code conditionally executed by this "if".(Ùé¬Ã8îÕ¦–-
-Fsquid:S1604™"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
-Usquid:S2696ƒ"6Make the enclosing method "static" or remove this set.(Úœ£Ä8ª©§™-
-Nsquid:S1066¬"/Merge this if statement with the enclosing one.(Ùé¬Ã8—“–-
-Gsquid:S1148ñ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
-osquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-Gsquid:S1148Ğ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
-osquid:CommentedOutCodeLine„"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
-isquid:CommentedOutCodeLine…"<This block of commented-out lines of code should be removed.(Óò¶8ê†°™’-
-vsquid:S00117ç"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î‘™üÿÿÿÿ8âÀ¢û-
-qsquid:S3776“"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(´µ—8æ•¾š’-
-Nsquid:S1066£"/Merge this if statement with the enclosing one.(Ùé¬Ã8âÀ¢û-
-Osquid:S1659U"1Declare "loginResponseStatus" on a separate line.(Œ Ú8âÀ¢û-
-osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
-isquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(«¦¨8âÀ¢û-
-Qsquid:S1659_".Declare "allCoinPairsList" on a separate line.(·£¯şÿÿÿÿ8âÀ¢û-
-osquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-Hsquid:S1659U"*Declare "responseData" on a separate line.(Œ Ú8–«Ñš’-
-osquid:CommentedOutCodeLineÀ"<This block of commented-out lines of code should be removed.(º±éÛùÿÿÿÿ8ç­×–-
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
-Bsquid:S1148Š"#Use a logger to log this exception.(Ç’Çê8âÀ¢û-
-osquid:CommentedOutCodeLineŒ"<This block of commented-out lines of code should be removed.(¨´Êıÿÿÿÿ8âÀ¢û-
-Gsquid:S1659U")Declare "responseMsg" on a separate line.(Œ Ú8–«Ñš’-
-ƒsquid:S00116J"_Rename this field "lnr_empty_gain_loose" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å­µùÿÿÿÿ8ŞÀÌ ‘-
-Nsquid:S1444^"1Make this "public static stompClient" field final(æÖºY8ª©§™-
-osquid:CommentedOutCodeLine«"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÿ¤¨˜-
-Gsquid:S1185‘"(Remove this method to simply inherit it.(ßû¢½8âÀ¢û-
-osquid:CommentedOutCodeLine¢"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÓÓêÀ-
-Nsquid:S1481•"*Remove this unused "token" local variable.(ûŠßİüÿÿÿÿ8ä·š’-
-osquid:CommentedOutCodeLineË"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8ÈóŞ ‘-
-Fsquid:S1604¬"(Make this anonymous inner class a lambda(Åå›t8 ¤½œ‘-
-jsquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(‰‚¡•8ä·š’-
+jsquid:CommentedOutCodeLine‰"<This block of commented-out lines of code should be removed.(´¿à§8É¾³‘°-
+vsquid:S3776¸"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(·ªÔÀüÿÿÿÿ8º•ğÀ-
+osquid:CommentedOutCodeLine¦"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÿ¤¨˜-
 ysquid:S00116>"URename this field "rview_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ËøÚ´şÿÿÿÿ8âÀ¢û-
 psquid:S3776e"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ï ±ª8âÀ¢û-
-Jsquid:S1659U",Declare "responseStatus" on a separate line.(Œ Ú8–«Ñš’-
-osquid:CommentedOutCodeLine‰"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-vsquid:S00117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«Ò±èÿÿÿÿÿ8âÀ¢û-
-Lsquid:S1659U".Declare "loginResponseMsg" on a separate line.(Œ Ú8âÀ¢û-
-vsquid:S3776´"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(·ªÔÀüÿÿÿÿ8º•ğÀ-
-bsquid:S1155ê">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8…ûÔ ‘-
-jsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(Ã‹ıÌ8îÒµÿ-
-osquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-bsquid:S1155§">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8ÌŠÔ ‘-
-Fsquid:S1604"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+ƒsquid:S00116J"_Rename this field "lnr_empty_gain_loose" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å­µùÿÿÿÿ8ŞÀÌ ‘-
 tsquid:S00116@"URename this field "img_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦ÍôÅ8âÀ¢û-
-Fsquid:S1604µ"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
-osquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8¿®Ş ‘-
-nsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(ŸÂãúÿÿÿÿ8âÀ¢û-
-isquid:CommentedOutCodeLineX"<This block of commented-out lines of code should be removed.(˜İë8âÀ¢û-
-Fsquid:S1604ß"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
-osquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8À¤Ö–-
-osquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÊâîÀ-
-Gsquid:S1148Á"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
-Gsquid:S1148Ä"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8öÄ“–-
-Nsquid:S1481Ø"*Remove this unused "token" local variable.(ûŠßİüÿÿÿÿ8âÀ¢û-
-|squid:S00116b"XRename this field "PairsListList" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÿÜÌşÿÿÿÿ8âÀ¢û-
-_squid:S1068L"ARemove this unused "exchangeCoinsDataPagerAdapter" private field.(ÏÒèç8âÀ¢û-
-osquid:CommentedOutCodeLine“"<This block of commented-out lines of code should be removed.(Ú×™ûÿÿÿÿ8âÀ¢û-
-[squid:S2589"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8ÿ¤¨˜-
-bsquid:S1155¯">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8öÄ“–-
-Gsquid:S1604"(Make this anonymous inner class a lambda(ÉôµÎ8âÀ¢û-
-xsquid:S2293™"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º8âÀ¢û-
-isquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(ªà‚8âÀ¢û-
-osquid:CommentedOutCodeLine×"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8¤‚×–-
-osquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-¥squid:S1186Ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿ8âÀ¢û-
-Bsquid:S1148Ø"#Use a logger to log this exception.(Ç’Çê8¤‚×–-
-osquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
-osquid:CommentedOutCodeLineá"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+[squid:S2589¢"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8ÿ¤¨˜-
+osquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(£‘¾şøÿÿÿÿ8´ß ‘-
+osquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÊâîÀ-
+Gsquid:S1148õ"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
 …squid:S00116D"aRename this field "view_pager_Sup_product" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–İ´æşÿÿÿÿ8âÀ¢û-
+jsquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(´ÃÔº8âÀ¢û-
+{squid:S00116B"\Rename this field "tab_lyt_coinsList" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·¾¥œ8âÀ¢û-
+jsquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(‰‚¡•8ä·š’-
+Fsquid:S1604¹"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+osquid:CommentedOutCodeLineÄ"<This block of commented-out lines of code should be removed.(º±éÛùÿÿÿÿ8ç­×–-
+osquid:CommentedOutCodeLineÏ"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8¿®Ş ‘-
+bsquid:S1155³">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8öÄ“–-
+osquid:CommentedOutCodeLineö"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLineƒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+isquid:CommentedOutCodeLine†"<This block of commented-out lines of code should be removed.(Óò¶8ê†°™’-
+osquid:CommentedOutCodeLineˆ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLineĞ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+Fsquid:S1604ã"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+isquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(«¦¨8âÀ¢û-
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
+osquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8öÄ“–-
+Hsquid:S1659U"*Declare "responseData" on a separate line.(Œ Ú8–«Ñš’-
+Fsquid:S1604°"(Make this anonymous inner class a lambda(Åå›t8 ¤½œ‘-
+jsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(‰‚¡•8âÀ¢û-
+_squid:S1068L"ARemove this unused "exchangeCoinsDataPagerAdapter" private field.(ÏÒèç8âÀ¢û-
+xsquid:S2293¬"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º8âÀ¢û-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8ãÅİ ‘-
+vsquid:S3973§"WUse curly braces or indentation to denote the code conditionally executed by this "if".(Ùé¬Ã8îÕ¦–-
+Gsquid:S1604”"(Make this anonymous inner class a lambda(ÉôµÎ8âÀ¢û-
+Fsquid:S1604y"(Make this anonymous inner class a lambda(†£°î8âÀ¢û-
+Gsquid:S1148Ô"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
+Nsquid:S1481Ü"*Remove this unused "token" local variable.(ûŠßİüÿÿÿÿ8ä·š’-
+Nsquid:S1481™"*Remove this unused "token" local variable.(ûŠßİüÿÿÿÿ8âÀ¢û-
+Bsquid:S1148Ü"#Use a logger to log this exception.(Ç’Çê8¤‚×–-
+osquid:CommentedOutCodeLineó"<This block of commented-out lines of code should be removed.(£‘¾şøÿÿÿÿ8ûŞ ‘-
+osquid:CommentedOutCodeLineø"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
+Gsquid:S1185•"(Remove this method to simply inherit it.(ßû¢½8âÀ¢û-
+bsquid:S1155«">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8…ûÔ ‘-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ8âÀ¢û-
+Zsquid:S2696„"6Make the enclosing method "static" or remove this set.(è†í›üÿÿÿÿ8É¾³‘°-
+isquid:CommentedOutCodeLineX"<This block of commented-out lines of code should be removed.(˜İë8âÀ¢û-
+¥squid:S1186Õ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½Ä³ïşÿÿÿÿ8âÀ¢û-
+Nsquid:S1066§"/Merge this if statement with the enclosing one.(Ùé¬Ã8âÀ¢û-
+isquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(§ÁÜ8âÀ¢û-
+Fsquid:S1604¡"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+nsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(ŸÂãúÿÿÿÿ8âÀ¢û-
+isquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(Èº»ù8’œ¸š’-
+Nsquid:S1066°"/Merge this if statement with the enclosing one.(Ùé¬Ã8âÀ¢û-
+jsquid:CommentedOutCodeLineğ"<This block of commented-out lines of code should be removed.(„¬¡‚8âÀ¢û-
+|squid:S00116b"XRename this field "PairsListList" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÄÿÜÌşÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8À¤Ö–-
+}squid:S2293Ä"YReplace the type specification in this constructor call with the diamond operator ("<>").(àèá…ùÿÿÿÿ8âÀ¢û-
+Nsquid:S1066ê"/Merge this if statement with the enclosing one.(Ùé¬Ã8—“–-
+Fsquid:S1604‘"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+Gsquid:S1148È"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8öÄ“–-
+}squid:S00116°"^Rename this field "PairsListUIListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Åå›t8âÀ¢û-
+xsquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(€‹¢º8öòÎš’-
+[squid:S2589ç"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLineÿ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+Bsquid:S1148"#Use a logger to log this exception.(Ç’Çê8âÀ¢û-
+Gsquid:S1659U")Declare "responseMsg" on a separate line.(Œ Ú8–«Ñš’-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(¨´Êıÿÿÿÿ8âÀ¢û-
+isquid:CommentedOutCodeLinet"<This block of commented-out lines of code should be removed.(ªà‚8âÀ¢û-
+jsquid:CommentedOutCodeLine‚"<This block of commented-out lines of code should be removed.(Ã‹ıÌ8îÒµÿ-
+osquid:CommentedOutCodeLine—"<This block of commented-out lines of code should be removed.(Ú×™ûÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLineš"<This block of commented-out lines of code should be removed.(şš†÷şÿÿÿÿ8ÈóŞ ‘-
+Gsquid:S1148½"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ8âÀ¢û-
+ squid:S1186Ú"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¦›Í8âÀ¢û-
+Qsquid:S1659_".Declare "allCoinPairsList" on a separate line.(·£¯şÿÿÿÿ8âÀ¢û-
+Gsquid:S1148Å"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8âÀ¢û-
+Jsquid:S1659U",Declare "responseStatus" on a separate line.(Œ Ú8–«Ñš’-
+vsquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«Ò±èÿÿÿÿÿ8âÀ¢û-
+bsquid:S1155î">Use isEmpty() to check whether the collection is empty or not.(¹›öôşÿÿÿÿ8ÌŠÔ ‘-
+Fsquid:S1604"(Make this anonymous inner class a lambda(»¬ãS8âÀ¢û-
+osquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+qsquid:S3776—"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(´µ—8æ•¾š’-
+Nsquid:S1444^"1Make this "public static stompClient" field final(æÖºY8ª©§™-
+vsquid:S00117ë"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î‘™üÿÿÿÿ8âÀ¢û-
+Lsquid:S1659U".Declare "loginResponseMsg" on a separate line.(Œ Ú8âÀ¢û-
+osquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8¤‚×–-
+‹"squid:ClassVariableVisibilityCheck^"WMake stompClient a static final constant or non-public and provide accessors if needed.(æÖºY8ª©§™-
+osquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ÑŸ¥Âúÿÿÿÿ8ÓÓêÀ-
+nsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(é¡Á“úÿÿÿÿ8âÀ¢û-
+osquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ8âÀ¢û-
+Osquid:S1659U"1Declare "loginResponseStatus" on a separate line.(Œ Ú8âÀ¢û-

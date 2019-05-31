@@ -54,7 +54,11 @@ public final class CommonUtilities {
 
 /*
     public static final String URL = "http://10.0.0.35:3322";
-    public static final String WS = "http://10.0.0.35:3322/ws_v2/deviant/websocket";
+    public static final String WS = "http://10.0.0.35:3323/ws_v2/deviant/websocket";
+*/
+/*
+    public static final String URL = "http://10.0.0.27:3322";
+    public static final String WS = "http://10.0.0.27:3323/ws_v2/deviant/websocket";
 */
 
 

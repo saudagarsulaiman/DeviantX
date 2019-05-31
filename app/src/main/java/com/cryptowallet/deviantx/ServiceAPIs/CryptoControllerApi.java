@@ -18,6 +18,9 @@ public interface CryptoControllerApi {
     @GET("/api_v2/crypto/deposit_wallet/{coin_code}/{wallet_name}")
     Call<ResponseBody> receiveCoins(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX, @Path("wallet_name") String walletNameX);
 
+    @GET("/api_v2/crypto/deposit_wallet_new/{coin_code}/{wallet_name}")
+    Call<ResponseBody> generateNewAddress(@Header("Authorization") String AuthorizationDX, @Path("coin_code") String coin_codeX, @Path("wallet_name") String walletNameX);
+
     @GET("/api_v2/crypto/deposit_wallet_transaction_using_wallet/{wallet_name}/{coin_code}")
     Call<ResponseBody> getReceivedTransactions(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX, @Path("coin_code") String coin_codeX);
 

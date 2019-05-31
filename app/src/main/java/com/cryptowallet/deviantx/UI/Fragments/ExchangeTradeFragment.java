@@ -249,7 +249,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     String str_data_name;
     WalletSelectableListener walletSelectableListener;
     int selectedCoinId = 0;
-    String selectedWalletName = "";
+//    String selectedWalletName = "";
     Double selectedWalletBal = 0.0;
     Boolean order_available = false;
 
@@ -349,11 +349,11 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                 if (selected_allWalletList.get(pos).getSelected()) {
                     selectedCoinId = selected_allWalletList.get(pos).getInt_data_id();
-                    selectedWalletName = selected_allWalletList.get(pos).getStr_data_name();
+                    wallet_name = selected_allWalletList.get(pos).getStr_data_name();
                     selectedWalletBal = selected_allWalletList.get(pos).getDbl_data_totalBal();
 
-                    txt_wallet_name.setText(selectedWalletName);
-                    fetchDefAccWal(selectedWalletName);
+                    txt_wallet_name.setText(wallet_name);
+                    fetchDefAccWal(wallet_name);
                     lnr_selected_wallet.setVisibility(View.GONE);
                 } else
                     itemPicker.setVisibility(View.VISIBLE);
@@ -446,11 +446,11 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
                     double orderAmount = 0.0;
                     if (pos == 0) {
-                        double amt = excOrdersList.get(pos).getDbl_amount() - excOrdersList.get(pos).getDbl_executedAmount();
+                        double amt = excOrdersList.get(pos).getDbl_amount() /*- excOrdersList.get(pos).getDbl_executedAmount()*/;
                         orderAmount = orderAmount + amt;
                     } else {
                         for (int i = 0; i <= pos; i++) {
-                            double amt = excOrdersList.get(i).getDbl_amount() - excOrdersList.get(i).getDbl_executedAmount();
+                            double amt = excOrdersList.get(i).getDbl_amount() /*- excOrdersList.get(i).getDbl_executedAmount()*/;
                             orderAmount = orderAmount + amt;
                         }
                     }

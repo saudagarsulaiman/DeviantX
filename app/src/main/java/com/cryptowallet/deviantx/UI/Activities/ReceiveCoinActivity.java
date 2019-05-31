@@ -130,7 +130,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (CommonUtilities.isConnectionAvailable(ReceiveCoinActivity.this)) {
 //            Fetch Address
-                    fetchAddress(selectedAccountWallet);
+                    generateNewAddress(selectedAccountWallet);
 
                 } else {
                     CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.internetconnection));
@@ -200,6 +200,88 @@ public class ReceiveCoinActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void generateNewAddress(AccountWallet selectedAccountWallet) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
+            progressDialog = ProgressDialog.show(ReceiveCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
+            CryptoControllerApi apiService = DeviantXApiClient.getClient().create(CryptoControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.generateNewAddress(CONSTANTS.DeviantMulti + token, selectedAccountWallet.getStr_coin_code(), wallet_name);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+
+                            if (loginResponseStatus.equals("true")) {
+                                loginResponseData = jsonObject.getString("data");
+                                if (address != null) {
+                                    if (!address.isEmpty()) {
+                                        if (address.equals(loginResponseData)) {
+                                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.pls_make_trans));
+                                        } else {
+                                            editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
+                                            editor.apply();
+                                            address = loginResponseData;
+                                            txt_dev_address.setText(loginResponseData);
+                                            CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.new_add_gen));
+                                        }
+                                    }
+                                } else {
+                                    editor.putString(CONSTANTS.rec_add + selectedAccountWallet.getStr_coin_code() + selectedAccountWallet.getStr_data_walletName() + selectedAccountWallet.getInt_data_id(), loginResponseData);
+                                    editor.apply();
+                                    address = loginResponseData;
+                                    txt_dev_address.setText(loginResponseData);
+                                    CommonUtilities.qrCodeGenerate(loginResponseData, img_qrcode, ReceiveCoinActivity.this);
+                                }
+                            } else {
+                                CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.networkerror));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

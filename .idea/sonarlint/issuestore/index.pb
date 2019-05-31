@@ -377,3 +377,5 @@ a
 Oapp/src/main/java/com/cryptowallet/deviantx/ServiceAPIs/ChartControllerApi.java,3\a\3a592302855237947e8bb93fa88163b80e48b612
 t
 Dapp/src/main/java/com/cryptowallet/deviantx/Utilities/GsonUtils.java,8\b\8bc0ef174e99090bcdbc4d0729b40e47c40be2da
+X
+(gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e

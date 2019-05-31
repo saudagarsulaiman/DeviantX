@@ -137,7 +137,7 @@ public class ExchangeMarketFragment extends Fragment {
             stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
 */
             stompClient.connect();
-            Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
+            Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair/get_all");
             allCoinPairs = new ArrayList<>();
             rview_coin.setVisibility(View.GONE);
 //            pb.setVisibility(View.VISIBLE);
