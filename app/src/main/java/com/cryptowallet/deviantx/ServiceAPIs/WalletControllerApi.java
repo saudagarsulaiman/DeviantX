@@ -24,6 +24,9 @@ public interface WalletControllerApi {
     Call<ResponseBody> getAddNewWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("defaultWallet") boolean defaultWallet);
 
     @GET("/api_v2/wallet/update_wallet/{name}/{new_name}/{defaultWallet}")
-    Call<ResponseBody> updateWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("new_name") String new_Name, @Path("defaultWallet") boolean defaultWallet);
+    Call<ResponseBody> renameWallet(@Header("Authorization") String tokenDX, @Path("name") String walletNameX, @Path("new_name") String new_Name, @Path("defaultWallet") boolean defaultWallet);
+
+    @GET("/api_v2/wallet/update_wallet_by_id/{id}/{defaultWallet}")
+    Call<ResponseBody> updatePrimaryWallet(@Header("Authorization") String tokenDX, @Path("id") int walletIdX, @Path("defaultWallet") boolean defaultWallet);
 
 }

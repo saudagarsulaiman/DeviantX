@@ -112,16 +112,20 @@ public class EditWalletActivity extends AppCompatActivity {
         if (walletList.isDefaultWallet()) {
             txt_note_defWal.setVisibility(View.VISIBLE);
             scompat_defWallet.setChecked(true);
+            scompat_defWallet.setEnabled(false);
         } else {
             txt_note_defWal.setVisibility(View.INVISIBLE);
             scompat_defWallet.setChecked(false);
+            scompat_defWallet.setEnabled(true);
         }
         scompat_defWallet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (scompat_defWallet.isChecked()) {
+//                    scompat_defWallet.setEnabled(false);
                     txt_note_defWal.setVisibility(View.VISIBLE);
                 } else {
+//                    scompat_defWallet.setEnabled(true);
                     txt_note_defWal.setVisibility(View.INVISIBLE);
                 }
             }
@@ -144,7 +148,10 @@ public class EditWalletActivity extends AppCompatActivity {
                     CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.empty_wallet));
                 } else {
                     if (CommonUtilities.isConnectionAvailable(EditWalletActivity.this)) {
-                        renameWallet(s_WalletName);
+                        if (s_WalletName.equals(walletList.getStr_data_name()))
+                            updatePrimaryWallet(s_WalletName);
+                        else
+                            renameWallet(s_WalletName);
                     } else {
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.internetconnection));
                     }
@@ -160,7 +167,79 @@ public class EditWalletActivity extends AppCompatActivity {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             progressDialog = ProgressDialog.show(EditWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
-            Call<ResponseBody> apiResponse = apiService.updateWallet(CONSTANTS.DeviantMulti + token, walletList.getStr_data_name(), s_walletName, scompat_defWallet.isChecked());
+            Call<ResponseBody> apiResponse = apiService.renameWallet(CONSTANTS.DeviantMulti + token, walletList.getStr_data_name(), s_walletName, scompat_defWallet.isChecked());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            loginResponseMsg = jsonObject.getString("msg");
+                            loginResponseStatus = jsonObject.getString("status");
+                            if (loginResponseStatus.equals("true")) {
+                                if (scompat_defWallet.isChecked()) {
+                                    editor.putString(CONSTANTS.defaultWalletName, s_walletName);
+//                                    editor.putInt(CONSTANTS.defaultWallet, walletList.getInt_data_id());
+                                    editor.apply();
+                                }
+                                Intent serviceIntent = new Intent(getApplicationContext(), WalletDataFetch.class);
+                                serviceIntent.putExtra("walletList", true);
+                                serviceIntent.putExtra("walletIsDefault", scompat_defWallet.isChecked());
+                                startService(serviceIntent);
+                                finish();
+                            } else {
+                                CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
+                            }
+
+                        } else {
+                            CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
+//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.Timeout));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.networkerror));
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
+//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
+//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void updatePrimaryWallet(String s_walletName) {
+        try {
+            String token = sharedPreferences.getString(CONSTANTS.token, null);
+            progressDialog = ProgressDialog.show(EditWalletActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.updatePrimaryWallet(CONSTANTS.DeviantMulti + token, walletList.getInt_data_id(), scompat_defWallet.isChecked());
             apiResponse.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
