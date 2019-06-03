@@ -83,11 +83,15 @@
                         android:text="@string/dev_coin"
                         android:textColor="@color/black"
                         android:textSize="@dimen/def_text_size"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/txt_coin_avail_value"
                         android:layout_width="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:layout_height="wrap_content"
                         android:text="2135.218585 DEV"
                         android:textColor="@color/grey"
@@ -96,6 +100,8 @@
                     <TextView
                         android:id="@+id/txt_coin_reserve_value"
                         android:layout_width="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:layout_height="wrap_content"
                         android:text="2135.218585 DEV"
                         android:textColor="@color/grey"
@@ -103,6 +109,8 @@
 
                     <TextView
                         android:id="@+id/txt_coin_total_value"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2135.218585 DEV"
@@ -125,6 +133,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="%"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="@color/mar_red"
                         android:textSize="@dimen/def_text_size"
                         android:visibility="visible" />
@@ -134,6 +144,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="$ 0.04 USD"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="@color/black"
                         android:textSize="@dimen/def_text_size" />
 
@@ -141,6 +153,8 @@
                         android:id="@+id/txt_usd_reserve_value"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="$ 0.04 USD"
                         android:textColor="@color/black"
                         android:textSize="@dimen/def_text_size" />
@@ -148,6 +162,8 @@
                     <TextView
                         android:id="@+id/txt_usd_total_value"
                         android:layout_width="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:layout_height="match_parent"
                         android:text="$ 0.04 USD"
                         android:textColor="@color/black"
@@ -290,6 +306,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="@string/rank"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/def_text_size" />
@@ -300,6 +318,8 @@
                         android:layout_height="wrap_content"
                         android:text="#"
                         android:textColor="@color/black"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textSize="@dimen/text10" />
 
                 </LinearLayout>
@@ -315,6 +335,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="@string/marketcap"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/def_text_size" />
@@ -323,6 +345,8 @@
                         android:id="@+id/txt_markcap_usd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="$ 0"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text10" />
@@ -341,6 +365,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/volume"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/def_text_size" />
 
@@ -348,6 +374,8 @@
                         android:id="@+id/txt_vol_usd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:text="$ 0"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text10" />

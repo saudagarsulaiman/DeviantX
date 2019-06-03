@@ -635,5 +635,14 @@
     <string name="all_orders">All Orders</string>
     <string name="pls_make_trans">Please make one successfull transaction to generate new address.</string>
     <string name="new_add_gen">New address generated successfully.</string>
+    <string name="fees_dev">Fee (Using DEV to pay fees)</string>
+    <string name="fees_eth">Fee (Using ETH to pay fees)</string>
+    <string name="fees_btc">Fee (Using BTC to pay fees)</string>
+    <string name="pls_add_dev">Please add \'DEV\' coin to selected wallet.</string>
+    <string name="not_enough_balance_dev">Not enough balance in \'DEV\' coin in selected wallet.</string>
+    <string name="pls_add_btc">Please add \'BTC\' coin to selected wallet.</string>
+    <string name="not_enough_balance_btc">Not enough balance in \'BTC\' coin in selected wallet.</string>
+    <string name="pls_add_eth">Please add \'ETH\' coin to selected wallet.</string>
+    <string name="not_enough_balance_eth">Not enough balance in \'ETH\' coin in selected wallet.</string>
 
 </resources>

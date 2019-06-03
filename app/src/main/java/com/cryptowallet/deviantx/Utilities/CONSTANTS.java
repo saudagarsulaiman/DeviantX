@@ -55,6 +55,7 @@ public class CONSTANTS {
     public static String received = "RECEIVED";
     public static String isExploreCoins = "isEcploreCoins";
     public static String selCP = "SelCP";
+    public static String is_dev_fees = "ISDEVFEES";
 
     //    PARSE SERVER
     public static String ServerUrl = "https://deviantx-parse-server.herokuapp.com/parse";

@@ -249,7 +249,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     String str_data_name;
     WalletSelectableListener walletSelectableListener;
     int selectedCoinId = 0;
-//    String selectedWalletName = "";
+    //    String selectedWalletName = "";
     Double selectedWalletBal = 0.0;
     Boolean order_available = false;
 
@@ -1260,6 +1260,12 @@ lowPrice));
         TextView txt_total = view.findViewById(R.id.txt_total);
         TextView txt_total_code = view.findViewById(R.id.txt_total_code);
         TextView txt_wallet_name = view.findViewById(R.id.txt_wallet_name);
+        TextView txt_fee_lbl = view.findViewById(R.id.txt_fee_lbl);
+        TextView txt_fee_val = view.findViewById(R.id.txt_fee_val);
+        TextView txt_fee_code = view.findViewById(R.id.txt_fee_code);
+        LinearLayout lnr_fees_avail = view.findViewById(R.id.lnr_fees_avail);
+        TextView txt_fee_unavail = view.findViewById(R.id.txt_fee_unavail);
+        TextView txt_fee_bal = view.findViewById(R.id.txt_fee_bal);
 
         if (isStopLimit) {
             lnr_stop_price.setVisibility(View.VISIBLE);
@@ -1274,7 +1280,6 @@ lowPrice));
                 txt_price_code.setText("BTC");
                 txt_stop_price_code.setText("BTC");
                 txt_total_code.setText("BTC");
-
             }
         } else {
             lnr_stop_price.setVisibility(View.GONE);
@@ -1290,9 +1295,134 @@ lowPrice));
             txt_price_code.setText("BTC");
             txt_stop_price_code.setText("BTC");
             txt_total_code.setText("BTC");
-
         }
 
+        boolean isDevFees = sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
+        boolean isNCoinAvail = false;
+        if (isDevFees) {
+            txt_fee_lbl.setText(getResources().getText(R.string.fees_dev));
+            txt_fee_code.setText("DEV");
+
+            double fee = (total * 0.25) / 100;
+            fee = fee / 2;
+            txt_fee_val.setText(String.format("%.6f", fee));
+
+            int selected_i = 0;
+            for (int i = 0; i < accountWalletlist.size(); i++) {
+                if (accountWalletlist.get(i).getStr_coin_code().trim().equals("DEV")) {
+                    isNCoinAvail = true;
+                    selected_i = i;
+                }
+            }
+            if (isNCoinAvail) {
+                txt_fee_unavail.setVisibility(View.GONE);
+                if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_bal.setVisibility(View.VISIBLE);
+                    txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_dev));
+                    txt_confirm.setVisibility(View.GONE);
+                } else {
+                    txt_fee_bal.setVisibility(View.GONE);
+                    lnr_fees_avail.setVisibility(View.VISIBLE);
+                    txt_confirm.setVisibility(View.VISIBLE);
+                }
+
+            } else {
+                lnr_fees_avail.setVisibility(View.GONE);
+                txt_fee_unavail.setVisibility(View.VISIBLE);
+                txt_fee_unavail.setText(getResources().getText(R.string.pls_add_dev));
+            }
+
+        } else {
+            double fee = (total * 0.25) / 100;
+            txt_fee_val.setText(String.format("%.6f", fee));
+
+            if (txt_price_code.getText().toString().trim().equals("ETH")) {
+                txt_fee_lbl.setText(getResources().getText(R.string.fees_eth));
+                txt_fee_code.setText("ETH");
+
+                int selected_i = 0;
+                for (int i = 0; i < accountWalletlist.size(); i++) {
+                    if (accountWalletlist.get(i).getStr_coin_code().trim().equals("ETH")) {
+                        isNCoinAvail = true;
+                        selected_i = i;
+                    }
+                }
+                if (isNCoinAvail) {
+                    txt_fee_unavail.setVisibility(View.GONE);
+                    if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                        lnr_fees_avail.setVisibility(View.GONE);
+                        txt_fee_bal.setVisibility(View.VISIBLE);
+                        txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_eth));
+                        txt_confirm.setVisibility(View.GONE);
+                    } else {
+                        txt_fee_bal.setVisibility(View.GONE);
+                        lnr_fees_avail.setVisibility(View.VISIBLE);
+                        txt_confirm.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_unavail.setVisibility(View.VISIBLE);
+                    txt_fee_unavail.setText(getResources().getText(R.string.pls_add_eth));
+                }
+            } else if (txt_price_code.getText().toString().trim().equals("BTC")) {
+                txt_fee_lbl.setText(getResources().getText(R.string.fees_btc));
+                txt_fee_code.setText("BTC");
+
+                int selected_i = 0;
+                for (int i = 0; i < accountWalletlist.size(); i++) {
+                    if (accountWalletlist.get(i).getStr_coin_code().trim().equals("BTC")) {
+                        isNCoinAvail = true;
+                        selected_i = i;
+                    }
+                }
+                if (isNCoinAvail) {
+                    txt_fee_unavail.setVisibility(View.GONE);
+                    if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                        lnr_fees_avail.setVisibility(View.GONE);
+                        txt_fee_bal.setVisibility(View.VISIBLE);
+                        txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_btc));
+                        txt_confirm.setVisibility(View.GONE);
+                    } else {
+                        txt_fee_bal.setVisibility(View.GONE);
+                        lnr_fees_avail.setVisibility(View.VISIBLE);
+                        txt_confirm.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_unavail.setVisibility(View.VISIBLE);
+                    txt_fee_unavail.setText(getResources().getText(R.string.pls_add_btc));
+                }
+            } else if (txt_price_code.getText().toString().trim().equals("DEV")) {
+                txt_fee_lbl.setText(getResources().getText(R.string.fees_dev));
+                txt_fee_code.setText("DEV");
+
+                int selected_i = 0;
+                for (int i = 0; i < accountWalletlist.size(); i++) {
+                    if (accountWalletlist.get(i).getStr_coin_code().trim().equals("DEV")) {
+                        isNCoinAvail = true;
+                        selected_i = i;
+                    }
+                }
+                if (isNCoinAvail) {
+                    txt_fee_unavail.setVisibility(View.GONE);
+                    if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                        lnr_fees_avail.setVisibility(View.GONE);
+                        txt_fee_bal.setVisibility(View.VISIBLE);
+                        txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_dev));
+                        txt_confirm.setVisibility(View.GONE);
+                    } else {
+                        txt_fee_bal.setVisibility(View.GONE);
+                        lnr_fees_avail.setVisibility(View.VISIBLE);
+                        txt_confirm.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_unavail.setVisibility(View.VISIBLE);
+                    txt_fee_unavail.setText(getResources().getText(R.string.pls_add_dev));
+                }
+            }
+        }
 
         txt_amount.setText(String.format("%.6f", amount));
         txt_price.setText(String.format("%.6f", price));
@@ -1366,6 +1496,7 @@ lowPrice));
     @Override
     public void onResume() {
         super.onResume();
+        myApplication.getDevFees();
         myApplication.setExcOrdersUIListener(excOrdersUIListener);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));
@@ -1594,6 +1725,7 @@ lowPrice));
     private void makeOrder(double amount, double price, double total, String type, String coin_pair, String wallet_name, String tx_type, double stop_price) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
+            boolean isDevFees = sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
             JSONObject params = new JSONObject();
             try {
                 params.put("amount", amount);
@@ -1604,6 +1736,7 @@ lowPrice));
                 params.put("wallet", wallet_name);
                 params.put("tx_type", tx_type);
                 params.put("stop_price", stop_price);
+                params.put("is_dev", isDevFees);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -3,16 +3,19 @@ package com.cryptowallet.deviantx.UI.Fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +60,8 @@ public class ExchangeFundsFragment extends Fragment {
     TextView txt_total_bal;
     @BindView(R.id.txt_total_bal_usd)
     TextView txt_total_bal_usd;
+    @BindView(R.id.scompat_dev_fees)
+    SwitchCompat scompat_dev_fees;
 
 
     private ExpandableListViewAdapter expandableListViewAdapter;
@@ -77,6 +82,7 @@ public class ExchangeFundsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        myApplication.getDevFees();
         myApplication.setWalletDetailsUIListener(walletDetailsUIListener);
 
         try {
@@ -115,6 +121,39 @@ public class ExchangeFundsFragment extends Fragment {
         valuesList = new ArrayList<>();
 
         allWalletDetailsList = new ArrayList<>();
+
+        if (myApplication.getDevFees()) {
+            scompat_dev_fees.setChecked(true);
+            scompat_dev_fees.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+            scompat_dev_fees.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+        } else {
+            scompat_dev_fees.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+            scompat_dev_fees.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+            scompat_dev_fees.setChecked(false);
+        }
+
+        scompat_dev_fees.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    scompat_dev_fees.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
+                    scompat_dev_fees.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                    editor.putBoolean(CONSTANTS.is_dev_fees, true);
+                    editor.apply();
+                    myApplication.setDevFees(true);
+                    onResume();
+//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_active));
+                } else {
+                    scompat_dev_fees.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
+                    scompat_dev_fees.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
+                    editor.putBoolean(CONSTANTS.is_dev_fees, false);
+                    editor.apply();
+                    myApplication.setDevFees(false);
+                    onResume();
+//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_inactive));
+                }
+            }
+        });
 
 
 //        Closing/Collapsing Previously Opened ListView

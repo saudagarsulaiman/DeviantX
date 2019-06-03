@@ -94,6 +94,16 @@ public class MyApplication extends Application {
     Boolean is2FAactive;
     Boolean isScreenShot;
     Boolean isAppPin;
+
+    public Boolean getDevFees() {
+        return isDevFees;
+    }
+
+    public void setDevFees(Boolean devFees) {
+        isDevFees = devFees;
+    }
+
+    Boolean isDevFees;
     int defaultWallet;
 
     @Override
@@ -106,6 +116,7 @@ public class MyApplication extends Application {
         is2FAactive = sharedPreferences.getBoolean(CONSTANTS.twoFactorAuth, false);
         defaultWallet = sharedPreferences.getInt(CONSTANTS.defaultWallet, 0);
         isAppPin = sharedPreferences.getBoolean(CONSTANTS.is_app_pin, false);
+        isDevFees= sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
 
         new Instabug.Builder(this, "fbf783414b9ff4ada4fe1621045965d2")
 //                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
