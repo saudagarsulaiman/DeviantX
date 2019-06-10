@@ -50,8 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
+            android:maxLines="1"
             android:paddingStart="@dimen/padding2"
             android:paddingLeft="@dimen/padding2"
+            android:singleLine="true"
             android:text="@string/amount"
             android:textColor="@color/white"
             android:textSize="@dimen/def_text_size" />
@@ -62,6 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
+            android:maxLines="1"
+            android:singleLine="true"
             android:text="@string/price"
             android:textColor="@color/white"
             android:textSize="@dimen/def_text_size" />

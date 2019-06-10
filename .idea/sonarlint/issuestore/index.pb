@@ -379,3 +379,11 @@ t
 Dapp/src/main/java/com/cryptowallet/deviantx/Utilities/GsonUtils.java,8\b\8bc0ef174e99090bcdbc4d0729b40e47c40be2da
 X
 (gradle/wrapper/gradle-wrapper.properties,f\b\fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
+Å
+Qapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/MyWalletListRAdapter.java,c\3\c327f4013ce796472129fdfb90c3231ad7c25bde
+Å
+Qapp/src/main/java/com/cryptowallet/deviantx/UI/Activities/WalletListActivity.java,8\2\82b2cfefb4033134eda4080e018acf8f998a0748
+]
+-app/src/main/res/layout/dialog_make_order.xml,f\e\fe0160aeeefe2918f66869d5e691880768c6af0c
+ä
+Zapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/ExchangeDashboardSlideAdapter.java,4\1\41d859ce26b5fda69271efd4d84f7e321e950cd8

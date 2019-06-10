@@ -733,7 +733,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
 //        SETTING TOOLTIP
         HITooltip hiTooltip = new HITooltip();
         hiTooltip.setHeaderFormat("<span style=\"font-size=10px;\">Price: {point.key}</span><br/>");
-        hiTooltip.setValueDecimals(2);
+        hiTooltip.setValueDecimals(6);
         options.setTooltip(hiTooltip);
 
 
