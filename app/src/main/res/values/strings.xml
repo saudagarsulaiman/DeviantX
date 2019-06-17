@@ -644,5 +644,11 @@
     <string name="not_enough_balance_btc">Not enough balance in \'BTC\' coin in selected wallet.</string>
     <string name="pls_add_eth">Please add \'ETH\' coin to selected wallet.</string>
     <string name="not_enough_balance_eth">Not enough balance in \'ETH\' coin in selected wallet.</string>
+    <string name="fees_lbl1">Fee (Using \'</string>
+    <string name="fees_lbl2">\' to pay fees)</string>
+    <string name="pls_add_1">Please add \'</string>
+    <string name="pls_add_2">\' coin to selected wallet.</string>
+    <string name="make">Make \'</string>
+    <string name="order">\' Order</string>
 
 </resources>

@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
 import com.cryptowallet.deviantx.ServiceAPIs.OrderBookControllerApi;
+import com.cryptowallet.deviantx.ServiceAPIs.USDValues;
 import com.cryptowallet.deviantx.ServiceAPIs.WalletControllerApi;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeCoinInfoActivity;
 import com.cryptowallet.deviantx.UI.Activities.ExchangeOrderHistoryActivity;
@@ -250,7 +251,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     WalletSelectableListener walletSelectableListener;
     int selectedCoinId = 0;
     //    String selectedWalletName = "";
-    Double selectedWalletBal = 0.0;
+    Double selectedWalletBal = 0.0, coinValue = 0.0;
     Boolean order_available = false;
 
 
@@ -290,6 +291,8 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
     double highPrice = 0.0, highAmount = 0.0, lowPrice = 0.0, lowAmount = 0.0;
     boolean oneTime = true;
 
+    String beforeSlash = "ETH", afterSlash = "BTC";
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -328,6 +331,7 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
 
         if (CommonUtilities.isConnectionAvailable(getActivity())) {
             getAllWallets();
+            fetchPrice("ETH", "BTC");
         } else {
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.internetconnection));
         }
@@ -400,11 +404,13 @@ public class ExchangeTradeFragment extends Fragment implements DiscreteScrollVie
             txt_code_price.setText(allCoinPairs.getStr_exchangeCoin());
             txt_code_stop_price.setText(allCoinPairs.getStr_exchangeCoin());
             txt_code_amount.setText(allCoinPairs.getStr_pairCoin());
+            beforeSlash = allCoinPairs.getStr_pairCoin();
+            afterSlash = allCoinPairs.getStr_exchangeCoin();
             txt_title.setText(allCoinPairs.getStr_pairCoin() + "/" + allCoinPairs.getStr_exchangeCoin());
             txt_total.setText(String.format("%.6f", allCoinPairs.getDbl_previousValue() * 0)/*+" "+allCoinPairs.getStr_exchangeCoin()*/);
             txt_total_code.setText(allCoinPairs.getStr_exchangeCoin());
         } else {
-            edt_price.setText("0.0389");
+            edt_price.setText(String.format("%.6f", coinValue));
             txt_code_price.setText("BTC");
             txt_code_stop_price.setText("BTC");
             txt_code_amount.setText("ETH");
@@ -593,8 +599,10 @@ lowPrice));
                 if (allCoinPairs == null) {
                     allCoinPairs = new CoinPairs();
                     allCoinPairs.setStr_pairCoin("ETH");
-                    allCoinPairs.setDbl_currentValue(0.0389);
-                    allCoinPairs.setDbl_previousValue(0.0389);
+//                    allCoinPairs.setDbl_currentValue(0.0389);
+                    allCoinPairs.setDbl_currentValue(coinValue);
+//                    allCoinPairs.setDbl_previousValue(0.0389);
+                    allCoinPairs.setDbl_previousValue(coinValue);
                     allCoinPairs.setDbl_twentyFourChange(0.0);
                     allCoinPairs.setDbl_twentyFourChangePercentage(0.0);
                     allCoinPairs.setStr_exchangeCoin("BTC");
@@ -1206,6 +1214,99 @@ lowPrice));
         return view;
     }
 
+    /*
+        private void fetchPrice(String bSlash, String aSlash) {
+            try {
+                progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
+                USDValues apiService = DeviantXApiClient.getCoinValues().create(USDValues.class);
+                Call<CoinValue> apiResponse = apiService.getCoinConversion(bSlash, aSlash);
+                Log.e("COINVALUE API:\t:", apiResponse.toString());
+                apiResponse.enqueue(new Callback<CoinValue>() {
+                    @Override
+                    public void onResponse(Call<CoinValue> call, Response<CoinValue> response) {
+                        try {
+                            progressDialog.dismiss();
+                            if (response != null) {
+                                coinValue = response.body().getcoinValue();
+    //                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, "fetched");
+                                Log.e(CONSTANTS.TAG, "onResponse:\n" + response.body().getcoinValue());
+                            } else {
+    //                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
+                                Log.e(CONSTANTS.TAG, "COINVALUE  onResponse:\n" + response.message());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CoinValue> call, Throwable t) {
+                        if (t instanceof SocketTimeoutException) {
+                            progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                        } else if (t instanceof java.net.ConnectException) {
+                            progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                        } else {
+                            progressDialog.dismiss();
+                            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                        }
+                    }
+                });
+            } catch (Exception ex) {
+                progressDialog.dismiss();
+                ex.printStackTrace();
+                CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+            }
+        }
+    */
+    private void fetchPrice(String bSlash, String aSlash) {
+        try {
+            USDValues apiService = DeviantXApiClient.getCoinValues().create(USDValues.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinConversion(bSlash, aSlash);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        if (response != null) {
+                            String res = response.body().string();
+                            if (!res.isEmpty() && res != null) {
+                                JSONObject jsonObject = new JSONObject(res);
+                                coinValue = jsonObject.getDouble(aSlash);
+                                Log.e(CONSTANTS.TAG, "onResponse:\n" + res);
+                            } else {
+                                CommonUtilities.ShowToastMessage(getActivity(), "fetched");
+                            }
+                        } else {
+//                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
+                            Log.e(CONSTANTS.TAG, "COINVALUE  onResponse:\n" + response.message());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
+                    } else {
+                        CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
+        }
+    }
+
     private void showDialog() {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_user_cant_order);
         final DialogPlus dialog = DialogPlus.newDialog(getActivity())
@@ -1266,7 +1367,13 @@ lowPrice));
         LinearLayout lnr_fees_avail = view.findViewById(R.id.lnr_fees_avail);
         TextView txt_fee_unavail = view.findViewById(R.id.txt_fee_unavail);
         TextView txt_fee_bal = view.findViewById(R.id.txt_fee_bal);
+        TextView txt_ttl_lbl = view.findViewById(R.id.txt_ttl_lbl);
 
+        if (isBuy){
+            txt_ttl_lbl.setText(getResources().getText(R.string.buy));
+        }else {
+            txt_ttl_lbl.setText(getResources().getText(R.string.sell));
+        }
         if (isStopLimit) {
             lnr_stop_price.setVisibility(View.VISIBLE);
             txt_stop_price.setText(String.format("%.6f", stop_price));
@@ -1300,11 +1407,18 @@ lowPrice));
         boolean isDevFees = sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
         boolean isNCoinAvail = false;
         if (isDevFees) {
-            txt_fee_lbl.setText(getResources().getText(R.string.fees_dev));
-            txt_fee_code.setText("DEV");
 
-            double fee = (total * 0.25) / 100;
-            fee = fee / 2;
+            double fee = 0.0;
+            if (isBuy) {
+                fetchPrice(afterSlash, "DEV");
+                fee = (total * 0.25) / 100;
+            } else {
+                fetchPrice(beforeSlash, "DEV");
+                fee = (amount * 0.25) / 100;
+            }
+            txt_fee_lbl.setText(getResources().getText(R.string.dev));
+            txt_fee_code.setText(getResources().getText(R.string.dev));
+            fee = (fee * coinValue) / 2;
             txt_fee_val.setText(String.format("%.6f", fee));
 
             int selected_i = 0;
@@ -1334,10 +1448,11 @@ lowPrice));
             }
 
         } else {
-            double fee = (total * 0.25) / 100;
-            txt_fee_val.setText(String.format("%.6f", fee));
 
-            if (txt_price_code.getText().toString().trim().equals("ETH")) {
+/*
+         double fee = (total * 0.25) / 100;
+            txt_fee_val.setText(String.format("%.6f", fee));
+       if (txt_price_code.getText().toString().trim().equals("ETH")) {
                 txt_fee_lbl.setText(getResources().getText(R.string.fees_eth));
                 txt_fee_code.setText("ETH");
 
@@ -1422,6 +1537,70 @@ lowPrice));
                     txt_fee_unavail.setText(getResources().getText(R.string.pls_add_dev));
                 }
             }
+*/
+
+            if (isBuy) {
+//    price
+                double fee = (total * 0.25) / 100;
+                txt_fee_val.setText(String.format("%.6f", fee));
+                txt_fee_lbl.setText(txt_price_code.getText().toString().trim());
+                txt_fee_code.setText(txt_price_code.getText().toString().trim());
+                int selected_i = 0;
+                for (int i = 0; i < accountWalletlist.size(); i++) {
+                    if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_price_code.getText().toString().trim())) {
+                        isNCoinAvail = true;
+                        selected_i = i;
+                    }
+                }
+                if (isNCoinAvail) {
+                    txt_fee_unavail.setVisibility(View.GONE);
+                    if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                        lnr_fees_avail.setVisibility(View.GONE);
+                        txt_fee_bal.setVisibility(View.VISIBLE);
+                        txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_dev));
+                        txt_confirm.setVisibility(View.GONE);
+                    } else {
+                        txt_fee_bal.setVisibility(View.GONE);
+                        lnr_fees_avail.setVisibility(View.VISIBLE);
+                        txt_confirm.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_unavail.setVisibility(View.VISIBLE);
+                    txt_fee_unavail.setText(getResources().getText(R.string.pls_add_1) + txt_price_code.getText().toString().trim() + getResources().getText(R.string.pls_add_2));
+                }
+            } else {
+//    amount
+                double fee = (amount * 0.25) / 100;
+                txt_fee_val.setText(String.format("%.6f", fee));
+                txt_fee_lbl.setText(txt_amount_code.getText().toString().trim());
+                txt_fee_code.setText(txt_amount_code.getText().toString().trim());
+                int selected_i = 0;
+                for (int i = 0; i < accountWalletlist.size(); i++) {
+                    if (accountWalletlist.get(i).getStr_coin_code().trim().equals(txt_amount_code.getText().toString().trim())) {
+                        isNCoinAvail = true;
+                        selected_i = i;
+                    }
+                }
+                if (isNCoinAvail) {
+                    txt_fee_unavail.setVisibility(View.GONE);
+                    if (accountWalletlist.get(selected_i).getStr_data_balance() < fee) {
+                        lnr_fees_avail.setVisibility(View.GONE);
+                        txt_fee_bal.setVisibility(View.VISIBLE);
+                        txt_fee_bal.setText(getResources().getText(R.string.not_enough_balance_dev));
+                        txt_confirm.setVisibility(View.GONE);
+                    } else {
+                        txt_fee_bal.setVisibility(View.GONE);
+                        lnr_fees_avail.setVisibility(View.VISIBLE);
+                        txt_confirm.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    lnr_fees_avail.setVisibility(View.GONE);
+                    txt_fee_unavail.setVisibility(View.VISIBLE);
+                    txt_fee_unavail.setText(getResources().getText(R.string.pls_add_1) + txt_amount_code.getText().toString().trim() + getResources().getText(R.string.pls_add_2));
+                }
+            }
+
         }
 
         txt_amount.setText(String.format("%.6f", amount));
@@ -1582,16 +1761,16 @@ lowPrice));
                                             ask = (ArrayList<ExcOrders>) coinsStringArray.getList_ask();
 
                                             for (int i = 0; i < bid.size(); i++) {
-//                                                if (!bid.get(i).getStr_user().equals(myEmail)) {
+//                                                if (!bid.get(i).getStr_user().equals(myEmail))
                                                 if (bid.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                    bidList.add(bid.get(i));
-//                                                }
+                                                    if (bid.get(i).getDbl_price() > 0 && bid.get(i).getDbl_amount() > 0)
+                                                        bidList.add(bid.get(i));
                                             }
                                             for (int i = 0; i < ask.size(); i++) {
-//                                                if (!ask.get(i).getStr_user().equals(myEmail)) {
+//                                                if (!ask.get(i).getStr_user().equals(myEmail))
                                                 if (ask.get(i).getStr_coinPair().trim().equals(title_pair))
-                                                    askList.add(ask.get(i));
-//                                                }
+                                                    if (ask.get(i).getDbl_price() > 0 && ask.get(i).getDbl_amount() > 0)
+                                                        askList.add(ask.get(i));
                                             }
 
 /*
@@ -1647,7 +1826,8 @@ lowPrice));
                                                 if (allCoinPairs/*.size() > 0*/ != null) {
                                                     highPrice = allCoinPairs.getDbl_previousValue();
                                                 } else {
-                                                    highPrice = 0.0389;
+//                                                    highPrice = 0.0389;
+                                                    highPrice = coinValue;
                                                 }
                                             }
                                             if (askList.size() > 0) {
@@ -1659,7 +1839,8 @@ lowPrice));
                                                 if (allCoinPairs/*.size() > 0*/ != null) {
                                                     lowPrice = allCoinPairs.getDbl_previousValue();
                                                 } else {
-                                                    lowPrice = 0.0389;
+//                                                    lowPrice = 0.0389;
+                                                    lowPrice = coinValue;
                                                 }
                                             }
 

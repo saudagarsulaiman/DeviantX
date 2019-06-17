@@ -64,6 +64,10 @@ public final class CommonUtilities {
     public static final String URL = "http://10.0.0.39:3322";
     public static final String WS = "http://10.0.0.39:3323/ws_v2/deviant/websocket";
 */
+/*
+    public static final String URL = "http://10.0.0.16:3322";
+    public static final String WS = "http://10.0.0.16:3323/ws_v2/deviant/websocket";
+*/
 
     private static Locale myLocale;
 

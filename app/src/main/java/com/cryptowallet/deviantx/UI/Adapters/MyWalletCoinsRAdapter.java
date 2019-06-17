@@ -327,10 +327,16 @@ public class MyWalletCoinsRAdapter extends RecyclerView.Adapter<MyWalletCoinsRAd
 */
             txt_coin_avail_value.setText("A: " + String.format("%.4f", accountWallet.getStr_data_balance()) + " " + accountWallet.getStr_coin_code());
             txt_usd_avail_value.setText("$ " + String.format("%.2f", CommonUtilities.getUSDValue(accountWallet.getStr_data_balance(), accountWallet.getDbl_coin_usdValue())) + " USD");
-            txt_coin_reserve_value.setText("R: " + String.format("%.4f", accountWallet.getStr_data_reservedBalance()) + " " + accountWallet.getStr_coin_code());
-            txt_usd_reserve_value.setText("$ " + String.format("%.2f", CommonUtilities.getUSDValue(accountWallet.getStr_data_reservedBalance(), accountWallet.getDbl_coin_usdValue())) + " USD");
-            txt_coin_total_value.setText("T: " + String.format("%.4f", CommonUtilities.getTotalBal(accountWallet.getStr_data_reservedBalance(), accountWallet.getStr_data_balance())) + " " + accountWallet.getStr_coin_code());
-            txt_usd_total_value.setText("$ " + String.format("%.2f", CommonUtilities.getTotalBal(CommonUtilities.getUSDValue(accountWallet.getStr_data_reservedBalance(), accountWallet.getDbl_coin_usdValue()), CommonUtilities.getUSDValue(accountWallet.getStr_data_balance(), accountWallet.getDbl_coin_usdValue()))) + " USD");
+            double total_res_bal = 0.0;
+            if (accountWallet.getStr_data_reservedFee() != null) {
+                total_res_bal = accountWallet.getStr_data_reservedBalance() + accountWallet.getStr_data_reservedFee();
+            } else {
+                total_res_bal = accountWallet.getStr_data_reservedBalance();
+            }
+            txt_coin_reserve_value.setText("R: " + String.format("%.4f", total_res_bal/*accountWallet.getStr_data_reservedBalance() + accountWallet.getStr_data_reservedFee()*/) + " " + accountWallet.getStr_coin_code());
+            txt_usd_reserve_value.setText("$ " + String.format("%.2f", CommonUtilities.getUSDValue(/*accountWallet.getStr_data_reservedBalance()*/total_res_bal, accountWallet.getDbl_coin_usdValue())) + " USD");
+            txt_coin_total_value.setText("T: " + String.format("%.4f", CommonUtilities.getTotalBal(/*accountWallet.getStr_data_reservedBalance()*/total_res_bal, accountWallet.getStr_data_balance())) + " " + accountWallet.getStr_coin_code());
+            txt_usd_total_value.setText("$ " + String.format("%.2f", CommonUtilities.getTotalBal(CommonUtilities.getUSDValue(/*accountWallet.getStr_data_reservedBalance()*/total_res_bal, accountWallet.getDbl_coin_usdValue()), CommonUtilities.getUSDValue(accountWallet.getStr_data_balance(), accountWallet.getDbl_coin_usdValue()))) + " USD");
         } else {
             txt_coin_avail_value.setText("A: " + "***" + " " + accountWallet.getStr_coin_code());
             txt_usd_avail_value.setText("$ " + "***" + " USD");

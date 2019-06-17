@@ -1,10 +1,7 @@
 package com.cryptowallet.deviantx.UI.Models;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import com.cryptowallet.trendchart.DateValue;
 import com.google.gson.annotations.SerializedName;
@@ -27,6 +24,9 @@ public class AccountWallet implements Parcelable {
 
     @SerializedName("balanceInUSD")
     Double str_data_balanceInUSD;
+
+    @SerializedName("reservedFee")
+    Double str_data_reservedFee;
 
     @SerializedName("coinCode")
     String str_coin_code;
@@ -67,7 +67,6 @@ public class AccountWallet implements Parcelable {
     @SerializedName("fav")
     Boolean isFav;
 
-
     protected AccountWallet(Parcel in) {
         str_data_walletName = in.readString();
         int_data_id = in.readInt();
@@ -85,6 +84,11 @@ public class AccountWallet implements Parcelable {
             str_data_balanceInUSD = null;
         } else {
             str_data_balanceInUSD = in.readDouble();
+        }
+        if (in.readByte() == 0) {
+            str_data_reservedFee = null;
+        } else {
+            str_data_reservedFee = in.readDouble();
         }
         str_coin_code = in.readString();
         str_coin_name = in.readString();
@@ -131,6 +135,90 @@ public class AccountWallet implements Parcelable {
         }
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(str_data_walletName);
+        dest.writeInt(int_data_id);
+        if (str_data_balance == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(str_data_balance);
+        }
+        if (str_data_reservedBalance == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(str_data_reservedBalance);
+        }
+        if (str_data_balanceInUSD == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(str_data_balanceInUSD);
+        }
+        if (str_data_reservedFee == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(str_data_reservedFee);
+        }
+        dest.writeString(str_coin_code);
+        dest.writeString(str_coin_name);
+        dest.writeString(str_coin_logo);
+        if (dbl_coin_usdValue == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_usdValue);
+        }
+        dest.writeInt(int_coin_rank);
+        if (dbl_coin_marketCap == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_marketCap);
+        }
+        if (dbl_coin_volume == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_volume);
+        }
+        if (dbl_coin_24h == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_24h);
+        }
+        if (dbl_coin_7d == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_7d);
+        }
+        if (dbl_coin_1m == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_coin_1m);
+        }
+        dest.writeString(str_coin_daily_chart_data);
+        dest.writeString(str_coin_isFeatureCoin);
+        dest.writeByte((byte) (isFav == null ? 0 : isFav ? 1 : 2));
+        if (highValue == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(highValue);
+        }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public static final Creator<AccountWallet> CREATOR = new Creator<AccountWallet>() {
         @Override
         public AccountWallet createFromParcel(Parcel in) {
@@ -143,68 +231,14 @@ public class AccountWallet implements Parcelable {
         }
     };
 
-    /* @SerializedName("address")
-                String str_data_address;
-
-                @SerializedName("privatekey")
-                String str_data_privatekey;
-
-                @SerializedName("passcode")
-                String str_data_passcode;
-
-                @SerializedName("account")
-                String str_data_account;
-
-                @SerializedName("balanceInINR")
-                Double str_data_balanceInINR;
-
-                @SerializedName("coin")
-                AllCoinsDB allCoins;
-            */
- /*   protected AccountWalletDB(Parcel in) {
-        str_data_walletName = in.readString();
-        int_data_id = in.readInt();
-        str_data_address = in.readString();
-        str_data_privatekey = in.readString();
-        str_data_passcode = in.readString();
-        str_data_account = in.readString();
-        if (in.readByte() == 0) {
-            str_data_balance = null;
-        } else {
-            str_data_balance = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            str_data_balanceInUSD = null;
-        } else {
-            str_data_balanceInUSD = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            str_data_balanceInINR = null;
-        } else {
-            str_data_balanceInINR = in.readDouble();
-        }
-        allCoins = in.readParcelable(AllCoinsDB.class.getClassLoader());
-        byte tmpIsFav = in.readByte();
-        isFav = tmpIsFav == 0 ? null : tmpIsFav == 1;
-        if (in.readByte() == 0) {
-            highValue = null;
-        } else {
-            highValue = in.readDouble();
-        }
+    public Double getStr_data_reservedFee() {
+        return str_data_reservedFee;
     }
 
-    public static final Creator<AccountWalletDB> CREATOR = new Creator<AccountWalletDB>() {
-        @Override
-        public AccountWalletDB createFromParcel(Parcel in) {
-            return new AccountWalletDB(in);
-        }
+    public void setStr_data_reservedFee(Double str_data_reservedFee) {
+        this.str_data_reservedFee = str_data_reservedFee;
+    }
 
-        @Override
-        public AccountWalletDB[] newArray(int size) {
-            return new AccountWalletDB[size];
-        }
-    };
-*/
     public String getStr_data_walletName() {
         return str_data_walletName;
     }
@@ -368,175 +402,5 @@ public class AccountWallet implements Parcelable {
     public void setResponseList(ArrayList<DateValue> responseList) {
         this.responseList = responseList;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(str_data_walletName);
-        dest.writeInt(int_data_id);
-        if (str_data_balance == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_balance);
-        }
-        if (str_data_reservedBalance == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_reservedBalance);
-        }
-        if (str_data_balanceInUSD == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_balanceInUSD);
-        }
-        dest.writeString(str_coin_code);
-        dest.writeString(str_coin_name);
-        dest.writeString(str_coin_logo);
-        if (dbl_coin_usdValue == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_usdValue);
-        }
-        dest.writeInt(int_coin_rank);
-        if (dbl_coin_marketCap == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_marketCap);
-        }
-        if (dbl_coin_volume == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_volume);
-        }
-        if (dbl_coin_24h == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_24h);
-        }
-        if (dbl_coin_7d == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_7d);
-        }
-        if (dbl_coin_1m == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(dbl_coin_1m);
-        }
-        dest.writeString(str_coin_daily_chart_data);
-        dest.writeString(str_coin_isFeatureCoin);
-        dest.writeByte((byte) (isFav == null ? 0 : isFav ? 1 : 2));
-        if (highValue == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(highValue);
-        }
-    }
-
-
-/*
-    public String getStr_data_address() {
-        return str_data_address;
-    }
-
-    public void setStr_data_address(String str_data_address) {
-        this.str_data_address = str_data_address;
-    }
-
-    public String getStr_data_privatekey() {
-        return str_data_privatekey;
-    }
-
-    public void setStr_data_privatekey(String str_data_privatekey) {
-        this.str_data_privatekey = str_data_privatekey;
-    }
-
-    public String getStr_data_passcode() {
-        return str_data_passcode;
-    }
-
-    public void setStr_data_passcode(String str_data_passcode) {
-        this.str_data_passcode = str_data_passcode;
-    }
-
-    public String getStr_data_account() {
-        return str_data_account;
-    }
-
-    public void setStr_data_account(String str_data_account) {
-        this.str_data_account = str_data_account;
-    }
-
-   public Double getStr_data_balanceInINR() {
-        return str_data_balanceInINR;
-    }
-
-    public void setStr_data_balanceInINR(Double str_data_balanceInINR) {
-        this.str_data_balanceInINR = str_data_balanceInINR;
-    }
-
-    public AllCoinsDB getAllCoins() {
-        return allCoins;
-    }
-
-    public void setAllCoins(AllCoinsDB allCoins) {
-        this.allCoins = allCoins;
-    }
-
-
-   @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(str_data_walletName);
-        dest.writeInt(int_data_id);
-        dest.writeString(str_data_address);
-        dest.writeString(str_data_privatekey);
-        dest.writeString(str_data_passcode);
-        dest.writeString(str_data_account);
-        if (str_data_balance == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_balance);
-        }
-        if (str_data_balanceInUSD == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_balanceInUSD);
-        }
-        if (str_data_balanceInINR == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(str_data_balanceInINR);
-        }
-        dest.writeParcelable(allCoins, flags);
-        dest.writeByte((byte) (isFav == null ? 0 : isFav ? 1 : 2));
-        if (highValue == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(highValue);
-        }
-    }*/
 
 }
