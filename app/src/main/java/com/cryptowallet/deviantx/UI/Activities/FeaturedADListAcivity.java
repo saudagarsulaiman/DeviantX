@@ -219,7 +219,6 @@ public class FeaturedADListAcivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -227,7 +226,6 @@ public class FeaturedADListAcivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -236,15 +234,12 @@ public class FeaturedADListAcivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(FeaturedADListAcivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -252,7 +247,6 @@ public class FeaturedADListAcivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(FeaturedADListAcivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

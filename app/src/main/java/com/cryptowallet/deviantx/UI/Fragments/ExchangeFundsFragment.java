@@ -95,9 +95,6 @@ public class ExchangeFundsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-/*
-        fetchCoinsWalletDetails();
-*/
     }
 
     @Override
@@ -142,7 +139,6 @@ public class ExchangeFundsFragment extends Fragment {
                     editor.apply();
                     myApplication.setDevFees(true);
                     onResume();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_active));
                 } else {
                     scompat_dev_fees.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
                     scompat_dev_fees.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
@@ -150,7 +146,6 @@ public class ExchangeFundsFragment extends Fragment {
                     editor.apply();
                     myApplication.setDevFees(false);
                     onResume();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_inactive));
                 }
             }
         });
@@ -266,7 +261,6 @@ public class ExchangeFundsFragment extends Fragment {
     private void fetchCoinsWalletDetails() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             WalletControllerApi apiService = DeviantXApiClient.getClient().create(WalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllWalletsDetails(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -274,50 +268,37 @@ public class ExchangeFundsFragment extends Fragment {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIWalletDetails(responsevalue);
-//                            progressDialog.dismiss();
                             WalletDetailsDao mDao = deviantXDB.walletDetailsDao();
                             WalletDetailsDB walletDetailsDB = new WalletDetailsDB(1, responsevalue);
                             mDao.insertWalletDetails(walletDetailsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

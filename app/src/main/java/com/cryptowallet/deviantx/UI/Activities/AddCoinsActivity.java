@@ -69,13 +69,7 @@ public class AddCoinsActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    int int_data_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    ;
-
-    String loginResponseData, loginResponseStatus, loginResponseMsg,
-            str_coin_name, str_coin_code, str_coin_logo;
-
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
     ArrayList<AllCoins> allCoinsList;
     CoinSelectableListener coinSelectableListener;
     int selectedCoinId = 0;
@@ -85,28 +79,7 @@ public class AddCoinsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(AddCoinsActivity.this);
     }
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(AddCoinsActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(AddCoinsActivity.this);
-        super.onPause();
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,30 +144,6 @@ public class AddCoinsActivity extends AppCompatActivity {
         coinSelectableListener = new CoinSelectableListener() {
             @Override
             public void CoinSelected(ArrayList<AllCoins> selected_allCoinsList, int pos) {
-                // btn_ready.setVisibility(View.GONE);
-                // allCoinsList = selected_allCoinsList;
-//                                        for (final AllCoinsDB coins : allCoinsList) {
-//                                            if (coins.getSelected()) {
-//                                                btn_ready.setVisibility(View.VISIBLE);
-//                                                btn_ready.setOnClickListener(new View.OnClickListener() {
-//                                                    @Override
-//                                                    public void onClick(View v) {
-//                                                        if (CommonUtilities.isConnectionAvailable(AddCoinsActivity.this)) {
-//                                                            String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "");
-////                                                            Creating Wallet
-//                                                            CreateWallet(wallet_name, coins.getStr_coin_code());
-//
-//                                                        } else {
-//                                                            CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.internetconnection));
-//                                                        }
-//                                                    }
-//
-//                                                });
-//                                                break;
-//                                            }
-//                                        }
-
-//                try {
 
                 int i = 0;
                 //  final AllCoinsDB selectedCoin = new AllCoinsDB();
@@ -228,35 +177,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                         }
                     }
                 });
-                                       /* if (i == 0) {
-                                            CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.selected_none));
-                                        } else if (i > 1) {
-                                            CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.select_one));
-                                        } else {
-                                            for (int j = 0; j < selected_allCoinsList.size(); j++) {
-                                                if (selected_allCoinsList.get(j).getSelected()) {
-                                                    selectedCoin.setStr_coin_code(selected_allCoinsList.get(j).getStr_coin_code());
-                                                    selectedCoin.setStr_coin_name(selected_allCoinsList.get(j).getStr_coin_name());
-                                                    btn_ready.setVisibility(View.VISIBLE);
-                                                    btn_ready.setOnClickListener(new View.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(View v) {
-                                                            if (CommonUtilities.isConnectionAvailable(AddCoinsActivity.this)) {
-                                                                String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
-//                                                              Creating Wallet
-                                                                CreateWallet(selectedCoin.getStr_coin_name(), selectedCoin.getStr_coin_code(),wallet_name);
-                                                            } else {
-                                                                CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.internetconnection));
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            }
-                                        }*/
-
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
 
             }
         };
@@ -299,68 +219,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                         AllCoins[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AllCoins[].class);
 
                         allCoinsList = new ArrayList<AllCoins>(Arrays.asList(coinsStringArray));
-                        /*for (int i = 0; i < jsonArrayData.length(); i++) {
-                            JSONObject jsonObjectCoins = jsonArrayData.getJSONObject(i);
-
-                            try {
-                                int_data_id = jsonObjectCoins.getInt("id");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_name = jsonObjectCoins.getString("name");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_code = jsonObjectCoins.getString("code");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                str_coin_logo = jsonObjectCoins.getString("logo");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_usdValue = jsonObjectCoins.getDouble("usdValue");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                            try {
-                                int_coin_rank = jsonObjectCoins.getInt("rank");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_marketCap = jsonObjectCoins.getDouble("marketCap");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_volume = jsonObjectCoins.getDouble("volume");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_24h = jsonObjectCoins.getDouble("change24H");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_7d = jsonObjectCoins.getDouble("change7D");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                dbl_coin_1m = jsonObjectCoins.getDouble("change1M");
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            allCoinsList.add(new AllCoinsDB(int_data_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
-                        }*/
-
 
                         addCoinsRAdapter = new AddCoinsRAdapter(AddCoinsActivity.this, allCoinsList, coinSelectableListener);
                         rview_coins_list.setAdapter(addCoinsRAdapter);
@@ -397,7 +255,6 @@ public class AddCoinsActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -405,7 +262,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -414,15 +270,12 @@ public class AddCoinsActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -430,7 +283,6 @@ public class AddCoinsActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -470,7 +322,6 @@ public class AddCoinsActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -478,7 +329,6 @@ public class AddCoinsActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -487,14 +337,12 @@ public class AddCoinsActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.networkerror));
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -502,7 +350,6 @@ public class AddCoinsActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(AddCoinsActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

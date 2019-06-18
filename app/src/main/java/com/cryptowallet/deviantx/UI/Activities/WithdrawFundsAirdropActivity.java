@@ -137,27 +137,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 //        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
     }
 
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(WithdrawFundsAirdropActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(WithdrawFundsAirdropActivity.this);
-        super.onPause();
-    }
-*/
-
-
     public static int PERMISSION_ALL = 1;
     public static String[] PERMISSIONS = {Manifest.permission.CAMERA};
 
@@ -496,7 +475,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
 
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -504,7 +482,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -513,15 +490,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -529,7 +503,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -707,24 +680,17 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                                     e.printStackTrace();
                                 }
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
-/*
-                                CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
-*/
-//                                onBackPressed();
-//                                Log.i(CONSTANTS.TAG, "onResponse:\n" + loginResponseMsg);
-                            } else {
+                     } else {
                                 CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -733,15 +699,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -749,7 +712,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -797,14 +759,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, regResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -813,15 +773,12 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -829,7 +786,6 @@ public class WithdrawFundsAirdropActivity extends AppCompatActivity implements A
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WithdrawFundsAirdropActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

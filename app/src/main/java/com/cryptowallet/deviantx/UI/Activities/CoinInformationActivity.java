@@ -138,7 +138,6 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
 
     String respData, respStatus, respMsg;
-//    boolean  = false;
 
     @Override
     protected void onResume() {
@@ -336,7 +335,6 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
                         } else {
                             CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.empty_data));
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                             pb.setVisibility(View.GONE);
                         }
@@ -344,9 +342,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                     } catch (Exception e) {
                         pb.setVisibility(View.GONE);
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -354,28 +350,20 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         pb.setVisibility(View.GONE);
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         pb.setVisibility(View.GONE);
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         pb.setVisibility(View.GONE);
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
             pb.setVisibility(View.GONE);
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 

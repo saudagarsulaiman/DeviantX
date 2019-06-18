@@ -150,14 +150,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
                 .setOutAnimation(R.anim.slide_out_bottom)
                 .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
-                .create();
+         .create();
 
 //                Initializing Widgets
         View view = dialog.getHolderView();
@@ -343,7 +336,6 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
     private void fetchAllOrders() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(ExchangeOrderHistoryActivity.this, "", getResources().getString(R.string.please_wait), true);
             String coin_pair = sharedPreferences.getString(CONSTANTS.selCP, "ETH/BTC");
             JSONObject params = new JSONObject();
             try {
@@ -358,10 +350,7 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -421,39 +410,29 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(ExchangeOrderHistoryActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

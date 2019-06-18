@@ -72,19 +72,6 @@ public class CandleGraph implements Comparable<CandleGraph> {
         this.volume = volume;
     }
 
-
-   /* public Date getDate() {
-        try {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(time);
-            Date d1 = calendar.getTime();
-            return d1;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }*/
-
     @Override
     public int compareTo(@NonNull CandleGraph measure) {
         if (time == null || measure.time == null)

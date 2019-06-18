@@ -132,16 +132,7 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
     ArrayList<AccountWallet> accountWalletlist;
     ArrayList<AccountWallet> filterCoinlist;
-    String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo,
-            str_data_address, str_data_walletName, str_data_privatekey, str_data_passcode,
-            str_data_account, str_data_coin, str_coin_chart_data;
-    int int_coin_id, int_data_id, int_coin_rank;
-    Double dbl_coin_usdValue, dbl_data_balance, dbl_data_balanceInUSD, dbl_data_balanceInINR, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
-    boolean isFav = false;
-    String str_data_name;
-    int int_data_walletid;
-    double dbl_data_totalBal;
-    boolean defaultWallet = false;
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
     FavListener favListener;
     DeviantXDB db;
     boolean hideBal;
@@ -522,19 +513,16 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -574,14 +562,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
 
             } else {
                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                 Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -721,14 +707,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                 }
             } else {
                 CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             lnr_reload.setVisibility(View.VISIBLE);
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -774,15 +758,12 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
                     if (t instanceof SocketTimeoutException) {
                         lnr_reload.setVisibility(View.VISIBLE);
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         lnr_reload.setVisibility(View.VISIBLE);
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         lnr_reload.setVisibility(View.VISIBLE);
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -790,7 +771,6 @@ public class DashboardFragment extends Fragment implements DiscreteScrollView.On
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
             lnr_reload.setVisibility(View.VISIBLE);
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 

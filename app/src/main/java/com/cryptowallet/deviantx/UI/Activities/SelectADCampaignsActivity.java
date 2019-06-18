@@ -35,7 +35,6 @@ public class SelectADCampaignsActivity extends AppCompatActivity implements Adap
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
     }
 
     @Override

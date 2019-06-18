@@ -454,12 +454,7 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-//              Main Link
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/ws_v2/deviant/websocket");
-                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
-//              Local Link
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
-//                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
+                stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, CommonUtilities.WS);
                 stompClient.connect();
                 Log.e(TAG, "*****Connected " + "*****: /topic/orderbook");
 
@@ -470,16 +465,10 @@ public class ExchangeCoinInfoActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-/*
-                        stompClient.topic("/topic/orderbook").subscribe(new Action1<StompMessage>() {
-*/
                         stompClient.topic("/topic/market_depth").subscribe(new Action1<StompMessage>() {
                             @Override
                             public void call(StompMessage message) {
                                 try {
-/*
-                                    Log.e(TAG, "*****Received " + "*****: /topic/orderbook" + message.getPayload());
-*/
                                     Log.e(TAG, "*****Received " + "*****: /topic/market_depth" + message.getPayload());
                                     ExcOrdersDelete coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), ExcOrdersDelete.class);
                                     //allExcOrders = new ArrayList<ExcOrdersDelete>(Arrays.asList(coinsStringArray));

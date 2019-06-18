@@ -72,7 +72,7 @@ import retrofit2.Response;
 
 import static com.cryptowallet.deviantx.Utilities.MyApplication.myApplication;
 
-public class AirDropFragment extends Fragment /*implements DroppyClickCallbackInterface, DroppyMenuPopup.OnDismissCallback */ {
+public class AirDropFragment extends Fragment {
 
     View view;
     @BindView(R.id.rview_fad_coins)
@@ -132,8 +132,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-//    ProgressDialog progressDialog;
-
 
     ArrayList<FeaturedAirdrops> allFeaturedAirdrops;
     ArrayList<DividendAirdrops> allDividendAirdrops;
@@ -250,14 +248,8 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
         mRvPop = EasyPopup.create()
                 .setContext(getActivity())
                 .setContentView(R.layout.dialog_airdrop_menu)
-//                .setAnimationStyle(R.style.RightTopPopAnim)
-//                .setHeight(700)
-//                .setWidth(600)
                 .setFocusAndOutsideEnable(true)
                 .setBackgroundDimEnable(true)
-//                .setDimValue(0.5f)
-//                .setDimColor(Color.RED)
-//                .setDimView(mTitleBar)
                 .apply();
 
 
@@ -344,7 +336,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchAirdropWallet() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             AirdropWalletControllerApi apiService = DeviantXApiClient.getClient().create(AirdropWalletControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAirdropWallet(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -352,7 +343,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIADWallet(responsevalue);
@@ -362,46 +352,35 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
 
     private int getDaysPer(String startDate, int noOfDays) {
         int result = 0;
-
 //        String endDate = "1551378600000";  // endDate = 1551378600000 = 01/03/2019
         long start = Long.parseLong(startDate);
 //        long end = Long.parseLong(endDate);
@@ -631,7 +610,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchCoinsFeaturedAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getUserAD(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -639,50 +617,37 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIFeaturedAirdrops(responsevalue);
-//                            progressDialog.dismiss();
                             FeaturedAirdropsDao mDao = deviantXDB.featuredAirdropsDao();
                             FeaturedAirdropsDB featuredAirdropsDB = new FeaturedAirdropsDB(1, responsevalue);
                             mDao.insertFeaturedAirdrops(featuredAirdropsDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -759,7 +724,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchCoinsDividendAirdrops() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getClaimADAmount(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -767,53 +731,39 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIDividendAirdrops(responsevalue);
-//                            progressDialog.dismiss();
                             DividendAirdropsDao mDao = deviantXDB.dividendAirdropsDao();
                             DividendAirdropsDB dividendAirdropsDB = new DividendAirdropsDB(1, responsevalue);
                             mDao.insertDividendAirdrops(dividendAirdropsDB);
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
-
 
     //    **************GETTING AIRDROPS HISTORY**************
     private void onLoadAirdropsHistory() {
@@ -858,7 +808,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                         loginResponseData = jsonObject.getString("data");
                         AirdropsHistory[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, AirdropsHistory[].class);
                         allAirdropsHistory = new ArrayList<AirdropsHistory>(Arrays.asList(coinsStringArray));
-
                         ArrayList<AirdropsHistory> airdropsHistoryList = new ArrayList<>();
                         for (AirdropsHistory coinName : allAirdropsHistory) {
                             airdropsHistoryList.add(coinName);
@@ -887,7 +836,6 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
     private void fetchCoinsAirdropsHistory() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             UserAirdropControllerApi apiService = DeviantXApiClient.getClient().create(UserAirdropControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getADHistory(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -895,52 +843,37 @@ public class AirDropFragment extends Fragment /*implements DroppyClickCallbackIn
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIAirdropsHistory(responsevalue);
-//                            progressDialog.dismiss();
                             AirdropsHistoryDao mDao = deviantXDB.airdropsHistoryDao();
                             AirdropsHistoryDB airdropsHistoryDB = new AirdropsHistoryDB(1, responsevalue);
                             mDao.insertAirdropsHistory(airdropsHistoryDB);
-
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }

@@ -69,32 +69,6 @@ public class EditWalletActivity extends AppCompatActivity {
         myApplication.disableScreenCapture(this);
     }
 
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CommonUtilities.serviceStart(EditWalletActivity.this);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(EditWalletActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(EditWalletActivity.this);
-        super.onPause();
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,7 +170,6 @@ public class EditWalletActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -204,7 +177,6 @@ public class EditWalletActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -213,15 +185,12 @@ public class EditWalletActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -229,7 +198,6 @@ public class EditWalletActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -268,7 +236,6 @@ public class EditWalletActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(EditWalletActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -276,7 +243,6 @@ public class EditWalletActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -285,15 +251,12 @@ public class EditWalletActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -301,7 +264,6 @@ public class EditWalletActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(EditWalletActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

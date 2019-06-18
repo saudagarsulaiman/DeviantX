@@ -81,28 +81,7 @@ public class ReceiveCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(ReceiveCoinActivity.this);
     }
-
-  /*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(ReceiveCoinActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(ReceiveCoinActivity.this);
-        super.onPause();
-    }
-*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,14 +227,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -264,15 +241,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -280,7 +254,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -330,14 +303,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -346,15 +317,12 @@ public class ReceiveCoinActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -362,7 +330,6 @@ public class ReceiveCoinActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(ReceiveCoinActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

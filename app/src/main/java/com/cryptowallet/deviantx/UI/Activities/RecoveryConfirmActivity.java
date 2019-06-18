@@ -56,18 +56,9 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
     @BindView(R.id.txt_chars)
     TextView txt_chars;
 
-
-    String tkn, new_pswd, conf_pswd;
-
     String loginResponseMsg, loginResponseStatus;
 
     ProgressDialog progressDialog;
-//    SharedPreferences sharedPreferences;
-//    SharedPreferences.Editor editor;
-
-//    String email;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +66,6 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recovery_confirm);
 
         ButterKnife.bind(this);
-
-//        sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
-//        editor = sharedPreferences.edit();
-
-//        Bundle bundle= getIntent().getExtras();
-//        email = bundle.getString(CONSTANTS.email);
-//        email = sharedPreferences.getString(CONSTANTS.email,"");
 
         btn_change_pswd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,7 +178,6 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -202,7 +185,6 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -211,15 +193,12 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -227,7 +206,6 @@ public class RecoveryConfirmActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(RecoveryConfirmActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
 

@@ -481,7 +481,6 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
 
                         } else {
                             CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -489,7 +488,6 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -498,15 +496,12 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(CreateADCampaignsActivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -788,13 +783,11 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
                 }
             } else {
                 CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             CommonUtilities.ShowToastMessage(CreateADCampaignsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 

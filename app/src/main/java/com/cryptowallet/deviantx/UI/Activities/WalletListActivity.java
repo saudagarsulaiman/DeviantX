@@ -57,14 +57,7 @@ public class WalletListActivity extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     MyWalletListRAdapter myWalletListRAdapter;
 
-    /*  @Override
-      protected void onRestart() {
-          super.onRestart();
-          myApplication.disableScreenCapture(this);
-          invokeWallet();
-      }
-  */
-    @Override
+        @Override
     public void onDestroy() {
         super.onDestroy();
         if (walletUIChangeListener != null) {
@@ -76,29 +69,7 @@ public class WalletListActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         myApplication.setWalletUIChangeListener(walletUIChangeListener);
-//        CommonUtilities.serviceStart(WalletListActivity.this);
     }
-
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(WalletListActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(WalletListActivity.this);
-        super.onPause();
-    }
-*/
-
 
     WalletUIChangeListener walletUIChangeListener = new WalletUIChangeListener() {
         @Override
@@ -115,11 +86,7 @@ public class WalletListActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     ProgressDialog progressDialog;
 
-    String loginResponseData, loginResponseStatus, loginResponseMsg, str_data_name;
-    int int_data_id, int_data_walletid;
-    double dbl_data_totalBal;
-    boolean defaultWallet = false;
-
+    String loginResponseData, loginResponseStatus, loginResponseMsg;
     ArrayList<WalletList> walletList;
 
     DeviantXDB db;
@@ -208,37 +175,7 @@ public class WalletListActivity extends AppCompatActivity {
                     loginResponseData = jsonObject.getString("data");
                     WalletList[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, WalletList[].class);
                     walletList = new ArrayList<WalletList>(Arrays.asList(coinsStringArray));
-                   /*
-                                       JSONArray jsonArrayData = new JSONArray(loginResponseData);
-for (int i = 0; i < jsonArrayData.length(); i++) {
-                        JSONObject jsonObjectData = jsonArrayData.getJSONObject(i);
-                        try {
-                            int_data_walletid = jsonObjectData.getInt("id");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            str_data_name = jsonObjectData.getString("name");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            dbl_data_totalBal = jsonObjectData.getDouble("toatalBalance");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            defaultWallet = jsonObjectData.getBoolean("defaultWallet");
-                            if (defaultWallet) {
-                                editor.putInt(CONSTANTS.defaultWallet, i);
-                                editor.apply();
-                                myApplication.setDefaultWallet(i);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        walletList.add(new WalletListDB(int_data_walletid, str_data_name, dbl_data_totalBal, defaultWallet));
-                    }*/
+
                     myWalletListRAdapter.setAllWallets(walletList);
                     rview_my_walletlist.setAdapter(myWalletListRAdapter);
 
@@ -283,20 +220,16 @@ for (int i = 0; i < jsonArrayData.length(); i++) {
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(WalletListActivity.this, getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(WalletListActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

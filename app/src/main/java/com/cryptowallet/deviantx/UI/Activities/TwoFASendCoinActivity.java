@@ -78,29 +78,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(TwoFASendCoinActivity.this);
     }
-
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(TwoFASendCoinActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(TwoFASendCoinActivity.this);
-        super.onPause();
-    }
-*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +117,6 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void Verify2FA(String code, AccountWallet selectedAccountWallet, String send_bal, String fiat_bal, Double ttl_rcv, String str_btcp_address) {
@@ -169,14 +146,12 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                             }
                         } else {
                             CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, regResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -185,15 +160,12 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -201,7 +173,6 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -216,14 +187,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                 .setOutAnimation(R.anim.slide_out_bottom)
                 .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
-                .create();
+  .create();
 
 //                Initializing Widgets
         View view = dialog.getHolderView();
@@ -349,7 +313,6 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -357,7 +320,6 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -366,15 +328,12 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -382,7 +341,6 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 

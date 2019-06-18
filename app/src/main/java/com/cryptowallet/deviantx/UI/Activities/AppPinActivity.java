@@ -36,7 +36,6 @@ public class AppPinActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(WithdrawFundsAirdropActivity.this);
     }
 
     @Override

@@ -62,11 +62,7 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
         slogan.add("Buy tokens and receive directly here.");
         icons.add(R.drawable.ic_ico);
 
-      /*  title.add("Deviant X Airdrop");
-        slogan.add("Win free coins through challenges!");
-        icons.add(R.drawable.ic_airdrop);*/
-
-        title.add("Shapeshift");
+            title.add("Shapeshift");
         slogan.add("Leading instant digital asset exchange.");
         icons.add(R.drawable.ic_shape_shift);
 

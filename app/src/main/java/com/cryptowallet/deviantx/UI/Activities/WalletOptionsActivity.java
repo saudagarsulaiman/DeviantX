@@ -58,24 +58,6 @@ public class WalletOptionsActivity extends AppCompatActivity {
 //        CommonUtilities.serviceStart(WalletOptionsActivity.this);
     }
 
-  /*  @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(WalletOptionsActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(WalletOptionsActivity.this);
-        super.onPause();
-    }*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

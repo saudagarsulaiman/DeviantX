@@ -56,12 +56,5 @@ public class RefreshServiceReceiver extends BroadcastReceiver {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        Intent walletIntent = new Intent(context, WalletDataFetch.class);
-//        context.startService(walletIntent);
-//        Intent coinsIntent = new Intent(context, AllCoinsFetch.class);
-//        context.startService(coinsIntent);
-//        Intent airdropIntent = new Intent(context, AirdropWalletFetch.class);
-//        context.startService(airdropIntent);
     }
 }

@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
@@ -164,8 +163,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
         myApplication.setNewsDXUIListener(newsDXUIListener);
         myApplication.setAllCoinsUIListener(allCoinsUIListener);
         myApplication.setPairsListUIListener(PairsListUIListener);
-//        myApplication.setCoinPairsUIListener(coinPairsUIListener);
-//        stompClient.connect();
     }
 
     @Override
@@ -175,8 +172,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
         myApplication.setNewsDXUIListener(null);
         myApplication.setAllCoinsUIListener(null);
         myApplication.setPairsListUIListener(null);
-//        myApplication.setCoinPairsUIListener(null);
-//        stompClient.disconnect();
     }
 
     private static final String TAG = "DEVIANTX";
@@ -212,16 +207,7 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
 
 
         try {
-//            Main Link
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/ws_v2/deviant/websocket");
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "wss://deviantx.app/ws_v2/deviant/websocket");
             stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, CommonUtilities.WS);
-            //            Local Link
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.179:3323/ws_v2/deviant/websocket");
-//            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://192.168.0.111:3323/ws_v2/deviant/websocket");
-/*
-            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://10.0.0.35:3323/ws_v2/deviant/websocket");
-*/
             stompClient.connect();
             Log.e(TAG, "*****Connected " + "*****: /topic/exchange_pair");
             allCoinPairs = new ArrayList<>();
@@ -303,20 +289,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
             Log.e("Errorrrrr:", e.toString());
         }
 
-       /* stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-        stompClient.connect();
-        stompClient.topic("/topic/exchange_pair/" + code).subscribe(new Action1<StompMessage>() {
-            @Override
-            public void call(StompMessage message) {
-                Log.e(TAG, "*****Received " + code + "*****: EDFonCreate" + message.getPayload());
-                CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
-                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-            }
-        });*/
-
         spnr_pairs_list.setOnItemSelectedListener(this);
         Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
         serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
@@ -384,34 +356,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     e.printStackTrace();
                 }
 
-/*
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, isGainer, false);
-                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                gainerLoserExcDBRAdapter.notifyDataSetChanged();
-*/
-
-               /* try {
-                    stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-                    stompClient.connect();
-
-                    stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
-                        @Override
-                        public void call(StompMessage message) {
-                            Log.e(TAG, "*****Received " + selectedCoinName + "*****: EDFgainers" + message.getPayload());
-                            CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                            gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-
-                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
-                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
-              /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-                serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
-                getActivity().startService(serviceIntent);*/
             }
         });
 
@@ -431,7 +375,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     allCoinPairsList = new ArrayList<>();
                     gainersList = new ArrayList<>();
                     loosersList = new ArrayList<>();
-                    //pb.setVisibility(View.VISIBLE);
                     for (int i = 0; i < allCoinPairs.size(); i++) {
                         if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
                             if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
@@ -470,47 +413,13 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
-                            //pb.setVisibility(View.GONE);
                         }
                     }, 800);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-/*
-                gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), allCoinPairsList, selectedCoinName, false, false);
-                rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                gainerLoserExcDBRAdapter.notifyDataSetChanged();
-*/
-
-
-
-              /*  try {
-                    stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-                    stompClient.connect();
-
-                    stompClient.topic("/topic/exchange_pair/" + selectedCoinName).subscribe(new Action1<StompMessage>() {
-                        @Override
-                        public void call(StompMessage message) {
-                            Log.e(TAG, "*****Received " + selectedCoinName + "*****: EDFloosers" + message.getPayload());
-                            CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                            gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-
-                            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, false, false);
-                            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }*/
-               /* Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-                serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
-                getActivity().startService(serviceIntent);
-*/
-
             }
-
 
         });
 
@@ -567,7 +476,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     JSONObject jsonObject = new JSONObject(responsevalue);
                     loginResponseMsg = jsonObject.getString("msg");
                     loginResponseStatus = jsonObject.getString("status");
-
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
                         HeaderBanner[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, HeaderBanner[].class);
@@ -606,7 +514,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     private void fetchHeaderBanner() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             HeaderPanelControllerApi apiService = DeviantXApiClient.getClient().create(HeaderPanelControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getHeaderPanel(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -614,49 +521,37 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIHeaderBanner(responsevalue);
-//                            progressDialog.dismiss();
                             HeaderBannerDao mDao = deviantXDB.headerBannerDao();
                             HeaderBannerDB headerBannerDB = new HeaderBannerDB(1, responsevalue);
                             mDao.insertHeaderBanner(headerBannerDB);
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -699,12 +594,10 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                     JSONObject jsonObject = new JSONObject(responsevalue);
                     loginResponseMsg = jsonObject.getString("msg");
                     loginResponseStatus = jsonObject.getString("status");
-
                     if (loginResponseStatus.equals("true")) {
                         loginResponseData = jsonObject.getString("data");
                         NewsDX[] coinsStringArray = GsonUtils.getInstance().fromJson(loginResponseData, NewsDX[].class);
                         allNewsDX = new ArrayList<NewsDX>(Arrays.asList(coinsStringArray));
-
                         ArrayList<NewsDX> newsList = new ArrayList<>();
                         for (NewsDX coinName : allNewsDX) {
                             newsList.add(coinName);
@@ -729,7 +622,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     private void fetchCoinsNewsDX() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             NewsPanelControllerApi apiService = DeviantXApiClient.getClient().create(NewsPanelControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getNewsPanel(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -737,49 +629,36 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUINewsDX(responsevalue);
-//                            progressDialog.dismiss();
                             NewsDXDao mDao = deviantXDB.newsDXDao();
                             NewsDXDB newsDXDB = new NewsDXDB(1, responsevalue);
                             mDao.insertNewsDX(newsDXDB);
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -860,7 +739,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     private void fetchCoins() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             CoinsControllerApi apiService = DeviantXApiClient.getClient().create(CoinsControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getAllCoins(CONSTANTS.DeviantMulti + token);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -870,7 +748,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                         String responsevalue = response.body().string();
 
                         if (!responsevalue.isEmpty() && responsevalue != null) {
-//                            progressDialog.dismiss();
                             updateUI(responsevalue);
                             ExploreCoinsDao mDao = deviantXDB.exploreCoinsDao();
                             ExploreCoinsDB exploreCoinsDB = new ExploreCoinsDB(1, responsevalue);
@@ -878,40 +755,29 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
-                        Toast.makeText(getActivity(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -985,7 +851,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
     private void fetchCoinsPairsList() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
-//            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             ExchangePairControllerApi apiService = DeviantXApiClient.getClient().create(ExchangePairControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getPairsList(/*CONSTANTS.DeviantMulti + token*/);
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -993,50 +858,37 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     try {
                         String responsevalue = response.body().string();
-//                        progressDialog.dismiss();
-
                         if (!responsevalue.isEmpty() && responsevalue != null) {
                             updateUIPairsList(responsevalue);
-//                            progressDialog.dismiss();
                             PairsListDao mDao = deviantXDB.pairsListDao();
                             PairsListDB PairsListDB = new PairsListDB(1, responsevalue);
                             mDao.insertPairsList(PairsListDB);
 
                         } else {
                             CommonUtilities.ShowToastMessage(getActivity(), loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     if (t instanceof SocketTimeoutException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.networkerror));
                     } else {
-//                        progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } catch (Exception ex) {
-//            progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(getActivity(), getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -1098,29 +950,6 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
             e.printStackTrace();
         }
 
-       /* try {
-            stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, "ws://142.93.51.57:3323/deviant/websocket");
-            stompClient.connect();
-
-            stompClient.topic("/topic/exchange_pair/" + code).subscribe(new Action1<StompMessage>() {
-                @Override
-                public void call(StompMessage message) {
-                    Log.e(TAG, "*****Received " + code + "*****: EDFitemSelected" + message.getPayload());
-                    CoinPairs[] coinsStringArray = GsonUtils.getInstance().fromJson(message.getPayload(), CoinPairs[].class);
-                    gainersLoserList = new ArrayList<CoinPairs>(Arrays.asList(coinsStringArray));
-
-                    gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
-                    rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-                    gainerLoserExcDBRAdapter.notifyDataSetChanged();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-      /*  Intent serviceIntent = new Intent(getActivity(), CoinPairsFetch.class);
-        serviceIntent.putExtra(CONSTANTS.selectedCoinName, code);
-        getActivity().startService(serviceIntent);
-*/
     }
 
 
@@ -1129,14 +958,5 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
 
     }
 
-
-   /* CoinPairsUIListener coinPairsUIListener = new CoinPairsUIListener() {
-        @Override
-        public void onChangedCoinPairs(String selectedCoinName, ArrayList<CoinPairs> coinPairs) {
-            gainerLoserExcDBRAdapter = new GainerLoserExcDBRAdapter(getActivity(), gainersLoserList, selectedCoinName, isGainer, false);
-            rview_gain_loose.setAdapter(gainerLoserExcDBRAdapter);
-            gainerLoserExcDBRAdapter.notifyDataSetChanged();
-        }
-    };*/
 
 }

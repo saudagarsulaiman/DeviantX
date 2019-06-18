@@ -198,7 +198,6 @@ public class AppSettingsActivity extends AppCompatActivity {
                     editor.apply();
                     myApplication.setScreenShot(true);
                     onResume();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_active));
                 } else {
                     scompat_privacy.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
                     scompat_privacy.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
@@ -206,7 +205,6 @@ public class AppSettingsActivity extends AppCompatActivity {
                     editor.apply();
                     myApplication.setScreenShot(false);
                     onResume();
-//                    CommonUtilities.ShowToastMessage(AppSettingsActivity.this,getResources().getString(R.string.screenshots_inactive));
                 }
             }
         });
@@ -286,28 +284,7 @@ public class AppSettingsActivity extends AppCompatActivity {
         super.onResume();
         myApplication.disableScreenCapture(this);
         myApplication.get2FA();
-//        CommonUtilities.serviceStart(AppSettingsActivity.this);
     }
-
-/*
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_HOME) {
-//            Log.e("home key pressed", "****");
-            // write your code here to stop the activity
-            CommonUtilities.serviceStop(AppSettingsActivity.this);
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    protected void onPause() {
-//        Log.e("home key pressed on pause", "****");
-        // write your code here to stop your service
-        CommonUtilities.serviceStop(AppSettingsActivity.this);
-        super.onPause();
-    }
-*/
 
     private void LanguageDialog() {
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_languages);
@@ -401,13 +378,6 @@ public class AppSettingsActivity extends AppCompatActivity {
                 .setOutAnimation(R.anim.slide_out_bottom)
                 .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-//                        .setOnDismissListener(new OnDismissListener() {
-//                            @Override
-//                            public void onDismiss(DialogPlus dialog) {
-//
-//                            }
-//                        })
-//                        .setExpanded(true) // default is false, only works for grid and list
                 .create();
 
 //                Initializing Widgets
@@ -439,7 +409,6 @@ public class AppSettingsActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String text = s.toString();
-//                CommonUtilities.matchingPasswordText(AppSettingsActivity.this, text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
                 matchingPasswordText(text, txt_lower_case, txt_upper_case, txt_number, txt_chars);
             }
         });
@@ -572,7 +541,6 @@ public class AppSettingsActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(AppSettingsActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -580,7 +548,6 @@ public class AppSettingsActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -589,15 +556,12 @@ public class AppSettingsActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -605,7 +569,6 @@ public class AppSettingsActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(AppSettingsActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
 

@@ -116,16 +116,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 
     Boolean isEditFiat = false, isEditAmount = false;
 
-
-
-/*
-    @Override
-    public void onPause() {
-        super.onPause();
-        mScannerView.stopCamera();
-    }
-*/
-
     public static int PERMISSION_ALL = 1;
     public static String[] PERMISSIONS = {Manifest.permission.CAMERA};
 
@@ -383,11 +373,7 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             usdCoinValue = response.body().getUSD();
                             editor.putString(CONSTANTS.usdValue, String.valueOf(usdCoinValue));
                             editor.apply();
-//                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, "fetched");
-//                            Log.e(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         } else {
-//                            CommonUtilities.ShowToastMessage(SendCoinActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
                         }
 
@@ -395,7 +381,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -404,15 +389,12 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -420,7 +402,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -612,27 +593,6 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
 //            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-   /* //Getting the scan results
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //  IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        //  if (result != null) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                            *//*String contents = intent.getStringExtra("SCAN_RESULT");
-                            String format = intent.getStringExtra("SCAN_RESULT_FORMAT");*//*
-                edt_btcp_address.setText(data.getStringExtra("SCAN_RESULT"));
-                // Handle successful scan
-            } else if (resultCode == RESULT_CANCELED) {
-                CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.cancelled));
-            }
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }*/
 
     @Override
     protected void onResume() {

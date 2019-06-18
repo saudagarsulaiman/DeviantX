@@ -107,7 +107,6 @@ public class SeedRecoveryActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SeedRecoveryActivity.this, RecoveryConfirmActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-//                                CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.pswd_changed_succcess));
                             } else {
                                 CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, loginResponseMsg);
                             }
@@ -115,7 +114,6 @@ public class SeedRecoveryActivity extends AppCompatActivity {
                             CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, loginResponseMsg);
                         } else {
                             CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -123,7 +121,6 @@ public class SeedRecoveryActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -132,15 +129,12 @@ public class SeedRecoveryActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -148,7 +142,6 @@ public class SeedRecoveryActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(SeedRecoveryActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

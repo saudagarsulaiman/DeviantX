@@ -50,19 +50,6 @@ public class ExchangeSettingsFragment extends Fragment {
         view = inflater.inflate(R.layout.exchange_settings_fragment, container, false);
         ButterKnife.bind(this, view);
 
-
-/*
-        if (myApplication.get()) {
-            scompat_.setChecked(true);
-            scompat_.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));
-            scompat_.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-        } else {
-            scompat_.setBackground(getResources().getDrawable(R.drawable.rec_white_trans_c16));
-            scompat_.setChecked(false);
-            scompat_.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.transparent)));
-        }
-*/
-
         if (scompat_asswal.isChecked()) {
 //            scompat_.setChecked(true);
             scompat_asswal.setBackground(getResources().getDrawable(R.drawable.rec_white_white_c16));

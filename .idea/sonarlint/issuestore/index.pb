@@ -387,3 +387,11 @@ Qapp/src/main/java/com/cryptowallet/deviantx/UI/Activities/WalletListActivity.ja
 -app/src/main/res/layout/dialog_make_order.xml,f\e\fe0160aeeefe2918f66869d5e691880768c6af0c
 Š
 Zapp/src/main/java/com/cryptowallet/deviantx/UI/Adapters/ExchangeDashboardSlideAdapter.java,4\1\41d859ce26b5fda69271efd4d84f7e321e950cd8
+€
+Papp/schemas/com.cryptowallet.deviantx.UI.RoomDatabase.Database.DeviantXDB/3.json,0\5\05d68b9490e738b34f0bd495f33dabbefe58e370
+t
+Dapp/src/main/java/com/cryptowallet/deviantx/UI/Models/CoinValue.java,1\6\168314ab51aa66f8c1f4287a754dccda8e51d69d
+^
+.app/src/main/res/layout/activity_send_coin.xml,8\5\851fba4a9fe429955a7d41173242ff4f299599b1
+`
+0app/src/main/res/xml/network_security_config.xml,9\d\9d239a9c6e0f3ce6bc750ee58e30863a8efd3403

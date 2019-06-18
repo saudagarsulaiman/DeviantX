@@ -79,7 +79,6 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
             walletHistoryRAdapter.setIsHideBalance(myApplication.getHideBalance());
             walletHistoryRAdapter.notifyDataSetChanged();
         }
-//        CommonUtilities.serviceStart(AirdropWalletHistoryActivity.this);
     }
 
     @Override
@@ -161,7 +160,6 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
                                     if (jsonArrayData.length() == 0) {
                                         lnr_trans_avail.setVisibility(View.GONE);
                                         lnr_no_trans.setVisibility(View.VISIBLE);
-//                                        CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.no_trans_avail));
                                     } else {
                                         lnr_trans_avail.setVisibility(View.VISIBLE);
                                         lnr_no_trans.setVisibility(View.GONE);
@@ -190,7 +188,6 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -198,7 +195,6 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -207,15 +203,12 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.networkerror));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -223,7 +216,6 @@ public class AirdropWalletHistoryActivity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(AirdropWalletHistoryActivity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
     }

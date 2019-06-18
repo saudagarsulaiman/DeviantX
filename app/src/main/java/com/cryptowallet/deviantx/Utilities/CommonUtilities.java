@@ -43,15 +43,8 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
 
 public final class CommonUtilities {
-    /******************** * Test Server Links  ****************************************************/
 
-    //Main Link
-//    public static final String URL = "http://142.93.51.57:3322";
-
-    //Local Link
-//    public static final String URL = "http://192.168.0.179:3322";
-//    public static final String URL = "http://192.168.0.111:3322";
-
+    /******************** * Test Local Links  ****************************************************/
 /*
     public static final String URL = "http://10.0.0.35:3322";
     public static final String WS = "http://10.0.0.35:3323/ws_v2/deviant/websocket";
@@ -69,7 +62,19 @@ public final class CommonUtilities {
     public static final String WS = "http://10.0.0.16:3323/ws_v2/deviant/websocket";
 */
 
-    private static Locale myLocale;
+
+    /******************** * Test Server Links  ****************************************************/
+/*
+    public static final String URL = "http://142.93.51.57:3322";
+*/
+/*
+    public static final String URL = "http://192.168.0.179:3322";
+    public static final String URL = "http://192.168.0.111:3322";
+*/
+/*
+    public static final String URL = "http://128.199.145.249:3322";
+    public static final String WS = "http://128.199.145.249:3323/ws_v2/deviant/websocket";
+*/
 
 
     /********************* Live Server Links ****************************************************/
@@ -77,7 +82,10 @@ public final class CommonUtilities {
     public static final String URL = "https://deviantx.app";
     public static final String WS = "wss://deviantx.app/ws_v2/deviant/websocket";
 
+
     //    ********************* Reusable Methods*******************************************************
+    private static Locale myLocale;
+
     public static boolean isConnectionAvailable(Context ctx) {
         //boolean bConnection = false;
         ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -146,103 +154,6 @@ public final class CommonUtilities {
             ctx.getResources().updateConfiguration(config, ctx.getResources().getDisplayMetrics());
         }
     }
-
-
-    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 121;
-    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 321;
-
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static boolean checkGalleryPermission(final Context context) {
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-                    alertBuilder.setCancelable(false);
-                    alertBuilder.setTitle(context.getResources().getString(R.string.Prmsns_nec));
-                    alertBuilder.setMessage(context.getResources().getString(R.string.Prmsns_extrnl_strg));
-                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                        }
-                    });
-                    AlertDialog alert = alertBuilder.create();
-                    alert.show();
-                } else {
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static boolean checkCameraPermission(final Context context) {
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.CAMERA)) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-                    alertBuilder.setCancelable(false);
-                    alertBuilder.setTitle(context.getResources().getString(R.string.Prmsns_nec));
-                    alertBuilder.setMessage(context.getResources().getString(R.string.Prmsns_cam));
-                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-                        }
-                    });
-                    AlertDialog alert = alertBuilder.create();
-                    alert.show();
-                } else {
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    public static boolean checkExtrnlStrgPermission(final Context context) {
-        int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-                    alertBuilder.setCancelable(false);
-                    alertBuilder.setTitle(context.getResources().getString(R.string.Prmsns_nec));
-                    alertBuilder.setMessage(context.getResources().getString(R.string.Prmsns_extrnl_strg));
-                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                        }
-                    });
-                    AlertDialog alert = alertBuilder.create();
-                    alert.show();
-                } else {
-                    ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                }
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
-    }
-
 
     public static void sessionExpired(Activity activity, String loginResponseMsg) {
         ShowToastMessage(activity, loginResponseMsg);

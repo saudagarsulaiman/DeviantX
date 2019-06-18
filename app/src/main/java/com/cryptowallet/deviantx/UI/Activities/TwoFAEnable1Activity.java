@@ -60,27 +60,8 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         myApplication.disableScreenCapture(this);
-//        CommonUtilities.serviceStart(TwoFAEnable1Activity.this);
     }
 
-    /* @Override
-     public boolean onKeyDown(int keyCode, KeyEvent event) {
-         if (keyCode == KeyEvent.KEYCODE_HOME) {
- //            Log.e("home key pressed", "****");
-             // write your code here to stop the activity
-             CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
-         }
-         return super.onKeyDown(keyCode, event);
-     }
-
-     @Override
-     protected void onPause() {
- //        Log.e("home key pressed on pause", "****");
-         // write your code here to stop your service
-         CommonUtilities.serviceStop(TwoFAEnable1Activity.this);
-         super.onPause();
-     }
- */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,7 +155,6 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
 
                         } else {
                             CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, loginResponseMsg);
-//                            Toast.makeText(getApplicationContext(), responsevalue, Toast.LENGTH_LONG).show();
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
                         }
 
@@ -182,7 +162,6 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
                         e.printStackTrace();
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -191,15 +170,12 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
                     if (t instanceof SocketTimeoutException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.Timeout));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Timeout), Toast.LENGTH_SHORT).show();
                     } else if (t instanceof java.net.ConnectException) {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.networkerror));
-                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.networkerror), Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
                         CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.errortxt));
-//                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -207,47 +183,13 @@ public class TwoFAEnable1Activity extends AppCompatActivity {
             progressDialog.dismiss();
             ex.printStackTrace();
             CommonUtilities.ShowToastMessage(TwoFAEnable1Activity.this, getResources().getString(R.string.errortxt));
-//            Toast.makeText(getApplicationContext(), getResources().getString(R.string.errortxt), Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
     private void qrCodeGenerator(String query, String email, String twoFACode, String dev) {
-//        https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{query}}
-//           QR Code Generator
-//        String urlEncoded = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl={{" + /*Uri.encode(*/query/*)*/+"}}";
-//        CommonUtilities.qrCodeGenerate(urlEncoded, img_qrcode, TwoFAEnable1Activity.this);
-
         CommonUtilities.qrCodeGenerate(query, img_qrcode, TwoFAEnable1Activity.this);
-
-//        String my_query = "http://otpauth://totp/" + email + "?secret=" + twoFACode + "&issuer=DeviantX";
-//        CommonUtilities.qrCodeGenerate(my_query, img_qrcode, TwoFAEnable1Activity.this);
-
-        /* String qrCodeCallUrl = "https://api.authy.com/protected/json/users/" + email+ "/secret?api_key="+twoFACode;
-
-         *//** call authy api to get qr code **//*
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST,qrCodeCallUrl,null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String qrCodePath = response.getString("qr_code");
-                            *//** set the imageView's src **//*
-                            ImageView qrCodeImgVw = findViewById(R.id.qrCodeImgVw);
-                            Picasso.get().load(qrCodePath).into(qrCodeImgVw);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("ERROR! ",error.getMessage());
-                    }
-                });*/
-
     }
 
 }
