@@ -1,0 +1,21 @@
+
+ssquid:S00116"VRename this field "int_data_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÛÅıÿÿÿÿ
+msquid:UselessImportCheck	"BRemove this unused import 'com.cryptowallet.trendchart.DateValue'.(®¯“ã8ü‡¤Ê¶-
+ksquid:S00100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
+nsquid:S00117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ì‘ûÿÿÿÿ
+Wsquid:UselessImportCheck".Remove this unused import 'android.os.Parcel'.(˜ÂÍóûÿÿÿÿ
+ksquid:S00100<"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÇ†Şùÿÿÿÿ
+psquid:S00116"XRename this field "str_data_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÈØ‚
+ksquid:S001008"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úª´»üÿÿÿÿ
+nsquid:S00117,"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ßœÁÿÿÿÿÿ
+nsquid:S001174"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ó³ùÿÿÿÿ
+nsquid:S00117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ì‘ûÿÿÿÿ
+nsquid:S00117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÇ†Şùÿÿÿÿ
+ksquid:S001004"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ó³ùÿÿÿÿ
+nsquid:S00117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–Ì‘ûÿÿÿÿ
+[squid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ü‡¤Ê¶-
+ksquid:S00100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼•£ÿÿÿÿÿ
+fsquid:S001000"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Á­›œ
+Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
+ysquid:S00116"\Rename this field "dbl_data_totalBal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ÖÛúøÿÿÿÿ

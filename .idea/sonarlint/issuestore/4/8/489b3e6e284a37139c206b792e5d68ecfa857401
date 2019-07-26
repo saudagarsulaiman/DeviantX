@@ -1,0 +1,10 @@
+
+gsquid:CommentedOutCodeLine8"<This block of commented-out lines of code should be removed.(âÊ©…ûÿÿÿÿ
+Ssquid:S2589c"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+Asquid:S00108m")Either remove or fill this block of code.(å¥ž‡
+squid:S1186w"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±†üúÿÿÿÿ
+?squid:S11851"(Remove this method to simply inherit it.(ªÐªÄ
+isquid:S00117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’ñ™®
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(çñÝ·
+?squid:S1148r"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+:squid:S1148|"#Use a logger to log this exception.(Ç’Çê

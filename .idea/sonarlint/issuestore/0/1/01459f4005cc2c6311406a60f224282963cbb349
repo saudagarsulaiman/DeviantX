@@ -1,0 +1,7 @@
+
+gsquid:CommentedOutCodeLine@"<This block of commented-out lines of code should be removed.(¢ã˜«ûÿÿÿÿ
+gsquid:CommentedOutCodeLineG"<This block of commented-out lines of code should be removed.(Àµ®ãüÿÿÿÿ
+vsquid:S00116"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+ksquid:S00116"SRename this field "txt_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–®‘
+psquid:S00116"SRename this field "btn_next" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñþ¼ýÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›

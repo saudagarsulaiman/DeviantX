@@ -1,0 +1,66 @@
+
+@squid:S1148¼"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Bsquid:S1659<"+Declare "str_coin_code" on a separate line.(«ÑÝ‡
+tsquid:S00116;"\Rename this field "dbl_coin_usdValue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+gsquid:CommentedOutCodeLiner"<This block of commented-out lines of code should be removed.(ØÓôøÿÿÿÿ
+@squid:S1659;")Declare "dbl_coin_7d" on a separate line.(¹Æ¼õ
+Rsquid:S1141Í"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Rsquid:S1141È"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+usquid:S00116;"]Rename this field "dbl_coin_marketCap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+Asquid:S1659;"*Declare "dbl_coin_24h" on a separate line.(¹Æ¼õ
+Hsquid:S1659<"1Declare "loginResponseStatus" on a separate line.(«ÑÝ‡
+bsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(™ó ô
+Rsquid:S1141®"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Rsquid:S1141¹"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Rsquid:S1141Ü"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148¶"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Esquid:S1659<".Declare "loginResponseMsg" on a separate line.(«ÑÝ‡
+@squid:S1148ð"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Ksquid:S1659<"4Declare "str_ad_coin_chart_data" on a separate line.(«ÑÝ‡
+Bsquid:S1659<"+Declare "str_coin_logo" on a separate line.(«ÑÝ‡
+@squid:S1148Ð"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+ssquid:S00116:"VRename this field "int_coin_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥ŸÿÉúÿÿÿÿ
+@squid:S1148Æ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Rsquid:S1141³"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+˜squid:S1186g"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
+usquid:S00116:"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥ŸÿÉúÿÿÿÿ
+psquid:S00116<"XRename this field "str_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÑÝ‡
+nsquid:S00116;"VRename this field "dbl_coin_1m" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+rsquid:S00116/"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öþ„©øÿÿÿÿ
+psquid:S00116<"XRename this field "str_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÑÝ‡
+Rsquid:S1141¾"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148¬"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+ysquid:S00116<"aRename this field "str_ad_coin_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÑÝ‡
+rsquid:S00116;"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+gsquid:CommentedOutCodeLine["<This block of commented-out lines of code should be removed.(Û¿Äûÿÿÿÿÿ
+@squid:S1148Õ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Rsquid:S1141©"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148Á"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+gsquid:CommentedOutCodeLineo"<This block of commented-out lines of code should be removed.(þ…èþÿÿÿÿ
+@squid:S1148ß"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Gsquid:S1659:"+Declare "int_coin_rank" on a separate line.(¥ŸÿÉúÿÿÿÿ
+Rsquid:S1141Ÿ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148Ë"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+Bsquid:S1659<"+Declare "str_coin_name" on a separate line.(«ÑÝ‡
+Rsquid:S1141Ò"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+Gsquid:S1659;"0Declare "dbl_coin_marketCap" on a separate line.(¹Æ¼õ
+@squid:S1659;")Declare "dbl_coin_1m" on a separate line.(¹Æ¼õ
+vsquid:S001161"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+Rsquid:S1141Ã"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148Ú"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+osquid:S3776†"RRefactor this method to reduce its Cognitive Complexity from 84 to the 15 allowed.(”¼õúüÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+squid:S00116<"gRename this field "str_ad_coin_daily_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÑÝ‡
+Rsquid:S1141×"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+qsquid:S00116-"ZRename this field "rview_all_coins" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…ÙM
+osquid:S00116;"WRename this field "dbl_coin_24h" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+Dsquid:S1659;"-Declare "dbl_coin_volume" on a separate line.(¹Æ¼õ
+nsquid:S00116;"VRename this field "dbl_coin_7d" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Æ¼õ
+Qsquid:S1659<":Declare "str_ad_coin_daily_chart_data" on a separate line.(«ÑÝ‡
+@squid:S1148¢"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+@squid:S1148§"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+psquid:S00116<"XRename this field "str_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ÑÝ‡
+Rsquid:S1141¤"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+@squid:S1148±"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+asquid:UselessImportCheck"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8×¼Ê¶-
+Bsquid:S1148†"#Use a logger to log this exception.(Ç’Çê8×¼Ê¶-

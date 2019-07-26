@@ -1,0 +1,8 @@
+
+msquid:S00116$"URename this field "txt_ect_cs" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ì“Ô×
+˜squid:S1186h"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Æ·Æ
+psquid:S00116""XRename this field "lnr_tools_ect" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(´·¢ü
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ºù¿Âúÿÿÿÿ
+ysquid:UselessImportCheck"URemove this unused import 'com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter'.(©ŒÂ·
+gsquid:CommentedOutCodeLineY"<This block of commented-out lines of code should be removed.(îï«½şÿÿÿÿ
+bsquid:CommentedOutCodeLinea"<This block of commented-out lines of code should be removed.(«ß„

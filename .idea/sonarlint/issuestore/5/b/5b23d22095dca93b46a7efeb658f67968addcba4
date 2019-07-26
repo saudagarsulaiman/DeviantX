@@ -1,0 +1,6 @@
+
+bsquid:CommentedOutCodeLine7"<This block of commented-out lines of code should be removed.(âŒÉÏ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+^squid:UselessImportCheck
+":Remove this unused import 'android.widget.SpinnerAdapter'.(›¹ÈÚ
+squid:UselessImportCheck"VRemove this unused import 'com.cryptowallet.deviantx.UI.Activities.ChangellyActivity'.(á¶†Ùùÿÿÿÿ

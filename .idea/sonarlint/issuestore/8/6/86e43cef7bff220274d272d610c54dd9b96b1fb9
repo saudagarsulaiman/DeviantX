@@ -1,0 +1,28 @@
+
+qsquid:S00116"TRename this field "str_image" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œšÇ…ûÿÿÿÿ
+ssquid:S00116"VRename this field "int_coin_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø™¢’ûÿÿÿÿ
+psquid:S00116"XRename this field "str_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¹Ôñ
+tsquid:S00116"\Rename this field "dbl_coin_usdValue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ïíê§
+psquid:S00116"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Í
+usquid:S00116"]Rename this field "dbl_coin_marketCap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œ÷”ö
+rsquid:S00116"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê¡°ú
+xsquid:S00116"`Rename this field "dbl_coin_changeOneDay" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·ğ«Ñ
+{squid:S00116"cRename this field "dbl_coin_changeSevenDays" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÒÓÂÜ
+squid:S00116"bRename this field "dbl_coin_changeOneMonth" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(íÜ½úÿÿÿÿ
+usquid:S00116"]Rename this field "str_coin_chartData" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğğ£á
+squid:S00116!"bRename this field "str_coin_dailyChartData" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÓÓúÿÿÿÿ
+ysquid:S00116#"aRename this field "str_coin_isFeatureCoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á«Ñƒ
+hsquid:S00117E"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€–÷
+isquid:S00117M"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ü¶ùü
+isquid:S00117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ‡€×
+nsquid:S00117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘¾¢Ëÿÿÿÿÿ
+nsquid:S00117e"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéù×üÿÿÿÿ
+isquid:S00117m"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ê¾»š
+isquid:S00117u"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûè³
+isquid:S00117}"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€èÕ
+jsquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(º†¥±
+jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ü×èä
+osquid:S00117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°¶Ğøÿÿÿÿ
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÂòÆõúÿÿÿÿ
+jsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á³À¬
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ

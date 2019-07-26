@@ -1,0 +1,18 @@
+
+vsquid:S00116/"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+[squid:S1155ª">Use isEmpty() to check whether the collection is empty or not.(×È¯áıÿÿÿÿ
+@squid:S1148Ã"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+rsquid:S001163"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öş„©øÿÿÿÿ
+vsquid:S2293¨"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÕŠ•øÿÿÿÿ
+isquid:S3776ˆ"RRefactor this method to reduce its Cognitive Complexity from 33 to the 15 allowed.(ãèãP
+rsquid:S001169"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
+tsquid:S001167"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
+Msquid:S1659H"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
+Tsquid:S2589”"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+˜squid:S1186q"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(«û³±
+squid:S1186v"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ê¥¾àûÿÿÿÿ
+wsquid:S001161"ZRename this field "img_search_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ññÛ–ûÿÿÿÿ
+Ksquid:S1659H"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
+vsquid:S001165"^Rename this field "rview_trans_history" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÂò¯
+;squid:S1148Ù"#Use a logger to log this exception.(Ç’Çê
