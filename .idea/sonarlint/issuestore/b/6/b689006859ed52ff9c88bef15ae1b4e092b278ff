@@ -1,7 +1,7 @@
 
-ˆ"squid:ClassVariableVisibilityCheck"UMake coinsList a static final constant or non-public and provide accessors if needed.(¹ûŒıüÿÿÿÿ
-Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
-jsquid:UselessImportCheck"ARemove this unused import 'android.arch.persistence.room.Ignore'.(Üúâôüÿÿÿÿ
-Wsquid:UselessImportCheck".Remove this unused import 'android.os.Parcel'.(˜ÂÍóûÿÿÿÿ
 wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ßœÁÿÿÿÿÿ
+Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
+ˆ"squid:ClassVariableVisibilityCheck"UMake coinsList a static final constant or non-public and provide accessors if needed.(¹ûŒıüÿÿÿÿ
+Wsquid:UselessImportCheck".Remove this unused import 'android.os.Parcel'.(˜ÂÍóûÿÿÿÿ
 ‰"squid:ClassVariableVisibilityCheck"VMake walletName a static final constant or non-public and provide accessors if needed.(Úµã¼úÿÿÿÿ
+jsquid:UselessImportCheck"ARemove this unused import 'android.arch.persistence.room.Ignore'.(Üúâôüÿÿÿÿ

@@ -1,63 +1,63 @@
 
+gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(å¤Æ øÿÿÿÿ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+isquid:S00117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ü¿
+usquid:S00116"XRename this field "str_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥¶Íþûÿÿÿÿ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+osquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ˆŽ°ÿÿÿÿÿ
+csquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(•¼¯¢
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéù×üÿÿÿÿ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+jsquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍõÀ
+gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ø™¢’ûÿÿÿÿ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+osquid:S00117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š½Õøÿÿÿÿ
+[squid:S00107Æ"BConstructor has 11 parameters, which is greater than 7 authorized.(Í“³—
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
 hsquid:CommentedOutCodeLineÈ"<This block of commented-out lines of code should be removed.(÷˜´Òûÿÿÿÿ
+osquid:S00117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ðû™øÿÿÿÿ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+bsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(ùÊõb
+[squid:S00107³"BConstructor has 13 parameters, which is greater than 7 authorized.(’œéÛ
+ssquid:S00116)"VRename this field "dbl_coin_7d" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÊüÿÿÿÿ
+osquid:S00117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê¢ßóùÿÿÿÿ
+jsquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð‡€×
+hsquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.(÷˜´Òûÿÿÿÿ
 jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
 jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-osquid:S00117é"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßõëÜüÿÿÿÿ
-osquid:S00116&"WRename this field "dbl_coin_24h" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëØª‘
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-psquid:S00116"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ÍŽ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-ssquid:S00116,"VRename this field "dbl_coin_1m" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú®¿Îûÿÿÿÿ
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
 osquid:S00117ñ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Þ¿Õýÿÿÿÿ
 jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-osquid:S00117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š½Õøÿÿÿÿ
-tsquid:S00116/"\Rename this field "str_isFeatureCoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(••¿õ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-ysquid:S00116"\Rename this field "dbl_coin_usdValue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³‡ ýÿÿÿÿ
-ssquid:S00116)"VRename this field "dbl_coin_7d" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÊüÿÿÿÿ
-hsquid:CommentedOutCodeLineµ"<This block of commented-out lines of code should be removed.(÷˜´Òûÿÿÿÿ
-osquid:S00117á"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê¢ßóùÿÿÿÿ
-bsquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(ùÊõb
-psquid:S00116"XRename this field "str_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â˜½Ú
-wsquid:S00116#"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨•¤ïûÿÿÿÿ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-hsquid:CommentedOutCodeLineþ"<This block of commented-out lines of code should be removed.(€äôØúÿÿÿÿ
-usquid:S00116"XRename this field "str_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥¶Íþûÿÿÿÿ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-asquid:S3358Ú"DExtract this nested ternary operation into an independent statement.(Ïé©Ùÿÿÿÿÿ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ð‡€×
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-osquid:S00117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ðû™øÿÿÿÿ
-osquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ˆŽ°ÿÿÿÿÿ
-gsquid:CommentedOutCodeLine<"<This block of commented-out lines of code should be removed.(å¤Æ øÿÿÿÿ
-isquid:S00117‹"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ü¿
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·é†Þ
-osquid:S00117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡õ›øÿÿÿÿ
-[squid:S00107³"BConstructor has 13 parameters, which is greater than 7 authorized.(’œéÛ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-squid:S001165"dRename this field "str_coin_daily_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° €½þÿÿÿÿ
-vsquid:S001162"^Rename this field "str_coin_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ûßÃ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-csquid:CommentedOutCodeLineØ"<This block of commented-out lines of code should be removed.(•¼¯¢
-jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-osquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›Ö¡–ÿÿÿÿÿ
 hsquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(›¡˜Éûÿÿÿÿ
-nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéù×üÿÿÿÿ
-psquid:S00116"XRename this field "str_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¹Ôñ
-jsquid:S00117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍõÀ
+psquid:S00116"XRename this field "str_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â˜½Ú
 jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-[squid:S00107Æ"BConstructor has 11 parameters, which is greater than 7 authorized.(Í“³—
+psquid:S00116"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶ÍŽ
+jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·é†Þ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
+asquid:S3358Ú"DExtract this nested ternary operation into an independent statement.(Ïé©Ùÿÿÿÿÿ
+osquid:S00116&"WRename this field "dbl_coin_24h" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëØª‘
+osquid:S00117é"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßõëÜüÿÿÿÿ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+squid:S001165"dRename this field "str_coin_daily_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° €½þÿÿÿÿ
+ssquid:S00116,"VRename this field "dbl_coin_1m" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú®¿Îûÿÿÿÿ
+tsquid:S00116/"\Rename this field "str_isFeatureCoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(••¿õ
+hsquid:CommentedOutCodeLineþ"<This block of commented-out lines of code should be removed.(€äôØúÿÿÿÿ
+ysquid:S00116"\Rename this field "dbl_coin_usdValue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³‡ ýÿÿÿÿ
+vsquid:S001162"^Rename this field "str_coin_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ûßÃ
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+osquid:S00117“"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›Ö¡–ÿÿÿÿÿ
+wsquid:S00116#"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨•¤ïûÿÿÿÿ
+jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
 usquid:S00116 "]Rename this field "dbl_coin_marketCap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çñÄÿ
+osquid:S00117¯"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡õ›øÿÿÿÿ
 jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
-gsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ø™¢’ûÿÿÿÿ
-jsquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í“³—
+jsquid:S00117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’œéÛ
+psquid:S00116"XRename this field "str_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¹Ôñ

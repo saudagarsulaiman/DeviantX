@@ -81,6 +81,8 @@
             <TextView
                 android:id="@+id/txt_coin_usd_value"
                 android:layout_width="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:text="$6542,89 USD"
                 android:textColor="@color/white"
@@ -91,6 +93,8 @@
                 android:id="@+id/txt_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
                 android:layout_marginTop="@dimen/margin2"
                 android:text="%"
                 android:textColor="@color/mar_red"

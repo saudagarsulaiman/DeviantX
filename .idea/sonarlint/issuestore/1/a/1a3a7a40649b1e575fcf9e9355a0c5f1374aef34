@@ -1,40 +1,40 @@
 
-Zsquid:UnusedPrivateMethod’"4Remove this unused private "invokeCoinGraph" method.(éÍÎÃ
-/squid:S2176‘"Rename this class.(Â×Öúÿÿÿÿ
-bsquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(®ÙÒù
-gsquid:CommentedOutCodeLineq"<This block of commented-out lines of code should be removed.(í‘ŠÆüÿÿÿÿ
-hsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(á·úúÿÿÿÿ
-hsquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(Ãô²úÿÿÿÿ
-hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(ÃÛ©üÿÿÿÿ
-hsquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(¾Ó«ıÿÿÿÿ
-hsquid:CommentedOutCodeLine¸"<This block of commented-out lines of code should be removed.(ß´¨îÿÿÿÿÿ
 csquid:CommentedOutCodeLineÉ"<This block of commented-out lines of code should be removed.(ßÅÄ²
+Hsquid:S1481¬"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ
+hsquid:CommentedOutCodeLine¸"<This block of commented-out lines of code should be removed.(ß´¨îÿÿÿÿÿ
+usquid:S00116Ÿ"WRename this field "graph_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«šª›úÿÿÿÿ
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
 hsquid:CommentedOutCodeLineÌ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
 hsquid:CommentedOutCodeLineÔ"<This block of commented-out lines of code should be removed.(ÍŒÂúÿÿÿÿ
 hsquid:CommentedOutCodeLineÛ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
-hsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(Éİùÿÿÿÿ
-hsquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
 hsquid:CommentedOutCodeLineí"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
-hsquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-hsquid:CommentedOutCodeLine÷"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
-ysquid:S1488J"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(×¼ÛÆ
-Tsquid:S2589 "7Remove this expression which always evaluates to "true"(‰­Âëûÿÿÿÿ
-Hsquid:S1481¬"+Remove this unused "points" local variable.(šà”ãøÿÿÿÿ
-jsquid:S3776’"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(éÍÎÃ
->squid:S1172’"&Remove these unused method parameters.(éÍÎÃ
-xsquid:S00116“"ZRename this field "txt_wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šü€ÿÿÿÿÿ
+hsquid:CommentedOutCodeLineİ"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
 ~squid:S00116•"`Rename this field "txt_wallet_percentage" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ä°€õÿÿÿÿÿ
+hsquid:CommentedOutCodeLineç"<This block of commented-out lines of code should be removed.(Éİùÿÿÿÿ
+hsquid:CommentedOutCodeLineï"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
+hsquid:CommentedOutCodeLine÷"<This block of commented-out lines of code should be removed.(ãÈÌäÿÿÿÿÿ
+osquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó¢úÌüÿÿÿÿ
+>squid:S1172’"&Remove these unused method parameters.(éÍÎÃ
+hsquid:CommentedOutCodeLine¡"<This block of commented-out lines of code should be removed.(ÃÛ©üÿÿÿÿ
+hsquid:CommentedOutCodeLine–"<This block of commented-out lines of code should be removed.(Ãô²úÿÿÿÿ
+hsquid:CommentedOutCodeLineô"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+hsquid:CommentedOutCodeLine”"<This block of commented-out lines of code should be removed.(á·úúÿÿÿÿ
+gsquid:CommentedOutCodeLineq"<This block of commented-out lines of code should be removed.(í‘ŠÆüÿÿÿÿ
+ysquid:S1488J"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(×¼ÛÆ
+bsquid:CommentedOutCodeLine`"<This block of commented-out lines of code should be removed.(®ÙÒù
+hsquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(¾Ó«ıÿÿÿÿ
+xsquid:S00116“"ZRename this field "txt_wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šü€ÿÿÿÿÿ
+hsquid:CommentedOutCodeLineå"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
 rsquid:S00116—"YRename this field "txt_wallet_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÖ
 ssquid:S00116™"ZRename this field "txt_wallet_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷é¹Œ
-usquid:S00116Ÿ"WRename this field "graph_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«šª›úÿÿÿÿ
 ssquid:S00116¡"URename this field "lnr_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œ«ïœúÿÿÿÿ
-osquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó¢úÌüÿÿÿÿ
-isquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇŞã
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
 @squid:S1148Ú"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Zsquid:UnusedPrivateMethod’"4Remove this unused private "invokeCoinGraph" method.(éÍÎÃ
+Tsquid:S2589 "7Remove this expression which always evaluates to "true"(‰­Âëûÿÿÿÿ
 ;squid:S1148õ"#Use a logger to log this exception.(Ç’Çê
+hsquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+/squid:S2176‘"Rename this class.(Â×Öúÿÿÿÿ
+hsquid:CommentedOutCodeLineÒ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+jsquid:S3776’"RRefactor this method to reduce its Cognitive Complexity from 31 to the 15 allowed.(éÍÎÃ
+isquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇŞã

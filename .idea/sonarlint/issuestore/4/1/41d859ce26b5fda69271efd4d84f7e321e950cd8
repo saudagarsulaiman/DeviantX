@@ -1,9 +1,9 @@
 
 xsquid:S1488""bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-qsquid:S00116T"TRename this field "img_right" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ‹Ùûÿÿÿÿ
 rsquid:S00116R"URename this field "img_center" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢İêüÿÿÿÿ
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-.squid:S2176O"Rename this class.(Â×Öúÿÿÿÿ
-bsquid:CommentedOutCodeLine*"<This block of commented-out lines of code should be removed.(ßä ©
 ksquid:S00116V"SRename this field "img_left" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­ÀøÇ
+qsquid:S00116T"TRename this field "img_right" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ‹Ùûÿÿÿÿ
 nsquid:S00116X"QRename this field "img_bg" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Ğ½¶ÿÿÿÿÿ
+bsquid:CommentedOutCodeLine*"<This block of commented-out lines of code should be removed.(ßä ©
+.squid:S2176O"Rename this class.(Â×Öúÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W

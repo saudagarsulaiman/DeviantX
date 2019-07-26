@@ -1,6 +1,6 @@
 
 wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(±ßœÁÿÿÿÿÿ
 fsquid:UselessImportCheck	"BRemove this unused import 'com.cryptowallet.trendchart.DateValue'.(®¯“ã
-Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
 Wsquid:UselessImportCheck".Remove this unused import 'android.os.Parcel'.(˜ÂÍóûÿÿÿÿ
+Vsquid:UselessImportCheck"2Remove this unused import 'android.os.Parcelable'.(õÃÀ­
 Tsquid:UselessImportCheck"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ

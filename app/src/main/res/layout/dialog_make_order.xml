@@ -295,7 +295,7 @@
             android:layout_marginLeft="@dimen/def_margin"
             android:layout_marginTop="@dimen/def_margin"
             android:layout_marginRight="@dimen/def_margin"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:visibility="visible">
 
             <LinearLayout
@@ -305,10 +305,11 @@
                 android:layout_marginLeft="@dimen/def_margin">
 
                 <TextView
+                    android:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/fees_lbl1"
+                    android:text="@string/fee"
                     android:textColor="@color/black"
                     android:textSize="@dimen/def_text_size" />
 
@@ -324,6 +325,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -337,9 +339,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/def_margin"
-                android:layout_marginRight="@dimen/def_margin"
-                android:gravity="end"
+                android:layout_marginStart="@dimen/margin13"
+                android:layout_marginLeft="@dimen/margin13"
+                android:gravity="start"
                 android:orientation="horizontal">
 
                 <TextView

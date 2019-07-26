@@ -1,24 +1,17 @@
 package com.cryptowallet.deviantx.Utilities;
 
-import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.LocaleList;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +53,19 @@ public final class CommonUtilities {
 /*
     public static final String URL = "http://10.0.0.16:3322";
     public static final String WS = "http://10.0.0.16:3323/ws_v2/deviant/websocket";
+*/
+
+/*
+    public static final String URL = "https://801e245f.ngrok.io";
+    public static final String WS = "wss://801e245f.ngrok.io/ws_v2/deviant/websocket";
+*/
+/*
+    public static final String URL = "https://fd80bb9b.ngrok.io";
+    public static final String WS = "wss://fd80bb9b.ngrok.io/ws_v2/deviant/websocket";
+*/
+/*
+    public static final String URL = "https://b8646e0a.ngrok.io";
+    public static final String WS = "wss://1b8646e0a.ngrok.io/ws_v2/deviant/websocket";
 */
 
 

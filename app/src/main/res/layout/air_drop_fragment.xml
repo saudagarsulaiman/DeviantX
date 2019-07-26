@@ -418,6 +418,76 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/creator_ad"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/txt_creator_ad_viewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:text="@string/view_all"
+                        android:visibility="gone"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/def_text_size"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rview_creator_ad_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:id="@+id/lnr_empty_creator_coins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@drawable/rec_lytblue_c8"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/def_padding"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/width50"
+                    android:layout_height="@dimen/height50"
+                    android:layout_gravity="center"
+                    android:src="@drawable/empty_coins" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:text="@string/empty_ad_creator_coins"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/def_margin"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/dividend_ad"
                     android:textColor="@color/white"
                     android:textSize="@dimen/def_text_size"

@@ -21,6 +21,10 @@ public interface UserAirdropControllerApi {
     Call<ResponseBody> postClaimADAmount(@Body String body, @Header("Authorization") String AuthorizationDX);
 
     @Headers("Content-Type: application/json")
+    @POST("/api_v2/user_airdrop/cancel_airdrop")
+    Call<ResponseBody> cancelCreatorAirdrop(@Body String body, @Header("Authorization") String AuthorizationDX);
+
+    @Headers("Content-Type: application/json")
     @POST("/api_v2/user_airdrop/create_new_airdrop")
     Call<ResponseBody> createNewAD(@Body String body,@Header("Authorization") String AuthorizationDX);
 
@@ -32,5 +36,8 @@ public interface UserAirdropControllerApi {
 
     @GET("/api_v2/user_airdrop/get_user_airdrop")
     Call<ResponseBody> getUserAD(@Header("Authorization") String AuthorizationDX);
+
+    @GET("/api_v2/user_airdrop/get_creator_airdrop")
+    Call<ResponseBody> getCreatorADHistory(@Header("Authorization") String AuthorizationDX);
 
 }

@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CryptoControllerApi;
@@ -115,7 +114,7 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
     ArrayList<String> walletCoinsList;
     SpinnerDaysAdapter spinnerAdapter;
 
-    String coinName;
+    String coinName, sel_wal_name = "sss";
 
     @Override
     protected void onResume() {
@@ -141,6 +140,9 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
         editor.putInt(CONSTANTS.walletId, 0);
         editor.apply();
 
+/*
+        sel_wal_name = walletList.get(myApplication.getDefaultWallet()).getStr_data_name();
+*/
         toolbar_center_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -275,9 +277,11 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
             @Override
             public void onClick(View v) {
                 coinName = sharedPreferences.getString(CONSTANTS.selectedCoinName, null);
+/*
                 String walletName = walletList.get(myApplication.getDefaultWallet()).getStr_data_name();
+*/
                 String amount = edt_amount.getText().toString().trim();
-                customDialog(walletName, coinName, amount);
+                customDialog(sel_wal_name, coinName, amount);
 
 /*
                 CommonUtilities.serviceStart(CreateADCampaignsActivity.this);
@@ -634,6 +638,7 @@ public class CreateADCampaignsActivity extends AppCompatActivity implements Disc
         if (adapterPosition > -1) {
             edt_amount.setText("0");
             btn_continue.setVisibility(View.GONE);
+            sel_wal_name = walletList.get(adapterPosition).getStr_data_name();
             String wallet_name = sharedPreferences.getString(CONSTANTS.walletName, "sss");
             if (!wallet_name.equals(walletList.get(adapterPosition).getStr_data_name())) {
                 onItemChanged(walletList.get(adapterPosition));

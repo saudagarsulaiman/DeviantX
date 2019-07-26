@@ -1,17 +1,17 @@
 
-nsquid:S00117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şà‡Âÿÿÿÿÿ
-bsquid:UselessImportCheck"?Remove this unused import 'android.support.annotation.NonNull'.(¼Åß
-nsquid:S00117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ó³ùÿÿÿÿ
-Vsquid:UselessImportCheck"-Remove this unused import 'java.util.BitSet'.(‹¸ÚÁıÿÿÿÿ
-isquid:UselessImportCheck"ERemove this unused import 'android.arch.persistence.room.PrimaryKey'.(ä¿«
-ssquid:S00116"VRename this field "int_data_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÛÅıÿÿÿÿ
-psquid:S00116"XRename this field "str_data_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÈØ‚
-dsquid:UselessImportCheck"ARemove this unused import 'android.arch.persistence.room.Entity'.(¿‚ã
-asquid:S3358‡"DExtract this nested ternary operation into an independent statement.(Ïé©Ùÿÿÿÿÿ
-nsquid:S00117d"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÇ†Şùÿÿÿÿ
-nsquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
-ysquid:S00116"\Rename this field "dbl_data_totalBal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ÖÛúøÿÿÿÿ
-wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
 Tsquid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
 nsquid:S00117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şà‡Âÿÿÿÿÿ
+nsquid:S00117d"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÇ†Şùÿÿÿÿ
+Vsquid:UselessImportCheck"-Remove this unused import 'java.util.BitSet'.(‹¸ÚÁıÿÿÿÿ
+ssquid:S00116"VRename this field "int_data_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÛÅıÿÿÿÿ
+asquid:S3358‡"DExtract this nested ternary operation into an independent statement.(Ïé©Ùÿÿÿÿÿ
+ysquid:S00116"\Rename this field "dbl_data_totalBal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨ÖÛúøÿÿÿÿ
+nsquid:S00117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷Ó³ùÿÿÿÿ
+psquid:S00116"XRename this field "str_data_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÈØ‚
+dsquid:UselessImportCheck"ARemove this unused import 'android.arch.persistence.room.Entity'.(¿‚ã
+nsquid:S00117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şà‡Âÿÿÿÿÿ
+wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
+isquid:UselessImportCheck"ERemove this unused import 'android.arch.persistence.room.PrimaryKey'.(ä¿«
+nsquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
+bsquid:UselessImportCheck"?Remove this unused import 'android.support.annotation.NonNull'.(¼Åß
 nsquid:S00117I"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şà‡Âÿÿÿÿÿ

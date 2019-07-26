@@ -1,41 +1,41 @@
 
-ysquid:S00116A"aRename this field "str_coin_isFeatureCoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á«Ñƒ
+qsquid:S00117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú¯8½†Ô ¶-
 osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ï‚¼üúÿÿÿÿ
-isquid:S00117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ü¿
-isquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀïØ:
-osquid:S00117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š½Õøÿÿÿÿ
-psquid:S00116 "XRename this field "str_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â˜½Ú
-osquid:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(Ú˜Í¤üÿÿÿÿ
-ssquid:S001168"VRename this field "dbl_coin_7d" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÊüÿÿÿÿ
-jsquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍõÀ
-osquid:S00117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğû™øÿÿÿÿ
-jsquid:S00117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ‡€×
 wsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¤‡±ªúÿÿÿÿ
-jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·é†Ş
-ƒsquid:S00116"_Rename this field "str_data_reservedFee" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾¡™Ôûÿÿÿÿ8½†Ô ¶-
+osquid:S00117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ˆ°ÿÿÿÿÿ
+jsquid:S00117ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š˜ãë
 psquid:S00116&"XRename this field "str_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á¹Ôñ
-xsquid:S00116"[Rename this field "str_data_balance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñï—¹ÿÿÿÿÿ
+ƒsquid:S00116"_Rename this field "str_data_reservedFee" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾¡™Ôûÿÿÿÿ8½†Ô ¶-
+psquid:S00116,"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Í
+osquid:S00117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š½Õøÿÿÿÿ
+squid:S00116>"dRename this field "str_coin_daily_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° €½şÿÿÿÿ
+jsquid:S00117Ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍõÀ
+vsquid:S00116"^Rename this field "str_data_walletName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÿÿÒ
+osquid:S00117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
+ssquid:S001168"VRename this field "dbl_coin_7d" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(àÊüÿÿÿÿ
+ssquid:S00116;"VRename this field "dbl_coin_1m" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú®¿Îûÿÿÿÿ
+osquid:S00117ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ş¿Õıÿÿÿÿ
 ssquid:S00116"VRename this field "int_data_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(øÛÅıÿÿÿÿ
+osquid:S001165"WRename this field "dbl_coin_24h" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëØª‘
+ysquid:S00116A"aRename this field "str_coin_isFeatureCoin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á«Ñƒ
+osquid:S00117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡õ›øÿÿÿÿ
+xsquid:S00116"[Rename this field "str_data_balance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñï—¹ÿÿÿÿÿ
+osquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›Ö¡–ÿÿÿÿÿ
+\squid:S3358Ğ"DExtract this nested ternary operation into an independent statement.(†ø¢ï
+isquid:S00117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ü¿
+jsquid:S00117Î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·é†Ş
+osquid:S3776‹"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(Ú˜Í¤üÿÿÿÿ
+psquid:S00116 "XRename this field "str_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â˜½Ú
+€squid:S00116"cRename this field "str_data_reservedBalance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ö„Ùøÿÿÿÿ
+osquid:S00117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ğû™øÿÿÿÿ
+}squid:S00116"`Rename this field "str_data_balanceInUSD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òü‹¥üÿÿÿÿ
 nsquid:S3776F"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Ä«âßşÿÿÿÿ
 usquid:S00116#"XRename this field "str_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥¶Íşûÿÿÿÿ
-psquid:S00116,"XRename this field "int_coin_rank" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶Í
-qsquid:S00117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú¯8½†Ô ¶-
-jsquid:S00117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á³À¬
-osquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›Ö¡–ÿÿÿÿÿ
-vsquid:S00116"^Rename this field "str_data_walletName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÿÿÒ
-osquid:S00117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ˆ°ÿÿÿÿÿ
-wsquid:S001162"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨•¤ïûÿÿÿÿ
-osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÛ£–úÿÿÿÿ
-osquid:S00117ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ş¿Õıÿÿÿÿ
-usquid:S00116/"]Rename this field "dbl_coin_marketCap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çñÄÿ
-ssquid:S00116;"VRename this field "dbl_coin_1m" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ú®¿Îûÿÿÿÿ
-squid:S00116>"dRename this field "str_coin_daily_chart_data" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(° €½şÿÿÿÿ
-osquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéù×üÿÿÿÿ
-osquid:S00117î"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡õ›øÿÿÿÿ
-\squid:S3358Ğ"DExtract this nested ternary operation into an independent statement.(†ø¢ï
-€squid:S00116"cRename this field "str_data_reservedBalance" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ö„Ùøÿÿÿÿ
-}squid:S00116"`Rename this field "str_data_balanceInUSD" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òü‹¥üÿÿÿÿ
 ysquid:S00116)"\Rename this field "dbl_coin_usdValue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë³‡ ıÿÿÿÿ
-osquid:S001165"WRename this field "dbl_coin_24h" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ëØª‘
-jsquid:S00117ö"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š˜ãë
-osquid:S00117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.( Ï˜ÿÿÿÿÿ
+usquid:S00116/"]Rename this field "dbl_coin_marketCap" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çñÄÿ
+isquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀïØ:
+osquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÛ£–úÿÿÿÿ
+jsquid:S00117¶"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğ‡€×
+osquid:S00117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äéù×üÿÿÿÿ
+jsquid:S00117ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(á³À¬
+wsquid:S001162"ZRename this field "dbl_coin_volume" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨•¤ïûÿÿÿÿ

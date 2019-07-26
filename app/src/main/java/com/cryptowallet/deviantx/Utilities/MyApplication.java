@@ -118,7 +118,7 @@ public class MyApplication extends Application {
         isAppPin = sharedPreferences.getBoolean(CONSTANTS.is_app_pin, false);
         isDevFees= sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
 
-        new Instabug.Builder(this, "3dbcac01765a72524ce10a3727910e3c")
+        new Instabug.Builder(this, "e2621296e1fe631f893e560b13156e71")
 //                .setInvocationEvents(InstabugInvocationEvent.SHAKE, InstabugInvocationEvent.SCREENSHOT)
                 .build();
         Instabug.setWelcomeMessageState(WelcomeMessage.State.DISABLED);

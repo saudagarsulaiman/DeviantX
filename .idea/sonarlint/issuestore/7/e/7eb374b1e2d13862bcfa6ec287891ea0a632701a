@@ -1,5 +1,5 @@
 
-vsquid:S00116"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
-vsquid:S00116"YRename this field "lnr_shapeshift" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶òÅôùÿÿÿÿ
 psquid:S00116"XRename this field "lnr_changelly" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µáº‹
+vsquid:S00116"YRename this field "lnr_shapeshift" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¶òÅôùÿÿÿÿ
+vsquid:S00116"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›

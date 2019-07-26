@@ -1,20 +1,20 @@
 
 bsquid:S1192O"FDefine a constant instead of duplicating this literal "From " 3 times.(¸©ñşÿÿÿÿ
-.squid:S2176n"Rename this class.(Â×Öúÿÿÿÿ
-bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Û¥ıœ
-xsquid:S1488("bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
-Osquid:S1135Š"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
-isquid:S3776-"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÖÜè
-psquid:S00116q"XRename this field "img_send_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³®íù
-ksquid:S00116s"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ş¦öÉ
+hsquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğí
 qsquid:S00116u"YRename this field "txt_trans_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±€øº
 tsquid:S00116w"\Rename this field "txt_trans_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–ÑË‰
-ssquid:S00116y"[Rename this field "txt_trans_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ™ûŒ
+hsquid:S00117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğí
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+Osquid:S1135Š"2Complete the task associated to this TODO comment.(ÕÌ®şÿÿÿÿ
+.squid:S2176n"Rename this class.(Â×Öúÿÿÿÿ
+bsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Û¥ıœ
+ksquid:S00116s"SRename this field "txt_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ş¦öÉ
 tsquid:S00116|"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
 rsquid:S00116~"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
+xsquid:S1488("bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
 isquid:S00117>"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
-hsquid:S00117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğí
+psquid:S00116q"XRename this field "img_send_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³®íù
+isquid:S3776-"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(ÖÜè
 isquid:S00117S"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Ë„
-hsquid:S00117T"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğí
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+ssquid:S00116y"[Rename this field "txt_trans_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ™ûŒ
 @squid:S1148‹"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ

@@ -1,66 +1,51 @@
 
-vsquid:S00117Û"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ü¹¦ıÿÿÿÿ8ì¦¡¥­-
-isquid:S3776×"RRefactor this method to reduce its Cognitive Complexity from 51 to the 15 allowed.(°ëI
-jsquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(©ãòµ8°°á£¯-
-bsquid:S1155ä">Use isEmpty() to check whether the collection is empty or not.(ı¼óúÿÿÿÿ8°°á£¯-
-Esquid:S1604í"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ
-]squid:S1155”">Use isEmpty() to check whether the collection is empty or not.(î¹³È8°°á£¯-
-osquid:CommentedOutCodeLine›"<This block of commented-out lines of code should be removed.(ÿµÉøÿÿÿÿ8°°á£¯-
-vsquid:S001164"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
-hsquid:CommentedOutCodeLineÚ"<This block of commented-out lines of code should be removed.(¯º‹Õúÿÿÿÿ
-vsquid:S00116:"^Rename this field "rview_order_history" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒùš•
-Ysquid:S1141İ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ì¦¡¥­-
-vsquid:S00117ª"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êè§’øÿÿÿÿ8°°á£¯-
-hsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-vsquid:S00117¨"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÍš¬ıÿÿÿÿ8°°á£¯-
-]squid:S1155ú">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
 @squid:S1148¡"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-?squid:S1604k"(Make this anonymous inner class a lambda(†£°î
-qsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î‚×Ù8°°á£¯-
-wsquid:S001166"ZRename this field "img_search_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ññÛ–ûÿÿÿÿ
-Ksquid:S1659N".Declare "allPendingOrders" on a separate line.(Ñ£Ò]8°°á£¯-
-hsquid:CommentedOutCodeLineÅ"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-bsquid:S1155ü">Use isEmpty() to check whether the collection is empty or not.(õîüÉùÿÿÿÿ8°°á£¯-
-Hsquid:S1659N"+Declare "allOpenOrders" on a separate line.(Ñ£Ò]8°°á£¯-
+qsquid:S00117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Â†Š8°°á£¯-
 rsquid:S00116>"ZRename this field "lnr_trans_avail" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó‡çª
-vsquid:S00117¬"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°•€úÿÿÿÿ8°°á£¯-
-qsquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Â†Š8°°á£¯-
-Tsquid:S2589ë"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
-hsquid:CommentedOutCodeLine»"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-]squid:S1155">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
-hsquid:CommentedOutCodeLineÀ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-Msquid:S1659N"0Declare "allCancelledOrders" on a separate line.(Ñ£Ò]8°°á£¯-
-}squid:S2293ø"YReplace the type specification in this constructor call with the diamond operator ("<>").(¸“ÄŸşÿÿÿÿ8°°á£¯-
-tsquid:S00116@"URename this field "lnr_filter" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä½µÁ8°°á£¯-
-Nsquid:S1659N"1Declare "allExecutedÌ¥Orders" on a separate line.(Ñ£Ò]8°°á£¯-
-gsquid:CommentedOutCodeLine~"<This block of commented-out lines of code should be removed.(ç¤ä†ÿÿÿÿÿ
+qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î‚×Ù8°°á£¯-
 Ksquid:S1659I"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
-osquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8°°á£¯-
-vsquid:S00117«"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„®‹æûÿÿÿÿ8°°á£¯-
-]squid:S1155¬">Use isEmpty() to check whether the collection is empty or not.(‡Ú—Ø8°°á£¯-
-rsquid:S001168"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öş„©øÿÿÿÿ
-qsquid:S00117©"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú——¯8°°á£¯-
-nsquid:CommentedOutCodeLinew"<This block of commented-out lines of code should be removed.(®¸¯†ıÿÿÿÿ8°°á£¯-
-hsquid:CommentedOutCodeLine¾"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-tsquid:S00116<"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
 |squid:S00116N"^Rename this field "allExecutedÌ¥Orders" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ñ£Ò]8°°á£¯-
-}squid:S00116B"YRename this field "txt_filterName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å¢ƒËûÿÿÿÿ8°°á£¯-
-qsquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡§øÿ8°°á£¯-
-qsquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñò•½8°°á£¯-
-hsquid:CommentedOutCodeLineÈ"<This block of commented-out lines of code should be removed.(ÿ’Ş†şÿÿÿÿ
-qsquid:S00117®"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓÈá÷8°°á£¯-
-gsquid:CommentedOutCodeLine{"<This block of commented-out lines of code should be removed.(ùæ¯Áüÿÿÿÿ
-hsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
-]squid:S1155Ä">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
-hsquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-;squid:S1148Æ"#Use a logger to log this exception.(Ç’Çê
-hsquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-@squid:S1148­"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
-Msquid:S1659I"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
+;squid:S1148²"#Use a logger to log this exception.(Ç’Çê
+vsquid:S00117¤"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„®‹æûÿÿÿÿ8°°á£¯-
+bsquid:S1155õ">Use isEmpty() to check whether the collection is empty or not.(õîüÉùÿÿÿÿ8°°á£¯-
+vsquid:S00117¥"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°•€úÿÿÿÿ8°°á£¯-
+]squid:S1155">Use isEmpty() to check whether the collection is empty or not.(î¹³È8°°á£¯-
+psquid:S00117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Íä·-8°°á£¯-
+wsquid:S001166"ZRename this field "img_search_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ññÛ–ûÿÿÿÿ
+]squid:S1155½">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
+qsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñò•½8°°á£¯-
+vsquid:S001164"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+tsquid:S00116<"WRename this field "lnr_no_trans" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÖÖÆıÿÿÿÿ
+gsquid:CommentedOutCodeLine~"<This block of commented-out lines of code should be removed.(ç¤ä†ÿÿÿÿÿ
+?squid:S1604k"(Make this anonymous inner class a lambda(†£°î
+qsquid:S00117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡§øÿ8°°á£¯-
+nsquid:CommentedOutCodeLinew"<This block of commented-out lines of code should be removed.(®¸¯†ıÿÿÿÿ8°°á£¯-
+qsquid:S00117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÓÈá÷8°°á£¯-
+tsquid:S00116@"URename this field "lnr_filter" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ä½µÁ8°°á£¯-
+}squid:S2293í"YReplace the type specification in this constructor call with the diamond operator ("<>").(¸“ÄŸşÿÿÿÿ8°°á£¯-
+Hsquid:S1659N"+Declare "allOpenOrders" on a separate line.(Ñ£Ò]8°°á£¯-
+rsquid:S001168"URename this field "edt_search" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öş„©øÿÿÿÿ
+@squid:S1148–"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+bsquid:S1155İ">Use isEmpty() to check whether the collection is empty or not.(ı¼óúÿÿÿÿ8°°á£¯-
+Esquid:S1604â"(Make this anonymous inner class a lambda(˜ã¯şÿÿÿÿ
 vsquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(–Äûÿÿÿÿ8°°á£¯-
-hsquid:CommentedOutCodeLineé"<This block of commented-out lines of code should be removed.(ö´Š§ÿÿÿÿÿ
-csquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(„¬¡‚
-psquid:S00117­"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Íä·-8°°á£¯-
-gsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(˜× ‰øÿÿÿÿ
+vsquid:S00117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(òÍš¬ıÿÿÿÿ8°°á£¯-
+vsquid:S00117£"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(êè§’øÿÿÿÿ8°°á£¯-
+Msquid:S1659I"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
+gsquid:CommentedOutCodeLine{"<This block of commented-out lines of code should be removed.(ùæ¯Áüÿÿÿÿ
+Ksquid:S1659N".Declare "allPendingOrders" on a separate line.(Ñ£Ò]8°°á£¯-
 gsquid:CommentedOutCodeLinem"<This block of commented-out lines of code should be removed.(¦ùæ üÿÿÿÿ
+vsquid:S00116:"^Rename this field "rview_order_history" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒùš•
+}squid:S00116B"YRename this field "txt_filterName" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å¢ƒËûÿÿÿÿ8°°á£¯-
+gsquid:CommentedOutCodeLineT"<This block of commented-out lines of code should be removed.(˜× ‰øÿÿÿÿ
+isquid:S3776Ğ"RRefactor this method to reduce its Cognitive Complexity from 51 to the 15 allowed.(°ëI
+Ysquid:S1141Õ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ì¦¡¥­-
+Nsquid:S1659N"1Declare "allExecutedÌ¥Orders" on a separate line.(Ñ£Ò]8°°á£¯-
+vsquid:S00117Ó"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹Ü¹¦ıÿÿÿÿ8ì¦¡¥­-
+Tsquid:S2589á"7Remove this expression which always evaluates to "true"(×İçßüÿÿÿÿ
+qsquid:S00117¢"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ú——¯8°°á£¯-
+]squid:S1155ï">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
+]squid:S1155„">Use isEmpty() to check whether the collection is empty or not.(¦¶ğ‹8°°á£¯-
+Msquid:S1659N"0Declare "allCancelledOrders" on a separate line.(Ñ£Ò]8°°á£¯-
+]squid:S1155¥">Use isEmpty() to check whether the collection is empty or not.(‡Ú—Ø8°°á£¯-

@@ -1,23 +1,23 @@
 
-jsquid:S00116"RRename this field "edt_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğáê§
-vsquid:S00116$"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
 jsquid:S00116&"RRename this field "txt_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â®·Ù
-nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
-jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Öõ™
-nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
-bsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(¸çœ
-nsquid:S3776i"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(äÚÉûÿÿÿÿ
-nsquid:S00117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë”¾—üÿÿÿÿ
-nsquid:S00117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Ü åşÿÿÿÿ
 ssquid:S00116""VRename this field "btn_set_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘¢ßğøÿÿÿÿ
 ssquid:S00116("VRename this field "edt_old_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–·ˆüÿÿÿÿ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-usquid:S00116*"XRename this field "lnr_reset_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²¾»½ùÿÿÿÿ
+nsquid:S3776i"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(äÚÉûÿÿÿÿ
 nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
-nsquid:S00116 "WRename this field "edt_conf_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¼»
-
 nsquid:S00117^"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÊ¨şÿÿÿÿ
+jsquid:S00116"RRename this field "edt_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ğáê§
+esquid:S1192L"IDefine a constant instead of duplicating this literal "DeviantX" 3 times.(ñ¥ø¨üÿÿÿÿ
+nsquid:S00117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ë”¾—üÿÿÿÿ
+nsquid:S00117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·Ü åşÿÿÿÿ
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+lsquid:S00116,"TRename this field "avail_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¥‡¬
 nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
 jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Öõ™
-esquid:S1192L"IDefine a constant instead of duplicating this literal "DeviantX" 3 times.(ñ¥ø¨üÿÿÿÿ
-lsquid:S00116,"TRename this field "avail_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³¥‡¬
+nsquid:S00116 "WRename this field "edt_conf_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È¼»
+
+usquid:S00116*"XRename this field "lnr_reset_pin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²¾»½ùÿÿÿÿ
+nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
+nsquid:S00117i"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÚÉûÿÿÿÿ
+jsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”Öõ™
+vsquid:S00116$"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
+bsquid:CommentedOutCodeLineB"<This block of commented-out lines of code should be removed.(¸çœ

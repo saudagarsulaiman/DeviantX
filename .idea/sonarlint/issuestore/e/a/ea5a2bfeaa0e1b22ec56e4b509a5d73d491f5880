@@ -1,20 +1,20 @@
 
-jsquid:S00117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùí∏†
+ôsquid:S1186ï"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜î÷ö
+nsquid:UselessImportCheck"JRemove this unused import 'com.github.mikephil.charting.data.CandleEntry'.(†ù∏˝
+gsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(¨ŒÇ€˙ˇˇˇˇ
 hsquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(éª˜µ˚ˇˇˇˇ
-msquid:S00116."URename this field "line_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ˆ„Á
-?squid:S1148\"#Use a logger to log this exception.(Ä…‘Ö˝ˇˇˇˇ
-Äsquid:UselessImportCheck"\Remove this unused import 'com.github.mikephil.charting.interfaces.datasets.ICandleDataSet'.(Ç∏ˇ˚
+Wsquid:UselessImportCheck".Remove this unused import 'android.view.View'.(ÿΩ≠‰˛ˇˇˇˇ
+isquid:S00117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˇÚ‡µ
 rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(◊Ê‚õ
 csquid:CommentedOutCodeLine®"<This block of commented-out lines of code should be removed.(¨˝ó≥
 gsquid:CommentedOutCodeLineC"<This block of commented-out lines of code should be removed.(Ôœ‚Èˇˇˇˇˇ
-csquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(»ææÀ
-gsquid:CommentedOutCodeLinev"<This block of commented-out lines of code should be removed.(¨ŒÇ€˙ˇˇˇˇ
-ôsquid:S1186ï"ÄAdd a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(˜î÷ö
-osquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îâúî˘ˇˇˇˇ
-nsquid:UselessImportCheck"JRemove this unused import 'com.github.mikephil.charting.data.CandleEntry'.(†ù∏˝
 hsquid:CommentedOutCodeLine◊"<This block of commented-out lines of code should be removed.(ºÖÎô˛ˇˇˇˇ
-Wsquid:UselessImportCheck".Remove this unused import 'android.view.View'.(ÿΩ≠‰˛ˇˇˇˇ
-isquid:S00117D"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˇÚ‡µ
+csquid:CommentedOutCodeLine¿"<This block of commented-out lines of code should be removed.(»ææÀ
+osquid:S00117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îâúî˘ˇˇˇˇ
+?squid:S1148\"#Use a logger to log this exception.(Ä…‘Ö˝ˇˇˇˇ
+msquid:S00116."URename this field "line_chart" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ˆ„Á
+jsquid:S00117°"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùí∏†
 usquid:UselessImportCheck"LRemove this unused import 'com.github.mikephil.charting.data.CandleDataSet'.(∏∑ãë˘ˇˇˇˇ
-msquid:UselessImportCheck"IRemove this unused import 'com.github.mikephil.charting.data.CandleData'.(◊äÊü
+Äsquid:UselessImportCheck"\Remove this unused import 'com.github.mikephil.charting.interfaces.datasets.ICandleDataSet'.(Ç∏ˇ˚
 csquid:CommentedOutCodeLineŸ"<This block of commented-out lines of code should be removed.(°’±ö
+msquid:UselessImportCheck"IRemove this unused import 'com.github.mikephil.charting.data.CandleData'.(◊äÊü

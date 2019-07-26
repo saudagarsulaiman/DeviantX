@@ -1369,9 +1369,9 @@ lowPrice));
         TextView txt_fee_bal = view.findViewById(R.id.txt_fee_bal);
         TextView txt_ttl_lbl = view.findViewById(R.id.txt_ttl_lbl);
 
-        if (isBuy){
+        if (isBuy) {
             txt_ttl_lbl.setText(getResources().getText(R.string.buy));
-        }else {
+        } else {
             txt_ttl_lbl.setText(getResources().getText(R.string.sell));
         }
         if (isStopLimit) {
@@ -1416,10 +1416,10 @@ lowPrice));
                 fetchPrice(beforeSlash, "DEV");
                 fee = (amount * 0.25) / 100;
             }
-            txt_fee_lbl.setText(getResources().getText(R.string.dev));
+            txt_fee_lbl.setText(" (" + getResources().getText(R.string.dev) + ") ");
             txt_fee_code.setText(getResources().getText(R.string.dev));
             fee = (fee * coinValue) / 2;
-            txt_fee_val.setText(String.format("%.6f", fee));
+            txt_fee_val.setText(String.format("%.10f", fee));
 
             int selected_i = 0;
             for (int i = 0; i < accountWalletlist.size(); i++) {
@@ -1451,7 +1451,7 @@ lowPrice));
 
 /*
          double fee = (total * 0.25) / 100;
-            txt_fee_val.setText(String.format("%.6f", fee));
+            txt_fee_val.setText(String.format("%.10f", fee));
        if (txt_price_code.getText().toString().trim().equals("ETH")) {
                 txt_fee_lbl.setText(getResources().getText(R.string.fees_eth));
                 txt_fee_code.setText("ETH");
@@ -1542,8 +1542,8 @@ lowPrice));
             if (isBuy) {
 //    price
                 double fee = (total * 0.25) / 100;
-                txt_fee_val.setText(String.format("%.6f", fee));
-                txt_fee_lbl.setText(txt_price_code.getText().toString().trim());
+                txt_fee_val.setText(String.format("%.10f", fee));
+                txt_fee_lbl.setText(" (" + txt_price_code.getText().toString().trim() + ") ");
                 txt_fee_code.setText(txt_price_code.getText().toString().trim());
                 int selected_i = 0;
                 for (int i = 0; i < accountWalletlist.size(); i++) {
@@ -1572,8 +1572,8 @@ lowPrice));
             } else {
 //    amount
                 double fee = (amount * 0.25) / 100;
-                txt_fee_val.setText(String.format("%.6f", fee));
-                txt_fee_lbl.setText(txt_amount_code.getText().toString().trim());
+                txt_fee_val.setText(String.format("%.10f", fee));
+                txt_fee_lbl.setText(" (" + txt_amount_code.getText().toString().trim() + ") ");
                 txt_fee_code.setText(txt_amount_code.getText().toString().trim());
                 int selected_i = 0;
                 for (int i = 0; i < accountWalletlist.size(); i++) {
@@ -1894,6 +1894,7 @@ lowPrice));
     //    **************MAKING ORDER**************
     private void makeOrder(double amount, double price, double total, String type, String coin_pair, String wallet_name, String tx_type, double stop_price) {
         try {
+            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             String token = sharedPreferences.getString(CONSTANTS.token, null);
             boolean isDevFees = sharedPreferences.getBoolean(CONSTANTS.is_dev_fees, false);
             JSONObject params = new JSONObject();
@@ -1910,7 +1911,6 @@ lowPrice));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            progressDialog = ProgressDialog.show(getActivity(), "", getResources().getString(R.string.please_wait), true);
             OrderBookControllerApi apiService = DeviantXApiClient.getClient().create(OrderBookControllerApi.class);
             Call<ResponseBody> apiResponse = apiService.getOrder(CONSTANTS.DeviantMulti + token, params.toString());
             apiResponse.enqueue(new Callback<ResponseBody>() {
@@ -1929,6 +1929,7 @@ lowPrice));
                             if (loginResponseStatus.equals("true")) {
 
                                 fetchDefAccWal(wallet_name);
+                                fetchOpenOrders(coin_pair);
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     getActivity().startForegroundService(new Intent(getActivity(), WalletDataFetch.class));

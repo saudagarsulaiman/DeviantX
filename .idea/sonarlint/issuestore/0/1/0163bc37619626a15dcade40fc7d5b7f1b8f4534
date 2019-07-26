@@ -1,8 +1,8 @@
 
-xsquid:S1488)"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóþx
 wsquid:S00116o"ZRename this field "txt_wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(žšü€ÿÿÿÿÿ
-.squid:S2176m"Rename this class.(Â×žÖúÿÿÿÿ
-isquid:S3776."RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(†áÒú
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-gsquid:CommentedOutCodeLine4"<This block of commented-out lines of code should be removed.(¥›ºÐûÿÿÿÿ
 psquid:S00116q"SRename this field "lnr_item" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ˆ«Þúÿÿÿÿ
+gsquid:CommentedOutCodeLine4"<This block of commented-out lines of code should be removed.(¥›ºÐûÿÿÿÿ
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+isquid:S3776."RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(†áÒú
+.squid:S2176m"Rename this class.(Â×žÖúÿÿÿÿ
+xsquid:S1488)"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóþx

@@ -1,11 +1,11 @@
 
-.squid:S2176S"Rename this class.(Â×Öúÿÿÿÿ
-bsquid:CommentedOutCodeLine\"<This block of commented-out lines of code should be removed.(¶¡Éç
-xsquid:S14884"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
 usquid:S00116V"XRename this field "lnr_my_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²À×¤ÿÿÿÿÿ
-wsquid:S00116X"ZRename this field "txt_wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šü€ÿÿÿÿÿ
 qsquid:S00116Z"YRename this field "txt_wallet_bal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÖ
-qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
-€squid:UselessImportCheck"WRemove this unused import 'com.cryptowallet.deviantx.UI.Activities.WalletListActivity'.(ë¨ë×øÿÿÿÿ
+xsquid:S14884"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(Ûóşx
 rsquid:UselessImportCheck"IRemove this unused import 'com.cryptowallet.deviantx.UI.Models.AllCoins'.(Ñ„·Úşÿÿÿÿ
 Xsquid:UselessImportCheck"4Remove this unused import 'android.widget.EditText'.(†Å›Ú
+qsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊÈ¿W
+bsquid:CommentedOutCodeLine\"<This block of commented-out lines of code should be removed.(¶¡Éç
+.squid:S2176S"Rename this class.(Â×Öúÿÿÿÿ
+wsquid:S00116X"ZRename this field "txt_wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šü€ÿÿÿÿÿ
+€squid:UselessImportCheck"WRemove this unused import 'com.cryptowallet.deviantx.UI.Activities.WalletListActivity'.(ë¨ë×øÿÿÿÿ

@@ -551,6 +551,7 @@
     <string name="claim">Claim</string>
     <string name="empty_ad_feat_coins">No featured coins are available</string>
     <string name="empty_ad_div_coins">No dividend coins are available</string>
+    <string name="empty_ad_creator_coins">No creator airdrops are available</string>
     <string name="empty_ad_his_list">No Airdrop history is available</string>
     <string name="deposit_wallet">Deposit Wallet</string>
     <string name="no_avail_ad">No Airdrops available</string>
@@ -650,5 +651,6 @@
     <string name="pls_add_2">\' coin to selected wallet.</string>
     <string name="make">Make \'</string>
     <string name="order">\' Order</string>
+    <string name="creator_ad">Creator Airdrops</string>
 
 </resources>

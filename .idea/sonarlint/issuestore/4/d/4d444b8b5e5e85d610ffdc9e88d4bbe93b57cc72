@@ -1,26 +1,20 @@
 
-hsquid:CommentedOutCodeLine±"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+psquid:S001169"XRename this field "selected_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ£™Â
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
+nsquid:S001165"VRename this field "txt_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“êÁŽ
+zsquid:S00116/"]Rename this field "txt_coin_usd_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þ³ðîþÿÿÿÿ
+vsquid:S00116'"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
 xsquid:S001167"[Rename this field "btn_share_qrcode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(°´Ûëøÿÿÿÿ
-hsquid:CommentedOutCodeLine©"<This block of commented-out lines of code should be removed.(…º÷Íüÿÿÿÿ
+Ksquid:S1659?"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
+gsquid:CommentedOutCodeLine["<This block of commented-out lines of code should be removed.(®Ÿë©øÿÿÿÿ
+psquid:S00116-"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
+ssquid:S001163"[Rename this field "img_copy_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùþšˆ
+;squid:S1148²"#Use a logger to log this exception.(Ç’Çê
+gsquid:CommentedOutCodeLineh"<This block of commented-out lines of code should be removed.(«ºÍÐùÿÿÿÿ
+usquid:S00116)"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍðÿûÿÿÿÿ
 Msquid:S1659?"1Declare "loginResponseStatus" on a separate line.(›ª¨èùÿÿÿÿ
 rsquid:S001161"URename this field "img_qrcode" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Þ……Ÿøÿÿÿÿ
-;squid:S1148·"#Use a logger to log this exception.(Ç’Çê
-gsquid:CommentedOutCodeLine["<This block of commented-out lines of code should be removed.(®Ÿë©øÿÿÿÿ
-Tsquid:S2589Š"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
-zsquid:S00116/"]Rename this field "txt_coin_usd_value" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(þ³ðîþÿÿÿÿ
-csquid:CommentedOutCodeLine™"<This block of commented-out lines of code should be removed.(„¬¡‚
-@squid:S1148"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
-gsquid:CommentedOutCodeLineh"<This block of commented-out lines of code should be removed.(«ºÍÐùÿÿÿÿ
-rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×æâ›
-csquid:CommentedOutCodeLine­"<This block of commented-out lines of code should be removed.(˜ñß­
-usquid:S00116+"XRename this field "txt_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÂËäýÿÿÿÿ
-hsquid:CommentedOutCodeLine "<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
-usquid:S00116)"XRename this field "img_coin_logo" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÍðÿûÿÿÿÿ
-ssquid:S001163"[Rename this field "img_copy_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùþšˆ
-vsquid:S00116'"^Rename this field "toolbar_center_back" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬–·Î
-psquid:S00116-"XRename this field "txt_coin_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûç²‚
-psquid:S001169"XRename this field "selected_coin" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ£™Â
-Ksquid:S1659?"/Declare "loginResponseData" on a separate line.(›ª¨èùÿÿÿÿ
-nsquid:S001165"VRename this field "txt_address" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“êÁŽ
+@squid:S1148œ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
 bsquid:CommentedOutCodeLinel"<This block of commented-out lines of code should be removed.(‚î§
-hsquid:CommentedOutCodeLine¹"<This block of commented-out lines of code should be removed.(ÿ’Þ†þÿÿÿÿ
+Tsquid:S2589Š"7Remove this expression which always evaluates to "true"(×Ýçßüÿÿÿÿ
+usquid:S00116+"XRename this field "txt_coin_code" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÎÂËäýÿÿÿÿ
