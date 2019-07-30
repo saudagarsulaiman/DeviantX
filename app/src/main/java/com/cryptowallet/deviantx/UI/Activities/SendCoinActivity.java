@@ -238,23 +238,28 @@ public class SendCoinActivity extends AppCompatActivity implements ZXingScannerV
                             String str_btcp_address = edt_btcp_address.getText().toString().trim();
 
                             if (!str_btcp_address.isEmpty() && !fiat_bal.isEmpty() && !send_bal.isEmpty()) {
-                                if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 < selectedAccountWallet.getStr_data_balance()) {
-                                    if (myApplication.get2FA()) {
-                                        Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
-                                        Bundle bundle1 = new Bundle();
-                                        bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
-                                        bundle1.putString(CONSTANTS.send_bal, send_bal);
-                                        bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
-                                        bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
-                                        bundle1.putString(CONSTANTS.address, str_btcp_address);
-                                        intent.putExtras(bundle1);
-                                        startActivity(intent);
+                                if (ttl_rcv >= selectedAccountWallet.getDbl_minimumWithdrawl()) {
+
+                                    if (Double.parseDouble(edt_amount_bal.getText().toString().trim()) + 0.01 < selectedAccountWallet.getStr_data_balance()) {
+                                        if (myApplication.get2FA()) {
+                                            Intent intent = new Intent(SendCoinActivity.this, TwoFASendCoinActivity.class);
+                                            Bundle bundle1 = new Bundle();
+                                            bundle1.putParcelable(CONSTANTS.selectedAccountWallet, selectedAccountWallet);
+                                            bundle1.putString(CONSTANTS.send_bal, send_bal);
+                                            bundle1.putString(CONSTANTS.fiat_bal, fiat_bal);
+                                            bundle1.putDouble(CONSTANTS.ttl_rcv, ttl_rcv);
+                                            bundle1.putString(CONSTANTS.address, str_btcp_address);
+                                            intent.putExtras(bundle1);
+                                            startActivity(intent);
 //                                        finish();
+                                        } else {
+                                            customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                        }
                                     } else {
-                                        customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+                                        CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
                                     }
                                 } else {
-                                    CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.maintain_bal));
+                                    CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.min_withdrawl_is) + " " + selectedAccountWallet.getDbl_minimumWithdrawl());
                                 }
                             } else {
                                 CommonUtilities.ShowToastMessage(SendCoinActivity.this, getResources().getString(R.string.enter_every_detail));

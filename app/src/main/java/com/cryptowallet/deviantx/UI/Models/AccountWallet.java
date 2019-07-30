@@ -67,6 +67,10 @@ public class AccountWallet implements Parcelable {
     @SerializedName("fav")
     Boolean isFav;
 
+    @SerializedName("minimumWithdrawl")
+    Double dbl_minimumWithdrawl;
+
+
     protected AccountWallet(Parcel in) {
         str_data_walletName = in.readString();
         int_data_id = in.readInt();
@@ -128,6 +132,11 @@ public class AccountWallet implements Parcelable {
         str_coin_isFeatureCoin = in.readString();
         byte tmpIsFav = in.readByte();
         isFav = tmpIsFav == 0 ? null : tmpIsFav == 1;
+        if (in.readByte() == 0) {
+            dbl_minimumWithdrawl = null;
+        } else {
+            dbl_minimumWithdrawl = in.readDouble();
+        }
         if (in.readByte() == 0) {
             highValue = null;
         } else {
@@ -206,6 +215,12 @@ public class AccountWallet implements Parcelable {
         dest.writeString(str_coin_daily_chart_data);
         dest.writeString(str_coin_isFeatureCoin);
         dest.writeByte((byte) (isFav == null ? 0 : isFav ? 1 : 2));
+        if (dbl_minimumWithdrawl == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(dbl_minimumWithdrawl);
+        }
         if (highValue == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -381,6 +396,14 @@ public class AccountWallet implements Parcelable {
 
     public void setStr_coin_isFeatureCoin(String str_coin_isFeatureCoin) {
         this.str_coin_isFeatureCoin = str_coin_isFeatureCoin;
+    }
+
+    public Double getDbl_minimumWithdrawl() {
+        return dbl_minimumWithdrawl;
+    }
+
+    public void setDbl_minimumWithdrawl(Double dbl_minimumWithdrawl) {
+        this.dbl_minimumWithdrawl = dbl_minimumWithdrawl;
     }
 
     Double highValue = 0.0;

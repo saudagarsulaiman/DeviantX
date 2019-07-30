@@ -652,5 +652,6 @@
     <string name="make">Make \'</string>
     <string name="order">\' Order</string>
     <string name="creator_ad">Creator Airdrops</string>
+    <string name="min_withdrawl_is">Minimum withdrawl should be :</string>
 
 </resources>
