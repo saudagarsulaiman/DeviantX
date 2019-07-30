@@ -37,6 +37,9 @@ public class CreatorAirdrop implements Parcelable {
     @SerializedName("status")
     String str_status;
 
+    @SerializedName("isCancel")
+    String isCancel;
+
 
     protected CreatorAirdrop(Parcel in) {
         int_id = in.readInt();
@@ -57,6 +60,7 @@ public class CreatorAirdrop implements Parcelable {
         str_estimated = in.readString();
         str_email = in.readString();
         str_status = in.readString();
+        isCancel = in.readString();
     }
 
     @Override
@@ -81,6 +85,7 @@ public class CreatorAirdrop implements Parcelable {
         dest.writeString(str_estimated);
         dest.writeString(str_email);
         dest.writeString(str_status);
+        dest.writeString(isCancel);
     }
 
     @Override
@@ -178,5 +183,13 @@ public class CreatorAirdrop implements Parcelable {
 
     public void setStr_status(String str_status) {
         this.str_status = str_status;
+    }
+
+    public String getIsCancel() {
+        return isCancel;
+    }
+
+    public void setIsCancel(String isCancel) {
+        this.isCancel = isCancel;
     }
 }

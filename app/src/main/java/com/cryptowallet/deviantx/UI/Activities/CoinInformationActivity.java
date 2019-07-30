@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinGraphApi;
@@ -139,6 +138,8 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
     String respData, respStatus, respMsg;
 
+    long startTime, endTime;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -155,6 +156,9 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
 
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        endTime = System.currentTimeMillis();
 
         coinGraphList = new ArrayList<>();
         stringResponseList = new ArrayList<>();
@@ -180,7 +184,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             }
 
             if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+/*
                 getCoinChartData1(selectedCoin1);
+*/
+                invokeCoinGraphObject(selectedCoin1.getStr_coin_code(), "1h", 2000, startTime, endTime);
             } else {
                 CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
             }
@@ -200,7 +207,10 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                 txt_per_change.setTextColor(getResources().getColor(R.color.green));
             }
             if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
+/*
                 getCoinChartData(selectedCoin);
+*/
+                invokeCoinGraphObject(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
             } else {
                 CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.internetconnection));
             }
@@ -738,12 +748,14 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
     }
 
     private void SwitchCases(String item) {
-        long startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
-        long endTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis() - (24 * 60 * 60 * 1000);
+        endTime = System.currentTimeMillis();
         switch (item) {
             case "1 Day":
                 if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
-                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+/*
+                    invokeCoinGraphArray(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+*/
                     pb.setVisibility(View.VISIBLE);
                 } else {
                     pb.setVisibility(View.GONE);
@@ -753,7 +765,9 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
             case "7 Days":
                 startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000);
                 if (CommonUtilities.isConnectionAvailable(CoinInformationActivity.this)) {
-                    invokeCoinGraph(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+/*
+                    invokeCoinGraphArray(selectedCoin.getStr_coin_code(), "1h", 2000, startTime, endTime);
+*/
                     pb.setVisibility(View.VISIBLE);
                 } else {
                     pb.setVisibility(View.GONE);
@@ -778,7 +792,7 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
         }
     }
 
-    private void invokeCoinGraph(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+    private void invokeCoinGraphArray(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
         try {
             CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
             Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
@@ -815,6 +829,60 @@ public class CoinInformationActivity extends AppCompatActivity implements Adapte
                             candle_chart.setData(null);
                             setLineChartData(responseList);
 
+                        } else {
+                            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());
+                            pb.setVisibility(View.GONE);
+                        }
+
+                    } catch (Exception e) {
+                        pb.setVisibility(View.GONE);
+                        e.printStackTrace();
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        pb.setVisibility(View.GONE);
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        pb.setVisibility(View.GONE);
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.networkerror));
+                    } else {
+                        pb.setVisibility(View.GONE);
+                        CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            pb.setVisibility(View.GONE);
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(CoinInformationActivity.this, getResources().getString(R.string.errortxt));
+        }
+    }
+
+    private void invokeCoinGraphObject(final String symbol_coinCodeX, final String intervalX, final int limitX, final long startTimeX, final long endTimeX) {
+        try {
+            CoinGraphApi apiService = DeviantXApiClient.getCoinGraph().create(CoinGraphApi.class);
+            Call<ResponseBody> apiResponse = apiService.getCoinGraph(symbol_coinCodeX, "USD", 1000);
+            Log.i("API:\t:", apiResponse.toString());
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null && !responsevalue.contains("code")) {
+                            pb.setVisibility(View.GONE);
+                            txt_open.setText(getResources().getString(R.string.open) + "$00.00");
+                            txt_high.setText(getResources().getString(R.string.high) + "$000.00");
+                            txt_low.setText(getResources().getString(R.string.low) + "$00.00");
+                            txt_close.setText(getResources().getString(R.string.closee) + "$00.00");
+                            txt_date.setText(getResources().getString(R.string.date) + "dd/MM/yyyy");
+                            txt_time.setText(getResources().getString(R.string.time) + "hh:mm");
+                            setCoinLineChartData(responsevalue);
                         } else {
                             CommonUtilities.ShowToastMessage(CoinInformationActivity.this, responsevalue);
                             Log.i(CONSTANTS.TAG, "onResponse:\n" + response.message());

@@ -21,5 +21,8 @@ public interface WithdrawControllerApi {
     @GET("/api_v2/withdraw/withdraw_details/{wallet_name}/{coin_code}")
     Call<ResponseBody> getSentTransactions(@Header("Authorization") String AuthorizationDX, @Path("wallet_name") String walletNameX, @Path("coin_code") String coin_codeX);
 
+    @Headers("Content-Type: application/json")
+    @POST("/api_v2/withdraw/get_transaction_fee")
+    Call<ResponseBody> getTransactionFee(@Body String body, @Header("Authorization") String AuthorizationDX);
 
 }

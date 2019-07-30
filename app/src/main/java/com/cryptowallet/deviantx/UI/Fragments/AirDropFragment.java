@@ -138,7 +138,7 @@ public class AirDropFragment extends Fragment {
     DividendADHorizantalRAdapter dividendADHorizantalRAdapter;
     RecentADHistoryRAdapter recentADHistoryRAdapter;
 
-    LinearLayoutManager layoutManagerHorizontal, layoutManagerHorizontalDivAd,layoutManagerHorizontalCreatorAd, layoutManagerVertical;
+    LinearLayoutManager layoutManagerHorizontal, layoutManagerHorizontalDivAd, layoutManagerHorizontalCreatorAd, layoutManagerVertical;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -178,7 +178,7 @@ public class AirDropFragment extends Fragment {
         rview_fad_coins.setLayoutManager(layoutManagerHorizontal);
         layoutManagerHorizontalDivAd = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rview_div_ad_coins.setLayoutManager(layoutManagerHorizontalDivAd);
-        layoutManagerHorizontalCreatorAd= new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManagerHorizontalCreatorAd = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rview_creator_ad_coins.setLayoutManager(layoutManagerHorizontalCreatorAd);
         layoutManagerVertical = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rview_radh_coins.setLayoutManager(layoutManagerVertical);
@@ -911,7 +911,8 @@ public class AirDropFragment extends Fragment {
 
                         ArrayList<CreatorAirdrop> createdADCoinsList = new ArrayList<>();
                         for (CreatorAirdrop coinName : allCreatorAirdrops) {
-                            createdADCoinsList.add(coinName);
+                            if (coinName.getIsCancel().equals("false"))
+                                createdADCoinsList.add(coinName);
                         }
                         if (createdADCoinsList.size() > 0) {
 /*

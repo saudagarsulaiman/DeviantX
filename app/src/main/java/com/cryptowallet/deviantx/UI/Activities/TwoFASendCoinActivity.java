@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.UserControllerApi;
@@ -23,15 +22,7 @@ import com.cryptowallet.deviantx.ServiceAPIs.WithdrawControllerApi;
 import com.cryptowallet.deviantx.UI.Models.AccountWallet;
 import com.cryptowallet.deviantx.UI.Services.AirdropWalletFetch;
 import com.cryptowallet.deviantx.UI.Services.AirdropsHistoryFetch;
-import com.cryptowallet.deviantx.UI.Services.AllCoinsFetch;
-import com.cryptowallet.deviantx.UI.Services.DividendAirdropsFetch;
-import com.cryptowallet.deviantx.UI.Services.ExcOrdersFetch;
-import com.cryptowallet.deviantx.UI.Services.FeaturedAirdropsFetch;
-import com.cryptowallet.deviantx.UI.Services.HeaderBannerFetch;
-import com.cryptowallet.deviantx.UI.Services.NewsDXFetch;
-import com.cryptowallet.deviantx.UI.Services.PairsListFetch;
 import com.cryptowallet.deviantx.UI.Services.WalletDataFetch;
-import com.cryptowallet.deviantx.UI.Services.WalletDetailsFetch;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -139,7 +130,12 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                             regResponseStatus = jsonObject.getString("status");
                             if (regResponseStatus.equals("true")) {
                                 regResponsedata = jsonObject.getString("data");
-                                customDialog(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
+/*
+                                customDialog(selectedAccountWallet, send_bal, fiat_bal, */
+                                /*fee, *//*
+ttl_rcv, str_btcp_address);
+*/
+                                getTransFee(selectedAccountWallet, send_bal, fiat_bal, /*fee, */ttl_rcv, str_btcp_address);
 
                             } else {
                                 CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, regResponseMsg);
@@ -176,7 +172,72 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         }
     }
 
-    private void customDialog(final AccountWallet selectedAccountWallet, String send_bal, String fiat_bal/*, String fee*/, final Double ttl_rcv, final String toAddress) {
+    private void getTransFee(AccountWallet selectedAccountWallet, String send_bal, String fiat_bal, Double ttl_rcv, String str_btcp_address) {
+        try {
+            String tkn = sharedPreferences.getString(CONSTANTS.token, "");
+            JSONObject params = new JSONObject();
+            try {
+                params.put("amount", ttl_rcv);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            progressDialog = ProgressDialog.show(TwoFASendCoinActivity.this, "", getResources().getString(R.string.please_wait), true);
+            WithdrawControllerApi apiService = DeviantXApiClient.getClient().create(WithdrawControllerApi.class);
+            Call<ResponseBody> apiResponse = apiService.getTransactionFee(params.toString(), CONSTANTS.DeviantMulti + tkn);
+            apiResponse.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    try {
+                        String responsevalue = response.body().string();
+
+                        if (!responsevalue.isEmpty() && responsevalue != null) {
+                            progressDialog.dismiss();
+
+                            JSONObject jsonObject = new JSONObject(responsevalue);
+                            regResponseMsg = jsonObject.getString("msg");
+                            regResponseStatus = jsonObject.getString("status");
+                            if (regResponseStatus.equals("true")) {
+                                regResponsedata = jsonObject.getString("data");
+
+                                customDialog(selectedAccountWallet, send_bal, fiat_bal,regResponsedata,ttl_rcv, str_btcp_address);
+
+                            } else {
+                                CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, regResponseMsg);
+                            }
+                        } else {
+                            CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, regResponseMsg);
+                            Log.i(CONSTANTS.TAG, "onResponse:\n" + responsevalue);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (t instanceof SocketTimeoutException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.Timeout));
+                    } else if (t instanceof java.net.ConnectException) {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.networkerror));
+                    } else {
+                        progressDialog.dismiss();
+                        CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            progressDialog.dismiss();
+            ex.printStackTrace();
+            CommonUtilities.ShowToastMessage(TwoFASendCoinActivity.this, getResources().getString(R.string.errortxt));
+        }
+    }
+
+    private void customDialog(final AccountWallet selectedAccountWallet, String send_bal, String fiat_bal, String fee, final Double ttl_rcv, final String toAddress) {
         //                Creating A Custom Dialog Using DialogPlus
         ViewHolder viewHolder = new ViewHolder(R.layout.dialog_send_confirm);
         final DialogPlus dialog = DialogPlus.newDialog(TwoFASendCoinActivity.this)
@@ -187,7 +248,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
                 .setOutAnimation(R.anim.slide_out_bottom)
                 .setContentWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                 .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
-  .create();
+                .create();
 
 //                Initializing Widgets
         View view = dialog.getHolderView();
@@ -209,7 +270,7 @@ public class TwoFASendCoinActivity extends AppCompatActivity {
         txt_fiat_bal.setText(fiat_bal);
 //        txt_fiat_code.setText();
         txt_to_address.setText(toAddress);
-//        txt_fee.setText(fee);
+        txt_fee.setText(fee);
         txt_fee_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
         txt_ttl_receive.setText("" + ttl_rcv);
         txt_ttl_receive_code.setText(selectedAccountWallet/*.getAllCoins()*/.getStr_coin_code());
