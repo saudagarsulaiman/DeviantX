@@ -9,7 +9,7 @@ android {
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 50
-        versionName "2.5"
+        versionName "50"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
