@@ -67,8 +67,10 @@ public final class CommonUtilities {
     public static final String URL = "https://b8646e0a.ngrok.io";
     public static final String WS = "wss://1b8646e0a.ngrok.io/ws_v2/deviant/websocket";
 */
+/*
     public static final String URL = "https://2ea83ab1.ngrok.io";
     public static final String WS = "wss://2ea83ab1.ngrok.io/ws_v2/deviant/websocket";
+*/
 
     /******************** * Test Server Links  ****************************************************/
 /*
@@ -86,10 +88,8 @@ public final class CommonUtilities {
 
     /********************* Live Server Links ****************************************************/
 
-/*
     public static final String URL = "https://deviantx.app";
     public static final String WS = "wss://deviantx.app/ws_v2/deviant/websocket";
-*/
 
 
     //    ********************* Reusable Methods*******************************************************

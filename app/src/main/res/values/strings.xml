@@ -653,5 +653,7 @@
     <string name="order">\' Order</string>
     <string name="creator_ad">Creator Airdrops</string>
     <string name="min_withdrawl_is">Minimum withdrawl should be :</string>
+    <string name="mismatch_version">Mismatch Version</string>
+    <string name="update_app">Update New Version!</string>
 
 </resources>

@@ -59,4 +59,8 @@ public interface UserControllerApi {
     @GET("/api_v2/account/verify_2fa/{totp}")
     Call<ResponseBody> verify2FA(@Path("totp") String totpX, @Header("Authorization") String AuthorizationDX);
 
+    @GET("/api_v2/account/get_app_version")
+    Call<ResponseBody> getVersionCode();
+
+
 }
