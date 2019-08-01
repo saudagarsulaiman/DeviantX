@@ -75,6 +75,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
     //    ArrayList<AllTransactions> allTransactionsList;
     ArrayList<SentHistory> sentHistoriesList, allList;
     ArrayList<ReceivedHistory> receivedHistoriesList;
+    ArrayList<SentHistory> allHistoryList;
 
     @Override
     protected void onResume() {
@@ -98,6 +99,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
 //        allTransactionsList = new ArrayList<>();
         sentHistoriesList = new ArrayList<>();
         receivedHistoriesList = new ArrayList<>();
+        allHistoryList = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         selectedAccountWallet = bundle.getParcelable(CONSTANTS.selectedAccountWallet);
@@ -142,6 +144,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+/*
                 if (transType.equals(CONSTANTS.sent)) {
                     ArrayList<SentHistory> searchCoinsList = new ArrayList<>();
                     for (SentHistory senderAddress : sentHistoriesList) {
@@ -161,6 +164,18 @@ public class WalletHistoryActivity extends AppCompatActivity {
                     walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, sentHistoriesList, searchCoinsList, false);
                     rview_trans_history.setAdapter(walletHistoryRAdapter);
                 }
+*/
+
+                ArrayList<SentHistory> searchCoinsList = new ArrayList<>();
+                for (SentHistory senderAddress : allHistoryList) {
+                    if (senderAddress.getStr_fromAddress().toLowerCase().contains(s.toString().toLowerCase())) {
+                        searchCoinsList.add(senderAddress);
+                    }
+                }
+                walletHistoryRAdapter = new WalletHistoryRAdapter(WalletHistoryActivity.this, searchCoinsList, receivedHistoriesList, true);
+                rview_trans_history.setAdapter(walletHistoryRAdapter);
+
+
 /*
 //                ArrayList<Transaction> searchCoinsList = new ArrayList<>();
                 for (Transaction senderAddress : transactions) {
@@ -223,7 +238,7 @@ public class WalletHistoryActivity extends AppCompatActivity {
                                         for (int i = 0; i < sentHistoriesList.size(); i++) {
                                             allList.add(sentHistoriesList.get(i));
                                         }
-                                        ArrayList<SentHistory> allHistoryList = new ArrayList<>();
+                                        allHistoryList = new ArrayList<>();
                                         for (int i = 0; i < allList.size(); i++) {
                                             if (allList.get(i).getDbl_coinValue() >= 0.0001) {
                                                 allHistoryList.add(allList.get(i));
