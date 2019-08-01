@@ -173,8 +173,8 @@ public class WalletHistoryActivity extends AppCompatActivity {
 //                rview_trans_history.setAdapter(walletHistoryRAdapter);
             }
         });
-
     }
+
     private void fetchAllHistory(AccountWallet selectedAccountWallet) {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);
