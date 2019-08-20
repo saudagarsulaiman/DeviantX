@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/def_margin">
+
+            <include layout="@layout/toolbar_center_back" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/txt_payin_lbl_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:gravity="center"
+                    android:text="@string/payin_address"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/def_lbl_size"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:background="@drawable/rec_grey5_white"
+                    android:padding="@dimen/padding5">
+
+                    <ImageView
+                        android:id="@+id/img_qrcode"
+                        android:layout_width="@dimen/width160"
+                        android:layout_height="@dimen/height160"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/padding5"
+                        android:scaleType="fitXY" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/def_padding">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:id="@+id/txt_lbl_payin_add"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_weight="0.9"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="@string/dev_address"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/def_text_size" />
+
+                        <ImageView
+                            android:id="@+id/img_copy_address"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/height18"
+                            android:layout_weight="0.1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:src="@drawable/copy" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_payin_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:scrollbarAlwaysDrawHorizontalTrack="true"
+                        android:text="@string/dev_address"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="vertical"
+                    android:padding="@dimen/def_padding">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="0.4"
+                            android:gravity="start"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="@string/note_pay_in_amount"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_payin_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginStart="@dimen/def_margin"
+                            android:layout_weight="0.6"
+                            android:gravity="end"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text="5.1321 BTC"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:layout_marginTop="@dimen/margin5"
+                        android:text="@string/note_ect_payment"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/def_hint_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/def_padding">
+
+                    <ImageView
+                        android:id="@+id/img_tick_ec"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height15"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:src="@drawable/tick_green" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/def_margin"
+                        android:layout_weight="0.9"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/establishing_connection"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_lbl_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/def_padding">
+
+                    <ImageView
+                        android:id="@+id/img_tick_pd"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height15"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:src="@drawable/tick_grey" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/def_margin"
+                        android:layout_weight="0.9"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/processing_data"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_lbl_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/def_margin"
+                    android:layout_marginRight="@dimen/def_margin"
+                    android:background="@drawable/rec_lytblue_c1"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/def_padding">
+
+                    <ImageView
+                        android:id="@+id/img_tick_c"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/height15"
+                        android:layout_gravity="center"
+                        android:layout_weight="0.1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:src="@drawable/tick_grey" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/def_margin"
+                        android:layout_weight="0.9"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="@string/completed"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_lbl_size" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

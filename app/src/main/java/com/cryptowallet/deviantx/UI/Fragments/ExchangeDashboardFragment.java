@@ -233,9 +233,10 @@ public class ExchangeDashboardFragment extends Fragment implements AdapterView.O
                                     @Override
                                     public void run() {
                                         for (int i = 0; i < allCoinPairs.size(); i++) {
-                                            if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
-                                                if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
-                                                    allCoinPairsList.add(allCoinPairs.get(i));
+                                            if (allCoinPairs.get(i).getStr_pairCoin() != null)
+                                                if (!allCoinPairs.get(i).getStr_pairCoin().trim().equals(allCoinPairs.get(i).getStr_exchangeCoin().trim()))
+                                                    if (allCoinPairs.get(i).getStr_exchangeCoin().trim().equals(selectedCoinName))
+                                                        allCoinPairsList.add(allCoinPairs.get(i));
                                         }
 
                                         for (int i = 0; i < allCoinPairsList.size(); i++) {

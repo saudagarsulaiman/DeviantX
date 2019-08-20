@@ -9,6 +9,7 @@
     <ImageView
         android:id="@+id/img_spnr_coin"
         android:layout_width="@dimen/width30"
+        android:visibility="gone"
         android:layout_height="@dimen/height30"
         android:layout_gravity="center" />
 

@@ -1,8 +1,8 @@
 package com.cryptowallet.deviantx.UI.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cryptowallet.deviantx.R;
+import com.cryptowallet.deviantx.UI.Activities.ChangellyActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,16 +45,20 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ToolsAdapter.ViewHolder viewHolder, int i) {
         switch (i) {
-            case 0:
+            case /*0*/ 2:
+                viewHolder.txt_coming_soon.setVisibility(View.VISIBLE);
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
                 break;
-            case 1:
+            case /*1*/ 3:
+                viewHolder.txt_coming_soon.setVisibility(View.VISIBLE);
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
                 break;
-            case /*3*/ 2:
+            case /*3*/ /*2*/ 1:
+                viewHolder.txt_coming_soon.setVisibility(View.VISIBLE);
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_brinjal_gradient_c2));
                 break;
-            case /*4*/ 3:
+            case /*4*/ /*3*/ 0:
+                viewHolder.txt_coming_soon.setVisibility(View.INVISIBLE);
                 viewHolder.lnr_tools_ect.setBackground(context.getResources().getDrawable(R.drawable.rec_wh_gradient_c2));
                 break;
           /*  case 2:
@@ -73,6 +78,18 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
         viewHolder.txt_title.setText(title.get(i));
         viewHolder.txt_slogan.setText(slogan.get(i));
         Picasso.with(context).load(icons.get(i)).into(viewHolder.img_icon);
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (i == 0) {
+                    Intent intent = new Intent(context, ChangellyActivity.class);
+                    context.startActivity(intent);
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -87,6 +104,8 @@ public class ToolsAdapter extends RecyclerView.Adapter<ToolsAdapter.ViewHolder> 
         ImageView img_icon;
         @BindView(R.id.txt_title)
         TextView txt_title;
+        @BindView(R.id.txt_coming_soon)
+        TextView txt_coming_soon;
         @BindView(R.id.txt_slogan)
         TextView txt_slogan;
 

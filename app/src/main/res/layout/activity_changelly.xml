@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <ScrollView
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_continue">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin50"
             android:orientation="vertical">
 
             <LinearLayout
@@ -104,11 +104,13 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.7"
-                            android:inputType="numberDecimal"
                             android:backgroundTint="@android:color/transparent"
+                            android:inputType="numberDecimal"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:text="1"
                             android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
                             android:textStyle="bold"
                             android:theme="@style/edt" />
 
@@ -125,40 +127,78 @@
 
                     </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/spnr_amt_exc"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin5"
                         android:layout_marginLeft="@dimen/margin5"
                         android:layout_weight="0.7"
-                        android:background="@color/lyt_blue" />
+                        android:background="@color/lyt_blue">
+
+                        <Spinner
+                            android:id="@+id/spnr_amt_exc"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/lyt_blue" />
+
+                        <ImageView
+                            android:layout_width="@dimen/width10"
+                            android:layout_height="@dimen/height10"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/margin10"
+                            android:src="@drawable/down" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/def_margin"
+                    android:layout_marginLeft="@dimen/def_margin"
+                    android:layout_marginTop="@dimen/margin10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/note_min_amt"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/def_text_size" />
+
+                    <TextView
+                        android:id="@+id/txt_min_amt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/margin8"
+                        android:layout_marginLeft="@dimen/margin8"
+                        android:gravity="center"
+                        android:text="0.1"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/lnr_interchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <ImageView
+                android:id="@+id/img_interchange"
+                android:layout_width="@dimen/width50"
+                android:layout_height="@dimen/height50"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/def_margin">
-
-                <ImageView
-                    android:layout_width="@dimen/width40"
-                    android:layout_height="@dimen/height40"
-                    android:background="@drawable/cir_lytblue"
-                    android:padding="@dimen/padding15"
-                    android:src="@drawable/send" />
-
-            </LinearLayout>
+                android:layout_marginTop="@dimen/def_margin"
+                android:src="@drawable/swap" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/def_margin"
-                android:layout_marginTop="@dimen/margin5"
+                android:layout_marginTop="@dimen/def_margin"
                 android:layout_marginRight="@dimen/def_margin"
                 android:orientation="vertical">
 
@@ -187,25 +227,26 @@
                         android:padding="@dimen/padding5"
                         android:weightSum="1">
 
-                        <EditText
+                        <com.cryptowallet.deviantx.Utilities.AutoScrollableTextView
                             android:id="@+id/edt_rec_amt"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:inputType="none"
-                            android:editable="false"
                             android:layout_weight="0.7"
                             android:backgroundTint="@android:color/transparent"
+                            android:editable="false"
+                            android:inputType="none"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:text="0"
                             android:textColor="@color/white"
+                            android:textSize="@dimen/def_text_size"
                             android:textStyle="bold"
                             android:theme="@style/edt" />
 
                         <TextView
                             android:id="@+id/txt_rec_amt_code"
                             android:layout_width="0dp"
-                            android:inputType="numberDecimal"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="0.3"
@@ -216,18 +257,61 @@
 
                     </LinearLayout>
 
-                    <Spinner
-                        android:id="@+id/spnr_amt_rec"
+
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin5"
                         android:layout_marginLeft="@dimen/margin5"
                         android:layout_weight="0.7"
-                        android:background="@color/lyt_blue" />
+                        android:background="@color/lyt_blue">
+
+                        <Spinner
+                            android:id="@+id/spnr_amt_rec"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/lyt_blue" />
+
+                        <ImageView
+                            android:layout_width="@dimen/width10"
+                            android:layout_height="@dimen/height10"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginEnd="@dimen/margin10"
+                            android:src="@drawable/down" />
+
+                    </RelativeLayout>
+
+                    <!--
+                                        <Spinner
+                                            android:id="@+id/spnr_amt_rec"
+                                            android:layout_width="0dp"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginStart="@dimen/margin5"
+                                            android:layout_marginLeft="@dimen/margin5"
+                                            android:layout_weight="0.5"
+                                            android:background="@color/lyt_blue" />
+                    -->
 
                 </LinearLayout>
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_getExpAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/def_btn_height"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/def_margin"
+                android:background="@drawable/rec_dash_grey_trans_c5"
+                android:paddingStart="@dimen/def_padding"
+                android:paddingEnd="@dimen/def_padding"
+                android:text="@string/get_amount"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_lbl_size"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -285,7 +369,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/def_text_size"
         android:textStyle="bold"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -293,8 +377,7 @@
         android:background="@drawable/bg_gradient"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
-
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/lnr_tools_ect"

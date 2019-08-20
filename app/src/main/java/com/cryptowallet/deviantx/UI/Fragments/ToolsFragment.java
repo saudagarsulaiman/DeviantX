@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.UI.Activities.ECTActivity;
 import com.cryptowallet.deviantx.UI.Adapters.ToolsAdapter;
-import com.cryptowallet.deviantx.UI.Adapters.WalletListRAdapter;
 import com.yarolegovich.discretescrollview.DSVOrientation;
 import com.yarolegovich.discretescrollview.DiscreteScrollView;
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer;
@@ -54,6 +53,14 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
         slogan = new ArrayList<>();
         icons = new ArrayList<>();
 
+        title.add("Changelly");
+        slogan.add("Exchange cryptocurrency at the best rate.");
+        icons.add(R.drawable.ic_changelly);
+
+        title.add("Shapeshift");
+        slogan.add("Leading instant digital asset exchange.");
+        icons.add(R.drawable.ic_shape_shift);
+
         title.add("Exchange");
         slogan.add("Transfer your coins from Exchanges.");
         icons.add(R.drawable.ic_tools);
@@ -61,14 +68,6 @@ public class ToolsFragment extends Fragment implements DiscreteScrollView.OnItem
         title.add("ICO Sales");
         slogan.add("Buy tokens and receive directly here.");
         icons.add(R.drawable.ic_ico);
-
-            title.add("Shapeshift");
-        slogan.add("Leading instant digital asset exchange.");
-        icons.add(R.drawable.ic_shape_shift);
-
-        title.add("Changelly");
-        slogan.add("Exchange cryptocurrency at the best rate.");
-        icons.add(R.drawable.ic_changelly);
 
 
         String s = getResources().getString(R.string.ect) + " (" + getResources().getString(R.string.coming_soon) + ")";

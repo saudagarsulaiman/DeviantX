@@ -68,8 +68,12 @@ public final class CommonUtilities {
     public static final String WS = "wss://1b8646e0a.ngrok.io/ws_v2/deviant/websocket";
 */
 /*
-    public static final String URL = "https://2ea83ab1.ngrok.io";
-    public static final String WS = "wss://2ea83ab1.ngrok.io/ws_v2/deviant/websocket";
+    public static final String URL = "https://c9fbe90b.ngrok.io";
+    public static final String WS = "wss://c9fbe90b.ngrok.io/ws_v2/deviant/websocket";
+*/
+/*
+    public static final String URL = "https://6eb0e852.ngrok.io";
+    public static final String WS = "wss://6eb0e852.ngrok.io/ws_v2/deviant/websocket";
 */
 
     /******************** * Test Server Links  ****************************************************/
@@ -80,16 +84,16 @@ public final class CommonUtilities {
     public static final String URL = "http://192.168.0.179:3322";
     public static final String URL = "http://192.168.0.111:3322";
 */
-/*
     public static final String URL = "http://128.199.145.249:3322";
     public static final String WS = "http://128.199.145.249:3323/ws_v2/deviant/websocket";
-*/
 
 
     /********************* Live Server Links ****************************************************/
 
+/*
     public static final String URL = "https://deviantx.app";
     public static final String WS = "wss://deviantx.app/ws_v2/deviant/websocket";
+*/
 
 
     //    ********************* Reusable Methods*******************************************************

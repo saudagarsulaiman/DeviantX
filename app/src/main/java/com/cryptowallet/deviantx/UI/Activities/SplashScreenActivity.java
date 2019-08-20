@@ -43,11 +43,83 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+/*
         if (CommonUtilities.isConnectionAvailable(SplashScreenActivity.this)) {
             getVersionNameBE();
         } else {
             CommonUtilities.ShowToastMessage(SplashScreenActivity.this, getResources().getString(R.string.internetconnection));
         }
+*/
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+
+                    boolean ft = prefs.getBoolean(CONSTANTS.ft, true);
+
+                    if (ft) {
+                        editor.clear();
+                        editor.putBoolean(CONSTANTS.ft, false);
+                        editor.apply();
+                    }
+
+                    String token = prefs.getString(CONSTANTS.token, null);
+                    boolean seed = prefs.getBoolean(CONSTANTS.seed, false);
+                    boolean empty_wallet = prefs.getBoolean(CONSTANTS.empty_wallet, false);
+                    boolean status2FA = prefs.getBoolean(CONSTANTS.twoFactorAuth, false);
+                    boolean login2FA = prefs.getBoolean(CONSTANTS.login2FA, false);
+                    boolean app_pin = prefs.getBoolean(CONSTANTS.is_app_pin, false);
+
+                    if (app_pin) {
+                        Intent intent = new Intent(SplashScreenActivity.this, AppPinActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        if (token != null) {
+                            if (seed) {
+                                if (empty_wallet) {
+                                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    if (status2FA) {
+                                        if (login2FA) {
+                                            Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    } else {
+                                        Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            } else {
+                                Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        } else {
+                            Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                } catch (NullPointerException e) {
+                    Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                    e.printStackTrace();
+                }
+            }
+        }, 2000);
 
     }
 

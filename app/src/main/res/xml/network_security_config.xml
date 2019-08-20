@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-<!--
-        &lt;!&ndash;Test Server&ndash;&gt;
+        <!--Test Server-->
         <domain includeSubdomains="true">128.199.145.249</domain>
--->
-        Test IP
+        <!--Test IP-->
+<!--
         <domain includeSubdomains="true">fd80bb9b.ngrok.io</domain>
+-->
     </domain-config>
 </network-security-config>

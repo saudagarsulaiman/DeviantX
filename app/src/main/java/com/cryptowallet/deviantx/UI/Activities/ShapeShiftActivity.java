@@ -13,12 +13,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cryptowallet.deviantx.R;
 import com.cryptowallet.deviantx.ServiceAPIs.CoinsControllerApi;
-import com.cryptowallet.deviantx.UI.Adapters.MyAdapter;
-import com.cryptowallet.deviantx.UI.Models.AllCoins;
+import com.cryptowallet.deviantx.UI.Adapters.MySpinnerAdapter;
 import com.cryptowallet.deviantx.Utilities.CONSTANTS;
 import com.cryptowallet.deviantx.Utilities.CommonUtilities;
 import com.cryptowallet.deviantx.Utilities.DeviantXApiClient;
@@ -68,7 +66,7 @@ public class ShapeShiftActivity extends AppCompatActivity {
     int int_coin_id, int_coin_rank;
     Double dbl_coin_usdValue, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m;
     String loginResponseData, loginResponseStatus, loginResponseMsg, str_coin_name, str_coin_code, str_coin_logo;
-    ArrayList<AllCoins> allCoinsList;
+    ArrayList</*AllCoins*/String> allCoinsList;
 
 
     @Override
@@ -203,10 +201,12 @@ public class ShapeShiftActivity extends AppCompatActivity {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
+/*
                                     allCoinsList.add(new AllCoins(int_coin_id, str_coin_name, str_coin_code, str_coin_logo, dbl_coin_usdValue, int_coin_rank, dbl_coin_marketCap, dbl_coin_volume, dbl_coin_24h, dbl_coin_7d, dbl_coin_1m));
+*/
                                 }
-                                spnr_amt_exc.setAdapter(new MyAdapter(ShapeShiftActivity.this, R.layout.spinner_row_lyt, allCoinsList));
-                                spnr_amt_rec.setAdapter(new MyAdapter(ShapeShiftActivity.this, R.layout.spinner_row_lyt, allCoinsList));
+                                spnr_amt_exc.setAdapter(new MySpinnerAdapter(ShapeShiftActivity.this, R.layout.spinner_row_lyt, allCoinsList));
+                                spnr_amt_rec.setAdapter(new MySpinnerAdapter(ShapeShiftActivity.this, R.layout.spinner_row_lyt, allCoinsList));
 
                             } else {
                                 CommonUtilities.ShowToastMessage(ShapeShiftActivity.this, loginResponseMsg);

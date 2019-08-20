@@ -332,7 +332,6 @@ public class ExchangeOrderHistoryActivity extends AppCompatActivity {
 
     }
 
-
     private void fetchAllOrders() {
         try {
             String token = sharedPreferences.getString(CONSTANTS.token, null);

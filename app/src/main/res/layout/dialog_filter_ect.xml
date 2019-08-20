@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin5"
+        android:layout_marginLeft="@dimen/margin5"
+        android:layout_marginEnd="@dimen/margin5"
+        android:layout_marginRight="@dimen/margin5"
+        android:background="@drawable/dlg_white_trtl_c15"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/img_center_back"
+            android:layout_width="@dimen/width38"
+            android:layout_height="@dimen/height30"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:src="@drawable/line" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin5"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding50"
+            android:paddingRight="@dimen/padding50"
+            android:text="@string/sel_filter"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/lnr_open_partial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_open_pending_orders"
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/def_margin"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:src="@drawable/unselected_circle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin10"
+                android:text="@string/new_orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_pending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_pending_orders"
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/def_margin"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:src="@drawable/unselected_circle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin10"
+                android:text="@string/pending_orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_executed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_executed_orders"
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/def_margin"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:src="@drawable/unselected_circle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin10"
+                android:text="@string/executed_orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_all_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/def_margin"
+            android:layout_marginBottom="@dimen/def_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_all_orders"
+                android:layout_width="@dimen/width20"
+                android:layout_height="@dimen/height20"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/def_margin"
+                android:layout_marginLeft="@dimen/def_margin"
+                android:src="@drawable/selected_circle" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin10"
+                android:text="@string/all_orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

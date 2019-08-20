@@ -655,5 +655,17 @@
     <string name="min_withdrawl_is">Minimum withdrawl should be :</string>
     <string name="mismatch_version">Mismatch Version</string>
     <string name="update_app">Update New Version!</string>
+    <string name="note_min_amt">Minimum Amount is :</string>
+    <string name="incorrect_amount">Incorrect Amount</string>
+    <string name="get_amount">Check Amount</string>
+    <string name="note_address">Entered address will be used to receive the exchaged amount!</string>
+    <string name="done">Done</string>
+    <string name="payin_address">PayIn Address</string>
+    <string name="establishing_connection">Establishing Connection</string>
+    <string name="processing_data">Processing Data</string>
+    <string name="completed">Completed</string>
+    <string name="note_pay_in_amount">PayIn Amount</string>
+    <string name="note_ect_payment">Amount should be exact for successfull transaction.</string>
+    <string name="new_orders">New Orders</string>
 
 </resources>

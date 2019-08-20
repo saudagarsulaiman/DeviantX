@@ -2,6 +2,15 @@ package com.cryptowallet.deviantx.Utilities;
 
 public class CONSTANTS {
 
+    //    PARSE SERVER
+    public static String ServerUrl = "https://deviantx-parse-server.herokuapp.com/parse";
+    public static String AppId = "DeviantX";
+    public static String MasterKey = "DeviantXMaster";
+    public static String isADTrue = "isADTrue";
+    public static String ft = "FT";
+    public static String rec_add = "rec_add";
+    public static String selFilter = "SelectedFilter";
+
 
     public static String DeviantMulti = "DEVIANTMULTI "; //Authentication @API Services
     public static String usrnm = "USERNAME";  //USerName --- @LoginActivity
@@ -56,16 +65,8 @@ public class CONSTANTS {
     public static String isExploreCoins = "isEcploreCoins";
     public static String selCP = "SelCP";
     public static String is_dev_fees = "ISDEVFEES";
-
-    //    PARSE SERVER
-    public static String ServerUrl = "https://deviantx-parse-server.herokuapp.com/parse";
-    public static String AppId = "DeviantX";
-    public static String MasterKey = "DeviantXMaster";
-    public static String isADTrue = "isADTrue";
-    public static String ft = "FT";
-    public static String rec_add = "rec_add";
-    public static String selFilter = "SelectedFilter";
-
+    public static String ectTransID = "ectTransID";
+    public static String ectTransData = "ectTransData";
 
 //    //    Selected Account Wallet Details
 //    public static String data_id="data_id";
