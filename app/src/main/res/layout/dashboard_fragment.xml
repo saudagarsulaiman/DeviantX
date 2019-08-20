@@ -424,7 +424,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin10"
-                android:text="@string/empty_coins_list"
+                android:text="@string/empty_coins_list_urs"
                 android:textColor="@color/white"
                 android:textSize="@dimen/def_text_size" />
 

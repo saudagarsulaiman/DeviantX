@@ -456,8 +456,10 @@ public class DashBoardActivity extends AppCompatActivity {
         img_nav_drwr_settings.setImageDrawable(getResources().getDrawable(R.drawable.ic_nav_drwr_settings_unselected));
         txt_nav_drwr_settings.setTextColor(getResources().getColor(R.color.grey));
 
+/*
         Intent intent = new Intent(DashBoardActivity.this, ExploreCoinsActivity.class);
         startActivity(intent);
+*/
 
     }
 

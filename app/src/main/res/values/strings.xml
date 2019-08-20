@@ -155,7 +155,9 @@
 
     <!--Dialog Coins Transactions-->
     <string name="empty_wallet">Wallet Name is empty</string>
-    <string name="empty_coins_list">Your coin list is empty</string>
+    <string name="empty_coins_list_urs">Your coin list is empty</string>
+    <string name="empty_coins_list">Coins list is empty</string>
+    <string name="empty_tokens_list">Tokens list is empty</string>
     <string name="add_coins">Add Coins</string>
     <string name="view_info">View Information</string>
     <string name="dev_coin">Deviant Coin</string>
@@ -667,5 +669,7 @@
     <string name="note_pay_in_amount">PayIn Amount</string>
     <string name="note_ect_payment">Amount should be exact for successfull transaction.</string>
     <string name="new_orders">New Orders</string>
+    <string name="all_coins">All Coins</string>
+    <string name="all_tokens">All Tokens</string>
 
 </resources>

@@ -1,3 +1,4 @@
+/*
 package com.cryptowallet.deviantx.UI.Activities;
 
 import android.app.Activity;
@@ -267,3 +268,4 @@ public class ExploreCoinsActivity extends AppCompatActivity {
 
 
 }
+*/

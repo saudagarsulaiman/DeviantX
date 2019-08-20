@@ -12,7 +12,8 @@
         android:layout_marginLeft="@dimen/def_margin"
         android:layout_marginTop="@dimen/def_margin"
         android:layout_marginRight="@dimen/def_margin"
-        android:background="@color/blue_search">
+        android:background="@color/blue_search"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="@dimen/width25"
@@ -23,9 +24,6 @@
             android:src="@drawable/search" />
 
         <EditText
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
             android:id="@+id/edt_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,14 +31,16 @@
             android:layout_marginLeft="@dimen/margin10"
             android:backgroundTint="@android:color/transparent"
             android:hint="@string/center_search"
+            android:inputType="text"
+            android:maxLines="1"
             android:paddingLeft="@dimen/def_padding"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/def_text_size"
             android:theme="@style/edt" />
 
     </LinearLayout>
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,13 +73,124 @@
         android:textSize="@dimen/def_text_size"
         android:visibility="gone" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/def_margin"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/lnr_coins"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_marginEnd="@dimen/margin2"
+            android:layout_marginRight="@dimen/margin2"
+            android:layout_weight="0.5"
+            android:background="@drawable/rec_dash_white_trans_c5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/txt_coins_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin8"
+                android:layout_marginLeft="@dimen/margin8"
+                android:text="@string/all_coins"
+                android:textColor="@color/white"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnr_tokens"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/def_btn_height"
+            android:layout_marginStart="@dimen/margin2"
+            android:layout_marginLeft="@dimen/margin2"
+            android:layout_weight="0.5"
+            android:background="@drawable/rec_dash_grey_trans_c5"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/txt_tokens_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin8"
+                android:layout_marginLeft="@dimen/margin8"
+                android:text="@string/all_tokens"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/def_text_size" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rview_all_coins"
+        android:id="@+id/rview_all"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/def_margin"
-        android:layout_marginTop="@dimen/def_margin"
+        android:layout_marginTop="@dimen/margin10"
+        android:layout_marginRight="@dimen/def_margin"
         android:layout_marginBottom="@dimen/margin10"
-        android:layout_marginRight="@dimen/def_margin" />
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/lnr_empty_coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/height45"
+            android:src="@drawable/wallet_history" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/empty_coins_list"
+            android:textColor="@color/google_red"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnr_empty_tokens"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/width45"
+            android:layout_height="@dimen/height45"
+            android:src="@drawable/wallet_history" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/empty_tokens_list"
+            android:textColor="@color/google_red"
+            android:textSize="@dimen/text22"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
