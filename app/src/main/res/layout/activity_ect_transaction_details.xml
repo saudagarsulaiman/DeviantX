@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient">
+    android:background="@drawable/bg_gradient"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_center_back" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,22 +14,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/def_margin">
-
-            <include layout="@layout/toolbar_center_back" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:paddingBottom="@dimen/def_padding"
                 android:visibility="visible">
 
                 <TextView
                     android:id="@+id/txt_payin_lbl_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin10"
                     android:gravity="center"
                     android:text="@string/payin_address"
                     android:textColor="@color/white"
@@ -194,7 +194,7 @@
                         android:singleLine="true"
                         android:text="@string/establishing_connection"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/def_lbl_size" />
+                        android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
 
@@ -230,7 +230,7 @@
                         android:singleLine="true"
                         android:text="@string/processing_data"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/def_lbl_size" />
+                        android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
 
@@ -266,7 +266,7 @@
                         android:singleLine="true"
                         android:text="@string/completed"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/def_lbl_size" />
+                        android:textSize="@dimen/def_text_size" />
 
                 </LinearLayout>
 
@@ -277,4 +277,4 @@
     </ScrollView>
 
 
-</RelativeLayout>
+</LinearLayout>

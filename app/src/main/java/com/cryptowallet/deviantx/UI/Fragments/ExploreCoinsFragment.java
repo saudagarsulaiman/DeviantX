@@ -130,6 +130,19 @@ public class ExploreCoinsFragment extends Fragment {
                     lnr_empty_coins.setVisibility(View.VISIBLE);
                     lnr_empty_tokens.setVisibility(View.GONE);
                 }
+                if (!edt_search.getText().toString().isEmpty()) {
+                    ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
+                    for (AllCoins coinName : allCoinsList) {
+                        if (coinName.getStr_coin_name().toLowerCase().contains(edt_search.getText().toString().toLowerCase())) {
+                            searchCoinsList.add(coinName);
+                        }
+                    }
+                    allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), searchCoinsList);
+                    rview_all.setAdapter(allCoinsRAdapter);
+                } else {
+                    allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), allCoinsList);
+                    rview_all.setAdapter(allCoinsRAdapter);
+                }
             }
         });
 
@@ -154,6 +167,19 @@ public class ExploreCoinsFragment extends Fragment {
                     rview_all.setVisibility(View.GONE);
                     lnr_empty_coins.setVisibility(View.GONE);
                     lnr_empty_tokens.setVisibility(View.VISIBLE);
+                }
+                if (!edt_search.getText().toString().isEmpty()) {
+                    ArrayList<AllCoins> searchCoinsList = new ArrayList<>();
+                    for (AllCoins coinName : allTokensList) {
+                        if (coinName.getStr_coin_name().toLowerCase().contains(edt_search.getText().toString().toLowerCase())) {
+                            searchCoinsList.add(coinName);
+                        }
+                    }
+                    allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), searchCoinsList);
+                    rview_all.setAdapter(allCoinsRAdapter);
+                } else {
+                    allCoinsRAdapter = new ExploreCoinsRAdapter(getActivity(), allTokensList);
+                    rview_all.setAdapter(allCoinsRAdapter);
                 }
             }
         });

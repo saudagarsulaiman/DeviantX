@@ -87,7 +87,7 @@ public class ECTTransactionsHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ecttransactions_history);
+        setContentView(R.layout.activity_ect_transactions_history);
         ButterKnife.bind(this);
         sharedPreferences = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
         editor = sharedPreferences.edit();
